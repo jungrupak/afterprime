@@ -1,0 +1,10 @@
+.boxed {
+  padding: 80px;
+  background-color: rgba(255, 255, 255, 0.04);
+  @media all and (max-width: 767px) {
+    padding: 45px 40px;
+  }
+}
+
+.content_block {
+}

@@ -1,0 +1,181 @@
+@use "tailwindcss";
+
+:root {
+  --black: #0c0c0d;
+  --white: rgb(253, 253, 247);
+  --alphaWhite: 253, 253, 247;
+  --body-bg: #0c0c0d;
+  --off-white: #fdfcf7;
+  --primary-color: #df2935;
+  // --secondary-color: #2a54fd;
+  --secondary-color: #5231f4;
+  --terciary-color: #d1ff51;
+  --accent-color: #ffba08;
+}
+
+body {
+  background: var(--body-bg);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.ap_container {
+  @apply max-w-[1300px] mx-auto;
+}
+
+// Global buttons styles
+.ap_button {
+  display: inline-block;
+  a {
+    @apply flex items-center px-8 py-3 bg-[#ff0000] text-white hover:bg-[var(--white)] hover:text-[var(--black)] rounded-[48px] transition duration-200 text-[16px] font-bold ease-in-out border-none;
+    align-items: center;
+    gap: 15px;
+
+    svg {
+      width: 15px;
+      height: 13px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    > span {
+      transition: all 0.2s ease-in-out;
+    }
+    &:hover {
+      > span {
+        transform: translateX(5px);
+      }
+    }
+
+    &.small {
+      @apply px-6 py-2 text-[16px] border-2 border-solid border-[transparent];
+    }
+
+    &.medium {
+      @apply px-10 py-4 text-[20px];
+    }
+    &.large {
+      @apply px-14 py-3 text-[20px] max-md:px-10;
+    }
+    &.primary {
+      @apply bg-[var(--primary-color)] text-white hover:bg-[var(--white)] hover:text-[var(--black)];
+      &:hover {
+        svg path {
+          fill: var(--black);
+        }
+      }
+    }
+    &.primary-ghost {
+      @apply bg-[transparent] border-2 border-solid border-[var(--primary-color)] hover:bg-[var(--primary-color)] text-[var(--primary-color)];
+      svg {
+        path {
+          fill: var(--primary-color);
+        }
+      }
+      &:hover {
+        color: var(--white);
+        svg path {
+          fill: var(--white);
+        }
+      }
+    }
+    &.secondary {
+      @apply bg-[var(--secondary-color)] text-white hover:bg-[var(--white)] hover:text-[var(--black)];
+    }
+    &.secondary-ghost {
+      @apply bg-[transparent] border-2 border-solid border-[var(--secondary-color)] hover:bg-[var(--secondary-color)] text-[var(--secondary-color)];
+      svg {
+        path {
+          fill: var(--primary-color);
+        }
+      }
+      &:hover {
+        color: var(--white);
+        svg path {
+          fill: var(--white);
+        }
+      }
+    }
+    &.washed {
+      @apply hover:bg-[var(--white)] hover:text-[var(--black)];
+      background-color: rgba(255, 255, 255, 0.08);
+      border-color: transparent;
+    }
+  }
+}
+
+.h1-size {
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 400;
+  line-height: 1;
+  @apply mb-12 max-md:mb-8;
+}
+.h2-size {
+  font-size: clamp(38px, 5vw, 50px);
+  font-weight: 300;
+  line-height: 1.2;
+  @apply mb-6 max-md:mb-4;
+  > span {
+    color: var(--secondary-color);
+    font-weight: 600;
+  }
+}
+.paragraph {
+  font-size: clamp(20px, 5vw, 28px);
+  font-weight: 300;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+section {
+  padding: 120px 0;
+
+  @media all and (max-width: 1279px) {
+    padding-inline: 20px;
+  }
+
+  @media all and (max-width: 767px) {
+    padding: 70px 20px;
+  }
+}
+
+.ap_cards_wrapper {
+  > .card_item {
+    padding: 60px 50px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(19.16185188293457px);
+    h3 {
+      font-size: clamp(40px, 5vw, 60px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    h5 {
+      font-size: clamp(18px, 3vw, 22px);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 30px;
+    }
+    p {
+      font-size: clamp(16px, 3vw, 18px);
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .card_href_link {
+      color: inherit;
+      font-size: inherit;
+      font-weight: 700;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        color: var(--white);
+      }
+    }
+  }
+}
+
+.note_box {
+  background-color: rgba(255, 255, 255, 0.08);
+  font-size: 14px;
+}

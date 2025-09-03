@@ -1,0 +1,26 @@
+.ap_header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  .ap_container {
+    transition: all 0.3s ease-in-out;
+  }
+  &.sticky {
+    background-color: rgba(12, 12, 13, 0.94);
+    //backdrop-filter: blur(10px);
+    .ap_container {
+      padding: 10px 0;
+      @media all and (max-width: 1279px) {
+        padding: 24px 20px;
+      }
+    }
+  }
+}
+.ap_logo {
+  display: block;
+}
+.ap_header_right {
+  margin-left: auto;
+}
