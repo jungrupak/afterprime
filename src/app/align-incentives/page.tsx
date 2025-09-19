@@ -1,4 +1,3 @@
-"use client";
 import HowItWorks from "@/components/content-block-with-cards/BlockWithCards";
 import Faq from "@/components/faq/Faq";
 import InnerBanner from "@/components/inner-banner/InnerBanner";
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
   title: "Afterprime - Align Incentives",
   description: "Description Goes here",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/about`,
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/align-incentives`,
   },
 };
 

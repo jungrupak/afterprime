@@ -1,11 +1,9 @@
-"use client";
-import React from "react";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Afterprime - Why We Exists",
-  description: "This is Afterprime Why We Exists",
+  title: "Afterprime - Future of Trading",
+  description: "This is Afterprime Future of Trading",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/why-we-exist`,
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/future-of-trading`,
   },
 };
 //

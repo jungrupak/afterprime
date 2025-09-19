@@ -1,9 +1,8 @@
-"use client";
 import React from "react";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Afterprime - Why We Exists",
-  description: "This is Afterprime Storie page",
+  description: "This is Afterprime Why We Exists",
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/why-we-exist`,
   },

@@ -1,10 +1,9 @@
-"use client";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Afterprime - Get Paid To Trade",
   description: "This is Afterprime Get Paid To Trade",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/about`,
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/get-paid-to-trade`,
   },
 };
 //
@@ -25,7 +24,6 @@ import Lists from "@/utils/lists/Lists";
 import GoogleReview from "@/components/google-review/GoogleReview";
 import { BottomCta } from "@/components/bottom-cta/BottomCta";
 import CardRepeator from "@/components/card-repeater/CardRepeater";
-import { CardDataObject } from "@/types/cardObject";
 
 export default function GetPaidToTrade() {
   const BannerImage = "/img/banner-about.jpg";
