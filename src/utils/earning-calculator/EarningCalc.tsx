@@ -56,7 +56,7 @@ export function EarningCalc() {
       setError("Invalid input, Supports only numbers");
       setLotTradedValue(0);
     } else {
-      setError("Invalid value retrieve");
+      setError("");
       setLotTradedValue(numberValue);
     }
   };
