@@ -27,7 +27,9 @@ export function MoreValueRealAlignment() {
   ];
 
   return (
-    <section className={`${styles.section_generic_cards_content}`}>
+    <section
+      className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection}`}
+    >
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}

@@ -110,6 +110,11 @@
 
 .section_generic_cards_content {
   background-image: url("/img/more-value-bg-img.jpg");
+  background-size: 100%;
+  background-position: center;
+  @media all and (min-width: 1800px) {
+    background-size: contain;
+  }
   .generic_card {
     &:nth-child(2) {
       background-color: var(--secondary-color);

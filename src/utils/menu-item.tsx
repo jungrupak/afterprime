@@ -18,11 +18,11 @@ export const MegaMenuItems = [
           },
           {
             menuItem: "Lowest Costs Verified",
-            pageUrl: "#",
+            pageUrl: "/lowest-cost-verified",
           },
           {
             menuItem: "Aligned Execution",
-            pageUrl: "/align-incentives/",
+            pageUrl: "/aligned-execution/",
           },
         ],
       },

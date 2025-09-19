@@ -21,7 +21,7 @@ import { BottomCta } from "@/components/bottom-cta/BottomCta";
 import CardRepeator from "@/components/card-repeater/CardRepeater";
 import { CardDataObject } from "@/types/cardObject";
 
-export default function WhyWeExist() {
+export default function FutureOfTrading() {
   //Banner Image
   const BannerImage = "/img/banner-why-we-exist.jpg";
 
