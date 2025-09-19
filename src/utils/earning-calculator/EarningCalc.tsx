@@ -39,22 +39,23 @@ export function EarningCalc() {
     };
   }, []);
 
-  const [lotTradedValue, setLotTradedValue] = useState<number>(0);
+  const [lotTradedValue, setLotTradedValue] = useState<number | "">(0);
   const [rebatePerLot, setRebatePerLot] = useState<number | null>();
   const [result, setResult] = useState<number>(0);
   const [error, setError] = useState<string>("");
 
   function calculateEarning() {
-    return (rebatePerLot ?? 0) * lotTradedValue * 60;
+    return (rebatePerLot ?? 0) * (lotTradedValue || 0) * 60;
   }
 
   const handleOnChangeTradeLot = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const numberValue = Number(value);
+    const inputValue = e.target.value;
+    // empty input -> reset
+    const numberValue = Number(inputValue);
 
-    if (!value || isNaN(numberValue) || numberValue <= 0) {
-      setError("Invalid input, Supports only numbers");
-      setLotTradedValue(0);
+    if (isNaN(numberValue) || numberValue <= 0) {
+      setError("Invalid input, supports only numbers");
+      setLotTradedValue("");
     } else {
       setError("");
       setLotTradedValue(numberValue);
@@ -73,7 +74,7 @@ export function EarningCalc() {
             type="number"
             id="lotTraded"
             name="lottraded"
-            placeholder="Lot Traded"
+            placeholder="Lot Traded/ month"
             className="w-full mt-5"
             value={lotTradedValue}
             onChange={handleOnChangeTradeLot}
@@ -114,7 +115,7 @@ export function EarningCalc() {
           className="inline-block md:ml-15 text-[24px] font-[700]"
           style={{ color: "var(--secondary-color)" }}
         >
-          ${result.toFixed(2)}
+          ${result}
         </span>
       </div>
       {/* <div className="mt-8 text-[18px] font-[600] max-md:text-center">
