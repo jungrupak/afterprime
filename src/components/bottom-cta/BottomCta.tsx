@@ -39,10 +39,7 @@ export function BottomCta() {
           {/* Cards */}
           <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6 text-center md:mt-18 md:max-w-[900px] md:mx-auto">
             {ctaCardsObjects.map((item, index) => (
-              <div
-                key={index}
-                className={`${styles.generic_card} card_item group`}
-              >
+              <div key={index} className={`${styles.ctaCard} group`}>
                 <h3 className="">{item.cardTitle}</h3>
                 <p>{item.description}</p>
 
