@@ -39,7 +39,7 @@ export function EarningCalc() {
     };
   }, []);
 
-  const [lotTradedValue, setLotTradedValue] = useState(0);
+  const [lotTradedValue, setLotTradedValue] = useState<number>(0);
   const [rebatePerLot, setRebatePerLot] = useState<number | null>();
   const [result, setResult] = useState<number>(0);
   const [error, setError] = useState<string>("");
@@ -54,9 +54,9 @@ export function EarningCalc() {
 
     if (!value || isNaN(numberValue) || numberValue <= 0) {
       setError("Invalid input, Supports only numbers");
-      setLotTradedValue("");
+      setLotTradedValue(0);
     } else {
-      setError("");
+      setError("Invalid value retrieve");
       setLotTradedValue(numberValue);
     }
   };
