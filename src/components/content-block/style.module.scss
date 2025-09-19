@@ -1,0 +1,39 @@
+.photoCaption {
+  font-size: clamp(14px, 5vw, 18px);
+  font-weight: 300;
+  opacity: 0.68;
+}
+
+.responsiveImg {
+  height: 625px;
+  width: 625px;
+  object-fit: cover;
+  @media all and (max-width: 767px) {
+    height: 425px;
+  }
+}
+
+.contetPart {
+  h2 {
+    font-size: clamp(38px, 5vw, 50px);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: clamp(25px, 5vw, 50px);
+  }
+  p {
+    font-size: clamp(20px, 5vw, 26px);
+    font-weight: 300;
+    line-height: 1.5;
+    opacity: 0.8;
+    margin-bottom: clamp(40px, 5vw, 50px);
+    &:last-child {
+      margin-bottom: clamp(5px, 5vw, 28px);
+    }
+  }
+}
+
+@media all and (max-width: 767px) {
+  .photoCaption {
+    text-align: center;
+  }
+}

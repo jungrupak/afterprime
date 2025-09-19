@@ -1,0 +1,65 @@
+.founders_block {
+  background-color: var(--secondary-color);
+  h2 {
+    span {
+      color: white;
+    }
+  }
+  p {
+    opacity: 1;
+    b {
+      font-weight: 600;
+    }
+  }
+  .founder_image {
+    position: relative;
+    height: 100%;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .dotted_bg {
+      position: absolute;
+      top: 0;
+      left: -140px;
+      height: 284px;
+      width: 140px;
+      background-color: var(--secondary-color);
+    }
+  }
+  .founder_story {
+    position: relative;
+    padding: 40px;
+    @media all and (min-width: 800px) {
+      padding-block: 80px;
+      padding-inline: 0 80px;
+    }
+    .heading {
+      margin-bottom: calc(var(--spacing) * 6);
+      font-size: max(38px, min(5vw, 50px));
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .paragraph {
+      opacity: 0.9;
+      font-size: max(20px, min(5vw, 26px));
+      font-weight: 300;
+      line-height: 1.5;
+      margin-bottom: calc(var(--spacing) * 10);
+    }
+    .dotted_bg {
+      width: 80px;
+      height: 284px;
+      position: absolute;
+      top: auto;
+      bottom: 0;
+      left: -160px;
+      background-color: rgba(var(--alphaWhite), 0.34);
+    }
+  }
+  .founder_info {
+    font-size: 18px;
+    display: block;
+  }
+}

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Blinker } from "next/font/google";
-import Header from "../components/header/Header";
+import Header from "@/components/header/Header";
+import BottomCards from "@/components/footer/bottom-cards/BottomCards";
+import Footer from "@/components/footer/Footer";
 import "./globals.scss";
 
 const blinker = Blinker({
@@ -23,6 +25,8 @@ export default function RootLayout({
       <body className={`${blinker.className} antialiased`}>
         <Header />
         {children}
+        <BottomCards />
+        <Footer />
       </body>
     </html>
   );

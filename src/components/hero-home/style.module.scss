@@ -1,0 +1,63 @@
+.hero_home {
+  background-color: var(--black);
+  //background-image: url("/img/hero-banner-home.jpg");
+  background-size: cover;
+  min-height: 600px;
+  padding: 50px 20px 0;
+  background-position: 10% center;
+  height: calc(100vh + 10vh);
+  @media all and (max-width: 767px) {
+    padding-top: 120px;
+    max-height: none;
+    height: 100%;
+    background-position: 55% center;
+    overflow: hidden;
+  }
+  h1 {
+    margin-bottom: 22vh;
+    span {
+      font-weight: 600;
+    }
+    @media all and (max-width: 767px) {
+      margin-top: 50px;
+    }
+  }
+}
+
+.heroHeading {
+  @media all and (max-width: 767px) {
+    text-align: center;
+    gap: 20px;
+    flex-direction: column;
+  }
+}
+
+.heroBannerPara {
+  bottom: 160px;
+  width: 100%;
+  text-align: center;
+  margin-top: 40px;
+  p {
+    font-size: clamp(24px, 5vw, 32px);
+  }
+  @media all and (min-width: 768px) {
+    position: absolute !important;
+  }
+  @media all and (min-width: 1800px) {
+    margin-bottom: 140px;
+  }
+}
+
+//
+//
+.ap_Greview_btn {
+  position: relative;
+  > a {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 100%;
+    width: 100%;
+  }
+}

@@ -1,0 +1,10 @@
+.faq_block {
+  background-color: rgba(var(--alphaWhite), 0.04);
+  padding: 25px;
+  @media all and (min-width: 800px) {
+    padding: 80px;
+  }
+  h2 {
+    color: var(--secondary-color);
+  }
+}

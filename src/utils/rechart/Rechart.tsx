@@ -48,7 +48,7 @@ export default function Rechart() {
             <CartesianGrid strokeDasharray="0 0" stroke="#484848ff" />
             <XAxis dataKey="name" />
             <YAxis />
-            <Tooltip />
+            <Tooltip contentStyle={{ color: "black" }} />
             <Legend />
             <Area
               type="monotone"

@@ -1,0 +1,5 @@
+.styleBoxed {
+  background-color: rgba(var(--alphaWhite), 0.04);
+  padding-block: clamp(45px, 5vw, 80px);
+  padding-inline: clamp(30px, 5vw, 80px);
+}

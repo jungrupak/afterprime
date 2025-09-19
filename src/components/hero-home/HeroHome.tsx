@@ -1,13 +1,19 @@
-import styles from "./HeroHome.module.scss";
-import Button from "../button/Button";
+"use client";
+import styles from "./style.module.scss";
+import Btn from "@/components/ui/Button";
 import Image from "next/image";
-import Rechart from "@/utils/rechart/Rechart";
 
 export function MarkUpGReview() {
   return (
     <>
       <div
         className={`${styles.ap_Greview_btn} flex align-middle items-center gap-3 cursor-pointer`}
+        onClick={() => {
+          document.getElementById("googleReviewSection")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }}
       >
         <div>
           <Image
@@ -82,49 +88,83 @@ export function MarkUpGReview() {
               />
             </svg>
           </span>
-          <p className="opacity-70 hover:underline">250+ Reviews (Google)</p>
+          <span className="text-[16px] opacity-70 hover:underline">
+            250+ Reviews (Google)
+          </span>
         </div>
       </div>
     </>
   );
 }
 
-export default function HeroHome({
-  title,
-  description,
-  buttonText,
-  btnUrl,
-}: {
+type heroContent = {
   title?: string;
   description?: string;
   buttonText?: string;
   btnUrl?: string;
-}) {
+};
+
+export function HeroHome({
+  title,
+  description,
+  buttonText,
+  btnUrl,
+}: heroContent) {
   return (
-    <section
-      className={`${styles.hero_home} h-screen max-h-[900px] max-md:max-h[100%]`}
-    >
+    <section className={`${styles.hero_home} h-screen`}>
+      {/* grain bg effect */}
+      <div className="grainy_bg"></div>
+      {/* grain bg effect */}
+
+      <div className="home_banner_video">
+        <video
+          playsInline
+          className="mui-1eodtn4-video"
+          controls={false}
+          data-automation="VideoPlayer"
+          height="100%"
+          width="100%"
+          style={{ height: "calc(100vh + 42vh)" }}
+          loop
+          muted
+          autoPlay
+          poster=""
+          preload="auto"
+          aria-label="video-player"
+          controlsList="nodownload"
+        >
+          <source src="/banner-vid.mp4" type="video/mp4" />
+        </video>
+      </div>
+
       <div className="ap_container h-full ">
-        <div className="flex flex-wrap items-center h-full min-h-[400px] lg:min-h-[600px]">
-          <div className="max-md:text-center">
-            <h1 className="h1-size max-w-xl">{title}</h1>
-            <p className="paragraph max-w-[650px] mb-15 opacity-90">
-              {description}
+        <div className="flex flex-wrap items-center h-full min-h-[400px] lg:min-h-[600px] relative">
+          <div className="w-full">
+            <h1
+              className={`${styles.heroHeading} h1-size flex gap-20 justify-between`}
+            >
+              <span>GET</span> <span>PAID</span> <span>WHEN</span>{" "}
+              <span>YOU</span> <span>TRADE</span>
+            </h1>
+          </div>
+          <div className={`${styles.heroBannerPara}`}>
+            <p
+              className="max-w-[500px] mx-auto mb-12 opacity-80"
+              style={{ fontWeight: "300" }}
+            >
+              Trade at the lowest verified costs. Flow that pays you back.
             </p>
-            <div className="btn-wrapper flex items-center gap-6 max-md:flex-col">
-              <Button
-                btnText={buttonText}
-                btnArrow={true}
-                linkTo={btnUrl || "#"}
-                btnSize="large"
-                btnColor="primary"
-              />
-              <MarkUpGReview />
-            </div>
+
+            <Btn
+              size="large"
+              varient="primary-ghost"
+              isArrowVisible={true}
+              href="#"
+            >
+              Request Invite
+            </Btn>
           </div>
-          <div className="max-md:mt-12">
-            <Rechart />
-          </div>
+          <div className="max-md:text-center"></div>
         </div>
       </div>
     </section>

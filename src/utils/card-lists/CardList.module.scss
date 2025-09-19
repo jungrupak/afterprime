@@ -1,0 +1,42 @@
+.card_item_block {
+  text-align: left;
+  //backdrop-filter: blur(19.1619px);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 60px 50px;
+  position: relative;
+
+  .card_icon {
+    position: absolute;
+    top: 60px;
+    right: 50px;
+    opacity: 0.34;
+  }
+
+  > span {
+    font-size: 18px;
+    color: var(--secondary-color);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+  }
+  > h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+  > p {
+    opacity: 0.84;
+    margin-bottom: 40px;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  > a {
+    color: inherit;
+    font-size: inherit;
+    align-items: center;
+    gap: 15px;
+    font-weight: 700;
+    display: flex;
+  }
+}

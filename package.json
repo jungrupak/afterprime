@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@microsoft/signalr": "^9.0.6",
     "dompurify": "^3.2.6",
     "isomorphic-dompurify": "^2.26.0",
     "next": "15.5.2",
