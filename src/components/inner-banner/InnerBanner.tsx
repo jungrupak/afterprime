@@ -9,8 +9,6 @@ export default function InnerBanner({
   bannerImgUrl,
   children,
 }: InnerBannerProps) {
-  const buttonText = "Request Invite";
-  const btnUrl = "#";
   return (
     <>
       <section

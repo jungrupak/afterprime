@@ -1,4 +1,3 @@
-import React from "react";
 import type { CardDataObject } from "@/types/cardObject";
 
 //Platforms Items array

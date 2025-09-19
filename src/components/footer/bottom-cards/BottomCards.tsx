@@ -1,4 +1,4 @@
-import CardLists from "@/utils/card-lists/CardLists";
+import CardLists from "@/utils/bottom-utility-card-lists/CardLists";
 import styles from "./BottomCards.module.scss";
 
 export default function BottomCards() {

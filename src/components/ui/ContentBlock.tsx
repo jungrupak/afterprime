@@ -2,6 +2,7 @@ import Btn from "@/components/ui/Button";
 import styles from "./ui.module.scss";
 import Lists from "@/utils/lists/Lists";
 import DOMPurify from "isomorphic-dompurify";
+import Image from "next/image";
 
 //props type that accepted by this component
 type AcceptedProps = {
@@ -36,14 +37,24 @@ export function ContentBlock({
           ></h2>
           <p className="paragraph">{blockPara}</p>
           <div className="mt-12">
-            <Btn size="regular" varient="primary-ghost" isArrowVisible={true}>
+            <Btn
+              href={ctaLink}
+              size="regular"
+              varient="primary-ghost"
+              isArrowVisible={true}
+            >
               {ctaText}
             </Btn>
           </div>
         </div>
         <div>
           {blockRightGraphicImg && (
-            <img src={blockRightGraphicImg} alt="Block Right Graphics" />
+            <Image
+              width={600}
+              height={600}
+              src={blockRightGraphicImg}
+              alt="Block Right Graphics"
+            />
           )}
           <Lists items={listItems} bulletStyle="arrow_blue" />
         </div>

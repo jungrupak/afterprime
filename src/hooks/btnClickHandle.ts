@@ -6,7 +6,7 @@ export interface ClickProps {
   href?: string;
 }
 
-export function buttonClickHandling({ onclick, href }: ClickProps) {
+export function useButtonClickHandling({ onclick, href }: ClickProps) {
   const router = useRouter();
   const pathname = usePathname();
 

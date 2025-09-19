@@ -1,12 +1,10 @@
 import styles from "./style.module.scss";
 //
 interface IntroBlockProps {
-  children?: React.ReactNode;
   blockTitle?: string;
   blockParagraph?: string;
 }
 export default function GenericIntroBlock({
-  children,
   blockTitle,
   blockParagraph,
 }: IntroBlockProps) {

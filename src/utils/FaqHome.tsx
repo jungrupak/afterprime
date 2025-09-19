@@ -1,4 +1,3 @@
-import React from "react";
 //FAQ DATA
 export const homeFaqData = [
   {

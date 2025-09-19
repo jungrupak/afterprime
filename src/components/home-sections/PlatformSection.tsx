@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./style.module.scss";
-import Link from "next/link";
 import CardRepeator from "../card-repeater/CardRepeater";
 
 //import utils
@@ -30,7 +29,7 @@ export function PlatformsSection() {
         </div>
         {/* Cards */}
         <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-6 text-center md:mt-18">
-          <CardRepeator cardSize="regular" data={platformObjects} />
+          <CardRepeator cardSize="regular" data={cardItems} />
         </div>
         {/* Cards Ends */}
       </div>

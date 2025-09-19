@@ -1,5 +1,3 @@
-import React from "react";
-
 //Type export for Pros and cons
 export interface ProsConsObjects {
   pros: {

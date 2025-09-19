@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import css from "./ui.module.scss";
-import { buttonClickHandling } from "@/hooks/btnClickHandle";
+import { useButtonClickHandling } from "@/hooks/btnClickHandle";
 
 type ButtonVarients =
   | "default"
@@ -30,36 +30,36 @@ export default function Button({
   onclick,
   href,
 }: ButtonProps) {
-  const btnClickHandle = buttonClickHandling({ onclick, href }); //using custom hook here..
-  return (
-    <button
-      onClick={btnClickHandle}
-      className={`${css.ap_button} ${
-        size === "regular"
-          ? css.regular
-          : size === "small"
-          ? css.small
-          : size === "x-small"
-          ? css.xSmall
-          : size === "large"
-          ? css.large
-          : ""
-      } ${
-        varient === "primary"
-          ? css.primary
-          : varient === "secondary"
-          ? css.secondary
-          : varient === "ghost"
-          ? css.ghost
-          : varient === "primary-ghost"
-          ? css.primaryGhost
-          : varient == "secondary-ghost"
-          ? css.secondaryGhost
-          : varient === "washed"
-          ? css.washed
-          : ""
-      }`}
-    >
+  const btnClickHandle = useButtonClickHandling({ onclick, href });
+
+  const classNames = `${css.ap_button} ${
+    size === "regular"
+      ? css.regular
+      : size === "small"
+      ? css.small
+      : size === "x-small"
+      ? css.xSmall
+      : size === "large"
+      ? css.large
+      : ""
+  } ${
+    varient === "primary"
+      ? css.primary
+      : varient === "secondary"
+      ? css.secondary
+      : varient === "ghost"
+      ? css.ghost
+      : varient === "primary-ghost"
+      ? css.primaryGhost
+      : varient === "secondary-ghost"
+      ? css.secondaryGhost
+      : varient === "washed"
+      ? css.washed
+      : ""
+  }`;
+
+  const content = (
+    <>
       {children}
       {isArrowVisible && (
         <svg
@@ -75,6 +75,20 @@ export default function Button({
           />
         </svg>
       )}
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link href={href} className={classNames} onClick={btnClickHandle}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button type="button" onClick={btnClickHandle} className={classNames}>
+      {content}
     </button>
   );
 }

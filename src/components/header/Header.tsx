@@ -13,7 +13,6 @@ export default function Header() {
   const [isMegaOpen, setIsMegaOpen] = useState(false);
   const [megaMenu, setMegaMenu] = useState(0);
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [hoveringMenu, setHoveringMenu] = useState(false);
 
   // ✅ MegaMenuItems should be plain array
   const MegaItems = MegaMenuItems;
@@ -189,9 +188,8 @@ export default function Header() {
         {isMegaOpen && activeIndex !== null && (
           <div
             className={`${styles.megaMenu}`}
-            onMouseEnter={() => setHoveringMenu(true)}
+            onMouseEnter={() => setIsMegaOpen(true)}
             onMouseLeave={() => {
-              setHoveringMenu(false);
               setIsMegaOpen(false);
               setActiveIndex(null);
             }}

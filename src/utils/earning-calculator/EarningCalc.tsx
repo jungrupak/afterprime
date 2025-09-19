@@ -1,28 +1,48 @@
 "use client";
-import React from "react";
-import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import { GetRebateData } from "@/data/api-rebate";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+
+//lets define whats our data object interface
+export interface Rebate {
+  symbol: string;
+  product: string;
+  rebate_usd_per_lot: number;
+  effective_from: string;
+  effective_to: string;
+}
+//ends
 
 export function EarningCalc() {
-  const [rebates, setRebates] = useState<any[]>([]);
-  const dataRebate = GetRebateData();
+  const [rebates, setRebates] = useState<Rebate[]>([]);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
-    const fetchData = () => {
-      GetRebateData().then(setRebates).catch(console.error);
+    mountedRef.current = true;
+
+    const fetchData = async () => {
+      try {
+        const data = await GetRebateData(); // assume returns Rebate[]
+        if (mountedRef.current) setRebates(data);
+      } catch (err) {
+        console.error("Failed to fetch rebates:", err);
+      }
     };
+
+    // run immediately
     fetchData();
-    // Refresh Call in 18 hours (18 * 60 * 60 * 1000 ms)
+
+    // schedule refresh every 18h
     const intervalId = setInterval(fetchData, 18 * 60 * 60 * 1000);
-    // Cleanup on unmount
-    return () => clearInterval(intervalId);
+
+    return () => {
+      mountedRef.current = false; // mark component as unmounted
+      clearInterval(intervalId); // stop refresh
+    };
   }, []);
 
   const [lotTradedValue, setLotTradedValue] = useState<any>(0);
   const [rebatePerLot, setRebatePerLot] = useState<number | null>();
-  const [symbolTraded, setSymbolTraded] = useState("");
   const [result, setResult] = useState<number>(0);
   const [error, setError] = useState<string>("");
 

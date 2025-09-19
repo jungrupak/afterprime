@@ -1,5 +1,6 @@
 "use client";
 import styles from "./style.module.scss";
+
 interface BlockProps {
   children?: React.ReactNode;
   isBoxed?: boolean;
@@ -10,7 +11,7 @@ export default function BoxedBlock({
   isBoxed,
   vAlign = "start",
 }: BlockProps) {
-  var checkAlign =
+  const checkAlign =
     vAlign === "start"
       ? "start"
       : vAlign === "center"
@@ -20,7 +21,6 @@ export default function BoxedBlock({
       : "";
   return (
     <>
-      {}
       <div
         className={`${
           isBoxed === true ? styles.styleBoxed : ""

@@ -3,9 +3,10 @@ import { useLivePrices } from "@/hooks/useLivePrices";
 import { useState } from "react";
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
+import Image from "next/image";
 
 export function LivePricingAll() {
-  const { prices, categories, status, iconName } = useLivePrices();
+  const { categories, status } = useLivePrices();
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
 
@@ -17,8 +18,6 @@ export function LivePricingAll() {
     categories.indices,
     categories.stocks,
   ];
-
-  const SymbolIcon = iconName;
 
   const tabNavs = [
     "Popular",
@@ -82,13 +81,17 @@ export function LivePricingAll() {
                           {item.group.startsWith("Forex") ? (
                             <div className={`${styles.forexIcons}`}>
                               <div className={`${styles.icon_wrap}`}>
-                                <img
+                                <Image
+                                  width={40}
+                                  height={40}
                                   src={`https://cdn.afterprime.com/symbols/${item.symbol
                                     .toLowerCase()
                                     .slice(0, 3)}.svg`}
                                   alt={`${item.symbol} ${item.group}`}
                                 />
-                                <img
+                                <Image
+                                  width={40}
+                                  height={40}
                                   src={`https://cdn.afterprime.com/symbols/${item.symbol
                                     .toLowerCase()
                                     .slice(3)}.svg`}
@@ -100,7 +103,9 @@ export function LivePricingAll() {
                           ) : item.group.startsWith("Stocks") ? (
                             <div className={`${styles.instrumentIcons}`}>
                               <div className={`${styles.icon_wrap}`}>
-                                <img
+                                <Image
+                                  width={40}
+                                  height={40}
                                   src={`https://cdn.afterprime.com/symbols/${item.symbol
                                     .split("_")[1]
                                     .toLocaleLowerCase()}.svg`}
@@ -113,7 +118,9 @@ export function LivePricingAll() {
                           ) : (
                             <div className={`${styles.instrumentIcons}`}>
                               <div className={`${styles.icon_wrap}`}>
-                                <img
+                                <Image
+                                  width={40}
+                                  height={40}
                                   src={`https://cdn.afterprime.com/symbols/${item.symbol.toLocaleLowerCase()}.svg`}
                                   alt={`${item.symbol} ${item.group}`}
                                 />

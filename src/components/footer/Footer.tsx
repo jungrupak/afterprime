@@ -1,5 +1,6 @@
 import styles from "./style.module.scss";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   const socialItems = [
@@ -36,25 +37,40 @@ export default function Footer() {
         >
           <div className="col-span-full sm:col-auto">
             <Link href="/" className="block mb-6">
-              <img src="/img/logo-text.svg" alt="" />
+              <Image src="/img/logo-text.svg" alt="" width={160} height={29} />
             </Link>
             <div className="flex gap-3 mb-6">
               {socialItems.map((item, index) => (
                 <Link key={index} href={item.link} className="mb-4">
-                  <img src={`/img/${item.imgFileName}`} alt="" />
+                  <Image
+                    src={`/img/${item.imgFileName}`}
+                    alt=""
+                    width={29}
+                    height={29}
+                  />
                 </Link>
               ))}
             </div>
             <Link href="#" className="flex gap-2 items-center font-[600] mb-12">
-              <img src="/img/yt.png" alt="" />
+              <Image width={34} height={34} src="/img/yt.png" alt="" />
               Checkout our Youtube Chanel
             </Link>
             <div className="flex gap-3">
               <Link href="#" className="block">
-                <img src="/img/app-download-ios.png" alt="" />
+                <Image
+                  width={112}
+                  height={38}
+                  src="/img/app-download-ios.png"
+                  alt=""
+                />
               </Link>
               <Link href="#" className="block">
-                <img src="/img/app-download-android.png" alt="" />
+                <Image
+                  width={112}
+                  height={38}
+                  src="/img/app-download-android.png"
+                  alt=""
+                />
               </Link>
             </div>
           </div>

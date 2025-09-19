@@ -1,6 +1,6 @@
 "use client";
 import styles from "./Accordion.module.scss";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface AccordionObjectsKeys {
   question?: string;

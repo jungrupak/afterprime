@@ -98,17 +98,13 @@ export function MarkUpGReview() {
 }
 
 type heroContent = {
-  title?: string;
+  title?: string[];
   description?: string;
-  buttonText?: string;
-  btnUrl?: string;
 };
 
 export function HeroHome({
-  title,
-  description,
-  buttonText,
-  btnUrl,
+  title = ["GET", "PAID", "WHEN", "YOU", "TRADE"],
+  description = "Trade at the lowest verified costs. Flow that pays you back.",
 }: heroContent) {
   return (
     <section className={`${styles.hero_home} h-screen`}>
@@ -143,8 +139,9 @@ export function HeroHome({
             <h1
               className={`${styles.heroHeading} h1-size flex gap-20 justify-between`}
             >
-              <span>GET</span> <span>PAID</span> <span>WHEN</span>{" "}
-              <span>YOU</span> <span>TRADE</span>
+              {title.map((text, i) => (
+                <span key={i}>{text}</span>
+              ))}
             </h1>
           </div>
           <div className={`${styles.heroBannerPara}`}>
@@ -152,7 +149,7 @@ export function HeroHome({
               className="max-w-[500px] mx-auto mb-12 opacity-80"
               style={{ fontWeight: "300" }}
             >
-              Trade at the lowest verified costs. Flow that pays you back.
+              {description}
             </p>
 
             <Btn

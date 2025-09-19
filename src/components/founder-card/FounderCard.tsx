@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./style.module.scss";
+import Image from "next/image";
 
 interface FounderCardProps {
   cardTitle?: string;
@@ -22,7 +23,7 @@ export default function FoundersCard({
         >
           <div className={`${styles.founder_image}`}>
             <div className={`${styles.dotted_bg} dotted-block`}></div>
-            <img src={founderImg} alt="" />
+            <Image width={600} height={600} src={founderImg} alt="" />
           </div>
           <div className={`${styles.founder_story}`}>
             <div className={`${styles.dotted_bg} dotted-block`}></div>

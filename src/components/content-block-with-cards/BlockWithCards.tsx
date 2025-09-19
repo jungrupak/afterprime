@@ -1,7 +1,4 @@
-"use client";
 import styles from "./style.module.scss";
-import Card from "@/components/ui/Card";
-
 interface SectionProps {
   children?: React.ReactNode;
 }

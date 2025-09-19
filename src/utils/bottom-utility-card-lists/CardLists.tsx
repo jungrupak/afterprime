@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./CardList.module.scss";
+import Image from "next/image";
 
 type CardObjectGroup = {
   subtitle?: string;
@@ -21,9 +22,11 @@ export default function CardLists({ cardItems = [] }: CardContentProps) {
       <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6 ">
         {cardItems.map((item, index) => (
           <div key={index} className={`${styles.card_item_block}`}>
-            <img
+            <Image
+              width={40}
+              height={40}
               className={`${styles.card_icon}`}
-              src={item.cardIconUrl}
+              src={item.cardIconUrl || ""}
               alt=""
             />
             <span>{item.subtitle}</span>
