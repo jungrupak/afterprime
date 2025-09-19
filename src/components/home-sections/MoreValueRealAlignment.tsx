@@ -46,7 +46,7 @@ export function MoreValueRealAlignment() {
           </div>
         </div>
         {/* Cards */}
-        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-6 text-center md:mt-18">
+        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
           {cardData.map((card, index) => (
             <Card
               key={index}
