@@ -28,10 +28,8 @@ export function EarningCalc() {
         console.error("Failed to fetch rebates:", err);
       }
     };
-
     // run immediately
     fetchData();
-
     // schedule refresh every 18h
     const intervalId = setInterval(fetchData, 18 * 60 * 60 * 1000);
 
@@ -41,7 +39,7 @@ export function EarningCalc() {
     };
   }, []);
 
-  const [lotTradedValue, setLotTradedValue] = useState<any>(0);
+  const [lotTradedValue, setLotTradedValue] = useState(0);
   const [rebatePerLot, setRebatePerLot] = useState<number | null>();
   const [result, setResult] = useState<number>(0);
   const [error, setError] = useState<string>("");
