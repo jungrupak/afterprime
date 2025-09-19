@@ -1,8 +1,8 @@
 "use client";
-import { Metadata } from "next";
-const metadata: Metadata = {
-  title: "Afterprime - Align Incentives",
-  description: "This is Afterprime About page",
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Afterprime - Get Paid To Trade",
+  description: "This is Afterprime Get Paid To Trade",
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/about`,
   },

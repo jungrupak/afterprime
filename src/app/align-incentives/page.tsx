@@ -1,15 +1,14 @@
 "use client";
 import HowItWorks from "@/components/content-block-with-cards/BlockWithCards";
 import Faq from "@/components/faq/Faq";
-import MainButton from "@/components/ui/Button";
 import InnerBanner from "@/components/inner-banner/InnerBanner";
 import GenericIntroBlock from "@/components/intro-block/IntroBlock";
 import { UspInContent } from "@/components/usp-in-content/UspInContent";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
-const metadata: Metadata = {
+export const metadata: Metadata = {
   title: "Afterprime - Align Incentives",
-  description: "This is Afterprime About page",
+  description: "Description Goes here",
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/about`,
   },
@@ -56,7 +55,6 @@ export default function About() {
       <UspInContent getUspData={uspData} />
 
       <HowItWorks />
-      <SectionCommunityDriven />
 
       <Faq faqSubject="FAQ About Us" faqObjectsToReceive={faqData} />
     </>

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { Metadata } from "next";
-const metadata: Metadata = {
+import type { Metadata } from "next";
+export const metadata: Metadata = {
   title: "Afterprime - Why We Exists",
   description: "This is Afterprime Storie page",
   alternates: {
