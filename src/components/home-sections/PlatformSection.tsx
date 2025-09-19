@@ -28,7 +28,7 @@ export function PlatformsSection() {
           </div>
         </div>
         {/* Cards */}
-        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-6 text-center md:mt-18">
+        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))] gap-6 text-center md:mt-18">
           <CardRepeator cardSize="regular" data={cardItems} />
         </div>
         {/* Cards Ends */}
