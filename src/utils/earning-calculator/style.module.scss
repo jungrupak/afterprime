@@ -1,0 +1,16 @@
+.customSelect {
+  background-color: #222; /* dark background */
+  color: #fff; /* white text */
+  border: 1px solid #444; /* subtle border */
+  padding: 6px 10px;
+  border-radius: 4px;
+  option {
+    background-color: #222;
+    color: #fff;
+  }
+}
+
+.customInput {
+  background-color: #222; /* dark background */
+  color: #fff; /* white text */
+}

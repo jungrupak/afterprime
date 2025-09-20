@@ -66,9 +66,10 @@ export const MegaMenuItems = [
     menu: "Trade",
     menuInfos: {
       title: "Trade",
-      description: "Paragraph texts",
-      btnText: "Learn More",
-      btnLink: "#",
+      description:
+        "Paragraph texts a short description of the menu context for this category.",
+      btnText: "Live Spread",
+      btnLink: "/live-spreads",
     },
     category: [
       {

@@ -2,6 +2,7 @@
 import Btn from "@/components/ui/Button";
 import { GetRebateData } from "@/data/api-rebate";
 import { useEffect, useState, useRef } from "react";
+import styles from "./style.module.scss";
 
 //lets define whats our data object interface
 export interface Rebate {
@@ -71,11 +72,11 @@ export function EarningCalc() {
         <div className="">
           <label>Lots Traded per month:</label>
           <input
-            type="number"
+            type="text"
             id="lotTraded"
             name="lottraded"
             placeholder="Lot Traded/ month"
-            className="w-full mt-5"
+            className={`${styles.customInput} w-full mt-5`}
             value={lotTradedValue}
             onChange={handleOnChangeTradeLot}
           />
@@ -87,7 +88,7 @@ export function EarningCalc() {
           <label>Symbol Traded:</label>
 
           <select
-            className="block mt-5 w-full"
+            className={`${styles.customSelect} block mt-5 w-full`}
             onChange={(e) => setRebatePerLot(Number(e.target.value))}
           >
             <option value="">Select</option>
