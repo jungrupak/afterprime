@@ -5,6 +5,9 @@
   background-repeat: no-repeat;
   background-position: center;
   text-align: center;
+  background-color: transparent;
+  backdrop-filter: blur(0);
+  background-image: none !important;
   @media all and (min-width: 1024px) {
     height: 100vh;
     max-height: 100vh;

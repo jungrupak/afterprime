@@ -463,6 +463,9 @@ body {
 section {
   padding: 120px 0;
   position: relative;
+  background-color: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+  z-index: 2;
 
   > * :not(.grainy_bg) {
     position: relative;

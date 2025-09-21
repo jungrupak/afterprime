@@ -107,7 +107,7 @@ export function HeroHome({
   description = "Trade at the lowest verified costs. Flow that pays you back.",
 }: heroContent) {
   return (
-    <section className={`${styles.hero_home} h-screen`}>
+    <div className={`${styles.hero_home} h-screen`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
@@ -133,7 +133,7 @@ export function HeroHome({
         </video>
       </div> */}
 
-      <div className="ap_container h-full ">
+      <div className="ap_container h-full relative z-2">
         <div className="flex flex-wrap items-center h-full min-h-[400px] lg:min-h-[600px] relative">
           <div className="w-full">
             <h1
@@ -164,6 +164,6 @@ export function HeroHome({
           <div className="max-md:text-center"></div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

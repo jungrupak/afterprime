@@ -1,11 +1,14 @@
 .hero_home {
-  background-color: var(--black);
+  background-color: transparent;
+  backdrop-filter: blur(0);
   //background-image: url("/img/hero-banner-home.jpg");
   background-size: cover;
   min-height: 600px;
   padding: 50px 20px 0;
   background-position: 10% center;
   height: calc(100vh + 10vh);
+  position: relative;
+  z-index: 2;
   @media all and (max-width: 767px) {
     padding-top: 120px;
     max-height: none;
