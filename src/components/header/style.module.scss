@@ -31,7 +31,7 @@
   position: fixed;
   left: 0;
   width: 100vw;
-  padding: 60px 0 40px;
+  padding: 40px 0;
   background-color: rgba(var(--alphaBlack), 0.98);
   backdrop-filter: blur(10px);
   color: rgba(var(--alphaWhite), 0.8);
@@ -189,6 +189,7 @@
       }
     }
   }
+
   .megaMenu {
     position: fixed;
     top: 0;
@@ -227,4 +228,8 @@
       padding-bottom: 30px;
     }
   }
+}
+
+.megaMenuItemsContainer {
+  max-width: 755px !important;
 }

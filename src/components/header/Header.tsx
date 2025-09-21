@@ -167,7 +167,7 @@ export default function Header() {
                 Member Login
               </Btn>
               <Btn size="small" varient="primary-ghost" href="#">
-                Request Visit
+                Request Invite
               </Btn>
             </div>
           </div>
@@ -194,7 +194,7 @@ export default function Header() {
               setActiveIndex(null);
             }}
           >
-            <div className="ap_container ap_container_medium">
+            <div className={`${styles.megaMenuItemsContainer} ap_container`}>
               <div className={`${styles.subNavHeader} flex`}>
                 <span
                   className={`${styles.backArrow}`}
@@ -227,7 +227,7 @@ export default function Header() {
                 className={`${styles.menuChild} flex max-lg:flex-col max-lg:gap-5 max-lg:max-h-[88vh] max-lg:overflow-y-auto`}
               >
                 {/* Mega Info */}
-                <div className="xl:border-r border-[#ffffff10] max-lg:pl-[30px] pr-10 max-w-[350px] w-[350px] max-md:mb-8">
+                {/* <div className="xl:border-r border-[#ffffff10] max-lg:pl-[30px] pr-10 max-w-[350px] w-[350px] max-md:mb-8">
                   <h2 className="text-[24px] font-[700] mb-3">
                     {MegaItems[megaMenu]?.menuInfos.title}
                   </h2>
@@ -241,7 +241,7 @@ export default function Header() {
                   >
                     {MegaItems[megaMenu]?.menuInfos.btnText}
                   </Btn>
-                </div>
+                </div> */}
 
                 {/* Mega Categories */}
                 {MegaItems[megaMenu]?.category?.map((cat, index) => (

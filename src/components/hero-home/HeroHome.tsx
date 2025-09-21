@@ -112,7 +112,7 @@ export function HeroHome({
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
 
-      <div className="home_banner_video">
+      {/* <div className="home_banner_video">
         <video
           playsInline
           className="mui-1eodtn4-video"
@@ -131,7 +131,7 @@ export function HeroHome({
         >
           <source src="/banner-vid.mp4" type="video/mp4" />
         </video>
-      </div>
+      </div> */}
 
       <div className="ap_container h-full ">
         <div className="flex flex-wrap items-center h-full min-h-[400px] lg:min-h-[600px] relative">
