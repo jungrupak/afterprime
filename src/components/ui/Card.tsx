@@ -4,7 +4,7 @@ import Link from "next/link";
 
 type CardProps = {
   alignItems?: "center" | "left" | "right";
-  cardSize?: "compact" | "regular" | "large";
+  cardSize?: "compact" | "regular" | "large" | "small";
   title?: string;
   paragraph?: string;
   borderEnable?: boolean;
@@ -49,6 +49,8 @@ export default function Card({
             ? styles.cardRegular
             : cardSize === "large"
             ? styles.cardLarge
+            : cardSize === "small"
+            ? styles.cardSmall
             : ""
         }`}
       >

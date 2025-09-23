@@ -330,104 +330,6 @@ body {
   }
 }
 
-// Global buttons styles
-.ap_button {
-  display: inline-block;
-  a {
-    @apply flex items-center px-8 py-3 bg-[#ff0000] text-white hover:bg-[var(--white)] hover:text-[var(--black)] rounded-[48px] transition duration-200 text-[16px] font-bold ease-in-out border-none;
-    align-items: center;
-    gap: 15px;
-
-    svg {
-      width: 15px;
-      height: 13px;
-      transition: all 0.3s ease-in-out;
-    }
-
-    > span {
-      transition: all 0.2s ease-in-out;
-    }
-    &:hover {
-      > span {
-        transform: translateX(5px);
-      }
-    }
-
-    &.xs {
-      @apply px-5 py-[5px] text-[14px] border-2 border-solid border-[transparent];
-    }
-
-    &.small {
-      @apply px-6 py-2 text-[16px] border-2 border-solid border-[transparent];
-    }
-
-    &.medium {
-      @apply px-10 py-4 text-[20px];
-    }
-    &.large {
-      @apply px-14 py-3 text-[20px] max-md:px-10;
-    }
-    &.primary {
-      @apply bg-[var(--primary-color)] text-white hover:bg-[var(--white)] hover:text-[var(--black)];
-      &:hover {
-        svg path {
-          fill: var(--black);
-        }
-      }
-    }
-    &.primary-ghost {
-      @apply bg-[transparent] border-2 border-solid border-[var(--primary-color)] hover:bg-[var(--primary-color)] text-[var(--primary-color)];
-      svg {
-        path {
-          fill: var(--primary-color);
-        }
-      }
-      &:hover {
-        color: var(--white);
-        svg path {
-          fill: var(--white);
-        }
-      }
-    }
-    &.secondary {
-      @apply bg-[var(--secondary-color)] text-white hover:bg-[var(--white)] hover:text-[var(--black)];
-    }
-    &.secondary-ghost {
-      @apply bg-[transparent] border-2 border-solid border-[var(--secondary-color)] hover:bg-[var(--secondary-color)] text-[var(--secondary-color)];
-      svg {
-        path {
-          fill: var(--secondary-color);
-        }
-      }
-      &:hover {
-        color: var(--white);
-        svg path {
-          fill: var(--white);
-        }
-      }
-    }
-    &.ghost {
-      @apply bg-[transparent] border-2 border-solid border-[var(--white)] hover:bg-[var(--white)] text-[var(--white)];
-      svg {
-        path {
-          fill: var(--white);
-        }
-      }
-      &:hover {
-        color: var(--black);
-        svg path {
-          fill: var(--black);
-        }
-      }
-    }
-    &.washed {
-      @apply hover:bg-[var(--white)] hover:text-[var(--black)];
-      background-color: rgba(255, 255, 255, 0.08);
-      border-color: transparent;
-    }
-  }
-}
-
 .h1-size {
   font-size: clamp(42px, 5vw, 68px);
   font-weight: 400;
@@ -448,7 +350,7 @@ body {
   font-size: clamp(20px, 5vw, 26px);
   font-weight: 300;
   line-height: 1.5;
-  opacity: 0.8;
+  color: #e1e1e1;
 }
 
 .apBannerContent {
@@ -464,7 +366,7 @@ section {
   padding: 120px 0;
   position: relative;
   background-color: rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
   z-index: 2;
 
   > * :not(.grainy_bg) {

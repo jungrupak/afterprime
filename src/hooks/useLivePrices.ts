@@ -126,6 +126,7 @@ export function useLivePrices() {
       else if (item.group.startsWith("Stocks")) stocks.push(item);
     }
 
+    //returning categories so that this component would accept these cat values whenever it's been used
     return {
       popular,
       forex,

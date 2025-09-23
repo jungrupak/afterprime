@@ -9,20 +9,20 @@ export function MoreValueRealAlignment() {
       paragraph:
         "The lowest all-in costs cleared through Tier-1 liquidity via PBs.",
       ctaLabel: "Read More",
-      ctaLink: "#",
+      ctaLink: "/lowest-cost-verified",
     },
     {
       title: "Get Paid.",
       paragraph:
         "Earn up to $3 per lot on eligible flow, turning execution into extra PnL.",
       ctaLabel: "Read More",
-      ctaLink: "#",
+      ctaLink: "/get-paid-to-trade",
     },
     {
       title: "Get Aligned.",
       paragraph: "We profit on volume, not your losses — no B-book, ever.",
       ctaLabel: "Read More",
-      ctaLink: "#",
+      ctaLink: "/aligned-execution",
     },
   ];
 

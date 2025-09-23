@@ -115,6 +115,35 @@ export default function GetPaidToTrade() {
       <TableDataRewardFlow
         sectionTitle="Get another PnL line on your trading"
         sectionParagraph=" See exactly what you earn per pair, transparently and in real time."
+        categoryAsNavItem={["Forex", "Indices", "Crypto"]}
+        tableColumnHeading={["Pairs", "USD $ per lot r/t Flow Reward"]}
+        tableRowData={[
+          {
+            content: [
+              { Pairs: "AUDUSD", "USD $ per lot r/t Flow Reward": "$0.3" },
+              { Pairs: "CADUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+              { Pairs: "JPYUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+              { Pairs: "AUDUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+              { Pairs: "NZDUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+            ],
+          },
+          {
+            content: [
+              { Pairs: "NZDUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+              { Pairs: "NZDUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+              { Pairs: "NZDUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+              { Pairs: "NZDUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+            ],
+          },
+          {
+            content: [
+              { Pairs: "CADUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+              { Pairs: "JPYUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+              { Pairs: "AUDUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+              { Pairs: "NZDUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
+            ],
+          },
+        ]}
       />
       {/* Table Content Section Ends */}
 

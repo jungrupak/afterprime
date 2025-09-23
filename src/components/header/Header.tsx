@@ -154,7 +154,7 @@ export default function Header() {
                   Member Login
                 </Btn>
                 <Btn size="small" varient="primary-ghost" href="#">
-                  Request Visit
+                  Request Invite
                 </Btn>
               </div>
             </div>
@@ -190,8 +190,11 @@ export default function Header() {
             className={`${styles.megaMenu}`}
             onMouseEnter={() => setIsMegaOpen(true)}
             onMouseLeave={() => {
-              setIsMegaOpen(false);
-              setActiveIndex(null);
+              if (window.innerWidth >= 1024) {
+                setIsMegaOpen(false);
+                setActiveIndex(null);
+                setMegaMenu(0);
+              }
             }}
           >
             <div className={`${styles.megaMenuItemsContainer} ap_container`}>

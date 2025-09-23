@@ -327,10 +327,10 @@
   }
   p {
     margin-bottom: 0;
-    font-size: max(16px, min(5vw, 18px));
+    font-size: max(18px, min(5vw, 20px));
     font-weight: 400;
     line-height: 1.4;
-    opacity: 0.8;
+    color: #e1e1e1;
     max-width: 90%;
     margin-inline: auto;
   }
@@ -387,15 +387,26 @@
       margin-top: clamp(25px, 5vw, 40px);
     }
   }
-  &.cardBold {
+  &.cardSmall {
+    padding: 60px 50px;
     h3 {
-      font-size: max(30px, min(5vw, 40px));
-      font-weight: 700;
+      font-size: max(25px, min(5vw, 30px));
       line-height: 1.1;
+      margin-bottom: 30px;
+      max-width: 100%;
     }
     p {
-      font-size: max(16px, min(5vw, 20px));
-      line-height: 1.2;
+      margin-bottom: 0;
+      max-width: 100%;
+    }
+    .cardCta {
+      max-width: 100%;
+      margin-top: clamp(25px, 5vw, 40px);
+    }
+  }
+  &.cardBold {
+    h3 {
+      font-weight: 700;
     }
   }
   &.activeCard {

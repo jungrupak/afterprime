@@ -146,7 +146,7 @@ export function HeroHome({
           </div>
           <div className={`${styles.heroBannerPara}`}>
             <p
-              className="max-w-[500px] mx-auto mb-12 opacity-80"
+              className="paragraph max-w-[500px] mx-auto mb-12 opacity-80"
               style={{ fontWeight: "300" }}
             >
               {description}

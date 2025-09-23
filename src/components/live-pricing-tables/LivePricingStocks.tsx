@@ -1,14 +1,14 @@
 import React from "react";
-import { LivePricingAll } from "@/components/live-pricing/LivePricing";
+import { LivePricingStocks } from "../live-pricing/LivePricingStocks";
 
-export function PricingTable() {
+export default function LivePricingStocksTable() {
   return (
     <section>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
       <div className="ap_container">
-        <LivePricingAll />
+        <LivePricingStocks />
       </div>
     </section>
   );

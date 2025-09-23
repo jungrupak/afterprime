@@ -10,7 +10,7 @@ import { UserSellingPoint } from "@/components/home-sections/UserSellingPoint";
 import { EarningFlow } from "@/components/home-sections/EarningFlow";
 import { MoreValueRealAlignment } from "@/components/home-sections/MoreValueRealAlignment";
 import { AbookSection } from "@/components/home-sections/AbookSection";
-import { PricingTable } from "@/components/home-sections/LivePricingTable";
+import LivePricingAllTable from "@/components/live-pricing-tables/LivePricingAll";
 import { BuiltForTraders } from "@/components/home-sections/BuiltForTraders";
 import { PlatformsSection } from "@/components/home-sections/PlatformSection";
 import { CommunityDrivenSection } from "@/components/home-sections/CommunityDrivenSection";
@@ -41,7 +41,7 @@ export default async function Home() {
       <AbookSection />
       {/* A book section ends */}
       {/* Live Pricing Section */}
-      <PricingTable />
+      <LivePricingAllTable />
       {/* Live Pricing Section Ends */}
       {/* Section slot */}
       <BuiltForTraders />

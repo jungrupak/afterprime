@@ -48,7 +48,7 @@ export const MegaMenuItems = [
         catMenuItems: [
           {
             menuItem: "Our Discord",
-            pageUrl: "#",
+            pageUrl: "/our-discord",
           },
           {
             menuItem: "Case Studies",
@@ -77,7 +77,7 @@ export const MegaMenuItems = [
         catMenuItems: [
           {
             menuItem: "How to Qualify",
-            pageUrl: "#",
+            pageUrl: "/how-to-qualify",
           },
           {
             menuItem: "Account Types",
@@ -95,23 +95,23 @@ export const MegaMenuItems = [
         catMenuItems: [
           {
             menuItem: "MetaTrader 5",
-            pageUrl: "#",
+            pageUrl: "/platforms/mt5",
           },
           {
             menuItem: "MetaTrader 4",
-            pageUrl: "#",
+            pageUrl: "/platforms/mt4",
           },
           {
             menuItem: "TraderEvolution",
-            pageUrl: "#",
+            pageUrl: "/platforms/traderevolution",
           },
           {
             menuItem: "WebTrader",
-            pageUrl: "#",
+            pageUrl: "/platforms/webtrader",
           },
           {
             menuItem: "FIX API",
-            pageUrl: "#",
+            pageUrl: "/platforms/fix-api",
           },
         ],
       },
@@ -121,23 +121,23 @@ export const MegaMenuItems = [
         catMenuItems: [
           {
             menuItem: "Forex",
-            pageUrl: "#",
+            pageUrl: "/markets/forex",
           },
           {
             menuItem: "Indices",
-            pageUrl: "#",
+            pageUrl: "/markets/indices",
           },
           {
             menuItem: "Commodities",
-            pageUrl: "#",
+            pageUrl: "/markets/commodities",
           },
           {
             menuItem: "Crypto",
-            pageUrl: "#",
+            pageUrl: "/markets/crypto",
           },
           {
             menuItem: "Stocks",
-            pageUrl: "#",
+            pageUrl: "/markets/stocks",
           },
         ],
       },
@@ -150,7 +150,7 @@ export const MegaMenuItems = [
           },
           {
             menuItem: "Trade Execution",
-            pageUrl: "#",
+            pageUrl: "/trade-execution",
           },
           {
             menuItem: "Margins & Leverages",

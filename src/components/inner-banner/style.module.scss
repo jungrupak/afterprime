@@ -1,6 +1,6 @@
 .innerBannerSection {
-  height: 100%;
-  max-height: 600px;
+  height: 100vh;
+  //max-height: 600px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -15,7 +15,7 @@
   }
   @media all and (min-width: 1600px) {
     height: 100vh;
-    max-height: 980px;
+    //max-height: 980px;
     text-align: left;
   }
 }

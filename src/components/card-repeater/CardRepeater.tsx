@@ -4,7 +4,7 @@ import type { CardDataObject } from "@/types/cardObject";
 
 interface CardRepeatorProp {
   data: CardDataObject[];
-  cardSize: "regular" | "large" | "compact";
+  cardSize: "regular" | "large" | "compact" | "small";
   type?: "bold" | "regular";
 }
 

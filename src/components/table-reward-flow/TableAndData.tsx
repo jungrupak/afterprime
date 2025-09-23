@@ -1,9 +1,16 @@
 import Tab, { TabItem } from "@/components/ui/Tab";
 import style from "./style.module.scss";
 
+interface RowData {
+  [key: string]: string | number | undefined; // keys can be anything
+}
+
 interface SectionProps {
   sectionTitle?: string;
   sectionParagraph?: string;
+  categoryAsNavItem?: string[];
+  tableColumnHeading?: string[]; // column order
+  tableRowData?: { content: RowData[] }[]; // array of tabs
 }
 
 //Forex Table Data
@@ -11,36 +18,10 @@ interface SectionProps {
 export function TableDataRewardFlow({
   sectionTitle,
   sectionParagraph,
+  categoryAsNavItem = [],
+  tableColumnHeading = [],
+  tableRowData = [],
 }: SectionProps) {
-  const TableHead = ["Pair", "USD $ per lot  Flow Incentive"];
-  const tableData = [
-    {
-      label: "Forex",
-      content: [
-        { key: "EURUSD", value: "$5.0" },
-        { key: "GBPJPY", value: "$2.20" },
-        { key: "AUDUSD", value: "$2.50" },
-        { key: "NZDCHF", value: "$1.20" },
-        { key: "AUDJPY", value: "$1.50" },
-        { key: "GBPNZD", value: "$2.00" },
-      ],
-    },
-    {
-      label: "Indices",
-      content: [
-        { key: "Indices", value: "$1.60" },
-        { key: "Indices2", value: "$2.50" },
-      ],
-    },
-    {
-      label: "Metals",
-      content: [
-        { key: "Metal", value: "1.1000" },
-        { key: "Metal2", value: "1.1000" },
-      ],
-    },
-  ];
-
   return (
     <>
       <section>
@@ -54,22 +35,23 @@ export function TableDataRewardFlow({
           </div>
 
           <Tab>
-            {tableData.map((data, index) => (
-              <TabItem key={index} tabNav={data.label}>
+            {tableRowData.map((tabData, tabIndex) => (
+              <TabItem key={tabIndex} tabNav={categoryAsNavItem[tabIndex]}>
                 <div className="genericTable">
                   <table>
                     <thead>
                       <tr>
-                        {TableHead.map((thead, i) => (
-                          <th key={i}>{thead}</th>
+                        {tableColumnHeading.map((heading, i) => (
+                          <th key={i}>{heading}</th>
                         ))}
                       </tr>
                     </thead>
                     <tbody>
-                      {data.content.map((tr, indx) => (
-                        <tr key={indx}>
-                          <td>{tr.key}</td>
-                          <td>{tr.value}</td>
+                      {tabData.content.map((row, rowIndex) => (
+                        <tr key={rowIndex}>
+                          {tableColumnHeading.map((col, cellIndex) => (
+                            <td key={cellIndex}>{row[col] ?? "-"}</td>
+                          ))}
                         </tr>
                       ))}
                     </tbody>
