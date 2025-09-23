@@ -50,13 +50,6 @@ export default function Forex() {
     },
   ];
 
-  //PTO LISTS
-  const ptoLists = [
-    "Orders are executed at zero commission and prices sharper than standard LP quotes.",
-    "Fair Model Alignment – we aim to capture value post trade and share it back with our traders.",
-    "Your trading activity generates yield that turns into real earnings alongside your PnL.",
-  ];
-
   return (
     <>
       {/* Hero Banner */}

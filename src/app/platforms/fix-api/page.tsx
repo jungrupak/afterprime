@@ -19,7 +19,6 @@ import type { CardDataObject } from "@/types/cardObject";
 import GoogleReview from "@/components/google-review/GoogleReview";
 import { BottomCta } from "@/components/bottom-cta/BottomCta";
 import CardRepeator from "@/components/card-repeater/CardRepeater";
-import Card from "@/components/ui/Card";
 
 export default function PageFixApi() {
   //const BannerImage = "/img/banner-about.jpg";
@@ -48,29 +47,6 @@ export default function PageFixApi() {
       paragraph: "FIX built on A-book+ liquidity and prime broker clearing",
       ctaLabel: "",
       ctaLink: "",
-    },
-  ];
-
-  //Download Links
-  const accessWebtrader = [
-    {
-      title: "MetaTrader4",
-      paragraph: "MT4 on Windows—fast, scalable, and conflict-free execution",
-      ctaLabel: "Login",
-      ctaLink: "#",
-    },
-    {
-      title: "MetaTrader5",
-      paragraph: "Trade MT4 on iOS—clean execution, anywhere you are",
-      ctaLabel: "Login",
-      ctaLink: "#",
-    },
-    {
-      title: "TraderEvolution",
-      paragraph:
-        "MT4 on Android: speed, scale, and execution without compromise",
-      ctaLabel: "Login",
-      ctaLink: "#",
     },
   ];
 

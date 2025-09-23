@@ -17,12 +17,9 @@ import FoundersCard from "@/components/founder-card/FounderCard";
 import { MoreValueRealAlignment } from "@/components/home-sections/MoreValueRealAlignment";
 import Faq from "@/components/faq/Faq";
 import type { CardDataObject } from "@/types/cardObject";
-import BlockWithLists from "@/components/block-multipurpose/BlockWithLists";
-import Lists from "@/utils/lists/Lists";
 import GoogleReview from "@/components/google-review/GoogleReview";
 import { BottomCta } from "@/components/bottom-cta/BottomCta";
 import CardRepeator from "@/components/card-repeater/CardRepeater";
-import Image from "next/image";
 
 export default function PageOurDiscord() {
   //const BannerImage = "/img/banner-about.jpg";
@@ -67,13 +64,6 @@ export default function PageOurDiscord() {
       answer:
         "We’ve built our own pricing infrastructure and order books, giving us tighter spreads than most LPs. Combined with zero commissions and flow rewards, it results in the lowest verified all-in cost globally ",
     },
-  ];
-
-  //PTO LISTS
-  const ptoLists = [
-    "Orders are executed at zero commission and prices sharper than standard LP quotes.",
-    "Fair Model Alignment – we aim to capture value post trade and share it back with our traders.",
-    "Your trading activity generates yield that turns into real earnings alongside your PnL.",
   ];
 
   return (

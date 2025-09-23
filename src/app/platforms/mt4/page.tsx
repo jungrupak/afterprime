@@ -102,7 +102,7 @@ export default function PageMt4() {
           className="paragraph max-w-[600px] mb-12 lg:mt-20 opacity-80"
           style={{ fontWeight: "300" }}
         >
-          The world's most trusted trading platform—built for transparency,
+          The world&apos;s most trusted trading platform—built for transparency,
           speed, and alignment.
         </p>
         <MainButton
