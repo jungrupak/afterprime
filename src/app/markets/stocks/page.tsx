@@ -20,7 +20,6 @@ import BlockWithLists from "@/components/block-multipurpose/BlockWithLists";
 import Lists from "@/components/ui/Lists";
 import { PlatformsSection } from "@/components/home-sections/PlatformSection";
 import AdvantagesBlock from "@/components/advantages-block/AdvantagesBlock";
-import LivePricingCommoditiesTable from "@/components/live-pricing-tables/LivePricingCommodities";
 import LivePricingStocksTable from "@/components/live-pricing-tables/LivePricingStocks";
 
 export default function Stocks() {

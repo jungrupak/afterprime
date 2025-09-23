@@ -1,5 +1,3 @@
-import styles from "./ui.module.scss";
-
 export interface RowData {
   [key: string]: string | number | undefined; // keys can be anything
 }
