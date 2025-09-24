@@ -6,7 +6,7 @@ interface SectionContent {
   sectionClass?: string;
   noiseEffect?: boolean;
   container?: "boxed" | "noBoxed";
-  contentAlign?: "start" | "center" | "end";
+  contentAlign?: "start" | "center" | "end" | "unset";
   containerClass?: string;
 }
 
@@ -15,7 +15,7 @@ export default function Section({
   sectionClass,
   containerClass,
   noiseEffect,
-  contentAlign = "start",
+  contentAlign = "unset",
   container = "noBoxed",
 }: SectionContent) {
   return (

@@ -27,6 +27,7 @@ export default function CardRepeator({
             cardCtaLink={item.ctaLink}
             active={false}
             type={type}
+            linkTarget={item.ctaOpenTarget}
           />
         </div>
       ))}

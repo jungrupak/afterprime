@@ -12,6 +12,7 @@ type CardProps = {
   cardCtaLink?: string;
   active?: boolean;
   type?: "bold" | "regular";
+  linkTarget?: "Self" | "Blank";
 };
 
 export default function Card({
@@ -24,6 +25,7 @@ export default function Card({
   cardCtaLink,
   active,
   type,
+  linkTarget,
 }: CardProps) {
   return (
     <>
@@ -62,6 +64,7 @@ export default function Card({
             <Link
               className="card_href_link hover:underline"
               href={cardCtaLink || ""}
+              target={linkTarget === "Self" ? "_self" : "_blank"}
             >
               {cardCtaLabel}
               <svg

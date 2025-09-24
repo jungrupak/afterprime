@@ -218,7 +218,7 @@ export const MegaMenuItems = [
           },
           {
             menuItem: "Contact",
-            pageUrl: "#",
+            pageUrl: "/contact-us",
           },
         ],
       },

@@ -3,4 +3,5 @@ export interface CardDataObject {
   paragraph: string;
   ctaLabel: string;
   ctaLink: string;
+  ctaOpenTarget?: "Self" | "Blank";
 }

@@ -4,14 +4,14 @@ import styles from "./style.module.scss";
 interface BlockProps {
   children?: React.ReactNode;
   isBoxed?: boolean;
-  vAlign?: "start" | "center" | "end";
+  vAlign?: "start" | "center" | "end" | "unset";
   className?: string;
 }
 export default function BoxedBlock({
   children,
   isBoxed,
   className,
-  vAlign = "start",
+  vAlign = "unset",
 }: BlockProps) {
   const checkAlign =
     vAlign === "start"
@@ -24,7 +24,7 @@ export default function BoxedBlock({
   return (
     <>
       <div
-        className={`${className || ""} ${
+        className={`${className || ""}${
           isBoxed === true ? styles.styleBoxed : ""
         } grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-10`}
         style={{ alignItems: checkAlign }}

@@ -125,6 +125,7 @@ export default function TradingHours() {
       <Section
         noiseEffect={true}
         container="noBoxed"
+        contentAlign="unset"
         sectionClass=""
         containerClass="gap-12 md:gap-20"
       >
