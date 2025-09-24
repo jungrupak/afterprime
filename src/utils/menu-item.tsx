@@ -214,7 +214,7 @@ export const MegaMenuItems = [
         catMenuItems: [
           {
             menuItem: "Help Center",
-            pageUrl: "#",
+            pageUrl: "https://help.afterprime.com/",
           },
           {
             menuItem: "Contact",
@@ -227,7 +227,7 @@ export const MegaMenuItems = [
         catMenuItems: [
           {
             menuItem: "Licenses & Regulations",
-            pageUrl: "#",
+            pageUrl: "/license-and-regulations",
           },
           {
             menuItem: "Legal Docs",

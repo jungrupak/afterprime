@@ -2,27 +2,11 @@
   background-position: center top;
   background-repeat: repeat-x;
   h2 {
-    margin-bottom: calc(var(--spacing) * 6);
     font-size: max(38px, min(5vw, 50px));
     font-weight: 300;
     line-height: 1.2;
     @media all and (max-width: 767px) {
-      text-align: center;
-    }
-  }
-  .generic_card {
-    h3 {
-      font-size: 34px;
-      font-weight: 600;
-      margin-bottom: 30px;
-    }
-    p {
-      font-size: 18px;
-      font-weight: 400;
-      margin-bottom: 40px;
-      opacity: 0.84;
-      max-width: 90%;
-      margin-inline: auto;
+      text-align: center !important;
     }
   }
 }

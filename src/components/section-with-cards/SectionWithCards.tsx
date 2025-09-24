@@ -18,7 +18,7 @@ export function SectionWithCards({
   cardItems,
 }: SectionProps) {
   return (
-    <section className={`${styles.section_platforms}`}>
+    <section className={`${styles.sectionWithCards}`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}

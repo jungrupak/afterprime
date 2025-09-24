@@ -15,17 +15,20 @@ export default function TableUi({
     <>
       <div className="genericTable">
         <table>
-          <thead>
-            <tr>
-              {tableColumnHeading.map((heading, i) => (
-                <th key={i}>{heading}</th>
-              ))}
-            </tr>
-          </thead>
+          {tableColumnHeading && (
+            <thead>
+              <tr>
+                {tableColumnHeading.map((heading, i) => (
+                  <th key={i}>{heading}</th>
+                ))}
+              </tr>
+            </thead>
+          )}
+
           <tbody>
             {tableRowData.map((row, rowIndex) => (
               <tr key={rowIndex}>
-                {tableColumnHeading.map((col, cellIndex) => (
+                {Object.keys(tableRowData[rowIndex]).map((col, cellIndex) => (
                   <td key={cellIndex}>{row[col] ?? "-"}</td>
                 ))}
               </tr>
