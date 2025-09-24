@@ -26,7 +26,6 @@ export default function LicenseAndRegulations() {
         "Afterprime conducts regular independent external audits of its financial and compliance arrangements.",
       ctaLabel: "",
       ctaLink: "",
-      ctaOpenTarget: "",
     },
 
     {
@@ -35,7 +34,6 @@ export default function LicenseAndRegulations() {
         " We are good corporate citizens and take our obligations as Financial Services Licences holders seriously Financial Services Licences holders.",
       ctaLabel: "",
       ctaLink: "",
-      ctaOpenTarget: "",
     },
     {
       title: "Clean Sheet",
@@ -43,7 +41,6 @@ export default function LicenseAndRegulations() {
         " We have no adverse regulatory or judicial findings against us from any financial regulator, government body or court of law.",
       ctaLabel: "",
       ctaLink: "",
-      ctaOpenTarget: "",
     },
   ];
 
