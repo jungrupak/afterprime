@@ -36,14 +36,16 @@ export default function BlockWithLists({
                 {blockTitle}
               </h2>
               <p className={`paragraph mb-10 md:mb-20`}>{blockParagraph}</p>
-              <Button
-                varient="primary-ghost"
-                href={btnUrl || ""}
-                size="large"
-                isArrowVisible={true}
-              >
-                {btnText}
-              </Button>
+              {btnText && (
+                <Button
+                  varient="primary-ghost"
+                  href={btnUrl || ""}
+                  size="large"
+                  isArrowVisible={true}
+                >
+                  {btnText}
+                </Button>
+              )}
             </div>
             <div>{children}</div>
           </div>

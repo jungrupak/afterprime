@@ -3,7 +3,7 @@ export const metadata: Metadata = {
   title: "Afterprime - Get Paid To Trade",
   description: "This is Afterprime Get Paid To Trade",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/markets/forex`,
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/live-spreads`,
   },
 };
 //

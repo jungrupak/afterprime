@@ -2,16 +2,20 @@
 import styles from "./Accordion.module.scss";
 import { useState } from "react";
 
-interface AccordionObjectsKeys {
+export interface AccordionObjectsKeys {
   question?: string;
   answer?: string;
 }
 
 interface AccordionProps {
   faqObjects?: AccordionObjectsKeys[];
+  answerFluid?: boolean;
 }
 
-export default function Accordion({ faqObjects = [] }: AccordionProps) {
+export default function Accordion({
+  faqObjects = [],
+  answerFluid = false,
+}: AccordionProps) {
   const [isOpenAnswer, setIsOpenAnswer] = useState(0);
   return (
     <div className={`${styles.accordion_wrapper}`}>
@@ -33,7 +37,11 @@ export default function Accordion({ faqObjects = [] }: AccordionProps) {
               isOpenAnswer === index ? styles.visible : styles.hidden
             } mt-6 max-md:mt-4`}
           >
-            <p className="text-[18px] font-[400] mb-4 last:mb-0 opacity-80 md:pr-[18vw]">
+            <p
+              className={`text-[18px] font-[400] mb-4 last:mb-0 opacity-80 ${
+                answerFluid === true ? "md:pr-[18vw]" : "md:pr-[60px]"
+              }`}
+            >
               {item.answer}
             </p>
           </div>

@@ -154,7 +154,7 @@ export const MegaMenuItems = [
           },
           {
             menuItem: "Margins & Leverages",
-            pageUrl: "#",
+            pageUrl: "/margins-and-leverages",
           },
           {
             menuItem: "Swaps",

@@ -4,7 +4,7 @@ export interface RowData {
 
 interface SectionProps {
   tableColumnHeading?: string[];
-  tableRowData?: RowData[]; // array of tabs
+  tableRowData?: RowData[];
 }
 
 export default function TableUi({
