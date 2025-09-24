@@ -369,6 +369,11 @@ section {
   backdrop-filter: blur(8px);
   z-index: 2;
 
+  h2 {
+    margin-bottom: max(25px, min(5vw, 50px));
+    font-size: max(38px, min(5vw, 50px));
+  }
+
   > * :not(.grainy_bg) {
     position: relative;
     z-index: 1;
