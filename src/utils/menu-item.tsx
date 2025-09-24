@@ -235,7 +235,7 @@ export const MegaMenuItems = [
           },
           {
             menuItem: "KYC & AML/CTF",
-            pageUrl: "#",
+            pageUrl: "/kyc-aml",
           },
         ],
       },
