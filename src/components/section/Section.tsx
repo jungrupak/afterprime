@@ -1,4 +1,3 @@
-import styles from "./Section.module.scss";
 import BoxedBlock from "../boxed-block/BoxedBlock";
 
 interface SectionContent {

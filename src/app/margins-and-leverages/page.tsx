@@ -16,7 +16,6 @@ import FoundersCard from "@/components/founder-card/FounderCard";
 import Faq from "@/components/faq/Faq";
 import GoogleReview from "@/components/google-review/GoogleReview";
 import { BottomCta } from "@/components/bottom-cta/BottomCta";
-import type { CardDataObject } from "@/types/cardObject";
 import { MoreValueRealAlignment } from "@/components/home-sections/MoreValueRealAlignment";
 import SectionTable from "@/components/section-table/SectionTable";
 import BlockWithLists from "@/components/block-multipurpose/BlockWithLists";
@@ -24,34 +23,6 @@ import Accordion from "@/utils/accordion/Accordion";
 import type { AccordionObjectsKeys } from "@/utils/accordion/Accordion";
 
 export default function MarginsAndLeverages() {
-  //4 Cards data
-  const dataCards: CardDataObject[] = [
-    {
-      title: "Conflict-Free",
-      paragraph: "No internalization, no inflated spreads.",
-      ctaLabel: "",
-      ctaLink: "",
-    },
-    {
-      title: "Independently Verified",
-      paragraph: "Benchmarked against third-party data.",
-      ctaLabel: "",
-      ctaLink: "",
-    },
-    {
-      title: "Tighter by Design",
-      paragraph: "Purpose-built order books priced below LP feeds.",
-      ctaLabel: "",
-      ctaLink: "",
-    },
-    {
-      title: "Lowest All-In Cost",
-      paragraph: "Zero commissions + raw spreads = industry’s lowest.",
-      ctaLabel: "",
-      ctaLink: "",
-    },
-  ];
-
   //Accordion data
   const deepDiveExplained: AccordionObjectsKeys[] = [
     {
