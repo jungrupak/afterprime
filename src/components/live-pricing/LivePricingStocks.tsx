@@ -3,6 +3,9 @@ import { useLivePrices } from "@/hooks/useLivePrices";
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import Image from "next/image";
+import { Loader } from "../Loading/Loading";
+import { Retrying } from "../retrying/Retry";
+import { Disconnected } from "../disconnected/Disconnected";
 
 export function LivePricingStocks() {
   const { categories, status } = useLivePrices();
@@ -21,9 +24,7 @@ export function LivePricingStocks() {
         </p>
       </div>
 
-      {status === "connecting" && (
-        <h2 className="text-center">🔄 Connecting...</h2>
-      )}
+      {status === "connecting" && <Loader />}
 
       {status === "connected" && (
         <div className={`${styles.ap_tab}`}>
@@ -89,12 +90,8 @@ export function LivePricingStocks() {
         </div>
       )}
 
-      {status === "disconnected" && (
-        <h2 className="text-center">⚠️ Disconnected. Retrying...</h2>
-      )}
-      {status === "error" && (
-        <h2 className="text-center">❌ Failed to connect.</h2>
-      )}
+      {status === "disconnected" && <Retrying />}
+      {status === "error" && <Disconnected />}
 
       <div className="text-center mt-10 text-[20px]">
         At 100 lots/month, that’s $480 saved vs{" "}
