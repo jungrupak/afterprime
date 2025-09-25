@@ -12,23 +12,27 @@ export function UserSellingPoint() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const controller = new AbortController();
     async function compareData() {
       try {
-        const res = await fetch("/api/market-comparison");
+        const res = await fetch("/api/market-comparison", {
+          signal: controller.signal,
+        });
         const json = await res.json();
         if (json.error) {
           setError(json.error);
         } else {
           setData(json);
         }
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      } catch (err) {
+        if (err instanceof DOMException && err.name === "AbortError") return;
+        setError("Failed to fetch Data");
       }
     }
     compareData();
+    return () => controller.abort(); //Abort fetch on unmount
   }, []);
+
   // if (loading) return <p>Loading selling data...</p>;
   // if (error) return <p>Error: {error}</p>;
   // if (!data) return <p>No data available</p>;
