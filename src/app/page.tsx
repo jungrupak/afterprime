@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 //
 export const metadata: Metadata = {
-  title: "Afterprime",
+  title: "Afterprime is Hero in Industry",
   description: "This is Afterprime Home page",
 };
 //Imports####

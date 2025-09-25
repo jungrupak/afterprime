@@ -51,10 +51,6 @@ export const MegaMenuItems = [
             pageUrl: "/our-discord",
           },
           {
-            menuItem: "Case Studies",
-            pageUrl: "#",
-          },
-          {
             menuItem: "What Traders Say",
             pageUrl: "#",
           },
@@ -80,12 +76,8 @@ export const MegaMenuItems = [
             pageUrl: "/how-to-qualify",
           },
           {
-            menuItem: "Account Types",
-            pageUrl: "#",
-          },
-          {
             menuItem: "Deposits & Withdrawals",
-            pageUrl: "#",
+            pageUrl: "deposit-withdrawal",
           },
         ],
       },
@@ -158,7 +150,7 @@ export const MegaMenuItems = [
           },
           {
             menuItem: "Swaps",
-            pageUrl: "#",
+            pageUrl: "/swaps",
           },
           {
             menuItem: "Trading Hours",
@@ -166,7 +158,7 @@ export const MegaMenuItems = [
           },
           {
             menuItem: "Contract Specs",
-            pageUrl: "#",
+            pageUrl: "contract-specs",
           },
         ],
       },

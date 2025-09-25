@@ -4,7 +4,7 @@ import { useState, ReactNode, ReactElement } from "react";
 import styles from "./ui.module.scss";
 
 export interface TabItemProps {
-  tabNav: string;
+  tabNav: string | undefined;
   children: ReactNode;
 }
 

@@ -1,44 +1,35 @@
 "use client";
 import Btn from "@/components/ui/Button";
-import { GetRebateData } from "@/data/api-rebate";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import type { SymbolTraded } from "@/types/symbolTraded";
 import styles from "./style.module.scss";
 
-//lets define whats our data object interface
-export interface Rebate {
-  symbol: string;
-  product: string;
-  rebate_usd_per_lot: number;
-  effective_from: string;
-  effective_to: string;
-}
-//ends
-
 export function EarningCalc() {
-  const [rebates, setRebates] = useState<Rebate[]>([]);
-  const mountedRef = useRef(true);
+  const [rebates, setRebates] = useState<SymbolTraded[]>([]);
 
   useEffect(() => {
-    mountedRef.current = true;
-
-    const fetchData = async () => {
+    async function fetchData() {
       try {
-        const data = await GetRebateData(); // assume returns Rebate[]
-        if (mountedRef.current) setRebates(data);
+        const res = await fetch(
+          `https://scoreboard.argamon.com:8443/api/rebates/current`
+        );
+        const data = await res.json();
+        console.log("fetched data:", data);
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setRebates(data);
+        }
       } catch (err) {
         console.error("Failed to fetch rebates:", err);
       }
-    };
+    }
     // run immediately
     fetchData();
     // schedule refresh every 18h
-    const intervalId = setInterval(fetchData, 18 * 60 * 60 * 1000);
-
-    return () => {
-      mountedRef.current = false; // mark component as unmounted
-      clearInterval(intervalId); // stop refresh
-    };
   }, []);
+
+  console.log("check rebate data:", rebates);
 
   const [lotTradedValue, setLotTradedValue] = useState<number | "">(0);
   const [rebatePerLot, setRebatePerLot] = useState<number | null>();

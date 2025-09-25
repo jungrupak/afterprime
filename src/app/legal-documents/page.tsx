@@ -19,44 +19,66 @@ export default function LegalDocuments() {
   const legalDocsCards: CardDataObject[] = [
     {
       title: "Clinet Service Agreement",
-      paragraph: "",
-      ctaLabel: "Donwload Pdf",
+      paragraph:
+        "Clear terms that define your trading relationship with Afterprime.",
+      ctaLabel: "",
+      ctaLink: "#",
+      ctaOpenTarget: "Blank",
+    },
+    {
+      title: "AML Policy",
+      paragraph:
+        "Our AML commitment ensures compliance and financial integrity worldwide.",
+      ctaLabel: "",
       ctaLink: "#",
       ctaOpenTarget: "Blank",
     },
     {
       title: "Complain Handling Policy",
-      paragraph: "",
-      ctaLabel: "Donwload Pdf",
+      paragraph:
+        "A transparent process for resolving client concerns quickly and fairly.",
+      ctaLabel: "",
       ctaLink: "#",
       ctaOpenTarget: "Blank",
     },
     {
       title: "Conflicts of Interest Policy",
-      paragraph: "",
-      ctaLabel: "Donwload Pdf",
+      paragraph:
+        "Outlining how we manage and disclose potential conflicts of interest.",
+      ctaLabel: "",
       ctaLink: "#",
       ctaOpenTarget: "Blank",
     },
     {
       title: "Risk Disclosure Statement",
-      paragraph: "",
-      ctaLabel: "Donwload Pdf",
+      paragraph:
+        "Understand the risks of trading CFDs before entering the markets.",
+      ctaLabel: "",
       ctaLink: "#",
       ctaOpenTarget: "Blank",
     },
     {
-      title: "Corporate Account PDF Form",
-      paragraph: "",
-      ctaLabel: "Donwload Pdf",
+      title: "Corporate Account",
+      paragraph:
+        "Everything you need to know about opening a corporate account.",
+      ctaLabel: "",
       ctaLink: "#",
       ctaOpenTarget: "Blank",
     },
     {
-      title: "Joint Account  PDF Form",
-      paragraph: "",
-      ctaLabel: "Donwload Pdf",
+      title: "Joint Account",
+      paragraph:
+        "Guidelines for managing and operating a joint trading account.",
+      ctaLabel: "",
       ctaLink: "#",
+      ctaOpenTarget: "Blank",
+    },
+    {
+      title: "FSA Legal Entity",
+      paragraph:
+        "Afterprime Ltd (Seychelles 8426189-1), authorised Securities Dealer under FSA licence SD057.",
+      ctaLabel: "",
+      ctaLink: "",
       ctaOpenTarget: "Blank",
     },
   ];
@@ -72,7 +94,7 @@ export default function LegalDocuments() {
           className="paragraph max-w-[800px] mb-12 lg:mt-20 opacity-80"
           style={{ fontWeight: "300" }}
         >
-          {`Please note that our legal documents vary depending on which Afterprime  entity you hold your trading account with and the regulations that apply to you. `}
+          {`Before you open an account ,  you should read the disclosure and legal documents.`}
         </p>
         <MainButton
           href="#"
@@ -85,38 +107,18 @@ export default function LegalDocuments() {
       </InnerBanner>
       {/* Hero Banner Ends */}
 
-      {/* Generic IntroBlock */}
-      <GenericIntroBlock
-        blockTitle={`Before you open an account ,  you should read the disclosure and legal documents.`}
-        blockParagraph={`Afterprime Ltd (Seychelles company registration number 8426189-1).`}
-      />
-      {/* Generic IntroBlock Ends */}
-
-      {/* Highlight Text */}
-      <HighlightBlockQuote textValue="Afterprime Ltd (Seychelles company registration number 8426189-1)." />
-      {/* Highlight Text Ends */}
-
       {/* #### */}
       <SectionWithCards
         numberOfCardInRow={3}
-        headingLayout="TwoCol"
+        headingLayout="LeftAligned"
         sectionHeading={
           <h2 className="h2-size mb-6">
-            <span>
-              Afterprime Global
-              <br />
-              Legal Documents.
-            </span>
+            <span>Afterprime Global Legal Documents.</span>
           </h2>
         }
-        sectionSubtitle={`You’re trading on the world’s lowest-cost platform — and getting paid for your flow.`}
         cardItems={legalDocsCards}
       />
       {/* #### */}
-
-      {/* Highlight Text */}
-      <HighlightBlockQuote textValue="Afterprime Ltd (Seychelles company registration number 8426189-1)." />
-      {/* Highlight Text Ends */}
     </>
   );
 }

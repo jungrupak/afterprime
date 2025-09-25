@@ -21,7 +21,7 @@ export default function ContactUs() {
     {
       title: "Help Center",
       paragraph:
-        "Find in-depth information about trading terminals, deposits, withdrawals etc.",
+        "Find clear answers, guides, and resources anytime in our Help Center.",
       ctaLabel: "Help Center",
       ctaLink: "#",
       ctaOpenTarget: "Blank",
@@ -29,14 +29,15 @@ export default function ContactUs() {
     {
       title: "Instant Messager",
       paragraph:
-        "Can't find the answers you're looking for? Ask our support team in live chat.",
+        "Get instant answers anytime with real support through live chat.",
       ctaLabel: "Live Chat",
       ctaLink: "#",
       ctaOpenTarget: "Self",
     },
     {
       title: "Discord",
-      paragraph: "We profit on volume, not your losses — no B-book, ever.",
+      paragraph:
+        "Join Discord for support, updates, feedback, and trader-to-trader guidance.",
       ctaLabel: "Join Discord",
       ctaLink: "#",
       ctaOpenTarget: "Blank",
@@ -69,44 +70,35 @@ export default function ContactUs() {
 
       {/* Generic IntroBlock */}
       <GenericIntroBlock
-        blockTitle={`Every basis point saved across thousands of trades compounds into measurable performance.`}
-        blockParagraph={`Our costs are not marketing numbers — they are independently audited and ranked #1 globally by ForexBenchmark. The result is clarity traders can build on: verified data, consistent pricing, and the lowest all-in cost structure in the market.`}
+        blockTitle={`Trading moves fast, and questions can’t wait. That’s why we make support immediate.`}
+        blockParagraph={`You can reach us through live chat, Discord, or email — whichever suits you best. Every channel is staffed by real people who know the platform inside out. Rely on fast responses, transparent answers, and support designed for serious traders.`}
       />
       {/* Generic IntroBlock Ends */}
 
-      {/* Highlight Text */}
-      <HighlightBlockQuote textValue="Lowest cost isn’t a claim. It’s a data point, verified in public." />
-      {/* Highlight Text Ends */}
+      <ContentBlock blockImgUrl={`/img/team-img.jpg`}>
+        <h2>Contact Info</h2>
+        <p>{`Reach our support team directly by email or phone for quick answers. `}</p>
+        <p>
+          <strong className="font-[700]">Email :</strong>
+          <br /> support@afterprime.com
+        </p>
+        <p>
+          <strong className="font-[700]">Call Us :</strong>
+          <br /> +61 (02) 9138 0640
+        </p>
+        <p>
+          <strong className="font-[700]">Address :</strong>
+          <br /> CT House. Office 9A, Providence, Mahe, Seychelles
+        </p>
+      </ContentBlock>
 
       {/* #### */}
       <SectionWithCards
         numberOfCardInRow={3}
         headingLayout="TwoCol"
-        sectionHeading={
-          <h2 className="h2-size mb-6">
-            <span>
-              May be a long Title
-              <br /> for Reach Us
-            </span>
-          </h2>
-        }
-        sectionSubtitle={`You’re trading on the world’s lowest-cost platform and getting paid for your flow and some more Texts
-goes here.`}
         cardItems={helpOptionCards}
       />
       {/* #### */}
-
-      <ContentBlock blockImgUrl={`/img/team-img.jpg`}>
-        <h2>Contact Info</h2>
-        <p>{`Chat with traders, discuss the markets, and even quiz the founders of Afterprime. Discord runs 24/7.`}</p>
-        <p>{`Email : support@afterprime.com , support@afterprime.com`}</p>
-        <p>{`Address: CT House. Office 9A, Providence, Mahe, Seychelles`}</p>
-        <p>{`Call Us: +61 (02) 9138 0640`}</p>
-      </ContentBlock>
-
-      {/* Highlight Text */}
-      <HighlightBlockQuote textValue="Engineered spreads. Independent proof. Costs that hold up under scrutiny." />
-      {/* Highlight Text Ends */}
     </>
   );
 }

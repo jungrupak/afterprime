@@ -1,7 +1,40 @@
+"use client";
 import styles from "./style.module.scss";
 import Link from "next/link";
 import { MarkUpGReview } from "../hero-home/HeroHome";
+import { useState, useEffect } from "react";
+import type { pairsAndCommission } from "@/types/pairsAndCommission";
+
+//####
 export function UserSellingPoint() {
+  const [data, setData] = useState<pairsAndCommission | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function compareData() {
+      try {
+        const res = await fetch("/api/market-comparison");
+        const json = await res.json();
+        if (json.error) {
+          setError(json.error);
+        } else {
+          setData(json);
+        }
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    compareData();
+  }, []);
+  // if (loading) return <p>Loading selling data...</p>;
+  // if (error) return <p>Error: {error}</p>;
+  // if (!data) return <p>No data available</p>;
+
+  //console.log("compare data:", data);
+
   return (
     <section className={`${styles.section_usp}`}>
       {/* grain bg effect */}
@@ -17,7 +50,8 @@ export function UserSellingPoint() {
             </p>
           </div>
           <div>
-            <h3>-33%</h3>
+            {(data && <h3>{data.secondBestVsAfterprimePct}%</h3>) || <h3>%</h3>}
+
             <p>
               Saving vs
               <br />{" "}
@@ -45,7 +79,9 @@ export function UserSellingPoint() {
             </p>
           </div>
           <div>
-            <h3>-72%</h3>
+            {(data && <h3>{data.industryVsAfterprimeAvgPct}%</h3>) || (
+              <h3>%</h3>
+            )}
             <p>
               Saving vs <br />{" "}
               <Link href="#" className={`${styles.uspDropdown}`}>

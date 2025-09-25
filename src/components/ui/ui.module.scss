@@ -301,6 +301,7 @@
     padding: 10px 25px;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
+    white-space: nowrap;
     &.active,
     &:hover {
       background-color: rgba(var(--alphaWhite), 0.14);

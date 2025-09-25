@@ -4,13 +4,15 @@ import style from "./style.module.scss";
 interface RowData {
   [key: string]: string | number | undefined; // keys can be anything
 }
+export interface TableDataObjects {
+  category?: string;
+  content: RowData[];
+}
 
 interface SectionProps {
   sectionTitle?: string;
   sectionParagraph?: string;
-  categoryAsNavItem?: string[];
-  tableColumnHeading?: string[]; // column order
-  tableRowData?: { content: RowData[] }[]; // array of tabs
+  tableRowData?: TableDataObjects[]; // array of object
 }
 
 //Forex Table Data
@@ -18,8 +20,6 @@ interface SectionProps {
 export function TableDataRewardFlow({
   sectionTitle,
   sectionParagraph,
-  categoryAsNavItem = [],
-  tableColumnHeading = [],
   tableRowData = [],
 }: SectionProps) {
   return (
@@ -36,12 +36,12 @@ export function TableDataRewardFlow({
 
           <Tab>
             {tableRowData.map((tabData, tabIndex) => (
-              <TabItem key={tabIndex} tabNav={categoryAsNavItem[tabIndex]}>
+              <TabItem key={tabIndex} tabNav={tableRowData[tabIndex].category}>
                 <div className="genericTable">
                   <table>
                     <thead>
                       <tr>
-                        {tableColumnHeading.map((heading, i) => (
+                        {Object.keys(tabData.content[0]).map((heading, i) => (
                           <th key={i}>{heading}</th>
                         ))}
                       </tr>
@@ -49,8 +49,8 @@ export function TableDataRewardFlow({
                     <tbody>
                       {tabData.content.map((row, rowIndex) => (
                         <tr key={rowIndex}>
-                          {tableColumnHeading.map((col, cellIndex) => (
-                            <td key={cellIndex}>{row[col] ?? "-"}</td>
+                          {Object.values(row).map((cell, cellIndex) => (
+                            <td key={cellIndex}>{cell ?? "-"}</td>
                           ))}
                         </tr>
                       ))}

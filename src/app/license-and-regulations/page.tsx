@@ -16,6 +16,8 @@ import { SectionWithCards } from "@/components/section-with-cards/SectionWithCar
 import Section from "@/components/section/Section";
 import { SectionTextContent } from "@/components/section/section-text-content/SectionTextContent";
 import TableUi from "@/components/ui/Table";
+import ContentBlock from "@/components/content-block/ContentBlock";
+import Button from "@/components/ui/Button";
 
 export default function LicenseAndRegulations() {
   //Help options cards
@@ -23,7 +25,7 @@ export default function LicenseAndRegulations() {
     {
       title: "Audit",
       paragraph:
-        "Afterprime conducts regular independent external audits of its financial and compliance arrangements.",
+        "Afterprime conducts regular independent external audits of its financial and compliance arrangements to ensure regulatory compliance.",
       ctaLabel: "",
       ctaLink: "",
     },
@@ -31,7 +33,7 @@ export default function LicenseAndRegulations() {
     {
       title: "Good Corporate Citizen",
       paragraph:
-        " We are good corporate citizens and take our obligations as Financial Services Licences holders seriously Financial Services Licences holders.",
+        "  We are good corporate citizens and take our obligations as Financial Services Licences holders seriously.",
       ctaLabel: "",
       ctaLink: "",
     },
@@ -51,10 +53,6 @@ export default function LicenseAndRegulations() {
     { col1: "Client Classification", col2: "Retail and Wholesale" },
     { col1: "Segregated Client Trust Account", col2: "Yes" },
     { col1: "Banking Partner(s)", col2: "ABSA (Seychelles) Limited" },
-    {
-      col1: "Deposit compensation scheme? (limit)",
-      col2: "No compensation scheme",
-    },
   ];
 
   return (
@@ -65,10 +63,10 @@ export default function LicenseAndRegulations() {
           <span className="font-[600]">License & Regulation</span>
         </h1>
         <p
-          className="paragraph max-w-[600px] mb-12 lg:mt-20 opacity-80"
+          className="paragraph max-w-[800px] mb-12 lg:mt-20 opacity-80"
           style={{ fontWeight: "300" }}
         >
-          {`The Afterprime group of companies are licensed and regulated by leading  international regulatory bodies, `}
+          {`The Afterprime group of companies are licensed and regulated by leading  international regulatory bodies.`}
         </p>
         <MainButton
           href="#"
@@ -83,13 +81,20 @@ export default function LicenseAndRegulations() {
 
       {/* Generic IntroBlock */}
       <GenericIntroBlock
-        blockTitle={`allowing you to trade knowing your  financial interests are overseen.`}
-        blockParagraph={`Afterprime Ltd (Seychelles company registration number 8426189-1).`}
+        blockTitle={`FSA licensed and regulated, providing safety, compliance, and market integrity.`}
+        blockParagraph={``}
       />
       {/* Generic IntroBlock Ends */}
 
       {/* Highlight Text */}
-      <HighlightBlockQuote textValue="Afterprime Ltd (Seychelles company registration number 8426189-1)." />
+      <ContentBlock rtl={false} blockImgUrl="/img/team-img.jpg">
+        <h2>Licensed Entities in Our Group</h2>
+        <p>{`Afterprime Ltd (Seychelles company registration number 8426189-1) is a Securities Dealer, authorised by the Financial Services Authority (FSA) with license number SD057.`}</p>
+        <p>{`Our group entity, Argamon Markets Pty Ltd, also holds an Australian Financial Services License (AFSL 404300) issued by ASIC in Australia.`}</p>
+        <Button varient="primary-ghost" isArrowVisible={true} href="#">
+          Request Invite
+        </Button>
+      </ContentBlock>
       {/* Highlight Text Ends */}
 
       {/* #### */}
@@ -120,8 +125,7 @@ export default function LicenseAndRegulations() {
         {/* Left */}
         <SectionTextContent>
           <h2>Client Money</h2>
-          <p>{`The safeguarding of client money is of paramount importance to  Afterprime. All client money is managed in accordance with client money  laws and kept separate from company funds. `}</p>
-          <p>{`The laws, rules, and  protections afforded to your client money vary based on the Afterprime  entity you are contracted with.`}</p>
+          <p>{`The safeguarding of client money is of paramount importance to  Afterprime. All client money is managed in accordance with client money  laws and kept separate from company funds.`}</p>
         </SectionTextContent>
         {/* Left ends */}
 
@@ -132,10 +136,6 @@ export default function LicenseAndRegulations() {
         {/* Right ends */}
       </Section>
       {/* Section Ends */}
-
-      {/* Highlight Text */}
-      <HighlightBlockQuote textValue="Afterprime Ltd (Seychelles company registration number 8426189-1)." />
-      {/* Highlight Text Ends */}
     </>
   );
 }

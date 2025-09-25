@@ -2,7 +2,7 @@ export interface RowData {
   [key: string]: string | number | undefined; // keys can be anything
 }
 
-interface SectionProps {
+export interface SectionProps {
   tableColumnHeading?: string[];
   tableRowData?: RowData[];
 }
