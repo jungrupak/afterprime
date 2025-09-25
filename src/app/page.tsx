@@ -18,6 +18,7 @@ import GoogleReview from "@/components/google-review/GoogleReview";
 import FoundersCard from "@/components/founder-card/FounderCard";
 import { BottomCta } from "@/components/bottom-cta/BottomCta";
 import Faq from "@/components/faq/Faq";
+import { getPageData } from "@/data/data-home-page";
 
 //Import Utils####
 import { homeFaqData } from "@/utils/FaqHome";

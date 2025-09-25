@@ -14,7 +14,6 @@ export function EarningCalc() {
           `https://scoreboard.argamon.com:8443/api/rebates/current`
         );
         const data = await res.json();
-        console.log("fetched data:", data);
         if (data.error) {
           setError(data.error);
         } else {
@@ -28,8 +27,6 @@ export function EarningCalc() {
     fetchData();
     // schedule refresh every 18h
   }, []);
-
-  console.log("check rebate data:", rebates);
 
   const [lotTradedValue, setLotTradedValue] = useState<number | "">(0);
   const [rebatePerLot, setRebatePerLot] = useState<number | null>();

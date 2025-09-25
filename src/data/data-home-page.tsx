@@ -1,7 +1,11 @@
-export async function getHomePageData() {
+interface PageSlug {
+  pageSlug?: string;
+}
+
+export async function getPageData({ pageSlug }: PageSlug) {
   const res = await fetch(
-    "https://wordpress-1264747-4900526.cloudwaysapps.com/wp-json/wp/v2/pages?slug=home-page",
-    { cache: "no-store" }
+    `https://wordpress-1264747-4900526.cloudwaysapps.com/wp-json/wp/v2/pages?slug=${pageSlug}`,
+    { next: { revalidate: 60 } }
   );
 
   if (!res.ok) {

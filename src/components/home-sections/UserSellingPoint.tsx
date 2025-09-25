@@ -15,9 +15,13 @@ export function UserSellingPoint() {
     const controller = new AbortController();
     async function compareData() {
       try {
-        const res = await fetch("/api/market-comparison", {
-          signal: controller.signal,
-        });
+        const res = await fetch(
+          "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=24h&commission=true",
+          {
+            signal: controller.signal,
+            next: { revalidate: 60 },
+          }
+        );
         const json = await res.json();
         if (json.error) {
           setError(json.error);
@@ -54,7 +58,9 @@ export function UserSellingPoint() {
             </p>
           </div>
           <div>
-            {(data && <h3>{data.secondBestVsAfterprimePct}%</h3>) || <h3>%</h3>}
+            {(data && (
+              <h3>{data.secondBestVsAfterprimePct.toFixed(1)}%</h3>
+            )) || <h3>%</h3>}
 
             <p>
               Saving vs
@@ -83,9 +89,9 @@ export function UserSellingPoint() {
             </p>
           </div>
           <div>
-            {(data && <h3>{data.industryVsAfterprimeAvgPct}%</h3>) || (
-              <h3>%</h3>
-            )}
+            {(data && (
+              <h3>{data.industryVsAfterprimeAvgPct.toFixed(1)}%</h3>
+            )) || <h3>%</h3>}
             <p>
               Saving vs <br />{" "}
               <Link href="#" className={`${styles.uspDropdown}`}>

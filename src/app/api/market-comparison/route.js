@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const res = await fetch(
-      "https://marketprice.afterprime.io:5001/Spread/comparison?period=7d&symbols=All%20pairs&commission=true&mode=24h",
+      "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=24h&commission=true",
       {
         // Let Next.js cache and revalidate automatically
         next: { revalidate: 60 },
