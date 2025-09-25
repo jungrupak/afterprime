@@ -94,10 +94,9 @@ export default function Forex() {
       <TableDataRewardFlow
         sectionTitle="Get another PnL line on your trading"
         sectionParagraph=" See exactly what you earn per pair, transparently and in real time."
-        categoryAsNavItem={["Majors", "Minors", "Exotics"]}
-        tableColumnHeading={["Pairs", "USD $ per lot r/t Flow Reward"]}
         tableRowData={[
           {
+            category: "Majors",
             content: [
               { Pairs: "AUDUSD", "USD $ per lot r/t Flow Reward": "$0.3" },
               { Pairs: "CADUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
@@ -107,6 +106,7 @@ export default function Forex() {
             ],
           },
           {
+            category: "Minors",
             content: [
               { Pairs: "NZDUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
               { Pairs: "NZDUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
@@ -115,6 +115,7 @@ export default function Forex() {
             ],
           },
           {
+            category: "Exotics",
             content: [
               { Pairs: "CADUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
               { Pairs: "JPYUSD", "USD $ per lot r/t Flow Reward": "$0.8" },
