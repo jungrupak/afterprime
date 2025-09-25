@@ -14,8 +14,23 @@ export function useButtonClickHandling({ onclick, href }: ClickProps) {
     if (onclick) {
       onclick(); // run custom click logic
     }
-    if (href && pathname !== href) {
-      router.push(href); // navigate if not already there
+
+    if (href) {
+      if (href.startsWith("#")) {
+        // Local scroll target
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      } else {
+        // Normal route navigation if not already there
+        if (pathname !== href) {
+          router.push(href);
+        }
+      }
     }
   };
   return handleClick;
