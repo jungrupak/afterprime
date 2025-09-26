@@ -1,6 +1,7 @@
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import Image from "next/image";
+import type { acfBlocks } from "@/types/acf";
 
 export function MarkUpGReview() {
   return (
@@ -96,19 +97,15 @@ export function MarkUpGReview() {
   );
 }
 
+type EarningFlowProps = {};
+
 type heroContent = {
+  data: acfBlocks;
   title?: string[];
-  description?: string;
-  btnText?: string;
-  btnUrl?: string;
 };
 
-export function HeroHome({
-  title = [],
-  description,
-  btnText,
-  btnUrl,
-}: heroContent) {
+export function HeroHome({ data, title = [] }: heroContent) {
+  console.log("url:", data.hero_banner_home_banner_btn_url);
   return (
     <div className={`${styles.hero_home} h-screen`}>
       {/* grain bg effect */}
@@ -131,16 +128,16 @@ export function HeroHome({
               className="paragraph max-w-[500px] mx-auto mb-12 opacity-80"
               style={{ fontWeight: "300" }}
             >
-              {description}
+              {data.hero_banner_home_banner_paragraph}
             </p>
 
             <Btn
               size="large"
               varient="primary-ghost"
               isArrowVisible={true}
-              href={btnUrl || ""}
+              href={String(data.hero_banner_home_banner_btn_url || "")}
             >
-              {btnText}
+              {data.hero_banner_home_banner_btn_text}
             </Btn>
           </div>
           <div className="max-md:text-center"></div>

@@ -2,13 +2,30 @@
 import BoxedBlock from "../boxed-block/BoxedBlock";
 import Btn from "@/components/ui/Button";
 import Lists from "../ui/Lists";
+import type { acfBlocks } from "@/types/acf";
+import { useAcfRepeaterValues } from "@/hooks/getAcfRepeaterValue";
 
-export function AbookSection() {
-  const aBookListsItems = [
-    "No B-Book – We never profit from losses.",
-    "Trades aligned with you, not against you.",
-    "Consistently called the most honest broker.",
-  ];
+type EarningFlowProps = {
+  data: acfBlocks;
+};
+
+export function AbookSection({ data }: EarningFlowProps) {
+  //repeater keys to gra their values
+  const aBookListsItems = useAcfRepeaterValues(
+    data,
+    "multipurpose_block_feature_bullet_lists",
+    "list_item"
+  );
+
+  // ////////
+  const heading = String(data.multipurpose_block_section_heading || "");
+  const contents = String(data.multipurpose_block_section_content || "");
+  const htmlContent = contents
+    .split(/\r?\n\r?\n/)
+    .map((para?: string) => `<p>${para}</p>`)
+    .join("");
+
+  ////////
   return (
     <section>
       {/* grain bg effect */}
@@ -19,15 +36,14 @@ export function AbookSection() {
           {/* Left */}
           <div>
             <div className="max-md:text-center md:pr-25">
-              <h2 className="h2-size mb-6">
-                A-Book+
-                <br />
-                Never Against You.
-              </h2>
-              <p className="paragraph">
-                We operate with no conflict of interest. Every trade is hedged,
-                every execution aligned with you.
-              </p>
+              <h2
+                className="h2-size mb-6"
+                dangerouslySetInnerHTML={{ __html: heading }}
+              ></h2>
+              <div
+                className="wysWygEditor"
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
+              />
               <div className="mt-12">
                 <Btn
                   varient="primary-ghost"

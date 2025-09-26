@@ -345,7 +345,7 @@ export default function CostAdvantage() {
       </div>
 
       {/* Inputs */}
-      <div className="mt-20 ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(50px,1fr))] gap-6 md:mt-18 mb-15 max-md:mb-10">
+      <div className="mt-20 ap_cards_wrapper grid max-md:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] grid-cols-[repeat(auto-fit,minmax(50px,1fr))] gap-6 md:mt-18 mb-15 max-md:mb-10">
         <div className="lg:col-span-3 space-y-1">
           <div className="label">Starting balance (USD)</div>
           <input
@@ -412,6 +412,17 @@ export default function CostAdvantage() {
         />
       </div>
 
+      {/* Chart */}
+      <div className={`${styles.card} p-4 mt-[20px] chart-pad`}>
+        <div id="chartWrap" className="relative" style={{ height: 420 }}>
+          <canvas ref={canvasRef} />
+        </div>
+        <div className="text-[11px] text-slate-400 mt-2">
+          Source: ForexBenchmark. Day session 04:00–22:00. Past averages don’t
+          guarantee future outcomes.
+        </div>
+      </div>
+
       {/* KPIs (order per request) */}
       <div className="grid grid-cols-1 md:grid-cols-3 mt-[20px] gap-[20px]">
         <KpiCard
@@ -466,17 +477,6 @@ export default function CostAdvantage() {
             {advPct.toFixed(1)}%
           </div>
         </KpiCard>
-      </div>
-
-      {/* Chart */}
-      <div className={`${styles.card} p-4 mt-[20px] chart-pad`}>
-        <div id="chartWrap" className="relative" style={{ height: 420 }}>
-          <canvas ref={canvasRef} />
-        </div>
-        <div className="text-[11px] text-slate-400 mt-2">
-          Source: ForexBenchmark. Day session 04:00–22:00. Past averages don’t
-          guarantee future outcomes.
-        </div>
       </div>
 
       {/* component-scoped styles to mirror your HTML */}

@@ -26,20 +26,22 @@ import CostAdvantage from "@/components/cost-advantage/CostAdvantage";
 import Section from "@/components/section/Section";
 
 export default async function Home() {
+  //
   const acfFields = await getPageACF("home-page");
   if (!acfFields) return <p>No data found</p>;
 
-  //console.log(acfFields?.acf_blocks[0]);
+  //
   const getHeroHomeData = acfFields?.acf_blocks[0]?.attrs?.data;
+  const earningFlowData = acfFields?.acf_blocks[1]?.attrs?.data;
+  const moreValueRealAlignmentData = acfFields?.acf_blocks[2]?.attrs?.data;
+  const getDataAbookSectionHome = acfFields?.acf_blocks[3]?.attrs?.data;
 
   return (
     <>
       {/* Hero Banner */}
       <HeroHome
+        data={getHeroHomeData}
         title={["GET", "PAID", "WHEN", "YOU", "TRADE"]}
-        description={getHeroHomeData.hero_banner_home_banner_paragraph}
-        btnText={getHeroHomeData.hero_banner_home_banner_btn_text}
-        btnUrl={getHeroHomeData.hero_banner_home_banner_btn_url}
       />
       {/* Hero Banner */}
 
@@ -52,13 +54,13 @@ export default async function Home() {
       </Section>
 
       {/* Earning Flow Section */}
-      <EarningFlow />
+      <EarningFlow data={earningFlowData} />
       {/* Earning Flow Section Ends */}
       {/* Generic Cards Section */}
-      <MoreValueRealAlignment />
+      <MoreValueRealAlignment data={moreValueRealAlignmentData} />
       {/* Generic Cards Section Ends */}
       {/* A book section */}
-      <AbookSection />
+      <AbookSection data={getDataAbookSectionHome} />
       {/* A book section ends */}
       {/* Live Pricing Section */}
       <LivePricingAllTable />
