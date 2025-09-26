@@ -18,20 +18,39 @@ import GoogleReview from "@/components/google-review/GoogleReview";
 import FoundersCard from "@/components/founder-card/FounderCard";
 import { BottomCta } from "@/components/bottom-cta/BottomCta";
 import Faq from "@/components/faq/Faq";
-import { getPageData } from "@/data/data-home-page";
+import { getPageACF } from "@/data/wp-pages";
 
 //Import Utils####
 import { homeFaqData } from "@/utils/FaqHome";
+import CostAdvantage from "@/components/cost-advantage/CostAdvantage";
+import Section from "@/components/section/Section";
 
 export default async function Home() {
+  const acfFields = await getPageACF("home-page");
+  if (!acfFields) return <p>No data found</p>;
+
+  //console.log(acfFields?.acf_blocks[0]);
+  const getHeroHomeData = acfFields?.acf_blocks[0]?.attrs?.data;
+
   return (
     <>
       {/* Hero Banner */}
-      <HeroHome />
+      <HeroHome
+        title={["GET", "PAID", "WHEN", "YOU", "TRADE"]}
+        description={getHeroHomeData.hero_banner_home_banner_paragraph}
+        btnText={getHeroHomeData.hero_banner_home_banner_btn_text}
+        btnUrl={getHeroHomeData.hero_banner_home_banner_btn_url}
+      />
       {/* Hero Banner */}
+
       {/* User Selling Poing */}
       <UserSellingPoint />
       {/* User Selling Poing */}
+
+      <Section noiseEffect={true}>
+        <CostAdvantage />
+      </Section>
+
       {/* Earning Flow Section */}
       <EarningFlow />
       {/* Earning Flow Section Ends */}

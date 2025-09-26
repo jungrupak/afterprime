@@ -1,4 +1,3 @@
-"use client";
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import Image from "next/image";
@@ -100,38 +99,21 @@ export function MarkUpGReview() {
 type heroContent = {
   title?: string[];
   description?: string;
+  btnText?: string;
+  btnUrl?: string;
 };
 
 export function HeroHome({
-  title = ["GET", "PAID", "WHEN", "YOU", "TRADE"],
-  description = "Trade at the lowest verified costs. Flow that pays you back.",
+  title = [],
+  description,
+  btnText,
+  btnUrl,
 }: heroContent) {
   return (
     <div className={`${styles.hero_home} h-screen`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-
-      {/* <div className="home_banner_video">
-        <video
-          playsInline
-          className="mui-1eodtn4-video"
-          controls={false}
-          data-automation="VideoPlayer"
-          height="100%"
-          width="100%"
-          style={{ height: "calc(100vh + 42vh)" }}
-          loop
-          muted
-          autoPlay
-          poster=""
-          preload="auto"
-          aria-label="video-player"
-          controlsList="nodownload"
-        >
-          <source src="/banner-vid.mp4" type="video/mp4" />
-        </video>
-      </div> */}
 
       <div className="ap_container h-full relative z-2">
         <div className="flex flex-wrap items-center h-full min-h-[400px] lg:min-h-[600px] relative">
@@ -156,9 +138,9 @@ export function HeroHome({
               size="large"
               varient="primary-ghost"
               isArrowVisible={true}
-              href="#"
+              href={btnUrl || ""}
             >
-              Request Invite
+              {btnText}
             </Btn>
           </div>
           <div className="max-md:text-center"></div>
