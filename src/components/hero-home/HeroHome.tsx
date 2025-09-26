@@ -97,8 +97,6 @@ export function MarkUpGReview() {
   );
 }
 
-type EarningFlowProps = {};
-
 type heroContent = {
   data: acfBlocks;
   title?: string[];
