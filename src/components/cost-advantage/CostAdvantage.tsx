@@ -1,10 +1,17 @@
 "use client";
+import styles from "./CostAdvantage.module.scss";
+import Button from "../ui/Button";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-
-import styles from "./CostAdvantage.module.scss";
-import { Chart, ChartDataset } from "chart.js/auto";
-import Button from "../ui/Button";
+import Chart, {
+  ChartType,
+  ChartData,
+  ChartOptions,
+  Plugin,
+  ChartDataset,
+  ScriptableContext,
+  PointElement,
+} from "chart.js/auto";
 
 type BrokerKey = keyof typeof COST_MAP;
 
@@ -81,7 +88,7 @@ const BROKER_COLORS: Record<string, string> = {
   "Industry Average": "#94a3b8",
 };
 
-const BROKER_PICK_COLORS = ["#38bdf8", "#a78bfa", "#f59e0b"]; // Broker 1/2/3
+const BROKER_PICK_COLORS = ["#38bdf8", "#a78bfa", "#f59e0b"];
 
 const USD = (v: number) =>
   v.toLocaleString(undefined, {
@@ -91,26 +98,30 @@ const USD = (v: number) =>
   });
 
 function buildBrokerList() {
-  const all = Object.keys(COST_MAP);
+  const all = Object.keys(COST_MAP) as BrokerKey[];
   const rest = all
     .filter(
       (k) => k !== "Industry Average" && k !== "Top 10" && k !== "Afterprime"
     )
     .sort();
-  return ["Industry Average", "Top 10", "—DIVIDER—", "Afterprime", ...rest];
+  return [
+    "Industry Average",
+    "Top 10",
+    "—DIVIDER—",
+    "Afterprime",
+    ...rest,
+  ] as const;
 }
 
 export default function CostAdvantage() {
-  // Form state
-  const [start, setStart] = useState(100000);
+  const [start, setStart] = useState(100_000);
   const [lots, setLots] = useState(100);
-  const [retPct, setRetPct] = useState(2); // monthly %
+  const [retPct, setRetPct] = useState(2);
   const [months, setMonths] = useState(60);
-  const [b1, setB1] = useState<BrokerKey>("Industry Average" as BrokerKey);
-  const [b2, setB2] = useState<BrokerKey>("Tickmill UK (Raw)" as BrokerKey);
-  const [b3, setB3] = useState<BrokerKey>("FXCM" as BrokerKey);
+  const [b1, setB1] = useState<BrokerKey>("Industry Average");
+  const [b2, setB2] = useState<BrokerKey>("Tickmill UK (Raw)");
+  const [b3, setB3] = useState<BrokerKey>("FXCM");
 
-  // KPI state
   const [apEnd, setApEnd] = useState(0);
   const [apRet, setApRet] = useState(0);
   const [b1End, setB1End] = useState(0);
@@ -119,70 +130,59 @@ export default function CostAdvantage() {
   const [advPct, setAdvPct] = useState(0);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartRef = useRef<Chart | null>(null);
+  const chartRef = useRef<Chart<"line", number[], string> | null>(null);
 
   const optionsList = useMemo(buildBrokerList, []);
 
-  // Custom right-side labels plugin (matches your HTML version)
-  const RightLabels = useMemo(
+  // Plugin typed correctly
+  const RightLabels = useMemo<Plugin<"line">>(
     () => ({
       id: "RightLabels",
-      afterDatasetsDraw(chart: Chart) {
-        try {
-          const { ctx, chartArea, data } = chart;
-          if (!chartArea) return;
-          const x = chartArea.right + 10;
-          const top = chartArea.top;
-          const bottom = chartArea.bottom;
-          const h = 30;
-          const step = 6;
+      afterDatasetsDraw(chart) {
+        const { ctx, chartArea, data } = chart;
+        if (!chartArea) return;
 
-          const used: Array<[number, number]> = [];
-          ctx.save();
-          ctx.font = "12px sans-serif";
-          ctx.textBaseline = "top";
-          ctx.fillStyle = "#cbd5e1";
+        const x = chartArea.right + 10;
+        const top = chartArea.top;
+        const bottom = chartArea.bottom;
+        const h = 30;
+        const step = 6;
 
-          data.datasets.forEach((ds: ChartDataset<"line">, i: number) => {
-            const meta = chart.getDatasetMeta(i);
-            if (!meta || !meta.data || !meta.data.length) return;
+        const used: Array<[number, number]> = [];
+        ctx.save();
+        ctx.font = "12px sans-serif";
+        ctx.textBaseline = "top";
+        ctx.fillStyle = "#cbd5e1";
 
-            const lastPt = meta.data[meta.data.length - 1];
-            if (!lastPt) return;
+        data.datasets.forEach((ds, i) => {
+          const meta = chart.getDatasetMeta(i);
+          if (!meta || !meta.data || !meta.data.length) return;
+          const pt = meta.data[meta.data.length - 1] as PointElement;
 
-            // Ensure ds.data is number[]
-            const values = ds.data as number[];
-            if (!values || !values.length) return;
+          const vEnd = ds.data[ds.data.length - 1] as number;
+          const vStart = ds.data[0] as number;
+          const pct = ((vEnd - vStart) / vStart) * 100;
 
-            const vEnd = values[values.length - 1];
-            const vStart = values[0];
-            if (typeof vEnd !== "number" || typeof vStart !== "number") return;
+          let y = pt.y - 14;
+          let tries = 0;
+          const clash = (a: number, b: number) => !(y + h < a || y > b);
 
-            const pct = ((vEnd - vStart) / vStart) * 100;
+          while (tries < 200 && used.some(([a, b]) => clash(a, b))) {
+            const dir = tries % 2 === 0 ? 1 : -1;
+            y += dir * step * Math.ceil((tries + 1) / 2);
+            y = Math.max(top, Math.min(y, bottom - h));
+            tries++;
+          }
+          used.push([y, y + h]);
 
-            let y = lastPt.y - 14;
-            let tries = 0;
-            const clash = (a: number, b: number) => !(y + h < a || y > b);
+          ctx.fillText(ds.label ?? "", x, y);
+          ctx.fillText(`${USD(vEnd)} (${pct.toFixed(1)}%)`, x, y + 16);
 
-            while (tries < 200 && used.some(([a, b]) => clash(a, b))) {
-              const dir = tries % 2 === 0 ? 1 : -1;
-              y += dir * step * Math.ceil((tries + 1) / 2);
-              y = Math.max(top, Math.min(y, bottom - h));
-              tries++;
-            }
-            used.push([y, y + h]);
-
-            ctx.fillText(ds.label ?? "", x, y);
-            ctx.fillText(`${USD(vEnd)} (${pct.toFixed(1)}%)`, x, y + 16);
-
-            ctx.beginPath();
-            ctx.arc(lastPt.x, lastPt.y, 3, 0, Math.PI * 2);
-            ctx.fill();
-          });
-          ctx.restore();
-        } catch {
-          /* noop */
-        }
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 3, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.restore();
       },
     }),
     []
