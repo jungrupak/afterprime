@@ -104,13 +104,7 @@ function buildBrokerList() {
       (k) => k !== "Industry Average" && k !== "Top 10" && k !== "Afterprime"
     )
     .sort();
-  return [
-    "Industry Average",
-    "Top 10",
-    "—DIVIDER—",
-    "Afterprime",
-    ...rest,
-  ] as const;
+  return ["Industry Average", "Top 10", "—DIVIDER—", "Afterprime", ...rest];
 }
 
 export default function CostAdvantage() {
@@ -130,7 +124,7 @@ export default function CostAdvantage() {
   const [advPct, setAdvPct] = useState(0);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartRef = useRef<Chart<"line", number[], string> | null>(null);
+  const chartRef = useRef<Chart<"line", number[], number> | null>(null);
 
   const optionsList = useMemo(buildBrokerList, []);
 
@@ -268,42 +262,45 @@ export default function CostAdvantage() {
     }
 
     if (canvasRef.current) {
-      chartRef.current = new Chart(canvasRef.current, {
-        type: "line",
-        data: { labels: calc.labels, datasets },
-        plugins: [RightLabels],
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          animation: false,
-          layout: { padding: { right: 200 } },
-          plugins: {
-            legend: {
-              labels: {
-                color: "#cbd5e1",
-                boxWidth: 12,
-                usePointStyle: true,
-                pointStyle: "line",
+      chartRef.current = new Chart<"line", number[], number>(
+        canvasRef.current,
+        {
+          type: "line",
+          data: { labels: calc.labels, datasets },
+          plugins: [RightLabels],
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: false,
+            layout: { padding: { right: 200 } },
+            plugins: {
+              legend: {
+                labels: {
+                  color: "#cbd5e1",
+                  boxWidth: 12,
+                  usePointStyle: true,
+                  pointStyle: "line",
+                },
+              },
+            },
+            elements: { point: { radius: 0, hitRadius: 10 } },
+            scales: {
+              x: {
+                title: { display: true, text: "Months", color: "#94a3b8" },
+                ticks: { color: "#cbd5e1" },
+                grid: { color: "rgba(148,163,184,.15)" },
+              },
+              y: {
+                ticks: {
+                  color: "#cbd5e1",
+                  callback: (v: unknown) => `$${Number(v).toLocaleString()}`,
+                },
+                grid: { color: "rgba(148,163,184,.15)" },
               },
             },
           },
-          elements: { point: { radius: 0, hitRadius: 10 } },
-          scales: {
-            x: {
-              title: { display: true, text: "Months", color: "#94a3b8" },
-              ticks: { color: "#cbd5e1" },
-              grid: { color: "rgba(148,163,184,.15)" },
-            },
-            y: {
-              ticks: {
-                color: "#cbd5e1",
-                callback: (v: unknown) => `$${Number(v).toLocaleString()}`,
-              },
-              grid: { color: "rgba(148,163,184,.15)" },
-            },
-          },
-        },
-      });
+        }
+      );
     }
   }
 
