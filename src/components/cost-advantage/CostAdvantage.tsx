@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+
 import styles from "./CostAdvantage.module.scss";
-import Chart from "chart.js/auto";
+import { Chart, ChartDataset } from "chart.js/auto";
 import Button from "../ui/Button";
 
 type BrokerKey = keyof typeof COST_MAP;
@@ -128,7 +129,7 @@ export default function CostAdvantage() {
       id: "RightLabels",
       afterDatasetsDraw(chart: Chart) {
         try {
-          const { ctx, chartArea, data } = chart as any;
+          const { ctx, chartArea, data } = chart;
           if (!chartArea) return;
           const x = chartArea.right + 10;
           const top = chartArea.top;
@@ -142,7 +143,7 @@ export default function CostAdvantage() {
           ctx.textBaseline = "top";
           ctx.fillStyle = "#cbd5e1";
 
-          data.datasets.forEach((ds: any, i: number) => {
+          data.datasets.forEach((ds: ChartDataset, i: number) => {
             const meta = chart.getDatasetMeta(i);
             if (!meta || !meta.data || !meta.data.length) return;
             const pt = meta.data[meta.data.length - 1];
@@ -197,7 +198,7 @@ export default function CostAdvantage() {
     ];
 
     picks.forEach((bk, idx) => {
-      if (!bk || bk === ("—DIVIDER—" as any)) return;
+      if (!bk || bk === ("—DIVIDER—" as unknown)) return;
       if (bk === "Afterprime") return; // already included
       if (seriesDefs.some((s) => s.label === bk)) return;
       const c = COST_MAP[bk];
@@ -288,7 +289,7 @@ export default function CostAdvantage() {
             y: {
               ticks: {
                 color: "#cbd5e1",
-                callback: (v: any) => `$${Number(v).toLocaleString()}`,
+                callback: (v: unknown) => `$${Number(v).toLocaleString()}`,
               },
               grid: { color: "rgba(148,163,184,.15)" },
             },
