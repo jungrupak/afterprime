@@ -143,16 +143,24 @@ export default function CostAdvantage() {
           ctx.textBaseline = "top";
           ctx.fillStyle = "#cbd5e1";
 
-          data.datasets.forEach((ds: ChartDataset, i: number) => {
+          data.datasets.forEach((ds: ChartDataset<"line">, i: number) => {
             const meta = chart.getDatasetMeta(i);
             if (!meta || !meta.data || !meta.data.length) return;
-            const pt = meta.data[meta.data.length - 1];
 
-            const vEnd = ds.data[ds.data.length - 1];
-            const vStart = ds.data[0];
+            const lastPt = meta.data[meta.data.length - 1];
+            if (!lastPt) return;
+
+            // Ensure ds.data is number[]
+            const values = ds.data as number[];
+            if (!values || !values.length) return;
+
+            const vEnd = values[values.length - 1];
+            const vStart = values[0];
+            if (typeof vEnd !== "number" || typeof vStart !== "number") return;
+
             const pct = ((vEnd - vStart) / vStart) * 100;
 
-            let y = pt.y - 14;
+            let y = lastPt.y - 14;
             let tries = 0;
             const clash = (a: number, b: number) => !(y + h < a || y > b);
 
@@ -164,11 +172,11 @@ export default function CostAdvantage() {
             }
             used.push([y, y + h]);
 
-            ctx.fillText(ds.label, x, y);
+            ctx.fillText(ds.label ?? "", x, y);
             ctx.fillText(`${USD(vEnd)} (${pct.toFixed(1)}%)`, x, y + 16);
 
             ctx.beginPath();
-            ctx.arc(pt.x, pt.y, 3, 0, Math.PI * 2);
+            ctx.arc(lastPt.x, lastPt.y, 3, 0, Math.PI * 2);
             ctx.fill();
           });
           ctx.restore();
