@@ -31,6 +31,14 @@ export type Blocks = {
   "inner-page-usp": {
     usps?: USPItem[];
   };
+  "section-feature-four-cards": {
+    section_card_repeator_section_title?: string;
+    section_card_repeator_section_paragraph?: string;
+    section_card_repeator_enable_cta?: string;
+    section_card_repeator_cta_button_label?: string;
+    section_card_repeator_cta_button_link?: string;
+    cards?: CardRepeaterType[];
+  };
 };
 //
 
@@ -40,6 +48,14 @@ export type USPItem = {
   description?: string;
 };
 //Ends
+
+// Card repeater
+export type CardRepeaterType = {
+  title?: string;
+  paragraph?: string;
+  button_label?: string;
+  button_url?: string;
+};
 
 export type CustomBlocks = keyof Blocks; //"intro_block" | "cta_block" | "testimonial_block";
 

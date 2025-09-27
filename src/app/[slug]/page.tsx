@@ -1,8 +1,13 @@
 import { WPPage, CustomBlocks } from "@/types/blocks";
 import { blockRegistry } from "@/components/blocks";
 import { acfFieldRegistry } from "@/components/acfFieldGroups";
+
+//Customized Block for repeator fields used
 import { normalizeUSPBlock } from "@/components/blocks/USPblock/normalize";
 import USPBlock from "@/components/blocks/USPblock/USPblock";
+//section with cards
+import { repeatorValueNormalize } from "@/components/blocks/section-featured-cards/repeaterValueNormalize";
+import SectionFeaturedCards from "@/components/blocks/section-featured-cards/SectionFeaturedCards";
 
 interface PageProps {
   params: { slug: string };
@@ -27,6 +32,12 @@ export default async function Page({ params }: PageProps) {
           if (block.name === "acf/inner-page-usp") {
             const normalized = normalizeUSPBlock(block.fields);
             return <USPBlock key={index} {...normalized} />;
+          }
+
+          // Special case: USP repeater
+          if (block.name === "acf/section-feature-four-cards") {
+            const normalized = repeatorValueNormalize(block.fields);
+            return <SectionFeaturedCards key={index} {...normalized} />;
           }
 
           // Generic case
