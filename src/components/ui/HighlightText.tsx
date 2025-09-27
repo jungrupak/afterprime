@@ -1,14 +1,17 @@
 import styles from "./ui.module.scss";
 
 interface HighlightTextProp {
-  textValue?: string;
-  maxWidth?: number;
+  highlight_text?: string;
+  content_width?: string;
 }
 
-export default function HighlightText({ textValue }: HighlightTextProp) {
+export default function HighlightText({
+  highlight_text,
+  content_width,
+}: HighlightTextProp) {
   return (
     <div className={`${styles.hightLightText}`}>
-      <h2 className="md:max-w-[900px]">{textValue}</h2>
+      <h2 style={{ maxWidth: content_width + "px" }}>{highlight_text}</h2>
     </div>
   );
 }

@@ -25,7 +25,7 @@ export default function Card({
   cardCtaLink,
   active,
   type,
-  linkTarget,
+  linkTarget = "Self",
 }: CardProps) {
   return (
     <>

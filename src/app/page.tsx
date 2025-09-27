@@ -9,32 +9,39 @@ import { HeroHome } from "@/components/hero-home/HeroHome";
 import { UserSellingPoint } from "@/components/home-sections/UserSellingPoint";
 import { EarningFlow } from "@/components/home-sections/EarningFlow";
 import { MoreValueRealAlignment } from "@/components/home-sections/MoreValueRealAlignment";
-import { AbookSection } from "@/components/home-sections/AbookSection";
 import LivePricingAllTable from "@/components/live-pricing-tables/LivePricingAll";
 import { BuiltForTraders } from "@/components/home-sections/BuiltForTraders";
 import { PlatformsSection } from "@/components/home-sections/PlatformSection";
-import { CommunityDrivenSection } from "@/components/home-sections/CommunityDrivenSection";
+import { MultipurposeBlock } from "@/components/block-multipurpose/BlockMultipurpose";
 import GoogleReview from "@/components/google-review/GoogleReview";
-import FoundersCard from "@/components/founder-card/FounderCard";
 import { BottomCta } from "@/components/bottom-cta/BottomCta";
 import Faq from "@/components/faq/Faq";
 import { getPageACF } from "@/data/wp-pages";
+import { getOptionsACF } from "@/data/wp-options";
 
 //Import Utils####
-import { homeFaqData } from "@/utils/FaqHome";
 import CostAdvantage from "@/components/cost-advantage/CostAdvantage";
 import Section from "@/components/section/Section";
 
 export default async function Home() {
   //
   const acfFields = await getPageACF("home-page");
+  const optionFields = await getOptionsACF();
   if (!acfFields) return <p>No data found</p>;
+  if (!optionFields) return <p>No data found</p>;
 
   //
-  const getHeroHomeData = acfFields?.acf_blocks[0]?.attrs?.data;
-  const earningFlowData = acfFields?.acf_blocks[1]?.attrs?.data;
-  const moreValueRealAlignmentData = acfFields?.acf_blocks[2]?.attrs?.data;
-  const getDataAbookSectionHome = acfFields?.acf_blocks[3]?.attrs?.data;
+  const getHeroHomeData = acfFields?.acf_blocks[0]?.fields;
+  const earningFlowData = acfFields?.acf_blocks[1]?.fields;
+  const moreValueRealAlignmentData = acfFields?.acf_blocks[2]?.fields;
+  const getDataAbookSectionHome = acfFields?.acf_blocks[3]?.fields;
+  const getProsandConsHome = acfFields?.acf_blocks[4]?.fields;
+  const getPlatformsSectionData = acfFields?.acf_blocks[5]?.fields;
+  const getCommunityDrivenSectionData = acfFields?.acf_blocks[6]?.fields;
+  const getFounderCardData = acfFields?.acf?.founder_message;
+  const getBottomCtaData = optionFields?.bottom_cta;
+  const getFaqData = acfFields?.acf?.faq;
+  //
 
   return (
     <>
@@ -49,9 +56,11 @@ export default async function Home() {
       <UserSellingPoint />
       {/* User Selling Poing */}
 
+      {/* Cost Advantage */}
       <Section noiseEffect={true}>
         <CostAdvantage />
       </Section>
+      {/* Cost Advantage */}
 
       {/* Earning Flow Section */}
       <EarningFlow data={earningFlowData} />
@@ -60,34 +69,31 @@ export default async function Home() {
       <MoreValueRealAlignment data={moreValueRealAlignmentData} />
       {/* Generic Cards Section Ends */}
       {/* A book section */}
-      <AbookSection data={getDataAbookSectionHome} />
+      <MultipurposeBlock data={getDataAbookSectionHome} isBoxed={true} />
       {/* A book section ends */}
       {/* Live Pricing Section */}
       <LivePricingAllTable />
       {/* Live Pricing Section Ends */}
       {/* Section slot */}
-      <BuiltForTraders />
+      <BuiltForTraders data={getProsandConsHome} />
       {/* Section slot ends */}
       {/* Platform Section */}
-      <PlatformsSection />
+      <PlatformsSection data={getPlatformsSectionData} />
       {/* Platform Section Ends */}
       {/* SEction Community Driven */}
-      <CommunityDrivenSection />
-      {/* SEction Community Driven Ends */}
+      {/* A book section */}
+      <MultipurposeBlock data={getCommunityDrivenSectionData} isBoxed={true} />
+      {/* A book section ends */}
       {/* Section Google Review */}
       <GoogleReview />
       {/* Section Google Review ends */}
       {/* Section Founders Block */}
-      <FoundersCard
-        cardTitle="Trusted, since 2012 — always on your side."
-        cardParagraph="“After all this time, we've learned one thing: when interests align, magic happens. Afterprime is built entirely on that truth.”"
-      />
       {/* Section Founders Block Ends */}
       {/* CTA Section */}
-      <BottomCta />
+      <BottomCta data={getBottomCtaData} />
       {/* CTA Section Ends */}
       {/* Faq Section */}
-      <Faq faqSubject="General FAQ" faqObjectsToReceive={homeFaqData} />
+      <Faq faqSubject="General FAQ" data={getFaqData} />
       {/* Faq Section Ends */}
     </>
   );

@@ -1,15 +1,14 @@
-import React from "react";
 import styles from "./style.module.scss";
 import Image from "next/image";
 
 interface FounderCardProps {
-  cardTitle?: string;
-  cardParagraph?: string;
+  cart_title?: string;
+  card_paragraph?: string;
 }
 
 export default function FoundersCard({
-  cardTitle,
-  cardParagraph,
+  cart_title,
+  card_paragraph,
 }: FounderCardProps) {
   const founderImg = "/img/founder-image.jpg";
   return (
@@ -27,8 +26,8 @@ export default function FoundersCard({
           </div>
           <div className={`${styles.founder_story}`}>
             <div className={`${styles.dotted_bg} dotted-block`}></div>
-            <h2 className={`${styles.heading}`}>{cardTitle}</h2>
-            <p className={`${styles.paragraph}`}>{cardParagraph}</p>
+            <h2 className={`${styles.heading}`}>{cart_title}</h2>
+            <p className={`${styles.paragraph}`}>{card_paragraph}</p>
             <span className={`${styles.founder_info}`}>
               <strong>&bull; Jeremy & Elan,</strong> Co-Founders of Afterprime
             </span>

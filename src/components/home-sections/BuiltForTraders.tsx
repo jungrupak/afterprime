@@ -1,25 +1,27 @@
 import React from "react";
-import { ProsNCons } from "@/components/ui/ProsNcons";
-import type { ProsConsObjects } from "@/types/prosCons";
+import Lists from "../ui/Lists";
 import BoxedBlock from "../boxed-block/BoxedBlock";
 import Btn from "@/components/ui/Button";
-export function BuiltForTraders() {
-  const prosNcons: ProsConsObjects = {
-    pros: {
-      label: "Designed For:",
-      points: [
-        "Professional traders running consistent strategies.",
-        "Disciplined traders who respect execution, risk, and capital.",
-      ],
-    },
-    cons: {
-      label: "Not Designed For:",
-      points: [
-        "Arbitrage or latency flow type strategies.",
-        "Accounts chasing leverage, bonuses, or gimmicks.",
-      ],
-    },
-  };
+import type { acfBlocks } from "@/types/acf";
+import { useAcfRepeaterValues } from "@/hooks/getAcfRepeaterValue";
+
+////////
+type DataProps = {
+  data: acfBlocks;
+};
+
+////////
+export function BuiltForTraders({ data }: DataProps) {
+  const dataPros = useAcfRepeaterValues(
+    data,
+    "pros_and_cons_pros_or_advantages",
+    "list_item"
+  );
+  const dataCons = useAcfRepeaterValues(
+    data,
+    "pros_and_cons_cons_or_disadvantages",
+    "list_item"
+  );
 
   return (
     <section>
@@ -32,21 +34,19 @@ export function BuiltForTraders() {
           <div>
             <div className="max-md:text-center md:pr-25">
               <h2 className="h2-size mb-6">
-                Afterprime is built for traders who treat trading like a
-                profession.
+                {data.pros_and_cons_section_title}
               </h2>
               <p className="paragraph">
-                Our platform is designed for clients who understand our model,
-                respect risk, and approach markets with discipline.
+                {data.pros_and_cons_section_paragraph}
               </p>
               <div className="mt-12">
                 <Btn
                   varient="primary-ghost"
-                  href="#"
+                  href={String(data.pros_and_cons_cta_url || "")}
                   isArrowVisible={true}
                   size="large"
                 >
-                  How to Qualify
+                  {data.pros_and_cons_section_cta_label}
                 </Btn>
               </div>
             </div>
@@ -55,7 +55,19 @@ export function BuiltForTraders() {
 
           {/* Right */}
           <div>
-            <ProsNCons data={prosNcons} />
+            {/* Pros */}
+            <div className="mb-16">
+              <h3 className="font-bold text-[18px] mb-8">Designed For:</h3>
+              <Lists listItems={dataPros} bulletVarient="arrow-blue" />
+            </div>
+            {/* Ends */}
+
+            {/* Cons */}
+            <div>
+              <h3 className="font-bold text-[18px] mb-8">Not Designed For:</h3>
+              <Lists listItems={dataCons} bulletVarient="arrow-red" />
+            </div>
+            {/* Cons Ends */}
           </div>
           {/* Right Ends */}
         </BoxedBlock>

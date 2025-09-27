@@ -7,9 +7,10 @@ import { useAcfRepeaterValues } from "@/hooks/getAcfRepeaterValue";
 
 type DataProps = {
   data: acfBlocks;
+  isBoxed?: boolean;
 };
 
-export function AbookSection({ data }: DataProps) {
+export function MultipurposeBlock({ data, isBoxed }: DataProps) {
   //repeater keys to gra their values
   const aBookListsItems = useAcfRepeaterValues(
     data,
@@ -32,7 +33,7 @@ export function AbookSection({ data }: DataProps) {
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
       <div className="ap_container">
-        <BoxedBlock isBoxed={true} vAlign="center">
+        <BoxedBlock isBoxed={isBoxed} vAlign="center">
           {/* Left */}
           <div>
             <div className="max-md:text-center md:pr-25">

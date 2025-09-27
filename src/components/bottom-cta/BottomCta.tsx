@@ -1,24 +1,28 @@
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
-export function BottomCta() {
-  const ctaCardsObjects = [
-    {
-      cardTitle: "Apply",
-      description:
-        "We review each application by hand. Only serious traders are approved.",
-      btnLink: "#",
-      btnText: "Request Invite",
-      btnColor: "primary",
-    },
-    {
-      cardTitle: "Referral",
-      description:
-        "Know an existing member? Their invite code gets you straight through the door.",
-      btnLink: "#",
-      btnText: "Ask on Discord",
-      btnColor: "ghost",
-    },
-  ] as const; //doing this "as const" because the <btn varient did not taking its value as as Btn's one of the  varient defined in Btn compponent###
+
+interface acfBlocks {
+  section_title?: string;
+  section_paragraph?: string;
+  card_apply?: {
+    title?: string;
+    paragraph?: string;
+    cta_label?: string;
+    cta_link?: string;
+  };
+  card_referal?: {
+    title?: string;
+    paragraph?: string;
+    cta_label?: string;
+    cta_link?: string;
+  };
+}
+
+interface Props {
+  data: acfBlocks;
+}
+
+export function BottomCta({ data }: Props) {
   return (
     <>
       <section className={`${styles.section_cta}`}>
@@ -27,29 +31,39 @@ export function BottomCta() {
         {/* grain bg effect */}
         <div className="ap_container">
           <div className="max-w-[700px] mx-auto text-center">
-            <h2 className="h2-size mb-6">
-              Built on alignment,
-              <br /> not extraction.
-            </h2>
+            <h2 className="h2-size mb-6">{data?.section_title}</h2>
             <p className="paragraph max-w-2xl mx-auto mb-20 opacity-90">
-              Lowest costs, transparent execution, shared rewards. Value you
-              won&apos;t find anywhere else.
+              {data.section_paragraph}
             </p>
           </div>
           {/* Cards */}
           <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6 text-center md:mt-18 md:max-w-[900px] md:mx-auto">
-            {ctaCardsObjects.map((item, index) => (
-              <div key={index} className={`${styles.ctaCard} group`}>
-                <h3 className="">{item.cardTitle}</h3>
-                <p>{item.description}</p>
+            <div className={`${styles.ctaCard} group`}>
+              <h3 className="">{data?.card_apply?.title}</h3>
+              <p>{data?.card_apply?.paragraph}</p>
 
-                {item.btnLink && (
-                  <Btn size="regular" varient={item.btnColor}>
-                    {item.btnText}
-                  </Btn>
-                )}
-              </div>
-            ))}
+              <Btn
+                size="regular"
+                href={data?.card_apply?.cta_link}
+                varient={"primary"}
+              >
+                {data?.card_apply?.cta_label}
+              </Btn>
+            </div>
+
+            <div className={`${styles.ctaCard} group`}>
+              <h3 className="">{data?.card_referal?.title}</h3>
+              <p>{data?.card_referal?.paragraph}</p>
+
+              <Btn
+                size="regular"
+                href={data?.card_referal?.cta_link}
+                varient={"ghost"}
+                linkTarget="_self"
+              >
+                {data?.card_referal?.cta_label}
+              </Btn>
+            </div>
           </div>
           {/* Cards Ends */}
         </div>

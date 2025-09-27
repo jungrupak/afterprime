@@ -3,7 +3,7 @@ import USP from "@/components/ui/Usp";
 
 interface UspData {
   title: string;
-  subTitle: string;
+  description: string;
 }
 
 interface UspDataProps {

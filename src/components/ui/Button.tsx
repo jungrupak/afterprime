@@ -20,6 +20,7 @@ type ButtonProps = {
   isArrowVisible?: boolean;
   varient?: ButtonVarients;
   size?: "regular" | "small" | "x-small" | "large";
+  linkTarget?: "_self" | "_blank";
 };
 
 export default function Button({
@@ -29,6 +30,7 @@ export default function Button({
   isArrowVisible = false,
   onclick,
   href,
+  linkTarget,
 }: ButtonProps) {
   const btnClickHandle = useButtonClickHandling({ onclick, href });
 
@@ -80,7 +82,12 @@ export default function Button({
 
   if (href) {
     return (
-      <Link href={href} className={classNames} onClick={btnClickHandle}>
+      <Link
+        href={href}
+        className={classNames}
+        onClick={btnClickHandle}
+        target={linkTarget}
+      >
         {content}
       </Link>
     );
