@@ -28,7 +28,7 @@ export type ACFBlock<T extends CustomBlocks = CustomBlocks> = {
 
 //Acf Field Groups############/////////
 export type PageFieldGroups = {
-  founder_message?: {
+  founder_message: {
     cart_title?: string;
     card_paragraph?: string;
   };
