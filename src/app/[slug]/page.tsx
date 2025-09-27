@@ -8,6 +8,8 @@ import USPBlock from "@/components/blocks/USPblock/USPblock";
 //section with cards
 import { repeatorValueNormalize } from "@/components/blocks/section-featured-cards/repeaterValueNormalize";
 import SectionFeaturedCards from "@/components/blocks/section-featured-cards/SectionFeaturedCards";
+//Multipurpose Block
+import { MultipurposeBlock } from "@/components/blocks/block-multipurpose/BlockMultipurpose";
 
 interface PageProps {
   params: { slug: string };
@@ -39,6 +41,12 @@ export default async function Page({ params }: PageProps) {
             const normalized = repeatorValueNormalize(block.fields);
             return <SectionFeaturedCards key={index} {...normalized} />;
           }
+
+          //   // Special case: Section with cards
+          //   if (block.name === "acf/block-multipurpose") {
+          //     const normalized = repeatorValueNormalize(block.fields);
+          //     return <SectionFeaturedCards key={index} {...normalized} />;
+          //   }
 
           // Generic case for other blocks
           const blockName = block.name.replace("acf/", "") as CustomBlocks;

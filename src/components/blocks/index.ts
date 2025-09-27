@@ -8,6 +8,7 @@ import HighlightBlockQuote from "./highlight-blockquote/HighlightBlockquote";
 import ContentBlock from "./content-block/ContentBlock";
 import USPBlock from "./USPblock/USPblock";
 import SectionFeaturedCards from "./section-featured-cards/SectionFeaturedCards";
+import { MultipurposeBlock } from "./block-multipurpose/BlockMultipurpose";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -18,4 +19,5 @@ export const blockRegistry: {
   "simple-image-content": ContentBlock,
   "inner-page-usp": USPBlock,
   "section-feature-four-cards": SectionFeaturedCards,
+  "block-multipurpose": MultipurposeBlock,
 };

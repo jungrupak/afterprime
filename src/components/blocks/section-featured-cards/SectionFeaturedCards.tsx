@@ -1,5 +1,4 @@
 import styles from "./SectionFeaturesCards.module.scss";
-import { Blocks } from "@/types/blocks";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import { CardRepeaterType } from "@/types/blocks";

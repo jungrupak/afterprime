@@ -11,7 +11,9 @@ export default function HighlightText({
 }: HighlightTextProp) {
   return (
     <div className={`${styles.hightLightText}`}>
-      <h2 style={{ maxWidth: content_width + "px" }}>{highlight_text}</h2>
+      <h2 style={{ maxWidth: content_width + "px", marginBottom: "0" }}>
+        {highlight_text}
+      </h2>
     </div>
   );
 }

@@ -47,6 +47,22 @@ export type Blocks = {
         | "button_url"}`
     ]: string | undefined;
   };
+  "block-multipurpose": {
+    multipurpose_block_is_boxed?: string;
+    multipurpose_block_section_heading?: string;
+    multipurpose_block_section_content?: string;
+    multipurpose_block_block_cta_label?: string;
+    multipurpose_block_cta_url?: string;
+    multipurpose_block_block_has_featured_image?: string;
+    multipurpose_block_has_feature_bullet_list?: string;
+    multipurpose_block_featured_image?: {
+      url?: string;
+      alt?: string;
+    };
+    [key: `multipurpose_block_feature_bullet_lists_${number}_list_item`]:
+      | string
+      | undefined;
+  };
 };
 //
 
