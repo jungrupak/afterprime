@@ -5,28 +5,16 @@ export type Blocks = {
     intro_block_description: string;
     intro_block?: string;
   };
-  "inner-page-hero-banner": {
-    inner_banner_title?: string;
-    inner_banner_paragraph?: string;
-    inner_banner_button_label?: string;
-    inner_banner_button_url?: string;
-    inner_banner?: string;
-  };
 };
 //
 
-export type CustomBlocks = keyof Blocks; //"intro_block" | "cta_block" | "testimonial_block";
+export type CustomBlocks = keyof Blocks;
 
-export type ACFBlock =
-  | {
-      name: "acf/inner-page-intro-block";
-      fields: Blocks["inner-page-intro-block"];
-    }
-  | {
-      name: "acf/inner-page-hero-banner";
-      fields: Blocks["inner-page-hero-banner"];
-    }
-  | { name: "acf/highlight-texts"; fields: Blocks["highlight-texts"] };
+export type ACFBlock = {
+  name: "acf/inner-page-intro-block";
+  fields: Blocks["inner-page-intro-block"];
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 
 //Acf Field Groups############/////////

@@ -1,12 +1,12 @@
 import {
   WPPage,
   ACFBlock,
+  CustomBlocks,
   PageFieldGroups,
   FieldGroupName,
 } from "@/types/blocks";
 import { blockRegistry } from "@/components/blocks";
 import { acfFieldRegistry } from "@/components/acfFieldGroups";
-import { CustomBlocks } from "@/types/blocks";
 
 interface PageProps {
   params: { slug: string };
