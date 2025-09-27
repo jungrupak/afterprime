@@ -1,10 +1,4 @@
-import {
-  WPPage,
-  ACFBlock,
-  CustomBlocks,
-  PageFieldGroups,
-  FieldGroupName,
-} from "@/types/blocks";
+import { WPPage, ACFBlock } from "@/types/blocks";
 import { blockRegistry } from "@/components/blocks";
 import { acfFieldRegistry } from "@/components/acfFieldGroups";
 
@@ -24,24 +18,25 @@ export default async function Page({ params }: PageProps) {
   return (
     <>
       {/* Render blocks dynamically */}
-      {data.acf_blocks?.map((block, index) => {
-        const blockName = block.name as CustomBlocks;
+      {data.acf_blocks?.map((block: ACFBlock, index: number) => {
+        const blockName = block.name.replace(
+          "acf/",
+          ""
+        ) as keyof typeof blockRegistry;
         const BlockComponent = blockRegistry[blockName];
         if (!BlockComponent) return null;
         return <BlockComponent key={index} {...block.fields} />;
       })}
-
       {/* Render page-level ACF fields */}
       {data.acf &&
-        (
-          Object.entries(data.acf) as [
-            FieldGroupName,
-            PageFieldGroups[FieldGroupName]
-          ][]
-        ).map(([fieldKey, fieldValue], index) => {
+        Object.entries(data.acf).map(([fieldKey, fieldValue], index) => {
           if (!fieldValue) return null;
-          const FieldComponent = acfFieldRegistry[fieldKey];
-          return <FieldComponent key={index} {...fieldValue} />;
+          const FieldComponent =
+            acfFieldRegistry[fieldKey as keyof typeof data.acf];
+          if (!FieldComponent) return null;
+          const props =
+            typeof fieldValue === "object" ? fieldValue : { value: fieldValue };
+          return <FieldComponent key={index} {...props} />;
         })}
     </>
   );

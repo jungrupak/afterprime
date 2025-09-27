@@ -1,11 +1,9 @@
-// components/acfFieldGroups/index.ts
-import type { ComponentType } from "react";
-import { PageFieldGroups, FieldGroupName } from "@/types/blocks";
-//import component accordingly
+import type { PageFieldGroups } from "@/types/blocks";
 import FoundersCard from "../founder-card/FounderCard";
 
-export const acfFieldRegistry: {
-  [K in FieldGroupName]: ComponentType<PageFieldGroups[K]>;
-} = {
+// Partial allows missing fields without breaking
+export const acfFieldRegistry: Partial<{
+  [K in keyof PageFieldGroups]: React.ComponentType<PageFieldGroups[K]>;
+}> = {
   founder_message: FoundersCard,
 };
