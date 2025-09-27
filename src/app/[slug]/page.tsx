@@ -25,7 +25,7 @@ export default async function Page({ params }: PageProps) {
   return (
     <>
       {Array.isArray(data?.acf_blocks) &&
-        data.acf_blocks.map((block: any, index: number) => {
+        data.acf_blocks.map((block: ACFBlock, index: number) => {
           if (!block?.name) return null;
 
           // Special case: USP repeater
@@ -34,13 +34,13 @@ export default async function Page({ params }: PageProps) {
             return <USPBlock key={index} {...normalized} />;
           }
 
-          // Special case: USP repeater
+          // Special case: Section with cards
           if (block.name === "acf/section-feature-four-cards") {
             const normalized = repeatorValueNormalize(block.fields);
             return <SectionFeaturedCards key={index} {...normalized} />;
           }
 
-          // Generic case
+          // Generic case for other blocks
           const blockName = block.name.replace("acf/", "") as CustomBlocks;
           const BlockComponent = blockRegistry[blockName];
           if (!BlockComponent) return null;
