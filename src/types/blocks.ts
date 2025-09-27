@@ -29,14 +29,17 @@ export type ACFBlock<K extends CustomBlocks = CustomBlocks> = {
 
 //Acf Field Groups############/////////
 export type PageFieldGroups = {
-  founder_message?: {
-    cart_title: string;
+  founder_message: {
+    cart_title?: string;
     card_paragraph?: string;
   };
   // add other field groups here
 };
 //Acf Field Groups############///////// Ends
 
+export type FieldGroupName = keyof PageFieldGroups;
+
+///
 export type WPPage = {
   id: number;
   title: { rendered: string };
