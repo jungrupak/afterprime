@@ -12,10 +12,6 @@ export type Blocks = {
     inner_banner_button_url?: string;
     inner_banner?: string;
   };
-  "highlight-texts": {
-    highlight_text?: string;
-    content_width?: string;
-  };
 };
 //
 
