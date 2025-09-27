@@ -1,4 +1,6 @@
-//All block types goes here//////////////////
+// --------------------------------------------
+// All block types
+// --------------------------------------------
 export type Blocks = {
   "inner-page-intro-block": {
     intro_block_title_?: string;
@@ -37,19 +39,28 @@ export type Blocks = {
     section_card_repeator_enable_cta?: string;
     section_card_repeator_cta_button_label?: string;
     section_card_repeator_cta_button_link?: string;
-    cards?: CardRepeaterType[];
+    [
+      key: `section_card_repeator_cards_${number}_${
+        | "title"
+        | "paragraph"
+        | "button_label"
+        | "button_url"}`
+    ]: string | undefined;
   };
 };
 //
 
-//usp repeator typ set
+// --------------------------------------------
+// USP repeater type
+// --------------------------------------------
 export type USPItem = {
   title?: string;
   description?: string;
 };
-//Ends
 
-// Card repeater
+// --------------------------------------------
+// Card repeater type
+// --------------------------------------------
 export type CardRepeaterType = {
   title?: string;
   paragraph?: string;
@@ -57,24 +68,33 @@ export type CardRepeaterType = {
   button_url?: string;
 };
 
-export type CustomBlocks = keyof Blocks; //"intro_block" | "cta_block" | "testimonial_block";
+// --------------------------------------------
+// Keys for custom blocks
+// --------------------------------------------
+export type CustomBlocks = keyof Blocks; //"inner-page-intro-block" | "section-feature-four-cards" | ...
 
+// --------------------------------------------
+// ACF Block type
+// --------------------------------------------
 export type ACFBlock<T extends CustomBlocks = CustomBlocks> = {
   name: `acf/${T}`;
   fields: Blocks[T];
 };
-///////////////////////////////////////////////////////////////////////////////
 
-//Acf Field Groups############/////////
+// --------------------------------------------
+// ACF Field Groups (for WPPage.acf)
+// --------------------------------------------
 export type PageFieldGroups = {
-  founder_message: {
+  founder_message?: {
     cart_title?: string;
     card_paragraph?: string;
   };
   // add other field groups here
 };
-//Acf Field Groups############///////// Ends
 
+// --------------------------------------------
+// WP Page type
+// --------------------------------------------
 export type WPPage = {
   id: number;
   title: { rendered: string };
@@ -82,4 +102,3 @@ export type WPPage = {
   acf?: PageFieldGroups;
   acf_blocks?: ACFBlock[];
 };
-//

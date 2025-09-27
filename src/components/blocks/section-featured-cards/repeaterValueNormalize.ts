@@ -18,7 +18,7 @@ export function repeatorValueNormalize(fields: CardFields) {
       fields.section_card_repeator_section_paragraph ?? ""
     ),
     section_card_repeator_enable_cta: String(
-      fields.section_card_repeator_enable_cta ?? ""
+      fields.section_card_repeator_enable_cta ?? "0"
     ),
     section_card_repeator_cta_button_label: String(
       fields.section_card_repeator_cta_button_label ?? ""

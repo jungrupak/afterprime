@@ -1,4 +1,4 @@
-import { WPPage, CustomBlocks } from "@/types/blocks";
+import { WPPage, CustomBlocks, ACFBlock } from "@/types/blocks";
 import { blockRegistry } from "@/components/blocks";
 import { acfFieldRegistry } from "@/components/acfFieldGroups";
 
