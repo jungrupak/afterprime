@@ -6,6 +6,7 @@ import InnerPageIntroBlock from "./InnerPageIntroBlock/InnerPageIntroBlock";
 import InnerBanner from "./inner-banner/InnerBanner";
 import HighlightBlockQuote from "./highlight-blockquote/HighlightBlockquote";
 import ContentBlock from "./content-block/ContentBlock";
+import USPBlock from "./USPblock/USPblock";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -14,4 +15,5 @@ export const blockRegistry: {
   "inner-page-hero-banner": InnerBanner,
   "highlight-texts": HighlightBlockQuote,
   "simple-image-content": ContentBlock,
+  "inner-page-usp": USPBlock,
 };

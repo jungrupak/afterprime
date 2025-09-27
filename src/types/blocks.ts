@@ -28,8 +28,18 @@ export type Blocks = {
     };
     content_block_with_image_content_wrap_in_box?: string;
   };
+  "inner-page-usp": {
+    usps?: USPItem[];
+  };
 };
 //
+
+//usp repeator typ set
+export type USPItem = {
+  title?: string;
+  description?: string;
+};
+//Ends
 
 export type CustomBlocks = keyof Blocks; //"intro_block" | "cta_block" | "testimonial_block";
 

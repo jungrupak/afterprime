@@ -16,9 +16,7 @@ export function UspInContent({ getUspData = [] }: UspDataProps) {
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className={`${styles.uspWrapper} ap_container relative z-1`}>
-        <USP uspData={getUspData} />
-      </div>
+      <div className={`${styles.uspWrapper} ap_container relative z-1`}></div>
     </section>
   );
 }

@@ -1,6 +1,8 @@
-import { WPPage, ACFBlock } from "@/types/blocks";
+import { WPPage, CustomBlocks } from "@/types/blocks";
 import { blockRegistry } from "@/components/blocks";
 import { acfFieldRegistry } from "@/components/acfFieldGroups";
+import { normalizeUSPBlock } from "@/components/blocks/USPblock/normalize";
+import USPBlock from "@/components/blocks/USPblock/USPblock";
 
 interface PageProps {
   params: { slug: string };
@@ -17,16 +19,24 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <>
-      {/* Render blocks dynamically */}
-      {data.acf_blocks?.map((block: ACFBlock, index: number) => {
-        const blockName = block.name.replace(
-          "acf/",
-          ""
-        ) as keyof typeof blockRegistry;
-        const BlockComponent = blockRegistry[blockName];
-        if (!BlockComponent) return null;
-        return <BlockComponent key={index} {...block.fields} />;
-      })}
+      {Array.isArray(data?.acf_blocks) &&
+        data.acf_blocks.map((block: any, index: number) => {
+          if (!block?.name) return null;
+
+          // Special case: USP repeater
+          if (block.name === "acf/inner-page-usp") {
+            const normalized = normalizeUSPBlock(block.fields);
+            return <USPBlock key={index} {...normalized} />;
+          }
+
+          // Generic case
+          const blockName = block.name.replace("acf/", "") as CustomBlocks;
+          const BlockComponent = blockRegistry[blockName];
+          if (!BlockComponent) return null;
+
+          return <BlockComponent key={index} {...block.fields} />;
+        })}
+
       {/* Render page-level ACF fields */}
       {data.acf &&
         Object.entries(data.acf).map(([fieldKey, fieldValue], index) => {
