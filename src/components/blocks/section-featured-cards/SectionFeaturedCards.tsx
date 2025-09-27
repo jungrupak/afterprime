@@ -2,8 +2,16 @@ import styles from "./SectionFeaturesCards.module.scss";
 import { Blocks } from "@/types/blocks";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import { CardRepeaterType } from "@/types/blocks";
 
-type Props = Blocks["section-feature-four-cards"];
+export type SectionFeaturedCardsProps = {
+  section_card_repeator_section_title?: string;
+  section_card_repeator_section_paragraph?: string;
+  section_card_repeator_enable_cta?: string;
+  section_card_repeator_cta_button_label?: string;
+  section_card_repeator_cta_button_link?: string;
+  cards?: CardRepeaterType[];
+};
 
 export default function SectionFeaturedCards({
   section_card_repeator_section_title,
@@ -12,7 +20,7 @@ export default function SectionFeaturedCards({
   section_card_repeator_cta_button_label,
   section_card_repeator_cta_button_link,
   cards = [],
-}: Props) {
+}: SectionFeaturedCardsProps) {
   const contents = String(section_card_repeator_section_paragraph || "");
   const htmlContent = contents
     .split(/\r?\n\r?\n/)

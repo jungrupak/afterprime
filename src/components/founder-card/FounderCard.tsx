@@ -6,29 +6,31 @@ interface FounderCardProps {
   card_paragraph?: string;
 }
 
-export default function FoundersCard({
-  cart_title,
-  card_paragraph,
-}: FounderCardProps) {
+export default function FoundersCard(props?: FounderCardProps) {
+  const { cart_title = "", card_paragraph = "" } = props || {};
   const founderImg = "/img/founder-image.jpg";
+
   return (
     <section>
-      {/* grain bg effect */}
       <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container">
         <div
           className={`${styles.founders_block} grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] min-md:gap-40 items-center group`}
         >
-          <div className={`${styles.founder_image}`}>
+          <div className={styles.founder_image}>
             <div className={`${styles.dotted_bg} dotted-block`}></div>
-            <Image width={600} height={600} src={founderImg} alt="" />
+            <Image
+              width={600}
+              height={600}
+              src={founderImg}
+              alt="Founders Image"
+            />
           </div>
-          <div className={`${styles.founder_story}`}>
+          <div className={styles.founder_story}>
             <div className={`${styles.dotted_bg} dotted-block`}></div>
-            <h2 className={`${styles.heading}`}>{cart_title}</h2>
-            <p className={`${styles.paragraph}`}>{card_paragraph}</p>
-            <span className={`${styles.founder_info}`}>
+            <h2 className={styles.heading}>{cart_title}</h2>
+            <p className={styles.paragraph}>{card_paragraph}</p>
+            <span className={styles.founder_info}>
               <strong>&bull; Jeremy & Elan,</strong> Co-Founders of Afterprime
             </span>
           </div>
