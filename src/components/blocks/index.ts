@@ -7,7 +7,13 @@ import InnerBanner from "./inner-banner/InnerBanner";
 import HighlightBlockQuote from "./highlight-blockquote/HighlightBlockquote";
 
 export const blockRegistry: {
-  [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
+  "inner-page-intro-block": React.ComponentType<
+    Blocks["inner-page-intro-block"]
+  >;
+  "inner-page-hero-banner": React.ComponentType<
+    Blocks["inner-page-hero-banner"]
+  >;
+  "highlight-texts": React.ComponentType<Blocks["highlight-texts"]>;
 } = {
   "inner-page-intro-block": InnerPageIntroBlock,
   "inner-page-hero-banner": InnerBanner,

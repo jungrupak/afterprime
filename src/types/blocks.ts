@@ -21,10 +21,16 @@ export type Blocks = {
 
 export type CustomBlocks = keyof Blocks; //"intro_block" | "cta_block" | "testimonial_block";
 
-export type ACFBlock<K extends CustomBlocks = CustomBlocks> = {
-  name: `acf/${K}`;
-  fields: Blocks[K];
-};
+export type ACFBlock =
+  | {
+      name: "acf/inner-page-intro-block";
+      fields: Blocks["inner-page-intro-block"];
+    }
+  | {
+      name: "acf/inner-page-hero-banner";
+      fields: Blocks["inner-page-hero-banner"];
+    }
+  | { name: "acf/highlight-texts"; fields: Blocks["highlight-texts"] };
 ///////////////////////////////////////////////////////////////////////////////
 
 //Acf Field Groups############/////////
