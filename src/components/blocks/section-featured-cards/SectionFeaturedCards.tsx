@@ -1,4 +1,3 @@
-"use client";
 import styles from "./SectionFeaturesCards.module.scss";
 import { Blocks } from "@/types/blocks";
 import Button from "@/components/ui/Button";
@@ -58,20 +57,19 @@ export default function SectionFeaturedCards({
             )}
           </div>
           <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 text-center w-full">
-            <div>
-              {/* <Card
+            {cards.map((item, index) => (
+              <Card
+                key={index}
                 borderEnable={false}
                 alignItems="center"
-                cardSize={`small`}
+                cardSize="small"
                 title={item.title}
                 paragraph={item.paragraph}
-                cardCtaLabel={item.ctaLabel}
-                cardCtaLink={item.ctaLink}
+                cardCtaLabel={item.button_label}
+                cardCtaLink={item.button_url}
                 active={false}
-                type={type}
-                linkTarget={item.ctaOpenTarget}
-              /> */}
-            </div>
+              />
+            ))}
           </div>
         </div>
       </div>
