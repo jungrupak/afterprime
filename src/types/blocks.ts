@@ -15,6 +15,19 @@ export type Blocks = {
   "highlight-texts": {
     highlight_text?: string;
   };
+  "simple-image-content": {
+    content_block_with_image_heading?: string;
+    content_block_with_image_content?: string;
+    content_block_with_image_enable_cta_button?: string;
+    content_block_with_image_button_group_cta_label?: string;
+    content_block_with_image_button_group_cta_link?: string;
+    content_block_with_image_block_image_image_alignment?: string;
+    content_block_with_image_block_image_add_image?: {
+      url?: string;
+      alt?: string;
+    };
+    content_block_with_image_content_wrap_in_box?: string;
+  };
 };
 //
 
