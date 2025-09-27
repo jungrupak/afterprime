@@ -9,5 +9,6 @@ import InnerBanner from "./inner-banner/InnerBanner";
 export const blockRegistry: Partial<{
   [K in CustomBlocks]: React.ComponentType<Blocks[K]>;
 }> = {
-  "inner-page-intro-block": InnerPageIntroBlock,
+  "acf/inner-page-intro-block": InnerPageIntroBlock,
+  "acf/inner-page-hero-banner": InnerBanner,
 };

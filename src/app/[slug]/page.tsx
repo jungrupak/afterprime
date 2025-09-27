@@ -25,7 +25,7 @@ export default async function Page({ params }: PageProps) {
     <>
       {/* Render blocks dynamically */}
       {data.acf_blocks?.map((block, index) => {
-        const blockName = block.name.replace("acf/", "") as CustomBlocks;
+        const blockName = block.name as CustomBlocks;
         const BlockComponent = blockRegistry[blockName];
         if (!BlockComponent) return null;
         return <BlockComponent key={index} {...block.fields} />;
