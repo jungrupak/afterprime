@@ -29,7 +29,7 @@ export default function Faq({ data, faqSubject }: faqContents) {
       <div className="ap_container">
         <div className={`${styles.faq_block}`}>
           <h2 className="text-[34px] font-[700] mb-10">{faqSubject}</h2>
-          <Accordion faqObjects={faqObjects} />
+          {/* <Accordion faqObjects={faqObjects} /> */}
         </div>
       </div>
     </section>

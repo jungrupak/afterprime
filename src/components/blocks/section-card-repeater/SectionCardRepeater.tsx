@@ -38,7 +38,7 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
         </div>
         {/* Cards */}
         <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
-          {/* {cards.map((card, index) => (
+          {cards.map((card, index) => (
             <Card
               key={index}
               title={card.title}
@@ -55,7 +55,7 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
                   : "regular"
               } //compact|large|regular|small|
             />
-          ))} */}
+          ))}
         </div>
         {/* Cards Ends */}
       </div>
