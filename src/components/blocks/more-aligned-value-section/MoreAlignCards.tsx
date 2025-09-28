@@ -6,13 +6,11 @@ import {
   MoreAlignCard,
 } from "./transformer";
 
-type SectionProps = {
-  data: RawMoreValueAlignmentBlock;
-};
+type SectionProps = RawMoreValueAlignmentBlock;
 
-export function MoreValueRealAlignment({ data }: SectionProps) {
+export function MoreValueRealAlignment(props: SectionProps) {
   const { sectionTitle, subTitle, cards } =
-    transformMoreValueAlignmentCards(data);
+    transformMoreValueAlignmentCards(props);
 
   return (
     <section
