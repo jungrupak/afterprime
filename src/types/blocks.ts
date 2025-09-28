@@ -128,6 +128,10 @@ export type Blocks = {
     data_visialization_section_paragraph?: string;
     data_visialization_section?: string | undefined;
   };
+  "live-pricing-table": {
+    live_pricing_table_select_live_feed_?: string;
+    live_pricing_table?: string | undefined;
+  };
 };
 //
 

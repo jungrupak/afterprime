@@ -17,6 +17,7 @@ import { HeroHome } from "./hero-home/HeroHome";
 import { EarningFlowSection } from "./earning-flow-section/EarningFlowSection";
 import { UspUnderHome } from "./usp-under-hero-home/UspUnderHeroHome";
 import DataVisual from "./data-visualization/DataVisual";
+import { SelectLivePricingTable } from "./live-price-feed/LivePriceFeedBlock";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -36,4 +37,5 @@ export const blockRegistry: {
   "earning-flow-block": EarningFlowSection,
   "usp-under-home-hero": UspUnderHome,
   "section-datavisualization": DataVisual,
+  "live-pricing-table": SelectLivePricingTable,
 };
