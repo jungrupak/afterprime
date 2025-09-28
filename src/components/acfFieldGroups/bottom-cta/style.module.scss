@@ -1,0 +1,30 @@
+.section_cta {
+  //background-image: url("/img/platforms-bg-img.jpg");
+  background-repeat: repeat-x;
+  background-size: 200%;
+  background-position: left center;
+  @media all and (max-width: 600px) {
+    background-size: 680%;
+    background-position: center top;
+  }
+  .ctaCard {
+    border: solid 2px var(--white);
+    backdrop-filter: blur(19.1619px);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 50px;
+    h3 {
+      margin-bottom: 30px;
+      font-size: 34px;
+      font-weight: 600;
+    }
+    p {
+      opacity: 0.84;
+      margin-bottom: 40px;
+      max-width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 18px;
+      font-weight: 400;
+    }
+  }
+}

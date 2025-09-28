@@ -151,9 +151,21 @@ export type ACFBlock<T extends CustomBlocks = CustomBlocks> = {
 // ACF Field Groups (for WPPage.acf)
 // --------------------------------------------
 export type PageFieldGroups = {
-  founder_message?: {
-    cart_title?: string;
-    card_paragraph?: string;
+  bottom_cta?: {
+    section_title?: string;
+    section_paragraph?: string;
+    card_apply?: {
+      title?: string;
+      paragraph?: string;
+      cat_label?: string;
+      cat_link?: string;
+    };
+    card_referal?: {
+      title?: string;
+      paragraph?: string;
+      cat_label?: string;
+      cat_link?: string;
+    };
   };
   // add other field groups here
 };

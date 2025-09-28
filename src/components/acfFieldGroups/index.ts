@@ -1,5 +1,5 @@
 import type { PageFieldGroups } from "@/types/blocks";
-import FoundersCard from "../founder-card/FounderCard";
+import { BottomCta } from "./bottom-cta/BottomCta";
 
 /**
  * Registry mapping page-level ACF fields to React components.
@@ -9,5 +9,5 @@ import FoundersCard from "../founder-card/FounderCard";
 export const acfFieldRegistry: {
   [K in keyof PageFieldGroups]?: React.ComponentType<PageFieldGroups[K]>;
 } = {
-  founder_message: FoundersCard,
+  bottom_cta: BottomCta,
 };
