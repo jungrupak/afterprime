@@ -1,27 +1,18 @@
-import styles from "./style.module.scss";
-import Card from "../ui/Card";
-import type { acfBlocks } from "@/types/acf";
-import { useRepeaterCards, CardDataObject } from "@/hooks/useCardsRepeater";
+import Card from "@/components/ui/Card";
+import styles from "./MoreAlignCard.module.scss";
+import {
+  transformMoreValueAlignmentCards,
+  RawMoreValueAlignmentBlock,
+  MoreAlignCard,
+} from "./transformer";
 
-type acfBlock = {
-  data: acfBlocks;
+type SectionProps = {
+  data: RawMoreValueAlignmentBlock;
 };
-///////
 
-export function MoreValueRealAlignment({ data }: acfBlock) {
-  //#############
-
-  const cards: CardDataObject[] = useRepeaterCards(
-    data,
-    data.section_card_repeator_cards, // raw number of cards
-    "section_card_repeator_cards" // dynamic prefix
-  );
-
-  console.log("cards data:", cards);
-
-  const sectionTitle = String(data.section_card_repeator_section_title || "");
-
-  //##############
+export function MoreValueRealAlignment({ data }: SectionProps) {
+  const { sectionTitle, subTitle, cards } =
+    transformMoreValueAlignmentCards(data);
 
   return (
     <section
@@ -36,13 +27,13 @@ export function MoreValueRealAlignment({ data }: acfBlock) {
             <h2
               className="h2-size mb-6 text-center md:text-left"
               dangerouslySetInnerHTML={{
-                __html: sectionTitle,
+                __html: sectionTitle || "",
               }}
             ></h2>
           </div>
           <div className="">
             <p className="paragraph max-w-2xl opacity-90 max-md:text-center max-md:mb-10">
-              {data.section_card_repeator_section_paragraph}
+              {subTitle}
             </p>
           </div>
         </div>
@@ -52,7 +43,7 @@ export function MoreValueRealAlignment({ data }: acfBlock) {
             <Card
               key={index}
               title={card.title}
-              paragraph={card.paragraph}
+              paragraph={card.subTitle}
               cardCtaLabel={card.ctaLabel}
               cardCtaLink={card.ctaLink}
               cardSize="large"

@@ -9,6 +9,7 @@ import ContentBlock from "./content-block/ContentBlock";
 import USPBlock from "./USPblock/USPblock";
 import SectionFeaturedCards from "./section-featured-cards/SectionFeaturedCards";
 import { MultipurposeBlock } from "./block-multipurpose/BlockMultipurpose";
+import { MoreValueRealAlignment } from "./more-aligned-value-section/MoreAlignCards";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -20,4 +21,5 @@ export const blockRegistry: {
   "inner-page-usp": USPBlock,
   "section-feature-four-cards": SectionFeaturedCards,
   "block-multipurpose": MultipurposeBlock,
+  "section-more-value-real-alignment": MoreValueRealAlignment,
 };

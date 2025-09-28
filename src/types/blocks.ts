@@ -63,6 +63,23 @@ export type Blocks = {
       | string
       | undefined;
   };
+
+  "section-more-value-real-alignment": {
+    more_value_real_alignment_section_title?: string;
+    more_value_real_alignment_sub_title?: string;
+    more_value_real_alignment_card_1_title?: string;
+    more_value_real_alignment_card_1_sub_title?: string;
+    more_value_real_alignment_card_1_cta_label?: string;
+    more_value_real_alignment_card_1_cta_link?: string;
+    more_value_real_alignment_card_2_title?: string;
+    more_value_real_alignment_card_2_sub_title?: string;
+    more_value_real_alignment_card_2_cta_label?: string;
+    more_value_real_alignment_card_2_cta_link?: string;
+    more_value_real_alignment_card_3_title?: string;
+    more_value_real_alignment_card_3_sub_title?: string;
+    more_value_real_alignment_card_3_cta_label?: string;
+    more_value_real_alignment_card_3_cta_link?: string;
+  };
 };
 //
 

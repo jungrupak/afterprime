@@ -8,8 +8,6 @@ import USPBlock from "@/components/blocks/USPblock/USPblock";
 //section with cards
 import { repeatorValueNormalize } from "@/components/blocks/section-featured-cards/repeaterValueNormalize";
 import SectionFeaturedCards from "@/components/blocks/section-featured-cards/SectionFeaturedCards";
-//Multipurpose Block
-import { MultipurposeBlock } from "@/components/blocks/block-multipurpose/BlockMultipurpose";
 
 interface PageProps {
   params: { slug: string };
