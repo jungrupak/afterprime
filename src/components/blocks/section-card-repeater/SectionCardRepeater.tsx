@@ -7,12 +7,12 @@ type SectionProps = {
   data: SectionPropsToReceiveData;
 };
 
-export function SectionCardsBig({ data }: SectionProps) {
+export function SectionCardsBig(props: SectionProps) {
   const {
     section_card_repeator_section_title,
     section_card_repeator_section_paragraph,
     cards,
-  } = cardRepeatorNormalizer(data);
+  } = cardRepeatorNormalizer(props);
 
   return (
     <section
@@ -41,7 +41,7 @@ export function SectionCardsBig({ data }: SectionProps) {
         <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
           {cards.map((card, index) => (
             <Card
-              key={"index"}
+              key={index}
               title={card.title}
               paragraph={card.paragraph}
               cardCtaLabel={``}
