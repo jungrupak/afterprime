@@ -43,10 +43,10 @@ export default function ContentBlock({
             className={`grid grid-cols-1 md:grid-cols-2 gap-25 max-md:gap-10`}
           >
             <div
-              className={`max-md:order-2 ${
-                content_block_with_image_block_image_image_alignment === "Right"
-                  ? "md:order-2"
-                  : ""
+              className={` ${
+                content_block_with_image_block_image_image_alignment === "left"
+                  ? "order-1"
+                  : "order-2"
               } h-full`}
             >
               <Image
@@ -58,11 +58,12 @@ export default function ContentBlock({
                 className={`${styles.responsiveImg}`}
               />
             </div>
+
             <div
-              className={`${styles.contetPart} max-md:order-1 ${
-                content_block_with_image_block_image_image_alignment === "Right"
-                  ? "md:order-1"
-                  : ""
+              className={`${styles.contetPart} ${
+                content_block_with_image_block_image_image_alignment === "left"
+                  ? "order-2"
+                  : "order-1"
               }`}
             >
               <h2 className="h2-size" style={{ fontWeight: "600" }}>
