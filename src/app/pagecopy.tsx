@@ -60,6 +60,39 @@ export default async function Home() {
         <CostAdvantage />
       </Section>
       {/* Cost Advantage */}
+
+      {/* Earning Flow Section */}
+      <EarningFlow data={earningFlowData} />
+      {/* Earning Flow Section Ends */}
+      {/* Generic Cards Section */}
+      <MoreValueRealAlignment data={moreValueRealAlignmentData} />
+      {/* Generic Cards Section Ends */}
+      {/* A book section */}
+      <MultipurposeBlock data={getDataAbookSectionHome} isBoxed={true} />
+      {/* A book section ends */}
+      {/* Live Pricing Section */}
+      <LivePricingAllTable />
+      {/* Live Pricing Section Ends */}
+      {/* Section slot */}
+      <BuiltForTraders data={getProsandConsHome} />
+      {/* Section slot ends */}
+      {/* Platform Section */}
+      <PlatformsSection data={getPlatformsSectionData} />
+      {/* Platform Section Ends */}
+      {/* SEction Community Driven */}
+      {/* A book section */}
+      <MultipurposeBlock data={getCommunityDrivenSectionData} isBoxed={true} />
+      {/* A book section ends */}
+      {/* Section Google Review */}
+      <GoogleReview />
+      {/* Section Google Review ends */}
+      {/* Section Founders Block */}
+      {/* Section Founders Block Ends */}
+      {/* CTA Section */}
+      <BottomCta data={getBottomCtaData} />
+      {/* CTA Section Ends */}
+      {/* Faq Section */}
+      {/* <Faq faqSubject="General FAQ" data={getFaqData} /> */}
     </>
   );
 }

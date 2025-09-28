@@ -40,12 +40,6 @@ export default async function Page({ params }: PageProps) {
             return <SectionFeaturedCards key={index} {...normalized} />;
           }
 
-          //   // Special case: Section with cards
-          //   if (block.name === "acf/block-multipurpose") {
-          //     const normalized = repeatorValueNormalize(block.fields);
-          //     return <SectionFeaturedCards key={index} {...normalized} />;
-          //   }
-
           // Generic case for other blocks
           const blockName = block.name.replace("acf/", "") as CustomBlocks;
           const BlockComponent = blockRegistry[blockName];

@@ -168,6 +168,14 @@ export type PageFieldGroups = {
     };
   };
   // add other field groups here
+  faq_section?: {
+    ssection_title?: string;
+    q_and_a?: {
+      question?: string;
+      answer?: string;
+    }[];
+  };
+  //####
 };
 
 // --------------------------------------------
