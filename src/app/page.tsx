@@ -1,65 +1,64 @@
-import type { Metadata } from "next";
-//
-export const metadata: Metadata = {
-  title: "Afterprime is Hero in Industry",
-  description: "This is Afterprime Home page",
-};
-//Imports####
-import { HeroHome } from "@/components/hero-home/HeroHome";
-import { UserSellingPoint } from "@/components/home-sections/UserSellingPoint";
-import { EarningFlow } from "@/components/home-sections/EarningFlow";
-import { MoreValueRealAlignment } from "@/components/home-sections/MoreValueRealAlignment";
-import LivePricingAllTable from "@/components/live-pricing-tables/LivePricingAll";
-import { BuiltForTraders } from "@/components/home-sections/BuiltForTraders";
-import { PlatformsSection } from "@/components/home-sections/PlatformSection";
-import { MultipurposeBlock } from "@/components/block-multipurpose/BlockMultipurpose";
-import GoogleReview from "@/components/google-review/GoogleReview";
-import { BottomCta } from "@/components/bottom-cta/BottomCta";
-import Faq from "@/components/faq/Faq";
-import { getPageACF } from "@/data/wp-pages";
-import { getOptionsACF } from "@/data/wp-options";
+import { WPPage, CustomBlocks, ACFBlock } from "@/types/blocks";
+import { blockRegistry } from "@/components/blocks";
+import { acfFieldRegistry } from "@/components/acfFieldGroups";
 
-//Import Utils####
-import CostAdvantage from "@/components/cost-advantage/CostAdvantage";
-import Section from "@/components/section/Section";
+//Customized Block for repeator fields used
+import { normalizeUSPBlock } from "@/components/blocks/USPblock/normalize";
+import USPBlock from "@/components/blocks/USPblock/USPblock";
+//section with cards
+import { repeatorValueNormalize } from "@/components/blocks/section-featured-cards/repeaterValueNormalize";
+import SectionFeaturedCards from "@/components/blocks/section-featured-cards/SectionFeaturedCards";
 
-export default async function Home() {
-  //
-  const acfFields = await getPageACF("home-page");
-  const optionFields = await getOptionsACF();
-  if (!acfFields) return <p>No data found</p>;
-  if (!optionFields) return <p>No data found</p>;
+interface PageProps {
+  params: { slug: string };
+}
 
-  //
-  const getHeroHomeData = acfFields?.acf_blocks[0]?.fields;
-  const earningFlowData = acfFields?.acf_blocks[1]?.fields;
-  const moreValueRealAlignmentData = acfFields?.acf_blocks[2]?.fields;
-  const getDataAbookSectionHome = acfFields?.acf_blocks[3]?.fields;
-  const getProsandConsHome = acfFields?.acf_blocks[4]?.fields;
-  const getPlatformsSectionData = acfFields?.acf_blocks[5]?.fields;
-  const getCommunityDrivenSectionData = acfFields?.acf_blocks[6]?.fields;
-  const getBottomCtaData = optionFields?.bottom_cta;
-  const getFaqData = acfFields?.acf?.faq;
-  //
+export default async function Page() {
+  const res = await fetch(
+    `https://wordpress-1264747-4900526.cloudwaysapps.com/wp-json/wp/v2/pages?slug=home-page`
+  );
+  const pages: WPPage[] = await res.json();
+
+  if (!pages?.length) return <p>Page not found</p>;
+  const data = pages[0];
 
   return (
     <>
-      {/* Hero Banner */}
-      <HeroHome
-        data={getHeroHomeData}
-        title={["GET", "PAID", "WHEN", "YOU", "TRADE"]}
-      />
-      {/* Hero Banner */}
+      {Array.isArray(data?.acf_blocks) &&
+        data.acf_blocks.map((block: ACFBlock, index: number) => {
+          if (!block?.name) return null;
 
-      {/* User Selling Poing */}
-      <UserSellingPoint />
-      {/* User Selling Poing */}
+          // Special case: USP repeater
+          if (block.name === "acf/inner-page-usp") {
+            const normalized = normalizeUSPBlock(block.fields);
+            return <USPBlock key={index} {...normalized} />;
+          }
 
-      {/* Cost Advantage */}
-      <Section noiseEffect={true}>
-        <CostAdvantage />
-      </Section>
-      {/* Cost Advantage */}
+          // Special case: Section with cards
+          if (block.name === "acf/section-feature-four-cards") {
+            const normalized = repeatorValueNormalize(block.fields);
+            return <SectionFeaturedCards key={index} {...normalized} />;
+          }
+
+          // Generic case for other blocks
+          const blockName = block.name.replace("acf/", "") as CustomBlocks;
+          const BlockComponent = blockRegistry[blockName];
+          if (!BlockComponent) return null;
+
+          return <BlockComponent key={index} {...block.fields} />;
+        })}
+
+      {/* Render page-level ACF fields */}
+      {data.acf &&
+        Object.entries(data.acf).map(([fieldKey, fieldValue], index) => {
+          if (!fieldValue) return null;
+          const FieldComponent =
+            acfFieldRegistry[fieldKey as keyof typeof data.acf];
+          if (!FieldComponent) return null;
+          const props =
+            typeof fieldValue === "object" ? fieldValue : { value: fieldValue };
+          return <FieldComponent key={index} {...props} />;
+        })}
     </>
   );
 }

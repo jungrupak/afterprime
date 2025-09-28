@@ -103,6 +103,13 @@ export type Blocks = {
     founder_message_cart_title?: string;
     founder_message_card_paragraph?: string;
   };
+  "hero-banner-home": {
+    hero_banner_home_banner_heading?: string;
+    hero_banner_home_banner_paragraph?: string;
+    hero_banner_home_banner_btn_text?: string;
+    hero_banner_home_banner_btn_url?: string;
+    hero_banner_home?: string | undefined;
+  };
 };
 //
 

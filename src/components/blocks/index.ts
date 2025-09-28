@@ -13,6 +13,7 @@ import { MoreValueRealAlignment } from "./more-aligned-value-section/MoreAlignCa
 import { SectionCardsBig } from "./section-card-repeater/SectionCardRepeater";
 import GoogleReview from "./google-review/GoogleReview";
 import FoundersCard from "./founder-card/FounderCard";
+import { HeroHome } from "./hero-home/HeroHome";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -28,4 +29,5 @@ export const blockRegistry: {
   "section-with-cards": SectionCardsBig,
   "reviews-section": GoogleReview,
   "founder-messages": FoundersCard,
+  "hero-banner-home": HeroHome,
 };
