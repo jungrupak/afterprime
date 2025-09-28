@@ -95,6 +95,14 @@ export type Blocks = {
     section_card_list_big_section_heading_alignment?: string;
     section_card_list_big?: string | undefined;
   };
+  "reviews-section": {
+    google_reviews_section_section_title?: string;
+    google_reviews_section_section_paragraph?: string;
+  };
+  "founder-messages": {
+    founder_message_cart_title?: string;
+    founder_message_card_paragraph?: string;
+  };
 };
 //
 

@@ -38,7 +38,6 @@ export default async function Home() {
   const getProsandConsHome = acfFields?.acf_blocks[4]?.fields;
   const getPlatformsSectionData = acfFields?.acf_blocks[5]?.fields;
   const getCommunityDrivenSectionData = acfFields?.acf_blocks[6]?.fields;
-  const getFounderCardData = acfFields?.acf?.founder_message;
   const getBottomCtaData = optionFields?.bottom_cta;
   const getFaqData = acfFields?.acf?.faq;
   //

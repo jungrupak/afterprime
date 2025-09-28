@@ -7,8 +7,11 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
   const {
     section_card_repeator_section_title,
     section_card_repeator_section_paragraph,
+    section_card_list_big_card_size,
     cards,
   } = cardRepeatorNormalizer(props);
+
+  const cardSize = section_card_list_big_card_size || "regular"; // Default to "regular" if undefined
 
   return (
     <section
@@ -42,7 +45,15 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
               paragraph={card.paragraph}
               cardCtaLabel={``}
               cardCtaLink={card.button_url}
-              cardSize="regular"
+              cardSize={
+                cardSize === "Small"
+                  ? "small"
+                  : cardSize === "Compact"
+                  ? "compact"
+                  : cardSize === "Large"
+                  ? "large"
+                  : "regular"
+              } //compact|large|regular|small|
             />
           ))}
         </div>

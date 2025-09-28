@@ -42,6 +42,9 @@ export function cardRepeatorNormalizer(fields?: SectionPropsToReceiveData) {
     section_card_repeator_section_paragraph: String(
       safeFields.section_card_list_big_section_paragraph ?? ""
     ),
+    section_card_list_big_card_size: String(
+      safeFields.section_card_list_big_card_size ?? ""
+    ),
     cards,
   };
 }

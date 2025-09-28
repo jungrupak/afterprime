@@ -11,6 +11,8 @@ import SectionFeaturedCards from "./section-featured-cards/SectionFeaturedCards"
 import { MultipurposeBlock } from "./block-multipurpose/BlockMultipurpose";
 import { MoreValueRealAlignment } from "./more-aligned-value-section/MoreAlignCards";
 import { SectionCardsBig } from "./section-card-repeater/SectionCardRepeater";
+import GoogleReview from "./google-review/GoogleReview";
+import FoundersCard from "./founder-card/FounderCard";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -24,4 +26,6 @@ export const blockRegistry: {
   "block-multipurpose": MultipurposeBlock,
   "section-more-value-real-alignment": MoreValueRealAlignment,
   "section-with-cards": SectionCardsBig,
+  "reviews-section": GoogleReview,
+  "founder-messages": FoundersCard,
 };
