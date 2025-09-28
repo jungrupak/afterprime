@@ -15,6 +15,8 @@ import GoogleReview from "./google-review/GoogleReview";
 import FoundersCard from "./founder-card/FounderCard";
 import { HeroHome } from "./hero-home/HeroHome";
 import { EarningFlowSection } from "./earning-flow-section/EarningFlowSection";
+import { UspUnderHome } from "./usp-under-hero-home/UspUnderHeroHome";
+import DataVisual from "./data-visualization/DataVisual";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -32,4 +34,6 @@ export const blockRegistry: {
   "founder-messages": FoundersCard,
   "hero-banner-home": HeroHome,
   "earning-flow-block": EarningFlowSection,
+  "usp-under-home-hero": UspUnderHome,
+  "section-datavisualization": DataVisual,
 };

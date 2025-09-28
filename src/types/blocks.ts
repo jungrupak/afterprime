@@ -119,6 +119,15 @@ export type Blocks = {
     earning_flow_button_link?: string;
     earning_flow?: string | undefined;
   };
+  "usp-under-home-hero": {
+    usp_under_home_static_info_text?: string;
+    usp_under_home_static?: string | undefined;
+  };
+  "section-datavisualization": {
+    data_visialization_section_section_title?: string;
+    data_visialization_section_paragraph?: string;
+    data_visialization_section?: string | undefined;
+  };
 };
 //
 
