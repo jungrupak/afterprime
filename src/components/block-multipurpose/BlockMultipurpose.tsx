@@ -45,6 +45,7 @@ export function MultipurposeBlock({ data, isBoxed }: DataProps) {
                 className="wysWygEditor"
                 dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
               />
+
               <div className="mt-12">
                 <Btn
                   varient="primary-ghost"
