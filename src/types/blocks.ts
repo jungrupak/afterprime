@@ -110,6 +110,15 @@ export type Blocks = {
     hero_banner_home_banner_btn_url?: string;
     hero_banner_home?: string | undefined;
   };
+  "earning-flow-block": {
+    earning_flow_section_heading?: string;
+    [key: `earning_flow_list_items_${number}_list_item`]: string | undefined;
+    earning_flow_list_items?: number;
+    earning_flow_is_cta_visible?: string;
+    earning_flow_button_text?: string;
+    earning_flow_button_link?: string;
+    earning_flow?: string | undefined;
+  };
 };
 //
 

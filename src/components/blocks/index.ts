@@ -14,6 +14,7 @@ import { SectionCardsBig } from "./section-card-repeater/SectionCardRepeater";
 import GoogleReview from "./google-review/GoogleReview";
 import FoundersCard from "./founder-card/FounderCard";
 import { HeroHome } from "./hero-home/HeroHome";
+import { EarningFlowSection } from "./earning-flow-section/EarningFlowSection";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -30,4 +31,5 @@ export const blockRegistry: {
   "reviews-section": GoogleReview,
   "founder-messages": FoundersCard,
   "hero-banner-home": HeroHome,
+  "earning-flow-block": EarningFlowSection,
 };
