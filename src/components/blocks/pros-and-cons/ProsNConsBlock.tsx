@@ -95,7 +95,7 @@ export function ProsNConsBlock({
               <h2 className="h2-size mb-6">{heading}</h2>
               <p
                 className="paragraph"
-                dangerouslySetInnerHTML={{ __html: htmlContent }}
+                dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
               ></p>
               <div className="mt-12">
                 <Button

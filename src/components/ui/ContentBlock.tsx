@@ -33,7 +33,7 @@ export function ContentBlock({
         <div className="max-md:text-center md:pr-20">
           <h2
             className="h2-size mb-6"
-            dangerouslySetInnerHTML={{ __html: sanitizeHTML }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHTML || "&nbsp;" }}
           ></h2>
           <p className="paragraph">{blockPara}</p>
           <div className="mt-12">

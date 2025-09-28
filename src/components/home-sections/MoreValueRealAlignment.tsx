@@ -36,7 +36,7 @@ export function MoreValueRealAlignment({ data }: acfBlock) {
             <h2
               className="h2-size mb-6 text-center md:text-left"
               dangerouslySetInnerHTML={{
-                __html: sectionTitle,
+                __html: sectionTitle || "&nbsp;",
               }}
             ></h2>
           </div>

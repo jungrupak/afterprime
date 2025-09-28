@@ -28,7 +28,7 @@ export function PlatformsSection({ data }: getData) {
           <div>
             <h2
               className="h2-size mb-6 text-center md:text-left"
-              dangerouslySetInnerHTML={{ __html: heading }}
+              dangerouslySetInnerHTML={{ __html: heading || "&nbsp;" }}
             ></h2>
           </div>
           <div>

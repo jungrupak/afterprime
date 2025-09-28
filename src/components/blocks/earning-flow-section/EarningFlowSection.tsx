@@ -42,7 +42,9 @@ export function EarningFlowSection(block: EarningFlowBlock) {
           <div>
             <h2
               className="h2-size mb-6 text-center md:text-left"
-              dangerouslySetInnerHTML={{ __html: earning_flow_section_heading }}
+              dangerouslySetInnerHTML={{
+                __html: earning_flow_section_heading || "&nbsp;",
+              }}
             ></h2>
             <div className="mt-12">
               <Lists bulletVarient="arrow-blue" listItems={listItems} />

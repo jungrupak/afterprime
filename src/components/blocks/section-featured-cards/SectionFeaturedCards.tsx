@@ -47,7 +47,7 @@ export default function SectionFeaturedCards({
             <div
               className="paragraph"
               dangerouslySetInnerHTML={{
-                __html: htmlContent ?? "",
+                __html: htmlContent ?? "&nbsp;",
               }}
             />
             {section_card_repeator_enable_cta === "1" && (

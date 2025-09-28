@@ -1,3 +1,4 @@
+"use client";
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import Image from "next/image";

@@ -346,7 +346,7 @@ export default function DataVisual(props: SectionHeaderProps) {
             className="h2-size font-semibold"
             style={{ fontWeight: "600" }}
             dangerouslySetInnerHTML={{
-              __html: data_visialization_section_section_title || "",
+              __html: data_visialization_section_section_title || "&nbsp;",
             }}
           ></h2>
 

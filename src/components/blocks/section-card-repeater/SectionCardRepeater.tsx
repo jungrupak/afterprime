@@ -26,7 +26,7 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
             <h2
               className="h2-size mb-6 text-center md:text-left"
               dangerouslySetInnerHTML={{
-                __html: section_card_repeator_section_title || "",
+                __html: section_card_repeator_section_title || "&nbsp;",
               }}
             ></h2>
           </div>

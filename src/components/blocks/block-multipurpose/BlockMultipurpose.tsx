@@ -1,3 +1,4 @@
+"use client";
 import BoxedBlock from "@/components/boxed-block/BoxedBlock";
 import Button from "@/components/ui/Button";
 import Lists from "@/components/ui/Lists";
@@ -66,11 +67,11 @@ export function MultipurposeBlock({
             <div className="max-md:text-center md:pr-25">
               <h2
                 className="h2-size mb-6"
-                dangerouslySetInnerHTML={{ __html: heading }}
+                dangerouslySetInnerHTML={{ __html: heading || "&nbsp;" }}
               ></h2>
               <div
                 className="wysWygEditor"
-                dangerouslySetInnerHTML={{ __html: htmlContent }}
+                dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
               />
               <div className="mt-12">
                 <Button

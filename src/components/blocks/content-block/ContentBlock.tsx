@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./style.module.scss";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
@@ -68,7 +70,7 @@ export default function ContentBlock({
               </h2>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: htmlContent ?? "",
+                  __html: htmlContent ?? "&nbsp;",
                 }}
               />
               {content_block_with_image_enable_cta_button === "1" && (

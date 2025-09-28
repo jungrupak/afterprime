@@ -32,7 +32,7 @@ export function EarningFlow({ data }: EarningFlowProps) {
           <div>
             <h2
               className="h2-size mb-6 text-center md:text-left"
-              dangerouslySetInnerHTML={{ __html: heading }}
+              dangerouslySetInnerHTML={{ __html: heading || "&nbsp;" }}
             ></h2>
             <div className="mt-12">
               <Lists bulletVarient="arrow-blue" listItems={listItems} />

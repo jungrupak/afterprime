@@ -39,11 +39,11 @@ export function MultipurposeBlock({ data, isBoxed }: DataProps) {
             <div className="max-md:text-center md:pr-25">
               <h2
                 className="h2-size mb-6"
-                dangerouslySetInnerHTML={{ __html: heading }}
+                dangerouslySetInnerHTML={{ __html: heading || "&nbsp;" }}
               ></h2>
               <div
                 className="wysWygEditor"
-                dangerouslySetInnerHTML={{ __html: htmlContent }}
+                dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
               />
               <div className="mt-12">
                 <Btn

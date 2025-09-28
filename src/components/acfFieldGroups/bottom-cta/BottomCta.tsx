@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import type { PageFieldGroups } from "@/types/blocks";
@@ -18,7 +19,7 @@ export function BottomCta(props: CtaProps) {
           <div className="max-w-[700px] mx-auto text-center">
             <h2
               className="h2-size mb-6"
-              dangerouslySetInnerHTML={{ __html: section_title || "" }}
+              dangerouslySetInnerHTML={{ __html: section_title || "&nbsp;" }}
             ></h2>
             <p className="paragraph max-w-2xl mx-auto mb-20 opacity-90">
               {section_paragraph}
