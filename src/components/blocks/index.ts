@@ -10,6 +10,7 @@ import USPBlock from "./USPblock/USPblock";
 import SectionFeaturedCards from "./section-featured-cards/SectionFeaturedCards";
 import { MultipurposeBlock } from "./block-multipurpose/BlockMultipurpose";
 import { MoreValueRealAlignment } from "./more-aligned-value-section/MoreAlignCards";
+import { SectionCardsBig } from "./section-card-repeater/SectionCardRepeater";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -22,4 +23,5 @@ export const blockRegistry: {
   "section-feature-four-cards": SectionFeaturedCards,
   "block-multipurpose": MultipurposeBlock,
   "section-more-value-real-alignment": MoreValueRealAlignment,
+  "section-with-cards": SectionCardsBig,
 };

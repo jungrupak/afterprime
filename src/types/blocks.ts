@@ -80,6 +80,20 @@ export type Blocks = {
     more_value_real_alignment_card_3_cta_label?: string;
     more_value_real_alignment_card_3_cta_link?: string;
   };
+  "section-with-cards": {
+    section_card_list_big_section_title?: string;
+    section_card_list_big_section_paragraph?: string;
+    [
+      key: `section_card_list_big_cards_${number}_${
+        | "title"
+        | "paragraph"
+        | "button_label"
+        | "button_url"}`
+    ]: string | undefined;
+    section_card_list_big_cards?: number;
+    section_card_list_big_section_heading_alignment?: string;
+    section_card_list_big?: string | undefined;
+  };
 };
 //
 
@@ -95,6 +109,16 @@ export type USPItem = {
 // Card repeater type
 // --------------------------------------------
 export type CardRepeaterType = {
+  title?: string;
+  paragraph?: string;
+  button_label?: string;
+  button_url?: string;
+};
+
+// --------------------------------------------
+// Card Object generic type
+// --------------------------------------------
+export type CardObjects = {
   title?: string;
   paragraph?: string;
   button_label?: string;

@@ -1,15 +1,18 @@
 import Card from "@/components/ui/Card";
-import styles from "./MoreAlignCard.module.scss";
-import {
-  transformMoreValueAlignmentCards,
-  RawMoreValueAlignmentBlock,
-} from "./transformer";
+import styles from "./SectionCardRepeater.module.scss";
+import type { SectionPropsToReceiveData } from "./normalizer";
+import { cardRepeatorNormalizer } from "./normalizer";
 
-type SectionProps = RawMoreValueAlignmentBlock;
+type SectionProps = {
+  data: SectionPropsToReceiveData;
+};
 
-export function MoreValueRealAlignment(props: SectionProps) {
-  const { sectionTitle, subTitle, cards } =
-    transformMoreValueAlignmentCards(props);
+export function SectionCardsBig({ data }: SectionProps) {
+  const {
+    section_card_repeator_section_title,
+    section_card_repeator_section_paragraph,
+    cards,
+  } = cardRepeatorNormalizer(data);
 
   return (
     <section
@@ -24,13 +27,13 @@ export function MoreValueRealAlignment(props: SectionProps) {
             <h2
               className="h2-size mb-6 text-center md:text-left"
               dangerouslySetInnerHTML={{
-                __html: sectionTitle || "",
+                __html: section_card_repeator_section_title || "",
               }}
             ></h2>
           </div>
           <div className="">
             <p className="paragraph max-w-2xl opacity-90 max-md:text-center max-md:mb-10">
-              {subTitle}
+              {section_card_repeator_section_paragraph}
             </p>
           </div>
         </div>
@@ -38,13 +41,12 @@ export function MoreValueRealAlignment(props: SectionProps) {
         <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
           {cards.map((card, index) => (
             <Card
-              key={index}
+              key={"index"}
               title={card.title}
-              paragraph={card.subTitle}
-              cardCtaLabel={card.ctaLabel}
-              cardCtaLink={card.ctaLink}
-              cardSize="large"
-              active={index == 1 ? true : false}
+              paragraph={card.paragraph}
+              cardCtaLabel={``}
+              cardCtaLink={card.button_url}
+              cardSize="regular"
             />
           ))}
         </div>
