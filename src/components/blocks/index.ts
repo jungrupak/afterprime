@@ -18,6 +18,7 @@ import { EarningFlowSection } from "./earning-flow-section/EarningFlowSection";
 import { UspUnderHome } from "./usp-under-hero-home/UspUnderHeroHome";
 import DataVisual from "./data-visualization/DataVisual";
 import { SelectLivePricingTable } from "./live-price-feed/LivePriceFeedBlock";
+import { ProsNConsBlock } from "./pros-and-cons/ProsNConsBlock";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -38,4 +39,5 @@ export const blockRegistry: {
   "usp-under-home-hero": UspUnderHome,
   "section-datavisualization": DataVisual,
   "live-pricing-table": SelectLivePricingTable,
+  "block-pros-and-cons": ProsNConsBlock,
 };

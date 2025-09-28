@@ -132,6 +132,24 @@ export type Blocks = {
     live_pricing_table_select_live_feed_?: string;
     live_pricing_table?: string | undefined;
   };
+  "block-pros-and-cons": {
+    pros_and_cons_section_title?: string;
+    pros_and_cons_section_paragraph?: string;
+    pros_and_cons_section_cta_label?: string;
+    pros_and_cons_cta_url?: string;
+    [key: `pros_and_cons_pros_title_pros_or_advantages_${number}_list_item`]:
+      | string
+      | undefined;
+    [
+      key: `pros_and_cons_cons_title_cons_or_disadvantages_${number}_list_item`
+    ]: string | undefined;
+    pros_and_cons_pros_title_pros_or_advantages?: number;
+    pros_and_cons_cons_title_cons_or_disadvantages?: number;
+    pros_and_cons?: string | undefined;
+    pros_and_cons_pros_title_title?: string;
+    pros_and_cons_cons_title_title?: string;
+    pros_and_cons_is_boxed?: string;
+  };
 };
 //
 
