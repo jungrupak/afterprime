@@ -3,11 +3,7 @@ import styles from "./SectionCardRepeater.module.scss";
 import type { SectionPropsToReceiveData } from "./normalizer";
 import { cardRepeatorNormalizer } from "./normalizer";
 
-type SectionProps = {
-  data: SectionPropsToReceiveData;
-};
-
-export function SectionCardsBig(props: SectionProps) {
+export function SectionCardsBig(props: SectionPropsToReceiveData) {
   const {
     section_card_repeator_section_title,
     section_card_repeator_section_paragraph,

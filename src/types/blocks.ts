@@ -91,6 +91,7 @@ export type Blocks = {
         | "button_url"}`
     ]: string | undefined;
     section_card_list_big_cards?: number;
+    section_card_list_big_card_size?: string | undefined;
     section_card_list_big_section_heading_alignment?: string;
     section_card_list_big?: string | undefined;
   };
