@@ -1,19 +1,30 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useEffect } from "react";
 import { Blinker } from "next/font/google";
 import Header from "@/components/header/Header";
 import BottomCards from "@/components/footer/bottom-cards/BottomCards";
 import Footer from "@/components/footer/Footer";
 import "./globals.scss";
 
+export function TypeformLoader() {
+  useEffect(() => {
+    if (!document.querySelector("#typeform-embed")) {
+      const script = document.createElement("script");
+      script.id = "typeform-embed";
+      script.src = "//embed.typeform.com/next/embed.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  return null; // nothing visible
+}
+
 const blinker = Blinker({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "600", "700", "800"], // choose the weights you need
 });
-
-export const metadata: Metadata = {
-  title: "Afterprime",
-  description: "Afterprime Marketing Website",
-};
 
 export default function RootLayout({
   children,
@@ -23,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${blinker.className} antialiased`}>
+        <TypeformLoader />
         {/* Fixed Vid Bg for entire website */}
         <div className="home_banner_video">
           <video
