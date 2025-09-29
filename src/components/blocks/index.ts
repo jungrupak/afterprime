@@ -19,6 +19,7 @@ import { UspUnderHome } from "./usp-under-hero-home/UspUnderHeroHome";
 import DataVisual from "./data-visualization/DataVisual";
 import { SelectLivePricingTable } from "./live-price-feed/LivePriceFeedBlock";
 import { ProsNConsBlock } from "./pros-and-cons/ProsNConsBlock";
+import { MoreValueRealAlignmentStatic } from "./more-value-real-alignment-static/MoreAlignCards";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -40,4 +41,5 @@ export const blockRegistry: {
   "section-datavisualization": DataVisual,
   "live-pricing-table": SelectLivePricingTable,
   "block-pros-and-cons": ProsNConsBlock,
+  "section-more-value-real-alignment-static": MoreValueRealAlignmentStatic,
 };

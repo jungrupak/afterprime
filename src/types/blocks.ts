@@ -150,6 +150,10 @@ export type Blocks = {
     pros_and_cons_cons_title_title?: string;
     pros_and_cons_is_boxed?: string;
   };
+
+  "section-more-value-real-alignment-static": {
+    more_value_alignment_?: string | undefined;
+  };
 };
 //
 
