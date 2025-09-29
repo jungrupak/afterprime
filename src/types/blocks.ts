@@ -169,6 +169,10 @@ export type Blocks = {
     margin_stop_call_table_static_label?: string | undefined;
     margin_stop_call_table?: string | undefined;
   };
+  "client-money-section": {
+    client_money_static_block_section_title?: string;
+    client_money_static_block_paragraph?: string;
+  };
 };
 //
 

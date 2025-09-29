@@ -23,6 +23,7 @@ import { MoreValueRealAlignmentStatic } from "./more-value-real-alignment-static
 import { SectionCardsBigStatic } from "./platform-cards-section-static/PlatformCards";
 import SectionTableMarginLeverage from "./margin-leverage-table/MarginLeverageTable";
 import SectionMarginCallOut from "./margin-call-out-table/MarginCallOutTable";
+import { ClientMoneySection } from "./client-money-section/ClientMoney";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -48,4 +49,5 @@ export const blockRegistry: {
   "platform-cards-section-static": SectionCardsBigStatic,
   "margin-and-leverage-table": SectionTableMarginLeverage,
   "margin-call-and-leverage": SectionMarginCallOut,
+  "client-money-section": ClientMoneySection,
 };
