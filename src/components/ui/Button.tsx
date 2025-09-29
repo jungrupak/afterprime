@@ -21,6 +21,7 @@ type ButtonProps = {
   varient?: ButtonVarients;
   size?: "regular" | "small" | "x-small" | "large";
   linkTarget?: "_self" | "_blank";
+  typeformId?: string;
 };
 
 export default function Button({
