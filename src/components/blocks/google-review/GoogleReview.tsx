@@ -19,7 +19,7 @@ export default function GoogleReview(props: Props) {
           <div className="max-w-[700px] mx-auto text-center">
             <h2 className="h2-size mb-6">
               Real Traders,
-              <br /> Real Support.
+              <span> Real Support.</span>
             </h2>
             <p className="paragraph max-w-2xl mx-auto mb-20 opacity-90">
               Be supported by traders like you — we only hire from our
