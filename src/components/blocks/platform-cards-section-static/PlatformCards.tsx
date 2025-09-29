@@ -185,7 +185,7 @@ export function SectionCardsBigStatic(props: PropData) {
               Full support for money managers with seamless allocation tools.
             </p>
             <div className={`${styles.cardCta}`}>
-              <Link className="card_href_link hover:underline" href="#">
+              <Link className="card_href_link hover:underline" href="/mam-pamm">
                 <svg
                   width="20"
                   height="21"
