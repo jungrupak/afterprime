@@ -17,19 +17,24 @@ export function BottomCta(props: CtaProps) {
         {/* grain bg effect */}
         <div className="ap_container">
           <div className="max-w-[700px] mx-auto text-center">
-            <div
-              className="h2-size mb-6"
-              dangerouslySetInnerHTML={{ __html: section_title || "&nbsp;" }}
-            />
+            <h2 className="h2-size mb-6">
+              Built on alignment,
+              <br />
+              not extraction.
+            </h2>
             <p className="paragraph max-w-2xl mx-auto mb-20 opacity-90">
-              {section_paragraph}
+              Lowest costs, transparent execution, shared rewards.Value you
+              won’t find anywhere else.
             </p>
           </div>
           {/* Cards */}
           <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6 text-center md:mt-18 md:max-w-[900px] md:mx-auto">
             <div className={`${styles.ctaCard} group`}>
-              <h3 className="">{card_apply?.title}</h3>
-              <p>{card_apply?.paragraph}</p>
+              <h3 className="">Apply</h3>
+              <p>
+                We review each application by hand.Only serious traders are
+                approved.
+              </p>
 
               <Btn size="regular" href={`#`} varient={"primary"}>
                 {card_apply?.cat_label || "Apply Now"}
@@ -37,8 +42,11 @@ export function BottomCta(props: CtaProps) {
             </div>
 
             <div className={`${styles.ctaCard} group`}>
-              <h3 className="">{card_referal?.title}</h3>
-              <p>{card_referal?.paragraph}</p>
+              <h3 className="">Referral</h3>
+              <p>
+                Know an existing member? Their invite code gets you straight
+                through the door.
+              </p>
 
               <Btn
                 size="regular"
