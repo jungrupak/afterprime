@@ -20,7 +20,7 @@ import DataVisual from "./data-visualization/DataVisual";
 import { SelectLivePricingTable } from "./live-price-feed/LivePriceFeedBlock";
 import { ProsNConsBlock } from "./pros-and-cons/ProsNConsBlock";
 import { MoreValueRealAlignmentStatic } from "./more-value-real-alignment-static/MoreAlignCards";
-import { SectionCardsBigStatic } from "./platform-cards-section-static/SectionCardRepeater";
+import { SectionCardsBigStatic } from "./platform-cards-section-static/PlatformCards";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;

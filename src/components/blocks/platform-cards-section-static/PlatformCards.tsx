@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "./SectionCardRepeater.module.scss";
+import styles from "./PlatformCards.module.scss";
 import { Blocks } from "@/types/blocks";
 
 type PropData = Blocks["platform-cards-section-static"];
