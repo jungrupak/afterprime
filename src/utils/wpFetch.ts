@@ -1,32 +1,31 @@
 // src/utils/wpFetch.ts
-import type { WPPage } from "@/types/blocks";
+export async function wpFetch<T>(endpoint: string): Promise<T | null> {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_WP_BASE_URL || process.env.WORDPRESS_REST_ENDPOINT;
 
-export async function wpFetch<T>(
-  path: string,
-  revalidateSeconds = 60
-): Promise<T | null> {
-  const endpoint = process.env.WORDPRESS_REST_ENDPOINT;
-  if (!endpoint) {
-    console.error("WORDPRESS_REST_ENDPOINT is undefined!");
+  if (!baseUrl) {
+    console.error("❌ Missing WordPress API base URL.");
     return null;
   }
 
+  // Ensure baseUrl always ends with a slash
+  const cleanBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+
+  const url = `${cleanBaseUrl}wp-json/wp/v2${endpoint}`;
+
   try {
-    const res = await fetch(`${endpoint}${path}`, {
-      next: { revalidate: revalidateSeconds },
+    const res = await fetch(url, {
+      next: { revalidate: 60 },
     });
+
     if (!res.ok) {
-      console.error(
-        `WP fetch failed for ${path}:`,
-        res.status,
-        await res.text()
-      );
+      console.error(`❌ Failed to fetch ${url}:`, res.statusText);
       return null;
     }
-    const data: T = await res.json();
-    return data;
-  } catch (err) {
-    console.error("WP fetch error:", err);
+
+    return (await res.json()) as T;
+  } catch (error) {
+    console.error("❌ wpFetch error:", error);
     return null;
   }
 }

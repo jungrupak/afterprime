@@ -87,23 +87,23 @@ export const MegaMenuItems = [
         catMenuItems: [
           {
             menuItem: "MetaTrader 5",
-            pageUrl: "/platforms/mt5",
+            pageUrl: "/mt5",
           },
           {
             menuItem: "MetaTrader 4",
-            pageUrl: "/platforms/mt4",
+            pageUrl: "/mt4",
           },
           {
             menuItem: "TraderEvolution",
-            pageUrl: "/platforms/traderevolution",
+            pageUrl: "/traderevolution",
           },
           {
             menuItem: "WebTrader",
-            pageUrl: "/platforms/webtrader",
+            pageUrl: "/webtrader",
           },
           {
             menuItem: "FIX API",
-            pageUrl: "/platforms/fix-api",
+            pageUrl: "/fix-api",
           },
         ],
       },
@@ -113,23 +113,23 @@ export const MegaMenuItems = [
         catMenuItems: [
           {
             menuItem: "Forex",
-            pageUrl: "/markets/forex",
+            pageUrl: "/forex",
           },
           {
             menuItem: "Indices",
-            pageUrl: "/markets/indices",
+            pageUrl: "/indices",
           },
           {
             menuItem: "Commodities",
-            pageUrl: "/markets/commodities",
+            pageUrl: "/commodities",
           },
           {
             menuItem: "Crypto",
-            pageUrl: "/markets/crypto",
+            pageUrl: "/crypto",
           },
           {
             menuItem: "Stocks",
-            pageUrl: "/markets/stocks",
+            pageUrl: "/stocks",
           },
         ],
       },
