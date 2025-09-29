@@ -53,7 +53,7 @@ export default function ContentBlock({
                 src={content_block_with_image_block_image_add_image?.url || ""}
                 alt={content_block_with_image_block_image_add_image?.alt || ""}
                 height={400} // fixed height
-                width={0} // set to 0, will be overridden by CSS
+                width={600} // set to 0, will be overridden by CSS
                 sizes="100vw"
                 className={`${styles.responsiveImg}`}
               />

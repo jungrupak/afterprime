@@ -17,10 +17,10 @@ export function BottomCta(props: CtaProps) {
         {/* grain bg effect */}
         <div className="ap_container">
           <div className="max-w-[700px] mx-auto text-center">
-            <h2
+            <div
               className="h2-size mb-6"
               dangerouslySetInnerHTML={{ __html: section_title || "&nbsp;" }}
-            ></h2>
+            />
             <p className="paragraph max-w-2xl mx-auto mb-20 opacity-90">
               {section_paragraph}
             </p>

@@ -93,10 +93,10 @@ export function ProsNConsBlock({
           <div>
             <div className="max-md:text-center md:pr-25">
               <h2 className="h2-size mb-6">{heading}</h2>
-              <p
+              <div
                 className="paragraph"
                 dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
-              ></p>
+              />
               <div className="mt-12">
                 <Button
                   varient="primary-ghost"
