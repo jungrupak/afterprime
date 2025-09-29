@@ -109,11 +109,17 @@ export function MultipurposeBlock({
                 {multipurpose_block_block_has_featured_image &&
                   multipurpose_block_featured_image?.url && (
                     <Image
-                      src={multipurpose_block_featured_image.url || ""}
+                      src={
+                        multipurpose_block_featured_image.url ||
+                        "Image url path"
+                      }
                       height={600}
                       width={500}
                       style={{ width: "100%" }}
-                      alt={multipurpose_block_featured_image.url || ""}
+                      alt={
+                        multipurpose_block_featured_image.url ||
+                        "Image Alt Text"
+                      }
                     />
                   )}
               </div>

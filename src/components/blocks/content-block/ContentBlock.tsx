@@ -49,14 +49,19 @@ export default function ContentBlock({
                   : "order-2"
               } h-full`}
             >
-              <Image
-                src={content_block_with_image_block_image_add_image?.url || ""}
-                alt={content_block_with_image_block_image_add_image?.alt || ""}
-                height={400} // fixed height
-                width={600} // set to 0, will be overridden by CSS
-                sizes="100vw"
-                className={`${styles.responsiveImg}`}
-              />
+              {content_block_with_image_block_image_add_image?.url ? (
+                <Image
+                  src={content_block_with_image_block_image_add_image?.url}
+                  alt={
+                    content_block_with_image_block_image_add_image?.alt ||
+                    "image alt text"
+                  }
+                  height={400} // fixed height
+                  width={0} // set to 0, will be overridden by CSS
+                  sizes="100vw"
+                  className={`${styles.responsiveImg}`}
+                />
+              ) : null}
             </div>
 
             <div
