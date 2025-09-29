@@ -15,6 +15,9 @@ export function MultipurposeBlock({
   multipurpose_block_has_feature_bullet_list,
   multipurpose_block_block_has_featured_image,
   multipurpose_block_featured_image,
+  multipurpose_block_active_right_column_content_block,
+  multipurpose_block_text_content_block_title,
+  multipurpose_block_text_content_block_content,
   ...restProps
 }: PropData) {
   //repeater keys to gra their values
@@ -26,6 +29,14 @@ export function MultipurposeBlock({
   const heading = String(multipurpose_block_section_heading || "");
   const contents = String(multipurpose_block_section_content || "");
   const htmlContent = contents
+    .split(/\r?\n\r?\n/)
+    .map((para?: string) => `<p>${para}</p>`)
+    .join("");
+
+  const contents_2 = String(
+    multipurpose_block_text_content_block_content || ""
+  );
+  const htmlContent2 = contents_2
     .split(/\r?\n\r?\n/)
     .map((para?: string) => `<p>${para}</p>`)
     .join("");
@@ -61,7 +72,7 @@ export function MultipurposeBlock({
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
       <div className="ap_container">
-        <BoxedBlock isBoxed={isBoxed === 1 ? true : false} vAlign="center">
+        <BoxedBlock isBoxed={isBoxed === 1 ? true : false} vAlign="start">
           {/* Left */}
           <div>
             <div className="max-md:text-center md:pr-25">
@@ -89,20 +100,36 @@ export function MultipurposeBlock({
 
           {/* Right */}
           <div>
-            <Lists listItems={bulletLists} bulletVarient="arrow-blue" />
+            {multipurpose_block_has_feature_bullet_list === "1" && (
+              <Lists listItems={bulletLists} bulletVarient="arrow-blue" />
+            )}
 
-            <div className="my-20">
-              {multipurpose_block_block_has_featured_image &&
-                multipurpose_block_featured_image?.url && (
-                  <Image
-                    src={multipurpose_block_featured_image.url || ""}
-                    height={600}
-                    width={500}
-                    style={{ width: "100%" }}
-                    alt={multipurpose_block_featured_image.url || ""}
-                  />
-                )}
-            </div>
+            {multipurpose_block_block_has_featured_image === "1" && (
+              <div className="my-20">
+                {multipurpose_block_block_has_featured_image &&
+                  multipurpose_block_featured_image?.url && (
+                    <Image
+                      src={multipurpose_block_featured_image.url || ""}
+                      height={600}
+                      width={500}
+                      style={{ width: "100%" }}
+                      alt={multipurpose_block_featured_image.url || ""}
+                    />
+                  )}
+              </div>
+            )}
+
+            {multipurpose_block_active_right_column_content_block === "1" && (
+              <div className="max-md:text-center md:pr-25">
+                <h2 className="h2-size mb-6">
+                  {multipurpose_block_text_content_block_title}
+                </h2>
+                <div
+                  className="wysWygEditor"
+                  dangerouslySetInnerHTML={{ __html: htmlContent2 || "&nbsp;" }}
+                />
+              </div>
+            )}
           </div>
           {/* Right Ends */}
         </BoxedBlock>

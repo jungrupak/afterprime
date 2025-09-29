@@ -364,6 +364,20 @@ body {
       margin-bottom: 0;
     }
   }
+
+  ul {
+    list-style: disc;
+    margin-left: 22px;
+    margin-bottom: max(40px, min(5vw, 50px));
+    li {
+      margin-bottom: 20px;
+      font-size: max(20px, min(5vw, 26px));
+      font-weight: 300;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 .apBannerContent {

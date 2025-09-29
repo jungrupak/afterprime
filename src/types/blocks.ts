@@ -55,6 +55,9 @@ export type Blocks = {
     multipurpose_block_cta_url?: string;
     multipurpose_block_block_has_featured_image?: string;
     multipurpose_block_has_feature_bullet_list?: string;
+    multipurpose_block_active_right_column_content_block?: string;
+    multipurpose_block_text_content_block_title?: string;
+    multipurpose_block_text_content_block_content?: string;
     multipurpose_block_featured_image?: {
       url?: string;
       alt?: string;
