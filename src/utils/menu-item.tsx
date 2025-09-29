@@ -164,34 +164,34 @@ export const MegaMenuItems = [
       },
     ],
   },
-  {
-    menu: "Compare",
-    menuInfos: {
-      title: "Compare",
-      description: "Paragraph texts",
-      btnText: "Learn More",
-      btnLink: "#",
-    },
-    category: [
-      {
-        categoryName: "You Know That",
-        catMenuItems: [
-          {
-            menuItem: "Compare Brokers",
-            pageUrl: "#",
-          },
-          {
-            menuItem: "Saving & Earnings Calculator",
-            pageUrl: "#",
-          },
-          {
-            menuItem: "Our Proof",
-            pageUrl: "#",
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   menu: "Compare",
+  //   menuInfos: {
+  //     title: "Compare",
+  //     description: "Paragraph texts",
+  //     btnText: "Learn More",
+  //     btnLink: "#",
+  //   },
+  //   category: [
+  //     {
+  //       categoryName: "You Know That",
+  //       catMenuItems: [
+  //         {
+  //           menuItem: "Compare Brokers",
+  //           pageUrl: "#",
+  //         },
+  //         {
+  //           menuItem: "Saving & Earnings Calculator",
+  //           pageUrl: "#",
+  //         },
+  //         {
+  //           menuItem: "Our Proof",
+  //           pageUrl: "#",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     menu: "Help",
     menuInfos: {
