@@ -23,12 +23,14 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
       <div className="ap_container">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
           <div className="">
-            <h2
-              className="h2-size mb-6 text-center md:text-left"
-              dangerouslySetInnerHTML={{
-                __html: section_card_repeator_section_title || "&nbsp;",
-              }}
-            ></h2>
+            {section_card_repeator_section_title && (
+              <div
+                className="h2-size mb-6 text-center md:text-left"
+                dangerouslySetInnerHTML={{
+                  __html: section_card_repeator_section_title || "&nbsp;",
+                }}
+              />
+            )}
           </div>
           <div className="">
             <p className="paragraph max-w-2xl opacity-90 max-md:text-center max-md:mb-10">
