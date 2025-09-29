@@ -102,7 +102,7 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
             <div className={`${styles.cardCta}`}>
               <Link
                 className="card_href_link hover:underline"
-                href="/true-no-conflict-broker"
+                href="/aligned-execution"
               >
                 Read More
                 <svg
