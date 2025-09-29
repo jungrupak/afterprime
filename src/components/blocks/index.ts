@@ -21,6 +21,8 @@ import { SelectLivePricingTable } from "./live-price-feed/LivePriceFeedBlock";
 import { ProsNConsBlock } from "./pros-and-cons/ProsNConsBlock";
 import { MoreValueRealAlignmentStatic } from "./more-value-real-alignment-static/MoreAlignCards";
 import { SectionCardsBigStatic } from "./platform-cards-section-static/PlatformCards";
+import SectionTableMarginLeverage from "./margin-leverage-table/MarginLeverageTable";
+import SectionMarginCallOut from "./margin-call-out-table/MarginCallOutTable";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -44,4 +46,6 @@ export const blockRegistry: {
   "block-pros-and-cons": ProsNConsBlock,
   "section-more-value-real-alignment-static": MoreValueRealAlignmentStatic,
   "platform-cards-section-static": SectionCardsBigStatic,
+  "margin-and-leverage-table": SectionTableMarginLeverage,
+  "margin-call-and-leverage": SectionMarginCallOut,
 };

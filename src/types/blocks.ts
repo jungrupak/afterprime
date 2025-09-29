@@ -161,6 +161,14 @@ export type Blocks = {
   "platform-cards-section-static": {
     platforms_cards?: string | undefined;
   };
+  "margin-and-leverage-table": {
+    margin_and_leverage_table_static_label?: string | undefined;
+    margin_and_leverage_table?: string | undefined;
+  };
+  "margin-call-and-leverage": {
+    margin_stop_call_table_static_label?: string | undefined;
+    margin_stop_call_table?: string | undefined;
+  };
 };
 //
 
