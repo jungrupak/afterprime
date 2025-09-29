@@ -157,6 +157,10 @@ export type Blocks = {
   "section-more-value-real-alignment-static": {
     more_value_alignment_?: string | undefined;
   };
+
+  "platform-cards-section-static": {
+    platforms_cards?: string | undefined;
+  };
 };
 //
 
