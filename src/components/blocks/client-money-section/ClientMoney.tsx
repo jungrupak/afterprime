@@ -31,7 +31,9 @@ export function ClientMoneySection({
           {/* Left */}
           <div>
             <div className="max-md:text-center md:pr-25">
-              <h2>{client_money_static_block_section_title}</h2>
+              <h2 className="font-[600]">
+                {client_money_static_block_section_title}
+              </h2>
               <div
                 className="wysWygEditor"
                 dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}

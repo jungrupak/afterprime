@@ -6,23 +6,28 @@ export default function Footer() {
   const socialItems = [
     {
       imgFileName: "discord.svg",
-      link: "#",
+      link: "https://discord.com/invite/NKBcxyWzdM",
+      target: "_blank",
     },
     {
       imgFileName: "fb.svg",
-      link: "#",
+      link: "https://www.facebook.com/afterprime.official/",
+      target: "_blank",
     },
     {
       imgFileName: "tw.svg",
-      link: "#",
+      link: "https://x.com/afterprime_com",
+      target: "_blank",
     },
     {
       imgFileName: "insta.svg",
-      link: "#",
+      link: "https://www.instagram.com/afterprime.official/?hl=en",
+      target: "_blank",
     },
     {
       imgFileName: "in.svg",
-      link: "#",
+      link: "https://sc.linkedin.com/company/afterprime",
+      target: "_blank",
     },
   ];
 
@@ -41,7 +46,12 @@ export default function Footer() {
             </Link>
             <div className="flex gap-3 mb-6">
               {socialItems.map((item, index) => (
-                <Link key={index} href={item.link} className="mb-4">
+                <Link
+                  key={index}
+                  href={item.link}
+                  target={item.target}
+                  className="mb-4"
+                >
                   <Image
                     src={`/img/${item.imgFileName}`}
                     alt=""
@@ -51,12 +61,20 @@ export default function Footer() {
                 </Link>
               ))}
             </div>
-            <Link href="#" className="flex gap-2 items-center font-[600] mb-12">
+            <Link
+              href="https://www.youtube.com/@afterprime"
+              target="_blank"
+              className="flex gap-2 items-center font-[600] mb-12"
+            >
               <Image width={34} height={34} src="/img/yt.png" alt="" />
               Checkout our Youtube Chanel
             </Link>
             <div className="flex gap-3">
-              <Link href="#" className="block">
+              <Link
+                href="https://apps.apple.com/us/app/afterprime/id1672935764"
+                target="_blank"
+                className="block"
+              >
                 <Image
                   width={112}
                   height={38}
@@ -64,7 +82,11 @@ export default function Footer() {
                   alt=""
                 />
               </Link>
-              <Link href="#" className="block">
+              <Link
+                href="https://play.google.com/store/apps/details?id=com.traderevolution.afterprime"
+                target="_blank"
+                className="block"
+              >
                 <Image
                   width={112}
                   height={38}
@@ -78,19 +100,22 @@ export default function Footer() {
             <h2>Quick Links</h2>
             <ul>
               <li>
-                <Link href="#">Start Trading Now</Link>
+                <Link href="/get-paid-to-trade">Get Paid To Trade</Link>
               </li>
               <li>
-                <Link href="#">How to Open an Account</Link>
+                <Link href="/lowest-cost-verified">Lowest Cost Verified</Link>
               </li>
               <li>
-                <Link href="#">How to Verify Identity</Link>
+                <Link href="/aligned-execution">Aligned Execution</Link>
               </li>
               <li>
-                <Link href="#">How to Deposit</Link>
+                <Link href="/deposit-withdrawal">Deposit and Withdrawal</Link>
               </li>
               <li>
-                <Link href="#">How to Withdraw</Link>
+                <Link href="/how-to-qualify">How to Qualify</Link>
+              </li>
+              <li>
+                <Link href="/trade-execution">Trade Execution</Link>
               </li>
             </ul>
           </div>
@@ -98,25 +123,22 @@ export default function Footer() {
             <h2>Markets</h2>
             <ul>
               <li>
-                <Link href="#">Live Spreads</Link>
+                <Link href="/live-spreads">Live Spreads</Link>
               </li>
               <li>
-                <Link href="#">Forex</Link>
+                <Link href="/forex">Forex</Link>
               </li>
               <li>
-                <Link href="#">Crypto</Link>
+                <Link href="/crypto">Crypto</Link>
               </li>
               <li>
-                <Link href="#">Indices</Link>
+                <Link href="/indices">Indices</Link>
               </li>
               <li>
-                <Link href="#">Commodities</Link>
+                <Link href="/commodities">Commodities</Link>
               </li>
               <li>
-                <Link href="#">Stocks</Link>
-              </li>
-              <li>
-                <Link href="#">Bonds</Link>
+                <Link href="/stocks">Stocks</Link>
               </li>
             </ul>
           </div>
@@ -124,19 +146,19 @@ export default function Footer() {
             <h2>Platforms & Tools</h2>
             <ul>
               <li>
-                <Link href="#">TradingView</Link>
+                <Link href="/mt4">MT4</Link>
               </li>
               <li>
-                <Link href="#">MT4</Link>
+                <Link href="/mt5">MT5</Link>
               </li>
               <li>
-                <Link href="#">Webtrader</Link>
+                <Link href="/webtrader">Webtrader</Link>
               </li>
               <li>
-                <Link href="#">TraderEvolution</Link>
+                <Link href="/traderevolution">TraderEvolution</Link>
               </li>
               <li>
-                <Link href="#">FIX API</Link>
+                <Link href="/fix-api">FIX API</Link>
               </li>
               <li>
                 <Link href="#">MAM/PAMM</Link>
@@ -147,22 +169,21 @@ export default function Footer() {
             <h2>Afterprime</h2>
             <ul>
               <li>
-                <Link href="#">Who We Are</Link>
+                <Link href="/our-story">Our Story</Link>
               </li>
               <li>
-                <Link href="#">Regulation & Licensing</Link>
+                <Link href="/why-we-exist">Why We Exist</Link>
               </li>
               <li>
-                <Link href="#">Legal Documents</Link>
+                <Link href="/legal-documents">Legal Documents</Link>
               </li>
               <li>
-                <Link href="#">Knowledgebase</Link>
+                <Link href="/license-and-regulations">
+                  License and Regulation
+                </Link>
               </li>
               <li>
-                <Link href="#">Privacy Policy</Link>
-              </li>
-              <li>
-                <Link href="#">GDPR Policy</Link>
+                <Link href="/kyc-aml">KYC & AML/CTF</Link>
               </li>
             </ul>
           </div>
