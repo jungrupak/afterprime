@@ -50,7 +50,7 @@ export function BottomCta(props: CtaProps) {
 
               <Btn
                 size="regular"
-                href={`#`}
+                href={`https://discord.com/invite/NKBcxyWzdM`}
                 varient={"ghost"}
                 linkTarget="_self"
               >
