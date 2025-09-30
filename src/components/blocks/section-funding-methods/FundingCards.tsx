@@ -1,6 +1,8 @@
 import type { Blocks } from "@/types/blocks";
 import styles from "./FundingCards.module.scss";
 import Image from "next/image";
+import { DepositCardData, WithdrawCardData } from "@/utils/FundingCardJson";
+import Button from "@/components/ui/Button";
 
 type FundingCardsProps = Blocks["funding-card-lists"];
 
@@ -10,7 +12,7 @@ type FundingCard = FundingCardsProps & {
     method_name?: string;
     is_popular?: boolean;
     currency_type?: string[];
-    deposit_time?: string;
+    processing_time?: string;
   }[];
 };
 
@@ -27,18 +29,8 @@ export function SectionFundingCards({
   const sectionParagraph = funding_cards_section_section_paragraph ?? "";
   const selectCategory = funding_cards_section_select_method_type ?? "";
 
-  const cards = [
-    {
-      method_icon: "https://cdn.afterprime.com/images/method-card-color.svg",
-      method_name: "Credit & Debit Cards",
-      currency_type: ["AUD", "EUR", "USD", "GBP", "CAD", "SGD"],
-    },
-    {
-      method_icon: "https://cdn.afterprime.com/images/method-card-color.svg",
-      method_name: "Credit & Debit Cards",
-      currency_type: ["AUD", "EUR", "USD", "GBP", "CAD", "SGD"],
-    },
-  ];
+  const cards = DepositCardData();
+  const wthDrawCards = WithdrawCardData();
 
   /////
   return (
@@ -62,27 +54,88 @@ export function SectionFundingCards({
           </div>
         </div>
         {/* Cards */}
-        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
-          {cards.map((card, idx) => (
-            <div key={idx} className={`${styles.cardItem} items-center`}>
-              <Image
-                src={card.method_icon}
-                height={30}
-                width={120}
-                alt="Image Alt"
-              />
-              <div className="mt-5 text-[28px] font-[700]">
-                {card.method_name}
+        {funding_cards_section_select_method_type === "Deposit Methods" && (
+          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 text-center md:mt-18">
+            {cards.map((card, idx) => (
+              <div key={idx} className={`${styles.cardItem} items-center`}>
+                <Image
+                  src={card.method_icon}
+                  height={30}
+                  width={120}
+                  alt="Image Alt"
+                  className={`${styles.methodIcon}`}
+                />
+                <div className="mt-5 text-[28px] font-[700]">
+                  {card.method_name}
+                </div>
+                <div className="db mt-5 opacity-68">Accepted Currencies:</div>
+                <div
+                  className={`flex gap-1 items-center mt-4 justify-center flex-wrap`}
+                >
+                  {card.currency_type.map((cur, i) => (
+                    <div key={i} className={`${styles.curItems}`}>
+                      {cur}
+                    </div>
+                  ))}
+                </div>
+                <div className="db mt-8 opacity-68">Processing Time:</div>
+                <p className="mb-4">{card.processing_time} - Zero Fee</p>
+                <div className="mt-auto">
+                  <Button
+                    varient="primary-ghost"
+                    size="small"
+                    href="app.afterprime.com/live"
+                    linkTarget="_blank"
+                  >
+                    Deposit Now
+                  </Button>
+                </div>
               </div>
-              <div className="db mt-5">Accepted Currencies:</div>
-              <div className="flex gap-4 items-center mt-4">
-                {card.currency_type.map((cur, i) => (
-                  <div key={i}>{cur}</div>
-                ))}
+            ))}
+          </div>
+        )}
+
+        {funding_cards_section_select_method_type === "Withdrawal Methods" && (
+          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 text-center md:mt-18">
+            {wthDrawCards.map((card, idx) => (
+              <div key={idx} className={`${styles.cardItem} items-center`}>
+                <Image
+                  src={card.method_icon}
+                  height={30}
+                  width={120}
+                  alt="Image Alt"
+                  className={`${styles.methodIcon}`}
+                />
+                <div className="mt-5 text-[28px] font-[700]">
+                  {card.method_name}
+                </div>
+                <div className="db mt-5 opacity-68">Accepted Currencies:</div>
+                <div
+                  className={`flex gap-1 items-center mt-4 justify-center flex-wrap`}
+                >
+                  {card.currency_type.map((cur, i) => (
+                    <div key={i} className={`${styles.curItems}`}>
+                      {cur}
+                    </div>
+                  ))}
+                </div>
+                <div className="db mt-8 opacity-68">Processing Time:</div>
+                <p className="mb-4">{card.processing_time} - Zero Fee</p>
+                <div className="mt-auto">
+                  <Button
+                    varient="primary-ghost"
+                    size="small"
+                    href="app.afterprime.com/live"
+                    linkTarget="_blank"
+                  >
+                    Deposit Now
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
+
         {/* Cards Ends */}
       </div>
     </section>
