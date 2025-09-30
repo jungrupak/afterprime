@@ -2,11 +2,10 @@
 
 import styles from "./ui.module.scss";
 
-import { createPopup, type PopupOptions } from "@typeform/embed";
-import "@typeform/embed/build/css/popup.css";
+import { createSlider, type SliderOptions } from "@typeform/embed";
+import "@typeform/embed/build/css/slider.css";
 
-// Extend the official PopupOptions type
-interface ExtendedPopupOptions extends PopupOptions {
+interface ExtendedSliderOptions extends SliderOptions {
   autoOpen?: boolean;
   hideHeaders?: boolean;
   hideFooter?: boolean;
@@ -20,18 +19,19 @@ interface TypeformButtonProps {
 
 const TypeformButton: React.FC<TypeformButtonProps> = ({
   formId,
-  buttonText = "Requesst Invite",
+  buttonText = "Request Invite",
   size = "Regular",
 }) => {
   const handleClick = () => {
-    const options: ExtendedPopupOptions = {
+    const options: ExtendedSliderOptions = {
       autoOpen: false,
       hideHeaders: true,
       hideFooter: true,
+      position: "right", // 👈 this makes it slide in from right
     };
 
-    const popup = createPopup(formId, options);
-    popup.open();
+    const slider = createSlider(formId, options);
+    slider.open();
   };
 
   return (
