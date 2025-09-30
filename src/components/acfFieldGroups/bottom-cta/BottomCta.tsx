@@ -37,7 +37,7 @@ export function BottomCta(props: CtaProps) {
               </p>
 
               <Btn size="regular" href={`#`} varient={"primary"}>
-                {card_apply?.cat_label || "Apply Now"}
+                {card_apply?.cat_label || "Request Invite"}
               </Btn>
             </div>
 
@@ -54,7 +54,7 @@ export function BottomCta(props: CtaProps) {
                 varient={"ghost"}
                 linkTarget="_self"
               >
-                {card_referal?.cat_label || "Referal"}
+                {card_referal?.cat_label || "Ask on Discord"}
               </Btn>
             </div>
           </div>
