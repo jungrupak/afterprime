@@ -97,7 +97,7 @@ export default function BottomCards() {
               className="card_href_link hover:underline"
               target="_blank"
             >
-              Customer Support
+              General FAQs
               <svg
                 width="20"
                 height="20"
@@ -140,7 +140,7 @@ export default function BottomCards() {
               className="card_href_link hover:underline"
               target="_blank"
             >
-              Customer Support
+              Join Our Discord
               <svg
                 width="20"
                 height="20"

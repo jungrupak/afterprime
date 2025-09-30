@@ -24,7 +24,7 @@ export function BottomCta(props: CtaProps) {
             </h2>
             <p className="paragraph max-w-2xl mx-auto mb-20 opacity-90">
               Lowest costs, transparent execution, shared rewards.Value you
-              won’t find anywhere else.
+              won&apos;t find anywhere else.
             </p>
           </div>
           {/* Cards */}

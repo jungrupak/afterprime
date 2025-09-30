@@ -1,0 +1,57 @@
+.sectionTitle {
+  max-width: 480px;
+  margin-bottom: max(25px, min(5vw, 50px));
+  font-size: max(38px, min(5vw, 50px));
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.tabnavWrapper {
+  @media all and (max-width: 767px) {
+    justify-content: flex-start;
+    overflow-x: auto;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    margin-left: -20px;
+    margin-right: -20px;
+    width: auto;
+    padding: 0 20px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.tabItem {
+  background-color: rgba(var(--alphaWhite), 0.08);
+  color: rgba(var(--alphaWhite), 0.48);
+  cursor: pointer;
+  padding: 10px 25px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+  margin-bottom: 40px;
+  white-space: nowrap;
+
+  &:hover,
+  &.activeItem {
+    background-color: rgba(var(--alphaWhite), 0.14);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    color: #fff;
+  }
+}
+
+.style.tableParent {
+  table-layout: fixed;
+  table {
+    tr {
+      td {
+        width: 33.33%;
+        max-width: 33.33%;
+        min-width: 33.33%;
+      }
+    }
+  }
+}

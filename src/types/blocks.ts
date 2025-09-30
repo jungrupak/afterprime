@@ -179,6 +179,15 @@ export type Blocks = {
     funding_cards_section_select_method_type?: string;
     funding_cards_section?: string | undefined;
   };
+  "swap-table-section": {
+    swap_data_csv_endpoint_end_point_forex_major?: string;
+    swap_data_csv_endpoint_end_point_forex_minor?: string;
+    swap_data_csv_endpoint_end_point_forex_exotic?: string;
+    swap_data_csv_endpoint_end_point_commodities?: string;
+    swap_data_csv_endpoint_end_point_indices?: string;
+    swap_data_csv_endpoint_end_point_crypto?: string;
+    swap_data_csv_endpoint?: string | undefined;
+  };
 };
 //
 

@@ -25,6 +25,7 @@ import SectionTableMarginLeverage from "./margin-leverage-table/MarginLeverageTa
 import SectionMarginCallOut from "./margin-call-out-table/MarginCallOutTable";
 import { ClientMoneySection } from "./client-money-section/ClientMoney";
 import { SectionFundingCards } from "./section-funding-methods/FundingCards";
+import { SwapDataTabs } from "./swap-table/SwapTable";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -52,4 +53,5 @@ export const blockRegistry: {
   "margin-call-and-leverage": SectionMarginCallOut,
   "client-money-section": ClientMoneySection,
   "funding-card-lists": SectionFundingCards,
+  "swap-table-section": SwapDataTabs,
 };
