@@ -1,9 +1,6 @@
-"use client";
-
 import styles from "./style.module.scss";
 import Button from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
-import { useSanitizedHTML } from "@/hooks/useHtmlSanitization";
 
 interface InnerBannerProps {
   inner_banner_title?: string;
@@ -20,9 +17,6 @@ export default function InnerBanner({
   inner_banner_button_url,
   inner_banner_is_type_form_cta,
 }: InnerBannerProps) {
-  const bannertitle = useSanitizedHTML(inner_banner_title);
-  const bannercontent = useSanitizedHTML(inner_banner_paragraph);
-
   return (
     <>
       <section className={`${styles.innerBannerSection}`}>
@@ -37,7 +31,9 @@ export default function InnerBanner({
             <div
               className="paragraph max-w-[600px] mb-12 lg:mt-20 opacity-80"
               style={{ fontWeight: "300" }}
-              dangerouslySetInnerHTML={{ __html: bannercontent }}
+              dangerouslySetInnerHTML={{
+                __html: inner_banner_paragraph || "&nbsp;",
+              }}
             />
 
             {inner_banner_is_type_form_cta === "1" ? (
