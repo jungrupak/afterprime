@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import type { PageFieldGroups } from "@/types/blocks";
+import TypeformButton from "@/components/ui/typeForm";
 
 type CtaProps = PageFieldGroups["bottom_cta"];
 
@@ -36,9 +37,11 @@ export function BottomCta(props: CtaProps) {
                 approved.
               </p>
 
-              <Btn size="regular" href={`#`} varient={"primary"}>
-                {card_apply?.cat_label || "Request Invite"}
-              </Btn>
+              <TypeformButton
+                formId="GYkOukSo"
+                buttonText="Request Invite"
+                size="Regular"
+              />
             </div>
 
             <div className={`${styles.ctaCard} group`}>
@@ -52,7 +55,7 @@ export function BottomCta(props: CtaProps) {
                 size="regular"
                 href={`https://discord.com/invite/NKBcxyWzdM`}
                 varient={"ghost"}
-                linkTarget="_self"
+                linkTarget="_blank"
               >
                 {card_referal?.cat_label || "Ask on Discord"}
               </Btn>

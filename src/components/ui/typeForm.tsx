@@ -40,6 +40,8 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
       className={`${styles.ap_button} ${
         size === "Large"
           ? styles.large
+          : size === "Regular"
+          ? styles.regular
           : size === "small"
           ? styles.small
           : size === "x-small"
