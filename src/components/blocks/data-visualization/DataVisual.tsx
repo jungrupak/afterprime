@@ -1,90 +1,16 @@
 "use client";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Chart, { Plugin, PointElement } from "chart.js/auto";
 import styles from "./style.module.scss";
 import Button from "@/components/ui/Button";
-import { Blocks } from "@/types/blocks";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import Chart, {
-  ChartType,
-  ChartData,
-  ChartOptions,
-  Plugin,
-  ChartDataset,
-  ScriptableContext,
-  PointElement,
-} from "chart.js/auto";
-
-type BrokerKey = keyof typeof COST_MAP;
-
-type SectionHeaderProps = Blocks["section-datavisualization"];
-
-const COST_MAP = {
-  Afterprime: 4.2,
-  FusionMarkets: 7.5,
-  "IC Markets (cTrader)": 9.7,
-  "IC Markets (Raw)": 9.7,
-  "Vantage FX (RAW ECN)": 9.7,
-  "Interactive Brokers": 10.4,
-  "FXOpen (TickTrader)": 10.8,
-  "Global Prime": 11.3,
-  FXPIG: 11.5,
-  "Tickmill UK (Raw)": 11.6,
-  "Yadix (Scalper)": 11.9,
-  TopFX: 12.1,
-  "ATFX (.ins)": 12.2,
-  FXCM: 12.3,
-  CFH: 13.0,
-  "FXOpen UK (ECN)": 13.6,
-  "Advanced Markets (.a)": 13.7,
-  "Axiory (MT5)": 13.9,
-  "TaurexUK (.fi)": 14.0,
-  "Pepperstone UK (.r)": 14.2,
-  Axiory: 14.3,
-  "RannForex (ECN)": 14.5,
-  Swissquote: 14.5,
-  "Tradersway (ECN)": 14.6,
-  "9x Markets": 14.7,
-  "FXCM (FT)": 14.8,
-  "FTD Limited (.i)": 15.1,
-  "Mt.Cook (ECN2)": 15.4,
-  "Direct Trading Tech": 15.5,
-  "FXPIG (cTrader)": 15.5,
-  "Axiory (Zero)": 15.6,
-  Darwinex: 15.7,
-  "BlackBull Markets (ECN Prime)": 15.9,
-  "Doo Prime (.uk)": 16.8,
-  "BlackBull Markets (i)": 16.9,
-  "Cara Markets (.c)": 17.1,
-  "Equiti (.p)": 17.5,
-  "Scope Markets": 17.6,
-  AAAFX: 18.1,
-  "CPTMarketsUK (c)": 18.4,
-  "GO Markets (cTrader)": 18.4,
-  Tier1FX: 18.6,
-  "VARIANSE (x)": 19.1,
-  "CPTMarketsUK (t)": 19.4,
-  "Honor Capital Markets": 19.4,
-  "VARIANSE (cTrader)": 19.4,
-  "Pacific Financial Derivatives": 20.0,
-  "Traders Trust": 20.2,
-  "BidX Markets": 20.5,
-  "Skilling (cTrader)": 20.5,
-  "FIBO Group (.I)": 21.9,
-  "Admiral Markets UK (Prime)": 22.8,
-  Skilling: 23.1,
-  Dukascopy: 24.6,
-  OctaFX: 25.5,
-  "Rakuten Australia": 25.9,
-  "Bernstein Bank": 27.5,
-  "GKFX (Professional)": 29.0,
-  "Markets.com": 32.1,
-  "FXChoice (Pro)": 35.3,
-  "VARIANSE (ECNpro)": 36.2,
-  "Amana Capital (Classic)": 40.0,
-  "BlackBull Markets (cTrader)": 59.0,
-  "Top 10": 10.2,
-  "Industry Average": 18.4,
-} as const;
+type BrokerApiData = {
+  broker: string;
+  symbol: string;
+  cost: number;
+  costPerLot: number;
+  savingPercentage: number;
+};
 
 const BROKER_COLORS: Record<string, string> = {
   Afterprime: "#22c55e",
@@ -100,30 +26,17 @@ const USD = (v: number) =>
     maximumFractionDigits: 0,
   });
 
-function buildBrokerList() {
-  const all = Object.keys(COST_MAP) as BrokerKey[];
-  const rest = all
-    .filter(
-      (k) => k !== "Industry Average" && k !== "Top 10" && k !== "Afterprime"
-    )
-    .sort();
-  return ["Industry Average", "Top 10", "—DIVIDER—", "Afterprime", ...rest];
-}
-
-export default function DataVisual(props: SectionHeaderProps) {
-  const {
-    data_visialization_section_section_title,
-    data_visialization_section_paragraph,
-  } = props;
-
+export default function DataVisual() {
+  // Inputs
   const [start, setStart] = useState(100_000);
   const [lots, setLots] = useState(100);
   const [retPct, setRetPct] = useState(2);
   const [months, setMonths] = useState(60);
-  const [b1, setB1] = useState<BrokerKey>("Industry Average");
-  const [b2, setB2] = useState<BrokerKey>("Tickmill UK (Raw)");
-  const [b3, setB3] = useState<BrokerKey>("FXCM");
+  const [b1, setB1] = useState("Industry Average");
+  const [b2, setB2] = useState("Tickmill UK (Raw)");
+  const [b3, setB3] = useState("FXCM");
 
+  // KPI values
   const [apEnd, setApEnd] = useState(0);
   const [apRet, setApRet] = useState(0);
   const [b1End, setB1End] = useState(0);
@@ -131,12 +44,39 @@ export default function DataVisual(props: SectionHeaderProps) {
   const [advAbs, setAdvAbs] = useState(0);
   const [advPct, setAdvPct] = useState(0);
 
+  const [brokerData, setBrokerData] = useState<Record<string, BrokerApiData>>(
+    {}
+  );
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const chartRef = useRef<Chart<"line", number[], number> | null>(null);
 
-  const optionsList = useMemo(buildBrokerList, []);
+  // Fetch broker costs dynamically
+  useEffect(() => {
+    fetch(
+      "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=24h&commission=true"
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        const map: Record<string, BrokerApiData> = {};
+        res.brokers.forEach((b: BrokerApiData) => {
+          map[b.broker] = b;
+        });
+        setBrokerData(map);
+      })
+      .catch(console.error);
+  }, []);
 
-  // Plugin typed correctly
+  const optionsList = useMemo(() => {
+    const allBrokers = Object.keys(brokerData).sort();
+    return [
+      "Industry Average",
+      "Top 10",
+      "—DIVIDER—",
+      "Afterprime",
+      ...allBrokers,
+    ];
+  }, [brokerData]);
+
   const RightLabels = useMemo<Plugin<"line">>(
     () => ({
       id: "RightLabels",
@@ -156,8 +96,8 @@ export default function DataVisual(props: SectionHeaderProps) {
         ctx.textBaseline = "top";
         ctx.fillStyle = "#cbd5e1";
 
-        data.datasets.forEach((ds, i) => {
-          const meta = chart.getDatasetMeta(i);
+        data.datasets.forEach((ds) => {
+          const meta = chart.getDatasetMeta(data.datasets.indexOf(ds));
           if (!meta || !meta.data || !meta.data.length) return;
           const pt = meta.data[meta.data.length - 1] as PointElement;
 
@@ -192,31 +132,28 @@ export default function DataVisual(props: SectionHeaderProps) {
 
   function computeSeries() {
     const r = retPct / 100;
-    const picks = [b1, b2, b3] as BrokerKey[];
-    // Always include Afterprime and Industry Average; then add distinct broker picks (skip None-like or duplicates)
-    const seriesDefs: Array<{ label: string; color: string; c: number }> = [
-      {
-        label: "Afterprime",
-        color: BROKER_COLORS["Afterprime"],
-        c: COST_MAP["Afterprime"],
-      },
-      {
-        label: "Industry Average",
-        color: BROKER_COLORS["Industry Average"],
-        c: COST_MAP["Industry Average"],
-      },
-    ];
+    const picks = [b1, b2, b3];
+
+    const seriesDefs: Array<{ label: string; color: string; c: number }> = [];
+
+    ["Afterprime", "Industry Average"].forEach((label) => {
+      const cost = brokerData[label]?.costPerLot ?? 0;
+      seriesDefs.push({
+        label,
+        color: BROKER_COLORS[label] ?? "#ef4444",
+        c: cost,
+      });
+    });
 
     picks.forEach((bk, idx) => {
-      if (!bk || bk === ("—DIVIDER—" as unknown)) return;
-      if (bk === "Afterprime") return; // already included
+      if (!bk || bk === "—DIVIDER—") return;
       if (seriesDefs.some((s) => s.label === bk)) return;
-      const c = COST_MAP[bk];
-      if (typeof c !== "number") return;
+      const cost = brokerData[bk]?.costPerLot;
+      if (typeof cost !== "number") return;
       seriesDefs.push({
         label: bk,
         color: BROKER_PICK_COLORS[idx] ?? "#ef4444",
-        c,
+        c: cost,
       });
     });
 
@@ -235,16 +172,17 @@ export default function DataVisual(props: SectionHeaderProps) {
   }
 
   function drawChart() {
+    if (!Object.keys(brokerData).length) return;
     const calc = computeSeries();
-    // KPIs
-    const ap = calc.series
-      .find((s) => s.def.label === "Afterprime")!
-      .data.at(-1)!;
-    const ind = calc.series
-      .find((s) => s.def.label === "Industry Average")!
-      .data.at(-1)!;
+
+    const ap =
+      calc.series.find((s) => s.def.label === "Afterprime")?.data.at(-1) ?? 0;
+    const ind =
+      calc.series
+        .find((s) => s.def.label === "Industry Average")
+        ?.data.at(-1) ?? 0;
     const b1Series = calc.series.find((s) => s.def.label === b1);
-    const b1Val = b1Series ? b1Series.data.at(-1)! : ind;
+    const b1Val = b1Series?.data.at(-1) ?? ind;
 
     setApEnd(ap);
     setApRet(((ap - start) / start) * 100);
@@ -253,7 +191,6 @@ export default function DataVisual(props: SectionHeaderProps) {
     setAdvAbs(Math.max(0, ap - b1Val));
     setAdvPct(((ap - b1Val) / Math.abs(start)) * 100);
 
-    // Chart datasets
     const datasets = calc.series.map((s) => ({
       label: s.def.label,
       data: s.data,
@@ -270,89 +207,69 @@ export default function DataVisual(props: SectionHeaderProps) {
     }
 
     if (canvasRef.current) {
-      chartRef.current = new Chart<"line", number[], number>(
-        canvasRef.current,
-        {
-          type: "line",
-          data: { labels: calc.labels, datasets },
-          plugins: [RightLabels],
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: false,
-            layout: { padding: { right: 200 } },
-            plugins: {
-              legend: {
-                labels: {
-                  color: "#cbd5e1",
-                  boxWidth: 12,
-                  usePointStyle: true,
-                  pointStyle: "line",
-                },
-              },
-            },
-            elements: { point: { radius: 0, hitRadius: 10 } },
-            scales: {
-              x: {
-                title: { display: true, text: "Months", color: "#94a3b8" },
-                ticks: { color: "#cbd5e1" },
-                grid: { color: "rgba(148,163,184,.15)" },
-              },
-              y: {
-                ticks: {
-                  color: "#cbd5e1",
-                  callback: (v: unknown) => `$${Number(v).toLocaleString()}`,
-                },
-                grid: { color: "rgba(148,163,184,.15)" },
+      chartRef.current = new Chart(canvasRef.current, {
+        type: "line",
+        data: { labels: calc.labels, datasets },
+        plugins: [RightLabels],
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: false,
+          layout: { padding: { right: 200 } },
+          plugins: {
+            legend: {
+              labels: {
+                color: "#cbd5e1",
+                boxWidth: 12,
+                usePointStyle: true,
+                pointStyle: "line",
               },
             },
           },
-        }
-      );
+          elements: { point: { radius: 0, hitRadius: 10 } },
+          scales: {
+            x: {
+              title: { display: true, text: "Months", color: "#94a3b8" },
+              ticks: { color: "#cbd5e1" },
+              grid: { color: "rgba(148,163,184,.15)" },
+            },
+            y: {
+              ticks: {
+                color: "#cbd5e1",
+                callback: (v) => `$${Number(v).toLocaleString()}`,
+              },
+              grid: { color: "rgba(148,163,184,.15)" },
+            },
+          },
+        },
+      });
     }
   }
 
-  // Redraw when inputs change
   useEffect(() => {
     drawChart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [start, lots, retPct, months, b1, b2, b3]);
-
-  // Cleanup
-  useEffect(() => {
-    return () => {
-      chartRef.current?.destroy();
-    };
-  }, []);
+  }, [brokerData, start, lots, retPct, months, b1, b2, b3]);
+  useEffect(() => () => chartRef.current?.destroy(), []);
 
   const reset = () => {
-    setStart(100000);
-    setB1("Industry Average" as BrokerKey);
-    setB2("Tickmill UK (Raw)" as BrokerKey);
-    setB3("FXCM" as BrokerKey);
+    setStart(100_000);
+    setB1("Industry Average");
+    setB2("Tickmill UK (Raw)");
+    setB3("FXCM");
     setMonths(60);
     setLots(100);
     setRetPct(2);
   };
 
   return (
-    <section className={`${styles.section_earning_flow}`}>
-      {/* grain bg effect */}
+    <section className={styles.section_earning_flow}>
       <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container">
-        <div className={`${styles.costAdvantageSection}`}>
-          <h2
-            className="h2-size font-semibold"
-            style={{ fontWeight: "600" }}
-            dangerouslySetInnerHTML={{
-              __html: data_visialization_section_section_title || "&nbsp;",
-            }}
-          ></h2>
-
+        <div className={styles.costAdvantageSection}>
+          <h2 className="h2-size font-semibold">Cost Visualization</h2>
           <div className="flex items-end justify-between">
             <p className="paragraph max-w-[800px]">
-              {data_visialization_section_paragraph}
+              Compare brokers dynamically.
             </p>
             <Button varient="secondary" size="small" onclick={reset}>
               Reset
@@ -378,25 +295,26 @@ export default function DataVisual(props: SectionHeaderProps) {
             <BrokerSelect
               label="Broker 1 (primary)"
               value={b1}
-              onChange={(v) => setB1(v as BrokerKey)}
+              onChange={setB1}
               options={optionsList}
             />
             <BrokerSelect
               label="Broker 2"
               value={b2}
-              onChange={(v) => setB2(v as BrokerKey)}
+              onChange={setB2}
               options={optionsList}
               allowNone
             />
             <BrokerSelect
               label="Broker 3"
               value={b3}
-              onChange={(v) => setB3(v as BrokerKey)}
+              onChange={setB3}
               options={optionsList}
               allowNone
             />
           </div>
 
+          {/* Range sliders */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-[20px] mt-[20px]">
             <RangeWithNumber
               className="lg:col-span-4"
@@ -428,81 +346,42 @@ export default function DataVisual(props: SectionHeaderProps) {
           </div>
 
           {/* Chart */}
-          <div className={`${styles.card} p-4 mt-[20px] chart-pad`}>
-            <div id="chartWrap" className="relative" style={{ height: 420 }}>
-              <canvas ref={canvasRef} />
-            </div>
-            <div className="text-[11px] text-slate-400 mt-2">
-              Source: ForexBenchmark. Day session 04:00–22:00. Past averages
-              don’t guarantee future outcomes.
-            </div>
+          <div
+            className={`{styles.card} p-4 mt-[20px]`}
+            style={{ height: 420 }}
+          >
+            <canvas ref={canvasRef} />
           </div>
 
-          {/* KPIs (order per request) */}
+          {/* KPI cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 mt-[20px] gap-[20px]">
-            <KpiCard
-              title={
-                <>
-                  <span className="text-slate-300 text-xs">
-                    Afterprime
-                    <br />
-                    Ending Equity
-                  </span>
-                </>
-              }
-            >
-              <div className="text-3xl font-semibold mt-1">{USD(apEnd)}</div>
-              <div className="text-xs text-slate-400 mt-1">
+            <KpiCard title="Afterprime Ending Equity">
+              {USD(apEnd)}
+              <br />
+              <small>
                 {apRet.toFixed(1)}% / {months}m
-              </div>
+              </small>
             </KpiCard>
-
-            <KpiCard
-              title={
-                <>
-                  <span className="text-slate-300 text-xs">
-                    {b1}
-                    <br />
-                    Ending Equity
-                  </span>
-                </>
-              }
-            >
-              <div className="text-3xl font-semibold mt-1">{USD(b1End)}</div>
-              <div className="text-xs text-slate-400 mt-1">
+            <KpiCard title={`${b1} Ending Equity`}>
+              {USD(b1End)}
+              <br />
+              <small>
                 {b1Ret.toFixed(1)}% / {months}m
-              </div>
+              </small>
             </KpiCard>
-
-            <KpiCard
-              title={
-                <>
-                  <span className="text-slate-300 text-xs">
-                    Afterprime Advantage
-                    <br />
-                    Vs {b1}
-                  </span>
-                </>
-              }
-            >
-              <div className="text-3xl font-semibold mt-1">
-                {USD(Math.max(0, advAbs))}
-              </div>
-              <div className="text-xs text-slate-400 mt-1">
-                {advPct.toFixed(1)}%
-              </div>
+            <KpiCard title={`Afterprime Advantage Vs ${b1}`}>
+              {USD(Math.max(0, advAbs))}
+              <br />
+              <small>{advPct.toFixed(1)}%</small>
             </KpiCard>
           </div>
-
-          {/* component-scoped styles to mirror your HTML */}
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------- Reusable bits ---------- */
-
+/* ---------- Subcomponents ---------- */
 function BrokerSelect({
   label,
   value,
@@ -531,7 +410,7 @@ function BrokerSelect({
               ────────
             </option>
           ) : (
-            <option key={o} value={o}>
+            <option key={`${o}-${i}`} value={o}>
               {o}
             </option>
           )
@@ -582,12 +461,8 @@ function RangeWithNumber({
             const raw = Number(e.target.value);
             if (Number.isFinite(raw)) {
               const clamped = Math.min(Math.max(raw, min), max);
-              // round to step precision
               const decimals = (step.toString().split(".")[1] || "").length;
-              const rounded = Math.round(clamped / step) * step;
-              onChange(Number(rounded.toFixed(decimals)));
-            } else {
-              onChange(min);
+              onChange(Number(clamped.toFixed(decimals)));
             }
           }}
         />
@@ -600,13 +475,13 @@ function KpiCard({
   title,
   children,
 }: {
-  title: React.ReactNode;
+  title: string;
   children: React.ReactNode;
 }) {
   return (
-    <div className={`${styles.card} p-5`}>
+    <div className={styles.card + " p-4 space-y-2"}>
       <div className="text-slate-300 text-xs">{title}</div>
-      {children}
+      <div className="text-3xl font-semibold mt-1">{children}</div>
     </div>
   );
 }
