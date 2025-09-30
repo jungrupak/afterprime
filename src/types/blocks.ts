@@ -12,6 +12,7 @@ export type Blocks = {
     inner_banner_paragraph?: string;
     inner_banner_button_label?: string;
     inner_banner_button_url?: string;
+    inner_banner_is_type_form_cta?: string | undefined;
     inner_banner?: string;
   };
   "highlight-texts": {

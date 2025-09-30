@@ -7,6 +7,7 @@ import BottomCards from "@/components/footer/bottom-cards/BottomCards";
 import Footer from "@/components/footer/Footer";
 import "./globals.scss";
 
+//HTML sanitization global
 export function TypeformLoader() {
   useEffect(() => {
     if (!document.querySelector("#typeform-embed")) {
