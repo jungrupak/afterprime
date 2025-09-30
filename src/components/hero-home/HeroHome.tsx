@@ -2,6 +2,7 @@ import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import Image from "next/image";
 import type { acfBlocks } from "@/types/acf";
+import TypeformButton from "../ui/typeForm";
 
 export function MarkUpGReview() {
   return (
@@ -121,6 +122,7 @@ export function HeroHome({ data, title = [] }: heroContent) {
               ))}
             </h1>
           </div>
+
           <div className={`${styles.heroBannerPara}`}>
             <p
               className="paragraph max-w-[500px] mx-auto mb-12 opacity-80"

@@ -2,6 +2,7 @@
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import Image from "next/image";
+import TypeformButton from "@/components/ui/typeForm";
 
 import type { Blocks } from "@/types/blocks";
 
@@ -137,6 +138,11 @@ export function HeroHome(props: HeroHomeProps) {
             >
               {hero_banner_home_banner_paragraph || ""}
             </p>
+
+            <TypeformButton
+              formId="01K6A1X4YDAH2RV3WNYVB632WG"
+              buttonText="Open Typeform"
+            />
 
             <Btn
               size="large"
