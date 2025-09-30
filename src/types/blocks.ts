@@ -173,6 +173,12 @@ export type Blocks = {
     client_money_static_block_section_title?: string;
     client_money_static_block_paragraph?: string;
   };
+  "funding-card-lists": {
+    funding_cards_section_section_title?: string;
+    funding_cards_section_section_paragraph?: string;
+    funding_cards_section_select_method_type?: string;
+    funding_cards_section?: string | undefined;
+  };
 };
 //
 
