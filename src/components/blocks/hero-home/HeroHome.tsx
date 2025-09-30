@@ -108,6 +108,7 @@ export function HeroHome(props: HeroHomeProps) {
     hero_banner_home_banner_paragraph,
     hero_banner_home_banner_btn_text,
     hero_banner_home_banner_btn_url,
+    hero_banner_home_is_type_form_cta,
     hero_banner_home,
   } = props;
 
@@ -132,24 +133,31 @@ export function HeroHome(props: HeroHomeProps) {
             </h1>
           </div>
           <div className={`${styles.heroBannerPara}`}>
-            <p
+            <div
               className="paragraph max-w-[500px] mx-auto mb-12 opacity-80"
               style={{ fontWeight: "300" }}
-            >
-              {hero_banner_home_banner_paragraph || ""}
-            </p>
+              dangerouslySetInnerHTML={{
+                __html: hero_banner_home_banner_paragraph || "&nbsp;",
+              }}
+            />
 
-            <TypeformButton formId="GYkOukSo" buttonText="Open Typeform" />
-
-            <Btn
-              size="large"
-              varient="primary-ghost"
-              typeformId="01K6A1X4YDAH2RV3WNYVB632WG"
-              isArrowVisible={true}
-              href={hero_banner_home_banner_btn_url || "#"}
-            >
-              {hero_banner_home_banner_btn_text || "Button"}
-            </Btn>
+            {hero_banner_home_is_type_form_cta === "1" ? (
+              <TypeformButton
+                formId="GYkOukSo"
+                buttonText="Request Invite"
+                size="Large"
+              />
+            ) : (
+              <Btn
+                size="large"
+                varient="primary-ghost"
+                typeformId="01K6A1X4YDAH2RV3WNYVB632WG"
+                isArrowVisible={true}
+                href={hero_banner_home_banner_btn_url || "#"}
+              >
+                {hero_banner_home_banner_btn_text || "Button"}
+              </Btn>
+            )}
           </div>
           <div className="max-md:text-center"></div>
         </div>
