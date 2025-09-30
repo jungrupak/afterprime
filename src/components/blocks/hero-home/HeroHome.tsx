@@ -139,10 +139,7 @@ export function HeroHome(props: HeroHomeProps) {
               {hero_banner_home_banner_paragraph || ""}
             </p>
 
-            <TypeformButton
-              formId="01K6A1X4YDAH2RV3WNYVB632WG"
-              buttonText="Open Typeform"
-            />
+            <TypeformButton formId="GYkOukSo" buttonText="Open Typeform" />
 
             <Btn
               size="large"
