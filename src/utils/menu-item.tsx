@@ -52,7 +52,7 @@ export const MegaMenuItems = [
           },
           {
             menuItem: "What Traders Say",
-            pageUrl: "review-5-star-afterprime",
+            pageUrl: "what-traders-say",
           },
         ],
       },
