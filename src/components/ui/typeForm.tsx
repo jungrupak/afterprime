@@ -15,7 +15,7 @@ interface ExtendedPopupOptions extends PopupOptions {
 interface TypeformButtonProps {
   formId: string;
   buttonText?: string;
-  size?: "Large" | "Regular";
+  size?: "Large" | "Regular" | "small" | "x-small";
 }
 
 const TypeformButton: React.FC<TypeformButtonProps> = ({
@@ -38,7 +38,13 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
     <button
       onClick={handleClick}
       className={`${styles.ap_button} ${
-        size === "Large" ? styles.large : styles.regular
+        size === "Large"
+          ? styles.large
+          : size === "small"
+          ? styles.small
+          : size === "x-small"
+          ? styles.xSmall
+          : ""
       } ${styles.primaryGhost}`}
     >
       {buttonText}

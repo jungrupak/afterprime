@@ -6,6 +6,7 @@ import styles from "./style.module.scss";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { MegaMenuItems } from "@/utils/menu-item";
+import TypeformButton from "../ui/typeForm";
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
@@ -150,12 +151,19 @@ export default function Header() {
 
               {/* Mobile Footer */}
               <div className={`${styles.resNavFooter}`}>
-                <Btn size="small" varient="washed" href="#">
+                <Btn
+                  size="small"
+                  varient="washed"
+                  href="app.afterprime.com/login"
+                  linkTarget="_blank"
+                >
                   Member Login
                 </Btn>
-                <Btn size="small" varient="primary-ghost" href="#">
-                  Request Invite
-                </Btn>
+                <TypeformButton
+                  formId="GYkOukSo"
+                  buttonText="Request Invite"
+                  size="small"
+                />
               </div>
             </div>
           </div>
@@ -163,12 +171,19 @@ export default function Header() {
           {/* Right Side (Desktop) */}
           <div className={`${styles.ap_header_right} max-lg:hidden`}>
             <div className="flex items-center gap-4">
-              <Btn size="small" varient="washed" href="#">
+              <Btn
+                size="small"
+                varient="washed"
+                href="app.afterprime.com/login"
+                linkTarget="_blank"
+              >
                 Member Login
               </Btn>
-              <Btn size="small" varient="primary-ghost" href="#">
-                Request Invite
-              </Btn>
+              <TypeformButton
+                formId="GYkOukSo"
+                buttonText="Request Invite"
+                size="small"
+              />
             </div>
           </div>
 
@@ -230,21 +245,6 @@ export default function Header() {
                 className={`${styles.menuChild} flex max-lg:flex-col max-lg:gap-5 max-lg:max-h-[88vh] max-lg:overflow-y-auto`}
               >
                 {/* Mega Info */}
-                {/* <div className="xl:border-r border-[#ffffff10] max-lg:pl-[30px] pr-10 max-w-[350px] w-[350px] max-md:mb-8">
-                  <h2 className="text-[24px] font-[700] mb-3">
-                    {MegaItems[megaMenu]?.menuInfos.title}
-                  </h2>
-                  <p className="mb-5">
-                    {MegaItems[megaMenu]?.menuInfos.description}
-                  </p>
-                  <Btn
-                    size="small"
-                    varient="primary"
-                    href={MegaItems[megaMenu]?.menuInfos.btnLink}
-                  >
-                    {MegaItems[megaMenu]?.menuInfos.btnText}
-                  </Btn>
-                </div> */}
 
                 {/* Mega Categories */}
                 {MegaItems[megaMenu]?.category?.map((cat, index) => (
