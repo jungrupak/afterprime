@@ -1,7 +1,9 @@
-"use client";
-
+// src/hooks/useHtmlSanitization.ts
 import { useMemo } from "react";
-import DOMPurify from "dompurify";
+import createDOMPurify from "isomorphic-dompurify";
+
+// Works on server and client
+const DOMPurify = createDOMPurify();
 
 export function useSanitizedHTML(html?: string) {
   return useMemo(() => {
