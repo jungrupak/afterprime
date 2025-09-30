@@ -4,6 +4,7 @@ import Button from "@/components/ui/Button";
 import Lists from "@/components/ui/Lists";
 import { Blocks } from "@/types/blocks";
 import Image from "next/image";
+import TypeformButton from "@/components/ui/typeForm";
 
 type PropData = Blocks["block-multipurpose"];
 
@@ -18,6 +19,7 @@ export function MultipurposeBlock({
   multipurpose_block_active_right_column_content_block,
   multipurpose_block_text_content_block_title,
   multipurpose_block_text_content_block_content,
+  multipurpose_block_is_type_form_cta,
   ...restProps
 }: PropData) {
   //repeater keys to gra their values
@@ -85,14 +87,22 @@ export function MultipurposeBlock({
                 dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
               />
               <div className="mt-12">
-                <Button
-                  varient="primary-ghost"
-                  href="#"
-                  isArrowVisible={true}
-                  size="large"
-                >
-                  {ctaText}
-                </Button>
+                {multipurpose_block_is_type_form_cta === "1" ? (
+                  <TypeformButton
+                    formId="GYkOukSo"
+                    buttonText="Request Invite"
+                    size="Large"
+                  />
+                ) : (
+                  <Button
+                    varient="primary-ghost"
+                    href="#"
+                    isArrowVisible={true}
+                    size="large"
+                  >
+                    {ctaText}
+                  </Button>
+                )}
               </div>
             </div>
           </div>

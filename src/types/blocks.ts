@@ -30,6 +30,7 @@ export type Blocks = {
       alt?: string;
     };
     content_block_with_image_content_wrap_in_box?: string;
+    content_block_with_image_is_type_form_cta?: string | undefined;
   };
   "inner-page-usp": {
     usps?: USPItem[];
@@ -59,6 +60,7 @@ export type Blocks = {
     multipurpose_block_active_right_column_content_block?: string;
     multipurpose_block_text_content_block_title?: string;
     multipurpose_block_text_content_block_content?: string;
+    multipurpose_block_is_type_form_cta?: string | undefined;
     multipurpose_block_featured_image?: {
       url?: string;
       alt?: string;

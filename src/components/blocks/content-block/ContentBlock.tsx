@@ -3,6 +3,7 @@
 import styles from "./style.module.scss";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import TypeformButton from "@/components/ui/typeForm";
 
 interface BlockContent {
   content_block_with_image_heading?: string;
@@ -15,6 +16,7 @@ interface BlockContent {
     url?: string;
     alt?: string;
   };
+  content_block_with_image_is_type_form_cta?: string | undefined;
 }
 
 export default function ContentBlock({
@@ -25,6 +27,7 @@ export default function ContentBlock({
   content_block_with_image_button_group_cta_link,
   content_block_with_image_block_image_image_alignment,
   content_block_with_image_block_image_add_image,
+  content_block_with_image_is_type_form_cta,
 }: BlockContent) {
   const contents = String(content_block_with_image_content || "");
   const htmlContent = contents
@@ -79,6 +82,14 @@ export default function ContentBlock({
                   __html: htmlContent ?? "&nbsp;",
                 }}
               />
+              {content_block_with_image_is_type_form_cta === "1" && (
+                <TypeformButton
+                  formId="GYkOukSo"
+                  buttonText="Request Invite"
+                  size="Large"
+                />
+              )}
+
               {content_block_with_image_enable_cta_button === "1" && (
                 <Button
                   varient="primary-ghost"
