@@ -166,7 +166,7 @@ export function LivePricingAll() {
       {status === "disconnected" && <Retrying />}
       {status === "error" && <Disconnected />}
 
-      <div className="text-center mt-10 text-[20px]">
+      {/* <div className="text-center mt-10 text-[20px]">
         At 100 lots/month, that’s $480 saved vs{" "}
         <span
           className={`${styles.indAverageCompareOpen} inline-flex ml-1 mr-2 items-center gap-1`}
@@ -191,7 +191,7 @@ export function LivePricingAll() {
           </svg>{" "}
         </span>
         plus $220 back in your pocket on flow.
-      </div>
+      </div> */}
     </div>
   );
 }

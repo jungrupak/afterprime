@@ -69,8 +69,8 @@ export function UspUnderHome(props: USPBlockProps) {
 
             <p>
               Saving vs
-              <br />{" "}
-              <Link href="#" className={`${styles.uspDropdown}`}>
+              <br /> 2nd best
+              {/* <Link href="#" className={`${styles.uspDropdown}`}>
                 {" "}
                 2nd best{" "}
                 <svg
@@ -90,7 +90,7 @@ export function UspUnderHome(props: USPBlockProps) {
                     mask="url(#path-2-inside-1_0_1)"
                   ></path>
                 </svg>
-              </Link>
+              </Link> */}
             </p>
           </div>
           <div>
@@ -98,8 +98,8 @@ export function UspUnderHome(props: USPBlockProps) {
               <h3>{data.industryVsAfterprimeAvgPct.toFixed(1)}%</h3>
             )) || <h3>%</h3>}
             <p>
-              Saving vs <br />{" "}
-              <Link href="#" className={`${styles.uspDropdown}`}>
+              Saving vs <br /> Industry Avg.
+              {/* <Link href="#" className={`${styles.uspDropdown}`}>
                 Industry Avg.{" "}
                 <svg
                   width="20"
@@ -118,7 +118,7 @@ export function UspUnderHome(props: USPBlockProps) {
                     mask="url(#path-2-inside-1_0_1)"
                   ></path>
                 </svg>
-              </Link>
+              </Link> */}
             </p>
           </div>
           <div className="max-md:flex items-center flex-col">
