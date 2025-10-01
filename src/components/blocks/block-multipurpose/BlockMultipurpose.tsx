@@ -13,6 +13,7 @@ export function MultipurposeBlock({
   multipurpose_block_section_heading,
   multipurpose_block_section_content,
   multipurpose_block_block_cta_label,
+  multipurpose_block_cta_url,
   multipurpose_block_has_feature_bullet_list,
   multipurpose_block_block_has_featured_image,
   multipurpose_block_featured_image,
@@ -96,7 +97,7 @@ export function MultipurposeBlock({
                 ) : (
                   <Button
                     varient="primary-ghost"
-                    href="#"
+                    href={multipurpose_block_cta_url || ""}
                     isArrowVisible={true}
                     size="large"
                   >

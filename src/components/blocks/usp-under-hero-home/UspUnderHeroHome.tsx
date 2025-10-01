@@ -20,7 +20,7 @@ export function UspUnderHome(props: USPBlockProps) {
     async function compareData() {
       try {
         const res = await fetch(
-          "https://scoreboard.argamon.com:8443/api/costs/comparison?period=1d&symbols=All%20pairs&mode=day&commission=true",
+          "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true",
           //https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true
           {
             signal: controller.signal,
