@@ -28,7 +28,7 @@ export function TableDataRewardFlow({
           "https://scoreboard.argamon.com:8443/api/rebates/current"
         );
         if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
-        const data: ForexRow[] = await res.json();
+        const data: ForexRow[] = (await res.json()) as ForexRow[];
 
         // Only FOREX
         const forexOnly = data.filter((row) => row.product === "FOREX");
@@ -37,14 +37,20 @@ export function TableDataRewardFlow({
         forexOnly.sort((a, b) => a.symbol.localeCompare(b.symbol));
 
         setForexRows(forexOnly);
-      } catch (err: any) {
-        setError(err.message || "Unknown error");
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Unknown error");
+        }
       } finally {
         setLoading(false);
       }
     }
     fetchData();
   }, []);
+
+  const placeholderText = "Flow Rewards: Expanding soon";
 
   return (
     <section>
@@ -84,22 +90,22 @@ export function TableDataRewardFlow({
                 </table>
               </div>
             ) : (
-              <p>No Forex data available</p>
+              <p>{placeholderText}</p>
             )}
           </TabItem>
 
           {/* Other Tabs */}
           <TabItem tabNav="Commodities">
-            <p>Coming soon</p>
+            <p>{placeholderText}</p>
           </TabItem>
           <TabItem tabNav="Indices">
-            <p>Coming soon</p>
+            <p>{placeholderText}</p>
           </TabItem>
           <TabItem tabNav="Crypto">
-            <p>Coming soon</p>
+            <p>{placeholderText}</p>
           </TabItem>
           <TabItem tabNav="Stocks">
-            <p>Coming soon</p>
+            <p>{placeholderText}</p>
           </TabItem>
         </Tab>
       </div>
