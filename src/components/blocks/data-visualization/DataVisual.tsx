@@ -3,6 +3,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Chart, { Plugin, PointElement } from "chart.js/auto";
 import styles from "./style.module.scss";
 import Button from "@/components/ui/Button";
+import { Blocks } from "@/types/blocks";
+
+type SectionProps = Blocks["section-datavisualization"];
 
 type BrokerApiData = {
   broker: string;
@@ -26,7 +29,11 @@ const USD = (v: number) =>
     maximumFractionDigits: 0,
   });
 
-export default function DataVisual() {
+export default function DataVisual(props: SectionProps) {
+  const {
+    data_visialization_section_section_title,
+    data_visialization_section_paragraph,
+  } = props;
   // Inputs
   const [start, setStart] = useState(100_000);
   const [lots, setLots] = useState(100);
@@ -266,10 +273,12 @@ export default function DataVisual() {
       <div className="grainy_bg"></div>
       <div className="ap_container">
         <div className={styles.costAdvantageSection}>
-          <h2 className="h2-size font-semibold">Cost Visualization</h2>
+          <h2 className="h2-size font-semibold">
+            {data_visialization_section_section_title}
+          </h2>
           <div className="flex items-end justify-between">
             <p className="paragraph max-w-[800px]">
-              Compare brokers dynamically.
+              {data_visialization_section_paragraph}
             </p>
             <Button varient="secondary" size="small" onclick={reset}>
               Reset
