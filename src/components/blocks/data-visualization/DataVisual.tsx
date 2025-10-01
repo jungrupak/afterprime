@@ -69,26 +69,32 @@ export default function DataVisual(props: SectionProps) {
       .then((res) => res.json())
       .then((res) => {
         const dynamicCosts: Record<string, number> = {};
+        const map: Record<string, BrokerApiData> = {};
+
         res.brokers.forEach((b: BrokerApiData) => {
-          dynamicCosts[b.broker] = b.costPerLot; // broker name → cost per lot
+          let label = b.broker;
+          if (label === "Top 10 Avg") label = "Top 10";
+          if (label === "Industry Avg") label = "Industry Average";
+
+          dynamicCosts[label] = b.costPerLot;
+          map[label] = b;
         });
 
-        // Add fixed ones if not in API
-        dynamicCosts["Top 10"] = 10.2;
-        dynamicCosts["Industry Average"] = 18.4;
+        // Add Afterprime if not in API
+        if (!dynamicCosts["Afterprime"]) dynamicCosts["Afterprime"] = 4.2;
 
         setCOSTS(dynamicCosts);
-
-        // Optional: keep brokerData for other uses
-        const map: Record<string, BrokerApiData> = {};
-        res.brokers.forEach((b: BrokerApiData) => (map[b.broker] = b));
         setBrokerData(map);
       })
       .catch(console.error);
   }, []);
 
+  // Generate options for dropdowns, filter duplicates
   const optionsList = useMemo(() => {
-    const allBrokers = Object.keys(COSTS).sort();
+    const allBrokers = Object.keys(COSTS)
+      .filter((b) => b !== "Industry Average" && b !== "Top 10") // remove duplicates
+      .sort();
+
     return [
       "Industry Average",
       "Top 10",
