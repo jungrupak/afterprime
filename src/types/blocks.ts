@@ -192,6 +192,11 @@ export type Blocks = {
     swap_data_csv_endpoint_end_point_crypto?: string;
     swap_data_csv_endpoint?: string | undefined;
   };
+  "rebate-table": {
+    rebate_table_title?: string | undefined;
+    rebate_table_section_paragraph?: string | undefined;
+    rebate_table?: string | undefined;
+  };
 };
 //
 

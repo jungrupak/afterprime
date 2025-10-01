@@ -26,6 +26,7 @@ import SectionMarginCallOut from "./margin-call-out-table/MarginCallOutTable";
 import { ClientMoneySection } from "./client-money-section/ClientMoney";
 import { SectionFundingCards } from "./section-funding-methods/FundingCards";
 import { SwapDataTabs } from "./swap-table/SwapTable";
+import { TableDataRewardFlow } from "./table-reward-flow/TableAndData";
 
 export const blockRegistry: {
   [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
@@ -54,4 +55,5 @@ export const blockRegistry: {
   "client-money-section": ClientMoneySection,
   "funding-card-lists": SectionFundingCards,
   "swap-table-section": SwapDataTabs,
+  "rebate-table": TableDataRewardFlow,
 };
