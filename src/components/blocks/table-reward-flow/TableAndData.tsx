@@ -31,7 +31,7 @@ export function TableDataRewardFlow({
         const data: ForexRow[] = (await res.json()) as ForexRow[];
 
         // Only FOREX
-        const forexOnly = data.filter((row) => row.product === "FOREX");
+        const forexOnly = data.filter((row) => row.product.startsWith("FOREX"));
 
         // Sort alphabetically by symbol
         forexOnly.sort((a, b) => a.symbol.localeCompare(b.symbol));
