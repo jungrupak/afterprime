@@ -52,7 +52,7 @@ export function EarningFlowSection(block: EarningFlowBlock) {
             {earning_flow_is_cta_visible === "1" && (
               <div className="mt-16 text-center md:text-left">
                 <Btn
-                  href="#"
+                  href={earning_flow_button_link || ""}
                   size="large"
                   varient="primary-ghost"
                   isArrowVisible={true}

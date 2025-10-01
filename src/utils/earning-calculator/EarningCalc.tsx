@@ -79,7 +79,6 @@ export function EarningCalc() {
             className={`${styles.customSelect} block mt-5 w-full`}
             onChange={(e) => setRebatePerLot(Number(e.target.value))}
           >
-            <option value="">Select</option>
             {rebates.map((symbol, index) => (
               <option key={index} value={symbol.rebate_usd_per_lot}>
                 {symbol.symbol}
