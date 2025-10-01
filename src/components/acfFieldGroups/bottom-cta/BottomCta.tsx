@@ -51,14 +51,13 @@ export function BottomCta(props: CtaProps) {
                 through the door.
               </p>
 
-              <Btn
-                size="regular"
-                href={`https://discord.com/invite/NKBcxyWzdM`}
-                varient={"ghost"}
-                linkTarget="_blank"
+              <a
+                className="ap_button ghost regular"
+                href="https://discord.com/invite/NKBcxyWzdM"
+                target="_blank"
               >
                 {card_referal?.cat_label || "Ask on Discord"}
-              </Btn>
+              </a>
             </div>
           </div>
           {/* Cards Ends */}
