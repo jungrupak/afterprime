@@ -154,7 +154,7 @@ export default function Header() {
                 <Btn
                   size="small"
                   varient="washed"
-                  href="app.afterprime.com/login"
+                  href="https://app.afterprime.com/login"
                   linkTarget="_blank"
                 >
                   Member Login
@@ -174,7 +174,7 @@ export default function Header() {
               <Btn
                 size="small"
                 varient="washed"
-                href="app.afterprime.com/login"
+                href="https://app.afterprime.com/login"
                 linkTarget="_blank"
               >
                 Member Login
