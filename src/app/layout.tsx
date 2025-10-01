@@ -2,10 +2,12 @@
 
 import { useEffect } from "react";
 import { Blinker } from "next/font/google";
+import HeadScripts from "@/components/HeaderScripts";
 import Header from "@/components/header/Header";
 import BottomCards from "@/components/footer/bottom-cards/BottomCards";
 import Footer from "@/components/footer/Footer";
 import "./globals.scss";
+import FooterScripts from "@/components/FooterScripts";
 
 //HTML sanitization global
 export function TypeformLoader() {
@@ -34,6 +36,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <HeadScripts />
+      </head>
+
       <body className={`${blinker.className} antialiased`}>
         <TypeformLoader />
         {/* Fixed Vid Bg for entire website */}
@@ -62,6 +68,10 @@ export default function RootLayout({
         {children}
         <BottomCards />
         <Footer />
+
+        {/* Footer Scripts */}
+        <FooterScripts />
+        {/* Footer Scripts */}
       </body>
     </html>
   );
