@@ -100,7 +100,7 @@ export function ProsNConsBlock({
               <div className="mt-12">
                 <Button
                   varient="primary-ghost"
-                  href={``}
+                  href={pros_and_cons_cta_url || ""}
                   isArrowVisible={true}
                   size="large"
                 >
