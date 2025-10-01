@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useMemo, useRef, useState } from "react";
 import Chart, { Plugin, PointElement } from "chart.js/auto";
 import styles from "./style.module.scss";
@@ -15,76 +16,6 @@ type BrokerApiData = {
   savingPercentage: number;
 };
 
-// ---------- FIXED COSTS ----------
-const COSTS: Record<string, number> = {
-  Afterprime: 4.2,
-  FusionMarkets: 7.5,
-  "IC Markets (cTrader)": 9.7,
-  "IC Markets (Raw)": 9.7,
-  "Vantage FX (RAW ECN)": 9.7,
-  "Interactive Brokers": 10.4,
-  "FXOpen (TickTrader)": 10.8,
-  "Global Prime": 11.3,
-  FXPIG: 11.5,
-  "Tickmill UK (Raw)": 11.6,
-  "Yadix (Scalper)": 11.9,
-  TopFX: 12.1,
-  "ATFX (.ins)": 12.2,
-  FXCM: 12.3,
-  CFH: 13.0,
-  "FXOpen UK (ECN)": 13.6,
-  "Advanced Markets (.a)": 13.7,
-  "Axiory (MT5)": 13.9,
-  "TaurexUK (.fi)": 14.0,
-  "Pepperstone UK (.r)": 14.2,
-  Axiory: 14.3,
-  "RannForex (ECN)": 14.5,
-  Swissquote: 14.5,
-  "Tradersway (ECN)": 14.6,
-  "9x Markets": 14.7,
-  "FXCM (FT)": 14.8,
-  "FTD Limited (.i)": 15.1,
-  "Mt.Cook (ECN2)": 15.4,
-  "Direct Trading Tech": 15.5,
-  "FXPIG (cTrader)": 15.5,
-  "Axiory (Zero)": 15.6,
-  Darwinex: 15.7,
-  "BlackBull Markets (ECN Prime)": 15.9,
-  "Doo Prime (.uk)": 16.8,
-  "BlackBull Markets (i)": 16.9,
-  "Cara Markets (.c)": 17.1,
-  "Equiti (.p)": 17.5,
-  "Scope Markets": 17.6,
-  AAAFX: 18.1,
-  "CPTMarketsUK (c)": 18.4,
-  "GO Markets (cTrader)": 18.4,
-  Tier1FX: 18.6,
-  "VARIANSE (x)": 19.1,
-  "CPTMarketsUK (t)": 19.4,
-  "Honor Capital Markets": 19.4,
-  "VARIANSE (cTrader)": 19.4,
-  "Pacific Financial Derivatives": 20.0,
-  "Traders Trust": 20.2,
-  "BidX Markets": 20.5,
-  "Skilling (cTrader)": 20.5,
-  "FIBO Group (.I)": 21.9,
-  "Admiral Markets UK (Prime)": 22.8,
-  Skilling: 23.1,
-  Dukascopy: 24.6,
-  OctaFX: 25.5,
-  "Rakuten Australia": 25.9,
-  "Bernstein Bank": 27.5,
-  "GKFX (Professional)": 29.0,
-  "Markets.com": 32.1,
-  "FXChoice (Pro)": 35.3,
-  "VARIANSE (ECNpro)": 36.2,
-  "Amana Capital (Classic)": 40.0,
-  "BlackBull Markets (cTrader)": 59.0,
-  "Top 10": 10.2,
-  "Industry Average": 18.4,
-};
-
-// Color map
 const BROKER_COLORS: Record<string, string> = {
   Afterprime: "#22c55e",
   "Industry Average": "#94a3b8",
@@ -122,23 +53,35 @@ export default function DataVisual(props: SectionProps) {
   const [advAbs, setAdvAbs] = useState(0);
   const [advPct, setAdvPct] = useState(0);
 
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartRef = useRef<Chart<"line", number[], number> | null>(null);
-
-  // Optional: fetch API for extra broker data (not used for chart costs)
   const [brokerData, setBrokerData] = useState<Record<string, BrokerApiData>>(
     {}
   );
+  const [COSTS, setCOSTS] = useState<Record<string, number>>({}); // dynamic costs
+
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const chartRef = useRef<Chart<"line", number[], number> | null>(null);
+
+  // Fetch broker costs dynamically and generate COSTS
   useEffect(() => {
     fetch(
       "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=24h&commission=true"
     )
       .then((res) => res.json())
       .then((res) => {
-        const map: Record<string, BrokerApiData> = {};
+        const dynamicCosts: Record<string, number> = {};
         res.brokers.forEach((b: BrokerApiData) => {
-          map[b.broker] = b;
+          dynamicCosts[b.broker] = b.costPerLot; // broker name → cost per lot
         });
+
+        // Add fixed ones if not in API
+        dynamicCosts["Top 10"] = 10.2;
+        dynamicCosts["Industry Average"] = 18.4;
+
+        setCOSTS(dynamicCosts);
+
+        // Optional: keep brokerData for other uses
+        const map: Record<string, BrokerApiData> = {};
+        res.brokers.forEach((b: BrokerApiData) => (map[b.broker] = b));
         setBrokerData(map);
       })
       .catch(console.error);
@@ -153,7 +96,7 @@ export default function DataVisual(props: SectionProps) {
       "Afterprime",
       ...allBrokers,
     ];
-  }, []);
+  }, [COSTS]);
 
   const RightLabels = useMemo<Plugin<"line">>(
     () => ({
@@ -161,26 +104,32 @@ export default function DataVisual(props: SectionProps) {
       afterDatasetsDraw(chart) {
         const { ctx, chartArea, data } = chart;
         if (!chartArea) return;
-        const x = chartArea.right + 10,
-          top = chartArea.top,
-          bottom = chartArea.bottom;
-        const h = 30,
-          step = 6;
+
+        const x = chartArea.right + 10;
+        const top = chartArea.top;
+        const bottom = chartArea.bottom;
+        const h = 30;
+        const step = 6;
+
         const used: Array<[number, number]> = [];
         ctx.save();
         ctx.font = "12px sans-serif";
         ctx.textBaseline = "top";
         ctx.fillStyle = "#cbd5e1";
+
         data.datasets.forEach((ds) => {
           const meta = chart.getDatasetMeta(data.datasets.indexOf(ds));
-          if (!meta || !meta.data?.length) return;
+          if (!meta || !meta.data || !meta.data.length) return;
           const pt = meta.data[meta.data.length - 1] as PointElement;
+
           const vEnd = ds.data[ds.data.length - 1] as number;
           const vStart = ds.data[0] as number;
           const pct = ((vEnd - vStart) / vStart) * 100;
-          let y = pt.y - 14,
-            tries = 0;
+
+          let y = pt.y - 14;
+          let tries = 0;
           const clash = (a: number, b: number) => !(y + h < a || y > b);
+
           while (tries < 200 && used.some(([a, b]) => clash(a, b))) {
             const dir = tries % 2 === 0 ? 1 : -1;
             y += dir * step * Math.ceil((tries + 1) / 2);
@@ -188,8 +137,10 @@ export default function DataVisual(props: SectionProps) {
             tries++;
           }
           used.push([y, y + h]);
+
           ctx.fillText(ds.label ?? "", x, y);
           ctx.fillText(`${USD(vEnd)} (${pct.toFixed(1)}%)`, x, y + 16);
+
           ctx.beginPath();
           ctx.arc(pt.x, pt.y, 3, 0, Math.PI * 2);
           ctx.fill();
@@ -206,7 +157,6 @@ export default function DataVisual(props: SectionProps) {
 
     const seriesDefs: Array<{ label: string; color: string; c: number }> = [];
 
-    // Fixed cost for Afterprime & Industry Average
     ["Afterprime", "Industry Average"].forEach((label) => {
       const cost = COSTS[label] ?? 0;
       seriesDefs.push({
@@ -232,8 +182,10 @@ export default function DataVisual(props: SectionProps) {
     const series = seriesDefs.map((d) => {
       let eq = start;
       const data = [eq];
-      for (let m = 1; m <= months; m++)
-        (eq = eq * (1 + r) - d.c * lots), data.push(eq);
+      for (let m = 1; m <= months; m++) {
+        eq = eq * (1 + r) - d.c * lots;
+        data.push(eq);
+      }
       return { def: d, data };
     });
 
@@ -241,6 +193,7 @@ export default function DataVisual(props: SectionProps) {
   }
 
   function drawChart() {
+    if (!Object.keys(COSTS).length) return; // wait for API
     const calc = computeSeries();
 
     const ap =
@@ -269,8 +222,12 @@ export default function DataVisual(props: SectionProps) {
       fill: false,
     }));
 
-    if (chartRef.current) chartRef.current.destroy(), (chartRef.current = null);
-    if (canvasRef.current)
+    if (chartRef.current) {
+      chartRef.current.destroy();
+      chartRef.current = null;
+    }
+
+    if (canvasRef.current) {
       chartRef.current = new Chart(canvasRef.current, {
         type: "line",
         data: { labels: calc.labels, datasets },
@@ -307,11 +264,12 @@ export default function DataVisual(props: SectionProps) {
           },
         },
       });
+    }
   }
 
   useEffect(() => {
     drawChart();
-  }, [start, lots, retPct, months, b1, b2, b3]);
+  }, [COSTS, start, lots, retPct, months, b1, b2, b3]);
   useEffect(() => () => chartRef.current?.destroy(), []);
 
   const reset = () => {
@@ -412,7 +370,7 @@ export default function DataVisual(props: SectionProps) {
 
           {/* Chart */}
           <div
-            className={`${styles.card} p-4 mt-[20px]`}
+            className={`{styles.card} p-4 mt-[20px]`}
             style={{ height: 420 }}
           >
             <canvas ref={canvasRef} />
