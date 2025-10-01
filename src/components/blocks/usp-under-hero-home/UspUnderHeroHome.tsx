@@ -1,7 +1,6 @@
 "use client";
 
-import styles from "@/components/home-sections/style.module.scss";
-import Link from "next/link";
+import styles from "./UspHome.module.scss";
 import { MarkUpGReview } from "../hero-home/HeroHome";
 import { useState, useEffect } from "react";
 import type { pairsAndCommission } from "@/types/pairsAndCommission";
@@ -21,7 +20,8 @@ export function UspUnderHome(props: USPBlockProps) {
     async function compareData() {
       try {
         const res = await fetch(
-          "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=24h&commission=true",
+          "https://scoreboard.argamon.com:8443/api/costs/comparison?period=1d&symbols=All%20pairs&mode=day&commission=true",
+          //https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true
           {
             signal: controller.signal,
             next: { revalidate: 60 },
