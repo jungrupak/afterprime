@@ -182,6 +182,13 @@
       }
     }
   }
+
+  @media all and (max-width: 540px) {
+    white-space: nowrap;
+    > svg {
+      display: none;
+    }
+  }
 }
 
 //#########
