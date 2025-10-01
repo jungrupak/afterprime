@@ -64,7 +64,7 @@ export default function DataVisual(props: SectionProps) {
   // Fetch broker costs dynamically and generate COSTS
   useEffect(() => {
     fetch(
-      "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=dayh&commission=true"
+      "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=24h&commission=true"
     )
       .then((res) => res.json())
       .then((res) => {
