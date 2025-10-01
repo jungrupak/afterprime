@@ -596,3 +596,189 @@ section {
     margin-top: clamp(25px, 5vw, 50px);
   }
 }
+
+.ap_button {
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  background-color: var(--off-white);
+  color: var(--body-bg);
+  transition: all 0.2s ease-in-out;
+  font-weight: 600;
+  border: 2px solid transparent;
+  justify-content: center;
+  border-radius: 48px;
+
+  svg {
+    width: 15px;
+    height: 15px;
+    transition: all 0.2s ease;
+    margin-top: 1px;
+    path {
+      fill: var(--black);
+    }
+  }
+
+  //varient
+  &.primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+    svg {
+      path {
+        fill: var(--white);
+      }
+    }
+    &:hover {
+      background-color: var(--white);
+      color: var(--black);
+      svg {
+        path {
+          fill: var(--black);
+        }
+      }
+    }
+  }
+  &.secondary {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    svg {
+      path {
+        fill: var(--white);
+      }
+    }
+    &:hover {
+      background-color: var(--white);
+      color: var(--black);
+      svg {
+        path {
+          fill: var(--black);
+        }
+      }
+    }
+  }
+  &.washed {
+    background-color: rgba(var(--alphaWhite), 0.08);
+    color: var(--white);
+    svg {
+      path {
+        fill: var(--white);
+      }
+    }
+    &:hover {
+      background-color: var(--white);
+      color: var(--black);
+      svg {
+        path {
+          fill: var(--black);
+        }
+      }
+    }
+  }
+  &.ghost {
+    background-color: transparent;
+    border-color: var(--white);
+    color: var(--white);
+    svg {
+      path {
+        fill: var(--white);
+      }
+    }
+    &:hover {
+      background-color: var(--white);
+      color: var(--black);
+    }
+  }
+  &.primaryGhost {
+    background-color: transparent;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    svg {
+      path {
+        fill: var(--primary-color);
+      }
+    }
+    &:hover {
+      background-color: var(--primary-color);
+      color: var(--white);
+      svg {
+        path {
+          fill: var(--white);
+        }
+      }
+    }
+  }
+  &.secondaryGhost {
+    background-color: transparent;
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+    svg {
+      path {
+        fill: var(--secondary-color);
+      }
+    }
+    &:hover {
+      background-color: var(--secondary-color);
+      color: var(--white);
+      svg {
+        path {
+          fill: var(--white);
+        }
+      }
+    }
+  }
+
+  //Sizes
+  &.large {
+    padding-inline: 60px;
+    line-height: 54px;
+    font-size: 20px;
+    gap: 20px;
+    font-weight: 700;
+    @media all and (max-width: 767px) {
+      padding-inline: 40px;
+      width: 100%;
+    }
+  }
+  &.regular {
+    padding-inline: 40px;
+    line-height: 48px;
+    font-size: 18px;
+    gap: 15px;
+    font-weight: 700;
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+  &.small {
+    padding-inline: 25px;
+    line-height: 40px;
+    font-weight: 700;
+    gap: 10px;
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+  }
+  &.xSmall {
+    padding-inline: 15px;
+    line-height: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    gap: 10px;
+    svg {
+      width: 8px;
+      height: 8px;
+    }
+  }
+  &:hover {
+    background-color: rgba(var(--alphaWhite), 0.08);
+    color: var(--white);
+    svg {
+      transform: translateX(6px);
+      path {
+        fill: var(--white);
+      }
+    }
+  }
+}

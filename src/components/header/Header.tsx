@@ -151,14 +151,13 @@ export default function Header() {
 
               {/* Mobile Footer */}
               <div className={`${styles.resNavFooter}`}>
-                <Btn
-                  size="small"
-                  varient="washed"
-                  href="https://app.afterprime.com/login"
-                  linkTarget="_blank"
+                <a
+                  className={`ap_button washed small`}
+                  href="app.afterprime.com/login"
+                  target="_blank"
                 >
                   Member Login
-                </Btn>
+                </a>
                 <TypeformButton
                   formId="GYkOukSo"
                   buttonText="Request Invite"
@@ -171,14 +170,13 @@ export default function Header() {
           {/* Right Side (Desktop) */}
           <div className={`${styles.ap_header_right} max-lg:hidden`}>
             <div className="flex items-center gap-4">
-              <Btn
-                size="small"
-                varient="washed"
-                href="https://app.afterprime.com/login"
-                linkTarget="_blank"
+              <a
+                className={`ap_button washed small`}
+                href="app.afterprime.com/login"
+                target="_blank"
               >
                 Member Login
-              </Btn>
+              </a>
               <TypeformButton
                 formId="GYkOukSo"
                 buttonText="Request Invite"
