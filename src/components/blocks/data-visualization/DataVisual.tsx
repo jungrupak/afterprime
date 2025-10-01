@@ -275,9 +275,12 @@ export default function DataVisual(props: SectionProps) {
       <div className="grainy_bg"></div>
       <div className="ap_container">
         <div className={styles.costAdvantageSection}>
-          <h2 className="h2-size font-semibold">
-            {data_visialization_section_section_title}
-          </h2>
+          <div
+            className="h2-size"
+            dangerouslySetInnerHTML={{
+              __html: data_visialization_section_section_title || "&nbsp;",
+            }}
+          />
           <div className="flex items-end justify-between">
             <p className="paragraph max-w-[800px]">
               {data_visialization_section_paragraph}

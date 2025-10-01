@@ -233,3 +233,16 @@
 .megaMenuItemsContainer {
   max-width: 755px !important;
 }
+
+@media all and (max-width: 767px) {
+  .resNavFooter {
+    flex-direction: column;
+    gap: 20px;
+    > a,
+    > button {
+      justify-content: center;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

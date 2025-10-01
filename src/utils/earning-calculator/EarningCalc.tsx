@@ -18,20 +18,33 @@ export function EarningCalc() {
           setError(data.error);
         } else {
           setRebates(data);
+
+          // Set default Symbol Traded if CADCHF exists
+          const defaultSymbol = data.find(
+            (s: SymbolTraded) => s.symbol === "CADCHF"
+          );
+          if (defaultSymbol) {
+            setRebatePerLot(defaultSymbol.rebate_usd_per_lot);
+          }
         }
       } catch (err) {
         console.error("Failed to fetch rebates:", err);
       }
     }
-    // run immediately
     fetchData();
-    // schedule refresh every 18h
   }, []);
 
-  const [lotTradedValue, setLotTradedValue] = useState<number | "">(0);
-  const [rebatePerLot, setRebatePerLot] = useState<number | null>();
+  const [lotTradedValue, setLotTradedValue] = useState<number | "">(100); // default 100 lots
+  const [rebatePerLot, setRebatePerLot] = useState<number | null>(null);
   const [result, setResult] = useState<number>(0);
   const [error, setError] = useState<string>("");
+
+  // Recalculate result when defaults are set
+  useEffect(() => {
+    if (lotTradedValue && rebatePerLot) {
+      setResult((rebatePerLot ?? 0) * (lotTradedValue || 0) * 60);
+    }
+  }, [lotTradedValue, rebatePerLot]);
 
   function calculateEarning() {
     return (rebatePerLot ?? 0) * (lotTradedValue || 0) * 60;
@@ -39,7 +52,6 @@ export function EarningCalc() {
 
   const handleOnChangeTradeLot = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-    // empty input -> reset
     const numberValue = Number(inputValue);
 
     if (isNaN(numberValue) || numberValue <= 0) {
@@ -78,6 +90,7 @@ export function EarningCalc() {
           <select
             className={`${styles.customSelect} block mt-5 w-full`}
             onChange={(e) => setRebatePerLot(Number(e.target.value))}
+            value={rebatePerLot ?? ""}
           >
             {rebates.map((symbol, index) => (
               <option key={index} value={symbol.rebate_usd_per_lot}>
@@ -106,15 +119,6 @@ export function EarningCalc() {
           ${result}
         </span>
       </div>
-      {/* <div className="mt-8 text-[18px] font-[600] max-md:text-center">
-        In 5 years, you saved this much commission:{" "}
-        <span
-          className="inline-block md:ml-15 text-[24px] font-[700]"
-          style={{ color: "var(--secondary-color)" }}
-        >
-          $ 156,000
-        </span>
-      </div> */}
 
       <div className="bg-white py-5 px-10 note_box text-center mt-10">
         Afterprime 2.0 smart execution can capture up to $3 saved per lot traded
