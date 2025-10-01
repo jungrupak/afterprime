@@ -82,6 +82,23 @@ export default function Button({
   );
 
   if (href) {
+    const isExternal = !href.startsWith("/");
+
+    if (isExternal) {
+      // external links → no btnClickHandle
+      return (
+        <a
+          href={href}
+          className={classNames}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {content}
+        </a>
+      );
+    }
+
+    // internal links → keep Next.js Link + hook
     return (
       <Link
         href={href}
@@ -94,6 +111,7 @@ export default function Button({
     );
   }
 
+  // fallback → normal button
   return (
     <button type="button" onClick={btnClickHandle} className={classNames}>
       {content}
