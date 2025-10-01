@@ -307,7 +307,8 @@ export default function CostAdvantageProfit() {
 
   return (
     <section>
-      <div>
+      <div className="bg_grain"></div>
+      <div className="ap_container">
         <div
           className="max-w-6xl mx-auto p-6 md:p-8 space-y-5"
           style={{ color: "var(--text)" }}
@@ -318,8 +319,10 @@ export default function CostAdvantageProfit() {
       `}</style>
 
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-semibold">
-              See Your Cost Advantage — Profit
+            <h1 className="h2-size">
+              Every Basis Point Matters.
+              <br />
+              <span> Here’s Proof.</span>
             </h1>
             <button
               onClick={reset}
@@ -329,10 +332,9 @@ export default function CostAdvantageProfit() {
             </button>
           </div>
 
-          <p className="text-sm text-slate-400">
-            Adjust balance, months, lots, and monthly return. Broker costs use
-            ForexBenchmark 7-day averages (spread+commission). Equity is floored
-            at $0 (max loss = starting balance).
+          <p className="paragraph mb-10">
+            Model different balances, lots, and returns. Compare outcomes vs
+            brokers and the industry average — verified by data, not claims.
           </p>
 
           {/* Inputs */}
