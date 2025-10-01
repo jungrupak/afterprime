@@ -153,7 +153,7 @@ export default function Header() {
               <div className={`${styles.resNavFooter}`}>
                 <a
                   className={`ap_button washed small`}
-                  href="app.afterprime.com/login"
+                  href="https://app.afterprime.com/login"
                   target="_blank"
                 >
                   Member Login
@@ -172,7 +172,7 @@ export default function Header() {
             <div className="flex items-center gap-4">
               <a
                 className={`ap_button washed small`}
-                href="app.afterprime.com/login"
+                href="https://app.afterprime.com/login"
                 target="_blank"
               >
                 Member Login
