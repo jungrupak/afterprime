@@ -1,7 +1,7 @@
 "use client";
-
 import { useEffect } from "react";
 import { Blinker } from "next/font/google";
+import { DefaultSeo } from "next-seo";
 import HeadScripts from "@/components/HeaderScripts";
 import Header from "@/components/header/Header";
 import BottomCards from "@/components/footer/bottom-cards/BottomCards";
@@ -37,6 +37,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <DefaultSeo
+          title="GET PAID TO @ Afterprime"
+          description="#1 Lowest Costs—Verified.
+Aligned A-Book+. Flow Rewards Built In."
+          openGraph={{
+            type: "website",
+            locale: "en_US",
+            url: "https://afterprime.com",
+            site_name: "My Website",
+          }}
+        />
         <HeadScripts />
       </head>
 
