@@ -12,7 +12,6 @@ type CardProps = {
   cardCtaLink?: string;
   active?: boolean;
   type?: "bold" | "regular";
-  linkTarget?: "Self" | "Blank";
   key?: number;
 };
 
@@ -27,13 +26,15 @@ export default function Card({
   active,
   type,
   key,
-  linkTarget = "Self",
 }: CardProps) {
+  // Determine if link is external
+  const isExternalLink = cardCtaLink && !cardCtaLink.startsWith("/");
+
   return (
     <div
       key={key}
-      className={`${styles.cardItem} ${borderEnable === true ? "border-2" : ""}
-        ${active === true ? styles.activeCard : ""}
+      className={`${styles.cardItem} ${borderEnable ? "border-2" : ""}
+        ${active ? styles.activeCard : ""}
         ${type === "bold" ? styles.cardBold : ""}
         ${
           alignItems === "center"
@@ -59,12 +60,13 @@ export default function Card({
       <h3>{title}</h3>
       <p>{paragraph}</p>
 
-      {cardCtaLink && cardCtaLink && (
-        <div className={`${styles.cardCta}`}>
+      {cardCtaLink && (
+        <div className={styles.cardCta}>
           <Link
             className="card_href_link hover:underline"
-            href={cardCtaLink || ""}
-            target={linkTarget === "Self" ? "_self" : "_blank"}
+            href={cardCtaLink}
+            target={isExternalLink ? "_blank" : "_self"}
+            rel={isExternalLink ? "noopener noreferrer" : undefined} // recommended for external links
           >
             {cardCtaLabel}
             <svg

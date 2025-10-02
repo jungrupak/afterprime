@@ -45,7 +45,7 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
               key={index}
               title={card.title}
               paragraph={card.paragraph}
-              cardCtaLabel={``}
+              cardCtaLabel={card.button_label}
               cardCtaLink={card.button_url}
               cardSize={
                 cardSize === "Small"

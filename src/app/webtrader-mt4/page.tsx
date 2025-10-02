@@ -1,0 +1,75 @@
+"use client";
+import { useEffect, useState } from "react";
+
+export default function WebTraderMt4() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://metatraderweb.app/trade/widget.js";
+    script.async = true;
+    script.onload = () => {
+      if (window.MetaTraderWebTerminal) {
+        new window.MetaTraderWebTerminal("webterminal", {
+          version: 4,
+          servers: ["Afterprime-Demo AP"],
+          server: "Afterprime-Demo AP",
+          utmCampaign: "direct",
+          utmSource: "www.afterprime.com",
+          startMode: "login",
+          language: "en",
+          colorScheme: "black_on_white",
+        });
+        setLoading(false);
+      }
+    };
+    document.body.appendChild(script);
+  }, []);
+
+  return (
+    <>
+      {loading && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "#fff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+          }}
+        >
+          <div
+            style={{
+              width: "60px",
+              height: "60px",
+              border: "6px solid #ddd",
+              borderTop: "6px solid #000",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+            }}
+          />
+          <style>
+            {`
+              @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+              }
+            `}
+          </style>
+        </div>
+      )}
+
+      <div
+        id="webterminal"
+        style={{
+          width: "100%",
+          height: "100vh",
+          position: "fixed",
+          zIndex: "9",
+        }}
+      ></div>
+    </>
+  );
+}
