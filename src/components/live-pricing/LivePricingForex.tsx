@@ -137,7 +137,7 @@ export function LivePricingForex() {
                           <Btn
                             varient="secondary-ghost"
                             size="x-small"
-                            href="/about"
+                            href="https://app.afterprime.com/login"
                           >
                             Trade Now
                           </Btn>
