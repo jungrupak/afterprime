@@ -3,6 +3,7 @@ import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import Image from "next/image";
 import TypeformButton from "@/components/ui/typeForm";
+import { useEffect, useState } from "react";
 
 import type { Blocks } from "@/types/blocks";
 
@@ -115,6 +116,14 @@ export function HeroHome(props: HeroHomeProps) {
   const heroWords = hero_banner_home_banner_heading.split(" ");
   const title = heroWords.map((word) => word.toLocaleUpperCase() + " ");
 
+  const [width, setWidth] = useState<number>(0);
+
+  useEffect(() => {
+    const resizedWindow = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", resizedWindow);
+    return () => window.removeEventListener("resize", resizedWindow);
+  }, []);
+
   return (
     <div className={`${styles.hero_home} h-screen`}>
       {/* grain bg effect */}
@@ -158,6 +167,14 @@ export function HeroHome(props: HeroHomeProps) {
                 {hero_banner_home_banner_btn_text || "Button"}
               </Btn>
             )}
+            <span className="md:hidden">
+              <a
+                href="https://app.afterprime.com/live"
+                className="large ap_button washed mt-5"
+              >
+                Client Login
+              </a>
+            </span>
           </div>
           <div className="max-md:text-center"></div>
         </div>
