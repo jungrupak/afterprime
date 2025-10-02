@@ -10,6 +10,7 @@ type PropData = Blocks["block-multipurpose"];
 
 export function MultipurposeBlock({
   multipurpose_block_is_boxed,
+  multipurpose_block_content_vertical_alignment,
   multipurpose_block_section_heading,
   multipurpose_block_section_content,
   multipurpose_block_block_cta_label,
@@ -29,6 +30,7 @@ export function MultipurposeBlock({
 
   ////////
   const isBoxed = Number(multipurpose_block_is_boxed || 0);
+  const vrAlign = String(multipurpose_block_content_vertical_alignment || "");
   const heading = String(multipurpose_block_section_heading || "");
   const contents = String(multipurpose_block_section_content || "");
   const htmlContent = contents
@@ -75,7 +77,7 @@ export function MultipurposeBlock({
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
       <div className="ap_container">
-        <BoxedBlock isBoxed={isBoxed === 1 ? true : false} vAlign="start">
+        <BoxedBlock isBoxed={isBoxed === 1 ? true : false} vAlign={vrAlign}>
           {/* Left */}
           <div>
             <div className="max-md:text-center md:pr-25">
@@ -87,7 +89,7 @@ export function MultipurposeBlock({
                 className="wysWygEditor"
                 dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
               />
-              <div className="mt-12">
+              <div className="mt-12 btn-group">
                 {multipurpose_block_is_type_form_cta === "1" ? (
                   <TypeformButton
                     formId="GYkOukSo"
@@ -116,7 +118,7 @@ export function MultipurposeBlock({
             )}
 
             {multipurpose_block_block_has_featured_image === "1" && (
-              <div className="my-20">
+              <div>
                 {multipurpose_block_block_has_featured_image &&
                   multipurpose_block_featured_image?.url && (
                     <Image

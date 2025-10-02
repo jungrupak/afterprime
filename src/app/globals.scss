@@ -782,3 +782,17 @@ section {
     }
   }
 }
+
+.stretched {
+  > div {
+    height: 100%;
+    > div {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      .btn-group {
+        margin-top: auto;
+      }
+    }
+  }
+}

@@ -51,6 +51,7 @@ export type Blocks = {
   };
   "block-multipurpose": {
     multipurpose_block_is_boxed?: string;
+    multipurpose_block_content_vertical_alignment?: string;
     multipurpose_block_section_heading?: string;
     multipurpose_block_section_content?: string;
     multipurpose_block_block_cta_label?: string;
