@@ -12,8 +12,8 @@ export default function WebTraderMt4() {
       if (window.MetaTraderWebTerminal) {
         new window.MetaTraderWebTerminal("webterminal", {
           version: 4,
-          servers: ["Afterprime-Demo AP"],
-          server: "Afterprime-Demo AP",
+          servers: ["Afterprime-Live AP"],
+          server: "Afterprime-Live AP",
           utmCampaign: "direct",
           utmSource: "www.afterprime.com",
           startMode: "login",
