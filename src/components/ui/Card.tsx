@@ -18,17 +18,17 @@ type CardProps = {
 export default function Card({
   title,
   paragraph,
-  borderEnable,
-  alignItems,
-  cardSize,
+  borderEnable = false,
+  alignItems = "center",
+  cardSize = "regular",
   cardCtaLabel,
   cardCtaLink,
-  active,
-  type,
+  active = false,
+  type = "regular",
   key,
 }: CardProps) {
-  // Determine if link is external
-  const isExternalLink = cardCtaLink && !cardCtaLink.startsWith("/");
+  // Determine link target automatically
+  const linkTarget = cardCtaLink?.startsWith("/") ? "_self" : "_blank";
 
   return (
     <div
@@ -41,9 +41,7 @@ export default function Card({
             ? "text-center"
             : alignItems === "left"
             ? "text-left"
-            : alignItems === "right"
-            ? "text-right"
-            : ""
+            : "text-right"
         }
         ${
           cardSize === "compact"
@@ -52,21 +50,19 @@ export default function Card({
             ? styles.cardRegular
             : cardSize === "large"
             ? styles.cardLarge
-            : cardSize === "small"
-            ? styles.cardSmall
-            : ""
+            : styles.cardSmall
         }`}
     >
-      <h3>{title}</h3>
-      <p>{paragraph}</p>
+      {title && <h3>{title}</h3>}
+      {paragraph && <p>{paragraph}</p>}
 
       {cardCtaLink && (
         <div className={styles.cardCta}>
           <Link
             className="card_href_link hover:underline"
             href={cardCtaLink}
-            target={isExternalLink ? "_blank" : "_self"}
-            rel={isExternalLink ? "noopener noreferrer" : undefined} // recommended for external links
+            target={linkTarget}
+            rel={linkTarget === "_blank" ? "noopener noreferrer" : undefined}
           >
             {cardCtaLabel}
             <svg
