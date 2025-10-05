@@ -1,4 +1,5 @@
 "use client";
+import { Analytics } from "@vercel/analytics/next";
 import { useEffect } from "react";
 import { Blinker } from "next/font/google";
 import HeadScripts from "@/components/HeaderScripts";
@@ -78,6 +79,7 @@ Aligned A-Book+. Flow Rewards Built In."
         {children}
         <BottomCards />
         <Footer />
+        <Analytics />
 
         {/* Footer Scripts */}
         <FooterScripts />
