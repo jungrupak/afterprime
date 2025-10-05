@@ -1,10 +1,10 @@
 "use client";
 
 import styles from "./UspHome.module.scss";
-import { MarkUpGReview } from "../hero-home/HeroHome";
 import { useState, useEffect } from "react";
 import type { pairsAndCommission } from "@/types/pairsAndCommission";
 import { Blocks } from "@/types/blocks";
+import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 
 type USPBlockProps = Blocks["usp-under-home-hero"];
 
@@ -122,7 +122,7 @@ export function UspUnderHome(props: USPBlockProps) {
             </p>
           </div>
           <div className="max-md:flex items-center flex-col">
-            <MarkUpGReview />
+            <GoogleReviewBadge />
             <span className="text-[20px] font-[300] mt-6 block">
               <p>{usp_under_home_static_info_text || ""}</p>
             </span>

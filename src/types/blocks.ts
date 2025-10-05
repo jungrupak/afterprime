@@ -105,6 +105,7 @@ export type Blocks = {
   "reviews-section": {
     google_reviews_section_section_title?: string;
     google_reviews_section_section_paragraph?: string;
+    google_reviews_section_enable_page_layout?: string;
   };
   "founder-messages": {
     founder_message_cart_title?: string;
