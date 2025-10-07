@@ -35,11 +35,10 @@ export default function SectionFeaturedCards({
       <div className="ap_container relative">
         {/* <div className={`dotted_bg_in_container dotted-block`}></div> */}
         <div
-          className={`${styles.content_block} flex gap-28 max-md:gap-10 max-md:flex-col items-center max-lg:flex-wrap`}
+          className={`${styles.content_block} flex gap-28 max-md:gap-10 max-md:flex-col items-center max-[1265px]:flex-wrap`}
         >
           <div
-            className={`contentTextBlockWrapper max-md:text-center`}
-            style={{ maxWidth: "480px" }}
+            className={`contentTextBlockWrapper max-md:text-center min-[1260px]:max-w-[450px]`}
           >
             <h2 className="h2-size mb-6" style={{ fontWeight: "600" }}>
               {section_card_repeator_section_title}

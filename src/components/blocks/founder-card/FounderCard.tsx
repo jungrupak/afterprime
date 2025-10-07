@@ -13,7 +13,7 @@ export default function FoundersCard(props: FounderCardProps) {
       <div className="grainy_bg"></div>
       <div className="ap_container">
         <div
-          className={`${styles.founders_block} grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] min-md:gap-40 items-center group`}
+          className={`${styles.founders_block} grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] min-md:grid-cols-[repeat(auto-fit,minmax(500px,1fr))]  min-[1204px]:gap-40 items-center group`}
         >
           <div className={styles.founder_image}>
             <div className={`${styles.dotted_bg} dotted-block`}></div>

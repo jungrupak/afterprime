@@ -415,10 +415,15 @@ section {
   }
 
   @media all and (max-width: 1279px) {
-    padding-inline: 20px;
+    padding-inline: 40px;
+    padding-block: 70px;
   }
 
   @media all and (max-width: 767px) {
+    padding: 70px 40px;
+  }
+
+  @media all and (max-width: 500px) {
     padding: 70px 20px;
   }
 }

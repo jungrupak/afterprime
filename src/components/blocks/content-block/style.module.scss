@@ -8,8 +8,9 @@
   height: 100%;
   width: 625px;
   object-fit: cover;
-  @media all and (max-width: 767px) {
+  @media all and (max-width: 1204px) {
     height: 425px;
+    width: 100%;
   }
 }
 

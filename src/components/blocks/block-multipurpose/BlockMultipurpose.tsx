@@ -1,4 +1,5 @@
 "use client";
+import styles from "./BlockMultipurpose.module.scss";
 import BoxedBlock from "@/components/boxed-block/BoxedBlock";
 import Button from "@/components/ui/Button";
 import Lists from "@/components/ui/Lists";
@@ -112,7 +113,7 @@ export function MultipurposeBlock({
           {/* Left ends */}
 
           {/* Right */}
-          <div>
+          <div className={`${styles.contentRight}`}>
             {multipurpose_block_has_feature_bullet_list === "1" && (
               <Lists listItems={bulletLists} bulletVarient="arrow-blue" />
             )}
