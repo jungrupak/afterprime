@@ -1,7 +1,6 @@
 "use client";
 import styles from "./Accordion.module.scss";
 import { useState } from "react";
-import { useContentEditor } from "@/hooks/useEditorContent";
 
 export interface AccordionObjectsKeys {
   question?: string;
@@ -21,9 +20,11 @@ export default function Accordion({
 
   // Process all answers with the hook at top level
   const processedAnswers = faqObjects.map((item) =>
-    useContentEditor(item.answer || "")
+    (item.answer || "")
+      .split(/\n+/)
+      .map((line) => `<p>${line.trim()}</p>`)
+      .join("")
   );
-
   return (
     <div className={`${styles.accordion_wrapper}`}>
       {faqObjects.map((item, index) => (
