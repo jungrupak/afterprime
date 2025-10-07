@@ -29,3 +29,17 @@
     }
   }
 }
+
+.accordion_content_wrapper {
+  ul {
+    margin-left: 16px;
+    margin-top: 20px;
+    li {
+      list-style: disc;
+      margin-bottom: 15px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

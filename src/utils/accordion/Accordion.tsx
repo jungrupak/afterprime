@@ -1,6 +1,7 @@
 "use client";
 import styles from "./Accordion.module.scss";
 import { useState } from "react";
+import { useContentEditor } from "@/hooks/useEditorContent";
 
 export interface AccordionObjectsKeys {
   question?: string;
@@ -17,6 +18,7 @@ export default function Accordion({
   answerFluid = false,
 }: AccordionProps) {
   const [isOpenAnswer, setIsOpenAnswer] = useState(0);
+
   return (
     <div className={`${styles.accordion_wrapper}`}>
       {faqObjects.map((item, index) => (
@@ -37,13 +39,14 @@ export default function Accordion({
               isOpenAnswer === index ? styles.visible : styles.hidden
             } mt-6 max-md:mt-4`}
           >
-            <p
+            <div
               className={`text-[18px] font-[400] mb-4 last:mb-0 opacity-80 ${
                 answerFluid === true ? "md:pr-[18vw]" : "md:pr-[60px]"
               }`}
-            >
-              {item.answer}
-            </p>
+              dangerouslySetInnerHTML={{
+                __html: useContentEditor(item.answer || ""),
+              }}
+            />
           </div>
         </div>
       ))}
