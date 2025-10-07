@@ -42,9 +42,7 @@ export default function ContentBlock({
         <div className="grainy_bg"></div>
         {/* grain bg effect */}
         <div className={`ap_container`}>
-          <div
-            className={`grid grid-cols-1 md:grid-cols-2 gap-25 max-md:gap-10`}
-          >
+          <div className={`grid grid-cols-1 md:grid-cols-2 xl:gap-25 gap-10`}>
             <div
               className={` ${
                 content_block_with_image_block_image_image_alignment === "left"

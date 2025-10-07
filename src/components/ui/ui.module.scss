@@ -130,13 +130,12 @@
 
   //Sizes
   &.large {
-    padding-inline: 60px;
+    padding-inline: clamp(40px, 4vw, 60px);
     line-height: 54px;
     font-size: 20px;
     gap: 20px;
     font-weight: 700;
     @media all and (max-width: 767px) {
-      padding-inline: 40px;
       width: 100%;
     }
   }

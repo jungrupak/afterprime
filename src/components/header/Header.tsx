@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import Btn from "@/components/ui/Button";
 import styles from "./style.module.scss";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -168,7 +167,7 @@ export default function Header() {
           </div>
 
           {/* Right Side (Desktop) */}
-          <div className={`${styles.ap_header_right} max-lg:hidden`}>
+          <div className={`${styles.ap_header_right} max-[1204px]:hidden`}>
             <div className="flex items-center gap-4">
               <a
                 className={`ap_button washed small`}
@@ -186,7 +185,7 @@ export default function Header() {
           </div>
 
           {/* Mobile Menu Icon */}
-          <div className="hidden max-lg:block ml-auto">
+          <div className="hidden max-[1204px]:block ml-auto">
             <div
               className={`${styles.mobileMenuIcon}`}
               onClick={() => setMobileMenu((prev) => !prev)}
@@ -201,9 +200,13 @@ export default function Header() {
         {isMegaOpen && activeIndex !== null && (
           <div
             className={`${styles.megaMenu}`}
-            onMouseEnter={() => setIsMegaOpen(true)}
+            onMouseEnter={() => {
+              if (window.innerWidth <= 1204) {
+                setIsMegaOpen(true);
+              }
+            }}
             onMouseLeave={() => {
-              if (window.innerWidth >= 1024) {
+              if (window.innerWidth >= 1204) {
                 setIsMegaOpen(false);
                 setActiveIndex(null);
                 setMegaMenu(0);

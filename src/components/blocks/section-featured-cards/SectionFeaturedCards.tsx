@@ -35,7 +35,7 @@ export default function SectionFeaturedCards({
       <div className="ap_container relative">
         {/* <div className={`dotted_bg_in_container dotted-block`}></div> */}
         <div
-          className={`${styles.content_block} flex gap-28 max-md:gap-10 max-md:flex-col items-center`}
+          className={`${styles.content_block} flex gap-28 max-md:gap-10 max-md:flex-col items-center max-lg:flex-wrap`}
         >
           <div
             className={`contentTextBlockWrapper max-md:text-center`}
@@ -63,7 +63,7 @@ export default function SectionFeaturedCards({
               </div>
             )}
           </div>
-          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 text-center w-full">
+          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 text-center w-full">
             {cards.map((item, index) => (
               <Card
                 key={index}

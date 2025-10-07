@@ -29,7 +29,7 @@ export default function InnerBanner({
               <span className="font-[600]">{inner_banner_title}</span>
             </h1>
             <div
-              className="paragraph max-w-[600px] mb-12 lg:mt-20 opacity-80"
+              className="paragraph max-w-[600px] mb-12 max-lg:mx-auto lg:mt-20 opacity-80"
               style={{ fontWeight: "300" }}
               dangerouslySetInnerHTML={{
                 __html: inner_banner_paragraph || "&nbsp;",

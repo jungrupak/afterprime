@@ -46,3 +46,25 @@
   }
 }
 //
+
+@media all and (max-width: 1204px) {
+  .usp_items_wrapper {
+    flex-wrap: wrap;
+    > div {
+      flex: 1 1 auto;
+      text-align: center;
+      &:last-child {
+        min-width: 300px;
+        max-width: none;
+        margin-left: 0;
+        > div:first-child {
+          max-width: 200px;
+          margin-inline: auto;
+          @media all and (max-width: 767px) {
+            margin-top: 40px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -21,7 +21,7 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
       <div className="ap_container">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
+        <div className="grid max-md:grid-cols-[repeat(auto-fit,minmax(500px,1fr))] grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 justify-center max-md:mb-8">
           <div className="">
             {section_card_repeator_section_title && (
               <div
@@ -32,11 +32,13 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
               />
             )}
           </div>
-          <div className="">
-            <p className="paragraph max-w-2xl opacity-90 max-md:text-center max-md:mb-10">
-              {section_card_repeator_section_paragraph}
-            </p>
-          </div>
+          {section_card_repeator_section_paragraph && (
+            <div className="">
+              <p className="paragraph max-w-2xl opacity-90 max-md:text-center max-md:mb-10">
+                {section_card_repeator_section_paragraph}
+              </p>
+            </div>
+          )}
         </div>
         {/* Cards */}
         <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">

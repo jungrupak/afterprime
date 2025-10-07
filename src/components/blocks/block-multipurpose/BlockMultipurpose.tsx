@@ -80,7 +80,7 @@ export function MultipurposeBlock({
         <BoxedBlock isBoxed={isBoxed === 1 ? true : false} vAlign={vrAlign}>
           {/* Left */}
           <div>
-            <div className="max-md:text-center md:pr-25">
+            <div className="max-md:text-center xl:pr-25">
               <h2
                 className="h2-size mb-6"
                 dangerouslySetInnerHTML={{ __html: heading || "&nbsp;" }}
