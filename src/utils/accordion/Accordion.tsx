@@ -19,6 +19,11 @@ export default function Accordion({
 }: AccordionProps) {
   const [isOpenAnswer, setIsOpenAnswer] = useState(0);
 
+  // Process all answers with the hook at top level
+  const processedAnswers = faqObjects.map((item) =>
+    useContentEditor(item.answer || "")
+  );
+
   return (
     <div className={`${styles.accordion_wrapper}`}>
       {faqObjects.map((item, index) => (
@@ -44,7 +49,7 @@ export default function Accordion({
                 answerFluid === true ? "md:pr-[18vw]" : "md:pr-[60px]"
               }`}
               dangerouslySetInnerHTML={{
-                __html: useContentEditor(item.answer || ""),
+                __html: processedAnswers[index],
               }}
             />
           </div>
