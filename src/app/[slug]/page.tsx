@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { wpFetch } from "@/utils/wpFetch";
 import { WPPage } from "@/types/blocks";
 import PageRenderer from "@/components/PageRender";
+import { SeoHead } from "@/utils/seoHead";
 
 type Props = { params: Promise<{ slug: string }> }; // ⬅️ params is now async
 
@@ -16,12 +17,18 @@ export default async function DynamicPage({ params }: Props) {
 
   const pages = await wpFetch<WPPage[]>(`/pages?slug=${slug}`);
   const pageData = pages?.[0];
+  const pageID = pages?.[0].id;
 
   if (!pageData) {
     notFound();
   }
 
-  return <PageRenderer pageData={pageData} />;
+  return (
+    <>
+      <SeoHead getPageID={pageID} />
+      <PageRenderer pageData={pageData} />
+    </>
+  );
 }
 
 // ✅ Pre-generate slugs for better performance
