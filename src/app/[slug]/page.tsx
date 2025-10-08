@@ -3,7 +3,7 @@ import { wpFetch } from "@/utils/wpFetch";
 import { WPPage } from "@/types/blocks";
 import PageRenderer from "@/components/PageRender";
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> }; // ⬅️ params is now async
 
 // ✅ Allow runtime slugs
 export const dynamicParams = true;
@@ -12,7 +12,8 @@ export const dynamicParams = true;
 export const revalidate = 60;
 
 export default async function DynamicPage({ params }: Props) {
-  const slug = params.slug;
+  const { slug } = await params; // ⬅️ FIX: await params
+
   const pages = await wpFetch<WPPage[]>(`/pages?slug=${slug}`);
   const pageData = pages?.[0];
 

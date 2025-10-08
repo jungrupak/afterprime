@@ -16,19 +16,18 @@ export default function CardRepeator({
   return (
     <>
       {data.map((item, index) => (
-        <div key={index}>
-          <Card
-            borderEnable={false}
-            alignItems="center"
-            cardSize={cardSize}
-            title={item.title}
-            paragraph={item.paragraph}
-            cardCtaLabel={item.ctaLabel}
-            cardCtaLink={item.ctaLink}
-            active={false}
-            type={type}
-          />
-        </div>
+        <Card
+          key={index}
+          borderEnable={false}
+          alignItems="center"
+          cardSize={cardSize}
+          title={item.title}
+          paragraph={item.paragraph}
+          cardCtaLabel={item.ctaLabel}
+          cardCtaLink={item.ctaLink}
+          active={false}
+          type={type}
+        />
       ))}
     </>
   );

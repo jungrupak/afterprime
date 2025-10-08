@@ -12,7 +12,6 @@ type CardProps = {
   cardCtaLink?: string;
   active?: boolean;
   type?: "bold" | "regular";
-  key?: number;
 };
 
 export default function Card({
@@ -25,14 +24,12 @@ export default function Card({
   cardCtaLink,
   active = false,
   type = "regular",
-  key,
 }: CardProps) {
   // Determine link target automatically
   const linkTarget = cardCtaLink?.startsWith("/") ? "_self" : "_blank";
 
   return (
     <div
-      key={key}
       className={`${styles.cardItem} ${borderEnable ? "border-2" : ""}
         ${active ? styles.activeCard : ""}
         ${type === "bold" ? styles.cardBold : ""}
