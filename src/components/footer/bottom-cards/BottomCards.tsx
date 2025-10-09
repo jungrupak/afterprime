@@ -1,5 +1,4 @@
 import styles from "./BottomCards.module.scss";
-import Link from "next/link";
 import Image from "next/image";
 
 export default function BottomCards() {

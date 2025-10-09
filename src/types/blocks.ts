@@ -274,6 +274,13 @@ export type PageFieldGroups = {
   //####
 };
 
+//AIOSEO Types
+export type Aioseo = {
+  title?: string | undefined;
+  description?: string | undefined;
+  keywords?: string[];
+};
+
 // --------------------------------------------
 // WP Page type
 // --------------------------------------------
@@ -284,4 +291,5 @@ export type WPPage = {
   excerpt: { rendered: string };
   acf?: PageFieldGroups;
   acf_blocks?: ACFBlock[];
+  aioseo?: Aioseo;
 };

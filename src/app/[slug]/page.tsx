@@ -2,9 +2,9 @@ import { notFound } from "next/navigation";
 import { wpFetch } from "@/utils/wpFetch";
 import { WPPage } from "@/types/blocks";
 import PageRenderer from "@/components/PageRender";
-import { SeoHead } from "@/utils/seoHead";
+import type { Metadata } from "next";
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> }; // ⬅️ params is now async
 
 // ✅ Allow runtime slugs
 export const dynamicParams = true;
@@ -12,25 +12,27 @@ export const dynamicParams = true;
 // ✅ Revalidate every 60s (ISR)
 export const revalidate = 60;
 
-// Helper: fetch page data
-async function getPageData(slug: string) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params; // ⬅️ FIX: await params
   const pages = await wpFetch<WPPage[]>(`/pages?slug=${slug}`);
-  const pageData = pages?.[0];
-  if (!pageData) notFound();
-  return pageData;
-}
+  const page = pages?.[0];
 
-// ✅ Dynamic metadata
-export async function generateMetadata({ params }: Props) {
-  const pageData = await getPageData(params.slug);
-  return SeoHead({ getPageID: pageData.id });
+  return {
+    title: page?.aioseo?.title || "Default Title",
+    description: page?.aioseo?.description || "Default description",
+  };
 }
 
 export default async function DynamicPage({ params }: Props) {
-  const { slug } = params; // ✅ works now
+  const { slug } = await params; // ⬅️ FIX: await params
+
   const pages = await wpFetch<WPPage[]>(`/pages?slug=${slug}`);
   const pageData = pages?.[0];
-  if (!pageData) notFound();
+
+  if (!pageData) {
+    notFound();
+  }
+
   return <PageRenderer pageData={pageData} />;
 }
 

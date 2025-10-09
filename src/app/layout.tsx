@@ -1,6 +1,5 @@
-"use client";
 import { Analytics } from "@vercel/analytics/next";
-import { useEffect } from "react";
+import TypeformLoader from "@/utils/TypeFormLoader";
 import { Blinker } from "next/font/google";
 import HeadScripts from "@/components/HeaderScripts";
 import Header from "@/components/header/Header";
@@ -8,21 +7,6 @@ import BottomCards from "@/components/footer/bottom-cards/BottomCards";
 import Footer from "@/components/footer/Footer";
 import "./globals.scss";
 import FooterScripts from "@/components/FooterScripts";
-
-//HTML sanitization global
-export function TypeformLoader() {
-  useEffect(() => {
-    if (!document.querySelector("#typeform-embed")) {
-      const script = document.createElement("script");
-      script.id = "typeform-embed";
-      script.src = "//embed.typeform.com/next/embed.js";
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, []);
-
-  return null; // nothing visible
-}
 
 const blinker = Blinker({
   subsets: ["latin"],
