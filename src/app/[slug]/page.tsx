@@ -18,8 +18,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = pages?.[0];
 
   return {
-    title: page?.aioseo?.title || "Default Title",
-    description: page?.aioseo?.description || "Default description",
+    title: page?.aioseo?.title || "Afterprime",
+    description:
+      page?.aioseo?.description ||
+      "#1 Lowest Costs—Verified. Aligned A-Book+. Flow Rewards Built In.",
   };
 }
 
