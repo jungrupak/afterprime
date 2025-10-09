@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import Button from "@/components/ui/Button";
 
 export default function WebTraderMt5() {
   const [loading, setLoading] = useState(true);
@@ -62,13 +64,25 @@ export default function WebTraderMt5() {
       )}
 
       {/* iframe */}
+
+      <div className="mt4PageHeader flex">
+        <Image
+          src="/img/logo-main.svg"
+          alt="Afterprime Logo"
+          width={202}
+          height={30}
+        />
+      </div>
+
       <iframe
         src="https://mt5web.afterprime.io/terminal"
         style={{
           border: "none",
           width: "100%",
-          height: "100vh",
+          height: "calc(100vh - 60px)",
           position: "fixed",
+          top: "60px",
+          backgroundColor: "white",
           zIndex: 9,
         }}
       />

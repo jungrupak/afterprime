@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 
-export default function WebTraderMt4() {
+export default function WebTraderMt4Demo() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,8 +14,8 @@ export default function WebTraderMt4() {
       if (window.MetaTraderWebTerminal) {
         new window.MetaTraderWebTerminal("webterminal", {
           version: 4,
-          servers: ["Afterprime-Live AP"],
-          server: "Afterprime-Live AP",
+          servers: ["Afterprime-Demo AP"],
+          server: "Afterprime-Demo AP",
           utmCampaign: "direct",
           utmSource: "www.afterprime.com",
           startMode: "login",
@@ -71,22 +71,18 @@ export default function WebTraderMt4() {
           height={30}
         />
         <div className="ml-auto">
-          <Button
-            isArrowVisible={true}
-            size="x-small"
-            href="/webtrader-mt4-demo"
-          >
-            MT4 Demo
+          <Button isArrowVisible={true} size="x-small" href="/webtrader-mt4">
+            MT4 Live
           </Button>
         </div>
       </div>
-
       <div
         id="webterminal"
         style={{
           width: "100%",
-          height: "100vh",
+          height: "calc(100vh - 60px)",
           position: "fixed",
+          top: "60px",
           zIndex: "9",
           backgroundColor: "white",
         }}
