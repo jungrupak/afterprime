@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const page = pages?.[0];
 
   return {
-    title: page?.aioseo?.title || "Afterprime",
+    title: page?.aioseo?.title || "Afterprime ",
     description:
       page?.aioseo?.description ||
       "#1 Lowest Costs—Verified. Aligned A-Book+. Flow Rewards Built In.",
