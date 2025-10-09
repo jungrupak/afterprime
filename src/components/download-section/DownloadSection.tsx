@@ -5,13 +5,13 @@ import type { CardDataObject } from "@/types/cardObject";
 interface SectionProps {
   sectionTitle?: string;
   sectionParagraph?: string;
-  downloadLink?: CardDataObject[];
+  cards?: CardDataObject[];
 }
 
 export function SectionDownloadPlatform({
   sectionTitle,
   sectionParagraph,
-  downloadLink = [],
+  cards = [],
 }: SectionProps) {
   return (
     <section className={`${styles.section_generic_cards_content}`}>
@@ -35,7 +35,7 @@ export function SectionDownloadPlatform({
         </div>
         {/* Cards */}
         <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
-          {downloadLink.map((card, index) => (
+          {cards.map((card, index) => (
             <Card
               key={index}
               title={card.title}

@@ -1,7 +1,6 @@
 import { wpFetch } from "@/utils/wpFetch";
 import { WPPage } from "@/types/blocks";
 import PageRenderer from "@/components/PageRender";
-import { SeoHead } from "@/utils/seoHead";
 
 // ✅ ISR: revalidate every 60 seconds
 export const revalidate = 60;
@@ -19,7 +18,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <SeoHead getPageID={pageID} />
       <PageRenderer pageData={pageData} />
     </>
   );

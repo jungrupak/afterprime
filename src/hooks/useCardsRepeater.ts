@@ -1,18 +1,13 @@
 import { useMemo } from "react";
+import { CardObjects } from "@/types/blocks";
 
-export type CardDataObject = {
-  title?: string | "";
-  paragraph?: string | "";
-  ctaLabel?: string | "";
-  ctaLink?: string | "";
-  ctaOpenTarget?: "Self" | "Blank";
-};
+type cards = CardObjects;
 
 export function useRepeaterCards<T extends Record<string, unknown>>(
   data: T,
   rawNoOfCard: number | string | null | undefined | boolean,
   prefix: string // dynamic prefix, e.g. "section_card_repeator_cards"
-): CardDataObject[] {
+): cards[] {
   return useMemo(() => {
     const noOfCard =
       typeof rawNoOfCard === "number" ? rawNoOfCard : Number(rawNoOfCard) || 0;

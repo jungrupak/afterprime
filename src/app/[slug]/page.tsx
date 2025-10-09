@@ -4,7 +4,7 @@ import { WPPage } from "@/types/blocks";
 import PageRenderer from "@/components/PageRender";
 import { SeoHead } from "@/utils/seoHead";
 
-type Props = { params: Promise<{ slug: string }> }; // ⬅️ params is now async
+type Props = { params: { slug: string } };
 
 // ✅ Allow runtime slugs
 export const dynamicParams = true;
@@ -12,23 +12,26 @@ export const dynamicParams = true;
 // ✅ Revalidate every 60s (ISR)
 export const revalidate = 60;
 
-export default async function DynamicPage({ params }: Props) {
-  const { slug } = await params; // ⬅️ FIX: await params
-
+// Helper: fetch page data
+async function getPageData(slug: string) {
   const pages = await wpFetch<WPPage[]>(`/pages?slug=${slug}`);
   const pageData = pages?.[0];
-  const pageID = pages?.[0].id;
+  if (!pageData) notFound();
+  return pageData;
+}
 
-  if (!pageData) {
-    notFound();
-  }
+// ✅ Dynamic metadata
+export async function generateMetadata({ params }: Props) {
+  const pageData = await getPageData(params.slug);
+  return SeoHead({ getPageID: pageData.id });
+}
 
-  return (
-    <>
-      <SeoHead getPageID={pageID} />
-      <PageRenderer pageData={pageData} />
-    </>
-  );
+export default async function DynamicPage({ params }: Props) {
+  const { slug } = params; // ✅ works now
+  const pages = await wpFetch<WPPage[]>(`/pages?slug=${slug}`);
+  const pageData = pages?.[0];
+  if (!pageData) notFound();
+  return <PageRenderer pageData={pageData} />;
 }
 
 // ✅ Pre-generate slugs for better performance
