@@ -14,7 +14,7 @@ export default function WebTraderMt4() {
       if (window.MetaTraderWebTerminal) {
         new window.MetaTraderWebTerminal("webterminal", {
           version: 4,
-          servers: ["Afterprime-Live AP"],
+          servers: ["Afterprime-Demo AP", "Afterprime-Live AP"],
           server: "Afterprime-Live AP",
           utmCampaign: "direct",
           utmSource: "www.afterprime.com",
@@ -85,8 +85,9 @@ export default function WebTraderMt4() {
         id="webterminal"
         style={{
           width: "100%",
-          height: "100vh",
+          height: "calc(100vh - 60px)",
           position: "fixed",
+          bottom: "0",
           zIndex: "9",
           backgroundColor: "white",
         }}

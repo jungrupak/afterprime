@@ -81,7 +81,7 @@ export default function WebTraderMt5() {
           width: "100%",
           height: "calc(100vh - 60px)",
           position: "fixed",
-          top: "60px",
+          bottom: "0",
           backgroundColor: "white",
           zIndex: 9,
         }}

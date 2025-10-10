@@ -14,11 +14,10 @@ export default function WebTraderMt4Demo() {
       if (window.MetaTraderWebTerminal) {
         new window.MetaTraderWebTerminal("webterminal", {
           version: 4,
-          servers: ["Afterprime-Demo AP"],
+          servers: ["Afterprime-Demo AP", "Afterprime-Live AP"],
           server: "Afterprime-Demo AP",
-          utmCampaign: "direct",
           utmSource: "www.afterprime.com",
-          startMode: "login",
+          startMode: "create_demo",
           language: "en",
           colorScheme: "black_on_white",
         });
@@ -82,7 +81,7 @@ export default function WebTraderMt4Demo() {
           width: "100%",
           height: "calc(100vh - 60px)",
           position: "fixed",
-          top: "60px",
+          bottom: "0",
           zIndex: "9",
           backgroundColor: "white",
         }}
