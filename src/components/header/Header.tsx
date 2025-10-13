@@ -263,6 +263,9 @@ export default function Header() {
                               setIsMegaOpen(false);
                               setActiveIndex(null);
                             }}
+                            {...(li.menuItem === "Help Center"
+                              ? { target: "_blank", rel: "noopener noreferrer" }
+                              : {})}
                           >
                             {li.menuItem}
                           </Link>

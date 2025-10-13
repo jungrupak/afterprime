@@ -105,6 +105,7 @@ export default function Button({
         className={classNames}
         onClick={btnClickHandle}
         target={linkTarget}
+        rel="noopener noreferrer"
       >
         {content}
       </Link>
