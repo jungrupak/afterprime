@@ -18,10 +18,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Afterprime",
+    url: "https://afterprime.com",
+    logo: "/img/log-main.svg",
+    sameAs: [
+      "https://www.facebook.com/afterprime.official/",
+      "https://x.com/afterprime_com",
+      "https://sc.linkedin.com/company/afterprime",
+    ],
+  };
+
   return (
     <html lang="en">
       <head>
         <HeadScripts />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
       </head>
 
       <body className={`${blinker.className} antialiased`}>

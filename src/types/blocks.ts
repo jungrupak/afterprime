@@ -271,7 +271,21 @@ export type PageFieldGroups = {
       answer?: string;
     }[];
   };
-  //####
+  // add other field groups here
+  seo_block?: {
+    title?: string;
+    description?: string;
+    opengraph?: {
+      title?: string;
+      description?: string;
+      site_url?: string;
+      sitename?: string;
+      og_image?: {
+        url?: string;
+        alt?: string;
+      };
+    };
+  };
 };
 
 //AIOSEO Types
