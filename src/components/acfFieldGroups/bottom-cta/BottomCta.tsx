@@ -55,6 +55,7 @@ export function BottomCta(props: CtaProps) {
                 className="ap_button ghost regular"
                 href="https://discord.com/invite/NKBcxyWzdM"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {card_referal?.cat_label || "Ask on Discord"}
               </a>

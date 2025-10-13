@@ -95,6 +95,7 @@ export default function BottomCards() {
               href={`https://help.afterprime.com/`}
               className="card_href_link hover:underline"
               target="_blank"
+              rel="noopener noreferrer"
             >
               General FAQs
               <svg
@@ -138,6 +139,7 @@ export default function BottomCards() {
               href={`https://discord.com/invite/NKBcxyWzdM`}
               className="card_href_link hover:underline"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Join Our Discord
               <svg

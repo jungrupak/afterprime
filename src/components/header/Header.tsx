@@ -154,6 +154,7 @@ export default function Header() {
                   className={`ap_button washed small`}
                   href="https://app.afterprime.com/login"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Member Login
                 </a>
@@ -173,6 +174,7 @@ export default function Header() {
                 className={`ap_button washed small`}
                 href="https://app.afterprime.com/login"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 Member Login
               </a>

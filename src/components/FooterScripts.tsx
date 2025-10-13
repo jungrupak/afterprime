@@ -176,7 +176,10 @@ export default function FooterScripts() {
         `}
       </Script>
       <noscript>
-        <a href="https://www.livechat.com/chat-with/2536351/" rel="nofollow">
+        <a
+          href="https://www.livechat.com/chat-with/2536351/"
+          rel="nofollow noreferrer"
+        >
           Chat with us
         </a>
         , powered by{" "}
