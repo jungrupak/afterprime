@@ -1,6 +1,6 @@
 import { fetchSeoFieldData } from "@/utils/fetchSeoFieldData";
 
-export async function useCustomMetadata(slug: string) {
+export async function CustomMetadata(slug: string) {
   const seoData = await fetchSeoFieldData(slug);
 
   return {

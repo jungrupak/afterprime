@@ -3,7 +3,7 @@ import { WPPage } from "@/types/blocks";
 import PageRenderer from "@/components/PageRender";
 import { useWpPagedata } from "@/hooks/useWpPagedata";
 import { Metadata } from "next";
-import { useCustomMetadata } from "@/hooks/useCustomMetadata";
+import { CustomMetadata } from "@/utils/CustomMetadata";
 
 // ✅ Allow runtime slugs
 export const dynamicParams = true;
@@ -15,7 +15,7 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug: pageSlug } = await params;
-  const seoData = await useCustomMetadata(pageSlug);
+  const seoData = await CustomMetadata(pageSlug);
   return seoData;
 }
 

@@ -2,7 +2,7 @@ import { wpFetch } from "@/utils/wpFetch";
 import { WPPage } from "@/types/blocks";
 import PageRenderer from "@/components/PageRender";
 import { Metadata } from "next";
-import { useCustomMetadata } from "@/hooks/useCustomMetadata";
+import { CustomMetadata } from "@/utils/CustomMetadata";
 //####
 export const revalidate = 60;
 //export const dynamic = "force-dynamic"; // this tells to NEXT "Always render this page on the server at request time — do not pre-render or cache it."
@@ -16,7 +16,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const frontPageSlug =
     params?.slug ?? process.env.NEXT_PUBLIC_FRONT_PAGE_SLUG ?? "home-page";
-  const seoData = await useCustomMetadata(frontPageSlug);
+  const seoData = await CustomMetadata(frontPageSlug);
   return seoData;
 }
 
