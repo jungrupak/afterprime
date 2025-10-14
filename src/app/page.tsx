@@ -27,7 +27,6 @@ export function generateViewport() {
       maximumScale: 1,
       minimumScale: 1,
     },
-    themeColor: "#0c0c0d",
   };
 }
 

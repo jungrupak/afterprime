@@ -52,6 +52,11 @@ export async function CustomMetadata(slug: string) {
       shortcut: "/favicon.ico",
       apple: "/apple-touch-icon.png",
     },
+    robots: {
+      index: true,
+      follow: true,
+    },
+
     // metadataBase: new URL("https://afterprime.com"), // it is like base path for above links just like basepath/img/img.jpg// will render as https://afterprime.com/img/im.jpg##
   };
 }

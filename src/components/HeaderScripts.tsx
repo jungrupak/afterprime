@@ -96,7 +96,6 @@ export default function HeadScripts() {
 
       {/* Example: Any additional head meta or script tags */}
       <Head>
-        <meta name="robots" content="index, follow" />
         <meta name="theme-color" content="#000000" />
         <SchemaData />
       </Head>

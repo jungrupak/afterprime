@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "Afterprime – Get Paid to Trade",
     description:
