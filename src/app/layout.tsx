@@ -1,12 +1,12 @@
 import { Analytics } from "@vercel/analytics/next";
 import TypeformLoader from "@/utils/TypeFormLoader";
 import { Blinker } from "next/font/google";
-import HeadScripts from "@/components/HeaderScripts";
 import Header from "@/components/header/Header";
 import BottomCards from "@/components/footer/bottom-cards/BottomCards";
 import Footer from "@/components/footer/Footer";
-import "./globals.scss";
 import FooterScripts from "@/components/FooterScripts";
+import HeadScripts from "@/components/HeaderScripts";
+import "./globals.scss";
 
 const blinker = Blinker({
   subsets: ["latin"],
@@ -18,27 +18,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Afterprime",
-    url: "https://afterprime.com",
-    logo: "/img/log-main.svg",
-    sameAs: [
-      "https://www.facebook.com/afterprime.official/",
-      "https://x.com/afterprime_com",
-      "https://sc.linkedin.com/company/afterprime",
-    ],
-  };
-
   return (
     <html lang="en">
       <head>
+        <link rel="canonical" href="https://afterprime.com" />
         <HeadScripts />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
       </head>
 
       <body className={`${blinker.className} antialiased`}>

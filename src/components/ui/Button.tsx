@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import css from "./ui.module.scss";
-import { useButtonClickHandling } from "@/hooks/btnClickHandle";
+import { useButtonClickHandling } from "@/hooks/useBtnClickHandle";
 
 type ButtonVarients =
   | "default"

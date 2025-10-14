@@ -14,6 +14,7 @@ export default function HeadScripts() {
       />
       <Script id="gtag-init" strategy="afterInteractive">
         {`
+        console.log("GTA scripts are loaded");
           window.dataLayer = window.dataLayer || [];
           function gtag() { dataLayer.push(arguments); }
           gtag('js', new Date());

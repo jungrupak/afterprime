@@ -146,7 +146,6 @@ export default function FooterScripts() {
       {/* LiveChat */}
       <Script id="livechat" strategy="lazyOnload">
         {`
-        console.log("footer scripts loaded for livechat")
           window.__lc = window.__lc || {};
           window.__lc.license = 2536351;
           window.__lc.integration_name = "manual_channels";

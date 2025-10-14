@@ -3,7 +3,7 @@ import BoxedBlock from "../boxed-block/BoxedBlock";
 import Btn from "@/components/ui/Button";
 import Lists from "../ui/Lists";
 import type { acfBlocks } from "@/types/acf";
-import { useAcfRepeaterValues } from "@/hooks/getAcfRepeaterValue";
+import { useAcfRepeaterValues } from "@/hooks/useAcfRepeaterValue";
 
 type DataProps = {
   data: acfBlocks;
