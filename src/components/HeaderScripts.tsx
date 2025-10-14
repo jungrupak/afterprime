@@ -3,6 +3,7 @@
 import Head from "next/head";
 import Script from "next/script";
 import React from "react";
+import SchemaData from "@/utils/SchemaData";
 
 export default function HeadScripts() {
   return (
@@ -69,6 +70,7 @@ export default function HeadScripts() {
           width="1"
           style={{ display: "none" }}
           alt=""
+          aria-hidden="true"
           src="https://px.ads.linkedin.com/collect/?pid=8012492&fmt=gif"
         />
       </noscript>
@@ -96,6 +98,7 @@ export default function HeadScripts() {
       <Head>
         <meta name="robots" content="index, follow" />
         <meta name="theme-color" content="#000000" />
+        <SchemaData />
       </Head>
     </>
   );
