@@ -5,7 +5,6 @@ import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
 //####
 export const revalidate = 60;
-//export const dynamic = "force-dynamic"; // this tells to NEXT "Always render this page on the server at request time — do not pre-render or cache it."
 
 interface PageProps {
   params?: { slug?: string };
