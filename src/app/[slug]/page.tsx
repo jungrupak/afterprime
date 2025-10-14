@@ -1,7 +1,7 @@
 import { wpFetch } from "@/utils/wpFetch";
 import { WPPage } from "@/types/blocks";
 import PageRenderer from "@/components/PageRender";
-import { useWpPagedata } from "@/hooks/useWpPagedata";
+import { getWpPagedata } from "@/utils/getWpPagedata";
 import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
 
@@ -33,7 +33,7 @@ export function generateViewport() {
 
 export default async function DynamicPage({ params }: Props) {
   const { slug: pageSlug } = await params; //renamed variable slug to custm name
-  const pageData = await useWpPagedata(pageSlug);
+  const pageData = await getWpPagedata(pageSlug);
   return <PageRenderer pageData={pageData} />;
 }
 

@@ -81,7 +81,9 @@ export default function FooterScripts() {
 
             eraseCookie(name){ this.createCookie(name,"",-1,null,this._domain,this._secure); }
 
-            getParameterByName(name){ let regex=new RegExp("[\\?&]"+name+"=([^&#]*)"); let results = regex.exec(window.location.search); return results? decodeURIComponent(results[1].replace(/\+/g,' ')):""; }
+            getParameterByName(name) {
+            return new URLSearchParams(window.location.search).get(name) || "";
+            }
 
             additionalParamsPresentInUrl(){ return this._additionalParams.some(p=>this.getParameterByName(p)); }
             utmPresentInUrl(){ return this._utmParams.some(p=>this.getParameterByName(p)); }
