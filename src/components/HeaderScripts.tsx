@@ -1,6 +1,6 @@
 // components/HeadScripts.tsx
 "use client";
-
+import Head from "next/head";
 import Script from "next/script";
 import React from "react";
 
@@ -91,6 +91,12 @@ export default function HeadScripts() {
           })(window,document);
         `}
       </Script>
+
+      {/* Example: Any additional head meta or script tags */}
+      <Head>
+        <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#000000" />
+      </Head>
     </>
   );
 }

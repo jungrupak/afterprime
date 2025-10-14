@@ -60,13 +60,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="canonical" href="https://afterprime.com" />
-        <HeadScripts />
-      </head>
-
       <body className={`${blinker.className} antialiased`}>
+        {/* Head Scripts */}
+        <HeadScripts />
+        {/* Head Scripts Ends */}
+
         <TypeformLoader />
+
         {/* Fixed Vid Bg for entire website */}
         <div className="home_banner_video">
           <video
