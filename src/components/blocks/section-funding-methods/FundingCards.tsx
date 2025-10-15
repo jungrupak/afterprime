@@ -3,6 +3,7 @@ import styles from "./FundingCards.module.scss";
 import Image from "next/image";
 import { DepositCardData, WithdrawCardData } from "@/utils/FundingCardJson";
 import Button from "@/components/ui/Button";
+import Link from "next/link";
 
 type FundingCardsProps = Blocks["funding-card-lists"];
 
@@ -81,14 +82,13 @@ export function SectionFundingCards({
                 <div className="db mt-8 opacity-68">Processing Time:</div>
                 <p className="mb-4">{card.processing_time} - Zero Fee</p>
                 <div className="mt-auto">
-                  <Button
-                    varient="primary-ghost"
-                    size="small"
-                    href="app.afterprime.com/live"
-                    linkTarget="_blank"
+                  <Link
+                    className="ap_button primaryGhost small"
+                    href="https://app.afterprime.com/live"
+                    target="_blank"
                   >
                     Deposit Now
-                  </Button>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -122,14 +122,13 @@ export function SectionFundingCards({
                 <div className="db mt-8 opacity-68">Processing Time:</div>
                 <p className="mb-4">{card.processing_time} - Zero Fee</p>
                 <div className="mt-auto">
-                  <Button
-                    varient="primary-ghost"
-                    size="small"
-                    href="app.afterprime.com/live"
-                    linkTarget="_blank"
+                  <Link
+                    className="ap_button primaryGhost small"
+                    href="https://app.afterprime.com/live"
+                    target="_blank"
                   >
-                    Deposit Now
-                  </Button>
+                    Withdrawal
+                  </Link>
                 </div>
               </div>
             ))}
