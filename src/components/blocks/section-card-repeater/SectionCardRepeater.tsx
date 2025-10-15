@@ -21,7 +21,7 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
       <div className="ap_container">
-        <div className="grid max-md:grid-cols-[repeat(auto-fit,minmax(500px,1fr))] grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 justify-center max-md:mb-8">
+        <div className="grid max-md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 justify-center max-md:mb-8">
           <div className="">
             {section_card_repeator_section_title && (
               <div

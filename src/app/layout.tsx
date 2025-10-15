@@ -18,6 +18,8 @@ export const metadata: Metadata = {
     "Get Paid to Trade, Forex broker with lowest costs, A-Book forex broker",
   icons: {
     icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
   robots: {
     index: true,
