@@ -43,45 +43,49 @@ export function LivePricingIndices() {
                   </tr>
                 </thead>
                 <tbody>
-                  {pricingCatLists[0].map((item, index) => (
-                    <tr key={index} className="">
-                      <td className="px-4 py-2 " t-name="Symbol">
-                        <div className={`${styles.instrumentIcons}`}>
-                          <div className={`${styles.icon_wrap}`}>
-                            <Image
-                              width={40}
-                              height={40}
-                              src={`https://cdn.afterprime.com/symbols/${item.symbol.toLocaleLowerCase()}.svg`}
-                              alt={`${item.symbol} ${item.group}`}
-                            />
-                          </div>
+                  {pricingCatLists[0]
+                    .filter(
+                      (item) => !["CA60", "SA40", "NOR25"].includes(item.symbol)
+                    )
+                    .map((item, index) => (
+                      <tr key={index} className="">
+                        <td className="px-4 py-2 " t-name="Symbol">
+                          <div className={`${styles.instrumentIcons}`}>
+                            <div className={`${styles.icon_wrap}`}>
+                              <Image
+                                width={40}
+                                height={40}
+                                src={`https://cdn.afterprime.com/symbols/${item.symbol.toLocaleLowerCase()}.svg`}
+                                alt={`${item.symbol} ${item.group}`}
+                              />
+                            </div>
 
-                          {item.symbol}
-                        </div>
-                      </td>
-                      <td className="px-4 py-2 " t-name="Bid">
-                        {item.bestBid}
-                      </td>
-                      <td className="px-4 py-2 " t-name="Ask">
-                        {item.bestAsk}
-                      </td>
-                      <td className="px-4 py-2 " t-name="Spread">
-                        {item.spread}
-                      </td>
-                      <td className="px-4 py-2 " t-name="Market">
-                        {item.market}
-                      </td>
-                      <td>
-                        <Btn
-                          varient="secondary-ghost"
-                          size="x-small"
-                          href="https://app.afterprime.com/login"
-                        >
-                          Trade Now
-                        </Btn>
-                      </td>
-                    </tr>
-                  ))}
+                            {item.symbol}
+                          </div>
+                        </td>
+                        <td className="px-4 py-2 " t-name="Bid">
+                          {item.bestBid}
+                        </td>
+                        <td className="px-4 py-2 " t-name="Ask">
+                          {item.bestAsk}
+                        </td>
+                        <td className="px-4 py-2 " t-name="Spread">
+                          {item.spread}
+                        </td>
+                        <td className="px-4 py-2 " t-name="Market">
+                          {item.market}
+                        </td>
+                        <td>
+                          <Btn
+                            varient="secondary-ghost"
+                            size="x-small"
+                            href="https://app.afterprime.com/login"
+                          >
+                            Trade Now
+                          </Btn>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>

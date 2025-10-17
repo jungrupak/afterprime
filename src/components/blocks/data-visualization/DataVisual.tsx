@@ -242,12 +242,12 @@ export default function DataVisual(props: SectionProps) {
           responsive: true,
           maintainAspectRatio: false,
           animation: false,
-          layout: { padding: { right: 200 } },
+          layout: { padding: { right: 100 } },
           plugins: {
             legend: {
               labels: {
                 color: "#cbd5e1",
-                boxWidth: 12,
+                boxWidth: 10,
                 usePointStyle: true,
                 pointStyle: "line",
               },
