@@ -119,7 +119,7 @@ export default function DataVisual(props: SectionProps) {
 
         const used: Array<[number, number]> = [];
         ctx.save();
-        ctx.font = "12px sans-serif";
+        ctx.font = "11px sans-serif";
         ctx.textBaseline = "top";
         ctx.fillStyle = "#cbd5e1";
 
@@ -242,7 +242,7 @@ export default function DataVisual(props: SectionProps) {
           responsive: true,
           maintainAspectRatio: false,
           animation: false,
-          layout: { padding: { right: 100 } },
+          layout: { padding: { right: 110 } },
           plugins: {
             legend: {
               labels: {
