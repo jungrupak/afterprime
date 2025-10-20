@@ -38,9 +38,9 @@ export default function Footer() {
       {/* grain bg effect */}
       <div className="ap_container">
         <div
-          className={`grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-12 sm:gap-6`}
+          className={`flex flex-wrap md:grid md:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-10 md:gap-12 sm:gap-6`}
         >
-          <div className="col-span-full sm:col-auto">
+          <div className="col-span-full sm:col-auto order-1">
             <Link href="/" className="block mb-6">
               <Image src="/img/logo-text.svg" alt="" width={160} height={29} />
             </Link>
@@ -96,7 +96,7 @@ export default function Footer() {
               </Link>
             </div>
           </div>
-          <div className={`${styles.footer_links}`}>
+          <div className={`${styles.footer_links} order-2`}>
             <h2>Quick Links</h2>
             <ul>
               <li>
@@ -119,7 +119,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className={`${styles.footer_links}`}>
+          <div className={`${styles.footer_links} order-3`}>
             <h2>Markets</h2>
             <ul>
               <li>
@@ -142,7 +142,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className={`${styles.footer_links}`}>
+          <div className={`${styles.footer_links} order-4`}>
             <h2>Platforms & Tools</h2>
             <ul>
               <li>
@@ -165,7 +165,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className={`${styles.footer_links}`}>
+          <div className={`${styles.footer_links} order-5`}>
             <h2>Afterprime</h2>
             <ul>
               <li>

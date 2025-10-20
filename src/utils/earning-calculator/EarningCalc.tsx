@@ -105,6 +105,7 @@ export function EarningCalc() {
             varient="primary-ghost"
             isArrowVisible={true}
             onclick={() => setResult(calculateEarning())}
+            className="w-full"
           >
             Calculate
           </Btn>

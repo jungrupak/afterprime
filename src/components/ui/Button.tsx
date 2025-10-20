@@ -22,6 +22,7 @@ type ButtonProps = {
   size?: "regular" | "small" | "x-small" | "large";
   linkTarget?: "_self" | "_blank";
   typeformId?: string;
+  className?: string;
 };
 
 export default function Button({
@@ -32,10 +33,11 @@ export default function Button({
   onclick,
   href,
   linkTarget,
+  className,
 }: ButtonProps) {
   const btnClickHandle = useButtonClickHandling({ onclick, href });
 
-  const classNames = `${css.ap_button} ${
+  const classNames = `${css.ap_button} ${className} ${
     size === "regular"
       ? css.regular
       : size === "small"
