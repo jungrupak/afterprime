@@ -82,7 +82,7 @@ export function LivePricingAll() {
                     {pricingCatLists[activeTabNav]
                       .filter(
                         (item) =>
-                          !["CA60", "SA40", "NOR25"].includes(item.symbol)
+                          !["CA60", "SA40", "NOR25", "XCUUSD"].includes(item.symbol)
                       )
                       .map((item, index) => (
                         <tr key={index} className="">

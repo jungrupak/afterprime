@@ -69,7 +69,10 @@ export function LivePricingCommodities() {
                     </tr>
                   </thead>
                   <tbody>
-                    {pricingCatLists[activeTabNav]
+                    {pricingCatLists[activeTabNav].filter(
+                        (item) =>
+                          !["XCUUSD"].includes(item.symbol)
+                      )
                       .map((item, index) => (
                         <tr key={index} className="">
                           <td className="px-4 py-2 " t-name="Symbol">
