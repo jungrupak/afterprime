@@ -122,6 +122,7 @@ export function useLivePrices() {
         else if (subCategory === "Exotics") forexExotic.push(item);
       } else if (item.group.startsWith("Crypto")) crypto.push(item);
       else if (item.group.startsWith("Commodities")) commodities.push(item);
+      else if (item.group.startsWith("Metals")) metals.push(item);
       else if (item.group.startsWith("Indices")) indices.push(item);
       else if (item.group.startsWith("Stocks")) stocks.push(item);
     }

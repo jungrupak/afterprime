@@ -1,17 +1,27 @@
 "use client";
 import { useLivePrices } from "@/hooks/useLivePrices";
+import { useState } from "react";
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import Image from "next/image";
 import { Loader } from "../Loading/Loading";
-import { Retrying } from "../retrying/Retry";
 import { Disconnected } from "../disconnected/Disconnected";
+import { Retrying } from "../retrying/Retry";
 
 export function LivePricingCommodities() {
   const { categories, status } = useLivePrices();
+  const [activeTabContentID, setActiveTabContentID] = useState("Popular");
+  const [activeTabNav, setActiveTabNav] = useState(0);
 
-  const pricingCatLists = [categories.commodities];
-  console.log("Indices data:", pricingCatLists);
+  const pricingCatLists = [
+    categories.commodities,
+    categories.metals,
+  ];
+
+  const tabNavs = [
+    "Commodities",
+    "Metals",
+  ];
 
   return (
     <div>
@@ -29,62 +39,80 @@ export function LivePricingCommodities() {
 
       {status === "connected" && (
         <div className={`${styles.ap_tab}`}>
-          <div className={`${styles.ap_tab_container}`}>
-            <div className={`${styles.livepricing_table_wrapper}`}>
-              <table className="">
-                <thead>
-                  <tr className="">
-                    <th className="px-4 py-2">Symbol</th>
-                    <th className="px-4 py-2">Bid</th>
-                    <th className="px-4 py-2">Ask</th>
-                    <th className="px-4 py-2">Spread</th>
-                    <th className="px-4 py-2">Market</th>
-                    <th className="px-4 py-2">&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {pricingCatLists[0].map((item, index) => (
-                    <tr key={index} className="">
-                      <td className="px-4 py-2 " t-name="Symbol">
-                        <div className={`${styles.instrumentIcons}`}>
-                          <div className={`${styles.icon_wrap}`}>
-                            <Image
-                              width={40}
-                              height={40}
-                              src={`https://cdn.afterprime.com/symbols/${item.symbol.toLocaleLowerCase()}.svg`}
-                              alt={`${item.symbol} ${item.group}`}
-                            />
-                          </div>
+          <div className={`${styles.ap_tab_nav}`}>
+            {tabNavs.map((nav, index) => (
+              <button
+                key={index}
+                className={`${index === activeTabNav ? styles.active : ""}`}
+                onClick={() => {
+                  setActiveTabNav(index);
+                  setActiveTabContentID(tabNavs[index]);
+                }}
+              >
+                {nav}
+              </button>
+            ))}
+          </div>
 
-                          {item.symbol}
-                        </div>
-                      </td>
-                      <td className="px-4 py-2 " t-name="Bid">
-                        {item.bestBid}
-                      </td>
-                      <td className="px-4 py-2 " t-name="Ask">
-                        {item.bestAsk}
-                      </td>
-                      <td className="px-4 py-2 " t-name="Spread">
-                        {item.spread}
-                      </td>
-                      <td className="px-4 py-2 " t-name="Market">
-                        {item.market}
-                      </td>
-                      <td>
-                        <Btn
-                          varient="secondary-ghost"
-                          size="x-small"
-                          href="https://app.afterprime.com/login"
-                        >
-                          Trade Now
-                        </Btn>
-                      </td>
+          <div className={`${styles.ap_tab_container}`}>
+            {activeTabContentID === activeTabContentID && (
+              <div className={`${styles.livepricing_table_wrapper}`}>
+                <table className="">
+                  <thead>
+                    <tr className="">
+                      <th className="px-4 py-2">Symbol</th>
+                      <th className="px-4 py-2">Bid</th>
+                      <th className="px-4 py-2">Ask</th>
+                      <th className="px-4 py-2">Spread</th>
+                      <th className="px-4 py-2">Market</th>
+                      <th className="px-4 py-2">&nbsp;</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {pricingCatLists[activeTabNav]
+                      .map((item, index) => (
+                        <tr key={index} className="">
+                          <td className="px-4 py-2 " t-name="Symbol">
+                            <div className={`${styles.instrumentIcons}`}>
+                                <div className={`${styles.icon_wrap}`}>
+                                  <Image
+                                    width={40}
+                                    height={40}
+                                    src={`https://cdn.afterprime.com/symbols/${item.symbol.toLocaleLowerCase()}.svg`}
+                                    alt={`${item.symbol} ${item.group}`}
+                                  />
+                                </div>
+
+                                {item.symbol}
+                              </div>
+                          </td>
+                          <td className="px-4 py-2 " t-name="Bid">
+                            {item.bestBid}
+                          </td>
+                          <td className="px-4 py-2 " t-name="Ask">
+                            {item.bestAsk}
+                          </td>
+                          <td className="px-4 py-2 " t-name="Spread">
+                            {item.spread}
+                          </td>
+                          <td className="px-4 py-2 " t-name="Market">
+                            {item.market}
+                          </td>
+                          <td>
+                            <Btn
+                              varient="secondary-ghost"
+                              size="x-small"
+                              href="https://app.afterprime.com/login"
+                            >
+                              Trade Now
+                            </Btn>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
       )}

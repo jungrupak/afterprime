@@ -18,6 +18,7 @@ export function LivePricingAll() {
     categories.forex,
     categories.crypto,
     categories.commodities,
+    categories.metals,
     categories.indices,
     categories.stocks,
   ];
@@ -27,6 +28,7 @@ export function LivePricingAll() {
     "Forex",
     "Crypto",
     "Commodities",
+    "Metals",
     "Indices",
     "Stocks",
   ];
