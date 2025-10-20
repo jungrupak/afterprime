@@ -94,7 +94,7 @@ export default function HeadScripts() {
         `}
       </Script>
 
-      <Script id="clarity-inline" strategy="afterInteractive">
+      <Script id="clarity-inline-script" strategy="afterInteractive">
           {`
             try {
               (function(c,l,a,r,i,t,y){
