@@ -94,15 +94,19 @@ export default function HeadScripts() {
         `}
       </Script>
 
-      <Script id="clarity-script" strategy="afterInteractive">
-        {`
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "tsxcbosv2y");
-        `}
-    </Script>
+      <Script id="clarity-inline" strategy="afterInteractive">
+{`
+  try {
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "tsxcbosv2y");
+  } catch(e) {
+    console.error("Clarity init error:", e);
+  }
+`}
+</Script>
 
       {/* Example: Any additional head meta or script tags */}
       <Head>
