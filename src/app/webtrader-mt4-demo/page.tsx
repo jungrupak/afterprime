@@ -17,7 +17,7 @@ export default function WebTraderMt4Demo() {
           servers: ["Afterprime-Demo AP", "Afterprime-Live AP"],
           server: "Afterprime-Demo AP",
           utmSource: "www.afterprime.com",
-          startMode: "create_demo",
+          startMode: "login",
           language: "en",
           colorScheme: "black_on_white",
         });
