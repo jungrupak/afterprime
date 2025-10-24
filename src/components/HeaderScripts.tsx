@@ -108,6 +108,14 @@ export default function HeadScripts() {
           `}
       </Script>
 
+      <Script id="url-search-params" strategy="afterInteractive">
+        {`
+        const iframe = document.querySelector('iframe');
+        const params = new URLSearchParams(window.location.search);
+        iframe.src += '?' + params.toString();
+        `}
+      </Script>
+
       {/* Example: Any additional head meta or script tags */}
       <Head>
         <meta name="theme-color" content="#000000" />

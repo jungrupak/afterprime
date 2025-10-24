@@ -1,7 +1,6 @@
 "use client";
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
-import Image from "next/image";
 import TypeformButton from "@/components/ui/typeForm";
 import { useEffect, useState } from "react";
 
@@ -9,14 +8,13 @@ import type { Blocks } from "@/types/blocks";
 
 type HeroHomeProps = Blocks["hero-banner-home"];
 
-export function HeroHome(props: HeroHomeProps) {
+export function HeroHome(props : HeroHomeProps) {
   const {
     hero_banner_home_banner_heading = "",
-    hero_banner_home_banner_paragraph,
+    hero_banner_home_banner_paragraph = "",
     hero_banner_home_banner_btn_text,
     hero_banner_home_banner_btn_url,
     hero_banner_home_is_type_form_cta,
-    hero_banner_home,
   } = props;
 
   const heroWords = hero_banner_home_banner_heading.split(" ");
