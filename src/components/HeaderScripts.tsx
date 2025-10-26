@@ -109,12 +109,25 @@ export default function HeadScripts() {
       </Script>
 
       <Script id="url-search-params" strategy="afterInteractive">
-        {`
-        const iframe = document.querySelector('iframe');
-        const params = new URLSearchParams(window.location.search);
-        iframe.src += '?' + params.toString();
-        `}
-      </Script>
+  {`
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const iframe = document.querySelector('iframe');
+      if (!iframe) return; // stop if iframe doesn't exist
+
+      const params = new URLSearchParams(window.location.search);
+      if (!params.toString()) return; // stop if no params
+
+      const url = new URL(iframe.src, window.location.origin);
+      // merge existing params with new ones
+      params.forEach((value, key) => {
+        url.searchParams.set(key, value);
+      });
+
+      iframe.src = url.toString();
+    });
+  `}
+</Script>
 
       {/* Example: Any additional head meta or script tags */}
       <Head>

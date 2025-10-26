@@ -3,6 +3,7 @@ import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import type { Blocks } from "@/types/blocks";
 
@@ -11,7 +12,7 @@ type HeroHomeProps = Blocks["hero-banner-home"];
 export function HeroHome(props : HeroHomeProps) {
   const {
     hero_banner_home_banner_heading = "",
-    hero_banner_home_banner_paragraph = "",
+    hero_banner_home_banner_paragraph,
     hero_banner_home_banner_btn_text,
     hero_banner_home_banner_btn_url,
     hero_banner_home_is_type_form_cta,
@@ -54,6 +55,10 @@ export function HeroHome(props : HeroHomeProps) {
               }}
             />
 
+            <div className="flex max-md:flex-col gap-4 items-center justify-center">
+
+            
+
             {hero_banner_home_is_type_form_cta === "1" ? (
               <TypeformButton
                 formId="GYkOukSo"
@@ -71,14 +76,16 @@ export function HeroHome(props : HeroHomeProps) {
                 {hero_banner_home_banner_btn_text || "Button"}
               </Btn>
             )}
-            <span className="md:hidden">
-              <a
+            <span className="block max-md:w-full">
+              <Link
                 href="https://app.afterprime.com/live"
-                className="large ap_button washed mt-5"
+                className="large ap_button ghost"
+                target="_blank"
               >
-                Client Login
-              </a>
+                Enter Invite Code
+              </Link>
             </span>
+            </div>
           </div>
           <div className="max-md:text-center"></div>
         </div>

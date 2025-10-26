@@ -3,7 +3,15 @@ import axios from "axios";
 export async function fetchSeoFieldData(slug: string) {
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_WP_BASE_URL}/wp-json/wp/v2/pages?slug=${slug}`
+      `${process.env.NEXT_PUBLIC_WP_BASE_URL}/wp-json/wp/v2/pages?slug=${slug}`,
+      {
+        headers: {
+        // ✅ Tell WordPress we expect JSON
+        Accept: "application/json",
+        "User-Agent": "Next.js Server Fetch",
+        "Content-Type": "application/json",
+      },
+      }
     );
 
     // Ensure there’s at least one result
