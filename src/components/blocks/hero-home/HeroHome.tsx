@@ -9,7 +9,7 @@ import type { Blocks } from "@/types/blocks";
 
 type HeroHomeProps = Blocks["hero-banner-home"];
 
-export function HeroHome(props : HeroHomeProps) {
+export function HeroHome(props: HeroHomeProps) {
   const {
     hero_banner_home_banner_heading = "",
     hero_banner_home_banner_paragraph,
@@ -56,35 +56,32 @@ export function HeroHome(props : HeroHomeProps) {
             />
 
             <div className="flex max-md:flex-col gap-4 items-center justify-center">
-
-            
-
-            {hero_banner_home_is_type_form_cta === "1" ? (
-              <TypeformButton
-                formId="GYkOukSo"
-                buttonText="Request Invite"
-                size="Large"
-              />
-            ) : (
-              <Btn
-                size="large"
-                varient="primary-ghost"
-                typeformId="01K6A1X4YDAH2RV3WNYVB632WG"
-                isArrowVisible={true}
-                href={hero_banner_home_banner_btn_url || "#"}
-              >
-                {hero_banner_home_banner_btn_text || "Button"}
-              </Btn>
-            )}
-            <span className="block max-md:w-full">
-              <Link
-                href="https://app.afterprime.com/live"
-                className="large ap_button ghost"
-                target="_blank"
-              >
-                Enter Invite Code
-              </Link>
-            </span>
+              {hero_banner_home_is_type_form_cta === "1" ? (
+                <TypeformButton
+                  formId="GYkOukSo"
+                  buttonText="Request Invite"
+                  size="Large"
+                />
+              ) : (
+                <Btn
+                  size="large"
+                  varient="primary-ghost"
+                  typeformId="01K6A1X4YDAH2RV3WNYVB632WG"
+                  isArrowVisible={true}
+                  href={hero_banner_home_banner_btn_url || "#"}
+                >
+                  {hero_banner_home_banner_btn_text || "Button"}
+                </Btn>
+              )}
+              <span className="block max-md:w-full">
+                <Link
+                  href="https://app.afterprime.com/live"
+                  className="large ap_button ghost"
+                  target="_blank"
+                >
+                  Enter Invite Code
+                </Link>
+              </span>
             </div>
           </div>
           <div className="max-md:text-center"></div>

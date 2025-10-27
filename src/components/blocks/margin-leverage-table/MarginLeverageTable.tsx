@@ -9,13 +9,11 @@ export default function SectionTableMarginLeverage() {
         {/* grain bg effect */}
         <div className="ap_container">
           <div className="mb-10 md:mb-20">
-            <h2 className={`${styles.sectionTitle}`}>
-              Margin Call and Stop Out Levels
-            </h2>
+            <h2 className={`${styles.sectionTitle}`}>Margin and Leverage</h2>
             <p className="paragraph max-w-[800px]">
-              CFDs are leveraged products so you&aposre only required to put up
-              a fraction of your trade&apos;s total value as margin to open your
-              position.
+              CFDs are leveraged products — you only need to deposit a fraction
+              of your trade&apos;s total value as margin, giving you greater
+              market exposure with less capital.
             </p>
           </div>
           <div className="genericTable">

@@ -13,9 +13,10 @@ export default function SectionMarginCallOut() {
               Margin Call and Stop Out Levels
             </h2>
             <p className="paragraph max-w-[800px]">
-              CFDs are leveraged products so you&apos;re only required to put up
-              a fraction of your trade&apos;s total value as margin to open your
-              position.
+              A margin call alerts you when available margin is running low. If
+              losses continue and your equity hits the stop-out level, open
+              positions will start closing automatically to prevent further
+              losses.
             </p>
           </div>
           <div className="genericTable">

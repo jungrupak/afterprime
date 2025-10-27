@@ -68,7 +68,7 @@ export function EarningCalc() {
       <h4 className="text-[20px] font-[700] opacity-80">
         Calculate Flow Earnings :
       </h4>
-      <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-8 items-start">
+      <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-8 items-start">
         <div className="">
           <label>Lots Traded per month:</label>
           <input
