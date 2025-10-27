@@ -47,6 +47,14 @@ export default function SectionMarginCallOut() {
           </div>
           <div className="genericTable">
             <table>
+              <thead>
+                <tr>
+                  <th>Asset Class</th>
+                  <th>Margin Call</th>
+                  <th>Stop Out Level</th>
+                </tr>
+              </thead>
+
               <tbody>
                 {tableData.map((item, index) => (
                   <tr key={index}>
