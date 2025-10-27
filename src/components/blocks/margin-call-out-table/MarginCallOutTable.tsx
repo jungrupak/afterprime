@@ -54,16 +54,6 @@ export default function SectionMarginCallOut() {
                   <th>Stop Out Level</th>
                 </tr>
               </thead>
-
-              <tbody>
-                {tableData.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.assetsClass}</td>
-                    <td>{item.marginCall}</td>
-                    <td>{item.levels}</td>
-                  </tr>
-                ))}
-              </tbody>
             </table>
           </div>
         </div>
