@@ -1,6 +1,39 @@
 import styles from "./MarginLeverageTable.module.scss";
 
 export default function SectionTableMarginLeverage() {
+  //Static Data Const
+  const title = "Margin and Leverage";
+  const paragraph =
+    "CFDs are leveraged products — you only need to deposit a fraction of your trade's total value as margin, giving you greater market exposure with less capital.";
+  const tableData = [
+    {
+      assetsClass: "Forex",
+      margin: "1%",
+      leverage: "1:100",
+    },
+    {
+      assetsClass: "Metals",
+      margin: "1%",
+      leverage: "1:100",
+    },
+    {
+      assetsClass: "Commodities",
+      margin: "1%",
+      leverage: "1:100",
+    },
+    {
+      assetsClass: "Crypto",
+      margin: "33%",
+      leverage: "1:3",
+    },
+    {
+      assetsClass: "Shares",
+      margin: "20%",
+      leverage: "1:5",
+    },
+  ];
+  //Ends
+
   return (
     <>
       <section>
@@ -9,12 +42,8 @@ export default function SectionTableMarginLeverage() {
         {/* grain bg effect */}
         <div className="ap_container">
           <div className="mb-10 md:mb-20">
-            <h2 className={`${styles.sectionTitle}`}>Margin and Leverage</h2>
-            <p className="paragraph max-w-[800px]">
-              CFDs are leveraged products — you only need to deposit a fraction
-              of your trade&apos;s total value as margin, giving you greater
-              market exposure with less capital.
-            </p>
+            <h2 className={`${styles.sectionTitle}`}>{title}</h2>
+            <p className="paragraph max-w-[800px]">{paragraph}</p>
           </div>
           <div className="genericTable">
             <table>
@@ -27,31 +56,13 @@ export default function SectionTableMarginLeverage() {
               </thead>
 
               <tbody>
-                <tr>
-                  <td>Forex</td>
-                  <td>1%</td>
-                  <td>1:100</td>
-                </tr>
-                <tr>
-                  <td>Metals</td>
-                  <td> 1% </td>
-                  <td>1:100</td>
-                </tr>
-                <tr>
-                  <td>Commodities</td>
-                  <td> 1% </td>
-                  <td> 1:100 </td>
-                </tr>
-                <tr>
-                  <td>Crypto</td>
-                  <td> 33.3% </td>
-                  <td> 1:3 </td>
-                </tr>
-                <tr>
-                  <td>Shares</td>
-                  <td> 20% </td>
-                  <td> 1:5 </td>
-                </tr>
+                {tableData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.assetsClass}</td>
+                    <td>{item.margin}</td>
+                    <td>{item.leverage}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
