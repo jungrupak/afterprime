@@ -49,7 +49,7 @@ export default function SectionMarginCallOut() {
             <table>
               <thead>
                 <tr>
-                  <th>Asset Classes</th>
+                  <th>Asset Class</th>
                   <th>Margin Call</th>
                   <th>Stop Out Level</th>
                 </tr>
