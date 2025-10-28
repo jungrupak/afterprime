@@ -156,10 +156,6 @@ export const MegaMenuItems = [
             menuItem: "Trading Hours",
             pageUrl: "/trading-hours",
           },
-          {
-            menuItem: "Contract Specs",
-            pageUrl: "contract-specs",
-          },
         ],
       },
     ],
