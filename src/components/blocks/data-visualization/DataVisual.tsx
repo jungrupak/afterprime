@@ -312,12 +312,16 @@ export default function DataVisual(props: SectionProps) {
               <input
                 className="field w-full"
                 type="number"
-                min={100}
                 step={100}
                 value={start}
-                onChange={(e) =>
-                  setStart(Math.max(100, Number(e.target.value || 0)))
-                }
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val === "") {
+                    setStart(NaN);
+                  } else {
+                    setStart(Math.max(Number(val), 0));
+                  }
+                }}
               />
             </div>
 
