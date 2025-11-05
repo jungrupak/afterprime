@@ -7,8 +7,8 @@
     h5,
     h6,
     p{
-margin-bottom: 20px;
-font-weight: 600;
+        margin-bottom: 20px;
+        font-weight: 600;
     }
     h1{font-size: 34px;margin-bottom: 40px;}
     h2{font-size: 30px; }
@@ -44,30 +44,32 @@ font-weight: 600;
     }
 
     table{
-    text-align: left;
-    border-left: solid 1px rgba(255,255,255,.14);
-    tr{
-        th{ padding: 10px;background-color: rgba(255,255,255,.08); border-right: solid 1px rgba(255,255,255,.14);border-top: solid 1px rgba(255,255,255,.14);}
-        td{
-            padding: 10px;
-            border-right: solid 1px rgba(255,255,255,.14);
-            border-bottom: solid 1px rgba(255,255,255,.14);
-            color: rgba(255,255,255,.8);
+        text-align: left;
+        border-left: solid 1px rgba(255,255,255,.14);
+        tr{
+            th{ padding: 10px;background-color: rgba(255,255,255,.08); border-right: solid 1px rgba(255,255,255,.14);border-top: solid 1px rgba(255,255,255,.14);}
+            td{
+                padding: 10px;
+                border-right: solid 1px rgba(255,255,255,.14);
+                border-bottom: solid 1px rgba(255,255,255,.14);
+                color: rgba(255,255,255,.8);
+            }
         }
     }
-}
 
-}
-
-.rightSticky img{
-    position: sticky;
-    top:120px;
-    margin-left: auto;
-    width: 100%;
-    height: 600px;
-    object-fit: cover;
-    @media all and (max-width:767px){
-        max-height: 500px;
+    .rightSticky img{
+        position: sticky !important;
+        top:120px;
+        margin-left: auto;
+        width: 100%;
+        height: 600px;
+        object-fit: cover;
+        @media all and (max-width:767px){
+            max-height: 500px;
+        }
     }
+
 }
+
+
 
