@@ -14,15 +14,29 @@ export function UspUnderHome(props: USPBlockProps) {
   const [data, setData] = useState<pairsAndCommission | null>(null);
 
   const [error, setError] = useState<string | null>(null);
-  //const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/market-comparison")
-      .then((res) => res.json())
-      .then(setData);
+    async function fetchData() {
+      try {
+        setLoading(true);
+        const res = await fetch("/api/market-comparison");
+        if (!res.ok) {
+          throw new Error(`Failed to fetch: ${res.status}`);
+        } else {
+          const jsonObjects = await res.json();
+          setData(jsonObjects);
+        }
+      } catch (err) {
+        setError("Failed to load market comparison data");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
   }, []);
 
-  //if (loading) return <p>Loading selling data...</p>;
+  if (loading) return <p>Loading compare data...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!data) return <p>No data available</p>;
 
