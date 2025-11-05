@@ -12,41 +12,35 @@ type USPBlockProps = Blocks["usp-under-home-hero"];
 export function UspUnderHome(props: USPBlockProps) {
   const { usp_under_home_static_info_text } = props;
   const [data, setData] = useState<pairsAndCommission | null>(null);
+
   const [error, setError] = useState<string | null>(null);
-  //const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const controller = new AbortController();
-    async function compareData() {
+    async function fetchData() {
       try {
-        const res = await fetch(
-          "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true",
-          //https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true
-          {
-            signal: controller.signal,
-            next: { revalidate: 60 },
-          }
-        );
-        const json = await res.json();
-        if (json.error) {
-          setError(json.error);
+        setLoading(true);
+        const res = await fetch("/api/market-comparison");
+        if (!res.ok) {
+          throw new Error(`Failed to fetch: ${res.status}`);
         } else {
-          setData(json);
+          const jsonObjects = await res.json();
+          setData(jsonObjects);
         }
       } catch (err) {
-        if (err instanceof DOMException && err.name === "AbortError") return;
-        setError("Failed to fetch Data");
+        setError("Failed to load market comparison data");
+      } finally {
+        setLoading(false);
       }
     }
-    compareData();
-    return () => controller.abort(); //Abort fetch on unmount
+    fetchData();
   }, []);
 
-  // if (loading) return <p>Loading selling data...</p>;
-  // if (error) return <p>Error: {error}</p>;
-  // if (!data) return <p>No data available</p>;
+  if (loading) return <p>Loading compare data...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!data) return <p>No data available</p>;
 
-  //console.log("compare data:", data);
+  const { secondBestVsAfterprimePct, industryVsAfterprimeAvgPct } = data;
 
   return (
     <section className={`${styles.section_usp}`}>
@@ -63,9 +57,9 @@ export function UspUnderHome(props: USPBlockProps) {
             </p>
           </div>
           <div>
-            {(data && (
-              <h3>{data.secondBestVsAfterprimePct.toFixed(1)}%</h3>
-            )) || <h3>%</h3>}
+            {(data && <h3>{secondBestVsAfterprimePct.toFixed(1)}%</h3>) || (
+              <h3>%</h3>
+            )}
 
             <p>
               Saving vs
@@ -94,9 +88,9 @@ export function UspUnderHome(props: USPBlockProps) {
             </p>
           </div>
           <div>
-            {(data && (
-              <h3>{data.industryVsAfterprimeAvgPct.toFixed(1)}%</h3>
-            )) || <h3>%</h3>}
+            {(data && <h3>{industryVsAfterprimeAvgPct.toFixed(1)}%</h3>) || (
+              <h3>%</h3>
+            )}
             <p>
               Saving vs <br /> Industry Avg.
               {/* <Link href="#" className={`${styles.uspDropdown}`}>
