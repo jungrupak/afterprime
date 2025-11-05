@@ -42,6 +42,21 @@ font-weight: 600;
             }
         }
     }
+
+    table{
+    text-align: left;
+    border-left: solid 1px rgba(255,255,255,.14);
+    tr{
+        th{ padding: 10px;background-color: rgba(255,255,255,.08); border-right: solid 1px rgba(255,255,255,.14);border-top: solid 1px rgba(255,255,255,.14);}
+        td{
+            padding: 10px;
+            border-right: solid 1px rgba(255,255,255,.14);
+            border-bottom: solid 1px rgba(255,255,255,.14);
+            color: rgba(255,255,255,.8);
+        }
+    }
+}
+
 }
 
 .rightSticky img{
@@ -55,3 +70,4 @@ font-weight: 600;
         max-height: 500px;
     }
 }
+
