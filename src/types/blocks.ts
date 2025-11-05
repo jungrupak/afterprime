@@ -199,6 +199,13 @@ export type Blocks = {
     rebate_table_section_paragraph?: string | undefined;
     rebate_table?: string | undefined;
   };
+  "reading-content" : {
+    reading_content?: string | undefined;
+    block_image?:{
+      url?: string | undefined;
+      alt?:string | undefined;
+    }
+  };
 };
 //
 
