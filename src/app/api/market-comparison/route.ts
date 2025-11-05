@@ -48,9 +48,11 @@ export async function GET() {
     }
 
     return NextResponse.json(cache.data);
-    
-  } catch (error: any) {
-    console.error("API error:", error.message);
+
+  } catch (error: unknown) {
+     const message =
+      error instanceof Error ? error.message : "Unknown error occurred";
+    console.error("API error:", message);
     return NextResponse.json({ error: "Error Occurred" }, { status: 500 });
   }
 }
