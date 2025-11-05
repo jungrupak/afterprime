@@ -1,25 +1,56 @@
+
 import { NextResponse } from "next/server";
 
+// Optional in-memory cache for instant response
+let cache: { timestamp: number; data: unknown } | null = null;
+const CACHE_TTL = 4 * 60 * 60 * 1000; // 4 hours in ms
+
+async function fetchData() {
+  const res = await fetch(
+    "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true",
+    { next: { revalidate: 14400 } } // ISR: revalidate every 4 hours
+  );
+  if(!res.ok){
+    throw new Error(`Failed to fetch API: ${res.status}`)
+  }
+
+  return res.json();
+}
+
+async function updateCache() {
+  try {
+    const data = await fetchData();
+    if (!cache || JSON.stringify(cache.data) !== JSON.stringify(data)) {
+      cache = { timestamp: Date.now(), data };
+    }
+  } catch (err) {
+    console.error("Failed to update cache:", err);
+  }
+}
 
 export async function GET() {
   try {
-    const res = await fetch(
-      "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true",
-      //"https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=24h&commission=true",
-      {
-        // Let Next.js cache and revalidate automatically in 4 hrs
-        next: { revalidate: 14400 },
-      }
-    );
-    if (!res.ok) {
-      return NextResponse.json(
-        { error: "Failed to fetch data" },
-        { status: res.status }
-      );
+    const now = Date.now();
+
+    // Serve cache immediately if available
+    if (cache && now - cache.timestamp <= CACHE_TTL) {
+      return NextResponse.json(cache.data);
     }
-    const data = await res.json();
-    return NextResponse.json(data);
-  } catch (error) {
-    return NextResponse.json({ error: "Error Occured" }, { status: 500 });
+
+    // Update cache in background if expired
+    updateCache();
+
+    // If no cache yet, wait for fresh data
+    if (!cache) {
+      const data = await fetchData();
+      cache = { timestamp: now, data };
+      return NextResponse.json(data);
+    }
+
+    return NextResponse.json(cache.data);
+    
+  } catch (error: any) {
+    console.error("API error:", error.message);
+    return NextResponse.json({ error: "Error Occurred" }, { status: 500 });
   }
 }

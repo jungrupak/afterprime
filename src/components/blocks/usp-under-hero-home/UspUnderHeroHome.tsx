@@ -12,6 +12,7 @@ type USPBlockProps = Blocks["usp-under-home-hero"];
 export function UspUnderHome(props: USPBlockProps) {
   const { usp_under_home_static_info_text } = props;
   const [data, setData] = useState<pairsAndCommission | null>(null);
+
   const [error, setError] = useState<string | null>(null);
   //const [loading, setLoading] = useState(true);
 
@@ -24,6 +25,8 @@ export function UspUnderHome(props: USPBlockProps) {
   //if (loading) return <p>Loading selling data...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!data) return <p>No data available</p>;
+
+  const { secondBestVsAfterprimePct, industryVsAfterprimeAvgPct } = data;
 
   return (
     <section className={`${styles.section_usp}`}>
@@ -40,9 +43,9 @@ export function UspUnderHome(props: USPBlockProps) {
             </p>
           </div>
           <div>
-            {(data && (
-              <h3>{data.secondBestVsAfterprimePct.toFixed(1)}%</h3>
-            )) || <h3>%</h3>}
+            {(data && <h3>{secondBestVsAfterprimePct.toFixed(1)}%</h3>) || (
+              <h3>%</h3>
+            )}
 
             <p>
               Saving vs
@@ -71,9 +74,9 @@ export function UspUnderHome(props: USPBlockProps) {
             </p>
           </div>
           <div>
-            {(data && (
-              <h3>{data.industryVsAfterprimeAvgPct.toFixed(1)}%</h3>
-            )) || <h3>%</h3>}
+            {(data && <h3>{industryVsAfterprimeAvgPct.toFixed(1)}%</h3>) || (
+              <h3>%</h3>
+            )}
             <p>
               Saving vs <br /> Industry Avg.
               {/* <Link href="#" className={`${styles.uspDropdown}`}>
