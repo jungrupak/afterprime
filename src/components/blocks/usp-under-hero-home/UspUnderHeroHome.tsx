@@ -20,7 +20,10 @@ export function UspUnderHome(props: USPBlockProps) {
     async function fetchData() {
       try {
         setLoading(true);
-        const res = await fetch("/api/market-comparison");
+        const res = await fetch(
+          "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true",
+          { next: { revalidate: 14400 } } // ISR: revalidate every 4 hours
+        );
         if (!res.ok) {
           throw new Error(`Failed to fetch: ${res.status}`);
         } else {
