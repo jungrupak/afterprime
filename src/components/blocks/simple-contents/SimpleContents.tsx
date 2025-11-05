@@ -28,7 +28,13 @@ export function SimpleContentBlock({ reading_content, block_image }: Props) {
           <div
             className={`${styles.rightSticky} relative col-span-5 md:col-span-2`}
           >
-            <Image src={url || ""} width={300} height={0} alt={alt || ""} />
+            <Image
+              className={`${styles.rightStickyImg}`}
+              src={url || ""}
+              width={300}
+              height={0}
+              alt={alt || ""}
+            />
           </div>
         </div>
       </div>
