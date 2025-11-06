@@ -1,16 +1,21 @@
 import Image from "next/image";
 import styles from "./SimpleContent.module.scss";
-import type { Blocks } from "@/types/blocks";
 
-// interface Porps {
-//   items: Blocks["reading-content"];
-// }
+type Props = {
+  reading_content?: string;
+  block_image?: {
+    url?: string | undefined;
+    alt?: string | undefined;
+  };
+};
 
-type Props = Blocks["reading-content"];
+//type Props = Blocks["reading-content"];
 
 export function SimpleContentBlock({ reading_content, block_image }: Props) {
-  const url = block_image?.url;
-  const alt = block_image?.alt;
+  //   const url = block_image?.url;
+  //   const alt = block_image?.alt;
+
+  const { url, alt } = block_image ?? {}; //type safe if block_image is undifined dont throw error in component
 
   return (
     <section>

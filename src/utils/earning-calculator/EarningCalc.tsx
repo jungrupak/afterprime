@@ -6,6 +6,11 @@ import styles from "./style.module.scss";
 
 export function EarningCalc() {
   const [rebates, setRebates] = useState<SymbolTraded[]>([]);
+  const [selectedSymbol, setSelectedSymbol] = useState<string>(""); // 🆕 keep track of selected symbol
+  const [lotTradedValue, setLotTradedValue] = useState<number | "">(100); // default 100 lots
+  const [rebatePerLot, setRebatePerLot] = useState<number | null>(null);
+  const [result, setResult] = useState<number>(0);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     async function fetchData() {
@@ -24,7 +29,12 @@ export function EarningCalc() {
             (s: SymbolTraded) => s.symbol === "CADCHF"
           );
           if (defaultSymbol) {
+            setSelectedSymbol(defaultSymbol.symbol);
             setRebatePerLot(defaultSymbol.rebate_usd_per_lot);
+          } else if (data.length > 0) {
+            // fallback to first symbol
+            setSelectedSymbol(data[0].symbol);
+            setRebatePerLot(data[0].rebate_usd_per_lot);
           }
         }
       } catch (err) {
@@ -33,11 +43,6 @@ export function EarningCalc() {
     }
     fetchData();
   }, []);
-
-  const [lotTradedValue, setLotTradedValue] = useState<number | "">(100); // default 100 lots
-  const [rebatePerLot, setRebatePerLot] = useState<number | null>(null);
-  const [result, setResult] = useState<number>(0);
-  const [error, setError] = useState<string>("");
 
   // Recalculate result when defaults are set
   useEffect(() => {
@@ -63,13 +68,22 @@ export function EarningCalc() {
     }
   };
 
+  const handleSymbolChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newSymbol = e.target.value;
+    const selected = rebates.find((s) => s.symbol === newSymbol);
+    setSelectedSymbol(newSymbol);
+    setRebatePerLot(selected ? selected.rebate_usd_per_lot : null);
+  };
+
   return (
     <>
       <h4 className="text-[20px] font-[700] opacity-80">
         Calculate Flow Earnings :
       </h4>
+
       <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-8 items-start">
-        <div className="">
+        {/* LOT TRADED */}
+        <div>
           <label>Lots Traded per month:</label>
           <input
             type="text"
@@ -84,21 +98,24 @@ export function EarningCalc() {
             <span className="text-red-500 block mt-4 text-[12px]">{error}</span>
           )}
         </div>
-        <div className="">
-          <label>Symbol Traded:</label>
 
+        {/* SYMBOL TRADED */}
+        <div>
+          <label>Symbol Traded:</label>
           <select
             className={`${styles.customSelect} block mt-5 w-full`}
-            onChange={(e) => setRebatePerLot(Number(e.target.value))}
-            value={rebatePerLot ?? ""}
+            value={selectedSymbol}
+            onChange={handleSymbolChange}
           >
             {rebates.map((symbol, index) => (
-              <option key={index} value={symbol.rebate_usd_per_lot}>
+              <option key={index} value={symbol.symbol}>
                 {symbol.symbol}
               </option>
             ))}
           </select>
         </div>
+
+        {/* BUTTON */}
         <div className="self-start md:mt-[45px] max-md:col-span-2">
           <Btn
             size="small"
@@ -111,6 +128,8 @@ export function EarningCalc() {
           </Btn>
         </div>
       </div>
+
+      {/* RESULT */}
       <div className="mt-8 text-[18px] font-[600] max-md:text-center">
         In 5 years, your Flow Earnings could be worth:{" "}
         <span
