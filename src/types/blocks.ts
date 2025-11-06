@@ -312,5 +312,4 @@ export type WPPage = {
   excerpt: { rendered: string };
   acf?: PageFieldGroups;
   acf_blocks?: ACFBlock[];
-  aioseo?: Aioseo;
 };

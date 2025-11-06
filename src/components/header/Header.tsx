@@ -44,7 +44,7 @@ export default function Header() {
         }`}
       >
         <div
-          className={`${styles.ap_container} ap_container flex items-center py-8 max-lg:px-5 max-xl:px-5 max-lg:py-6 max-xl:gap-30 justify-between`}
+          className={`${styles.ap_container} ap_container flex items-center py-8 max-lg:px-5 max-xl:px-5 max-lg:py-5 max-xl:gap-10 justify-between`}
         >
           {/* Logo */}
           <div className={`${styles.ap_logo}`}>
@@ -188,12 +188,23 @@ export default function Header() {
 
           {/* Mobile Menu Icon */}
           <div className="hidden max-[1204px]:block ml-auto">
-            <div
-              className={`${styles.mobileMenuIcon}`}
-              onClick={() => setMobileMenu((prev) => !prev)}
-            >
-              <span></span>
-              <span></span>
+            <div className="flex gap-5">
+              <span className="">
+                <Link
+                  href="https://app.afterprime.com/login"
+                  className="xSmall ap_button ghost"
+                  target="_blank"
+                >
+                  Login
+                </Link>
+              </span>
+              <div
+                className={`${styles.mobileMenuIcon} `}
+                onClick={() => setMobileMenu((prev) => !prev)}
+              >
+                <span></span>
+                <span></span>
+              </div>
             </div>
           </div>
         </div>
