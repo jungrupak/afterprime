@@ -63,15 +63,11 @@ export function HeroHome(props: HeroHomeProps) {
                   size="Large"
                 />
               ) : (
-                <Btn
-                  size="large"
-                  varient="primary-ghost"
-                  typeformId="01K6A1X4YDAH2RV3WNYVB632WG"
-                  isArrowVisible={true}
-                  href={hero_banner_home_banner_btn_url || "#"}
-                >
-                  {hero_banner_home_banner_btn_text || "Button"}
-                </Btn>
+                <TypeformButton
+                  formId="GYkOukSo"
+                  buttonText="Request Invite"
+                  size="Large"
+                />
               )}
               <span className="block max-md:w-full">
                 <Link

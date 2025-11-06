@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./ui.module.scss";
-
 import { createSlider, type SliderOptions } from "@typeform/embed";
 import "@typeform/embed/build/css/slider.css";
 
@@ -15,23 +14,39 @@ interface TypeformButtonProps {
   formId: string;
   buttonText?: string;
   size?: "Large" | "Regular" | "small" | "x-small";
+  altUrl?: string; // custom URL
 }
 
 const TypeformButton: React.FC<TypeformButtonProps> = ({
   formId,
   buttonText = "Request Invite",
   size = "Regular",
+  altUrl = "https://example.com/custom-page",
 }) => {
   const handleClick = () => {
-    const options: ExtendedSliderOptions = {
-      autoOpen: false,
-      hideHeaders: true,
-      hideFooter: true,
-      position: "right", // 👈 this makes it slide in from right
-    };
+    // Check if user already has a choice stored
+    let userChoice = localStorage.getItem("cta_choice");
 
-    const slider = createSlider(formId, options);
-    slider.open();
+    if (!userChoice) {
+      // Assign randomly on first click
+      userChoice = Math.random() < 0.5 ? "typeform" : "custom";
+      localStorage.setItem("cta_choice", userChoice);
+    }
+
+    if (userChoice === "typeform") {
+      // Open Typeform slider
+      const options: ExtendedSliderOptions = {
+        autoOpen: false,
+        hideHeaders: true,
+        hideFooter: true,
+        position: "right",
+      };
+      const slider = createSlider(formId, options);
+      slider.open();
+    } else {
+      // Open custom URL in new tab
+      window.open(altUrl, "_blank");
+    }
   };
 
   return (
