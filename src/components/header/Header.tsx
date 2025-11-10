@@ -158,11 +158,7 @@ export default function Header() {
                 >
                   Member Login
                 </a>
-                <TypeformButton
-                  formId="GYkOukSo"
-                  buttonText="Request Invite"
-                  size="small"
-                />
+                <TypeformButton buttonText="Request Invite" size="small" />
               </div>
             </div>
           </div>
@@ -178,11 +174,7 @@ export default function Header() {
               >
                 Member Login
               </a>
-              <TypeformButton
-                formId="GYkOukSo"
-                buttonText="Request Invite"
-                size="small"
-              />
+              <TypeformButton buttonText="Request Invite" size="small" />
             </div>
           </div>
 

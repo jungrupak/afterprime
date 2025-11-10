@@ -57,17 +57,16 @@ export function HeroHome(props: HeroHomeProps) {
 
             <div className="flex max-md:flex-col gap-4 items-center justify-center">
               {hero_banner_home_is_type_form_cta === "1" ? (
-                <TypeformButton
-                  formId="GYkOukSo"
-                  buttonText="Request Invite"
-                  size="Large"
-                />
+                <TypeformButton buttonText="Request Invite" size="Large" />
               ) : (
-                <TypeformButton
-                  formId="GYkOukSo"
-                  buttonText="Request Invite"
-                  size="Large"
-                />
+                <Btn
+                  size="large"
+                  varient="primary-ghost"
+                  isArrowVisible={true}
+                  href={hero_banner_home_banner_btn_url || "#"}
+                >
+                  {hero_banner_home_banner_btn_text || "Button"}
+                </Btn>
               )}
               <span className="block max-md:w-full">
                 <Link

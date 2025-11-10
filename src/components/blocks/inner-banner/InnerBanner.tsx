@@ -37,11 +37,7 @@ export default function InnerBanner({
             />
 
             {inner_banner_is_type_form_cta === "1" ? (
-              <TypeformButton
-                formId="GYkOukSo"
-                buttonText="Request Invite"
-                size="Large"
-              />
+              <TypeformButton buttonText="Request Invite" size="Large" />
             ) : (
               <Button
                 href={inner_banner_button_url}
