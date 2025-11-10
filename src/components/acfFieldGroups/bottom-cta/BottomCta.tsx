@@ -37,11 +37,7 @@ export function BottomCta(props: CtaProps) {
                 approved.
               </p>
 
-              <TypeformButton
-                formId="GYkOukSo"
-                buttonText="Request Invite"
-                size="Regular"
-              />
+              <TypeformButton buttonText="Request Invite" size="Regular" />
             </div>
 
             <div className={`${styles.ctaCard} group`}>

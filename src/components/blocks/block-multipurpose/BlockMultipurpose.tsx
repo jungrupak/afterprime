@@ -92,11 +92,7 @@ export function MultipurposeBlock({
               />
               <div className="mt-12 btn-group">
                 {multipurpose_block_is_type_form_cta === "1" ? (
-                  <TypeformButton
-                    formId="GYkOukSo"
-                    buttonText="Request Invite"
-                    size="Large"
-                  />
+                  <TypeformButton buttonText="Request Invite" size="Large" />
                 ) : (
                   <Button
                     varient="primary-ghost"

@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "./ui.module.scss";
 
 import { createSlider, type SliderOptions } from "@typeform/embed";
@@ -14,37 +12,27 @@ interface ExtendedSliderOptions extends SliderOptions {
 }
 
 interface TypeformButtonProps {
+  formId: string;
   buttonText?: string;
   size?: "Large" | "Regular" | "small" | "x-small";
 }
 
 const TypeformButton: React.FC<TypeformButtonProps> = ({
+  formId,
   buttonText = "Request Invite",
   size = "Regular",
 }) => {
-  const [formId, setFormId] = useState<string | null>(null);
-
-  useEffect(() => {
-    // get the correct form for this session
-    const assignedForm = getSessionFormId();
-    setFormId(assignedForm);
-  }, []);
-
   const handleClick = () => {
-    if (!formId) return;
-
     const options: ExtendedSliderOptions = {
       autoOpen: false,
       hideHeaders: true,
       hideFooter: true,
-      position: "right", // slides in from the right
+      position: "right", // 👈 this makes it slide in from right
     };
 
     const slider = createSlider(formId, options);
     slider.open();
   };
-
-  if (!formId) return null; // wait for client render
 
   return (
     <button
