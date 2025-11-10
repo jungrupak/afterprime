@@ -81,11 +81,7 @@ export default function ContentBlock({
                 }}
               />
               {content_block_with_image_is_type_form_cta === "1" && (
-                <TypeformButton
-                  formId="GYkOukSo"
-                  buttonText="Request Invite"
-                  size="Large"
-                />
+                <TypeformButton buttonText="Request Invite" size="Large" />
               )}
 
               {content_block_with_image_enable_cta_button === "1" && (
