@@ -9,9 +9,7 @@ import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 type USPBlockProps = Blocks["usp-under-home-hero"];
 
 //####
-export function UspUnderHome(
-  props: USPBlockProps & { rightSideText: string | undefined }
-) {
+export function UspUnderHome(props: USPBlockProps) {
   const { usp_under_home_static_info_text } = props;
   const [data, setData] = useState<pairsAndCommission | null>(null);
 
