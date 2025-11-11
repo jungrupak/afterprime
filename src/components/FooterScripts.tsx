@@ -237,6 +237,34 @@ export default function FooterScripts() {
           }
         `}
       </Script>
+
+      {/* TypeForm UTM setting */}
+      <Script id="utm-typeform" strategy="lazyOnload">
+        {`
+        document.addEventListener("DOMContentLoaded", () => {
+      const observer = new MutationObserver((mutationsList, observer) => {
+        const iframe = document.getElementById("typeform-iframe") as HTMLIFrameElement | null;
+        if (!iframe) return;
+
+        observer.disconnect(); // stop watching once found
+
+        const params = new URLSearchParams(window.location.search);
+        const utms: string[] = [];
+
+        ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => {
+          const value = params.get(key);
+          if (value) utms.push(\`\${key}=\${value}\`);
+        });
+
+        if (utms.length) {
+          const separator = iframe.src.includes('?') ? '&' : '?';
+          iframe.src = iframe.src + separator + utms.join('&');
+        }
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
+    }); `}
+      </Script>
     </>
   );
 }

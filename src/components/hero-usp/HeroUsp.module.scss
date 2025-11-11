@@ -1,0 +1,28 @@
+.HeroUps{
+    text-align: center;
+    width: 100%;
+    backdrop-filter: blur(30px);
+}
+.upsItem{
+    display: flex;
+    gap:20px;
+    max-width: 300px;
+    @media all and ( max-width:767px){
+            display: block;
+        }
+    .value{
+        font-size: 55px;
+        font-weight: 300;
+        line-height: 0.9;
+        color: #95FF00;
+    }
+    .descp{
+        font-size: 18px;
+        text-align: left;
+        opacity: 0.8;
+        line-height: 1.4;
+        @media all and ( max-width:767px){
+            text-align: center;
+        }
+    }
+}
