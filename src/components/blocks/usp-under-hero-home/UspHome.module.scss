@@ -1,7 +1,7 @@
 //
 .section_usp {
   background-color: rgba(var(--alphaWhite), 0.08);
-  padding-block: 80px;
+  padding-block: 30px 40px;
   backdrop-filter: blur(15px);
   position: relative;
   z-index: 2;
@@ -12,13 +12,14 @@
   gap: 8rem;
   > div {
     h3 {
-      font-size: 50px;
+      font-size: 45px;
       margin-bottom: 10px;
       font-weight: 600;
       color: #95ff00;
+      line-height: 1;
     }
     p {
-      font-size: 24px;
+      font-size: 22px;
       line-height: 1.2;
     }
     &:last-child {

@@ -9,7 +9,9 @@ import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 type USPBlockProps = Blocks["usp-under-home-hero"];
 
 //####
-export function UspUnderHome(props: USPBlockProps) {
+export function UspUnderHome(
+  props: USPBlockProps & { rightSideText: string | undefined }
+) {
   const { usp_under_home_static_info_text } = props;
   const [data, setData] = useState<pairsAndCommission | null>(null);
 
@@ -39,9 +41,10 @@ export function UspUnderHome(props: USPBlockProps) {
     fetchData();
   }, []);
 
-  if (loading) return <p>Loading compare data...</p>;
-  if (error) return <p>Error: {error}</p>;
-  if (!data) return <p>No data available</p>;
+  if (loading)
+    return <div className="text-center">Loading compare data...</div>;
+  if (error) return <div className="text-center">Error: {error}</div>;
+  if (!data) return <div className="text-center">No Data Available..</div>;
 
   const { secondBestVsAfterprimePct, industryVsAfterprimeAvgPct } = data;
 
@@ -50,24 +53,22 @@ export function UspUnderHome(props: USPBlockProps) {
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
-        <div className={`${styles.usp_items_wrapper} items-center`}>
-          <div>
-            <h3>#1</h3>
-            <p>
-              Verified All-In
-              <br /> Costs Globally
-            </p>
-          </div>
-          <div>
-            {(data && <h3>{secondBestVsAfterprimePct.toFixed(1)}%</h3>) || (
-              <h3>%</h3>
-            )}
-
-            <p>
-              Saving vs
-              <br /> 2nd best
-              {/* <Link href="#" className={`${styles.uspDropdown}`}>
+      {!loading ? (
+        <div className="ap_container">
+          <div className={`${styles.usp_items_wrapper} items-center`}>
+            <div>
+              <h3>#1</h3>
+              <p>
+                Verified All-In
+                <br /> Costs Globally
+              </p>
+            </div>
+            <div>
+              <h3>{secondBestVsAfterprimePct.toFixed(1)}%</h3>
+              <p>
+                Saving vs
+                <br /> 2nd best
+                {/* <Link href="#" className={`${styles.uspDropdown}`}>
                 {" "}
                 2nd best{" "}
                 <svg
@@ -88,15 +89,13 @@ export function UspUnderHome(props: USPBlockProps) {
                   ></path>
                 </svg>
               </Link> */}
-            </p>
-          </div>
-          <div>
-            {(data && <h3>{industryVsAfterprimeAvgPct.toFixed(1)}%</h3>) || (
-              <h3>%</h3>
-            )}
-            <p>
-              Saving vs <br /> Industry Avg.
-              {/* <Link href="#" className={`${styles.uspDropdown}`}>
+              </p>
+            </div>
+            <div>
+              <h3>{industryVsAfterprimeAvgPct.toFixed(1)}%</h3>
+              <p>
+                Saving vs <br /> Industry Avg.
+                {/* <Link href="#" className={`${styles.uspDropdown}`}>
                 Industry Avg.{" "}
                 <svg
                   width="20"
@@ -116,16 +115,19 @@ export function UspUnderHome(props: USPBlockProps) {
                   ></path>
                 </svg>
               </Link> */}
-            </p>
-          </div>
-          <div className="max-md:flex items-center flex-col">
-            <GoogleReviewBadge />
-            <span className="text-[20px] font-[300] mt-6 block">
-              <p>{usp_under_home_static_info_text || ""}</p>
-            </span>
+              </p>
+            </div>
+            <div className="max-md:flex items-center flex-col">
+              <GoogleReviewBadge />
+              <span className="text-[20px] font-[300] mt-6 block">
+                <p>{usp_under_home_static_info_text || ""}</p>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="text-center">Loading..</div>
+      )}
     </section>
   );
 }

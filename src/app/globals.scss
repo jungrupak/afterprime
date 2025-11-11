@@ -816,3 +816,19 @@ section {
 .table_wrapper{
   overflow-x: auto;
 }
+
+// Review badge custom styles
+.hero-usp-badge{
+  @media all and ( max-width:767px){
+           display: flex;
+           justify-content: center;
+        }
+.hHcZSh {
+  color: white !important;
+  text-decoration: underline;
+  opacity: 0.68;
+}
+.eapps-google-reviews-8396dec5-bde7-4ee9-b280-ec33390374f6-custom-css-root .hHcZSh{
+  left: 111px;
+}
+}

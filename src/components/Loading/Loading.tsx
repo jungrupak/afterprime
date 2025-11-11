@@ -3,7 +3,7 @@ import styles from "./Loading.module.scss";
 export function Loader() {
   return (
     <div
-      className={`${styles.loader} flex gap-4 text-[18px] items-center  justify-center`}
+      className={`${styles.loader} flex gap-2 text-[18px] items-center  justify-center`}
     >
       <svg
         version="1.1"
