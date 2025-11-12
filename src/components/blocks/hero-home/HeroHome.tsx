@@ -81,7 +81,7 @@ export function HeroHome(props: HeroHomeProps) {
         </div>
       </div>
       {/* ## */}
-      {/* <HeroUsp /> */}
+      <HeroUsp />
     </div>
   );
 }
