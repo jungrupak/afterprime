@@ -95,7 +95,7 @@ export default function HeadScripts() {
       </Script>
 
       <Script id="clarity-inline-script" strategy="afterInteractive">
-          {`
+        {`
             try {
               (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -109,7 +109,7 @@ export default function HeadScripts() {
       </Script>
 
       <Script id="url-search-params" strategy="afterInteractive">
-  {`
+        {`
 
     document.addEventListener('DOMContentLoaded', function () {
       const iframe = document.querySelector('iframe');
@@ -127,7 +127,7 @@ export default function HeadScripts() {
       iframe.src = url.toString();
     });
   `}
-</Script>
+      </Script>
 
       {/* Example: Any additional head meta or script tags */}
       <Head>
@@ -137,4 +137,3 @@ export default function HeadScripts() {
     </>
   );
 }
-
