@@ -17,6 +17,7 @@ export function HeroHome(props: HeroHomeProps) {
     hero_banner_home_banner_btn_text,
     hero_banner_home_banner_btn_url,
     hero_banner_home_is_type_form_cta,
+    hero_banner_home_data_source_note,
   } = props;
 
   const heroWords = hero_banner_home_banner_heading.split(" ");
@@ -81,7 +82,7 @@ export function HeroHome(props: HeroHomeProps) {
         </div>
       </div>
       {/* ## */}
-      <HeroUsp />
+      <HeroUsp text={hero_banner_home_data_source_note} />
     </div>
   );
 }

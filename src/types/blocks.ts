@@ -118,6 +118,7 @@ export type Blocks = {
     hero_banner_home_banner_btn_url?: string;
     hero_banner_home?: string | undefined;
     hero_banner_home_is_type_form_cta?: string | undefined;
+    hero_banner_home_data_source_note?:string|undefined;
   };
   "earning-flow-block": {
     earning_flow_section_heading?: string;
