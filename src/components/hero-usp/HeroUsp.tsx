@@ -55,13 +55,13 @@ export default function HeroUsp() {
     <>
       {!visible && (
         <div
-          className={`${styles.HeroUps} md:absolute left-0 bottom-0 z-5 py-8 md:py-13 px-10 flex-col flex-wrap flex md:flex-row justify-center gap-10 md:gap-30`}
+          className={`${styles.HeroUps} lg:absolute left-0 bottom-0 z-5 py-8 md:pt-13 md:pb-15 px-10 flex-col flex-wrap flex md:flex-row justify-center gap-10 md:gap-30`}
         >
           <Loader />
         </div>
       )}
       <div
-        className={`${styles.HeroUps} md:absolute left-0 bottom-0 z-5 py-8 md:py-13 px-10 flex-col flex-wrap flex md:flex-row justify-center gap-10 md:gap-30`}
+        className={`${styles.HeroUps} lg:absolute left-0 bottom-0 z-5 py-8 md:pt-13 md:pb-15 px-10 flex-col flex-wrap flex md:flex-row items-center justify-center gap-y-5 gap-x-5 lg:gap-x-25`}
         style={{ opacity: visible ? 1 : 0 }}
       >
         <div className={`${styles.upsItem}`}>
@@ -91,10 +91,10 @@ export default function HeroUsp() {
         <div className={`hero-usp-badge`}>
           <GoogleReviewBadge />
         </div>
-        {/* <p className="text-[14px] absolute bottom-5 opacity-48">
-        All Data Verified by ForexBenchmark: Previous 7 Days | Day Range | All
-        Pairs | Spread+Comms.
-      </p> */}
+        <p className="text-[14px] absolute bottom-5 opacity-58 max-md:static">
+          All Data Verified by ForexBenchmark: Previous 7 Days | Day Range | All
+          Pairs | Spread+Comms.
+        </p>
       </div>
     </>
   );

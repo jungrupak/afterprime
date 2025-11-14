@@ -149,6 +149,9 @@
       width: 12px;
       height: 12px;
     }
+    @media all and (max-width: 767px) {
+      width: 100%;
+    }
   }
   &.small {
     padding-inline: 25px;
