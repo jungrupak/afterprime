@@ -19,12 +19,17 @@ interface CompareDataType {
   secondBestVsAfterprimePct?: number | null;
   top10VsAfterprimeAvgPct?: number | null;
   industryVsAfterprimeAvgPct?: number | null;
+  text?: string;
+}
+
+interface ReceiveText {
+  text?: string;
 }
 
 // ✅ Persisted cache outside component
 let cachedData: CompareDataType | null = null;
 
-export default function HeroUsp() {
+export default function HeroUsp({ text }: ReceiveText) {
   const [data, setData] = useState<CompareDataType | null>(cachedData);
   const [visible, setVisible] = useState(cachedData ? true : false);
 
@@ -92,8 +97,7 @@ export default function HeroUsp() {
           <GoogleReviewBadge />
         </div>
         <p className="text-[14px] absolute bottom-5 opacity-58 max-md:static">
-          All Data Verified by ForexBenchmark: Previous 7 Days | Day Range | All
-          Pairs | Spread+Comms.
+          {text}
         </p>
       </div>
     </>
