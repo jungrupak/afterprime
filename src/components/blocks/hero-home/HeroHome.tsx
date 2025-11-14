@@ -48,7 +48,7 @@ export function HeroHome(props: HeroHomeProps) {
         </div>
         <div className={`${styles.heroBannerPara} max-md:px-5`}>
           <div
-            className="paragraph max-w-[500px]  mx-auto mb-12"
+            className=" max-w-[650px] text-[28px] lg:text-[32px]  mx-auto mb-12"
             style={{ fontWeight: "300" }}
             dangerouslySetInnerHTML={{
               __html: hero_banner_home_banner_paragraph || "&nbsp;",
@@ -57,10 +57,10 @@ export function HeroHome(props: HeroHomeProps) {
 
           <div className="flex max-md:flex-col gap-4 items-center justify-center">
             {hero_banner_home_is_type_form_cta === "1" ? (
-              <TypeformButton buttonText="Request Invite" size="Large" />
+              <TypeformButton buttonText="Request Invite" size="Regular" />
             ) : (
               <Btn
-                size="large"
+                size="regular"
                 varient="primary-ghost"
                 isArrowVisible={true}
                 href={hero_banner_home_banner_btn_url || "#"}
@@ -71,7 +71,7 @@ export function HeroHome(props: HeroHomeProps) {
             <span className="block max-md:w-full">
               <Link
                 href="https://app.afterprime.com/live"
-                className="large ap_button ghost"
+                className={`regular ap_button ghost`}
                 target="_blank"
               >
                 Enter Invite Code
