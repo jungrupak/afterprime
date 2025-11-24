@@ -1,10 +1,12 @@
 "use client";
 
 import GoogleReviewBadge from "../ui/GoogleReviewBadge";
-import { getCompareData } from "@/lib/getCompareData";
-import { useState, useEffect } from "react";
+//import { getCompareData } from "@/lib/getCompareData";
 import styles from "./HeroUsp.module.scss";
 import { Loader } from "../Loading/Loading";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 interface BrokerObject {
   broker?: string;
@@ -26,48 +28,51 @@ interface ReceiveText {
   text?: string;
 }
 
-// ✅ Persisted cache outside component
-let cachedData: CompareDataType | null = null;
+interface ApiResponse {
+  brokers?: [];
+  secondBestVsAfterprimePct?: number;
+  top10VsAfterprimeAvgPct?: number;
+  industryVsAfterprimeAvgPct?: number;
+}
 
 export default function HeroUsp({ text }: ReceiveText) {
-  const [data, setData] = useState<CompareDataType | null>(cachedData);
-  const [visible, setVisible] = useState(cachedData ? true : false);
+  const [note, setNote] = useState(false);
+  const { data, isLoading, error } = useQuery<ApiResponse>({
+    queryKey: ["compareCost"],
+    queryFn: async () => {
+      const res = await axios.get("/api/compare");
+      return res.data;
+    },
+    staleTime: 1000 * 60 * 480,
+  });
 
-  //handeling data cached and pull updated data as per condition##
   useEffect(() => {
-    if (cachedData) {
-      setData(cachedData); // show cached immediately
-    }
-    getCompareData().then((res) => {
-      cachedData = res; // update cache
-      setData(res); // refresh with new data
-    });
+    const showNote = setTimeout(() => {
+      setNote(true);
+    }, 1500);
+    return () => clearTimeout(showNote);
   }, []);
 
-  useEffect(() => {
-    if (!data) return;
+  if (isLoading)
+    return (
+      <div className="text-center mt-10 relative z-2">
+        <Loader />
+      </div>
+    );
+  if (error)
+    return (
+      <div className="text-center mt-10 text-red">
+        Error while fetching Compare Data...
+      </div>
+    );
 
-    const timer = setTimeout(() => {
-      setVisible(true);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [data]);
-
-  const secondBest = data?.secondBestVsAfterprimePct?.toFixed(1);
-  const industryAverage = data?.industryVsAfterprimeAvgPct?.toFixed(1);
+  const dataSaving = data?.secondBestVsAfterprimePct?.toFixed(1);
+  const averageVsInds = data?.industryVsAfterprimeAvgPct?.toFixed(1);
 
   return (
     <>
-      {!visible && (
-        <div
-          className={`${styles.HeroUps} lg:absolute left-0 bottom-0 z-5 py-8 md:pt-13 md:pb-15 px-10 flex-col flex-wrap flex md:flex-row justify-center gap-10 md:gap-30`}
-        >
-          <Loader />
-        </div>
-      )}
       <div
         className={`${styles.HeroUps} lg:absolute left-0 bottom-0 z-5 py-8 md:pt-13 md:pb-15 px-10 flex-col flex-wrap flex md:flex-row items-center justify-center gap-y-5 gap-x-5 lg:gap-x-25`}
-        style={{ opacity: visible ? 1 : 0 }}
       >
         <div className={`${styles.upsItem}`}>
           <div className={`${styles.value}`}>#1</div>
@@ -78,7 +83,7 @@ export default function HeroUsp({ text }: ReceiveText) {
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
-          <div className={`${styles.value}`}>{secondBest}%</div>
+          <div className={`${styles.value}`}>{dataSaving}%</div>
           <div className={`${styles.descp}`}>
             Saving vs 2nd
             <br />
@@ -86,7 +91,7 @@ export default function HeroUsp({ text }: ReceiveText) {
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
-          <div className={`${styles.value}`}>{industryAverage}%</div>
+          <div className={`${styles.value}`}>{averageVsInds}%</div>
           <div className={`${styles.descp}`}>
             Saving vs Industry
             <br />
@@ -96,7 +101,10 @@ export default function HeroUsp({ text }: ReceiveText) {
         <div className={`hero-usp-badge`}>
           <GoogleReviewBadge />
         </div>
-        <p className="text-[14px] absolute bottom-5 opacity-58 max-md:static">
+        <p
+          className={`${styles.note} text-[14px] absolute bottom-5 opacity-55 max-md:static`}
+          style={{ opacity: note ? "0.55" : "0" }}
+        >
           {text}
         </p>
       </div>
