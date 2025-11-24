@@ -5,15 +5,15 @@ export async function GET() {
   try {
     const baseUrl = process.env.COST_COMPARE_BASE_URL;
 
-    const httpsAgent = new https.Agent({
-      rejectUnauthorized: false, // ⭐ allow self-signed SSL
-    });
+    // const httpsAgent = new https.Agent({
+    //   rejectUnauthorized: false, // ⭐ allow self-signed SSL
+    // });
 
     const finalUrl =
       baseUrl +
       "?period=7d&symbols=All%20pairs&mode=day&commission=true";
 
-    const res = await axios.get(finalUrl, { httpsAgent });
+    const res = await axios.get(finalUrl);
 
     return Response.json(res.data);
   } catch (error) {
