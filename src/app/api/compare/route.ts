@@ -16,8 +16,8 @@ export async function GET() {
     const res = await axios.get(finalUrl, { httpsAgent });
 
     return Response.json(res.data);
-  } catch (error: any) {
-    console.error("✗ API route error:", error.message);
-    return Response.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    
+    return Response.json({ error: "Failed to Fetch Data from Source" }, { status: 500 });
   }
 }
