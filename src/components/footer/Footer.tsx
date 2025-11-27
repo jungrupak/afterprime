@@ -67,7 +67,7 @@ export default function Footer() {
               className="flex gap-2 items-center font-[600] mb-12"
             >
               <Image width={34} height={34} src="/img/yt.png" alt="" />
-              Checkout our Youtube Chanel
+              Checkout our Youtube Channel
             </Link>
             <div className="flex gap-3">
               <Link
