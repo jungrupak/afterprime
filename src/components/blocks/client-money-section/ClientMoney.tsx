@@ -38,7 +38,6 @@ export function ClientMoneySection({
                 className="wysWygEditor"
                 dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
               />
-              <p>Paragraph</p>
             </div>
           </div>
           {/* Left ends */}
