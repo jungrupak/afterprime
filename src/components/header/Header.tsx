@@ -27,15 +27,6 @@ export default function Header() {
     };
   }, []);
 
-  //Menu hovered stated reset in page change
-  const resetNavs = usePathname();
-  useEffect(() => {
-    // Close menu whenever the route changes
-    setIsMegaOpen(false);
-    setMobileMenu(false);
-    setActiveIndex(null);
-  }, [resetNavs]); // 👈 dependency ensures runs on every navigation
-
   return (
     <>
       <header

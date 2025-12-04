@@ -1,5 +1,4 @@
 import axios from "axios";
-import https from "https";
 
 export async function GET() {
   try {
@@ -17,7 +16,7 @@ export async function GET() {
 
     return Response.json(res.data);
   } catch (error) {
-    
+
     return Response.json({ error: "Failed to Fetch Data from Source" }, { status: 500 });
   }
 }
