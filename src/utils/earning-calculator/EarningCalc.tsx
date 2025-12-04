@@ -15,9 +15,7 @@ export function EarningCalc() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(
-          `https://scoreboard.argamon.com:8443/api/rebates/current`
-        );
+        const res = await fetch(`/api/rebates`);
         const data = await res.json();
         if (data.error) {
           setError(data.error);

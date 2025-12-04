@@ -20,7 +20,7 @@ export function LivePricingAll() {
     categories.commodities,
     categories.metals,
     categories.indices,
-    categories.stocks,
+    //categories.stocks,
   ];
 
   const tabNavs = [
@@ -30,7 +30,7 @@ export function LivePricingAll() {
     "Commodities",
     "Metals",
     "Indices",
-    "Stocks",
+    //"Stocks",
   ];
 
   return (
@@ -82,7 +82,9 @@ export function LivePricingAll() {
                     {pricingCatLists[activeTabNav]
                       .filter(
                         (item) =>
-                          !["CA60", "SA40", "NOR25", "XCUUSD"].includes(item.symbol)
+                          !["CA60", "SA40", "NOR25", "XCUUSD"].includes(
+                            item.symbol
+                          )
                       )
                       .map((item, index) => (
                         <tr key={index} className="">

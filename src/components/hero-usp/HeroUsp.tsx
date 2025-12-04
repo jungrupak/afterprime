@@ -40,9 +40,7 @@ export default function HeroUsp({ text }: ReceiveText) {
   const { data, isLoading, error } = useQuery<ApiResponse>({
     queryKey: ["compareCost"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true"
-      );
+      const res = await axios.get("/api/compare");
       return res.data;
     },
     staleTime: 1000 * 60 * 480,
