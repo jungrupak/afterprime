@@ -50,7 +50,7 @@ export function EarningCalc() {
     fetchData();
   }, []);
 
-  console.log("data fetched:", rebates);
+  //console.log("data fetched:", rebates);
 
   // Main calculation formula (used everywhere)
   const calculateEarning = () => {
