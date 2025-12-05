@@ -1,6 +1,6 @@
 "use client";
 import Btn from "@/components/ui/Button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import type { SymbolTraded } from "@/types/symbolTraded";
 import styles from "./style.module.scss";
 import axios from "axios";
@@ -12,9 +12,13 @@ export function EarningCalc() {
   const [rebatePerLot, setRebatePerLot] = useState<number | null>(null);
   const [result, setResult] = useState<number>(0);
   const [error, setError] = useState<string>("");
+  const fetchCalled = useRef(false);
 
   // Fetch Data
   useEffect(() => {
+    if (fetchCalled.current) return; // stop multiple calls
+    fetchCalled.current = true;
+
     async function fetchData() {
       try {
         const res = await axios.get(
