@@ -3,74 +3,87 @@ import Btn from "@/components/ui/Button";
 import { useEffect, useState } from "react";
 import type { SymbolTraded } from "@/types/symbolTraded";
 import styles from "./style.module.scss";
+import axios from "axios";
 
 export function EarningCalc() {
   const [rebates, setRebates] = useState<SymbolTraded[]>([]);
-  const [selectedSymbol, setSelectedSymbol] = useState<string>(""); // 🆕 keep track of selected symbol
-  const [lotTradedValue, setLotTradedValue] = useState<number | "">(100); // default 100 lots
+  const [selectedSymbol, setSelectedSymbol] = useState<string>("");
+  const [lotTradedValue, setLotTradedValue] = useState<number | "">(100);
   const [rebatePerLot, setRebatePerLot] = useState<number | null>(null);
   const [result, setResult] = useState<number>(0);
   const [error, setError] = useState<string>("");
 
+  // Fetch Data
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(`/api/rebates`);
-        const data = await res.json();
-        if (data.error) {
-          setError(data.error);
-        } else {
-          setRebates(data);
+        const res = await axios.get(
+          "https://scoreboard.argamon.com:8443/api/rebates/current"
+        );
 
-          // Set default Symbol Traded if CADCHF exists
-          const defaultSymbol = data.find(
-            (s: SymbolTraded) => s.symbol === "CADCHF"
-          );
-          if (defaultSymbol) {
-            setSelectedSymbol(defaultSymbol.symbol);
-            setRebatePerLot(defaultSymbol.rebate_usd_per_lot);
-          } else if (data.length > 0) {
-            // fallback to first symbol
-            setSelectedSymbol(data[0].symbol);
-            setRebatePerLot(data[0].rebate_usd_per_lot);
-          }
+        const data = res.data;
+
+        if (!Array.isArray(data)) {
+          setError("Invalid server response");
+          return;
+        }
+
+        setRebates(data);
+
+        const defaultSymbol =
+          data.find((s) => s.symbol === "CADCHF") || data[0];
+
+        if (defaultSymbol) {
+          setSelectedSymbol(defaultSymbol.symbol);
+          setRebatePerLot(defaultSymbol.rebate_usd_per_lot);
         }
       } catch (err) {
         console.error("Failed to fetch rebates:", err);
+        setError("Failed to load rebate data");
       }
     }
+
     fetchData();
   }, []);
 
-  // Recalculate result when defaults are set
-  useEffect(() => {
-    if (lotTradedValue && rebatePerLot) {
-      setResult((rebatePerLot ?? 0) * (lotTradedValue || 0) * 60);
-    }
-  }, [lotTradedValue, rebatePerLot]);
+  console.log("data fetched:", rebates);
 
-  function calculateEarning() {
-    return (rebatePerLot ?? 0) * (lotTradedValue || 0) * 60;
-  }
+  // Main calculation formula (used everywhere)
+  const calculateEarning = () => {
+    const lot = lotTradedValue === "" ? 0 : lotTradedValue;
+    const rebate = rebatePerLot ?? 0;
+    return rebate * lot * 60;
+  };
+
+  // Auto recalc whenever dependencies update
+  useEffect(() => {
+    setResult(calculateEarning());
+  }, [lotTradedValue, rebatePerLot, selectedSymbol]);
 
   const handleOnChangeTradeLot = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-    const numberValue = Number(inputValue);
+    const value = e.target.value;
+    const num = Number(value);
 
-    if (isNaN(numberValue) || numberValue <= 0) {
-      setError("Invalid input, supports only numbers");
+    if (value === "") {
       setLotTradedValue("");
-    } else {
-      setError("");
-      setLotTradedValue(numberValue);
+      return;
     }
+
+    if (isNaN(num) || num <= 0) {
+      setError("Invalid input, supports only positive numbers");
+      return;
+    }
+
+    setError("");
+    setLotTradedValue(num);
   };
 
   const handleSymbolChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newSymbol = e.target.value;
-    const selected = rebates.find((s) => s.symbol === newSymbol);
-    setSelectedSymbol(newSymbol);
-    setRebatePerLot(selected ? selected.rebate_usd_per_lot : null);
+    const sym = e.target.value;
+    setSelectedSymbol(sym);
+
+    const found = rebates.find((s) => s.symbol === sym);
+    setRebatePerLot(found ? found.rebate_usd_per_lot : null);
   };
 
   return (
@@ -85,9 +98,7 @@ export function EarningCalc() {
           <label>Lots Traded per month:</label>
           <input
             type="text"
-            id="lotTraded"
-            name="lottraded"
-            placeholder="Lot Traded/ month"
+            placeholder="Lot Traded / month"
             className={`${styles.customInput} w-full mt-5`}
             value={lotTradedValue}
             onChange={handleOnChangeTradeLot}
@@ -97,7 +108,7 @@ export function EarningCalc() {
           )}
         </div>
 
-        {/* SYMBOL TRADED */}
+        {/* SYMBOL */}
         <div>
           <label>Symbol Traded:</label>
           <select
@@ -105,8 +116,8 @@ export function EarningCalc() {
             value={selectedSymbol}
             onChange={handleSymbolChange}
           >
-            {rebates.map((symbol, index) => (
-              <option key={index} value={symbol.symbol}>
+            {rebates.map((symbol) => (
+              <option key={symbol.symbol} value={symbol.symbol}>
                 {symbol.symbol}
               </option>
             ))}
