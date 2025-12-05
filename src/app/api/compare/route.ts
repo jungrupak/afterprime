@@ -1,26 +1,32 @@
-
-import { NextResponse } from "next/server";
 import axios from "axios";
+import https from "https";
+import fs from "fs";
+//import path from "path";
 
 export async function GET() {
   try {
     const baseUrl = process.env.COST_COMPARE_BASE_URL;
 
-    if(!baseUrl){
-        return NextResponse.json(
-          {error:"COST_COMPARE_BASE_URL data is missing"},
-          {status:500}
-        )
-      }
+    if (!baseUrl) {
+      return Response.json({ error: "Missing base URL" }, { status: 500 });
+    }
 
-    const finalUrl = baseUrl + "?period=7d&symbols=All%20pairs&mode=day&commission=true";
-    
-    const res = await axios.get(finalUrl);
+    //const certPath = path.join(process.cwd(), "argamon-com-chain.pem");
 
-    return NextResponse.json(res.data);
+    const agent = new https.Agent({
+      ca: fs.readFileSync("argamon-com-chain.pem"), // This tells Node: trust THIS cert
+    });
+
+    const finalUrl =
+      baseUrl +
+      "?period=7d&symbols=All%20pairs&mode=day&commission=true";
+
+    const res = await axios.get(finalUrl, { httpsAgent: agent });
+
+    return Response.json(res.data);
   } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to Fetch Data from Source" }, 
+    return Response.json(
+      { error: "Failed to fetch / SSL error" },
       { status: 500 }
     );
   }
