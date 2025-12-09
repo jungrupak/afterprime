@@ -12,20 +12,16 @@ export function EarningCalc() {
   const [rebatePerLot, setRebatePerLot] = useState<number | null>(null);
   const [result, setResult] = useState<number>(0);
   const [error, setError] = useState<string>("");
-  const fetchCalled = useRef(false);
 
   // Fetch Data
   useEffect(() => {
-    if (fetchCalled.current) return; // stop multiple calls
-    fetchCalled.current = true;
-
     async function fetchData() {
       try {
-        const res = await axios.get(
-          "https://scoreboard.argamon.com:8443/api/rebates/current"
-        );
+        const res = await axios.get("/api/rebates");
 
         const data = res.data;
+
+        console.log("what data:", data);
 
         if (!Array.isArray(data)) {
           setError("Invalid server response");
