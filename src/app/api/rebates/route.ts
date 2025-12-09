@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 export async function GET() {
 
   try {
-    
      const res = await fetch("https://scoreboard.argamon.com:8443/api/rebates/current", {
       cache: "no-store",
     });
