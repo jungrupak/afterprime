@@ -2,7 +2,16 @@ import { NextResponse } from "next/server";
 export async function GET() {
 
   try {
-     const res = await fetch("https://scoreboard.argamon.com:8443/api/rebates/current", {
+    const ep = process.env.REBATE_BASE_URL!;
+
+    if (!ep) {
+      return NextResponse.json(
+        { error: "REBATE_BASE_URL is not defined" },
+        { status: 500 }
+      );
+    }
+
+     const res = await fetch(ep, {
       cache: "no-store",
     });
 
