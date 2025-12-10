@@ -17,7 +17,8 @@ export function EarningCalc() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get("/api/rebates");
+        const fetchUrl = process.env.REBATE_BASE_URL;
+        const res = await axios.get(String(fetchUrl));
 
         const data = res.data;
 
