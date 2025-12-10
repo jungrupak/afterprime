@@ -7,8 +7,11 @@ export async function GET() {
      const res = await fetch("https://scoreboard.argamon.com:8443/api/rebates/current", {
       cache: "no-store",
     });
-
     const data = await res.json();
+
+    //console.log("Rebates data received:", data); // <--- LOG HERE
+
+
     return NextResponse.json(data);
   } catch (err: unknown) {
     //Error Message handling
