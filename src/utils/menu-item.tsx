@@ -127,10 +127,10 @@ export const MegaMenuItems = [
             menuItem: "Crypto",
             pageUrl: "/crypto",
           },
-          {
-            menuItem: "Stocks",
-            pageUrl: "/stocks",
-          },
+          // {
+          //   menuItem: "Stocks",
+          //   pageUrl: "/stocks",
+          // },
         ],
       },
       {
