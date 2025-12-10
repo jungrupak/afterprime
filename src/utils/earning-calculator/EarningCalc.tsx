@@ -17,8 +17,9 @@ export function EarningCalc() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const fetchUrl = process.env.REBATE_BASE_URL;
-        const res = await axios.get(String(fetchUrl));
+        const res = await axios.get(
+          "https://scoreboard.argamon.com:8443/api/rebates/current"
+        );
 
         const data = res.data;
 
