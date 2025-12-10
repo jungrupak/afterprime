@@ -2,9 +2,18 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
 
-  try {       
+  try {  
     
-     const res = await fetch("https://scoreboard.argamon.com:8443/api/rebates/current", {
+    const fetchUrl = process.env.REBATE_BASE_URL;
+
+    if(!fetchUrl){
+      return NextResponse.json(
+        {error: "Didnot Find Env Variable REBATE_BASE_URL"},
+        {status:500}
+      )
+    }
+    
+     const res = await fetch(fetchUrl, {
       cache: "no-store",
     });
     const data = await res.json();
