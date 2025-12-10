@@ -76,44 +76,46 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
 
       {/* ## */}
 
-      {submenu && activeIndex !== null && (
-        <div className={`${styles.subMenuWrapper}`}>
-          <span
-            className={`${styles.backArrow}`}
-            onClick={() => {
-              setSubMenu(false);
-              setActiveIndex(null);
-            }}
-          >
-            <LeftArrow />
-            back
-          </span>
+      <div
+        className={`${styles.subMenuWrapper} ${
+          submenu && activeIndex !== null ? styles.reveal : ""
+        }`}
+      >
+        <span
+          className={`${styles.backArrow}`}
+          onClick={() => {
+            setSubMenu(false);
+            setActiveIndex(null);
+          }}
+        >
+          <LeftArrow />
+          back
+        </span>
 
-          <div
-            className={`${styles.menuItemsWrapper} overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none]`}
-          >
-            {menus?.[activeIndex]?.category?.map((item, idx) => (
-              <div key={idx} className={`${styles.subMenuItem} mt-6`}>
-                <h4>{item.categoryName}</h4>
-                <ul>
-                  {item.catMenuItems?.map((label, i) => (
-                    <li
-                      key={i}
-                      onClick={() => {
-                        setSubMenu(false);
-                        setActiveIndex(null);
-                        onClick?.();
-                      }}
-                    >
-                      <Link href={label.pageUrl || "/"}>{label.menuItem}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+        <div
+          className={`${styles.menuItemsWrapper} overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none]`}
+        >
+          {menus?.[activeIndex || 0]?.category?.map((item, idx) => (
+            <div key={idx} className={`${styles.subMenuItem} mt-6`}>
+              <h4>{item.categoryName}</h4>
+              <ul>
+                {item.catMenuItems?.map((label, i) => (
+                  <li
+                    key={i}
+                    onClick={() => {
+                      setSubMenu(false);
+                      setActiveIndex(null);
+                      onClick?.();
+                    }}
+                  >
+                    <Link href={label.pageUrl || "/"}>{label.menuItem}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
