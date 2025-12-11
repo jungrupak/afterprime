@@ -42,7 +42,7 @@ export function SectionFundingCards({
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
       <div className="ap_container">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(1000px,1fr))] gap-6">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(1000px,1fr))] gap-6">
           <div className="">
             <h2 className="h2-size mb-6 text-center md:text-left">
               {sectionTitle}
