@@ -1,0 +1,64 @@
+.selectWrapParent {
+  position: relative;
+}
+.selectWrap {
+  background-color: #121017;
+  border: solid 1px #3a3a42;
+  padding: 10px 15px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  svg {
+    height: 10px;
+    width: 10px;
+    transform: rotate(90deg);
+  }
+}
+
+.readOnly .selectWrap {
+  pointer-events: none;
+  background-color: #33303c;
+  cursor: not-allowed;
+  color: rgba(#ffffff, 0.48);
+}
+
+.dropDownItems {
+  position: absolute !important;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 385px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  li {
+    padding: 10px 15px;
+    background-color: #252429;
+    border-bottom: solid 1px #303033;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.68);
+    &:hover {
+      background-color: #1b1822;
+      color: white;
+    }
+  }
+}
+
+.hasSearchIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  svg {
+    opacity: 0.58;
+  }
+  input {
+    outline: none;
+  }
+}

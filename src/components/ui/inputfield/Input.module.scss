@@ -1,0 +1,27 @@
+.inputBox {
+  background-color: #121017;
+  border: solid 1px #3a3a42;
+  padding: 10px 15px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  &:focus {
+    outline: none;
+    border-color: #5c5c67;
+  }
+}
+
+// .numberInput {
+//   position: relative;
+//   svg {
+//     position: absolute;
+//     top: 15px;
+//     right: 20px;
+//     pointer-events: none;
+//   }
+// }
