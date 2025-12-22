@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import DropdownIcon from "../ui/DropdownIcon";
 import { useEffect, useState } from "react";
+import Button from "../ui/Button";
 
 interface CategoryItem {
   menuItem?: string;
@@ -56,6 +57,19 @@ export default function Navigation({ menus }: MenuItems) {
               </span>
             </li>
           ))}
+          {/* <li className="self-center">
+            <Button
+              size="x-small"
+              varient="ghost"
+              className="relative"
+              href="/trading-calculator"
+            >
+              <span className="absolute -top-4 right-0 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
+                NEW
+              </span>
+              Trading Caclulator
+            </Button>
+          </li> */}
         </ul>
       </nav>
 
