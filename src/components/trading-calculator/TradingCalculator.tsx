@@ -7,7 +7,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useLiveQote } from "@/hooks/useLiveQuote";
 import { useInstrument } from "@/hooks/useInstruments";
 import { getUSDRates } from "@/lib/getUsdRate";
-import { group } from "console";
+import ProgressLoader from "../ui/ProgressLoader";
 
 interface Price {
   bidPrice: string;
@@ -29,6 +29,9 @@ interface Results {
 }
 
 export default function TradingCalculator() {
+  //#### loader
+  const [loading, setLoading] = useState(true);
+
   //####
   const [snapshotPrice, setSnapshotPrice] = useState<{
     bid: string;
@@ -135,7 +138,6 @@ export default function TradingCalculator() {
       askPrice: ask,
     });
     setTrade((prev) => ({ ...prev, instrumentGroup: group }));
-
     //run calculations
   }, [activeLivePrice, trade.selectedInstrument]);
 
@@ -296,7 +298,15 @@ export default function TradingCalculator() {
 
   useEffect(() => {
     if (!isDataReady) return;
+    setLoading(true);
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
     resultCalc();
+
+    return () => clearTimeout(timer);
   }, [activeCurrency, isDataReady]);
 
   //###############
@@ -311,6 +321,14 @@ export default function TradingCalculator() {
 
   //Calculation Stuff ################################################################################### Calculation Ends
   //Calculation Stuff ################################################################################### Ends
+
+  //Check Validation Input
+  const isValidTradeInput =
+    activeLotsize > 0 &&
+    activeBidPrice > 0 &&
+    activeAskPrice > 0 &&
+    activeBidPrice <= activeAskPrice &&
+    error.inputErrorAsk === "";
 
   return (
     <div className={`${styles.pageCalcWrapContainer}`}>
@@ -354,6 +372,11 @@ export default function TradingCalculator() {
                     ...prev,
                     selectedInstrument: value,
                   }));
+                  setError({
+                    inputErrorLot: "",
+                    inputErrorBid: "",
+                    inputErrorAsk: "",
+                  });
                 }} //runs callback function
                 listSearch={true}
               />
@@ -429,15 +452,12 @@ export default function TradingCalculator() {
             </div>
             <div className="col-span-8">
               <Button
-                className="w-full mt-5"
+                className={`w-full mt-5 ${
+                  isValidTradeInput ? "active:scale-95 active:shadow-sm" : ""
+                }`}
                 varient="primary-ghost"
                 onclick={() => {
-                  if (
-                    activeLotsize > 0 &&
-                    activeBidPrice > 0 &&
-                    activeAskPrice > 0 &&
-                    !(activeBidPrice > activeAskPrice)
-                  ) {
+                  if (isValidTradeInput) {
                     resultCalc();
                   }
                 }}
@@ -478,74 +498,109 @@ export default function TradingCalculator() {
               based on your selected parameters
             </span>
           </h4>
-          <div className="grid grid-cols-10 gap-5 mt-10">
+          <div className="grid grid-cols-12 gap-5 mt-10">
             {/*  */}
-            <div className="col-span-5 md:col-span-3">
+            <div className="col-span-6 md:col-span-4 order-1 md:order-1">
               <div className={`${styles.resultCard}`}>
                 <span>Margin Long</span>
-                <div>
-                  {result.marginLong} {activeCurrency}
+                <div className="flex items-center gap-1">
+                  {loading ? <ProgressLoader /> : result.marginLong}{" "}
+                  <span className="text-[14px] opacity-65">
+                    {activeCurrency}
+                  </span>
                 </div>
               </div>
             </div>
 
             {/*  */}
-            <div className="col-span-5 md:col-span-3">
+            <div className="col-span-6 md:col-span-4 order-2 md:order-2">
               <div className={`${styles.resultCard}`}>
                 <span>Margin Short</span>
-                <div>
-                  {result.marginShort} {activeCurrency}
+                <div className="flex items-center gap-1">
+                  {loading ? <ProgressLoader /> : result.marginShort}{" "}
+                  <span className="text-[14px] opacity-65">
+                    {activeCurrency}
+                  </span>
                 </div>
               </div>
             </div>
 
             {/*  */}
-            <div className="col-span-10 md:col-span-4">
-              <div className={`${styles.resultCard}`}>
-                <span>Spreads</span>
-                <div>
-                  {formatNumber(result.spread, 1)} pips /{" "}
-                  {formatNumber(result.spreadCost, 2)} {activeCurrency}
-                </div>
-              </div>
-            </div>
-
-            {/*  */}
-            <div className="col-span-5 md:col-span-4">
-              <div className={`${styles.resultCard}`}>
-                <span>Point Value</span>
-                <div>
-                  {formatNumber(result.pointValue, 4)} {activeCurrency}
-                </div>
-              </div>
-            </div>
-
-            {/*  */}
-            <div className="col-span-5">
+            <div className="col-span-6 md:col-span-4 order-3 md:order-3">
               <div className={`${styles.resultCard}`}>
                 <span>Contract Size</span>
-                <div>{result.contract}</div>
-              </div>
-            </div>
-
-            {/*  */}
-            <div className="col-span-10 md:col-span-5">
-              <div className={`${styles.resultCard}`}>
-                <span>Swap long</span>
-                <div>
-                  {result.swapLongPips} pips / {result.swapLongValue}{" "}
-                  {activeCurrency}
+                <div className="flex items-center gap-1">
+                  {loading ? <ProgressLoader /> : result.contract}
                 </div>
               </div>
             </div>
 
             {/*  */}
-            <div className="col-span-10 md:col-span-5">
+            <div className="col-span-12 md:col-span-6 order-5 md:order-4">
+              <div className={`${styles.resultCard}`}>
+                <span>Spreads</span>
+                <div className="flex items-center gap-1">
+                  {loading ? (
+                    <ProgressLoader />
+                  ) : (
+                    formatNumber(result.spread, 1)
+                  )}{" "}
+                  <span className="text-[14px] opacity-65">pips</span> /{" "}
+                  {loading ? (
+                    <ProgressLoader />
+                  ) : (
+                    formatNumber(result.spreadCost, 2)
+                  )}{" "}
+                  <span className="text-[14px] opacity-65">
+                    {activeCurrency}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/*  */}
+            <div className="col-span-6 md:col-span-6 order-4 md:order-5">
+              <div className={`${styles.resultCard}`}>
+                <span>Point Value</span>
+                <div className="flex items-center gap-1">
+                  {loading ? (
+                    <ProgressLoader />
+                  ) : (
+                    formatNumber(result.pointValue, 4)
+                  )}{" "}
+                  <span className="text-[14px] opacity-65">
+                    {activeCurrency}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/*  */}
+            <div className="col-span-12 md:col-span-6 order-6 md:order-6">
+              <div className={`${styles.resultCard}`}>
+                <span>Swap long</span>
+                <div className="flex items-center gap-1">
+                  {loading ? <ProgressLoader /> : result.swapLongPips}
+                  <span className="text-[14px] opacity-65">pips</span> /
+                  {loading ? <ProgressLoader /> : result.swapLongValue}
+                  <span className="text-[14px] opacity-65">
+                    {activeCurrency}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/*  */}
+            <div className="col-span-12 md:col-span-6 order-7 md:order-7">
               <div className={`${styles.resultCard}`}>
                 <span>Swap Short</span>
-                <div>
-                  {result.swapShortPips} pips / {result.swapShortValue}{" "}
-                  {activeCurrency}
+                <div className="flex items-center gap-1">
+                  {loading ? <ProgressLoader /> : result.swapShortPips}
+                  <span className="text-[14px] opacity-65">pips</span> /{" "}
+                  {loading ? <ProgressLoader /> : result.swapShortValue}
+                  <span className="text-[14px] opacity-65">
+                    {activeCurrency}
+                  </span>
                 </div>
               </div>
             </div>

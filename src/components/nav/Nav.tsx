@@ -57,7 +57,7 @@ export default function Navigation({ menus }: MenuItems) {
               </span>
             </li>
           ))}
-          <li className="self-center">
+          {/* <li className="self-center">
             <Button
               size="x-small"
               varient="ghost"
@@ -69,7 +69,7 @@ export default function Navigation({ menus }: MenuItems) {
               </span>
               Trading Caclulator
             </Button>
-          </li>
+          </li> */}
         </ul>
       </nav>
 
