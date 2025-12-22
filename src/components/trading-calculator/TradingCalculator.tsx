@@ -458,7 +458,15 @@ export default function TradingCalculator() {
                 varient="primary-ghost"
                 onclick={() => {
                   if (isValidTradeInput) {
+                    setLoading(true);
+
+                    const timer = setTimeout(() => {
+                      setLoading(false);
+                    }, 100);
+
                     resultCalc();
+
+                    return () => clearTimeout(timer);
                   }
                 }}
               >
