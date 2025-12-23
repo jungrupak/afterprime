@@ -4,7 +4,10 @@ export default function Page() {
   return (
     <section className={`${styles.pageCalcWrap}`}>
       <div className="grainy_bg"></div>
-      <TradingCalculator />
+      <div className={`${styles.pageCalcWrapContainer}`}>
+        <h2>Afterprime Trading Calculator</h2>
+        <TradingCalculator />
+      </div>
     </section>
   );
 }

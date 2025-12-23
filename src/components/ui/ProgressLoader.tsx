@@ -32,7 +32,7 @@ export default function ProgressLoader() {
         width="40"
         height="10"
         fill="url(#gradient)"
-        clip-path="url(#clip)"
+        clipPath="url(#clip)"
       >
         <animate
           attributeName="x"

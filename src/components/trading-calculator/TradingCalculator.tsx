@@ -26,6 +26,8 @@ interface Results {
   swapShortValue: number;
   contract: number;
   point: number;
+  minLotSize: number;
+  minLotStep: number;
 }
 
 export default function TradingCalculator() {
@@ -46,8 +48,8 @@ export default function TradingCalculator() {
 
   //Const Objects Trade (as default values)
   const [trade, setTrade] = useState({
-    lotSize: "1",
-    leverage: "1:400",
+    lotSize: "1.00",
+    leverage: "1:100",
     selectedInstrument: "EURUSD",
     accountCurrency: "USD",
     exchangeRate: "1",
@@ -74,6 +76,8 @@ export default function TradingCalculator() {
     swapShortValue: 0,
     contract: 0,
     point: 0,
+    minLotSize: 0,
+    minLotStep: 0,
   });
 
   const accountCurrencies = ["USD", "EUR", "CAD", "JPY", "GBP", "AUD", "SGD"];
@@ -152,7 +156,10 @@ export default function TradingCalculator() {
       bidPrice: bid,
       askPrice: ask,
     });
-    setTrade((prev) => ({ ...prev, instrumentGroup: group }));
+    setTrade((prev) => ({
+      ...prev,
+      instrumentGroup: group,
+    }));
 
     const getLeverageByGroup = (group: string): string => {
       switch (group) {
@@ -200,6 +207,8 @@ export default function TradingCalculator() {
           contractSize: inst.contractSize,
           swapLong: inst.swapLong,
           swapShort: inst.swapShort,
+          volumeMin: inst.volumeMin,
+          volumeStep: inst.volumeStep,
         };
         return acc;
       },
@@ -211,6 +220,8 @@ export default function TradingCalculator() {
           tickBookDepth: number;
           swapLong: number;
           swapShort: number;
+          volumeMin: number;
+          volumeStep: number;
         }
       >
     );
@@ -218,7 +229,6 @@ export default function TradingCalculator() {
 
   function resultCalc() {
     const instrument = INSTRUMENTS[activeInstrument];
-
     // Only calculate if all necessary values exist
     if (
       !instrument ||
@@ -238,8 +248,14 @@ export default function TradingCalculator() {
       return;
     }
 
-    const { contractSize, pointSize, swapLong, swapShort, tickBookDepth } =
-      instrument;
+    const {
+      contractSize,
+      pointSize,
+      swapLong,
+      swapShort,
+      volumeMin,
+      volumeStep,
+    } = instrument;
 
     const fx = selectedCurRate || 1;
 
@@ -248,7 +264,7 @@ export default function TradingCalculator() {
     // Calculations in USD
     const marginLongUsd = (contractForLot * activeAskPrice) / activeLeverage;
     const marginShortUsd = (contractForLot * activeBidPrice) / activeLeverage;
-    const point = pointSize * tickBookDepth;
+    const point = pointSize; //* tickBookDepth;
 
     const spreadPrice = activeAskPrice - activeBidPrice;
     const spreadPips = spreadPrice / point;
@@ -258,6 +274,9 @@ export default function TradingCalculator() {
 
     const swapLongValueUsd = swapLong * pointValueUsd;
     const swapShortValueUsd = swapShort * pointValueUsd;
+
+    const minLot = volumeMin / 10000;
+    const minStep = volumeStep / 10000;
 
     // Convert to account currency
     const marginLong = (marginLongUsd * fx).toFixed(2);
@@ -285,6 +304,8 @@ export default function TradingCalculator() {
       swapShortValue: Number(swapShortValue),
       contract: contract,
       point: tickPoint,
+      minLotSize: minLot,
+      minLotStep: minStep,
     });
   }
 
@@ -309,6 +330,31 @@ export default function TradingCalculator() {
     return () => clearTimeout(timer);
   }, [activeCurrency, isDataReady]);
 
+  //Change Lot size on Instrument Change
+  useEffect(() => {
+    const instrument = INSTRUMENTS[activeInstrument];
+    // Only calculate if all necessary values exist
+    if (
+      !instrument ||
+      !activeLotsize ||
+      !activeLeverage ||
+      !activeAskPrice ||
+      !activeBidPrice
+    )
+      return;
+
+    const { volumeMin, volumeStep } = instrument;
+
+    const minLot = volumeMin / 10000;
+    const minStep = volumeStep / 10000;
+
+    setResult((prev) => ({
+      ...prev,
+      minLotSize: minLot,
+      minLotStep: minStep,
+    }));
+  }, [trade.selectedInstrument]);
+
   //###############
 
   function formatNumber(v: number, d: number = 2): string {
@@ -332,18 +378,13 @@ export default function TradingCalculator() {
 
   return (
     <div className={`${styles.pageCalcWrapContainer}`}>
-      <div className={`${styles.calculatorPatch} mb-8`}>
-        Afterprime trading calculator
-      </div>
-      <h2 className="">Plan your margin, spread cost, and swaps</h2>
-
       <div className="grid grid-cols-6 gap-8 md:gap-20">
         {/* Caclulator room */}
         <div className="col-span-6 md:col-span-6 lg:col-span-3">
           <h4 className="text-[18px] font-[600]">
-            Trade Settings -{" "}
+            Trade Settings :{" "}
             <span className="opacity-65 font-[300]">
-              Adjust parameters and click Calculate
+              Plan your margin, spread cost, and swaps
             </span>
           </h4>
           {/* Display Exchange Rates */}
@@ -393,20 +434,30 @@ export default function TradingCalculator() {
               />
             </div>
             <div className="md:col-span-2 col-span-4">
-              <span className="opacity-60 mb-3 block">Lot Size</span>
+              <span className="opacity-60 mb-3 block">
+                Lot Size{" "}
+                <span className="text-[10px]">
+                  Min Lot: {result.minLotSize}
+                </span>
+              </span>
               <Input
                 type="number"
                 value={trade.lotSize}
+                steps={String(result.minLotStep)}
                 onchange={(value) => {
                   setTrade((prev) => ({ ...prev, lotSize: value }));
 
-                  if (Number(value) < 0) {
+                  if (Number(value) < result.minLotStep) {
                     setError((prev) => ({
                       ...prev,
-                      inputErrorLot: "Value cannot be negative",
+                      inputErrorLot:
+                        "Value cannot be negative or less then minimum lot size of the instrument",
                     }));
                   } else {
-                    setError((prev) => ({ ...prev, inputErrorLot: "" })); //clear error msg state
+                    setError((prev) => ({
+                      ...prev,
+                      inputErrorLot: "",
+                    })); //clear error msg state
                   }
                 }}
                 error={error.inputErrorLot}
@@ -501,7 +552,7 @@ export default function TradingCalculator() {
         {/* Result room */}
         <div className="col-span-6 md:col-span-6 lg:col-span-3">
           <h4 className="text-[18px] font-[600]">
-            Results -{" "}
+            Results :{" "}
             <span className="opacity-65 font-[300]">
               based on your selected parameters
             </span>

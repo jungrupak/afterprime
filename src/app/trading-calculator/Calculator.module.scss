@@ -7,3 +7,16 @@
     padding-block: 60px;
   }
 }
+
+.pageCalcWrapContainer {
+  max-width: 1224px;
+  margin: 100px auto;
+  @media all and (max-width: 767px) {
+    margin-block: 60px;
+  }
+  h2 {
+    font-size: clamp(28px, 5vw, 34px);
+    font-weight: 600;
+    margin-bottom: clamp(15px, 5vw, 15px);
+  }
+}
