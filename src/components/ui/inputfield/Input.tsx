@@ -6,6 +6,7 @@ interface InputBoxProps {
   defaultValue?: string;
   type?: string;
   value?: string;
+  steps?: string;
   onchange: (value: string) => void;
   error?: string;
 }
@@ -13,6 +14,7 @@ interface InputBoxProps {
 export default function Input({
   type = "text",
   value,
+  steps,
   onchange,
   error,
 }: InputBoxProps) {
@@ -24,7 +26,7 @@ export default function Input({
     >
       <input
         type={type}
-        step="0.01"
+        step={steps || "0.01"}
         value={value}
         className={`${styles.inputBox}`}
         onChange={(e) => onchange && onchange(e.target.value)}

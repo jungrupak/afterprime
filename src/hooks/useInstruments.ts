@@ -8,6 +8,8 @@ export interface InstrumentApi {
   swapLong:number;
   swapShort:number;
   tickBookDepth:number;
+  volumeMin: number;
+  volumeStep: number;
   }
 
 export function useInstrument(){

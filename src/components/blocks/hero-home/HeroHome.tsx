@@ -4,7 +4,6 @@ import Btn from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
 import type { Blocks } from "@/types/blocks";
 import HeroUsp from "@/components/hero-usp/HeroUsp";
 

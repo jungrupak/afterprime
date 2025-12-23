@@ -1,54 +1,52 @@
 "use client";
 import Btn from "@/components/ui/Button";
 import { useEffect, useState, useRef } from "react";
-import type { SymbolTraded } from "@/types/symbolTraded";
 import styles from "./style.module.scss";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
+interface RebateDataType {
+  symbol: string;
+  product: string;
+  rebate_usd_per_lot: number;
+  effective_from: string;
+  effective_to: string;
+}
+
 export function EarningCalc() {
-  const [rebates, setRebates] = useState<SymbolTraded[]>([]);
   const [selectedSymbol, setSelectedSymbol] = useState<string>("");
   const [lotTradedValue, setLotTradedValue] = useState<number | "">(100);
   const [rebatePerLot, setRebatePerLot] = useState<number | null>(null);
   const [result, setResult] = useState<number>(0);
   const [error, setError] = useState<string>("");
 
+  const { data } = useQuery({
+    queryKey: ["rebatesD"],
+    queryFn: async () => {
+      try {
+        const res = await axios.get("/api/rebates");
+        return res.data;
+      } catch (err) {
+        throw new Error("Failed to load rebates");
+      }
+    },
+    staleTime: 1000, // considers as fresh data for 12 hrs
+    gcTime: 12 * 60 * 60 * 1000, // cache data for 12 hrs
+  });
+
+  const rebates: RebateDataType[] = data ?? [];
+
   // Fetch Data
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await axios.get(
-          "https://scoreboard.argamon.com:8443/api/rebates/current"
-        );
+    if (!rebates || rebates.length === 0) return;
 
-        const data = res.data;
+    console.log("Rebates:", rebates);
 
-        console.log("what data:", data);
-
-        if (!Array.isArray(data)) {
-          setError("Invalid server response");
-          return;
-        }
-
-        setRebates(data);
-
-        const defaultSymbol =
-          data.find((s) => s.symbol === "CADCHF") || data[0];
-
-        if (defaultSymbol) {
-          setSelectedSymbol(defaultSymbol.symbol);
-          setRebatePerLot(defaultSymbol.rebate_usd_per_lot);
-        }
-      } catch (err) {
-        console.error("Failed to fetch rebates:", err);
-        setError("Failed to load rebate data");
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  //console.log("data fetched:", rebates);
+    const defaultSymbol =
+      rebates.find((s) => s.symbol === "CADCHF") ?? rebates[0];
+    setSelectedSymbol(defaultSymbol.symbol);
+    setRebatePerLot(defaultSymbol.rebate_usd_per_lot);
+  }, [rebates]);
 
   // Main calculation formula (used everywhere)
   const calculateEarning = () => {
@@ -83,7 +81,6 @@ export function EarningCalc() {
   const handleSymbolChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sym = e.target.value;
     setSelectedSymbol(sym);
-
     const found = rebates.find((s) => s.symbol === sym);
     setRebatePerLot(found ? found.rebate_usd_per_lot : null);
   };
