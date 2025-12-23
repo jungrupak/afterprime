@@ -56,6 +56,8 @@ export default function TradingCalculator() {
     instrumentGroup: "Forex",
   });
 
+  const [inputLength, setInputLength] = useState(0);
+
   //Const Object Error States
   const [error, setError] = useState({
     inputErrorLot: "",
@@ -173,7 +175,7 @@ export default function TradingCalculator() {
         case "Indices":
           return "1:100";
         default:
-          return "1:400";
+          return "1:100";
       }
     };
 
@@ -353,6 +355,18 @@ export default function TradingCalculator() {
       minLotSize: minLot,
       minLotStep: minStep,
     }));
+
+    setTrade((prev) => ({ ...prev, lotSize: String(minStep) }));
+
+    if (minStep === 0.01) {
+      setTrade((prev) => ({ ...prev, lotSize: String("1.00") }));
+    }
+    if (minStep === 0.1) {
+      setTrade((prev) => ({ ...prev, lotSize: String("1.0") }));
+    }
+    if (minStep === 1) {
+      setTrade((prev) => ({ ...prev, lotSize: String("1") }));
+    }
   }, [trade.selectedInstrument]);
 
   //###############
