@@ -459,7 +459,24 @@ export default function TradingCalculator() {
                 value={trade.lotSize}
                 steps={String(result.minLotStep)}
                 onchange={(value) => {
-                  setTrade((prev) => ({ ...prev, lotSize: value }));
+                  //Snoofing lotsize length
+                  const exceedLength =
+                    result.minLotStep === 0.01
+                      ? 5
+                      : result.minLotStep === 0.1
+                      ? 4
+                      : result.minLotStep === 1
+                      ? 2
+                      : 5;
+
+                  if (value.length < exceedLength) {
+                    setTrade((prev) => ({ ...prev, lotSize: value }));
+                  } else {
+                    setError((prev) => ({
+                      ...prev,
+                      inputErrorLot: "Can not exceed max step",
+                    }));
+                  }
 
                   if (Number(value) < result.minLotStep) {
                     setError((prev) => ({
@@ -482,6 +499,7 @@ export default function TradingCalculator() {
               <Input
                 type="number"
                 value={price.bidPrice}
+                steps={"0.00001"}
                 onchange={(value) => {
                   setPrice((prev) => ({ ...prev, bidPrice: value }));
                   if (Number(value) < 0) {
@@ -501,6 +519,7 @@ export default function TradingCalculator() {
               <Input
                 type="number"
                 value={price.askPrice}
+                steps={"0.00001"}
                 onchange={(value) => {
                   setPrice((prev) => ({ ...prev, askPrice: value }));
                   if (value < price.bidPrice) {
@@ -539,7 +558,7 @@ export default function TradingCalculator() {
               </Button>
 
               {/* This is for test preview of what data have been grabbed so far */}
-              <h3 className="text-[20px] my-5">
+              {/* <h3 className="text-[20px] my-5">
                 Calculation Factors: Just for QA and test
               </h3>
               <div>
@@ -558,7 +577,7 @@ export default function TradingCalculator() {
               <div> Swap Long Pips : {result.swapLongPips}</div>
               <div> Swap Long Value : {result.swapLongValue}</div>
               <div> Swap Short Pips : {result.swapShortPips}</div>
-              <div> Swap Short Value : {result.swapShortValue}</div>
+              <div> Swap Short Value : {result.swapShortValue}</div> */}
             </div>
           </div>
         </div>
