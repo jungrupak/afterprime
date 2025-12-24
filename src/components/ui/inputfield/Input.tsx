@@ -1,6 +1,5 @@
 "use client";
 import styles from "./Input.module.scss";
-import NubersInputArrow from "../NubersInputArrow";
 
 interface InputBoxProps {
   defaultValue?: string;
