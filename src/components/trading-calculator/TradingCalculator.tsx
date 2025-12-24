@@ -482,7 +482,7 @@ export default function TradingCalculator() {
                     setError((prev) => ({
                       ...prev,
                       inputErrorLot:
-                        "Value cannot be negative or less then minimum lot size of the instrument",
+                        "Value cannot be negative, less then minimum and text string",
                     }));
                   } else {
                     setError((prev) => ({
