@@ -8,6 +8,7 @@ import { useLiveQote } from "@/hooks/useLiveQuote";
 import { useInstrument } from "@/hooks/useInstruments";
 import { getUSDRates } from "@/lib/getUsdRate";
 import ProgressLoader from "../ui/ProgressLoader";
+import SuggestionInput from "../ui/suggestionInput/SuggestionInput";
 
 interface Price {
   bidPrice: string;
@@ -406,7 +407,7 @@ export default function TradingCalculator() {
           <div
             className={`${styles.inputWrapper} grid grid-cols-8 gap-5 mt-10`}
           >
-            <div className="md:col-span-2 col-span-4 !z-2">
+            <div className="md:col-span-2 col-span-4 !z-4">
               <span className="opacity-60 mb-3 block">Account Currency</span>
               <Dropdown
                 label={trade.accountCurrency}
@@ -419,7 +420,7 @@ export default function TradingCalculator() {
             </div>
             <div className="md:col-span-3 col-span-4 !z-2">
               <span className="opacity-60 mb-3 block">Instrument</span>
-              <Dropdown
+              <SuggestionInput
                 label={trade.selectedInstrument}
                 options={symbolArray}
                 selectedValue={(value) => {
@@ -583,7 +584,7 @@ export default function TradingCalculator() {
         </div>
 
         {/* Result room */}
-        <div className="col-span-6 md:col-span-6 lg:col-span-3">
+        <div className="col-span-6 md:col-span-6 lg:col-span-3 !z-0">
           <h4 className="text-[18px] font-[600]">
             Results :{" "}
             <span className="opacity-65 font-[300]">
@@ -695,6 +696,12 @@ export default function TradingCalculator() {
                   </span>
                 </div>
               </div>
+            </div>
+
+            {/*  */}
+            <div className="col-span-12 text-[14px] order-8 md:order-8 opacity-50">
+              Note: Triple swaps are applied on <b>Wednesday</b> for FX and
+              metals, and on <b>Friday</b> for all other instruments.
             </div>
           </div>
         </div>
