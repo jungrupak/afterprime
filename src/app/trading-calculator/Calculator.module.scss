@@ -3,6 +3,7 @@
   //height: 100vh;
   z-index: 2;
   position: relative;
+  padding-bottom: 0 !important;
   @media all and (max-width: 767px) {
     padding-block: 60px;
   }
@@ -10,9 +11,9 @@
 
 .pageCalcWrapContainer {
   max-width: 1224px;
-  margin: 100px auto;
+  margin: 100px auto 0;
   @media all and (max-width: 767px) {
-    margin-block: 60px;
+    margin-block: 60px 0;
   }
   h2 {
     font-size: clamp(28px, 5vw, 34px);
