@@ -475,7 +475,8 @@ export default function TradingCalculator() {
                   } else {
                     setError((prev) => ({
                       ...prev,
-                      inputErrorLot: "Can not exceed max step",
+                      inputErrorLot:
+                        "Please enter a lot size greater than or equal to the minimum allowed.",
                     }));
                   }
 
@@ -483,7 +484,7 @@ export default function TradingCalculator() {
                     setError((prev) => ({
                       ...prev,
                       inputErrorLot:
-                        "Value cannot be negative, less then minimum and text string",
+                        "Please enter a lot size greater than or equal to the minimum allowed.",
                     }));
                   } else {
                     setError((prev) => ({
