@@ -64,7 +64,7 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
       </div>
       {/* Footer */}
       <div className={`${styles.mobileMenuFooter} text-center`}>
-        {/* <Button
+        <Button
           size="small"
           varient="ghost"
           className="relative"
@@ -75,7 +75,7 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
             NEW
           </span>
           Trading Caclulator
-        </Button> */}
+        </Button>
         <Link
           className={`ap_button washed small`}
           href="https://app.afterprime.com/login"
