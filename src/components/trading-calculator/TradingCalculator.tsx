@@ -94,7 +94,7 @@ export default function TradingCalculator() {
       ? ["1:33"]
       : trade.instrumentGroup === "Stocks"
       ? ["1:5"]
-      : ["1:33", "1:50", "1:100", "1:200", "1:400"]; //These are conditional leverage as per instrument category or group
+      : ["1:5", "1:10", "1:25", "1:33", "1:50", "1:100", "1:200", "1:400"]; //These are conditional leverage as per instrument category or group
 
   const snapPricingRef = useRef(false);
 
