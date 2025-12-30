@@ -100,10 +100,16 @@ export default function Navigation({ menus }: MenuItems) {
                           setMegaMenu(false);
                           setOpenIndex(null);
                         }}
+                        style={{ position: "relative" }}
                       >
                         <Link href={menuItem.pageUrl || "/"}>
                           {menuItem.menuItem}
                         </Link>
+                        {menuItem.menuItem === "Trading Calculator" && (
+                          <span className="absolute top-1 -right-5 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
+                            NEW
+                          </span>
+                        )}
                       </li>
                     ))}
                   </ul>
