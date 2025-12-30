@@ -120,8 +120,14 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
                       setActiveIndex(null);
                       onClick?.();
                     }}
+                    style={{ position: "relative" }}
                   >
                     <Link href={label.pageUrl || "/"}>{label.menuItem}</Link>
+                    {label.menuItem === "Trading Calculator" && (
+                      <span className="absolute top-2 right-0 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
+                        NEW
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>
