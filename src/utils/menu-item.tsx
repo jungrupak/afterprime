@@ -156,6 +156,10 @@ export const MegaMenuItems = [
             menuItem: "Trading Hours",
             pageUrl: "/trading-hours",
           },
+          {
+            menuItem: "Trading Calculator",
+            pageUrl: "/trading-calculator",
+          },
         ],
       },
     ],
