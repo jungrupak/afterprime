@@ -67,7 +67,7 @@ export default function Navigation({ menus }: MenuItems) {
               <span className="absolute -top-4 right-0 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
                 NEW
               </span>
-              Trading Caclulator
+              Trading Calculator
             </Button>
           </li>
         </ul>
