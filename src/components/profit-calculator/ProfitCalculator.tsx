@@ -447,7 +447,7 @@ export default function ProfitCalculator() {
                 steps={"0.00001"}
                 onchange={(value) => {
                   setPrice((prev) => ({ ...prev, bidPrice: value }));
-                  if (Number(value) < 0) {
+                  if (!isValidTradeInput) {
                     setError((prev) => ({
                       ...prev,
                       inputErrorBid: "Value cannot be negative",
@@ -467,7 +467,7 @@ export default function ProfitCalculator() {
                 steps={"0.00001"}
                 onchange={(value) => {
                   setPrice((prev) => ({ ...prev, askPrice: value }));
-                  if (Number(value) < 0) {
+                  if (!isValidTradeInput) {
                     setError((prev) => ({
                       ...prev,
                       inputErrorAsk: "Value cannot be negative",
