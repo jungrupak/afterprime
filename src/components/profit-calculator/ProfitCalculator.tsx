@@ -334,7 +334,6 @@ export default function ProfitCalculator() {
     activeLotsize > 0 &&
     activeBidPrice > 0 &&
     activeAskPrice > 0 &&
-    activeBidPrice <= activeAskPrice &&
     error.inputErrorAsk === "";
 
   return (
@@ -468,10 +467,10 @@ export default function ProfitCalculator() {
                 steps={"0.00001"}
                 onchange={(value) => {
                   setPrice((prev) => ({ ...prev, askPrice: value }));
-                  if (value < price.bidPrice) {
+                  if (Number(value) < 0) {
                     setError((prev) => ({
                       ...prev,
-                      inputErrorAsk: "Value cannot be less than bidPrice",
+                      inputErrorAsk: "Value cannot be negative",
                     }));
                   } else {
                     setError((prev) => ({ ...prev, inputErrorAsk: "" })); //clear error msg state
@@ -489,7 +488,6 @@ export default function ProfitCalculator() {
                 onclick={() => {
                   if (isValidTradeInput) {
                     setLoading(true);
-
                     const timer = setTimeout(() => {
                       setLoading(false);
                     }, 100);
