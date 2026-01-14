@@ -10,35 +10,8 @@ export default function Page() {
     <section className={`${styles.pageCalcWrap}`}>
       <div className="grainy_bg"></div>
       <div className={`${styles.pageCalcWrapContainer}`}>
-        <div className={`${styles.tabNav}`}>
-          {navItems.map((item, idx) => (
-            <span
-              key={idx}
-              className={`${styles.navItem} ${
-                activeIndex === idx ? styles.active : ""
-              }`}
-              onClick={() => setActiveIndex(idx)}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-        <div
-          className={`${styles.tabItem} ${
-            activeIndex === 0 ? styles.active : ""
-          }`}
-        >
-          <h2>Afterprime Trading Calculator</h2>
-          <TradingCalculator />
-        </div>
-        <div
-          className={`${styles.tabItem} ${
-            activeIndex === 1 ? styles.active : ""
-          }`}
-        >
-          <h2>Afterprime Profit Calculator</h2>
-          <ProfitCalculator />
-        </div>
+        <h2>Afterprime Trading Calculator</h2>
+        <TradingCalculator />
       </div>
     </section>
   );
