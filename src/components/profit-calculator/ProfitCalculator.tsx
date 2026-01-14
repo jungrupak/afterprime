@@ -441,7 +441,7 @@ export default function ProfitCalculator() {
               />
             </div>
             <div className="col-span-4 md:col-span-3">
-              <span className="opacity-60 mb-3 block">Bid Price</span>
+              <span className="opacity-60 mb-3 block">Open Price</span>
               <Input
                 type="number"
                 value={price.bidPrice}
@@ -461,7 +461,7 @@ export default function ProfitCalculator() {
               />
             </div>
             <div className="col-span-4 md:col-span-3">
-              <span className="opacity-60 mb-3 block">Ask Price</span>
+              <span className="opacity-60 mb-3 block">Close Price</span>
               <Input
                 type="number"
                 value={price.askPrice}
@@ -532,7 +532,7 @@ export default function ProfitCalculator() {
           </h4>
           <div className="grid grid-cols-12 gap-5 mt-10">
             {/*  */}
-            <div className="col-span-6 md:col-span-7 ">
+            <div className="col-span-12 md:col-span-7 ">
               <div
                 className={`${styles.resultCard} ${
                   result.profit < 0 ? styles.isLoss : ""
