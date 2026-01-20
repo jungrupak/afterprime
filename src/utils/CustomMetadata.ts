@@ -1,6 +1,6 @@
 import { fetchSeoFieldData } from "@/utils/fetchSeoFieldData";
 
-export async function CustomMetadata(slug: string) {
+export async function CustomMetadata(slug:string) {
   const seoData = await fetchSeoFieldData(slug);
 
   return {
@@ -36,7 +36,7 @@ export async function CustomMetadata(slug: string) {
     },
     twitter: {
       card: "summary_large_image",
-      title: seoData?.title || "Afterprime 2.0",
+      title: seoData?.title || "Afterprime",
       description:
         seoData?.description ||
         "Forex broker with Flow Rewards program, Forex broker with institutional-grade execution",

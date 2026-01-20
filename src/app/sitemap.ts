@@ -2,33 +2,40 @@ import { MetadataRoute } from "next";
 import { wpFetch } from "@/utils/wpFetch";
 import { WPPage } from "@/types/blocks";
 
-// Extend WPPage type locally to include modified date
+export const dynamic = "force-dynamic";
+
+// Extend WPPage type locally
 type WPPageExtended = WPPage & {
-  slug: string;
   modified?: string;
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+
+
   const baseUrl = "https://afterprime.com";
 
-  // ✅ Fetch all published WordPress pages
   const pages = await wpFetch<WPPageExtended[] | null>(
     "/pages?per_page=100&status=publish"
   );
 
-  // ✅ Static routes
-  const staticRoutes = ["", "/about", "/contact"].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString(),
-  }));
+  const staticRoutes: MetadataRoute.Sitemap = [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      priority: 1,
+      changeFrequency: "always" as const,
+    },
+  ];
 
-  // ✅ Handle possible null + safely read modified date
-  const dynamicRoutes =
-    pages?.map((page) => ({
+  const dynamicRoutes: MetadataRoute.Sitemap =
+    pages?.filter((page)=>page.slug!=="home-page").map((page) => ({
       url: `${baseUrl}/${page.slug}`,
-      lastModified: page.modified || new Date().toISOString(),
+      lastModified: page.modified
+        ? new Date(page.modified)
+        : new Date(),
+      priority: 0.8,
+      changeFrequency: "weekly" as const,
     })) ?? [];
 
-  // ✅ Combine and return
   return [...staticRoutes, ...dynamicRoutes];
 }

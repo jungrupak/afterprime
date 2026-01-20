@@ -137,9 +137,9 @@ export default function Footer() {
               <li>
                 <Link href="/commodities">Commodities</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/stocks">Stocks</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className={`${styles.footer_links} order-4`}>
@@ -159,9 +159,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/fix-api">FIX API</Link>
-              </li>
-              <li>
-                <Link href="#">MAM/PAMM</Link>
               </li>
             </ul>
           </div>
