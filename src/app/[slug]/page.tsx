@@ -4,6 +4,7 @@ import PageRenderer from "@/components/PageRender";
 import { getWpPagedata } from "@/utils/getWpPagedata";
 import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
+import FaqSchema from "@/lib/schema/faqSchema";
 
 // ✅ Allow runtime slugs
 export const dynamicParams = true;
@@ -34,7 +35,12 @@ export function generateViewport() {
 export default async function DynamicPage({ params }: Props) {
   const { slug: pageSlug } = await params; //renamed variable slug to custm name
   const pageData = await getWpPagedata(pageSlug);
-  return <PageRenderer pageData={pageData} />;
+  return (
+    <>
+      <FaqSchema pageSlug={pageSlug} />
+      <PageRenderer pageData={pageData} />
+    </>
+  );
 }
 
 // ✅ Pre-generate slugs for better performance
