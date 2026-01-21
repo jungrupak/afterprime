@@ -3,6 +3,7 @@ import { WPPage } from "@/types/blocks";
 import PageRenderer from "@/components/PageRender";
 import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
+import FaqSchema from "@/lib/schema/faqSchema";
 //####
 export const revalidate = 60;
 
@@ -41,5 +42,10 @@ export default async function HomePage({ params }: PageProps) {
 
   if (!pageData) return <p>Home page not found</p>;
 
-  return <PageRenderer pageData={pageData} />;
+  return (
+    <>
+      <FaqSchema pageSlug={frontPageSlug} />
+      <PageRenderer pageData={pageData} />
+    </>
+  );
 }

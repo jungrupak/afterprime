@@ -1,14 +1,6 @@
 import { fetchSeoFieldData } from "@/utils/fetchSeoFieldData";
 
-//Resolving cloudways endpoint to custom url for OG Image
-const WP_DOMAIN = "https://wordpress-1264747-4900526.cloudwaysapps.com";
-const FRONTEND_DOMAIN = "https://afterprime.com";
 
-export const mapWpUrlToFrontend = (url:string) => {
-  if (!url) return url;
-  return url.replace(WP_DOMAIN, FRONTEND_DOMAIN);
-};
-//####
 
 
 export async function CustomMetadata(slug:string) {
@@ -35,7 +27,7 @@ export async function CustomMetadata(slug:string) {
       images: [
         {
           url:
-            mapWpUrlToFrontend(seoData?.opengraph?.og_image?.url) ||
+           seoData?.opengraph?.og_image_url ||
             "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
           width: 1200,
           height: 630,
