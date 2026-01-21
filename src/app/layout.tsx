@@ -9,6 +9,7 @@ import HeadScripts from "@/components/HeaderScripts";
 import { Metadata } from "next";
 import "./globals.scss";
 import ReactQueryProvider from "./providers/ReactQueryProvider";
+import AfterprimeOrgSchema from "@/lib/schema/orgSchema";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://afterprime.com"),
@@ -71,6 +72,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           {/* Head Scripts */}
           <HeadScripts />
+          <AfterprimeOrgSchema />
           {/* Head Scripts Ends */}
 
           <TypeformLoader />
