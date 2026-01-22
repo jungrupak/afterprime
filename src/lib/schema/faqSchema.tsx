@@ -1,37 +1,41 @@
-import Script from "next/script";
-
 interface FaqSchemaProp {
   pageSlug: string;
 }
 
+type JsonLd = Record<string, unknown>;
+
 export default async function FaqSchema({ pageSlug }: FaqSchemaProp) {
   const res = await fetch(
     `${process.env.WORDPRESS_REST_ENDPOINT}/pages?slug=${pageSlug}`,
-    {
-      next: { revalidate: 60 },
-    },
+    { next: { revalidate: 60 } },
   );
-  if (!res.ok) {
-    throw new Error("Failed to load data");
-  }
+
+  if (!res.ok) return null;
 
   const data = await res.json();
+  const rawFaqSchema = data?.[0]?.acf?.schema_block?.faqs;
 
-  const dataFaqSchema = data[0]?.acf?.schema_block?.faqs;
+  let parsedFaqSchema: JsonLd | null = null;
 
-  const parseDataFaqSchema = JSON.parse(dataFaqSchema);
+  if (typeof rawFaqSchema === "string" && rawFaqSchema.trim()) {
+    try {
+      parsedFaqSchema = JSON.parse(rawFaqSchema) as JsonLd;
+    } catch (e) {
+      console.error("Invalid FAQ schema JSON:", e);
+      return null;
+    }
+  }
 
-  //console.log("cripydata", parseDataFaqSchema);
-
-  if (!parseDataFaqSchema) return null;
+  if (!parsedFaqSchema || parsedFaqSchema["@type"] !== "FAQPage") {
+    return null;
+  }
 
   return (
-    <Script
+    <script
       id="faq-schema"
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(parseDataFaqSchema),
+        __html: JSON.stringify(parsedFaqSchema),
       }}
     />
   );
