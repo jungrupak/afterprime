@@ -19,9 +19,11 @@ export default async function FaqSchema({ pageSlug }: FaqSchemaProp) {
 
   const dataFaqSchema = data[0]?.acf?.schema_block?.faqs;
 
-  //console.log("cripydata", dataFaqSchema);
+  const parseDataFaqSchema = JSON.parse(dataFaqSchema);
 
-  if (!dataFaqSchema) return null;
+  //console.log("cripydata", parseDataFaqSchema);
+
+  if (!parseDataFaqSchema) return null;
 
   return (
     <Script
@@ -29,7 +31,7 @@ export default async function FaqSchema({ pageSlug }: FaqSchemaProp) {
       type="application/ld+json"
       strategy="afterInteractive"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(dataFaqSchema),
+        __html: JSON.stringify(parseDataFaqSchema),
       }}
     />
   );
