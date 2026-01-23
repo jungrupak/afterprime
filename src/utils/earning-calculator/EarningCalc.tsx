@@ -149,8 +149,8 @@ export function EarningCalc() {
       </div>
 
       <div className="bg-white py-5 px-10 note_box text-center mt-10">
-        Afterprime 2.0 smart execution can capture up to $3 saved per lot traded
-        and compound into thousands in additional earnings over time.
+        Afterprime smart execution can capture up to $3 saved per lot traded and
+        compound into thousands in additional earnings over time.
       </div>
     </>
   );
