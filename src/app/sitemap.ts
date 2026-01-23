@@ -9,6 +9,15 @@ type WPPageExtended = WPPage & {
   modified?: string;
 };
 
+function escapeXml(url: string) {
+  return url
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 
@@ -20,7 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
+      url: escapeXml(baseUrl),
       lastModified: new Date(),
       priority: 1,
       changeFrequency: "always" as const,
