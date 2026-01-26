@@ -18,9 +18,9 @@ export function SectionCardsBigStatic(props: PropData) {
         <div className="grid max-md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 justify-center max-md:mb-8">
           <div className="">
             <h2 className="h2-size mb-6 text-center md:text-left">
-              Pro Platforms.
+              Professional Platforms.
               <br />
-              <span>Seamless Access.</span>
+              <span>Direct Market Access.</span>
             </h2>
           </div>
         </div>
@@ -179,7 +179,7 @@ export function SectionCardsBigStatic(props: PropData) {
               </Link>
             </div>
           </div>
-          <div className={`${styles.cardItem} ${styles.cardRegular}`}>
+          {/* <div className={`${styles.cardItem} ${styles.cardRegular}`}>
             <h3>MAM/PAMM</h3>
             <p>
               Full support for money managers with seamless allocation tools.
@@ -207,7 +207,7 @@ export function SectionCardsBigStatic(props: PropData) {
                 </svg>
               </Link>
             </div>
-          </div>
+          </div> */}
         </div>
         {/* Cards Ends */}
       </div>
