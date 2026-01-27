@@ -1,9 +1,7 @@
-import { fetchSeoFieldData } from "@/utils/fetchSeoFieldData";
+import {fetchSeoFieldData} from "@/utils/fetchSeoFieldData";
 
 
-
-
-export async function CustomMetadata(slug:string) {
+export async function CustomMetadata(slug: string) {
   const seoData = await fetchSeoFieldData(slug);
 
   return {
@@ -14,7 +12,7 @@ export async function CustomMetadata(slug:string) {
     keywords:
       seoData?.keywords ||
       "Get Paid to Trade, Forex broker with lowest costs, A-Book forex broker",
-    authors: [{ name: "Afterprime", url: "https://afterprime.com" }],
+    authors: [{name: "Afterprime", url: "https://afterprime.com"}],
     creator: "Afterprime",
     publisher: "Afterprime",
     openGraph: {
@@ -27,7 +25,7 @@ export async function CustomMetadata(slug:string) {
       images: [
         {
           url:
-           seoData?.opengraph?.og_image_url ||
+            seoData?.opengraph?.og_image_url ||
             "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
           width: 1200,
           height: 630,

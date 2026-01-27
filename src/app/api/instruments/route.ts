@@ -1,23 +1,38 @@
 import { NextResponse } from "next/server";
-import axios from "axios";
+
+const API_URL = "https://scoreboard.argamon.com:8443/api/instruments/";
 
 export async function GET(){
 
     try{
-
-        const res = await axios.get("https://scoreboard.argamon.com:8443/api/instruments/", {
+        if(!API_URL){
+            return NextResponse.json(
+                {error:"API endpoint configuration error"},
+            )
+        }
+        const res = await fetch(API_URL,{
+            next:{revalidate:60},
             headers:{
-                "Cache-Control": "no-store",
+                "Accept": "application/json",
+                "User-Agent": "Next.js Server",
             }
         });
-        const data = await res.data;
-        return NextResponse.json(data);
 
-    }catch(err:unknown){
-        console.error(err);
-        const message = err instanceof Error ? err.message : "Unknown error occurred";
+        if(!res.ok){
+            console.error(`Upstream API failed: ${res.status} ${res.statusText}`);
+            return NextResponse.json(
+                {error:"Failed to retrieve data from external service"},
+                {status:502}
+            )
+        }
+
+        const data = await res.json();
+        return NextResponse.json(data,{status:200});
+
+    }catch(err){
+        console.error("Failed to fetch instruments from upstream API:",err);
         return NextResponse.json(
-            { error: message },
+            { error: "Internal Server Error" },
             { status: 500 }
         );
 
