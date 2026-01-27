@@ -1,0 +1,10 @@
+.bottomCta {
+  width: 100%;
+  border-radius: 25px;
+  overflow: hidden;
+  min-height: 400px;
+  padding-inline: clamp(30px, 5vw, 45px);
+  padding-block: clamp(40px, 5vw, 80px);
+  background-image: url("/img/lp-cta-bg.png");
+  background-size: cover;
+}
