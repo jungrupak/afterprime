@@ -9,7 +9,7 @@ export default function TradeLayout({
   return <>
     <Header/>
     {/* Fixed Vid Bg for entire website */}
-    <div className="home_banner_video" style={{height: "150px", overflow: "hidden"}}>
+    <div className="home_banner_video" style={{height: "100vh", overflow: "hidden"}}>
       <video
         playsInline
         className="mui-1eodtn4-video"

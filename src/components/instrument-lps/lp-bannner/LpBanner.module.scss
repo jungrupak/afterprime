@@ -1,2 +1,17 @@
 .lpBanner {
+  height: 100vh;
+  max-height: 1024px;
+  background-color: transparent;
+  backdrop-filter: unset;
+
+  h1 {
+    font-size: clamp(35px, 5vw, 50px);
+    font-weight: bold;
+    line-height: 1;
+
+    span {
+      font-weight: 600;
+      font-size: clamp(28px, 5vw, 45px);
+    }
+  }
 }

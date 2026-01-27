@@ -294,6 +294,9 @@ export type PageFieldGroups = {
       };
     };
   };
+  instrument_page_fields?: {
+    hero_bullet_lists?: [];
+  }
 };
 
 //AIOSEO Types
