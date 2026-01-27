@@ -170,7 +170,7 @@ export default function AfterprimeOrgSchema() {
     parentOrganization: {
       "@type": "Organization",
       name: "Argamon Markets Pty Ltd",
-      address: { "@type": "PostalAddress", addressCountry: "AU" },
+      address: {"@type": "PostalAddress", addressCountry: "AU"},
     },
     subOrganization: {
       "@type": "Organization",
@@ -181,7 +181,7 @@ export default function AfterprimeOrgSchema() {
         propertyID: "Company Registration Number",
         value: "8426189-1",
       },
-      address: { "@type": "PostalAddress", addressCountry: "SC" },
+      address: {"@type": "PostalAddress", addressCountry: "SC"},
     },
     knowsAbout: [
       "Forex Trading",

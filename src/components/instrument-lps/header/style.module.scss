@@ -1,0 +1,254 @@
+.ap_header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9;
+
+  .ap_container {
+    transition: all 0.3s ease-in-out;
+  }
+
+  &.sticky {
+    background-color: rgba(12, 12, 13, 0.94);
+    //backdrop-filter: blur(10px);
+    .ap_container {
+      padding: 10px 0;
+      @media all and (max-width: 1279px) {
+        padding: 20px;
+      }
+    }
+  }
+
+  &.headerActive {
+    background-color: rgba(var(--alphaBlack), 0.94);
+    backdrop-filter: blur(10px);
+  }
+}
+
+.ap_logo {
+  display: block;
+}
+
+//
+
+//
+
+.menuCat_item {
+  margin-left: 35px;
+  padding-right: 30px;
+  @media all and (min-width: 1204px) {
+    margin-left: 60px;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    opacity: 0.68;
+  }
+
+  ul {
+    li {
+      margin-bottom: 12px;
+      white-space: nowrap;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      a {
+        font-weight: 600;
+        display: block;
+        font-size: 18px;
+        transition: all 0.3s ease;
+      }
+
+      &:hover {
+        a {
+          color: var(--secondary-color);
+        }
+      }
+    }
+  }
+}
+
+//mobile menu icon
+.mobileMenuIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  gap: 0;
+  height: 34px;
+  width: 30px;
+  padding-block: 4px;
+  cursor: pointer;
+
+  > span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+
+    &:last-child {
+      width: 14px;
+    }
+  }
+}
+
+.activeMenu {
+  transform: translateX(0);
+}
+
+.notActiveMenu {
+  transform: translateX(100%);
+}
+
+@media all and (max-width: 1204px) {
+  .middleItem {
+    display: none;
+
+    &.ActiveNav {
+      display: block;
+    }
+  }
+  .resNavHeader,
+  .resNavFooter {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+  }
+  .resNavFooter {
+    margin-top: auto;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+
+    > div {
+      flex: 1;
+
+      a {
+        justify-content: center;
+      }
+    }
+  }
+
+  .closeIcon {
+    font-size: 34px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transform: rotate(45deg);
+    font-weight: 300;
+  }
+
+  .apNavWrapper {
+    background-color: var(--body-bg);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+
+    ul {
+      flex-direction: column;
+      gap: 10px;
+
+      li {
+        span {
+          display: flex;
+          align-items: center;
+          text-align: left;
+          padding: 0;
+
+          svg {
+            margin-left: auto;
+            width: 14px;
+            height: 14px;
+            transform: rotate(-90deg);
+          }
+        }
+      }
+    }
+  }
+
+  .megaMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 4;
+    padding-top: 0;
+
+    .ap_container_medium {
+      .flex {
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+    }
+  }
+  .backArrow {
+    height: 34px;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0 15px;
+    border-radius: 48px;
+  }
+  .subNavHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 30px 20px;
+  }
+
+  .menuChild {
+    > div:last-child {
+      padding-bottom: 30px;
+    }
+  }
+}
+
+.megaMenuItemsContainer {
+  max-width: 755px !important;
+}
+
+@media all and (max-width: 1204px) {
+  .resNavFooter {
+    gap: 20px;
+
+    > a,
+    > button {
+      justify-content: center;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+@media all and (max-width: 767px) {
+  .resNavFooter {
+    flex-direction: column;
+  }
+}
+
+@media all and (min-width: 767px) and (max-width: 1204px) {
+  .megaMenu {
+    max-width: calc(100vw - 200px);
+    border-left: solid 1px rgba(var(--alphaWhite), 0.08);
+    left: auto;
+    right: 0;
+  }
+  .megaMenuItemsContainer {
+    max-width: 100% !important;
+  }
+}

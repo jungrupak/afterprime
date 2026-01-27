@@ -47,7 +47,7 @@ export type Blocks = {
         | "paragraph"
         | "button_label"
         | "button_url"}`
-    ]: string | undefined;
+      ]: string | undefined;
   };
   "block-multipurpose": {
     multipurpose_block_is_boxed?: string;
@@ -96,7 +96,7 @@ export type Blocks = {
         | "paragraph"
         | "button_label"
         | "button_url"}`
-    ]: string | undefined;
+      ]: string | undefined;
     section_card_list_big_cards?: number;
     section_card_list_big_card_size?: string | undefined;
     section_card_list_big_section_heading_alignment?: string;
@@ -118,7 +118,7 @@ export type Blocks = {
     hero_banner_home_banner_btn_url?: string;
     hero_banner_home?: string | undefined;
     hero_banner_home_is_type_form_cta?: string | undefined;
-    hero_banner_home_data_source_note?:string|undefined;
+    hero_banner_home_data_source_note?: string | undefined;
   };
   "earning-flow-block": {
     earning_flow_section_heading?: string;
@@ -152,7 +152,7 @@ export type Blocks = {
       | undefined;
     [
       key: `pros_and_cons_cons_title_cons_or_disadvantages_${number}_list_item`
-    ]: string | undefined;
+      ]: string | undefined;
     pros_and_cons_pros_title_pros_or_advantages?: number;
     pros_and_cons_cons_title_cons_or_disadvantages?: number;
     pros_and_cons?: string | undefined;
@@ -200,11 +200,11 @@ export type Blocks = {
     rebate_table_section_paragraph?: string | undefined;
     rebate_table?: string | undefined;
   };
-  "reading-content" : {
+  "reading-content": {
     reading_content?: string | undefined;
-    block_image?:{
+    block_image?: {
       url?: string | undefined;
-      alt?:string | undefined;
+      alt?: string | undefined;
     }
   };
 };
@@ -294,6 +294,9 @@ export type PageFieldGroups = {
       };
     };
   };
+  instrument_page_fields?: {
+    hero_bullet_lists?: [];
+  }
 };
 
 //AIOSEO Types
@@ -304,7 +307,7 @@ export type Aioseo = {
 };
 
 // --------------------------------------------
-// WP Page type
+// WP NotFound type
 // --------------------------------------------
 export type WPPage = {
   id: number;
