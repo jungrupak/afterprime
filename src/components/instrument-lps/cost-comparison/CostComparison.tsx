@@ -121,20 +121,16 @@ export default function CostComparison({
 
                   <div className={``}>{broker.broker}</div>
                 </div>
-                <div className={`col-span-2`}>{broker.broker} pips</div>
+                <div className={`col-span-2`}>{broker.cost} pips</div>
                 <div className={`col-span-2`}>
                 {broker.broker === "Afterprime"
                   ? "Zero"
                   : "$X USD"}
                 </div>
-                <div className={`col-span-2`}>
-                {broker.broker === "Afterprime"
-                  ? "$XYZ Calc"
-                  : "$X Calc"}
-                </div>
+                <div className={`col-span-2`}>{broker.costPerLot}</div>
                 <div className={`col-span-2`}>
                   {broker.broker === "Afterprime"
-                    ? "$insertrebatevalue USD/lot"
+                    ? `${broker.rebate_usd_per_lot} USD/lot`
                     : "X icon"}
                 </div>
               </div>
