@@ -41,14 +41,12 @@ export default function CostBreakdown({
               </tr>
             </thead>
             <tbody>
-              {breakDownTableLists.map((item, indx) => (
-                <tr key={indx}>
-                  <td>{item.breakdowns?.volume}</td>
-                  <td>{item.breakdowns?.raw_spread}</td>
+                <tr>
+                  <td>50</td>
+                  <td>{broker.cost.toFixed(2)} pips</td>
                   <td>${rebatePerLot.toFixed(2)}/lot</td>
-                  <td>{item.breakdowns?.effective_net_cost}</td>
+                  <td>XYZ</td>
                 </tr>
-              ))}
             </tbody>
           </table>
         </div>
