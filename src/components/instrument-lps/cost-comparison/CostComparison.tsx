@@ -70,6 +70,9 @@ export default function CostComparison({
     brokersToPick.includes(item.broker),
   );
 
+  const rebatePerLot =
+    data?.rebate?.rebate_usd_per_lot ?? null;
+
   return (
     <section className={`md:py-20!`}>
       {/* grain bg effect */}
@@ -121,17 +124,17 @@ export default function CostComparison({
 
                   <div className={``}>{broker.broker}</div>
                 </div>
-                <div className={`col-span-2`}>{broker.cost} pips</div>
+                <div className={`col-span-2`}>{broker.cost.toFixed(2)} pips</div>
                 <div className={`col-span-2`}>
                 {broker.broker === "Afterprime"
                   ? "Zero"
                   : "$X USD"}
                 </div>
-                <div className={`col-span-2`}>{broker.costPerLot}</div>
+                <div className={`col-span-2`}>{broker.costPerLot.toFixed(2)} USD</div>
                 <div className={`col-span-2`}>
-                  {broker.broker === "Afterprime"
-                    ? `${broker.rebate_usd_per_lot} USD/lot`
-                    : "X icon"}
+                {broker.broker === "Afterprime" && rebatePerLot !== null
+                  ? `${rebatePerLot.toFixed(2)} USD/lot`
+                  : "—"}
                 </div>
               </div>
             ))}
