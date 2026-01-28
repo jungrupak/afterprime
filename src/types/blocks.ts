@@ -294,7 +294,9 @@ export type PageFieldGroups = {
       };
     };
   };
+  // add other field groups here
   instrument_page_fields?: {
+    hero_partial_title?:string;
     hero_bullet_lists?: [];
   }
 };

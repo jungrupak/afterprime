@@ -17,12 +17,17 @@ interface HeroBullets {
 
 interface BannerTitle {
   instrumentname?: string;
+  partialTitle?: string;
   lists?: HeroBullets[];
 }
 
 //####
 
-export default function LPBanner({ instrumentname, lists }: BannerTitle) {
+export default function LPBanner({
+  instrumentname,
+  lists,
+  partialTitle,
+}: BannerTitle) {
   return (
     <>
       <section
@@ -37,7 +42,9 @@ export default function LPBanner({ instrumentname, lists }: BannerTitle) {
           <div className={`${styles.bannerLeftItem} max-md:col-span-2`}>
             <h1 className={`max-md:mb-5`}>
               TRADE {instrumentname} <br />
-              <span>with near zero friction</span>
+              <span
+                dangerouslySetInnerHTML={{ __html: partialTitle || "" }}
+              ></span>
             </h1>
             <ListUi customClass={`md:mt-12`} heroBulletLists={lists} />
             <div className={`mt-8 md:mt-15`}>
@@ -66,13 +73,13 @@ export default function LPBanner({ instrumentname, lists }: BannerTitle) {
             </div>
           </div>
 
-          <div
+          {/* <div
             className={`${styles.bannerLeftItem} max-md:col-span-2 flex justify-end`}
           >
             <div className="w-full md:w-[400px]">
               <SinglePricing />
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
     </>

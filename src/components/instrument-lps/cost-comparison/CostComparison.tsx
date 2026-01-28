@@ -1,7 +1,61 @@
-import React from "react";
+"use client";
+import { useState, useEffect } from "react";
 import styles from "./CostComparison.module.scss";
 import Link from "next/link";
-export default function CostComparison() {
+
+//#### State Type of retrieving data
+interface BrokereArray {
+  broker: string;
+  symbol: string;
+  cost: number;
+  costPerLot: number;
+  savingPercentage: number;
+}
+interface BrokerIndividualDataType {
+  brokers: BrokereArray[];
+  secondBestVsAfterprimePct?: number | null;
+  top10VsAfterprimeAvgPct?: number | null;
+  industryVsAfterprimeAvgPct?: number | null;
+  rebate?: {
+    symbol: string;
+    product?: string;
+    rebate_usd_per_lot?: number | null;
+    effective_from?: string;
+    effective_to?: string;
+  };
+}
+// ####
+
+export default function CostComparison({
+  intrumentName,
+}: {
+  intrumentName: string;
+}) {
+  const [data, setData] = useState<BrokerIndividualDataType | null>(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    const dynamicInstrument = intrumentName.toLocaleLowerCase();
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`/api/brokers-compare`, {
+          signal: controller.signal,
+        });
+        if (!res.ok) {
+          return "Failed to Load brokers data";
+        }
+        const data = await res.json();
+        setData(data);
+      } catch (err) {
+        console.error("Failed to load data", err);
+        return "Internal Server Error";
+      }
+    };
+    fetchData();
+    return () => controller.abort();
+  }, [intrumentName]);
+
+  console.log("data:", data);
+
   return (
     <section className={`md:py-20!`}>
       {/* grain bg effect */}
@@ -10,7 +64,7 @@ export default function CostComparison() {
 
       <div className={`ap_container_small relative z-1 w-full`}>
         <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
-          GBPUSD Cost Broker Comparison
+          Compare {intrumentName} Broker Cost
         </h2>
         <div className={`${styles.costCompareTable}`}>
           <div
@@ -27,7 +81,7 @@ export default function CostComparison() {
             <div className={`col-span-2`}>Commission</div>
             <div className={`col-span-2`}>Est. All-in-Costs</div>
             <div className={`col-span-2`}>
-              Rlow Rewards<sup>TM</sup>
+              Flow Rewards<sup>TM</sup>
             </div>
           </div>
           <div className={`${styles.compareTableBody}`}>
@@ -184,7 +238,7 @@ export default function CostComparison() {
         </div>
 
         <div
-          className={`flex gap-3 text-[14px] w-full justify-center items-center mt-10`}
+          className={`flex gap-1 text-[14px] w-full justify-center items-center mt-10`}
         >
           <svg
             width="25"
@@ -208,7 +262,7 @@ export default function CostComparison() {
               fill="white"
             />
           </svg>
-          Verified as the Lowest Cost Broker on{" "}
+          Verified as the Lowest Cost Broker on
           <Link className={`underline`} href={"#"}>
             ForexBenchmark
           </Link>

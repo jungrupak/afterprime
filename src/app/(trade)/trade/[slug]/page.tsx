@@ -22,13 +22,19 @@ export default async function TradeSlugPage({ params }: PageProps) {
   }
 
   const heroBullets = page.acf?.instrument_page_fields?.hero_bullet_lists ?? [];
+  const heroPartialText =
+    page.acf?.instrument_page_fields?.hero_partial_title || undefined;
 
   //###################
 
   return (
     <>
-      <LPBanner instrumentname={page.title.rendered} lists={heroBullets} />
-      <CostComparison />
+      <LPBanner
+        instrumentname={page.title.rendered}
+        lists={heroBullets}
+        partialTitle={heroPartialText}
+      />
+      <CostComparison intrumentName={page.title.rendered} />
       <GoogleReview />
       <CostBreakdown />
       <FlowRewardIntro />

@@ -17,7 +17,7 @@ export default function CostBreakdown() {
             <thead>
               <tr>
                 <th>Volume</th>
-                <th>Raw Spraed</th>
+                <th>Raw Spread</th>
                 <th>
                   Flow Rewards <sup>TM</sup>
                 </th>
@@ -53,11 +53,9 @@ export default function CostBreakdown() {
           </table>
         </div>
 
-        <div
-          className={`flex gap-3 text-[14px] w-full justify-center items-center mt-10 opacity-65`}
-        >
-          Flow Rewards are credited per traded lot and recorded as a separate
-          PnL line.
+        <div className={`text-[14px] w-full text-center mt-10 opacity-65`}>
+          Flow Rewards<sup>TM</sup> are credited per traded lot and recorded as
+          a separate PnL line.
         </div>
       </div>
     </section>
