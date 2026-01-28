@@ -73,6 +73,16 @@ export default function CostComparison({
   const rebatePerLot =
     data?.rebate?.rebate_usd_per_lot ?? null;
 
+//Broker Commissions
+const commissionByBroker: Record<string, string> = {
+  "Afterprime": "Zero",
+  "IC Markets (Raw)": "7.00 USD",
+  "Pepperstone UK (.r)": "7.00 USD",
+  "Tickmill UK (Raw)": "4.00 USD",
+  "FXCM": "Commission undisclosed",
+  "FXOpen (TickTrader)": "7.00 USD",
+};
+
   return (
     <section className={`md:py-20!`}>
       {/* grain bg effect */}
@@ -125,11 +135,7 @@ export default function CostComparison({
                   <div className={``}>{broker.broker}</div>
                 </div>
                 <div className={`col-span-2`}>{broker.cost.toFixed(2)} pips</div>
-                <div className={`col-span-2`}>
-                {broker.broker === "Afterprime"
-                  ? "Zero"
-                  : "$X USD"}
-                </div>
+                <div className={`col-span-2`}>{commissionByBroker[broker.broker] ?? "Not disclosed"}</div>
                 <div className={`col-span-2`}>{broker.costPerLot.toFixed(2)} USD</div>
                 <div className={`col-span-2`}>
                 {broker.broker === "Afterprime" && rebatePerLot !== null
