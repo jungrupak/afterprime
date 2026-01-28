@@ -1,4 +1,3 @@
-import React from "react";
 import LPBanner from "@/components/instrument-lps/lp-bannner/LpBanner";
 import { getTradePageData } from "@/lib/getTradePageData";
 import { notFound } from "next/navigation"; //This needs to render custom 404 page created in this specific instance
@@ -61,7 +60,10 @@ export default async function TradeSlugPage({ params }: PageProps) {
         rationalData={rationalData}
       />
       <CostCalculator selectedInstrument={page.title.rendered} />
-      <ProductSpecification productSpec={customFieldProductSpec} />
+      <ProductSpecification
+        instrument={page.title.rendered}
+        productSpec={customFieldProductSpec}
+      />
       <Faq data={customFieldFaqBlock} faqSubject="FAQ" />
       <Cta content={customFieldCTABlock} />
     </>

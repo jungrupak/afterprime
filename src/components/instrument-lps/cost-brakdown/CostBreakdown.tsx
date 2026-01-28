@@ -19,6 +19,7 @@ export default function CostBreakdown({
   breakDownTableLists,
   instrument,
 }: Breakdown) {
+  if (!breakDownTableLists) return null;
   return (
     <section className={`md:py-20!`}>
       {/* grain bg effect */}

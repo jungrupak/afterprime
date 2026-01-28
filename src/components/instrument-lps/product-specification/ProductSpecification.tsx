@@ -21,10 +21,14 @@ interface ProductSpecListType {
 }
 
 interface Specification {
+  instrument?: string;
   productSpec?: ProductSpecListType;
 }
 
-export default function ProductSpecification({ productSpec }: Specification) {
+export default function ProductSpecification({
+  instrument,
+  productSpec,
+}: Specification) {
   //##
   if (!productSpec) return null;
 
@@ -36,7 +40,7 @@ export default function ProductSpecification({ productSpec }: Specification) {
 
       <div className={`ap_container_small relative z-1 w-full`}>
         <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
-          AUDUSD Trading Specification
+          {instrument} Trading Specification
         </h2>
         <div className={`${styles.costBreakDownTable}`}>
           <table cellPadding={"0"} cellSpacing={"0"} border={0}>
