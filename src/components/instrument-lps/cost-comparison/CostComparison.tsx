@@ -87,7 +87,7 @@ export default function CostComparison({
             <div className={`col-span-4`}></div>
             <div className={`col-span-2`}>Avg. Spread</div>
             <div className={`col-span-2`}>Commission</div>
-            <div className={`col-span-2`}>Est. All-in-Costs</div>
+            <div className={`col-span-2`}>Cost Per Lot</div>
             <div className={`col-span-2`}>
               Flow Rewards<sup>TM</sup>
             </div>
