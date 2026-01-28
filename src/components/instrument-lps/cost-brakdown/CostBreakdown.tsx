@@ -28,7 +28,7 @@ export default function CostBreakdown({
 
       <div className={`ap_container_small relative z-1 w-full`}>
         <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
-          {instrument} All-In-Cost
+          {instrument} All-In-Cost (Example)
         </h2>
         <div className={`${styles.costBreakDownTable}`}>
           <table cellPadding={"0"} cellSpacing={"0"} border={0}>
@@ -36,9 +36,7 @@ export default function CostBreakdown({
               <tr>
                 <th>Volume</th>
                 <th>Raw Spread</th>
-                <th>
-                  Flow Rewards<sup>TM</sup>
-                </th>
+                <th>Flow Rewards<sup>TM</sup></th>
                 <th>Net Cost</th>
               </tr>
             </thead>
