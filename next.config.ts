@@ -37,12 +37,33 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
-      {
-        source: '/home-page',
-        destination: '/',
-        permanent: true, // 301
-      },
-    ];
+        { source: '/id/:path*', destination: '/', permanent: true },
+        { source: '/pt/:path*', destination: '/', permanent: true },
+        { source: '/es/:path*', destination: '/', permanent: true },
+        { source: '/vi/:path*', destination: '/', permanent: true },
+        { source: '/sd/:path*', destination: '/', permanent: true },
+        { source: '/ar/:path*', destination: '/', permanent: true },
+        { source: '/de/:path*', destination: '/', permanent: true },
+        { source: '/id/', destination: '/', permanent: true },
+        { source: '/pt/', destination: '/', permanent: true },
+        { source: '/es/', destination: '/', permanent: true },
+        { source: '/vi/', destination: '/', permanent: true },
+        { source: '/sd/', destination: '/', permanent: true },
+        { source: '/ar/', destination: '/', permanent: true },
+        { source: '/de/', destination: '/', permanent: true },
+        { source: '/home', destination: '/', permanent: true },
+        { source: '/home-page', destination: '/', permanent: true },
+        { source: '/about-us', destination: '/', permanent: true },
+        { source: '/product-alerts', destination: '/', permanent: true },
+        { source: '/lp/forex-benchmark', destination: '/', permanent: true },
+        { source: '/fees', destination: '/', permanent: true },
+        { source: '/tradingview', destination: '/', permanent: true },
+        { source: '/competition', destination: '/', permanent: true },
+        { source: '/contact', destination: '/contact-us', permanent: true },
+        { source: '/trading-terms', destination: '/', permanent: true },
+        { source: '/sitemap', destination: '/sitemap.xml', permanent: true },
+        { source: '/trade-receipts', destination: '/', permanent: true },
+      ];
   },
 };
 
