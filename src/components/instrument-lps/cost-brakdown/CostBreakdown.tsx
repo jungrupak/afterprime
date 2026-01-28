@@ -45,7 +45,7 @@ export default function CostBreakdown({
                 <tr key={indx}>
                   <td>{item.breakdowns?.volume}</td>
                   <td>{item.breakdowns?.raw_spread}</td>
-                  <td>{item.breakdowns?.flow_rewards}</td>
+                  <td>${rebatePerLot.toFixed(2)}/lot</td>
                   <td>{item.breakdowns?.effective_net_cost}</td>
                 </tr>
               ))}
