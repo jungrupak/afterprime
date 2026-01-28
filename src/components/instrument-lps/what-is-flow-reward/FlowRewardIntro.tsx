@@ -44,7 +44,7 @@ export default function FlowRewardIntro({
           }}
         />
         <div className={`mt-10 md:mt-15`}>
-          <h2 className={`leading-[1.1]`}>Execution Quality Rationale</h2>
+          <h2 className={`leading-[1.1]`}>Execution Quality</h2>
           <Lists listItems={executionQualityItems} />
         </div>
       </div>

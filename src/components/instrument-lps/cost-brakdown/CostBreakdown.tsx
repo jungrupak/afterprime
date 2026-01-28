@@ -28,7 +28,7 @@ export default function CostBreakdown({
 
       <div className={`ap_container_small relative z-1 w-full`}>
         <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
-          {instrument} All-In-Cost Breakdown
+          {instrument} All-In-Cost
         </h2>
         <div className={`${styles.costBreakDownTable}`}>
           <table cellPadding={"0"} cellSpacing={"0"} border={0}>
@@ -37,9 +37,9 @@ export default function CostBreakdown({
                 <th>Volume</th>
                 <th>Raw Spread</th>
                 <th>
-                  Flow Rewards <sup>TM</sup>
+                  Flow Rewards<sup>TM</sup>
                 </th>
-                <th>Effective Net Cost</th>
+                <th>Net Cost</th>
               </tr>
             </thead>
             <tbody>
@@ -56,7 +56,7 @@ export default function CostBreakdown({
         </div>
 
         <div className={`text-[14px] w-full text-center mt-10 opacity-65`}>
-          Flow Rewards<sup>TM</sup> are credited per traded lot and recorded as
+          Flow Rewards<sup>TM</sup> are credited per traded lot (round turn) and recorded as
           a separate PnL line.
         </div>
       </div>

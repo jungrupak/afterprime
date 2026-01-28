@@ -15,7 +15,7 @@ export default function CostCalculator({ selectedInstrument }: Props) {
           {selectedInstrument} Trade Cost Calculator
         </h2>
         <p className={`paragraph mb-10 md:mb-15!`}>
-          Use this calculator to model GBPUSD trading costs across volume
+          Use calculator to model {selectedInstrument} trading costs across volume
           assumption, spread inputs and swaps.
         </p>
         <div className={`relative z-4!`}>

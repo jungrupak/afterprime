@@ -121,13 +121,25 @@ export default function CostComparison({
 
                   <div className={``}>{broker.broker}</div>
                 </div>
-                <div className={`col-span-2`}>0.044 Pips</div>
-                <div className={`col-span-2`}>0 USD</div>
-                <div className={`col-span-2`}>0.044 pips or lower</div>
+                <div className={`col-span-2`}>
+                {broker.broker === "Afterprime"
+                  ? "x.yz pips"
+                  : "xx.yyzz pips"}
+                </div>
+                <div className={`col-span-2`}>
+                {broker.broker === "Afterprime"
+                  ? "Zero"
+                  : "$X USD"}
+                </div>
+                <div className={`col-span-2`}>
+                {broker.broker === "Afterprime"
+                  ? "$XYZ Calc"
+                  : "$X Calc"}
+                </div>
                 <div className={`col-span-2`}>
                   {broker.broker === "Afterprime"
-                    ? "$0.50 USD/lot"
-                    : "$0.00 USD/Lot"}
+                    ? "$insertrebatevalue USD/lot"
+                    : "X icon"}
                 </div>
               </div>
             ))}
@@ -159,8 +171,8 @@ export default function CostComparison({
               fill="white"
             />
           </svg>
-          Verified as the Lowest Cost Broker on
-          <Link className={`underline`} href={"#"}>
+          Ranked #1 Lowest Cost Broker on
+          <Link className={`underline`} target={`_blank`} href={"https://www.forexbenchmark.com"}>
             ForexBenchmark
           </Link>
         </div>

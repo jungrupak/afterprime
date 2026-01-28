@@ -39,7 +39,7 @@ export default function LPBanner({
         >
           <div className={`${styles.bannerLeftItem} max-md:col-span-2`}>
             <h1 className={`max-md:mb-5`}>
-              TRADE {instrumentname} <br />
+              Trade {instrumentname} <br />
               <span
                 dangerouslySetInnerHTML={{ __html: partialTitle || "" }}
               ></span>
@@ -50,7 +50,7 @@ export default function LPBanner({
                 varient="primary"
                 size="large"
                 linkTarget={"_blank"}
-                href={"https://app.afterprime.com/live"}
+                href={"#"}
                 className="group"
               >
                 <svg

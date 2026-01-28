@@ -36,7 +36,7 @@ export default function Cta({ content }: ComponentProps) {
               varient="primary"
               size="large"
               linkTarget={"_blank"}
-              href={content.cta_link || "https://app.afterprime.com/live"}
+              href={content.cta_link || "#"}
               className="group"
             >
               <svg

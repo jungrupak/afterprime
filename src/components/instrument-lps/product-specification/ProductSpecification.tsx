@@ -54,21 +54,21 @@ export default function ProductSpecification({
                 <td>{productSpec.product_type}</td>
               </tr>
               <tr>
-                <td>Average spread</td>
+                <td>Avg. Spread</td>
                 <td>{productSpec.average_spread}</td>
               </tr>
               <tr>
                 <td>Commission</td>
-                <td>{productSpec.commission}</td>
+                <td>Zero</td>
               </tr>
               <tr>
                 <td>
-                  Flow Rewards<sup>TM</sup> per lot
+                  Flow Rewards<sup>TM</sup>
                 </td>
                 <td>{productSpec.flow_rewardstm_per_lot}</td>
               </tr>
               <tr>
-                <td>Execution speed</td>
+                <td>Execution Speed</td>
                 <td>{productSpec.execution_speed}</td>
               </tr>
               <tr>
@@ -76,35 +76,35 @@ export default function ProductSpecification({
                 <td>{productSpec.contract_size}</td>
               </tr>
               <tr>
-                <td>Minimum lot</td>
+                <td>Min. Lot</td>
                 <td>{productSpec.minimum_lot}</td>
               </tr>
               <tr>
-                <td>Maximum lots</td>
+                <td>Max. Lots</td>
                 <td>{productSpec.maximum_lots}</td>
               </tr>
               <tr>
-                <td>Lot step</td>
+                <td>Lot Step</td>
                 <td>{productSpec.lot_step}</td>
               </tr>
               <tr>
-                <td>Leverage</td>
+                <td>Max Leverage</td>
                 <td>{productSpec.leverage}</td>
               </tr>
               <tr>
-                <td>Swap type & 3-Day Swap</td>
+                <td>Swap Type & 3-Day Swap</td>
                 <td>{productSpec.swap_type_and_3_day_swap}</td>
               </tr>
               <tr>
-                <td>Trading hours</td>
+                <td>Trading Hours</td>
                 <td>{productSpec.trading_hours}</td>
               </tr>
               <tr>
-                <td>Platforms supported</td>
+                <td>Platforms</td>
                 <td>{productSpec.platforms_supported}</td>
               </tr>
               <tr>
-                <td>Licensing and regulation</td>
+                <td>Licensing</td>
                 <td>{productSpec.licensing_and_regulation}</td>
               </tr>
             </tbody>

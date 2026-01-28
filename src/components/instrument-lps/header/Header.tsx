@@ -50,7 +50,7 @@ export default function Header() {
                 varient="ghost"
                 size="small"
                 linkTarget="_blank"
-                href={"https://app.afterprime.com/login"}
+                href={"#"}
               >
                 Apply Now
               </Button>
