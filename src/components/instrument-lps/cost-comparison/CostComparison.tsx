@@ -100,7 +100,7 @@ const commissionByBroker: Record<string, string> = {
             <div className={`col-span-4`}></div>
             <div className={`col-span-2`}>Avg. Spread</div>
             <div className={`col-span-2`}>Commission<br/>(Round Turn)</div>
-            <div className={`col-span-2`}>Cost Per Lot</div>
+            <div className={`col-span-2`}>All-In Cost</div>
             <div className={`col-span-2`}>Flow Rewards<sup>TM</sup></div>
           </div>
           <div className={`${styles.compareTableBody}`}>
