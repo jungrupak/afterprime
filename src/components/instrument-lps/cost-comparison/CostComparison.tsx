@@ -78,9 +78,9 @@ const commissionByBroker: Record<string, string> = {
   "Afterprime": "Zero",
   "IC Markets (Raw)": "$7.00",
   "Pepperstone UK (.r)": "$7.00",
-  "Tickmill UK (Raw)": "$4.00",
-  "FXCM": "Commission undisclosed",
-  "FXOpen (TickTrader)": "$7.00",
+  "Tickmill UK (Raw)": "$6.00",
+  "FXCM": "$7.00",
+  "FXOpen (TickTrader)": "$5.00",
 };
 
   return (
@@ -101,9 +101,7 @@ const commissionByBroker: Record<string, string> = {
             <div className={`col-span-2`}>Avg. Spread</div>
             <div className={`col-span-2`}>Commission<br/>(Round Turn)</div>
             <div className={`col-span-2`}>Cost Per Lot</div>
-            <div className={`col-span-2`}>
-              Flow Rewards<sup>TM</sup>
-            </div>
+            <div className={`col-span-2`}>Flow Rewards<sup>TM</sup></div>
           </div>
           <div className={`${styles.compareTableBody}`}>
             {/* #### */}
@@ -136,7 +134,7 @@ const commissionByBroker: Record<string, string> = {
                 </div>
                 <div className={`col-span-2`}>{broker.cost.toFixed(2)} pips</div>
                 <div className={`col-span-2`}>{commissionByBroker[broker.broker] ?? "Not disclosed"}</div>
-                <div className={`col-span-2`}>{broker.costPerLot.toFixed(2)}</div>
+                <div className={`col-span-2`}>${broker.costPerLot.toFixed(2)}</div>
                 <div className={`col-span-2`}>
                 {broker.broker === "Afterprime" && rebatePerLot !== null
                   ? `$${rebatePerLot.toFixed(2)}/lot`
