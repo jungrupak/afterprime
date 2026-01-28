@@ -121,11 +121,7 @@ export default function CostComparison({
 
                   <div className={``}>{broker.broker}</div>
                 </div>
-                <div className={`col-span-2`}>
-                {broker.broker === "Afterprime"
-                  ? `${broker.broker} pips`
-                  : "xx.yyzz pips"}
-                </div>
+                <div className={`col-span-2`}>{broker.broker} pips</div>
                 <div className={`col-span-2`}>
                 {broker.broker === "Afterprime"
                   ? "Zero"
