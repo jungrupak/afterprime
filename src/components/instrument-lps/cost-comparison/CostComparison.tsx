@@ -74,13 +74,13 @@ export default function CostComparison({
     data?.rebate?.rebate_usd_per_lot ?? null;
 
 //Broker Commissions
-const commissionByBroker: Record<string, string> = {
-  "Afterprime": "Zero",
-  "IC Markets (Raw)": "$7.00",
-  "Pepperstone UK (.r)": "$7.00",
-  "Tickmill UK (Raw)": "$6.00",
-  "FXCM": "$7.00",
-  "FXOpen (TickTrader)": "$5.00",
+const commissionByBroker: Record<string, number> = {
+  "Afterprime": 0,
+  "IC Markets (Raw)": 7,
+  "Pepperstone UK (.r)": 7,
+  "Tickmill UK (Raw)": 6,
+  "FXCM": 7,
+  "FXOpen (TickTrader)": 5,
 };
 
   return (
@@ -141,7 +141,22 @@ const commissionByBroker: Record<string, string> = {
                   ? `$${rebatePerLot.toFixed(2)}/lot`
                   : "—"}
                 </div>
-                <div className={`col-span-2`}>(CostPerLot+Comms)-Rebate = Total</div>
+                <div className={`col-span-2`}>
+                {(() => {
+                  const commission = commissionByBroker[broker.broker] ?? 0;
+
+                  // AfterPrime: costPerLot minus rebate
+                  if (broker.broker === "Afterprime") {
+                    const rebate = rebatePerLot ?? 0;
+                    const allIn = broker.costPerLot - rebate;
+                    return `$${allIn.toFixed(2)}`;
+                  }
+
+                  // Other brokers: costPerLot plus commission
+                  const allIn = broker.costPerLot + commission;
+                  return `$${allIn.toFixed(2)}`;
+                })()}
+                </div>
               </div>
             ))}
           </div>
