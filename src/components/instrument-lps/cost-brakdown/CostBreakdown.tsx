@@ -43,8 +43,8 @@ export default function CostBreakdown({
             <tbody>
                 <tr>
                   <td>50</td>
-                  <td>{broker.cost.toFixed(2)} pips</td>
-                  <td>${rebatePerLot.toFixed(2)}/lot</td>
+                  <td>xyz pips</td>
+                  <td>$dynxyz/lot</td>
                   <td>XYZ</td>
                 </tr>
             </tbody>
