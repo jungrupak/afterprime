@@ -98,18 +98,18 @@ const commissionByBroker: Record<string, number> = {
             className={`${styles.costCompareTableHead} grid grid-cols-12 gap-5`}
           >
             <div className={`col-span-4`}></div>
-            <div className={`col-span-2`}>Avg. Spread</div>
-            <div className={`col-span-2`}>Commission<br/>(Round Turn)</div>
-            <div className={`col-span-2`}>Cost Per Lot</div>
-            <div className={`col-span-2`}>Flow Rewards<sup>TM</sup></div>
-            <div className={``}>All-In Cost</div>
+            <div className={`col-span-1`}>Avg. Spread</div>
+            <div className={`col-span-1`}>Commission<br/>(Round Turn)</div>
+            <div className={`col-span-1`}>Cost Per Lot</div>
+            <div className={`col-span-1`}>Flow Rewards<sup>TM</sup></div>
+            <div className={`col-span-1`}>All-In Cost</div>
           </div>
           <div className={`${styles.compareTableBody}`}>
             {/* #### */}
 
             {pickedBrokersLists?.map((broker, indx) => (
               <div
-                key={indx}
+                key={`${broker.broker}-${broker.symbol}`}
                 className={`${styles.costCompareTableRow} ${broker.broker === "Afterprime" ? styles.afterprime : ""} grid grid-cols-12 gap-5`}
               >
                 <div className={`col-span-4 relative`}>
@@ -133,15 +133,19 @@ const commissionByBroker: Record<string, number> = {
 
                   <div className={``}>{broker.broker}</div>
                 </div>
-                <div className={`col-span-2`}>{broker.cost.toFixed(2)} pips</div>
-                <div className={`col-span-2`}>{commissionByBroker[broker.broker] ?? "Not disclosed"}</div>
-                <div className={`col-span-2`}>${broker.costPerLot.toFixed(2)}</div>
-                <div className={`col-span-2`}>
+                <div className={`col-span-1`}>{broker.cost.toFixed(2)} pips</div>
+                <div className={`col-span-1`}>
+                {commissionByBroker[broker.broker] !== undefined
+                ? `$${commissionByBroker[broker.broker].toFixed(2)}`
+                : "Not disclosed"}
+                </div>
+                <div className={`col-span-1`}>${broker.costPerLot.toFixed(2)}</div>
+                <div className={`col-span-1`}>
                 {broker.broker === "Afterprime" && rebatePerLot !== null
                   ? `$${rebatePerLot.toFixed(2)}/lot`
                   : "—"}
                 </div>
-                <div className={``}>
+                <div className={`col-span-1`}>
                 {(() => {
                   const commission = commissionByBroker[broker.broker] ?? 0;
 
