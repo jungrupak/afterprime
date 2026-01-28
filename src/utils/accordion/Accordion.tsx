@@ -13,17 +13,18 @@ interface AccordionProps {
 }
 
 export default function Accordion({
-  faqObjects = [],
+  faqObjects,
   answerFluid = false,
 }: AccordionProps) {
   const [isOpenAnswer, setIsOpenAnswer] = useState(0);
 
   // Process all answers with the hook at top level
+  if (!faqObjects) return null;
   const processedAnswers = faqObjects.map((item) =>
     (item.answer || "")
       .split(/\n+/)
       .map((line) => `<p>${line.trim()}</p>`)
-      .join("")
+      .join(""),
   );
   return (
     <div className={`${styles.accordion_wrapper}`}>

@@ -8,7 +8,7 @@ import CostBreakdown from "@/components/instrument-lps/cost-brakdown/CostBreakdo
 import FlowRewardIntro from "@/components/instrument-lps/what-is-flow-reward/FlowRewardIntro";
 import CostCalculator from "@/components/instrument-lps/cost-calculator/CostCalculator";
 import ProductSpecification from "@/components/instrument-lps/product-specification/ProductSpecification";
-import Faq from "@/components/faq/Faq";
+import Faq from "@/components/instrument-lps/faq/Faq";
 import Cta from "@/components/instrument-lps/cta/Cta";
 
 interface PageProps {
@@ -21,9 +21,24 @@ export default async function TradeSlugPage({ params }: PageProps) {
     notFound();
   }
 
-  const heroBullets = page.acf?.instrument_page_fields?.hero_bullet_lists ?? [];
+  const heroBullets = page.acf?.instrument_page_fields?.hero_bullet_lists;
   const heroPartialText =
     page.acf?.instrument_page_fields?.hero_partial_title || undefined;
+
+  const costBreakDownListData =
+    page.acf?.instrument_page_fields?.all_in_cost_breakdown ?? [];
+
+  const flowRewardContent =
+    page.acf?.instrument_page_fields?.what_is_flow_rewards_section || undefined;
+
+  const rationalData =
+    page.acf?.instrument_page_fields?.execution_quality_rational || undefined;
+
+  const customFieldProductSpec =
+    page.acf?.instrument_page_fields?.product_specification;
+
+  const customFieldFaqBlock = page.acf?.faq_section?.q_and_a;
+  const customFieldCTABlock = page.acf?.instrument_page_fields?.lp_cta;
 
   //###################
 
@@ -36,12 +51,19 @@ export default async function TradeSlugPage({ params }: PageProps) {
       />
       <CostComparison intrumentName={page.title.rendered} />
       <GoogleReview />
-      <CostBreakdown />
-      <FlowRewardIntro />
-      <CostCalculator />
-      <ProductSpecification />
-      {/* <Faq data={page.acf?.faq_section} faqSubject="FAQ" /> */}
-      <Cta />
+      <CostBreakdown
+        breakDownTableLists={costBreakDownListData}
+        instrument={page.title.rendered}
+      />
+      <FlowRewardIntro
+        instrument={page.title.rendered}
+        content={flowRewardContent}
+        rationalData={rationalData}
+      />
+      <CostCalculator selectedInstrument={page.title.rendered} />
+      <ProductSpecification productSpec={customFieldProductSpec} />
+      <Faq data={customFieldFaqBlock} faqSubject="FAQ" />
+      <Cta content={customFieldCTABlock} />
     </>
   );
 }

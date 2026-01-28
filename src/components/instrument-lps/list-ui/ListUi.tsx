@@ -2,27 +2,32 @@ import React from "react";
 import styles from "./ListUI.module.scss";
 
 interface HeroBullets {
-  bullet_point?: string;
+  point_one?: string;
+  point_two?: string;
+  point_three?: string;
 }
 
 interface ListUiProps {
   customClass?: string;
-  heroBulletLists?: HeroBullets[];
+  heroBulletLists?: HeroBullets;
 }
 
-export default function ListUi({
-  customClass,
-  heroBulletLists = [],
-}: ListUiProps) {
+export default function ListUi({ customClass, heroBulletLists }: ListUiProps) {
+  if (!heroBulletLists) return null;
   return (
     <div className={`${styles.listUi} ${customClass}`}>
       <ul>
-        {heroBulletLists.map((item, idx) => (
-          <li
-            key={idx}
-            dangerouslySetInnerHTML={{ __html: item.bullet_point || "" }}
-          />
-        ))}
+        <li
+          dangerouslySetInnerHTML={{ __html: heroBulletLists.point_one || "" }}
+        />
+        <li
+          dangerouslySetInnerHTML={{ __html: heroBulletLists.point_two || "" }}
+        />
+        <li
+          dangerouslySetInnerHTML={{
+            __html: heroBulletLists.point_three || "",
+          }}
+        />
       </ul>
     </div>
   );

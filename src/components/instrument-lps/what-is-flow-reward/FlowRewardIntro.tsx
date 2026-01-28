@@ -1,16 +1,31 @@
 import React from "react";
 import Lists from "@/components/ui/Lists";
 
-interface FlowIntroProps {
-  title?: string;
+interface QualityRationalData {
+  item_one?: string;
+  item_two?: string;
+}
+
+interface SectionData {
+  heading?: string;
   paragraph?: string;
 }
-export default function FlowRewardIntro({ title, paragraph }: FlowIntroProps) {
-  const ListItems = [
-    "AUDUSD trades at tight nominal spreads where small execution differences compound quickly. ",
-    "Flow RewardsTM offset spread cost as volume increases, improving repeatability of results. ",
-    "Net cost stability matters most when scaling trade frequency or position size.",
-  ];
+
+interface FlowIntroProps {
+  instrument?: string;
+  content?: SectionData;
+  rationalData?: QualityRationalData;
+}
+export default function FlowRewardIntro({
+  instrument,
+  content,
+  rationalData,
+}: FlowIntroProps) {
+  if (!content) return;
+
+  const executionQualityItems = Object.values(
+    rationalData as QualityRationalData,
+  ).filter(Boolean) as string[];
 
   return (
     <section className={`md:py-20!`}>
@@ -18,19 +33,19 @@ export default function FlowRewardIntro({ title, paragraph }: FlowIntroProps) {
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
       <div className={`ap_container_small relative z-1 w-full`}>
-        <h2 className={`leading-[1.1]`}>
-          What Flow Rewards<sup className={`text-[24px]`}>TM</sup> Means in
-          Practice
-        </h2>
-        <p className={`paragraph`}>
-          AUDUSD trades at tight nominal spreads where small execution
-          differences compound quickly. Flow Rewards<sup>TM</sup> offset spread
-          cost as volume increases, improving repeatability of results. Net cost
-          stability matters most when scaling trade frequency or position size.
-        </p>
+        <h2
+          dangerouslySetInnerHTML={{ __html: content.heading || "" }}
+          className={`leading-[1.1]`}
+        />
+        <p
+          className={`paragraph`}
+          dangerouslySetInnerHTML={{
+            __html: `${instrument} -  ${content.paragraph || ""}`,
+          }}
+        />
         <div className={`mt-10 md:mt-15`}>
           <h2 className={`leading-[1.1]`}>Execution Quality Rationale</h2>
-          <Lists listItems={ListItems} />
+          <Lists listItems={executionQualityItems} />
         </div>
       </div>
     </section>

@@ -3,10 +3,10 @@ import styles from "./TradingCalculator.module.scss";
 import Dropdown from "@/components/ui/dropdown/Dropdown";
 import Input from "@/components/ui/inputfield/Input";
 import Button from "@/components/ui/Button";
-import {useState, useEffect, useRef, useMemo} from "react";
-import {useLiveQote} from "@/hooks/useLiveQuote";
-import {useInstrument} from "@/hooks/useInstruments";
-import {getUSDRates} from "@/lib/getUsdRate";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { useLiveQote } from "@/hooks/useLiveQuote";
+import { useInstrument } from "@/hooks/useInstruments";
+import { getUSDRates } from "@/lib/getUsdRate";
 import ProgressLoader from "../ui/ProgressLoader";
 import SuggestionInput from "../ui/suggestionInput/SuggestionInput";
 
@@ -31,7 +31,11 @@ interface Results {
   minLotStep: number;
 }
 
-export default function TradingCalculator() {
+interface Props {
+  selectedInstrument?: string;
+}
+
+export default function TradingCalculator({ selectedInstrument }: Props) {
   //#### loader
   const [loading, setLoading] = useState(true);
 
@@ -51,7 +55,7 @@ export default function TradingCalculator() {
   const [trade, setTrade] = useState({
     lotSize: "1.00",
     leverage: "1:100",
-    selectedInstrument: "EURUSD",
+    selectedInstrument: selectedInstrument || "EURUSD",
     accountCurrency: "USD",
     exchangeRate: "1",
     instrumentGroup: "Forex",
@@ -104,7 +108,7 @@ export default function TradingCalculator() {
   };
 
   //Exchange rate GET from the getUSDRate FC
-  const {getUSDRate} = getUSDRates();
+  const { getUSDRate } = getUSDRates();
   //const rate = getUSDRate("CAD") || 0;
   //console.log("CAD curr:", rate.toFixed(4));
   const handleExchangeRate = (value: string) => {
@@ -120,7 +124,7 @@ export default function TradingCalculator() {
 
   //Get Symbols Lists from live pricing
   const instruments = useLiveQote();
-  const {prices} = instruments;
+  const { prices } = instruments;
   const symbolArray: string[] = prices.map((item) => item.symbol);
 
   //Memorize the active instruments price
@@ -139,12 +143,12 @@ export default function TradingCalculator() {
     const ask = String(activeLivePrice.bestAsk);
     const group = String(activeLivePrice.group?.split("\\")[0]);
 
-    setSnapshotPrice({bid, ask});
+    setSnapshotPrice({ bid, ask });
     setPrice({
       bidPrice: bid,
       askPrice: ask,
     });
-    setTrade((prev) => ({...prev, instrumentGroup: group}));
+    setTrade((prev) => ({ ...prev, instrumentGroup: group }));
     //run calculations
   }, [activeLivePrice, trade.selectedInstrument]);
 
@@ -200,7 +204,7 @@ export default function TradingCalculator() {
   //Calculation Stuff ################################################################################### Calculation
   //Calculation Stuff ###################################################################################
 
-  const {allIsntruments} = useInstrument();
+  const { allIsntruments } = useInstrument();
   const INSTRUMENTS = useMemo(() => {
     return allIsntruments.reduce(
       (acc, inst) => {
@@ -226,7 +230,7 @@ export default function TradingCalculator() {
           volumeMin: number;
           volumeStep: number;
         }
-      >
+      >,
     );
   }, [allIsntruments]);
 
@@ -346,7 +350,7 @@ export default function TradingCalculator() {
     )
       return;
 
-    const {volumeMin, volumeStep} = instrument;
+    const { volumeMin, volumeStep } = instrument;
 
     const minLot = volumeMin / 10000;
     const minStep = volumeStep / 10000;
@@ -357,16 +361,16 @@ export default function TradingCalculator() {
       minLotStep: minStep,
     }));
 
-    setTrade((prev) => ({...prev, lotSize: String(minStep)}));
+    setTrade((prev) => ({ ...prev, lotSize: String(minStep) }));
 
     if (minStep === 0.01) {
-      setTrade((prev) => ({...prev, lotSize: String("1.00")}));
+      setTrade((prev) => ({ ...prev, lotSize: String("1.00") }));
     }
     if (minStep === 0.1) {
-      setTrade((prev) => ({...prev, lotSize: String("1.0")}));
+      setTrade((prev) => ({ ...prev, lotSize: String("1.0") }));
     }
     if (minStep === 1) {
-      setTrade((prev) => ({...prev, lotSize: String("1")}));
+      setTrade((prev) => ({ ...prev, lotSize: String("1") }));
     }
   }, [trade.selectedInstrument]);
 
@@ -413,7 +417,7 @@ export default function TradingCalculator() {
                 label={trade.accountCurrency}
                 options={accountCurrencies}
                 selectedValue={(value) => {
-                  setTrade((prev) => ({...prev, accountCurrency: value}));
+                  setTrade((prev) => ({ ...prev, accountCurrency: value }));
                   handleExchangeRate(value);
                 }} //runs callback function and set it's value accordingly i.e "value" here
               />
@@ -444,7 +448,7 @@ export default function TradingCalculator() {
                 label={trade.leverage}
                 options={tradingLeverages}
                 selectedValue={(value) => {
-                  setTrade((prev) => ({...prev, leverage: value}));
+                  setTrade((prev) => ({ ...prev, leverage: value }));
                 }} //runs callback function
               />
             </div>
@@ -471,7 +475,7 @@ export default function TradingCalculator() {
                           : 5;
 
                   if (value.length < exceedLength) {
-                    setTrade((prev) => ({...prev, lotSize: value}));
+                    setTrade((prev) => ({ ...prev, lotSize: value }));
                   } else {
                     setError((prev) => ({
                       ...prev,
@@ -503,14 +507,14 @@ export default function TradingCalculator() {
                 value={price.bidPrice}
                 steps={"0.00001"}
                 onchange={(value) => {
-                  setPrice((prev) => ({...prev, bidPrice: value}));
+                  setPrice((prev) => ({ ...prev, bidPrice: value }));
                   if (Number(value) < 0) {
                     setError((prev) => ({
                       ...prev,
                       inputErrorBid: "Value cannot be negative",
                     }));
                   } else {
-                    setError((prev) => ({...prev, inputErrorBid: ""})); //clear error msg state
+                    setError((prev) => ({ ...prev, inputErrorBid: "" })); //clear error msg state
                   }
                 }}
                 error={error.inputErrorBid}
@@ -523,14 +527,14 @@ export default function TradingCalculator() {
                 value={price.askPrice}
                 steps={"0.00001"}
                 onchange={(value) => {
-                  setPrice((prev) => ({...prev, askPrice: value}));
+                  setPrice((prev) => ({ ...prev, askPrice: value }));
                   if (value < price.bidPrice) {
                     setError((prev) => ({
                       ...prev,
                       inputErrorAsk: "Value cannot be less than bidPrice",
                     }));
                   } else {
-                    setError((prev) => ({...prev, inputErrorAsk: ""})); //clear error msg state
+                    setError((prev) => ({ ...prev, inputErrorAsk: "" })); //clear error msg state
                   }
                 }}
                 error={error.inputErrorAsk}
@@ -598,7 +602,7 @@ export default function TradingCalculator() {
               <div className={`${styles.resultCard}`}>
                 <span>Margin Long</span>
                 <div className="flex items-center gap-1">
-                  {loading ? <ProgressLoader/> : result.marginLong}{" "}
+                  {loading ? <ProgressLoader /> : result.marginLong}{" "}
                   <span className="text-[14px] opacity-65">
                     {activeCurrency}
                   </span>
@@ -611,7 +615,7 @@ export default function TradingCalculator() {
               <div className={`${styles.resultCard}`}>
                 <span>Margin Short</span>
                 <div className="flex items-center gap-1">
-                  {loading ? <ProgressLoader/> : result.marginShort}{" "}
+                  {loading ? <ProgressLoader /> : result.marginShort}{" "}
                   <span className="text-[14px] opacity-65">
                     {activeCurrency}
                   </span>
@@ -624,7 +628,7 @@ export default function TradingCalculator() {
               <div className={`${styles.resultCard}`}>
                 <span>Contract Size</span>
                 <div className="flex items-center gap-1">
-                  {loading ? <ProgressLoader/> : result.contract}
+                  {loading ? <ProgressLoader /> : result.contract}
                 </div>
               </div>
             </div>
@@ -635,13 +639,13 @@ export default function TradingCalculator() {
                 <span>Spreads</span>
                 <div className="flex items-center gap-1">
                   {loading ? (
-                    <ProgressLoader/>
+                    <ProgressLoader />
                   ) : (
                     formatNumber(result.spread, 1)
                   )}{" "}
                   <span className="text-[14px] opacity-65">pips</span> /{" "}
                   {loading ? (
-                    <ProgressLoader/>
+                    <ProgressLoader />
                   ) : (
                     formatNumber(result.spreadCost, 2)
                   )}{" "}
@@ -658,7 +662,7 @@ export default function TradingCalculator() {
                 <span>Point Value</span>
                 <div className="flex items-center gap-1">
                   {loading ? (
-                    <ProgressLoader/>
+                    <ProgressLoader />
                   ) : (
                     formatNumber(result.pointValue, 4)
                   )}{" "}
@@ -674,9 +678,9 @@ export default function TradingCalculator() {
               <div className={`${styles.resultCard}`}>
                 <span>Swap long</span>
                 <div className="flex items-center gap-1">
-                  {loading ? <ProgressLoader/> : result.swapLongPips}
+                  {loading ? <ProgressLoader /> : result.swapLongPips}
                   <span className="text-[14px] opacity-65">pips</span> /
-                  {loading ? <ProgressLoader/> : result.swapLongValue}
+                  {loading ? <ProgressLoader /> : result.swapLongValue}
                   <span className="text-[14px] opacity-65">
                     {activeCurrency}
                   </span>
@@ -689,9 +693,9 @@ export default function TradingCalculator() {
               <div className={`${styles.resultCard}`}>
                 <span>Swap Short</span>
                 <div className="flex items-center gap-1">
-                  {loading ? <ProgressLoader/> : result.swapShortPips}
+                  {loading ? <ProgressLoader /> : result.swapShortPips}
                   <span className="text-[14px] opacity-65">pips</span> /{" "}
-                  {loading ? <ProgressLoader/> : result.swapShortValue}
+                  {loading ? <ProgressLoader /> : result.swapShortValue}
                   <span className="text-[14px] opacity-65">
                     {activeCurrency}
                   </span>

@@ -1,7 +1,33 @@
 import React from "react";
 import styles from "./ProductSpecification.module.scss";
 import Link from "next/link";
-export default function ProductSpecification() {
+
+interface ProductSpecListType {
+  asset_class?: string;
+  product_type?: string;
+  average_spread?: string;
+  commission?: string;
+  flow_rewardstm_per_lot?: string;
+  execution_speed?: string;
+  contract_size?: string;
+  minimum_lot?: string;
+  maximum_lots?: string;
+  lot_step?: string;
+  leverage?: string;
+  swap_type_and_3_day_swap?: string;
+  trading_hours?: string;
+  platforms_supported?: string;
+  licensing_and_regulation?: string;
+}
+
+interface Specification {
+  productSpec?: ProductSpecListType;
+}
+
+export default function ProductSpecification({ productSpec }: Specification) {
+  //##
+  if (!productSpec) return null;
+
   return (
     <section className={`md:py-20!`}>
       {/* grain bg effect */}
@@ -17,69 +43,65 @@ export default function ProductSpecification() {
             <tbody>
               <tr>
                 <td>Asset Class</td>
-                <td>Forex</td>
+                <td>{productSpec.asset_class}</td>
               </tr>
               <tr>
                 <td>Product type</td>
-                <td>Perpetual spot FX</td>
+                <td>{productSpec.product_type}</td>
               </tr>
               <tr>
                 <td>Average spread</td>
-                <td>4.4 points, 0.044 pips</td>
+                <td>{productSpec.average_spread}</td>
               </tr>
               <tr>
                 <td>Commission</td>
-                <td>0 USD per lot</td>
+                <td>{productSpec.commission}</td>
               </tr>
               <tr>
                 <td>
                   Flow Rewards<sup>TM</sup> per lot
                 </td>
-                <td>Up to 0.50 USD</td>
+                <td>{productSpec.flow_rewardstm_per_lot}</td>
               </tr>
               <tr>
                 <td>Execution speed</td>
-                <td>Less than 1 millisecond</td>
+                <td>{productSpec.execution_speed}</td>
               </tr>
               <tr>
                 <td>Contract size</td>
-                <td>100,000</td>
+                <td>{productSpec.contract_size}</td>
               </tr>
               <tr>
                 <td>Minimum lot</td>
-                <td>0.01</td>
+                <td>{productSpec.minimum_lot}</td>
               </tr>
               <tr>
                 <td>Maximum lots</td>
-                <td>200</td>
+                <td>{productSpec.maximum_lots}</td>
               </tr>
               <tr>
                 <td>Lot step</td>
-                <td>0.01</td>
+                <td>{productSpec.lot_step}</td>
               </tr>
               <tr>
                 <td>Leverage</td>
-                <td>Up to 1:400</td>
+                <td>{productSpec.leverage}</td>
               </tr>
               <tr>
                 <td>Swap type & 3-Day Swap</td>
-                <td>Points based, Wednesday</td>
+                <td>{productSpec.swap_type_and_3_day_swap}</td>
               </tr>
               <tr>
                 <td>Trading hours</td>
-                <td>Monday to Friday 00:00 to 23:59 GMT plus 2</td>
+                <td>{productSpec.trading_hours}</td>
               </tr>
               <tr>
                 <td>Platforms supported</td>
-                <td>MT4, MT5, WebTrader, TraderEvolution, FIX API</td>
+                <td>{productSpec.platforms_supported}</td>
               </tr>
               <tr>
                 <td>Licensing and regulation</td>
-                <td>
-                  Afterprime Ltd (Seychelles company registration number
-                  8426189-1) is a Securities Dealer, authorised by the Financial
-                  Service Authority (FSA) with license number SD057
-                </td>
+                <td>{productSpec.licensing_and_regulation}</td>
               </tr>
             </tbody>
           </table>

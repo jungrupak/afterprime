@@ -2,7 +2,11 @@ import React from "react";
 import TradingCalculator from "@/components/trading-calculator/TradingCalculator";
 import styles from "./CostCalculator.module.scss";
 
-export default function CostCalculator() {
+interface Props {
+  selectedInstrument?: string;
+}
+
+export default function CostCalculator({ selectedInstrument }: Props) {
   return (
     <section className={`${styles.pageCalcWrap} md:py-20!`}>
       <div className="grainy_bg"></div>
@@ -12,8 +16,10 @@ export default function CostCalculator() {
           Use this calculator to model GBPUSD trading costs across volume
           assumption, spread inputs and swaps.
         </p>
-        <TradingCalculator />
-        <p className={`z-1 max-md:mt-4`}>
+        <div className={`relative z-4!`}>
+          <TradingCalculator selectedInstrument={selectedInstrument} />
+        </div>
+        <p className={`max-md:mt-4`}>
           This tool is intended for cost modeling only.
         </p>
       </div>
