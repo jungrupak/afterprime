@@ -76,11 +76,11 @@ export default function CostComparison({
 //Broker Commissions
 const commissionByBroker: Record<string, string> = {
   "Afterprime": "Zero",
-  "IC Markets (Raw)": "7.00 USD",
-  "Pepperstone UK (.r)": "7.00 USD",
-  "Tickmill UK (Raw)": "4.00 USD",
+  "IC Markets (Raw)": "$7.00",
+  "Pepperstone UK (.r)": "$7.00",
+  "Tickmill UK (Raw)": "$4.00",
   "FXCM": "Commission undisclosed",
-  "FXOpen (TickTrader)": "7.00 USD",
+  "FXOpen (TickTrader)": "$7.00",
 };
 
   return (
@@ -99,7 +99,7 @@ const commissionByBroker: Record<string, string> = {
           >
             <div className={`col-span-4`}></div>
             <div className={`col-span-2`}>Avg. Spread</div>
-            <div className={`col-span-2`}>Commission</div>
+            <div className={`col-span-2`}>Commission<br/>(Round Turn)</div>
             <div className={`col-span-2`}>Cost Per Lot</div>
             <div className={`col-span-2`}>
               Flow Rewards<sup>TM</sup>
@@ -136,10 +136,10 @@ const commissionByBroker: Record<string, string> = {
                 </div>
                 <div className={`col-span-2`}>{broker.cost.toFixed(2)} pips</div>
                 <div className={`col-span-2`}>{commissionByBroker[broker.broker] ?? "Not disclosed"}</div>
-                <div className={`col-span-2`}>{broker.costPerLot.toFixed(2)} USD</div>
+                <div className={`col-span-2`}>{broker.costPerLot.toFixed(2)}</div>
                 <div className={`col-span-2`}>
                 {broker.broker === "Afterprime" && rebatePerLot !== null
-                  ? `${rebatePerLot.toFixed(2)} USD/lot`
+                  ? `$${rebatePerLot.toFixed(2)}/lot`
                   : "—"}
                 </div>
               </div>
@@ -175,7 +175,7 @@ const commissionByBroker: Record<string, string> = {
           Ranked #1 Lowest Cost Broker on
           <Link className={`underline`} target={`_blank`} href={"https://www.forexbenchmark.com"}>
             ForexBenchmark
-          </Link>
+          </Link>. Prices quoted in US Dollars.
         </div>
       </div>
     </section>
