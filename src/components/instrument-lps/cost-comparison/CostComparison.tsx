@@ -244,7 +244,7 @@ const schemaData =
                 <div data-label={`Rebate`} className={`col-span-2`}>
                 {broker.broker === "Afterprime" && rebatePerLot !== null
                   ? `$${rebatePerLot.toFixed(2)}/lot`
-                  : "—"}
+                  : "X ICON"}
                 </div>
                 <div data-label={`All-In Cost`} className={`col-span-2`}>
                 {(() => {
