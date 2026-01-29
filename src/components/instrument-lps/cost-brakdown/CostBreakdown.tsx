@@ -36,36 +36,38 @@ export default function CostBreakdown({
               <tr>
                 <th>Volume</th>
                 <th>Raw Spread</th>
-                <th>Flow Rewards<sup>TM</sup></th>
+                <th>
+                  Flow Rewards<sup>TM</sup>
+                </th>
                 <th>Net Cost</th>
               </tr>
             </thead>
             <tbody>
-                <tr>
-                  <td>50</td>
-                  <td>{broker.cost} pips</td>
-                  <td>{broker.flow_rewards}/lot</td>
-                  <td>{broker.costPerLot} - {rebateperinstrument}</td>
-                </tr>
-                <tr>
-                  <td>200</td>
-                  <td>{broker.cost} pips</td>
-                  <td>{broker.flow_rewards}/lot</td>
-                  <td>{broker.costPerLot} - {rebateperinstrument}</td>
-                </tr>
-                <tr>
-                  <td>1000</td>
-                  <td>{broker.cost} pips</td>
-                  <td>{broker.flow_rewards}/lot</td>
-                  <td>{broker.costPerLot} - {rebateperinstrument}</td>
-                </tr>
+              <tr>
+                <td>50</td>
+                <td>broker.cost pips</td>
+                <td>broker.flow_rewards/lot</td>
+                <td>broker.costPerLot - rebateperinstrument</td>
+              </tr>
+              <tr>
+                <td>200</td>
+                <td>broker.cost pips</td>
+                <td>broker.flow_rewards/lot</td>
+                <td>broker.costPerLot - rebateperinstrument</td>
+              </tr>
+              <tr>
+                <td>1000</td>
+                <td>broker.cost pips</td>
+                <td>broker.flow_rewards/lot</td>
+                <td>broker.costPerLot - rebateperinstrument</td>
+              </tr>
             </tbody>
           </table>
         </div>
 
         <div className={`text-[14px] w-full text-center mt-10 opacity-65`}>
-          Flow Rewards<sup>TM</sup> are credited per traded lot (round turn) and recorded as
-          a separate PnL line.
+          Flow Rewards<sup>TM</sup> are credited per traded lot (round turn) and
+          recorded as a separate PnL line.
         </div>
       </div>
     </section>

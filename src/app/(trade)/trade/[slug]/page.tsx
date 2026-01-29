@@ -48,7 +48,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
         lists={heroBullets}
         partialTitle={heroPartialText}
       />
-      <CostComparison intrumentName={page.title.rendered} />
+      <CostComparison instrument={page.title.rendered} />
       <GoogleReview />
       <CostBreakdown
         breakDownTableLists={costBreakDownListData}
