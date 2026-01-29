@@ -50,7 +50,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
       ? {
           "@context": "https://schema.org",
           "@type": "Dataset",
-          name: `${instrument} Broker Cost Comparison`,
+          name: `${instrument} Cost Comparison`,
           description: `Instrument specific comparison of ${instrument} trading costs across major FX brokers.`,
           creator: {
             "@type": "Organization",
@@ -60,18 +60,8 @@ export default function CostComparison({ instrument }: { instrument: string }) {
           variableMeasured: [
             {
               "@type": "PropertyValue",
-              name: "Average Spread",
-              unitText: "pips",
-            },
-            {
-              "@type": "PropertyValue",
-              name: "Commission",
-              unitText: "USD per round turn lot",
-            },
-            {
-              "@type": "PropertyValue",
               name: "Cost Per Lot",
-              unitText: "USD",
+              unitText: "USD per lot",
             },
             {
               "@type": "PropertyValue",
@@ -80,8 +70,13 @@ export default function CostComparison({ instrument }: { instrument: string }) {
             },
             {
               "@type": "PropertyValue",
-              name: "All In Cost",
-              unitText: "USD",
+              name: "All-In Cost",
+              unitText: "USD including commission",
+            },
+            {
+              "@type": "PropertyValue",
+              name: "Savings",
+              unitText: "% cost saved",
             },
           ],
           hasPart: pickedBrokersLists.map((broker) => {
@@ -99,19 +94,9 @@ export default function CostComparison({ instrument }: { instrument: string }) {
               name: broker.broker,
               variableMeasured: [
                 {
-                  name: "Average Spread",
-                  value: broker.cost,
-                  unitText: "pips",
-                },
-                {
-                  name: "Commission",
-                  value: commission,
-                  unitText: "USD",
-                },
-                {
                   name: "Cost Per Lot",
                   value: broker.costPerLot,
-                  unitText: "USD",
+                  unitText: "USD per lot",
                 },
                 ...(broker.broker === "Afterprime"
                   ? [
@@ -123,9 +108,14 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                     ]
                   : []),
                 {
-                  name: "All In Cost",
+                  name: "All-In Cost",
                   value: Number(allIn.toFixed(2)),
-                  unitText: "USD",
+                  unitText: "USD including commission",
+                },
+                {
+                  name: "Savings",
+                  value: Number(allIn.toFixed(2)),
+                  unitText: "% cost saved",
                 },
               ],
             };
@@ -153,17 +143,10 @@ export default function CostComparison({ instrument }: { instrument: string }) {
               className={`${styles.costCompareTableHead} grid grid-cols-7 gap-5`}
             >
               <div className={`col-span-2`}></div>
-              <div className={`col-span-1`}>Avg. Spread (pips)</div>
-              <div className={`col-span-1`}>
-                Commission
-                <br />
-                (Round Turn)
-              </div>
-              <div className={`col-span-1`}>Cost Per Lot</div>
-              <div className={`col-span-1`}>
-                Flow Rewards<sup>TM</sup>
-              </div>
-              <div className={`col-span-1`}>All-In Cost</div>
+              <div className={`col-span-1`}>Cost Per Lot <br/>(Incl. Commission)</div>
+              <div className={`col-span-1`}>Flow Rewards<sup>TM</sup> <br/>(Lot)</div>
+              <div className={`col-span-1`}>All-In Cost <br/>(Round Turn)</div>
+              <div className={`col-span-1`}>Savings</div>
             </div>
             <div className={`${styles.compareTableBody}`}>
               {/* #### */}
@@ -200,15 +183,15 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                     </div>
                   </div>
                   <div
-                    data-label={`Avg Spread (pips)`}
+                    data-label={`Cost Per Lot`}
                     className={`col-span-1`}
                   >
                     {broker.cost.toFixed(2)}
                   </div>
-                  <div data-label={`Commission`} className={`col-span-1`}>
-                    {commissionByBroker[broker.broker] !== undefined
-                      ? `$${commissionByBroker[broker.broker].toFixed(2)}`
-                      : "Not disclosed"}
+                  <div data-label={`Flow Rewards`} className={`col-span-1`}>
+                  {broker.broker === "Afterprime" && rebatePerLot !== null
+                    ? `$${rebatePerLot.toFixed(2)}`
+                    : "X ICON"}
                   </div>
                   <div data-label={`Cost Per Lot`} className={`col-span-1`}>
                     ${broker.costPerLot.toFixed(2)}
@@ -229,11 +212,12 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                         return `$${allIn.toFixed(2)}`;
                       }
 
-                      // Other brokers: costPerLot plus commission
-                      const allIn = broker.costPerLot + commission;
+                      // Other brokers: costPerLot FEED ALREADY INCLUDES COMMISSION
+                      const allIn = broker.costPerLot;
                       return `$${allIn.toFixed(2)}`;
                     })()}
                   </div>
+                  <div data-label={`Savings`} className={`col-span-1`}>x% Saving</div>
                 </div>
               ))}
             </div>
