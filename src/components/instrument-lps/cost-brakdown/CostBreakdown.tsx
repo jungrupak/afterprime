@@ -43,9 +43,21 @@ export default function CostBreakdown({
             <tbody>
                 <tr>
                   <td>50</td>
-                  <td>xyz pips</td>
-                  <td>$dynxyz/lot</td>
-                  <td>XYZ</td>
+                  <td>{broker.cost} pips</td>
+                  <td>{broker.flow_rewards}/lot</td>
+                  <td>{broker.costPerLot} - {rebateperinstrument}</td>
+                </tr>
+                <tr>
+                  <td>200</td>
+                  <td>{broker.cost} pips</td>
+                  <td>{broker.flow_rewards}/lot</td>
+                  <td>{broker.costPerLot} - {rebateperinstrument}</td>
+                </tr>
+                <tr>
+                  <td>1000</td>
+                  <td>{broker.cost} pips</td>
+                  <td>{broker.flow_rewards}/lot</td>
+                  <td>{broker.costPerLot} - {rebateperinstrument}</td>
                 </tr>
             </tbody>
           </table>
