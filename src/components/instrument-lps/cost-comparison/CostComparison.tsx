@@ -107,6 +107,83 @@ const commissionByBroker: Record<string, number> = {
   "FXOpen (TickTrader)": 5,
 };
 
+//build comparison DATA json schema
+const schemaData =
+  data && pickedBrokersLists
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        name: `${instrumentName} Broker Cost Comparison`,
+        description: `Instrument specific comparison of ${instrumentName} trading costs across major FX brokers.`,
+        creator: {
+          "@type": "Organization",
+          name: "Afterprime",
+        },
+        dateModified: new Date().toISOString().split("T")[0],
+        variableMeasured: [
+          { "@type": "PropertyValue", name: "Average Spread", unitText: "pips" },
+          {
+            "@type": "PropertyValue",
+            name: "Commission",
+            unitText: "USD per round turn lot",
+          },
+          { "@type": "PropertyValue", name: "Cost Per Lot", unitText: "USD" },
+          {
+            "@type": "PropertyValue",
+            name: "Flow Rewards",
+            unitText: "USD per lot",
+          },
+          { "@type": "PropertyValue", name: "All In Cost", unitText: "USD" },
+        ],
+        hasPart: pickedBrokersLists.map((broker) => {
+          const commission = commissionByBroker[broker.broker] ?? 0;
+          const rebate =
+            broker.broker === "Afterprime" ? rebatePerLot ?? 0 : 0;
+
+          const allIn =
+            broker.broker === "Afterprime"
+              ? broker.costPerLot - rebate
+              : broker.costPerLot + commission;
+
+          return {
+            "@type": "Dataset",
+            name: broker.broker,
+            variableMeasured: [
+              {
+                name: "Average Spread",
+                value: broker.cost,
+                unitText: "pips",
+              },
+              {
+                name: "Commission",
+                value: commission,
+                unitText: "USD",
+              },
+              {
+                name: "Cost Per Lot",
+                value: broker.costPerLot,
+                unitText: "USD",
+              },
+              ...(broker.broker === "Afterprime"
+                ? [
+                    {
+                      name: "Flow Rewards",
+                      value: rebate,
+                      unitText: "USD per lot",
+                    },
+                  ]
+                : []),
+              {
+                name: "All In Cost",
+                value: Number(allIn.toFixed(2)),
+                unitText: "USD",
+              },
+            ],
+          };
+        }),
+      }
+    : null;
+
   return (
     <section className={`md:py-20!`}>
       {/* grain bg effect */}
@@ -222,5 +299,16 @@ const commissionByBroker: Record<string, number> = {
         </div>
       </div>
     </section>
+
+//render data comparison schema
+    {schemaData && (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schemaData),
+        }}
+      />
+    )}
+
   );
 }
