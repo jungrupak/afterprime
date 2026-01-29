@@ -196,7 +196,7 @@ const schemaData =
         </h2>
         <div className={`${styles.costCompareTable}`}>
           <div
-            className={`${styles.costCompareTableHead} grid grid-cols-11 gap-5`}
+            className={`${styles.costCompareTableHead} grid grid-cols-12 gap-5`}
           >
             <div className={`col-span-3`}></div>
             <div className={`col-span-1`}>Avg. Spread (pips)</div>
