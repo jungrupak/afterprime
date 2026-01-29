@@ -27,14 +27,14 @@ interface BrokerIndividualDataType {
 // ####
 
 export default function CostComparison({
-  intrumentName,
+  instrumentName,
 }: {
-  intrumentName: string;
+  instrumentName: string;
 }) {
   const [data, setData] = useState<BrokerIndividualDataType | null>(null);
   useEffect(() => {
     const controller = new AbortController();
-    const dynamicInstrument = intrumentName.toLocaleLowerCase();
+    const dynamicInstrument = instrumentName.toLocaleLowerCase();
     const fetchData = async () => {
       try {
         const res = await fetch(
@@ -55,7 +55,7 @@ export default function CostComparison({
     };
     fetchData();
     return () => controller.abort();
-  }, [intrumentName]);
+  }, [instrumentName]);
 
   const brokerList = data?.brokers;
   const brokersToPick = [
@@ -91,18 +91,18 @@ const commissionByBroker: Record<string, number> = {
 
       <div className={`ap_container_small relative z-1 w-full`}>
         <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
-          Compare {intrumentName} Broker Costs
+          Compare {instrumentName} Broker Costs
         </h2>
         <div className={`${styles.costCompareTable}`}>
           <div
-            className={`${styles.costCompareTableHead} grid grid-cols-12 gap-5`}
+            className={`${styles.costCompareTableHead} grid grid-cols-11 gap-5`}
           >
-            <div className={`col-span-4`}></div>
+            <div className={`col-span-3`}></div>
             <div className={`col-span-1`}>Avg. Spread</div>
-            <div className={`col-span-1`}>Commission<br/>(Round Turn)</div>
-            <div className={`col-span-1`}>Cost Per Lot</div>
-            <div className={`col-span-1`}>Flow Rewards<sup>TM</sup></div>
-            <div className={`col-span-1`}>All-In Cost</div>
+            <div className={`col-span-2`}>Commission<br/>(Round Turn)</div>
+            <div className={`col-span-2`}>Cost Per Lot</div>
+            <div className={`col-span-2`}>Flow Rewards<sup>TM</sup></div>
+            <div className={`col-span-2`}>All-In Cost</div>
           </div>
           <div className={`${styles.compareTableBody}`}>
             {/* #### */}
@@ -112,7 +112,7 @@ const commissionByBroker: Record<string, number> = {
                 key={`${broker.broker}-${broker.symbol}`}
                 className={`${styles.costCompareTableRow} ${broker.broker === "Afterprime" ? styles.afterprime : ""} grid grid-cols-12 gap-5`}
               >
-                <div className={`col-span-4 relative`}>
+                <div className={`col-span-3 relative`}>
                   {broker.broker === "Afterprime" && (
                     <div className={`${styles.isBest}`}>
                       <svg
@@ -131,21 +131,21 @@ const commissionByBroker: Record<string, number> = {
                     </div>
                   )}
 
-                  <div className={``}>{broker.broker}</div>
+                  <div className={`col-span-3 relative`}>{broker.broker}</div>
                 </div>
                 <div className={`col-span-1`}>{broker.cost.toFixed(2)} pips</div>
-                <div className={`col-span-1`}>
+                <div className={`col-span-2`}>
                 {commissionByBroker[broker.broker] !== undefined
                 ? `$${commissionByBroker[broker.broker].toFixed(2)}`
                 : "Not disclosed"}
                 </div>
-                <div className={`col-span-1`}>${broker.costPerLot.toFixed(2)}</div>
-                <div className={`col-span-1`}>
+                <div className={`col-span-2`}>${broker.costPerLot.toFixed(2)}</div>
+                <div className={`col-span-2`}>
                 {broker.broker === "Afterprime" && rebatePerLot !== null
                   ? `$${rebatePerLot.toFixed(2)}/lot`
                   : "—"}
                 </div>
-                <div className={`col-span-1`}>
+                <div className={`col-span-2`}>
                 {(() => {
                   const commission = commissionByBroker[broker.broker] ?? 0;
 
