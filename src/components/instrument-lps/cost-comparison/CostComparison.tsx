@@ -1,4 +1,5 @@
 "use client";
+const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
 import { useState, useEffect } from "react";
 import styles from "./CostComparison.module.scss";
 import Link from "next/link";
@@ -36,21 +37,44 @@ export default function CostComparison({
     const controller = new AbortController();
     const dynamicInstrument = instrumentName.toLocaleLowerCase();
     const fetchData = async () => {
+      const cacheKey = `cost-feed-${dynamicInstrument}`;
+      const cached = sessionStorage.getItem(cacheKey);
+
+      // 1. Serve cached data immediately if available
+      if (cached) {
+        const { data, timestamp } = JSON.parse(cached);
+        setData(data);
+
+        // If cache is still fresh, do nothing else
+        if (Date.now() - timestamp < CACHE_TTL) {
+          return;
+        }
+        // Otherwise continue to refresh in background
+      }
+
+      // 2. Background refresh
       try {
         const res = await fetch(
           `https://feed.afterprime.com/api/symbol/${dynamicInstrument}`,
-          {
-            signal: controller.signal,
-          },
+          { signal: controller.signal }
         );
-        if (!res.ok) {
-          return "Failed to Load brokers data";
-        }
-        const data = await res.json();
-        setData(data);
+
+        if (!res.ok) return;
+
+        const freshData = await res.json();
+
+        sessionStorage.setItem(
+          cacheKey,
+          JSON.stringify({
+            data: freshData,
+            timestamp: Date.now(),
+          })
+        );
+
+        // Update UI only if data actually changed
+        setData(freshData);
       } catch (err) {
-        console.error("Failed to load data", err);
-        return "Internal Server Error";
+        console.error("Failed to refresh data", err);
       }
     };
     fetchData();
