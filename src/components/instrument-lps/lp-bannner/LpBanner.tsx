@@ -49,23 +49,19 @@ export default function LPBanner({ instrument }: BannerTitle) {
             <h1 className={`max-md:mb-5`}>
               Trade {instrument} <br />
               <span>
-                Save Up to {industryVsApAvgPct.toFixed(2)}% on Trading Costs
+                Save Up to {industryVsApAvgPct.toFixed(2)}% vs Most Brokers
               </span>
             </h1>
             <div className={`${styles.listUi} md:mt-12`}>
               <ul>
                 <li>
-                  <b>${allInCostAfterprime.toFixed(2)}</b> all-in, average total
-                  cost
+                  <b>${allInCostAfterprime.toFixed(2)}</b> All-In Cost/lot
                 </li>
                 <li>
-                  <b>{industryVsApAvgPct.toFixed(2)}% lower</b> total cost vs
-                  most brokers
+                <b>${rebatePerLot.toFixed(2)}</b> /lot in Flow Rewards <sup>TM</sup>
                 </li>
                 <li>
-                  <b>Zero comms</b> plus <b>${rebatePerLot.toFixed(2)}</b> per
-                  lot Flow Rewards
-                  <sup>TM</sup>
+                  Savings Compound With Volume
                 </li>
               </ul>
             </div>
