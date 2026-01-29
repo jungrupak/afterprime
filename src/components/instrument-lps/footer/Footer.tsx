@@ -58,8 +58,7 @@ export default function Footer() {
             regulation.
           </p>
           <p>
-            © Copyright 2018-2026 Afterprime Ltd | Global Gateway 8, Rue de
-            la Perle, Providence, Mahé, Seychelles.
+            © Copyright 2018-2026 Afterprime Ltd | Global Gateway 8, Rue de la Perle, Providence, Mahé, Seychelles.
           </p>
         </div>
       </div>
