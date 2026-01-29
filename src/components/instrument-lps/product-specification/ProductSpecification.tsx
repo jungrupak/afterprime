@@ -45,12 +45,8 @@ export default function ProductSpecification({ instrument }: Specification) {
                 <td>{assetType}</td>
               </tr>
               <tr>
-                <td>Product type</td>
+                <td>Product Type</td>
                 <td>XX</td>
-              </tr>
-              <tr>
-                <td>Avg. Spread</td>
-                <td>{averageSpread} pips</td>
               </tr>
               <tr>
                 <td>Commission</td>
@@ -60,14 +56,14 @@ export default function ProductSpecification({ instrument }: Specification) {
                 <td>
                   Flow Rewards<sup>TM</sup>
                 </td>
-                <td>Up to 0.50 USD</td>
+                <td>0.50 USD</td>
               </tr>
               <tr>
                 <td>Execution Speed</td>
-                <td>Less than 1 millisecond</td>
+                <td> &less; 50ms </td>
               </tr>
               <tr>
-                <td>Contract size</td>
+                <td>Contract Size</td>
                 <td>100,000</td>
               </tr>
               <tr>
@@ -84,7 +80,7 @@ export default function ProductSpecification({ instrument }: Specification) {
               </tr>
               <tr>
                 <td>Max Leverage</td>
-                <td>Up to 1:400</td>
+                <td>1:400</td>
               </tr>
               <tr>
                 <td>Swap Type & 3-Day Swap</td>
@@ -95,15 +91,19 @@ export default function ProductSpecification({ instrument }: Specification) {
                 <td>Monday to Friday 00:00 to 23:59 GMT plus 2</td>
               </tr>
               <tr>
-                <td>Platforms</td>
-                <td>MT4, MT5, WebTrader, TraderEvolution, FIX API</td>
+                <td colpsan={"2"}>Platforms</td>
               </tr>
               <tr>
-                <td>Licensing</td>
-                <td>
+                <td colpsan={"2"}>MT4, MT5, WebTrader, TraderEvolution, FIX Api</td>
+              </tr>
+              <tr>
+                <td colpsan={"2"}>Licensing</td>
+              </tr>
+              <tr>
+                <td colpsan={"2"}>
                   Afterprime Ltd (Seychelles company registration number
                   8426189-1) is a Securities Dealer, authorised by the Financial
-                  Service Authority (FSA) with license number SD057
+                  Service Authority (FSA) with license #SD057
                 </td>
               </tr>
             </tbody>
