@@ -296,19 +296,11 @@ export type PageFieldGroups = {
   };
   // add other field groups here
   instrument_page_fields?: {
-    hero_partial_title?:string;
-    hero_bullet_lists?:{
-        point_one?:string;
-        point_two?:string;
-        point_three?:string;
-    };
-    all_in_cost_breakdown?: [];
     what_is_flow_rewards_section?:{
       heading?:string;
       paragraph?:string;
     };
     execution_quality_rational?:Record<string,string> // instead of writing "{}" for object items
-    product_specification?:Record<string,string>// instead of writing "{}" for object items
     lp_cta?:Record<string,string>
   }
 };

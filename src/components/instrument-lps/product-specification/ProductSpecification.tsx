@@ -1,36 +1,31 @@
-import React from "react";
+"use client";
+import { useQuery } from "@tanstack/react-query";
+import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 import styles from "./ProductSpecification.module.scss";
-import Link from "next/link";
-
-interface ProductSpecListType {
-  asset_class?: string;
-  product_type?: string;
-  average_spread?: string;
-  commission?: string;
-  flow_rewardstm_per_lot?: string;
-  execution_speed?: string;
-  contract_size?: string;
-  minimum_lot?: string;
-  maximum_lots?: string;
-  lot_step?: string;
-  leverage?: string;
-  swap_type_and_3_day_swap?: string;
-  trading_hours?: string;
-  platforms_supported?: string;
-  licensing_and_regulation?: string;
-}
 
 interface Specification {
   instrument?: string;
-  productSpec?: ProductSpecListType;
 }
 
-export default function ProductSpecification({
-  instrument,
-  productSpec,
-}: Specification) {
+//##
+const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
+
+export default function ProductSpecification({ instrument }: Specification) {
   //##
-  if (!productSpec) return null;
+  if (!instrument) return;
+
+  //####
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["cost-comparison", instrument],
+    queryFn: () => getBrokerCompareData(instrument!),
+    enabled: !!instrument, //prevents undefined crash
+    staleTime: CACHE_TTL, // fresh for 2 minutes
+    gcTime: 10 * 60 * 1000, // cache stays for 10 minutes
+  });
+  //####
+
+  const averageSpread = data?.brokers?.[0]?.cost ?? 0;
+  const assetType = data?.rebate?.product ?? undefined;
 
   return (
     <section className={`md:py-20!`}>
@@ -47,15 +42,15 @@ export default function ProductSpecification({
             <tbody>
               <tr>
                 <td>Asset Class</td>
-                <td>{productSpec.asset_class}</td>
+                <td>{assetType}</td>
               </tr>
               <tr>
                 <td>Product type</td>
-                <td>{productSpec.product_type}</td>
+                <td>XX</td>
               </tr>
               <tr>
                 <td>Avg. Spread</td>
-                <td>{productSpec.average_spread}</td>
+                <td>{averageSpread} pips</td>
               </tr>
               <tr>
                 <td>Commission</td>
@@ -65,47 +60,51 @@ export default function ProductSpecification({
                 <td>
                   Flow Rewards<sup>TM</sup>
                 </td>
-                <td>{productSpec.flow_rewardstm_per_lot}</td>
+                <td>Up to 0.50 USD</td>
               </tr>
               <tr>
                 <td>Execution Speed</td>
-                <td>{productSpec.execution_speed}</td>
+                <td>Less than 1 millisecond</td>
               </tr>
               <tr>
                 <td>Contract size</td>
-                <td>{productSpec.contract_size}</td>
+                <td>100,000</td>
               </tr>
               <tr>
                 <td>Min. Lot</td>
-                <td>{productSpec.minimum_lot}</td>
+                <td>XX</td>
               </tr>
               <tr>
                 <td>Max. Lots</td>
-                <td>{productSpec.maximum_lots}</td>
+                <td>XX</td>
               </tr>
               <tr>
                 <td>Lot Step</td>
-                <td>{productSpec.lot_step}</td>
+                <td>XX</td>
               </tr>
               <tr>
                 <td>Max Leverage</td>
-                <td>{productSpec.leverage}</td>
+                <td>Up to 1:400</td>
               </tr>
               <tr>
                 <td>Swap Type & 3-Day Swap</td>
-                <td>{productSpec.swap_type_and_3_day_swap}</td>
+                <td>Points based, Wednesday</td>
               </tr>
               <tr>
                 <td>Trading Hours</td>
-                <td>{productSpec.trading_hours}</td>
+                <td>Monday to Friday 00:00 to 23:59 GMT plus 2</td>
               </tr>
               <tr>
                 <td>Platforms</td>
-                <td>{productSpec.platforms_supported}</td>
+                <td>MT4, MT5, WebTrader, TraderEvolution, FIX API</td>
               </tr>
               <tr>
                 <td>Licensing</td>
-                <td>{productSpec.licensing_and_regulation}</td>
+                <td>
+                  Afterprime Ltd (Seychelles company registration number
+                  8426189-1) is a Securities Dealer, authorised by the Financial
+                  Service Authority (FSA) with license number SD057
+                </td>
               </tr>
             </tbody>
           </table>

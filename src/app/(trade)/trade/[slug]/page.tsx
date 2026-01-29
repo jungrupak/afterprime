@@ -20,21 +20,11 @@ export default async function TradeSlugPage({ params }: PageProps) {
     notFound();
   }
 
-  const heroBullets = page.acf?.instrument_page_fields?.hero_bullet_lists;
-  const heroPartialText =
-    page.acf?.instrument_page_fields?.hero_partial_title || undefined;
-
-  const costBreakDownListData =
-    page.acf?.instrument_page_fields?.all_in_cost_breakdown ?? [];
-
   const flowRewardContent =
     page.acf?.instrument_page_fields?.what_is_flow_rewards_section || undefined;
 
   const rationalData =
     page.acf?.instrument_page_fields?.execution_quality_rational || undefined;
-
-  const customFieldProductSpec =
-    page.acf?.instrument_page_fields?.product_specification;
 
   const customFieldFaqBlock = page.acf?.faq_section?.q_and_a;
   const customFieldCTABlock = page.acf?.instrument_page_fields?.lp_cta;
@@ -53,10 +43,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
         rationalData={rationalData}
       />
       <CostCalculator instrument={page.title.rendered} />
-      <ProductSpecification
-        instrument={page.title.rendered}
-        productSpec={customFieldProductSpec}
-      />
+      <ProductSpecification instrument={page.title.rendered} />
       <Faq data={customFieldFaqBlock} faqSubject="FAQ" />
       <Cta content={customFieldCTABlock} />
     </>
