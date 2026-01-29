@@ -122,7 +122,7 @@ const commissionByBroker: Record<string, number> = {
             className={`${styles.costCompareTableHead} grid grid-cols-11 gap-5`}
           >
             <div className={`col-span-3`}></div>
-            <div className={`col-span-1`}>Avg. Spread</div>
+            <div className={`col-span-1`}>Avg. Spread (pips)</div>
             <div className={`col-span-2`}>Commission<br/>(Round Turn)</div>
             <div className={`col-span-2`}>Cost Per Lot</div>
             <div className={`col-span-2`}>Flow Rewards<sup>TM</sup></div>
@@ -155,21 +155,21 @@ const commissionByBroker: Record<string, number> = {
                     </div>
                   )}
 
-                  <div className={`col-span-3 relative`}>{broker.broker}</div>
+                <div data-label={`Broker`} className={`col-span-3 relative`}>{broker.broker}</div>
                 </div>
-                <div className={`col-span-1`}>{broker.cost.toFixed(2)} pips</div>
-                <div className={`col-span-2`}>
+                <div data-label={`Avg Spread (pips)`} className={`col-span-1`}>{broker.cost.toFixed(2)}</div>
+                <div data-label={`Commission`} className={`col-span-2`}>
                 {commissionByBroker[broker.broker] !== undefined
                 ? `$${commissionByBroker[broker.broker].toFixed(2)}`
                 : "Not disclosed"}
                 </div>
-                <div className={`col-span-2`}>${broker.costPerLot.toFixed(2)}</div>
-                <div className={`col-span-2`}>
+                <div data-label={`Cost Per Lot`} className={`col-span-2`}>${broker.costPerLot.toFixed(2)}</div>
+                <div data-label={`Rebate`} className={`col-span-2`}>
                 {broker.broker === "Afterprime" && rebatePerLot !== null
                   ? `$${rebatePerLot.toFixed(2)}/lot`
                   : "—"}
                 </div>
-                <div className={`col-span-2`}>
+                <div data-label={`All-In Cost`} className={`col-span-2`}>
                 {(() => {
                   const commission = commissionByBroker[broker.broker] ?? 0;
 
