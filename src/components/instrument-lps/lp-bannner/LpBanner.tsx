@@ -82,7 +82,7 @@ export default function LPBanner({
                 className={`opacity-64 text-[14px] max-md:flex-[0_,0_,100%]`}
               >
                 Invite only access for approved trading profiles.
-                <br /> *All Data Verified by ForexBenchmark
+                <br /> *Data Verified by ForexBenchmark
               </div>
               <div className={`max-md:flex-[0_,0_,100%]`}>
                 <GoogleReviewBadge />
