@@ -150,20 +150,20 @@ export default function CostComparison({ instrument }: { instrument: string }) {
           </h2>
           <div className={`${styles.costCompareTable}`}>
             <div
-              className={`${styles.costCompareTableHead} grid grid-cols-12 gap-5`}
+              className={`${styles.costCompareTableHead} grid grid-cols-7 gap-5`}
             >
-              <div className={`col-span-3`}></div>
+              <div className={`col-span-2`}></div>
               <div className={`col-span-1`}>Avg. Spread (pips)</div>
-              <div className={`col-span-2`}>
+              <div className={`col-span-1`}>
                 Commission
                 <br />
                 (Round Turn)
               </div>
-              <div className={`col-span-2`}>Cost Per Lot</div>
-              <div className={`col-span-2`}>
+              <div className={`col-span-1`}>Cost Per Lot</div>
+              <div className={`col-span-1`}>
                 Flow Rewards<sup>TM</sup>
               </div>
-              <div className={`col-span-2`}>All-In Cost</div>
+              <div className={`col-span-1`}>All-In Cost</div>
             </div>
             <div className={`${styles.compareTableBody}`}>
               {/* #### */}
@@ -171,9 +171,9 @@ export default function CostComparison({ instrument }: { instrument: string }) {
               {pickedBrokersLists?.map((broker, indx) => (
                 <div
                   key={`${broker.broker}-${broker.symbol}`}
-                  className={`${styles.costCompareTableRow} ${broker.broker === "Afterprime" ? styles.afterprime : ""} grid grid-cols-12 gap-5`}
+                  className={`${styles.costCompareTableRow} ${broker.broker === "Afterprime" ? styles.afterprime : ""} grid grid-cols-7 gap-5`}
                 >
-                  <div className={`col-span-3 relative`}>
+                  <div className={`col-span-2 relative`}>
                     {broker.broker === "Afterprime" && (
                       <div className={`${styles.isBest}`}>
                         <svg
@@ -205,20 +205,20 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                   >
                     {broker.cost.toFixed(2)}
                   </div>
-                  <div data-label={`Commission`} className={`col-span-2`}>
+                  <div data-label={`Commission`} className={`col-span-1`}>
                     {commissionByBroker[broker.broker] !== undefined
                       ? `$${commissionByBroker[broker.broker].toFixed(2)}`
                       : "Not disclosed"}
                   </div>
-                  <div data-label={`Cost Per Lot`} className={`col-span-2`}>
+                  <div data-label={`Cost Per Lot`} className={`col-span-1`}>
                     ${broker.costPerLot.toFixed(2)}
                   </div>
-                  <div data-label={`Rebate`} className={`col-span-2`}>
+                  <div data-label={`Rebate`} className={`col-span-1`}>
                     {broker.broker === "Afterprime" && rebatePerLot !== null
                       ? `$${rebatePerLot.toFixed(2)}/lot`
                       : "X ICON"}
                   </div>
-                  <div data-label={`All-In Cost`} className={`col-span-2`}>
+                  <div data-label={`All-In Cost`} className={`col-span-1`}>
                     {(() => {
                       const commission = commissionByBroker[broker.broker] ?? 0;
 

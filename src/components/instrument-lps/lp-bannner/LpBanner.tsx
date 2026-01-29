@@ -1,31 +1,39 @@
-import React from "react";
+"use client";
 import styles from "./LpBanner.module.scss";
-import ListUi from "@/components/instrument-lps/list-ui/ListUi";
-
+import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
+import { useQuery } from "@tanstack/react-query";
 import Button from "@/components/ui/Button";
 import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 
-//Hero Bullet Lists Type
-interface HeroBullets {
-  point_one?: string;
-  point_two?: string;
-  point_three?: string;
-}
-
-interface BannerTitle {
-  instrumentname?: string;
-  partialTitle?: string;
-  lists?: HeroBullets;
-}
-
 //####
+interface BannerTitle {
+  instrument?: string;
+}
 
-export default function LPBanner({
-  instrumentname,
-  lists,
-  partialTitle,
-}: BannerTitle) {
-  if (!lists) return null;
+//##
+const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
+
+export default function LPBanner({ instrument }: BannerTitle) {
+  //####
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["cost-comparison", instrument],
+    queryFn: () => getBrokerCompareData(instrument!),
+    enabled: !!instrument, //prevents undefined crash
+    staleTime: CACHE_TTL, // fresh for 2 minutes
+    gcTime: 10 * 60 * 1000, // cache stays for 10 minutes
+  });
+  //####
+
+  const industryVsApAvgPct = data?.industryVsAfterprimeAvgPct ?? 0;
+  const rebatePerLot = data?.rebate?.rebate_usd_per_lot ?? 0;
+
+  const afterprimeCostPerLot = data?.brokers[0]?.costPerLot ?? 0;
+
+  const allInCostAfterprime = afterprimeCostPerLot - rebatePerLot;
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Failed to load data</div>;
+
   return (
     <>
       <section
@@ -39,12 +47,29 @@ export default function LPBanner({
         >
           <div className={`${styles.bannerLeftItem} max-md:col-span-2`}>
             <h1 className={`max-md:mb-5`}>
-              Trade {instrumentname} <br />
-              <span
-                dangerouslySetInnerHTML={{ __html: partialTitle || "" }}
-              ></span>
+              Trade {instrument} <br />
+              <span>
+                Save Up to {industryVsApAvgPct.toFixed(2)}% on Trading Costs
+              </span>
             </h1>
-            <ListUi customClass={`md:mt-12`} heroBulletLists={lists} />
+            <div className={`${styles.listUi} md:mt-12`}>
+              <ul>
+                <li>
+                  <b>${allInCostAfterprime.toFixed(2)}</b> all-in, average total
+                  cost
+                </li>
+                <li>
+                  <b>{industryVsApAvgPct.toFixed(2)}% lower</b> total cost vs
+                  most brokers
+                </li>
+                <li>
+                  <b>Zero comms</b> plus <b>${rebatePerLot.toFixed(2)}</b> per
+                  lot Flow Rewards
+                  <sup>TM</sup>
+                </li>
+              </ul>
+            </div>
+
             <div className={`mt-8 md:mt-15`}>
               <Button
                 varient="primary"
