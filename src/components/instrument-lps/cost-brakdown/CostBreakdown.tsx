@@ -39,24 +39,22 @@ export default function CostBreakdown({ instrument }: Breakdown) {
 
       <div className={`ap_container_small relative z-1 w-full`}>
         <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
-          {instrument} All-In-Cost (Example)
+          {instrument} All-In-Cost
         </h2>
         <div className={`${styles.costBreakDownTable}`}>
           <table cellPadding={"0"} cellSpacing={"0"} border={0}>
             <thead>
               <tr>
-                <th>Volume</th>
-                <th>Raw Spread</th>
-                <th>
-                  Flow Rewards<sup>TM</sup>
-                </th>
-                <th>Net Cost</th>
+                <th>Volume<br/>(Lots)</th>
+                <th>Cost<br/>(Per Lot)</th>
+                <th>Flow Rewards<sup>TM</sup></th>
+                <th>All-In Cost</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>50 lots</td>
-                <td>Approximately ${multiplyAllInCost(afterprimeCost, 50)}</td>
+                <td>50</td>
+                <td>{afterprimeCost}</td>
                 <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
                 <td>
                   <span className="text-[#03C554]!">
@@ -66,8 +64,8 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 </td>
               </tr>
               <tr>
-                <td>200 lots</td>
-                <td>${multiplyAllInCost(afterprimeCost, 200)}</td>
+                <td>200</td>
+                <td>{afterprimeCost}</td>
                 <td>${multiplyAllInCost(rebatePerLot, 200)}</td>
                 <td>
                   <span className="text-[#03C554]!">
@@ -77,8 +75,8 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 </td>
               </tr>
               <tr>
-                <td>1000 lots</td>
-                <td>${multiplyAllInCost(afterprimeCost, 1000)}</td>
+                <td>1000</td>
+                <td>{afterprimeCost}</td>
                 <td>${multiplyAllInCost(rebatePerLot, 1000)}</td>
                 <td>
                   <span className="text-[#03C554]!">
@@ -87,19 +85,12 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                   USD
                 </td>
               </tr>
-              {/* <tr>
-                <td>1000</td>
-                <td>broker.cost pips</td>
-                <td>broker.flow_rewards/lot</td>
-                <td>broker.costPerLot - rebateperinstrument</td>
-              </tr> */}
             </tbody>
           </table>
         </div>
 
         <div className={`text-[14px] w-full text-center mt-10 opacity-65`}>
-          Flow Rewards<sup>TM</sup> are credited per traded lot (round turn) and
-          recorded as a separate PnL line.
+          Flow Rewards<sup>TM</sup> are credited per traded lot (round turn) and recorded as a separate PnL line.
         </div>
       </div>
     </section>

@@ -48,7 +48,7 @@ export default function Footer() {
             product described on this website is not a reliable indication of
             future performance. You should consider whether you’re part of our
             target market by reviewing our Target Market Determination, and read
-            our PDS and other legal documents to ensure you fully understand the
+            our <a href="/legal-documents" rel="noreferer" rel="noopener">PDS and other legal documents</a> to ensure you fully understand the
             risks before you make any trading decisions.
           </p>
           <p>
