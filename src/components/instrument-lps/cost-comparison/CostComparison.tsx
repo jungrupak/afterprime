@@ -2,66 +2,23 @@
 import styles from "./CostComparison.module.scss";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
+import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 
 //##
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
 
-//#### State Type of retrieving data
-interface BrokereArray {
-  broker: string;
-  symbol: string;
-  cost: number;
-  costPerLot: number;
-  savingPercentage: number;
-}
-interface BrokerIndividualDataType {
-  brokers: BrokereArray[];
-  secondBestVsAfterprimePct?: number | null;
-  top10VsAfterprimeAvgPct?: number | null;
-  industryVsAfterprimeAvgPct?: number | null;
-  rebate?: {
-    symbol: string;
-    product?: string;
-    rebate_usd_per_lot?: number | null;
-    effective_from?: string;
-    effective_to?: string;
-  };
-}
-// ####
-
-//#######
-async function fetchComparisonData(
-  symbol: string,
-): Promise<BrokerIndividualDataType | undefined> {
-  try {
-    const res = await fetch(
-      `https://feed.afterprime.com/api/symbol/${symbol}`,
-      { cache: "no-store" },
-    );
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch comparison data");
-    }
-
-    return await res.json();
-  } catch (err) {
-    console.error("Failed to refresh data", err);
-    throw new Error("Failed to fetch comparison data");
-  }
-}
-//########
-
 export default function CostComparison({ instrument }: { instrument: string }) {
-  if (!instrument) return null;
+  //####
   const { data, isLoading, error } = useQuery({
     queryKey: ["cost-comparison", instrument],
-    queryFn: () => fetchComparisonData(instrument!),
+    queryFn: () => getBrokerCompareData(instrument!),
     enabled: !!instrument, //prevents undefined crash
     staleTime: CACHE_TTL, // fresh for 2 minutes
     gcTime: 10 * 60 * 1000, // cache stays for 10 minutes
   });
+  //####
 
-  const brokerList = data?.brokers ?? [];
+  const brokerList = data?.brokers;
   console.log("data:", brokerList);
   const brokersToPick = [
     "Afterprime",
