@@ -102,7 +102,7 @@ export const MegaMenuItems = [
             pageUrl: "/webtrader",
           },
           {
-            menuItem: "FIX API",
+            menuItem: "FIX Api",
             pageUrl: "/fix-api",
           },
         ],
@@ -145,7 +145,7 @@ export const MegaMenuItems = [
             pageUrl: "/trade-execution",
           },
           {
-            menuItem: "Margins & Leverages",
+            menuItem: "Margin & Leverage",
             pageUrl: "/margins-and-leverages",
           },
           {
