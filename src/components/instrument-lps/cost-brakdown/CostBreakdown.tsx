@@ -45,10 +45,26 @@ export default function CostBreakdown({ instrument }: Breakdown) {
           <table cellPadding={"0"} cellSpacing={"0"} border={0}>
             <thead>
               <tr>
-                <th>Volume<br/>(Lots)</th>
-                <th>Cost<br/>(Per Lot)</th>
-                <th>Flow Rewards<sup>TM</sup><br/>(${rebatePerLot.toFixed(2)}/lot)</th>
-                <th>All-In Cost<br/>USD</th>
+                <th>
+                  Volume
+                  <br />
+                  (Lots)
+                </th>
+                <th>
+                  Cost
+                  <br />
+                  (Per Lot)
+                </th>
+                <th>
+                  Flow Rewards<sup>TM</sup>
+                  <br />
+                  (${rebatePerLot.toFixed(2)}/lot)
+                </th>
+                <th>
+                  All-In Cost
+                  <br />
+                  USD
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -58,7 +74,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
                 <td>
                   <span className="text-[#03C554]!">
-                    ${afterprimeCost.toFixed(2) * 50 - rebatePerLot.toFixed(2) * 50}
+                    $ {((afterprimeCost - rebatePerLot) * 50).toFixed(2)}
                   </span>
                 </td>
               </tr>
@@ -68,7 +84,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 <td>${multiplyAllInCost(rebatePerLot, 200)}</td>
                 <td>
                   <span className="text-[#03C554]!">
-                    ${afterprimeCost.toFixed(2) * 200 - rebatePerLot.toFixed(2) * 200}
+                    $ {((afterprimeCost - rebatePerLot) * 200).toFixed(2)}
                   </span>
                 </td>
               </tr>
@@ -78,7 +94,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 <td>${multiplyAllInCost(rebatePerLot, 1000)}</td>
                 <td>
                   <span className="text-[#03C554]!">
-                    ${afterprimeCost.toFixed(2) * 1000 - rebatePerLot.toFixed(2) * 1000}
+                    $ {((afterprimeCost - rebatePerLot) * 1000).toFixed(2)}
                   </span>
                 </td>
               </tr>
@@ -87,7 +103,8 @@ export default function CostBreakdown({ instrument }: Breakdown) {
         </div>
 
         <div className={`text-[14px] w-full text-center mt-10 opacity-65`}>
-          Flow Rewards<sup>TM</sup> are credited per traded lot (round turn) and recorded as a separate PnL line.
+          Flow Rewards<sup>TM</sup> are credited per traded lot (round turn) and
+          recorded as a separate PnL line.
         </div>
       </div>
     </section>
