@@ -49,7 +49,7 @@ export default function Footer() {
             future performance. You should consider whether you’re part of our
             target market by reviewing our Target Market Determination, and read
             our{" "}
-            <a href="/legal-documents" rel="noreferer, noopener">
+            <a href="/legal-documents" rel="noopener">
               PDS and other legal documents
             </a>{" "}
             to ensure you fully understand the risks before you make any trading
