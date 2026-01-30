@@ -16,19 +16,14 @@ interface PageProps {
 
 //Export Dynamic Page Title Tags####
 export async function generateMetadata({ params }: PageProps) {
-  const { slug } = await params; // ✅ REQUIRED in Next 14+
-  const page = await getTradePageData({ params });
-  if (!page) {
-    return {
-      title: `Trade ${slug.toUpperCase()}`,
-      description: `Trade ${slug.toUpperCase()} with Afterprime`,
-    };
-  }
-
-  const meta = await metaDataHelper(page.title.rendered);
-
-  console.log("Meta:", meta); // terminal logs
-  return meta;
+  const { slug } = await params;
+  const instrumentUppercase = slug.toUpperCase();
+  if (!params) return;
+  const getpercentage = await metaDataHelper(slug);
+  return {
+    title: `Trade ${instrumentUppercase} at ${getpercentage}% Lower Cost vs the Next Best Option`,
+    description: `Trade ${instrumentUppercase} on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.`,
+  };
 }
 //Export Dynamic Page Title Tags Ends####
 

@@ -8,7 +8,8 @@ export async function GET(
   const { symbol } = await context.params; // ✅ unwrap
 
   try {
-    const res = await fetch(`https://afterprime.com/api/compare-brokers/${symbol}`, {
+    const res = await fetch(`https://feed.afterprime.com/api/symbol/${symbol}`, {
+        cache : "force-cache",
       headers: {
         "User-Agent": "Next.js Server",
         Accept: "application/json",

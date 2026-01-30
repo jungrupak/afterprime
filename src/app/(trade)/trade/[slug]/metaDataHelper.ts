@@ -1,25 +1,66 @@
+
+interface BrokersArray{
+  broker?:string;
+symbol?:string;
+cost?:number;
+costPerLot?:number;
+savingPercentage?:number;
+}
+
+interface Rebates{
+  symbol?:string;
+  product?:string;
+  rebate_usd_per_lot?:number;
+  effective_from?:string;
+  effective_to?:string;
+}
+
+// lib/metaDataHelper.ts
+type InstrumentMeta = {
+  brokers?:BrokersArray[];
+  secondBestVsAfterprimePct?:number;
+top10VsAfterprimeAvgPct?:number;
+industryVsAfterprimeAvgPct?:number;
+rebate?:Rebates;
+}
+
+
+// lib/metaDataHelper.ts
+const CACHE: Record<string, { value: number; timestamp: number }> = {};
+const CACHE_TTL = 60 * 1000; // 1 minute cache
+
 export async function metaDataHelper(instrument: string) {
-  if (!instrument) return { title: instrument, description: instrument };
+  if (!instrument) return 0;
 
-  const res = await fetch(`https://yourdomain.com/api/afterprime/${instrument}`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    console.error("Failed to fetch broker data for metadata", res.status);
-    return {
-      title: `Trade ${instrument} at 0% Lower Cost`,
-      description: `Trade ${instrument} on Afterprime`,
-    };
+  // Check cache first
+  const cached = CACHE[instrument.toLowerCase()];
+  const now = Date.now();
+  if (cached && now - cached.timestamp < CACHE_TTL) {
+    return cached.value;
   }
 
-  const data = await res.json();
-  console.log("Broker data in metaDataHelper:", data); // ✅ MUST log object
+  try {
+    const res = await fetch(`https://feed.afterprime.com/api/symbol/${instrument}`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        "Accept": "application/json",
+      },
+      cache: "no-store", // Always fetch fresh data
+    });
 
-  const secondBestVsAfterprimePct = data?.secondBestVsAfterprimePct ?? 0;
+    if (!res.ok) {
+      console.warn(`Failed to fetch ${instrument}: ${res.status}`);
+      return 0; // fallback
+    }
 
-  return {
-    title: `Trade ${instrument} at ${secondBestVsAfterprimePct}% Lower Cost vs the Next Best Option`,
-    description: `Trade ${instrument} on Afterprime with verified low trading costs, transparent execution, and institutional liquidity.`,
-  };
+    const data = await res.json();
+    const percent = data?.secondBestVsAfterprimePct ?? 0;
+
+    // Save to cache
+    CACHE[instrument.toLowerCase()] = { value: percent, timestamp: now };
+    return percent;
+  } catch (err) {
+    console.error(`Error fetching ${instrument}:`, err);
+    return 0;
+  }
 }
