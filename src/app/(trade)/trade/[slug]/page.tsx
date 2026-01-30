@@ -2,7 +2,6 @@ import LPBanner from "@/components/instrument-lps/lp-bannner/LpBanner";
 import { getTradePageData } from "@/lib/getTradePageData";
 import { notFound } from "next/navigation"; //This needs to render custom 404 page created in this specific instance
 import CostComparison from "@/components/instrument-lps/cost-comparison/CostComparison";
-import GoogleReview from "@/components/google-review/GoogleReview";
 import CostBreakdown from "@/components/instrument-lps/cost-brakdown/CostBreakdown";
 import FlowRewardIntro from "@/components/instrument-lps/what-is-flow-reward/FlowRewardIntro";
 import CostCalculator from "@/components/instrument-lps/cost-calculator/CostCalculator";
@@ -13,6 +12,20 @@ import Cta from "@/components/instrument-lps/cta/Cta";
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+//Export Dynamic Page Title Tags####
+export async function generateMetadata({ params }: PageProps) {
+  const page = await getTradePageData({ params });
+  if (!page) return;
+
+  console.log("getData:", page);
+
+  return {
+    title: `Trade ${page.title.rendered} at {secondBestVsAfterprimePct}% Lower Cost vs the Next Best Option`,
+    description: `View live prices and data for ${params}`,
+  };
+}
+//Export Dynamic Page Title Tags Ends####
 
 export default async function TradeSlugPage({ params }: PageProps) {
   const page = await getTradePageData({ params });
