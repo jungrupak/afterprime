@@ -91,16 +91,16 @@ export default function ProductSpecification({ instrument }: Specification) {
                 <td>Monday to Friday 00:00 to 23:59 GMT plus 2</td>
               </tr>
               <tr>
-                <td colpsan={"2"}>Platforms</td>
+                <td colpsan="2">Platforms</td>
               </tr>
               <tr>
-                <td colpsan={"2"}>MT4, MT5, WebTrader, TraderEvolution, FIX Api</td>
+                <td colpsan="2">MT4, MT5, WebTrader, TraderEvolution, FIX Api</td>
               </tr>
               <tr>
-                <td colpsan={"2"}>Licensing</td>
+                <td colpsan="2">Licensing</td>
               </tr>
               <tr>
-                <td colpsan={"2"}>
+                <td colpsan="2">
                   Afterprime Ltd (Seychelles company registration number
                   8426189-1) is a Securities Dealer, authorised by the Financial
                   Service Authority (FSA) with license #SD057
