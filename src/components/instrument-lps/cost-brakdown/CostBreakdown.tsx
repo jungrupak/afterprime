@@ -48,7 +48,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 <th>Volume<br/>(Lots)</th>
                 <th>Cost<br/>(Per Lot)</th>
                 <th>Flow Rewards<sup>TM</sup></th>
-                <th>All-In Cost</th>
+                <th>All-In Cost<br/>USD</th>
               </tr>
             </thead>
             <tbody>
@@ -60,7 +60,6 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                   <span className="text-[#03C554]!">
                     {afterprimeCost * 50 - rebatePerLot * 50}
                   </span>
-                  USD
                 </td>
               </tr>
               <tr>
@@ -71,7 +70,6 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                   <span className="text-[#03C554]!">
                     {afterprimeCost * 200 - rebatePerLot * 200}
                   </span>
-                  USD
                 </td>
               </tr>
               <tr>
@@ -82,7 +80,6 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                   <span className="text-[#03C554]!">
                     {afterprimeCost * 1000 - rebatePerLot * 1000}
                   </span>
-                  USD
                 </td>
               </tr>
             </tbody>
