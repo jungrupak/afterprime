@@ -57,6 +57,8 @@ export default function CostComparison({ instrument }: { instrument: string }) {
             name: "Afterprime",
           },
           dateModified: new Date().toISOString().split("T")[0],
+
+          // Define dataset dimensions ONCE
           variableMeasured: [
             {
               "@type": "PropertyValue",
@@ -66,76 +68,81 @@ export default function CostComparison({ instrument }: { instrument: string }) {
             {
               "@type": "PropertyValue",
               name: "All-In Cost (Round Turn)",
-              unitText: "USD including commission",
+              unitText: "USD per lot",
             },
             {
               "@type": "PropertyValue",
               name: "Flow Rewards",
               unitText: "USD per lot",
             },
-
             {
               "@type": "PropertyValue",
               name: "Net Cost",
               unitText: "USD per lot",
             },
-
             {
               "@type": "PropertyValue",
               name: "Savings (vs Afterprime)",
-              unitText: "% cost saved",
+              unitText: "Percent",
             },
           ],
+
+          // Each broker is a row, not a Dataset
           hasPart: pickedBrokersLists.map((broker) => {
             const commission = commissionByBroker[broker.broker] ?? 0;
             const rebate =
               broker.broker === "Afterprime" ? (rebatePerLot ?? 0) : 0;
 
-            const allIn =
+            const netCost =
               broker.broker === "Afterprime"
                 ? broker.costPerLot - rebate
                 : broker.costPerLot + commission;
 
             return {
-              "@type": "Dataset",
+              "@type": "Organization",
               name: broker.broker,
-              variableMeasured: [
+
+              additionalProperty: [
                 {
+                  "@type": "PropertyValue",
                   name: "Cost Per Lot (Incl. Commission)",
                   value: broker.cost.toFixed(2),
-                  unitText: "USD including commission",
+                  unitText: "USD",
                 },
                 {
+                  "@type": "PropertyValue",
                   name: "All-In Cost (Round Turn)",
                   value: broker.costPerLot.toFixed(2),
-                  unitText: "USD per lot",
+                  unitText: "USD",
                 },
                 ...(broker.broker === "Afterprime"
                   ? [
                       {
+                        "@type": "PropertyValue",
                         name: "Flow Rewards",
                         value: rebate,
-                        unitText: "USD per lot",
+                        unitText: "USD",
                       },
                     ]
                   : []),
-
                 {
+                  "@type": "PropertyValue",
                   name: "Net Cost",
-                  value: Number(allIn.toFixed(2)),
-                  unitText: "USD per lot",
+                  value: netCost.toFixed(2),
+                  unitText: "USD",
                 },
-
                 {
-                  name: "Savings (Vs Afterprime)",
+                  "@type": "PropertyValue",
+                  name: "Savings (vs Afterprime)",
                   value: broker.savingPercentage,
-                  unitText: "% cost saved",
+                  unitText: "%",
                 },
               ],
             };
           }),
         }
       : null;
+
   //Schema Ends ##
 
   if (isLoading) return <div>Loading...</div>;
