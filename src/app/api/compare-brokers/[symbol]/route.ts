@@ -1,23 +1,27 @@
+// app/api/afterprime/[symbol]/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-  request: NextRequest,
-  context: { params: Promise<{ symbol: string }> } // ✅ params is a Promise
+  req: NextRequest,
+  context: { params: Promise<{ symbol: string }> }
 ) {
-  const { symbol } = await context.params; // ✅ MUST await
+  const { symbol } = await context.params; // ✅ unwrap
 
   try {
-    const res = await fetch(`https://feed.afterprime.com/api/symbol/${symbol}`, {
+    const res = await fetch(`https://afterprime.com/api/compare-brokers/${symbol}`, {
       headers: {
         "User-Agent": "Next.js Server",
         Accept: "application/json",
-        // Authorization if needed
       },
     });
 
-    if (!res.ok) return NextResponse.json(null, { status: res.status });
+    if (!res.ok) {
+      console.error("Afterprime fetch failed:", res.status);
+      return NextResponse.json(null, { status: res.status });
+    }
 
     const data = await res.json();
+    console.log("Proxy data:", data); // ✅ Check server terminal
     return NextResponse.json(data);
   } catch (err) {
     console.error("Proxy fetch error:", err);
