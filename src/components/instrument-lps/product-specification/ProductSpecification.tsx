@@ -25,7 +25,7 @@ export default function ProductSpecification({ instrument }: Specification) {
   //Compute Related pairs
   // After finding selectedInstrument
   const relatedPairs = selectedInstrument
-    ? getRelatedPairs(specData, selectedInstrument.Symbol, 4)
+    ? getRelatedPairs(specData, selectedInstrument.Symbol, 3)
     : [];
   //####
 
@@ -58,11 +58,11 @@ export default function ProductSpecification({ instrument }: Specification) {
             Trade connected FX pairs
           </h3>
           <p className={`opacity-80`}>
-            Trade these related pairs or browse the full range of FX markets
-            available on Afterprime.{" "}
-            <span className={`opacity-60`}>
-              (afterprime.com/trade/pairsname)
-            </span>
+            Trade these related pairs or browse the full range of{" "}
+            <Link href={"afterpriume.com/trade"} className={`underline`}>
+              FX markets
+            </Link>{" "}
+            available on Afterprime.
           </p>
           <div className={`flex flex-wrap gap-2 mt-4`}>
             {relatedPairs.map((pair) => (

@@ -18,7 +18,7 @@ type ForexPair = {
 export function getRelatedPairs(
   allPairs: ForexPair[],
   currentSymbol: string,
-  limit = 4
+  limit = 3
 ): ForexPair[] {
   // 1. Find current pair
   const currentPair = allPairs.find(

@@ -170,7 +170,11 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                 Flow Rewards<sup>TM</sup> <br />
                 (Lot)
               </div>
-              <div className={`max-md:col-span-2 col-span-1`}>Net Cost</div>
+              <div className={`max-md:col-span-2 col-span-1`}>
+                Net Cost
+                <br />
+                (Round Turn)
+              </div>
               <div className={`max-md:col-span-2 col-span-1 text-[#ffffff]!`}>
                 <b>
                   Savings <br />
