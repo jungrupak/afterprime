@@ -57,7 +57,7 @@ export default function LPBanner({ instrument }: BannerTitle) {
             <div className={`${styles.listUi} md:mt-12`}>
               <ul>
                 <li>
-                  <b>${allInCostAfterprime.toFixed(2)}</b> All-In-Cost/lot
+                  <b>${allInCostAfterprime.toFixed(2)}</b> All-In Net Cost/Lot
                 </li>
                 <li>
                   <b>${rebatePerLot.toFixed(2)}</b> /lot in Flow Rewards{" "}
