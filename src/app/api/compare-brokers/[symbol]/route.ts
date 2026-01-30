@@ -1,31 +1,26 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-  _req: Request,
-  { params }: { params: { symbol: string } }
+  request: NextRequest,
+  context: { params: Promise<{ symbol: string }> } // ✅ params is a Promise
 ) {
-  const { symbol } = params;
+  const { symbol } = await context.params; // ✅ MUST await
 
   try {
-    // Proxy fetch to Afterprime API
     const res = await fetch(`https://feed.afterprime.com/api/symbol/${symbol}`, {
       headers: {
-        "User-Agent": "Next.js Server", // required
+        "User-Agent": "Next.js Server",
         Accept: "application/json",
-        // If Afterprime requires API key:
-        // Authorization: `Bearer ${process.env.AFTERPRIME_API_KEY}`,
+        // Authorization if needed
       },
     });
 
-    if (!res.ok) {
-      return NextResponse.json(null, { status: res.status });
-    }
+    if (!res.ok) return NextResponse.json(null, { status: res.status });
 
     const data = await res.json();
-
     return NextResponse.json(data);
-  } catch (error) {
-    console.error("Proxy fetch failed:", error);
+  } catch (err) {
+    console.error("Proxy fetch error:", err);
     return NextResponse.json(null, { status: 500 });
   }
 }
