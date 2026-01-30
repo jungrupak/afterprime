@@ -206,7 +206,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                     {broker.broker === "Afterprime" && rebatePerLot !== null ? (
                       `$${rebatePerLot.toFixed(2)}`
                     ) : (
-                      <CrossIcon />
+                      <>-</>
                     )}
                   </div>
 
