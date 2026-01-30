@@ -227,7 +227,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                     })()}
                   </div>
                   <div data-label={`Savings`} className={`col-span-1`}>
-                    {broker.savingPercentage.toFixed(2)}%
+                    {broker.savingPercentage}%
                   </div>
                 </div>
               ))}
