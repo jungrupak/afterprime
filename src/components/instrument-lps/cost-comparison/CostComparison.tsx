@@ -3,7 +3,6 @@ import styles from "./CostComparison.module.scss";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
-import CrossIcon from "@/components/ui/icons/CrossIcon";
 
 //##
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
@@ -20,7 +19,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
   //####
 
   const brokerList = data?.brokers;
-  console.log("data:", brokerList);
+  //console.log("data:", brokerList);
   const brokersToPick = [
     "Afterprime",
     "IC Markets (Raw)",
