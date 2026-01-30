@@ -36,15 +36,15 @@ export default async function TradeSlugPage({ params }: PageProps) {
       <LPBanner instrument={page.title.rendered} />
       <CostComparison instrument={page.title.rendered} />
       {/* <GoogleReview /> */}
-      <CostBreakdown instrument={page.title.rendered} />
       <FlowRewardIntro
         instrument={page.title.rendered}
         content={flowRewardContent}
         rationalData={rationalData}
       />
+      <CostBreakdown instrument={page.title.rendered} />
+      <Faq data={customFieldFaqBlock} faqSubject="FAQ" />  
       <CostCalculator instrument={page.title.rendered} />
       <Cta />
-      <Faq data={customFieldFaqBlock} faqSubject="FAQ" />
       <ProductSpecification instrument={page.title.rendered} />
     </>
   );
