@@ -3,6 +3,7 @@ import styles from "./CostComparison.module.scss";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
+import CrossIcon from "@/components/ui/icons/CrossIcon";
 
 //##
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
@@ -143,11 +144,26 @@ export default function CostComparison({ instrument }: { instrument: string }) {
               className={`${styles.costCompareTableHead} grid grid-cols-7 gap-5`}
             >
               <div className={`col-span-2`}></div>
-              <div className={`col-span-1`}>Cost Per Lot <br/>(Incl. Commission)</div>
-              <div className={`col-span-1`}>All-In Cost <br/>(Round Turn)</div>
-              <div className={`col-span-1`}>Flow Rewards<sup>TM</sup> <br/>(Lot)</div>
+              <div className={`col-span-1`}>
+                Cost Per Lot <br />
+                (Incl. Commission)
+              </div>
+
+              <div className={`col-span-1`}>
+                All-In Cost <br />
+                (Round Turn)
+              </div>
+              <div className={`col-span-1`}>
+                Flow Rewards<sup>TM</sup> <br />
+                (Lot)
+              </div>
               <div className={`col-span-1`}>Net Cost</div>
-              <div className={`col-span-1`}>Savings</div>
+              <div className={`col-span-1 text-[#ffffff]!`}>
+                <b>
+                  Savings <br />
+                  (vs Afterprime)
+                </b>
+              </div>
             </div>
             <div className={`${styles.compareTableBody}`}>
               {/* #### */}
@@ -183,20 +199,20 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                       {broker.broker}
                     </div>
                   </div>
-
-
-
-
-                  <div className={`col-span-1`}>Net Cost</div>
-                  <div className={`col-span-1`}>Savings</div>
-
-
-
-                  <div
-                    data-label={`Cost Per Lot`}
-                    className={`col-span-1`}
-                  >
+                  <div data-label={`Cost Per Lot`} className={`col-span-1`}>
                     {broker.cost.toFixed(2)}
+                  </div>
+
+                  <div data-label={`Cost Per Lot`} className={`col-span-1`}>
+                    ${broker.costPerLot.toFixed(2)}
+                  </div>
+
+                  <div data-label={`Flow Rewards`} className={`col-span-1`}>
+                    {broker.broker === "Afterprime" && rebatePerLot !== null ? (
+                      `$${rebatePerLot.toFixed(2)}`
+                    ) : (
+                      <>-</>
+                    )}
                   </div>
 
                   <div data-label={`All-In Cost`} className={`col-span-1`}>
@@ -215,21 +231,20 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                       return `$${allIn.toFixed(2)}`;
                     })()}
                   </div>
-
-                  <div data-label={`Flow Rewards`} className={`col-span-1`}>
-                  {broker.broker === "Afterprime" && rebatePerLot !== null
-                    ? `$${rebatePerLot.toFixed(2)}`
-                    : "X ICON"}
+                  <div
+                    data-label={`Savings (vs Afterprime)`}
+                    className={`col-span-1`}
+                  >
+                    <b>{broker.savingPercentage}%</b>
                   </div>
-
-                  <div data-label={`Net Cost`} className={`col-span-1`}>
-                    ${broker.costPerLot.toFixed(2)}
-                  </div>
-
-                  <div data-label={`Savings`} className={`col-span-1`}>savingPercentage% Saving</div>
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="text-center text-[14px] bg-[rgba(255,255,255,.12)] rounded-[5px] p-2 text-[rgba(255,255,255,.48)]">
+            Savings represent how much more each broker costs per trade compared
+            to Afterprime, after fees and rebates.
           </div>
 
           <div
