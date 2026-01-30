@@ -54,20 +54,24 @@ export default function ProductSpecification({ instrument }: Specification) {
         </div>
 
         <div className={`mt-15`}>
-          <h3 className={`font-bold text-[clamp(28px,5vw,38px)] mb-8`}>
-            Related Pairs
+          <h3 className={`font-bold text-[clamp(18px,5vw,24px)] mb-2`}>
+            Trade connected FX pairs
           </h3>
-          <div
-            className={`grid grid-cols-[repeat(auto-fit,minmax(200px,_1fr))] gap-6`}
-          >
+          <p className={`opacity-80`}>
+            Trade these related pairs or browse the full range of FX markets
+            available on Afterprime.{" "}
+            <span className={`opacity-60`}>
+              (afterprime.com/trade/pairsname)
+            </span>
+          </p>
+          <div className={`flex flex-wrap gap-2 mt-4`}>
             {relatedPairs.map((pair) => (
               <Link
                 key={pair.Symbol}
                 href={`/trade/${pair.Symbol.toLowerCase()}`}
-                className={`bg-[rgba(255,255,255,.12)] transition duration-[.3s] ease-in-out rounded-[5px] py-5 px-8 hover:bg-[rgba(255,255,255,.16)]`}
+                className={`underline hover:no-underline`}
               >
-                <span className={`text-[rgba(255,255,255,.48)]`}>Trade</span>
-                <div className={`text-[20px] font-bold`}>{pair.Symbol}</div>
+                <div className={``}>{pair.Symbol}</div>
               </Link>
             ))}
           </div>

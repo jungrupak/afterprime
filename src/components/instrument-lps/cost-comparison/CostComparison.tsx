@@ -61,22 +61,29 @@ export default function CostComparison({ instrument }: { instrument: string }) {
           variableMeasured: [
             {
               "@type": "PropertyValue",
-              name: "Cost Per Lot",
+              name: "Cost Per Lot (Incl. Commission)",
               unitText: "USD per lot",
+            },
+            {
+              "@type": "PropertyValue",
+              name: "All-In Cost (Round Turn)",
+              unitText: "USD including commission",
             },
             {
               "@type": "PropertyValue",
               name: "Flow Rewards",
               unitText: "USD per lot",
             },
+
             {
               "@type": "PropertyValue",
-              name: "All-In Cost",
-              unitText: "USD including commission",
+              name: "Net Cost",
+              unitText: "USD per lot",
             },
+
             {
               "@type": "PropertyValue",
-              name: "Savings",
+              name: "Savings (vs Afterprime)",
               unitText: "% cost saved",
             },
           ],
@@ -95,8 +102,13 @@ export default function CostComparison({ instrument }: { instrument: string }) {
               name: broker.broker,
               variableMeasured: [
                 {
-                  name: "Cost Per Lot",
-                  value: broker.costPerLot,
+                  name: "Cost Per Lot (Incl. Commission)",
+                  value: broker.cost.toFixed(2),
+                  unitText: "USD including commission",
+                },
+                {
+                  name: "All-In Cost (Round Turn)",
+                  value: broker.costPerLot.toFixed(2),
                   unitText: "USD per lot",
                 },
                 ...(broker.broker === "Afterprime"
@@ -108,14 +120,16 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                       },
                     ]
                   : []),
+
                 {
-                  name: "All-In Cost",
+                  name: "Net Cost",
                   value: Number(allIn.toFixed(2)),
-                  unitText: "USD including commission",
+                  unitText: "USD per lot",
                 },
+
                 {
-                  name: "Savings",
-                  value: Number(allIn.toFixed(2)),
+                  name: "Savings (Vs Afterprime)",
+                  value: broker.savingPercentage,
                   unitText: "% cost saved",
                 },
               ],
@@ -130,7 +144,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
 
   return (
     <>
-      <section className={`md:py-20!`}>
+      <section className={`md:py-20! max-md:pt-0!`}>
         {/* grain bg effect */}
         <div className="grainy_bg"></div>
         {/* grain bg effect */}
@@ -141,24 +155,24 @@ export default function CostComparison({ instrument }: { instrument: string }) {
           </h2>
           <div className={`${styles.costCompareTable}`}>
             <div
-              className={`${styles.costCompareTableHead} grid grid-cols-7 gap-5`}
+              className={`${styles.costCompareTableHead} grid grid-cols-7 gp-10 md:gap-5`}
             >
-              <div className={`col-span-2`}></div>
-              <div className={`col-span-1`}>
+              <div className={`col-span-3 md:col-span-2`}></div>
+              <div className={`col-span-1 md:block hidden`}>
                 Cost Per Lot <br />
                 (Incl. Commission)
               </div>
 
-              <div className={`col-span-1`}>
+              <div className={`md:block hidden col-span-1`}>
                 All-In Cost <br />
                 (Round Turn)
               </div>
-              <div className={`col-span-1`}>
+              <div className={`col-span-1 md:block hidden`}>
                 Flow Rewards<sup>TM</sup> <br />
                 (Lot)
               </div>
-              <div className={`col-span-1`}>Net Cost</div>
-              <div className={`col-span-1 text-[#ffffff]!`}>
+              <div className={`max-md:col-span-2 col-span-1`}>Net Cost</div>
+              <div className={`max-md:col-span-2 col-span-1 text-[#ffffff]!`}>
                 <b>
                   Savings <br />
                   (vs Afterprime)
@@ -173,7 +187,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                   key={`${broker.broker}-${broker.symbol}`}
                   className={`${styles.costCompareTableRow} ${broker.broker === "Afterprime" ? styles.afterprime : ""} grid grid-cols-7 gap-5`}
                 >
-                  <div className={`col-span-2 relative`}>
+                  <div className={`col-span-3 md:col-span-2 relative`}>
                     {broker.broker === "Afterprime" && (
                       <div className={`${styles.isBest}`}>
                         <svg
@@ -199,15 +213,24 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                       {broker.broker}
                     </div>
                   </div>
-                  <div data-label={`Cost Per Lot`} className={`col-span-1`}>
+                  <div
+                    data-label={`Cost Per Lot (Incl. Commission)`}
+                    className={`col-span-1 md:block hidden`}
+                  >
                     {broker.cost.toFixed(2)}
                   </div>
 
-                  <div data-label={`Cost Per Lot`} className={`col-span-1`}>
+                  <div
+                    data-label={`All-In-Cost (Round Trip)`}
+                    className={`col-span-1 md:block hidden`}
+                  >
                     ${broker.costPerLot.toFixed(2)}
                   </div>
 
-                  <div data-label={`Flow Rewards`} className={`col-span-1`}>
+                  <div
+                    data-label={`Flow Rewards`}
+                    className={` col-span-1 md:block hidden`}
+                  >
                     {broker.broker === "Afterprime" && rebatePerLot !== null ? (
                       `$${rebatePerLot.toFixed(2)}`
                     ) : (
@@ -215,7 +238,10 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                     )}
                   </div>
 
-                  <div data-label={`All-In Cost`} className={`col-span-1`}>
+                  <div
+                    data-label={`Net Cost (Round Trip)`}
+                    className={`max-md:col-span-2 col-span-1 `}
+                  >
                     {(() => {
                       const commission = commissionByBroker[broker.broker] ?? 0;
 
@@ -233,7 +259,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                   </div>
                   <div
                     data-label={`Savings (vs Afterprime)`}
-                    className={`col-span-1`}
+                    className={`max-md:col-span-2 col-span-1`}
                   >
                     <b>{broker.savingPercentage}%</b>
                   </div>
@@ -248,7 +274,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
           </div>
 
           <div
-            className={`flex gap-1 text-[14px] w-full justify-center items-center mt-10`}
+            className={`flex gap-1 text-[14px] w-full justify-center gap-4 items-start mt-4 md:mt-10`}
           >
             <svg
               width="25"
@@ -272,15 +298,17 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                 fill="white"
               />
             </svg>
-            Ranked #1 Lowest Cost Broker on
-            <Link
-              className={`underline`}
-              target={`_blank`}
-              href={"https://www.forexbenchmark.com"}
-            >
-              ForexBenchmark
-            </Link>
-            . Prices quoted in US Dollars.
+            <div>
+              Ranked #1 Lowest Cost Broker on
+              <Link
+                className={`underline`}
+                target={`_blank`}
+                href={"https://www.forexbenchmark.com"}
+              >
+                ForexBenchmark
+              </Link>
+              . Prices quoted in US Dollars.
+            </div>
           </div>
         </div>
       </section>

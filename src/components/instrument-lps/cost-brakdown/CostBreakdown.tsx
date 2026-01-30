@@ -61,9 +61,9 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                   (${rebatePerLot.toFixed(2)}/lot)
                 </th>
                 <th>
-                  All-In Cost
+                  Net Cost
                   <br />
-                  USD
+                  (Round Turn)
                 </th>
               </tr>
             </thead>

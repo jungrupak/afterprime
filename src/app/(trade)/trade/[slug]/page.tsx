@@ -8,6 +8,7 @@ import CostCalculator from "@/components/instrument-lps/cost-calculator/CostCalc
 import ProductSpecification from "@/components/instrument-lps/product-specification/ProductSpecification";
 import Faq from "@/components/instrument-lps/faq/Faq";
 import Cta from "@/components/instrument-lps/cta/Cta";
+import { metaDataHelper } from "./metaDataHelper";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -18,12 +19,7 @@ export async function generateMetadata({ params }: PageProps) {
   const page = await getTradePageData({ params });
   if (!page) return;
 
-  console.log("getData:", page);
-
-  return {
-    title: `Trade ${page.title.rendered} at {secondBestVsAfterprimePct}% Lower Cost vs the Next Best Option`,
-    description: `View live prices and data for ${params}`,
-  };
+  return metaDataHelper(page.title.rendered);
 }
 //Export Dynamic Page Title Tags Ends####
 
@@ -55,9 +51,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
         content={flowRewardContent}
         rationalData={rationalData}
       />
-
       <CostBreakdown instrument={page.title.rendered} />
-
       <Faq data={customFieldFaqBlock} faqSubject="FAQ" />
       <Cta />
       <CostCalculator instrument={page.title.rendered} />
