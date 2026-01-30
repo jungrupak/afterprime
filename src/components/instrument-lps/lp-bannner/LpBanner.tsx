@@ -27,6 +27,8 @@ export default function LPBanner({ instrument }: BannerTitle) {
   const industryVsApAvgPct = data?.industryVsAfterprimeAvgPct ?? 0;
   const rebatePerLot = data?.rebate?.rebate_usd_per_lot ?? 0;
 
+  //add saving percentage per broker savingPercentage
+
   const afterprimeCostPerLot = data?.brokers[0]?.costPerLot ?? 0;
 
   const allInCostAfterprime = afterprimeCostPerLot - rebatePerLot;

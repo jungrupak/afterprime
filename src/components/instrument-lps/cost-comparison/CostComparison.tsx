@@ -144,8 +144,9 @@ export default function CostComparison({ instrument }: { instrument: string }) {
             >
               <div className={`col-span-2`}></div>
               <div className={`col-span-1`}>Cost Per Lot <br/>(Incl. Commission)</div>
-              <div className={`col-span-1`}>Flow Rewards<sup>TM</sup> <br/>(Lot)</div>
               <div className={`col-span-1`}>All-In Cost <br/>(Round Turn)</div>
+              <div className={`col-span-1`}>Flow Rewards<sup>TM</sup> <br/>(Lot)</div>
+              <div className={`col-span-1`}>Net Cost</div>
               <div className={`col-span-1`}>Savings</div>
             </div>
             <div className={`${styles.compareTableBody}`}>
@@ -182,25 +183,22 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                       {broker.broker}
                     </div>
                   </div>
+
+
+
+
+                  <div className={`col-span-1`}>Net Cost</div>
+                  <div className={`col-span-1`}>Savings</div>
+
+
+
                   <div
                     data-label={`Cost Per Lot`}
                     className={`col-span-1`}
                   >
                     {broker.cost.toFixed(2)}
                   </div>
-                  <div data-label={`Flow Rewards`} className={`col-span-1`}>
-                  {broker.broker === "Afterprime" && rebatePerLot !== null
-                    ? `$${rebatePerLot.toFixed(2)}`
-                    : "X ICON"}
-                  </div>
-                  <div data-label={`Cost Per Lot`} className={`col-span-1`}>
-                    ${broker.costPerLot.toFixed(2)}
-                  </div>
-                  <div data-label={`Rebate`} className={`col-span-1`}>
-                    {broker.broker === "Afterprime" && rebatePerLot !== null
-                      ? `$${rebatePerLot.toFixed(2)}/lot`
-                      : "X ICON"}
-                  </div>
+
                   <div data-label={`All-In Cost`} className={`col-span-1`}>
                     {(() => {
                       const commission = commissionByBroker[broker.broker] ?? 0;
@@ -217,7 +215,18 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                       return `$${allIn.toFixed(2)}`;
                     })()}
                   </div>
-                  <div data-label={`Savings`} className={`col-span-1`}>x% Saving</div>
+
+                  <div data-label={`Flow Rewards`} className={`col-span-1`}>
+                  {broker.broker === "Afterprime" && rebatePerLot !== null
+                    ? `$${rebatePerLot.toFixed(2)}`
+                    : "X ICON"}
+                  </div>
+
+                  <div data-label={`Net Cost`} className={`col-span-1`}>
+                    ${broker.costPerLot.toFixed(2)}
+                  </div>
+
+                  <div data-label={`Savings`} className={`col-span-1`}>savingPercentage% Saving</div>
                 </div>
               ))}
             </div>
