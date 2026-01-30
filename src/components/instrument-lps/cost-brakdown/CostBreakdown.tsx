@@ -47,7 +47,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
               <tr>
                 <th>Volume<br/>(Lots)</th>
                 <th>Cost<br/>(Per Lot)</th>
-                <th>Flow Rewards<sup>TM</sup><br/>(${rebatePerLot}/lot)</th>
+                <th>Flow Rewards<sup>TM</sup><br/>(${rebatePerLot.toFixed(2)}/lot)</th>
                 <th>All-In Cost<br/>USD</th>
               </tr>
             </thead>
@@ -58,7 +58,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
                 <td>
                   <span className="text-[#03C554]!">
-                    {afterprimeCost * 50 - rebatePerLot * 50}
+                    ${afterprimeCost.toFixed(2) * 50 - rebatePerLot.toFixed(2) * 50}
                   </span>
                 </td>
               </tr>
@@ -68,7 +68,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 <td>${multiplyAllInCost(rebatePerLot, 200)}</td>
                 <td>
                   <span className="text-[#03C554]!">
-                    {afterprimeCost * 200 - rebatePerLot * 200}
+                    ${afterprimeCost.toFixed(2) * 200 - rebatePerLot.toFixed(2) * 200}
                   </span>
                 </td>
               </tr>
@@ -78,7 +78,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 <td>${multiplyAllInCost(rebatePerLot, 1000)}</td>
                 <td>
                   <span className="text-[#03C554]!">
-                    {afterprimeCost * 1000 - rebatePerLot * 1000}
+                    ${afterprimeCost.toFixed(2) * 1000 - rebatePerLot.toFixed(2) * 1000}
                   </span>
                 </td>
               </tr>
