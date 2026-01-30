@@ -47,7 +47,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
               <tr>
                 <th>Volume<br/>(Lots)</th>
                 <th>Cost<br/>(Per Lot)</th>
-                <th>Flow Rewards<sup>TM</sup></th>
+                <th>Flow Rewards<sup>TM</sup><br/>(${rebatePerLot}/lot)</th>
                 <th>All-In Cost<br/>USD</th>
               </tr>
             </thead>
