@@ -74,7 +74,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
                 <td>
                   <span className="text-[#03C554]!">
-                    $ {((afterprimeCost - rebatePerLot) * 50).toFixed(2)}
+                    $ {((rebatePerLot - afterprimeCost) * 50).toFixed(2)}
                   </span>
                 </td>
               </tr>
@@ -84,7 +84,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 <td>${multiplyAllInCost(rebatePerLot, 200)}</td>
                 <td>
                   <span className="text-[#03C554]!">
-                    $ {((afterprimeCost - rebatePerLot) * 200).toFixed(2)}
+                    $ {((rebatePerLot - afterprimeCost) * 200).toFixed(2)}
                   </span>
                 </td>
               </tr>
@@ -94,7 +94,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                 <td>${multiplyAllInCost(rebatePerLot, 1000)}</td>
                 <td>
                   <span className="text-[#03C554]!">
-                    $ {((afterprimeCost - rebatePerLot) * 1000).toFixed(2)}
+                    $ {((rebatePerLot - afterprimeCost) * 1000).toFixed(2)}
                   </span>
                 </td>
               </tr>

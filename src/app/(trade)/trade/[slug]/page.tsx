@@ -45,7 +45,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
       <CostCalculator instrument={page.title.rendered} />
       <ProductSpecification instrument={page.title.rendered} />
       <Faq data={customFieldFaqBlock} faqSubject="FAQ" />
-      <Cta content={customFieldCTABlock} />
+      <Cta />
     </>
   );
 }

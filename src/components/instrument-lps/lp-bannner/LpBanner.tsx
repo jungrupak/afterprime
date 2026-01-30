@@ -2,7 +2,7 @@
 import styles from "./LpBanner.module.scss";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 import { useQuery } from "@tanstack/react-query";
-import Button from "@/components/ui/Button";
+import TypeformButton from "../typeform-btn/typeForm";
 import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 
 //####
@@ -60,42 +60,19 @@ export default function LPBanner({ instrument }: BannerTitle) {
                   <b>${allInCostAfterprime.toFixed(2)}</b> All-In Cost/lot
                 </li>
                 <li>
-                <b>${rebatePerLot.toFixed(2)}</b> /lot in Flow Rewards <sup>TM</sup>
+                  <b>${rebatePerLot.toFixed(2)}</b> /lot in Flow Rewards{" "}
+                  <sup>TM</sup>
                 </li>
-                <li>
-                  Savings Compound With Volume
-                </li>
+                <li>Savings Compound With Volume</li>
               </ul>
             </div>
 
             <div className={`mt-8 md:mt-15`}>
-              <Button
+              <TypeformButton
+                buttonText="Apply for Invite code"
+                size="Large"
                 varient="primary"
-                size="large"
-                linkTarget={"_blank"}
-                href={"#"}
-                className="group"
-              >
-                <svg
-                  width="17"
-                  height="18"
-                  viewBox="0 0 17 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ fill: "none" }}
-                >
-                  <path
-                    d="M4.33333 8.2V5C4.33333 3.93913 4.77232 2.92172 5.55372 2.17157C6.33512 1.42143 7.39493 1 8.5 1C9.60507 1 10.6649 1.42143 11.4463 2.17157C12.2277 2.92172 12.6667 3.93913 12.6667 5V8.2M2.66667 8.2H14.3333C15.2538 8.2 16 8.91634 16 9.8V15.4C16 16.2837 15.2538 17 14.3333 17H2.66667C1.74619 17 1 16.2837 1 15.4V9.8C1 8.91634 1.74619 8.2 2.66667 8.2Z"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ fill: "none" }}
-                    className="group-hover:stroke-[#000000]"
-                  />
-                </svg>
-                Apply for Invite Code
-              </Button>
+              />
             </div>
 
             <div

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./style.module.scss";
 import { useEffect, useState } from "react";
-import Button from "@/components/ui/Button";
+import TypeformButton from "../typeform-btn/typeForm";
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
@@ -46,14 +46,11 @@ export default function Header() {
           {/* Right Side (Desktop) */}
           <div className={`${styles.ap_header_right} max-[1204px]:hidden`}>
             <div className="flex items-center gap-4">
-              <Button
-                varient="ghost"
+              <TypeformButton
+                buttonText="Apply Now"
                 size="small"
-                linkTarget="_blank"
-                href={"#"}
-              >
-                Apply Now
-              </Button>
+                varient="ghost"
+              />
             </div>
           </div>
         </div>
