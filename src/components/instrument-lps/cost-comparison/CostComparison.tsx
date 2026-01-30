@@ -3,6 +3,7 @@ import styles from "./CostComparison.module.scss";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
+import CrossIcon from "@/components/ui/icons/CrossIcon";
 
 //##
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
@@ -143,9 +144,20 @@ export default function CostComparison({ instrument }: { instrument: string }) {
               className={`${styles.costCompareTableHead} grid grid-cols-7 gap-5`}
             >
               <div className={`col-span-2`}></div>
-              <div className={`col-span-1`}>Cost Per Lot <br/>(Incl. Commission)</div>
-              <div className={`col-span-1`}>Flow Rewards<sup>TM</sup> <br/>(Lot)</div>
-              <div className={`col-span-1`}>All-In Cost <br/>(Round Turn)</div>
+              <div className={`col-span-1`}>
+                Cost Per Lot <br />
+                (Incl. Commission)
+              </div>
+
+              <div className={`col-span-1`}>
+                All-In Cost <br />
+                (Round Turn)
+              </div>
+              <div className={`col-span-1`}>
+                Flow Rewards<sup>TM</sup> <br />
+                (Lot)
+              </div>
+              <div className={`col-span-1`}>Net Cost</div>
               <div className={`col-span-1`}>Savings</div>
             </div>
             <div className={`${styles.compareTableBody}`}>
@@ -182,25 +194,22 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                       {broker.broker}
                     </div>
                   </div>
-                  <div
-                    data-label={`Cost Per Lot`}
-                    className={`col-span-1`}
-                  >
+                  <div data-label={`Cost Per Lot`} className={`col-span-1`}>
                     {broker.cost.toFixed(2)}
                   </div>
-                  <div data-label={`Flow Rewards`} className={`col-span-1`}>
-                  {broker.broker === "Afterprime" && rebatePerLot !== null
-                    ? `$${rebatePerLot.toFixed(2)}`
-                    : "X ICON"}
-                  </div>
+
                   <div data-label={`Cost Per Lot`} className={`col-span-1`}>
                     ${broker.costPerLot.toFixed(2)}
                   </div>
-                  <div data-label={`Rebate`} className={`col-span-1`}>
-                    {broker.broker === "Afterprime" && rebatePerLot !== null
-                      ? `$${rebatePerLot.toFixed(2)}/lot`
-                      : "X ICON"}
+
+                  <div data-label={`Flow Rewards`} className={`col-span-1`}>
+                    {broker.broker === "Afterprime" && rebatePerLot !== null ? (
+                      `$${rebatePerLot.toFixed(2)}`
+                    ) : (
+                      <CrossIcon />
+                    )}
                   </div>
+
                   <div data-label={`All-In Cost`} className={`col-span-1`}>
                     {(() => {
                       const commission = commissionByBroker[broker.broker] ?? 0;
@@ -217,7 +226,9 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                       return `$${allIn.toFixed(2)}`;
                     })()}
                   </div>
-                  <div data-label={`Savings`} className={`col-span-1`}>x% Saving</div>
+                  <div data-label={`Savings`} className={`col-span-1`}>
+                    {broker.savingPercentage.toFixed(2)}%
+                  </div>
                 </div>
               ))}
             </div>
