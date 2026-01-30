@@ -48,8 +48,12 @@ export default function Footer() {
             product described on this website is not a reliable indication of
             future performance. You should consider whether you’re part of our
             target market by reviewing our Target Market Determination, and read
-            our <a href="/legal-documents" rel="noreferer" rel="noopener">PDS and other legal documents</a> to ensure you fully understand the
-            risks before you make any trading decisions.
+            our{" "}
+            <a href="/legal-documents" rel="noreferer, noopener">
+              PDS and other legal documents
+            </a>{" "}
+            to ensure you fully understand the risks before you make any trading
+            decisions.
           </p>
           <p>
             The information on this website is not intended to be an inducement,
@@ -58,7 +62,8 @@ export default function Footer() {
             regulation.
           </p>
           <p>
-            © Copyright 2018-2026 Afterprime Ltd | Global Gateway 8, Rue de la Perle, Providence, Mahé, Seychelles.
+            © Copyright 2018-2026 Afterprime Ltd | Global Gateway 8, Rue de la
+            Perle, Providence, Mahé, Seychelles.
           </p>
         </div>
       </div>
