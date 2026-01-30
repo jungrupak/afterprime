@@ -20,8 +20,6 @@ export default function ProductSpecification({ instrument }: Specification) {
   );
   //####
 
-  console.log("spec-data:", selectedInstrument);
-
   return (
     <section className={`md:py-20!`}>
       {/* grain bg effect */}
