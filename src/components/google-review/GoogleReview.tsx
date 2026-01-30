@@ -8,11 +8,10 @@ export default function GoogleReview() {
         <div className="ap_container">
           <div className="max-w-[700px] mx-auto text-center">
             <h2 className="h2-size mb-6">
-              Real Traders, <span>Real Support.</span>
+              Built by Traders. <span>Backed by Traders.</span>
             </h2>
             <p className="paragraph max-w-2xl mx-auto mb-20 opacity-90">
-              Be supported by traders like you — we only hire from our
-              community, so help is instant, human, and real.
+              Support comes from experienced traders drawn from our own community, practical help from people who understand execution, risk, and real trading conditions.
             </p>
           </div>
           {/* Elfsight Google Reviews | Untitled Google Reviews 2 */}
