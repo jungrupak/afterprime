@@ -158,7 +158,12 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                 (Lot)
               </div>
               <div className={`col-span-1`}>Net Cost</div>
-              <div className={`col-span-1`}>Savings</div>
+              <div className={`col-span-1 text-[#ffffff]!`}>
+                <b>
+                  Savings <br />
+                  (vs Afterprime)
+                </b>
+              </div>
             </div>
             <div className={`${styles.compareTableBody}`}>
               {/* #### */}
@@ -226,12 +231,20 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                       return `$${allIn.toFixed(2)}`;
                     })()}
                   </div>
-                  <div data-label={`Savings`} className={`col-span-1`}>
-                    {broker.savingPercentage}%
+                  <div
+                    data-label={`Savings (vs Afterprime)`}
+                    className={`col-span-1`}
+                  >
+                    <b>{broker.savingPercentage}%</b>
                   </div>
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="text-center text-[14px] bg-[rgba(255,255,255,.12)] rounded-[5px] p-2 text-[rgba(255,255,255,.48)]">
+            Savings represent how much more each broker costs per trade compared
+            to Afterprime, after fees and rebates.
           </div>
 
           <div
