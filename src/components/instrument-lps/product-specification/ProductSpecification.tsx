@@ -59,7 +59,7 @@ export default function ProductSpecification({ instrument }: Specification) {
           </h3>
           <p className={`opacity-80`}>
             Trade these related pairs or browse the full range of{" "}
-            <Link href={"afterpriume.com/trade"} className={`underline`}>
+            <Link href={"/trade"} className={`underline`}>
               FX markets
             </Link>{" "}
             available on Afterprime.
