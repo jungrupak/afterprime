@@ -20,8 +20,9 @@ export async function generateMetadata({ params }: PageProps) {
   const instrumentUppercase = slug.toUpperCase();
   if (!params) return;
   const getpercentage = await metaDataHelper(slug);
+  const formattedPercentage = Math.trunc(getpercentage);
   return {
-    title: `Trade ${instrumentUppercase} at ${getpercentage}% Lower Cost vs the Next Best Option`,
+    title: `Trade ${instrumentUppercase} at ${formattedPercentage}% Lower Cost vs the Next Best Option`,
     description: `Trade ${instrumentUppercase} on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.`,
   };
 }
