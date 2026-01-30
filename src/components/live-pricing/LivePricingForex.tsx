@@ -28,8 +28,7 @@ export function LivePricingForex() {
           Keep More, <span>Earn More.</span>
         </h2>
         <p className="paragraph max-w-2xl mx-auto mb-20 max-md:mb-10 opacity-90">
-          You&apos;re trading on the world&apos;s lowest-cost platform — and
-          getting paid for your flow.
+          Lowest all-in trading costs, plus Flow Rewards<sup>TM</sup> that pay you per lot traded.
         </p>
       </div>
 
