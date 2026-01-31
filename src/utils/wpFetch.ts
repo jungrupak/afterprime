@@ -1,25 +1,23 @@
 // src/utils/wpFetch.ts
 export async function wpFetch<T>(endpoint: string): Promise<T | null> {
   const baseUrl =
-    process.env.NEXT_PUBLIC_WP_BASE_URL || process.env.WORDPRESS_REST_ENDPOINT;
+    process.env.NEXT_PUBLIC_WP_BASE_URL ||
+    process.env.WORDPRESS_REST_ENDPOINT;
 
   if (!baseUrl) {
     console.error("❌ Missing WordPress API base URL.");
     return null;
   }
 
-  // Ensure baseUrl always ends with a slash
   const cleanBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
   const url = `${cleanBaseUrl}wp-json/wp/v2${endpoint}`;
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: 60 },
+      cache: "no-store", // ✅ IMPORTANT for sitemap
       headers: {
-        // ✅ Tell WordPress we expect JSON
         Accept: "application/json",
         "User-Agent": "Next.js Server Fetch",
-        "Content-Type": "application/json",
       },
     });
 
