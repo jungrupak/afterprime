@@ -318,6 +318,7 @@ export type Aioseo = {
 export type WPPage = {
   id: number;
   slug: string;
+  parent:number;
   title: { rendered: string };
   excerpt: { rendered: string };
   acf?: PageFieldGroups;
