@@ -319,6 +319,7 @@ export type WPPage = {
   id: number;
   slug: string;
   parent:number;
+  link:string;
   title: { rendered: string };
   excerpt: { rendered: string };
   acf?: PageFieldGroups;
