@@ -4,7 +4,7 @@ import TypeformButton from "@/components/instrument-lps/typeform-btn/typeForm";
 
 export default function Cta() {
   return (
-    <section className={`md:py-20!`}>
+    <section className={`max-md:pb-0! md:pt-20!`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
