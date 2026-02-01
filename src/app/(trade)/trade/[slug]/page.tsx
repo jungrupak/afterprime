@@ -57,7 +57,11 @@ export default async function TradeSlugPage({ params }: PageProps) {
         rationalData={rationalData}
       />
       <CostBreakdown instrument={page.title.rendered} />
-      <Faq data={customFieldFaqBlock} faqSubject="FAQ" />
+      <Faq
+        data={customFieldFaqBlock}
+        faqSubject="FAQ"
+        instrument={page.title.rendered}
+      />
       <Cta />
       <CostCalculator instrument={page.title.rendered} />
       <ProductSpecification instrument={page.title.rendered} />
