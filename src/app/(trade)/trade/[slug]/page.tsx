@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const instrumentUppercase = slug.toUpperCase();
   if (!params) return;
-  const getpercentage = await metaDataHelper(slug);
+  const { getpercentage } = await metaDataHelper(slug);
   const formattedPercentage = Math.trunc(getpercentage);
   return {
     title: `Trade ${instrumentUppercase} at ${formattedPercentage}% Lower Cost vs the Next Best Option`,
