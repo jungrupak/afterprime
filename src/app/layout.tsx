@@ -1,24 +1,19 @@
 import "./globals.scss";
-import {Blinker} from "next/font/google";
+import { Blinker } from "next/font/google";
 
 const blinker = Blinker({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "600", "700", "800"], // choose the weights you need
 });
 
-
 export default function RootLayout({
-                                     children,
-                                   }: {
+  children,
+}: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-    <body className={`${blinker.className} antialiased`}>
-
-    {children}
-
-    </body>
+      <body className={`${blinker.className} antialiased`}>{children}</body>
     </html>
   );
 }

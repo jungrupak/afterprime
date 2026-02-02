@@ -4,7 +4,7 @@ import BottomCards from "@/components/footer/bottom-cards/BottomCards";
 import Footer from "@/components/footer/Footer";
 import FooterScripts from "@/components/FooterScripts";
 import HeadScripts from "@/components/HeaderScripts";
-import {Metadata} from "next";
+import { Metadata } from "next";
 import ReactQueryProvider from "../providers/ReactQueryProvider";
 
 import AfterprimeOrgSchema from "@/lib/schema/orgSchema";
@@ -55,19 +55,19 @@ export const metadata: Metadata = {
 };
 
 export default function PagesLayout({
-                                      children,
-                                    }: Readonly<{
+  children,
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <>
       <ReactQueryProvider>
         {/* Head Scripts */}
-        <HeadScripts/>
-        <AfterprimeOrgSchema/>
+        <HeadScripts />
+        <AfterprimeOrgSchema />
         {/* Head Scripts Ends */}
 
-        <TypeformLoader/>
+        <TypeformLoader />
 
         {/* Fixed Vid Bg for entire website */}
         <div className="home_banner_video">
@@ -78,7 +78,7 @@ export default function PagesLayout({
             data-automation="VideoPlayer"
             height="100%"
             width="100%"
-            style={{height: "calc(100vh + 42vh)"}}
+            style={{ height: "calc(100vh + 42vh)" }}
             loop
             muted
             autoPlay
@@ -87,16 +87,16 @@ export default function PagesLayout({
             aria-label="video-player"
             controlsList="nodownload"
           >
-            <source src="/low-res.mp4" type="video/mp4"/>
+            <source src="/low-res.mp4" type="video/mp4" />
           </video>
         </div>
         {/* Fixed Vid Bg for entire website ends */}
-        <Header/>
+        <Header />
         {children}
-        <BottomCards/>
-        <Footer/>
+        <BottomCards />
+        <Footer />
         {/* Footer Scripts */}
-        <FooterScripts/>
+        <FooterScripts />
         {/* Footer Scripts */}
       </ReactQueryProvider>
     </>
