@@ -40,7 +40,7 @@ export default function FlowRewardIntro({
         <p
           className={`paragraph`}
           dangerouslySetInnerHTML={{
-            __html: `${instrument} -  ${content.paragraph || ""}`,
+            __html: `${content.paragraph || ""}`,
           }}
         />
         <div className={`mt-10 md:mt-15`}>

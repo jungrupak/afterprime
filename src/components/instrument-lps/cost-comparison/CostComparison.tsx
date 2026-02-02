@@ -18,6 +18,10 @@ export default function CostComparison({ instrument }: { instrument: string }) {
   });
   //####
 
+  //Hide this component if below condition matches
+  if (data?.industryVsAfterprimeAvgPct === 0) return;
+  if (data?.rebate === null) return;
+
   const brokerList = data?.brokers;
   //console.log("data:", brokerList);
   const brokersToPick = [
