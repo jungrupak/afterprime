@@ -120,7 +120,7 @@ export default function LPBanner({ instrument }: BannerTitle) {
                 <div className={`${styles.listUi} md:mt-12`}>
                   <ul>
                     <li>
-                      Get paid ${rebatePerLot} /lot with Flow Rewards
+                      Get paid ${rebatePerLot.toFixed(2)} /lot with Flow Rewards
                       <sup>TM</sup>
                     </li>
                     <li>Your rewards build with every trade</li>
