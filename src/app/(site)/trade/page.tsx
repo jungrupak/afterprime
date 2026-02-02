@@ -32,8 +32,8 @@ export default async function TradePage() {
     `<b>Lowest total cost, not headline spreads</b><br/>
 Spreads alone are misleading. Afterprime publishes all-in net cost per lot so you can compare brokers on real economics.
 `,
-    `<b>Flow RewardsTM reduce realized cost</b></br>
-Flow RewardsTM are credited per traded lot and recorded separately in PnL. This offsets a consistent portion of spread cost and narrows the gap between modeled and realized execution.
+    `<b>Flow Rewards<sup>TM</sup> reduce realized cost</b></br>
+Flow Rewards<sup>TM</sup> are credited per traded lot and recorded separately in PnL. This offsets a consistent portion of spread cost and narrows the gap between modeled and realized execution.
 `,
     `<b>Execution built for consistency</b></br>
 Low latency sensitivity, controlled slippage distribution, and stable fills during fast markets. Execution quality is treated as an engineering problem with financial consequences.`,
@@ -42,7 +42,7 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
   const bottomLists = [
     "Cost per lot (including commission)",
     "All-In Cost (round turn)",
-    "Flow RewardsTM per lot",
+    "Flow Rewards<sup>TM</sup> per lot",
     "Net Cost per lot",
     "Savings vs Afterprime",
   ];
@@ -139,9 +139,9 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
               style={{ fontWeight: "300" }}
             >
               Trade major, minor, and exotic FX pairs with transparent pricing,
-              zero commission, and Flow RewardsTM credited per lot. Afterprime
-              publishes real all in costs so you can model execution before
-              deploying capital. No spread games. No hidden charges.
+              zero commission, and Flow Rewards<sup>TM</sup> credited per lot.
+              Afterprime publishes real all in costs so you can model execution
+              before deploying capital. No spread games. No hidden charges.
             </div>
           </div>
         </div>
