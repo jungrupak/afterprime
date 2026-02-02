@@ -36,6 +36,7 @@ export async function getBrokerCompareData(
       {
         cache: "force-cache", // reuse cached data
         next: { revalidate: CACHE_TTL }, // revalidate cache every 2 min
+        
       }
     );
 

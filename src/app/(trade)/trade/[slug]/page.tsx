@@ -35,14 +35,6 @@ export default async function TradeSlugPage({ params }: PageProps) {
     notFound();
   }
 
-  // get compare data
-  const { slug } = await params;
-  const compareData = await getBrokerCompareData(slug);
-  const rebateValue =
-    typeof compareData?.rebate === "number"
-      ? compareData.rebate
-      : (compareData?.rebate?.rebate_usd_per_lot ?? 0);
-
   const flowRewardContent =
     page.acf?.instrument_page_fields?.what_is_flow_rewards_section || undefined;
 
@@ -69,7 +61,6 @@ export default async function TradeSlugPage({ params }: PageProps) {
         data={customFieldFaqBlock}
         faqSubject="FAQ"
         instrument={page.title.rendered}
-        hasRebateValue={rebateValue > 0}
       />
       <Cta />
       <CostCalculator instrument={page.title.rendered} />

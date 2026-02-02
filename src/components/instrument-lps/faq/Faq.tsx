@@ -1,5 +1,9 @@
+"use client";
 import styles from "./style.module.scss";
 import Accordion from "@/utils/accordion/Accordion";
+import { useState, useEffect } from "react";
+import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
+import { useQuery } from "@tanstack/react-query";
 
 interface FAQItem {
   question?: string;
@@ -13,6 +17,9 @@ type faqContents = {
   hasRebateValue?: boolean;
 };
 
+//##
+const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
+
 export default function Faq({
   faqSubject,
   instrument,
@@ -20,6 +27,25 @@ export default function Faq({
 }: faqContents) {
   // map nested faq_item into flat structure
   //if (!data) return null;
+
+  const [isRebate, setIsRebate] = useState(true);
+
+  //####
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["cost-comparison-faq", instrument],
+    queryFn: () => getBrokerCompareData(instrument!),
+    enabled: !!instrument, //prevents undefined crash
+    staleTime: CACHE_TTL, // fresh for 2 minutes
+    gcTime: 10 * 60 * 1000, // cache stays for 10 minutes
+  });
+  //####
+
+  useEffect(() => {
+    if (data?.rebate === null) {
+      setIsRebate(false);
+    }
+  }, [data]);
+
   const fixedFaqs = [
     {
       question: `How are Flow Rewards calculated?`,
@@ -27,7 +53,7 @@ export default function Faq({
     },
     {
       question: `Is ${instrument} eligible for Flow Rewards?`,
-      answer: `${hasRebateValue ? "Yes." : "No."} ${instrument} qualifies for Flow Rewards.`,
+      answer: `${isRebate ? "Yes." : "No."} ${instrument} ${isRebate ? "" : "not"} qualifies for Flow Rewards.`,
     },
     {
       question: `How does Afterprime make money?`,
