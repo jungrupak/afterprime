@@ -19,6 +19,9 @@ interface BrokerIndividualDataType {
     effective_from?: string;
     effective_to?: string;
   };
+  //sometimes shows error on endpoint
+  error?:string;
+  symbol?:string;
 }
 
 // #### Cache time
