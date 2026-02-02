@@ -53,7 +53,7 @@ export default function Faq({
     },
     {
       question: `Is ${instrument} eligible for Flow Rewards?`,
-      answer: `${isRebate ? "Yes." : "No."} ${instrument} ${isRebate ? "qualifies" : "does not qualifies"} for Flow Rewards.`,
+      answer: `${isRebate ? "Yes." : "No."} ${instrument} ${isRebate ? "qualify" : "does not qualifies"} for Flow Rewards.`,
     },
     {
       question: `How does Afterprime make money?`,
