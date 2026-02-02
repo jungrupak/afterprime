@@ -1,6 +1,9 @@
 import Footer from "@/components/instrument-lps/footer/Footer";
 import Header from "@/components/instrument-lps/header/Header";
 import ReactQueryProvider from "@/app/providers/ReactQueryProvider";
+import FooterScripts from "@/components/FooterScripts";
+import HeadScripts from "@/components/HeaderScripts";
+import AfterprimeOrgSchema from "@/lib/schema/orgSchema";
 
 export default function TradeLayout({
   children,
@@ -10,6 +13,11 @@ export default function TradeLayout({
   return (
     <>
       <ReactQueryProvider>
+        {/* Head Scripts */}
+        <HeadScripts />
+        <AfterprimeOrgSchema />
+        {/* Head Scripts Ends */}
+
         <Header />
         {/* Fixed Vid Bg for entire website */}
         <div
@@ -38,6 +46,10 @@ export default function TradeLayout({
         {/* Fixed Vid Bg for entire website ends */}
         <main>{children}</main>
         <Footer />
+
+        {/* Footer Scripts */}
+        <FooterScripts />
+        {/* Footer Scripts */}
       </ReactQueryProvider>
     </>
   );

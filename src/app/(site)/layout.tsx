@@ -2,12 +2,11 @@ import TypeformLoader from "@/utils/TypeFormLoader";
 import Header from "@/components/header/Header";
 import BottomCards from "@/components/footer/bottom-cards/BottomCards";
 import Footer from "@/components/footer/Footer";
+import { Metadata } from "next";
 import FooterScripts from "@/components/FooterScripts";
 import HeadScripts from "@/components/HeaderScripts";
-import { Metadata } from "next";
-import ReactQueryProvider from "../providers/ReactQueryProvider";
-
 import AfterprimeOrgSchema from "@/lib/schema/orgSchema";
+import ReactQueryProvider from "../providers/ReactQueryProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://afterprime.com"),
