@@ -53,7 +53,7 @@ export default function Faq({
     },
     {
       question: `Is ${instrument} eligible for Flow Rewards?`,
-      answer: `${isRebate ? "Yes." : "No."} ${instrument} ${isRebate ? "" : "not"} qualifies for Flow Rewards.`,
+      answer: `${isRebate ? "Yes." : "No."} ${instrument} ${isRebate ? "qualifies" : "does not qualifies"} for Flow Rewards.`,
     },
     {
       question: `How does Afterprime make money?`,
@@ -66,6 +66,7 @@ export default function Faq({
   ];
 
   //FAQ Schema Data
+  const instrumentToLowercase = instrument?.toLowerCase();
   const schemaFaq = fixedFaqs
     ? {
         "@context": "https://schema.org",
@@ -87,19 +88,19 @@ export default function Faq({
           },
           {
             "@type": "WebPage",
-            "@id": `https://afterprime.com/trade/${instrument?.toLowerCase}#webpage`,
-            url: `https://afterprime.com/trade/${instrument?.toLowerCase}`,
+            "@id": `https://afterprime.com/trade/${instrumentToLowercase}#webpage`,
+            url: `https://afterprime.com/trade/${instrumentToLowercase}`,
             name: `${instrument} Trading`,
             isPartOf: {
               "@id": "https://afterprime.com/#website",
             },
             about: {
-              "@id": `https://afterprime.com/trade/${instrument?.toLowerCase}#financialproduct`,
+              "@id": `https://afterprime.com/trade/${instrumentToLowercase}#financialproduct`,
             },
           },
           {
             "@type": "FinancialProduct",
-            "@id": `https://afterprime.com/trade/${instrument?.toLowerCase}#financialproduct`,
+            "@id": `https://afterprime.com/trade/${instrumentToLowercase}#financialproduct`,
             name: `${instrument}`,
             category: "Forex",
             provider: {
@@ -110,7 +111,7 @@ export default function Faq({
               "Zero commission. Flow Rewards: {rebate_usd_per_lot} USD per lot.",
             offers: {
               "@type": "Offer",
-              "@id": `https://afterprime.com/trade/${instrument?.toLowerCase}#offer`,
+              "@id": `https://afterprime.com/trade/${instrumentToLowercase}#offer`,
               offeredBy: {
                 "@id": "https://afterprime.com/#org",
               },
@@ -129,7 +130,7 @@ export default function Faq({
           },
           {
             "@type": "FAQPage",
-            "@id": `https://afterprime.com/trade/${instrument?.toLowerCase}#faq`,
+            "@id": `https://afterprime.com/trade/${instrumentToLowercase}#faq`,
             mainEntity: [
               {
                 "@type": "Question",

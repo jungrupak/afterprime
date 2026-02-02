@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: PageProps) {
   if (rebate === 0) {
     return {
       title: `Trade ${instrumentUppercase} | Afterprime`,
-      description: `Trade ${instrumentUppercase} with standard per lot pricing. Flow Rewards TM are not applied to {symbol}`,
+      description: `Trade ${instrumentUppercase} with standard per lot pricing. Flow Rewards TM are not applied to ${instrumentUppercase}`,
     };
   } else if (industryVsApAvgPct <= 0) {
     return {
