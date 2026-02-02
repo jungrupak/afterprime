@@ -27,7 +27,7 @@ const CACHE_TTL = 2 * 60; // in seconds (Next.js expects seconds for revalidate)
 // #### Fetch function
 export async function getBrokerCompareData(
   symbol: string,
-): Promise<BrokerIndividualDataType | null> {
+){
   if (!symbol) return null;
 
   try {

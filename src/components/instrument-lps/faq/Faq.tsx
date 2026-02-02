@@ -57,20 +57,19 @@ export default function Faq({ data, faqSubject, instrument }: faqContents) {
           },
           {
             "@type": "WebPage",
-            "@id": "https://afterprime.com/trade/{instrument}#webpage",
-            url: "https://afterprime.com/trade/{instrument}",
+            "@id": `https://afterprime.com/trade/${instrument}#webpage`,
+            url: `https://afterprime.com/trade/${instrument}`,
             name: `${instrument} Trading`,
             isPartOf: {
               "@id": "https://afterprime.com/#website",
             },
             about: {
-              "@id":
-                "https://afterprime.com/trade/{instrument}#financialproduct",
+              "@id": `https://afterprime.com/trade/${instrument}#financialproduct`,
             },
           },
           {
             "@type": "FinancialProduct",
-            "@id": "https://afterprime.com/trade/{instrument}#financialproduct",
+            "@id": `https://afterprime.com/trade/${instrument}#financialproduct`,
             name: `${instrument}`,
             category: "Forex",
             provider: {
@@ -81,7 +80,7 @@ export default function Faq({ data, faqSubject, instrument }: faqContents) {
               "Zero commission. Flow Rewards: {rebate_usd_per_lot} USD per lot.",
             offers: {
               "@type": "Offer",
-              "@id": "https://afterprime.com/trade/{instrument}#offer",
+              "@id": `https://afterprime.com/trade/${instrument}#offer`,
               offeredBy: {
                 "@id": "https://afterprime.com/#org",
               },
@@ -100,7 +99,7 @@ export default function Faq({ data, faqSubject, instrument }: faqContents) {
           },
           {
             "@type": "FAQPage",
-            "@id": "https://afterprime.com/trade/{instrument}#faq",
+            "@id": `https://afterprime.com/trade/${instrument}#faq`,
             mainEntity: [
               {
                 "@type": "Question",
