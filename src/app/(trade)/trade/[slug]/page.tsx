@@ -20,12 +20,30 @@ export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const instrumentUppercase = slug.toUpperCase();
   if (!params) return;
-  const { getpercentage } = await metaDataHelper(slug);
+  const { getpercentage, rebate, industryVsApAvgPct } =
+    await metaDataHelper(slug);
   const formattedPercentage = Math.trunc(getpercentage);
-  return {
-    title: `Trade ${instrumentUppercase} at ${formattedPercentage}% Lower Cost vs the Next Best Option`,
-    description: `Trade ${instrumentUppercase} on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.`,
-  };
+
+  console.log("rebate", rebate);
+  console.log("Industry vs percentage", industryVsApAvgPct);
+  console.log("get percentage", getpercentage);
+
+  if (rebate === 0) {
+    return {
+      title: `Trade ${instrumentUppercase} | Afterprime`,
+      description: `Trade ${instrumentUppercase} with standard per lot pricing. Flow Rewards TM are not applied to {symbol}`,
+    };
+  } else if (industryVsApAvgPct <= 0) {
+    return {
+      title: `${instrumentUppercase} Trading With Flow Rewards | Afterprime`,
+      description: `Trade ${instrumentUppercase} and earn ${rebate.toFixed(2)}/lot with Flow Rewards`,
+    };
+  } else {
+    return {
+      title: `Trade ${instrumentUppercase} at ${formattedPercentage}% Lower Cost vs the Next Best Option`,
+      description: `Trade ${instrumentUppercase} on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.`,
+    };
+  }
 }
 //Export Dynamic Page Title Tags Ends####
 
