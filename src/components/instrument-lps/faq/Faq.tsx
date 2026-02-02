@@ -14,8 +14,7 @@ type faqContents = {
 
 export default function Faq({ data, faqSubject, instrument }: faqContents) {
   // map nested faq_item into flat structure
-  if (!data) return null;
-
+  //if (!data) return null;
   const fixedFaqs = [
     {
       question: `How are Flow Rewards calculated?`,
