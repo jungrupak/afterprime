@@ -43,6 +43,10 @@ export default function Faq({
   useEffect(() => {
     if (data?.rebate === null) {
       setIsRebate(false);
+    } else if (!data) {
+      setIsRebate(false);
+    } else {
+      setIsRebate(true);
     }
   }, [data]);
 

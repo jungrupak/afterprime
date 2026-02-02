@@ -26,6 +26,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
   //Hide this component if below condition matches
   if (data?.industryVsAfterprimeAvgPct === 0) return;
   if (data?.rebate === null) return;
+  if (!data) return;
 
   const afterprimeCost = data?.brokers?.[0]?.cost ?? 0;
   const rebatePerLot = data?.rebate?.rebate_usd_per_lot ?? 0;
