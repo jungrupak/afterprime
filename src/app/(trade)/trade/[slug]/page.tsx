@@ -9,6 +9,7 @@ import ProductSpecification from "@/components/instrument-lps/product-specificat
 import Faq from "@/components/instrument-lps/faq/Faq";
 import Cta from "@/components/instrument-lps/cta/Cta";
 import { metaDataHelper } from "./metaDataHelper";
+import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -34,6 +35,14 @@ export default async function TradeSlugPage({ params }: PageProps) {
     notFound();
   }
 
+  // get compare data
+  const { slug } = await params;
+  const compareData = await getBrokerCompareData(slug);
+  const rebateValue =
+    typeof compareData?.rebate === "number"
+      ? compareData.rebate
+      : (compareData?.rebate?.rebate_usd_per_lot ?? 0);
+
   const flowRewardContent =
     page.acf?.instrument_page_fields?.what_is_flow_rewards_section || undefined;
 
@@ -41,7 +50,6 @@ export default async function TradeSlugPage({ params }: PageProps) {
     page.acf?.instrument_page_fields?.execution_quality_rational || undefined;
 
   const customFieldFaqBlock = page.acf?.faq_section?.q_and_a;
-  const customFieldCTABlock = page.acf?.instrument_page_fields?.lp_cta;
 
   //###################
 
@@ -61,6 +69,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
         data={customFieldFaqBlock}
         faqSubject="FAQ"
         instrument={page.title.rendered}
+        hasRebateValue={rebateValue > 0}
       />
       <Cta />
       <CostCalculator instrument={page.title.rendered} />

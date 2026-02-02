@@ -10,9 +10,14 @@ type faqContents = {
   faqSubject?: string;
   data?: FAQItem[];
   instrument?: string;
+  hasRebateValue?: boolean;
 };
 
-export default function Faq({ data, faqSubject, instrument }: faqContents) {
+export default function Faq({
+  faqSubject,
+  instrument,
+  hasRebateValue,
+}: faqContents) {
   // map nested faq_item into flat structure
   //if (!data) return null;
   const fixedFaqs = [
@@ -22,7 +27,7 @@ export default function Faq({ data, faqSubject, instrument }: faqContents) {
     },
     {
       question: `Is ${instrument} eligible for Flow Rewards?`,
-      answer: `Yes. ${instrument} qualifies for Flow Rewards.`,
+      answer: `${hasRebateValue ? "Yes." : "No."} ${instrument} qualifies for Flow Rewards.`,
     },
     {
       question: `How does Afterprime make money?`,
@@ -56,19 +61,19 @@ export default function Faq({ data, faqSubject, instrument }: faqContents) {
           },
           {
             "@type": "WebPage",
-            "@id": `https://afterprime.com/trade/${instrument}#webpage`,
-            url: `https://afterprime.com/trade/${instrument}`,
+            "@id": `https://afterprime.com/trade/${instrument?.toLowerCase}#webpage`,
+            url: `https://afterprime.com/trade/${instrument?.toLowerCase}`,
             name: `${instrument} Trading`,
             isPartOf: {
               "@id": "https://afterprime.com/#website",
             },
             about: {
-              "@id": `https://afterprime.com/trade/${instrument}#financialproduct`,
+              "@id": `https://afterprime.com/trade/${instrument?.toLowerCase}#financialproduct`,
             },
           },
           {
             "@type": "FinancialProduct",
-            "@id": `https://afterprime.com/trade/${instrument}#financialproduct`,
+            "@id": `https://afterprime.com/trade/${instrument?.toLowerCase}#financialproduct`,
             name: `${instrument}`,
             category: "Forex",
             provider: {
@@ -79,7 +84,7 @@ export default function Faq({ data, faqSubject, instrument }: faqContents) {
               "Zero commission. Flow Rewards: {rebate_usd_per_lot} USD per lot.",
             offers: {
               "@type": "Offer",
-              "@id": `https://afterprime.com/trade/${instrument}#offer`,
+              "@id": `https://afterprime.com/trade/${instrument?.toLowerCase}#offer`,
               offeredBy: {
                 "@id": "https://afterprime.com/#org",
               },
@@ -98,7 +103,7 @@ export default function Faq({ data, faqSubject, instrument }: faqContents) {
           },
           {
             "@type": "FAQPage",
-            "@id": `https://afterprime.com/trade/${instrument}#faq`,
+            "@id": `https://afterprime.com/trade/${instrument?.toLowerCase}#faq`,
             mainEntity: [
               {
                 "@type": "Question",
