@@ -22,11 +22,9 @@ export async function generateMetadata({ params }: PageProps) {
   if (!params) return;
   const { getpercentage, rebate, industryVsApAvgPct } =
     await metaDataHelper(slug);
-  const formattedPercentage = Math.trunc(getpercentage);
+  //const formattedPercentage = Math.trunc(getpercentage);
 
-  console.log("rebate", rebate);
-  console.log("Industry vs percentage", industryVsApAvgPct);
-  console.log("get percentage", getpercentage);
+  const formattedPercentage = Math.trunc(Math.abs(Number(getpercentage)));
 
   if (rebate === 0) {
     return {
