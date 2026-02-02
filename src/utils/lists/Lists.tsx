@@ -17,7 +17,7 @@ export default function Lists({
       }`}
     >
       {items.map((item, index) => (
-        <li key={index}>{item}</li>
+        <li key={index} dangerouslySetInnerHTML={{ __html: item || "" }} />
       ))}
     </ul>
   );
