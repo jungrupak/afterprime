@@ -1,18 +1,40 @@
 type ForexPair = {
   Symbol: string
-  InstrumentName: string
   Name: string
-  Active: string
-  Base: string
-  Term: string
-  AssetClass: string
-  ProductType: string
-  ContractSize: number
-  MinLot: number
-  MaxLots: number
+  "Asset Class": string
+  "Product Type": string
+  Expiry: string
+  "Pricefeed Type": string
+  "Margin Currency": string
+  "Profit Currency": string
+  "Flow Rewards /lot": string
+  "Contract Size": number
+  "Min. Lot": number
+  Step: number
+  "Max. Lots": number
   Decimals: number
-  ProfitCurrency: string
-  MarginCurrency: string
+  MT4: string
+  MT5: string
+  Web: string
+  Traderevolution: string
+  Desktop: string
+  Mobile: string
+  "FIX API": string
+  EAs: string
+  Scalping: string
+  "Day Trading": string
+  "News Trading": string
+  "Algo Trading": string
+  "Time Zone": string
+  Monday: string
+  Tuesday: string
+  Wednesday: string
+  Thursday: string
+  Friday: string
+  Saturday: string
+  Sunday: string
+  "Swap Type": string
+  "3-Day Swap": string
 }
 
 export function getRelatedPairs(
@@ -32,8 +54,8 @@ export function getRelatedPairs(
     if (pair.Symbol === currentSymbol) return false
 
     return (
-      pair.Base === currentPair.Base ||
-      pair.Term === currentPair.Term
+      pair["Margin Currency"] === currentPair["Margin Currency"] ||
+      pair["Profit Currency"] === currentPair["Profit Currency"]
     )
   })
 
