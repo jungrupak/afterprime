@@ -36,7 +36,8 @@ export default function LPBanner({ instrument }: BannerTitle) {
 
   //add saving percentage per broker savingPercentage
 
-  const afterprimeCostPerLot = data?.brokers[0]?.costPerLot ?? 0;
+  const afterprimeCostPerLot =
+    data?.brokers?.find((b) => b.broker === "Afterprime")?.costPerLot ?? 0;
 
   const allInCostAfterprime = afterprimeCostPerLot - rebatePerLot;
 

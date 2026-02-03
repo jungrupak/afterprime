@@ -67,22 +67,22 @@ export default function CostComparison({ instrument }: { instrument: string }) {
           variableMeasured: [
             {
               "@type": "PropertyValue",
-              name: "Cost Per Lot (Incl. Commission)",
+              name: "Spread (Incl. Commission)",
               unitText: "USD per lot",
             },
             {
               "@type": "PropertyValue",
-              name: "All-In Cost (Round Turn)",
+              name: "All-In Cost (Lot Round Turn)",
               unitText: "USD per lot",
             },
             {
               "@type": "PropertyValue",
-              name: "Flow Rewards",
+              name: "Flow Rewards (Lot Round Turn)",
               unitText: "USD per lot",
             },
             {
               "@type": "PropertyValue",
-              name: "Net Cost",
+              name: "Net Cost (Lot Round Turn)",
               unitText: "USD per lot",
             },
             {
@@ -110,13 +110,13 @@ export default function CostComparison({ instrument }: { instrument: string }) {
               additionalProperty: [
                 {
                   "@type": "PropertyValue",
-                  name: "Cost Per Lot (Incl. Commission)",
+                  name: "Spread (Incl. Commission)",
                   value: broker.cost.toFixed(2),
                   unitText: "USD",
                 },
                 {
                   "@type": "PropertyValue",
-                  name: "All-In Cost (Round Turn)",
+                  name: "All-In Cost (Lot Round Turn)",
                   value: broker.costPerLot.toFixed(2),
                   unitText: "USD",
                 },
@@ -124,7 +124,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                   ? [
                       {
                         "@type": "PropertyValue",
-                        name: "Flow Rewards",
+                        name: "Flow Rewards (Lot Round Turn)",
                         value: rebate,
                         unitText: "USD",
                       },
@@ -132,7 +132,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                   : []),
                 {
                   "@type": "PropertyValue",
-                  name: "Net Cost",
+                  name: "Net Cost (Lot Round Turn)",
                   value: netCost.toFixed(2),
                   unitText: "USD",
                 },
@@ -170,22 +170,22 @@ export default function CostComparison({ instrument }: { instrument: string }) {
             >
               <div className={`col-span-3 md:col-span-2`}></div>
               <div className={`col-span-1 md:block hidden`}>
-                Cost Per Lot <br />
+                Spread <br />
                 (Incl. Commission)
               </div>
 
               <div className={`md:block hidden col-span-1`}>
                 All-In Cost <br />
-                (Round Turn)
+                (Lot Round Turn)
               </div>
               <div className={`col-span-1 md:block hidden`}>
                 Flow Rewards<sup>TM</sup> <br />
-                (Lot)
+                (Lot Round Turn)
               </div>
               <div className={`max-md:col-span-2 col-span-1`}>
                 Net Cost
                 <br />
-                (Round Turn)
+                (Lot Round Turn)
               </div>
               <div className={`max-md:col-span-2 col-span-1 text-[#ffffff]!`}>
                 <b>
@@ -229,21 +229,21 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                     </div>
                   </div>
                   <div
-                    data-label={`Cost Per Lot (Incl. Commission)`}
+                    data-label={`Spread (Incl. Commission)`}
                     className={`col-span-1 md:block hidden`}
                   >
                     {broker.cost.toFixed(2)}
                   </div>
 
                   <div
-                    data-label={`All-In-Cost (Round Trip)`}
+                    data-label={`All-In-Cost (Lot Round Turn)`}
                     className={`col-span-1 md:block hidden`}
                   >
                     ${broker.costPerLot.toFixed(2)}
                   </div>
 
                   <div
-                    data-label={`Flow Rewards`}
+                    data-label={`Flow Rewards (Lot Round Turn)`}
                     className={` col-span-1 md:block hidden`}
                   >
                     {broker.broker === "Afterprime" && rebatePerLot !== null ? (
@@ -254,7 +254,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                   </div>
 
                   <div
-                    data-label={`Net Cost (Round Trip)`}
+                    data-label={`Net Cost (Lot Round Turn)`}
                     className={`max-md:col-span-2 col-span-1 `}
                   >
                     {(() => {
