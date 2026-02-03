@@ -26,20 +26,32 @@ export async function generateMetadata({ params }: PageProps) {
 
   const formattedPercentage = Math.trunc(Math.abs(Number(getpercentage)));
 
+  //for canonical ur
+  const canonicalUrl = `https://afterprime.com/trade/${slug.toLowerCase()}`;
+
   if (rebate === 0) {
     return {
       title: `Trade ${instrumentUppercase} | Afterprime`,
       description: `Trade ${instrumentUppercase} with standard per lot pricing. Flow Rewards TM are not applied to ${instrumentUppercase}`,
+      alternates: {
+        canonical: canonicalUrl,
+      },
     };
   } else if (industryVsApAvgPct <= 0) {
     return {
       title: `${instrumentUppercase} Trading With Flow Rewards | Afterprime`,
       description: `Trade ${instrumentUppercase} and earn ${rebate.toFixed(2)}/lot with Flow Rewards`,
+      alternates: {
+        canonical: canonicalUrl,
+      },
     };
   } else {
     return {
       title: `Trade ${instrumentUppercase} at ${formattedPercentage}% Lower Cost vs the Next Best Option`,
       description: `Trade ${instrumentUppercase} on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.`,
+      alternates: {
+        canonical: canonicalUrl,
+      },
     };
   }
 }
