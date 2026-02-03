@@ -19,7 +19,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
     queryFn: () => getBrokerCompareData(instrument!),
     enabled: !!instrument, //prevents undefined crash
     staleTime: CACHE_TTL, // fresh for 2 minutes
-    gcTime: 10 * 60 * 1000, // cache stays for 10 minutes
+    gcTime: 1 * 60 * 1000, // cache stays for 10 minutes
   });
   //####
 
@@ -28,7 +28,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
   if (data?.rebate === null) return;
   if (!data) return;
 
-  const afterprimeCost = data?.brokers?.[0]?.cost ?? 0;
+  const afterprimeCost = data?.brokers?.[0]?.costPerLot ?? 0;
   const rebatePerLot = data?.rebate?.rebate_usd_per_lot ?? 0;
 
   function multiplyAllInCost(item: number, volume: number) {
@@ -56,9 +56,9 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                   (Lots)
                 </th>
                 <th className="max-md:hidden">
-                  Cost
+                  Net Cost
                   <br />
-                  (Per Lot)
+                  (Lot Round Turn)
                 </th>
                 <th>
                   Flow Rewards<sup>TM</sup>
@@ -66,43 +66,28 @@ export default function CostBreakdown({ instrument }: Breakdown) {
                   (${rebatePerLot.toFixed(2)}/lot)
                 </th>
                 <th>
-                  Net Cost
+                  Saved
                   <br />
-                  (Round Turn)
+                  (vs Industry Avg.)
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>50</td>
-                <td className="max-md:hidden">{afterprimeCost}</td>
-                <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
-                <td>
-                  <span className="text-[#03C554]!">
-                    $ {((rebatePerLot - afterprimeCost) * 50).toFixed(2)}
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>200</td>
-                <td className="max-md:hidden">{afterprimeCost}</td>
-                <td>${multiplyAllInCost(rebatePerLot, 200)}</td>
-                <td>
-                  <span className="text-[#03C554]!">
-                    $ {((rebatePerLot - afterprimeCost) * 200).toFixed(2)}
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>1000</td>
-                <td className="max-md:hidden">{afterprimeCost}</td>
-                <td>${multiplyAllInCost(rebatePerLot, 1000)}</td>
-                <td>
-                  <span className="text-[#03C554]!">
-                    $ {((rebatePerLot - afterprimeCost) * 1000).toFixed(2)}
-                  </span>
-                </td>
-              </tr>
+
+            <tr>
+              <td>50 CORRECT</td>
+              <td className="max-md:hidden">{afterprimeCost}  = $5.53 not correct</td>
+              <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
+              <td>
+                <span className="text-[#03C554]!">
+                  $ (Industry Avg.costPerLot-afterprimeCost) * 50 = $294 saved on 50 lots
+
+                  ("broker":"Industry Avg","symbol":"EURGBP","cost":1.14,"costPerLot":11.41) MINUS 5.53 X 50 LOTS
+
+                </span>
+              </td>
+            </tr>
+
             </tbody>
           </table>
         </div>

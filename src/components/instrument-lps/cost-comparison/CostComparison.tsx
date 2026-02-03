@@ -170,22 +170,22 @@ export default function CostComparison({ instrument }: { instrument: string }) {
             >
               <div className={`col-span-3 md:col-span-2`}></div>
               <div className={`col-span-1 md:block hidden`}>
-                Cost Per Lot <br />
+                Spread <br />
                 (Incl. Commission)
               </div>
 
               <div className={`md:block hidden col-span-1`}>
                 All-In Cost <br />
-                (Round Turn)
+                (Lot Round Turn)
               </div>
               <div className={`col-span-1 md:block hidden`}>
                 Flow Rewards<sup>TM</sup> <br />
-                (Lot)
+                (Lot Round Turn)
               </div>
               <div className={`max-md:col-span-2 col-span-1`}>
                 Net Cost
                 <br />
-                (Round Turn)
+                (Lot Round Turn)
               </div>
               <div className={`max-md:col-span-2 col-span-1 text-[#ffffff]!`}>
                 <b>
