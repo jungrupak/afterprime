@@ -3,7 +3,6 @@ import {fetchSeoFieldData} from "@/utils/fetchSeoFieldData";
 
 export async function CustomMetadata(slug: string) {
   const seoData = await fetchSeoFieldData(slug);
-
   return {
     title: seoData?.title || "Afterprime",
     description:
@@ -20,7 +19,7 @@ export async function CustomMetadata(slug: string) {
       description:
         seoData?.opengraph?.description ||
         "Forex broker with lowest costs, A-Book forex broker, Get paid to trade",
-      url: `https://afterprime.com/${slug}`,
+      url: `${slug === "home-page" ? "https://afterprime.com/" : `https://afterprime.com/${slug}`}`,
       siteName: `${seoData?.opengraph?.sitename || "Afterprime"} ${slug}`,
       images: [
         {
@@ -46,7 +45,7 @@ export async function CustomMetadata(slug: string) {
       site: "https://x.com/afterprime_com",
     },
     alternates: {
-      canonical: `https://afterprime.com/${slug}`,
+      canonical: `${slug === "home-page" ? "https://afterprime.com/" : `https://afterprime.com/${slug}`}`,
     },
     icons: {
       icon: "/favicon.ico",
