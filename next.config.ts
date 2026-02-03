@@ -89,6 +89,7 @@ const nextConfig: NextConfig = {
         { source: '/sample-page', destination: '/', permanent: true },
         { source: '/shifter_404.html', destination: '/', permanent: true },
         { source: '/spread-table', destination: '/live-spreads', permanent: true },
+        { source: '/fixapi', destination: '/fix-api', permanent: true },
       ];
   },
 };
