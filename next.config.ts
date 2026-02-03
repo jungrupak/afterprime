@@ -65,6 +65,7 @@ const nextConfig: NextConfig = {
         { source: '/trading-terms', destination: '/', permanent: true },
         { source: '/sitemap', destination: '/sitemap.xml', permanent: true },
         { source: '/trade-receipts', destination: '/', permanent: true },
+        { source: '/economic-calendar', destination: '/', permanent: true },
       ];
   },
 };
