@@ -28,8 +28,12 @@ export default function CostBreakdown({ instrument }: Breakdown) {
   if (data?.rebate === null) return;
   if (!data) return;
 
-  const afterprimeCost = data?.brokers?.[0]?.costPerLot ?? 0; //MUST BE afterprime, not 1st array
+  const afterprimeCost =
+    data?.brokers?.find((b) => b.broker === "Afterprime")?.costPerLot ?? 0;
   const rebatePerLot = data?.rebate?.rebate_usd_per_lot ?? 0;
+
+  const industryAvgCostPerLot =
+    data?.brokers?.find((b) => b.broker === "Industry Avg")?.costPerLot ?? 0;
 
   function multiplyAllInCost(item: number, volume: number) {
     const multiply = item * volume;
@@ -73,21 +77,49 @@ export default function CostBreakdown({ instrument }: Breakdown) {
               </tr>
             </thead>
             <tbody>
-
-            <tr>
-              <td>50 CORRECT</td>
-              <td className="max-md:hidden">{afterprimeCost}  = $5.53 not correct</td>
-              <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
-              <td>
-                <span className="text-[#03C554]!">
-                  $ (broker.Industry Avg.costPerLot-afterprimeCost) * 50 = $294 saved on 50 lots
-
-                  ("broker":"Industry Avg","symbol":"EURGBP","cost":1.14,"costPerLot":11.41) MINUS 5.53 X 50 LOTS
-
-                </span>
-              </td>
-            </tr>
-
+              <tr>
+                <td>50</td>
+                <td className="max-md:hidden">
+                  ${afterprimeCost - rebatePerLot}
+                </td>
+                <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
+                <td>
+                  <span className="text-[#03C554]!">
+                    ${" "}
+                    {((industryAvgCostPerLot - afterprimeCost) * 50).toFixed(2)}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>200</td>
+                <td className="max-md:hidden">
+                  ${afterprimeCost - rebatePerLot}
+                </td>
+                <td>${multiplyAllInCost(rebatePerLot, 200)}</td>
+                <td>
+                  <span className="text-[#03C554]!">
+                    ${" "}
+                    {((industryAvgCostPerLot - afterprimeCost) * 200).toFixed(
+                      2,
+                    )}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>1000</td>
+                <td className="max-md:hidden">
+                  ${afterprimeCost - rebatePerLot}
+                </td>
+                <td>${multiplyAllInCost(rebatePerLot, 1000)}</td>
+                <td>
+                  <span className="text-[#03C554]!">
+                    ${" "}
+                    {((industryAvgCostPerLot - afterprimeCost) * 1000).toFixed(
+                      2,
+                    )}
+                  </span>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
