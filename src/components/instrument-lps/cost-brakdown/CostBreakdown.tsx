@@ -28,7 +28,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
   if (data?.rebate === null) return;
   if (!data) return;
 
-  const afterprimeCost = data?.brokers?.[0]?.costPerLot ?? 0;
+  const afterprimeCost = data?.brokers?.[0]?.costPerLot ?? 0; //MUST BE afterprime, not 1st array
   const rebatePerLot = data?.rebate?.rebate_usd_per_lot ?? 0;
 
   function multiplyAllInCost(item: number, volume: number) {
@@ -80,7 +80,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
               <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
               <td>
                 <span className="text-[#03C554]!">
-                  $ (Industry Avg.costPerLot-afterprimeCost) * 50 = $294 saved on 50 lots
+                  $ (broker.Industry Avg.costPerLot-afterprimeCost) * 50 = $294 saved on 50 lots
 
                   ("broker":"Industry Avg","symbol":"EURGBP","cost":1.14,"costPerLot":11.41) MINUS 5.53 X 50 LOTS
 
