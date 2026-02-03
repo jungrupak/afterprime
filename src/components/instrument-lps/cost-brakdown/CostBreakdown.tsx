@@ -79,7 +79,9 @@ export default function CostBreakdown({ instrument }: Breakdown) {
             <tbody>
               <tr>
                 <td>50</td>
-                <td className="max-md:hidden">${afterprimeCost}</td>
+                <td className="max-md:hidden">
+                  ${afterprimeCost - rebatePerLot}
+                </td>
                 <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
                 <td>
                   <span className="text-[#03C554]!">
@@ -90,7 +92,9 @@ export default function CostBreakdown({ instrument }: Breakdown) {
               </tr>
               <tr>
                 <td>200</td>
-                <td className="max-md:hidden">${afterprimeCost}</td>
+                <td className="max-md:hidden">
+                  ${afterprimeCost - rebatePerLot}
+                </td>
                 <td>${multiplyAllInCost(rebatePerLot, 200)}</td>
                 <td>
                   <span className="text-[#03C554]!">
@@ -103,7 +107,9 @@ export default function CostBreakdown({ instrument }: Breakdown) {
               </tr>
               <tr>
                 <td>1000</td>
-                <td className="max-md:hidden">${afterprimeCost}</td>
+                <td className="max-md:hidden">
+                  ${afterprimeCost - rebatePerLot}
+                </td>
                 <td>${multiplyAllInCost(rebatePerLot, 1000)}</td>
                 <td>
                   <span className="text-[#03C554]!">
