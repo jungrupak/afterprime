@@ -6,7 +6,7 @@ import ProfitCalculator from "@/components/profit-calculator/ProfitCalculator";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: `Afterprime – Get Paid to Trade`,
+  title: `Afterprime | Get Paid to Trade`,
   description: `Lowest costs, transparent execution, shared rewards. Value you won't find anywhere else.`,
   alternates: {
     canonical: "https://afterprime.com/trading-calculator",
