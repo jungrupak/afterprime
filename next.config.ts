@@ -101,7 +101,7 @@ const nextConfig: NextConfig = {
         { source: '/resources', destination: '/', permanent: true },
         { source: '/server-status', destination: '/', permanent: true },
         { source: '/spreads', destination: '/live-spreads', permanent: true },
-        { source: '/symbols', destination: '/trade', permanent: true }
+        { source: '/symbols', destination: '/trade', permanent: true },
         { source: '/terms-and-conditions', destination: '/terms', permanent: true },
         { source: '/trading-calculators', destination: '/calculators', permanent: true },
         { source: '/terms-of-service', destination: '/terms', permanent: true },
