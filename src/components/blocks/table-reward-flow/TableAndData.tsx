@@ -16,7 +16,9 @@ export function TableDataRewardFlow({
   rebate_table_title,
   rebate_table_section_paragraph,
 }: SectionPropsHead) {
-  const [forexRows, setForexRows] = useState<rabateData[]>([]);
+  const [forexMajors, setForexMajors] = useState<rabateData[]>([]);
+  const [forexMinors, setForexMinors] = useState<rabateData[]>([]);
+  const [forexExotics, setForexExotics] = useState<rabateData[]>([]);
   const [commodityRows, setCommodityRows] = useState<rabateData[]>([]);
   const [cryptoRows, setCryptoRows] = useState<rabateData[]>([]);
   const [metalsRows, setMetalsRows] = useState<rabateData[]>([]);
@@ -35,8 +37,26 @@ export function TableDataRewardFlow({
         const forexOnly = data.filter((row) => row.product.startsWith("FOREX"));
 
         // Sort alphabetically by symbol
-        forexOnly.sort((a, b) => a.symbol.localeCompare(b.symbol));
-        setForexRows(forexOnly);
+        // forexOnly.sort((a, b) => a.symbol.localeCompare(b.symbol));
+        // setForexRows(forexOnly);
+
+        //Forex Majors
+        const forexMajors = data.filter(
+          (row) => row.product === "FOREX-MAJORS",
+        );
+        setForexMajors(forexMajors);
+
+        //Forex Minors
+        const forexMinors = data.filter(
+          (row) => row.product === "FOREX-MINORS",
+        );
+        setForexMinors(forexMinors);
+
+        //Forex Exotics
+        const forexExotics = data.filter(
+          (row) => row.product === "FOREX-EXOTICS",
+        );
+        setForexExotics(forexExotics);
 
         //Commodities
         const commoditiesOnly = data.filter((row) =>
@@ -88,12 +108,12 @@ export function TableDataRewardFlow({
 
         <Tab>
           {/* Forex Tab */}
-          <TabItem tabNav="Forex">
+          <TabItem tabNav="FX Majors">
             {loading ? (
               <p>Loading...</p>
             ) : error ? (
               <p className="text-red-500">{error}</p>
-            ) : forexRows.length > 0 ? (
+            ) : forexMajors.length > 0 ? (
               <div className="genericTable overflow-x-auto">
                 <table>
                   <thead>
@@ -103,7 +123,7 @@ export function TableDataRewardFlow({
                     </tr>
                   </thead>
                   <tbody>
-                    {forexRows.map((row, idx) => (
+                    {forexMajors.map((row, idx) => (
                       <tr key={idx}>
                         <td>{row.symbol}</td>
                         <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
@@ -116,6 +136,67 @@ export function TableDataRewardFlow({
               <p>{placeholderText}</p>
             )}
           </TabItem>
+          {/*  */}
+
+          <TabItem tabNav="FX Minors">
+            {loading ? (
+              <p>Loading...</p>
+            ) : error ? (
+              <p className="text-red-500">{error}</p>
+            ) : forexMinors.length > 0 ? (
+              <div className="genericTable overflow-x-auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Symbol</th>
+                      <th>Rebate (USD per lot)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {forexMinors.map((row, idx) => (
+                      <tr key={idx}>
+                        <td>{row.symbol}</td>
+                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p>{placeholderText}</p>
+            )}
+          </TabItem>
+          {/*  */}
+
+          <TabItem tabNav="FX Exotics">
+            {loading ? (
+              <p>Loading...</p>
+            ) : error ? (
+              <p className="text-red-500">{error}</p>
+            ) : forexExotics.length > 0 ? (
+              <div className="genericTable overflow-x-auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Symbol</th>
+                      <th>Rebate (USD per lot)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {forexExotics.map((row, idx) => (
+                      <tr key={idx}>
+                        <td>{row.symbol}</td>
+                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p>{placeholderText}</p>
+            )}
+          </TabItem>
+          {/*  */}
 
           {/* Other Tabs */}
           <TabItem tabNav="Commodities">
