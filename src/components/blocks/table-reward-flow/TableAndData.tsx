@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import Tab, { TabItem } from "@/components/ui/Tab";
 import style from "./style.module.scss";
@@ -7,7 +6,7 @@ import { Blocks } from "@/types/blocks";
 
 type SectionPropsHead = Blocks["rebate-table"];
 
-type ForexRow = {
+type rabateData = {
   symbol: string;
   product: string;
   rebate_usd_per_lot: number;
@@ -17,26 +16,44 @@ export function TableDataRewardFlow({
   rebate_table_title,
   rebate_table_section_paragraph,
 }: SectionPropsHead) {
-  const [forexRows, setForexRows] = useState<ForexRow[]>([]);
+  const [forexRows, setForexRows] = useState<rabateData[]>([]);
+  const [commodityRows, setCommodityRows] = useState<rabateData[]>([]);
+  const [cryptoRows, setCryptoRows] = useState<rabateData[]>([]);
+  const [indicesRows, setIndicesRows] = useState<rabateData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(
-          "https://scoreboard.argamon.com:8443/api/rebates/current"
-        );
+        const res = await fetch("/api/rebates");
         if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
-        const data: ForexRow[] = (await res.json()) as ForexRow[];
+        const data: rabateData[] = (await res.json()) as rabateData[];
 
         // Only FOREX
         const forexOnly = data.filter((row) => row.product.startsWith("FOREX"));
 
         // Sort alphabetically by symbol
         forexOnly.sort((a, b) => a.symbol.localeCompare(b.symbol));
-
         setForexRows(forexOnly);
+
+        //Commodities
+        const commoditiesOnly = data.filter((row) =>
+          row.product.startsWith("COMMODITIES"),
+        );
+        setCommodityRows(commoditiesOnly);
+
+        //Crypto data
+        const cryptoOnly = data.filter((row) =>
+          row.product.startsWith("CRYPTO"),
+        );
+        setCryptoRows(cryptoOnly);
+
+        //Indices data
+        const indicesOnly = data.filter((row) =>
+          row.product.startsWith("INDICES"),
+        );
+        setIndicesRows(indicesOnly);
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
@@ -96,16 +113,88 @@ export function TableDataRewardFlow({
 
           {/* Other Tabs */}
           <TabItem tabNav="Commodities">
-            <p>{placeholderText}</p>
+            {loading ? (
+              <p>Loading...</p>
+            ) : error ? (
+              <p className="text-red-500">{error}</p>
+            ) : commodityRows.length > 0 ? (
+              <div className="genericTable overflow-x-auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Symbol</th>
+                      <th>Rebate (USD per lot)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {commodityRows.map((row, idx) => (
+                      <tr key={idx}>
+                        <td>{row.symbol}</td>
+                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p>{placeholderText}</p>
+            )}
           </TabItem>
           <TabItem tabNav="Indices">
-            <p>{placeholderText}</p>
+            {loading ? (
+              <p>Loading...</p>
+            ) : error ? (
+              <p className="text-red-500">{error}</p>
+            ) : commodityRows.length > 0 ? (
+              <div className="genericTable overflow-x-auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Symbol</th>
+                      <th>Rebate (USD per lot)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {indicesRows.map((row, idx) => (
+                      <tr key={idx}>
+                        <td>{row.symbol}</td>
+                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p>{placeholderText}</p>
+            )}
           </TabItem>
           <TabItem tabNav="Crypto">
-            <p>{placeholderText}</p>
-          </TabItem>
-          <TabItem tabNav="Stocks">
-            <p>{placeholderText}</p>
+            {loading ? (
+              <p>Loading...</p>
+            ) : error ? (
+              <p className="text-red-500">{error}</p>
+            ) : commodityRows.length > 0 ? (
+              <div className="genericTable overflow-x-auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Symbol</th>
+                      <th>Rebate (USD per lot)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cryptoRows.map((row, idx) => (
+                      <tr key={idx}>
+                        <td>{row.symbol}</td>
+                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p>{placeholderText}</p>
+            )}
           </TabItem>
         </Tab>
       </div>

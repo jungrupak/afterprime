@@ -21,7 +21,7 @@ export default function Tab({ children }: TabProps) {
   const [itemIndex, setItemIndex] = useState<number>(0);
   // Normalize children into an array
   const childArray = React.Children.toArray(
-    children
+    children,
   ) as ReactElement<TabItemProps>[];
 
   return (
