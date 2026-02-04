@@ -19,6 +19,7 @@ export function TableDataRewardFlow({
   const [forexRows, setForexRows] = useState<rabateData[]>([]);
   const [commodityRows, setCommodityRows] = useState<rabateData[]>([]);
   const [cryptoRows, setCryptoRows] = useState<rabateData[]>([]);
+  const [metalsRows, setMetalsRows] = useState<rabateData[]>([]);
   const [indicesRows, setIndicesRows] = useState<rabateData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -54,6 +55,11 @@ export function TableDataRewardFlow({
           row.product.startsWith("INDICES"),
         );
         setIndicesRows(indicesOnly);
+        //Indices data
+        const metalsOnly = data.filter((row) =>
+          row.product.startsWith("METALS"),
+        );
+        setMetalsRows(metalsOnly);
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
@@ -140,12 +146,42 @@ export function TableDataRewardFlow({
               <p>{placeholderText}</p>
             )}
           </TabItem>
+          {/*  */}
+          <TabItem tabNav="Metals">
+            {loading ? (
+              <p>Loading...</p>
+            ) : error ? (
+              <p className="text-red-500">{error}</p>
+            ) : metalsRows.length > 0 ? (
+              <div className="genericTable overflow-x-auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Symbol</th>
+                      <th>Rebate (USD per lot)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {metalsRows.map((row, idx) => (
+                      <tr key={idx}>
+                        <td>{row.symbol}</td>
+                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p>{placeholderText}</p>
+            )}
+          </TabItem>
+          {/*  */}
           <TabItem tabNav="Indices">
             {loading ? (
               <p>Loading...</p>
             ) : error ? (
               <p className="text-red-500">{error}</p>
-            ) : commodityRows.length > 0 ? (
+            ) : indicesRows.length > 0 ? (
               <div className="genericTable overflow-x-auto">
                 <table>
                   <thead>
@@ -168,12 +204,13 @@ export function TableDataRewardFlow({
               <p>{placeholderText}</p>
             )}
           </TabItem>
+          {/*  */}
           <TabItem tabNav="Crypto">
             {loading ? (
               <p>Loading...</p>
             ) : error ? (
               <p className="text-red-500">{error}</p>
-            ) : commodityRows.length > 0 ? (
+            ) : cryptoRows.length > 0 ? (
               <div className="genericTable overflow-x-auto">
                 <table>
                   <thead>
