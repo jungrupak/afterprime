@@ -1,7 +1,7 @@
 import {NextResponse} from "next/server";
 
-//const API_URL = "https://scoreboard.argamon.com:8443/api/rebates/current"
-const API_URL = "https://afterprime.com/api/rebates"
+const API_URL = "https://scoreboard.argamon.com:8443/api/rebates/current"
+//const API_URL = "https://afterprime.com/api/rebates"
 
 export async function GET() {
     try {
