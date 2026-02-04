@@ -60,6 +60,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
           creator: {
             "@type": "Organization",
             name: "Afterprime",
+            license: "https://afterprime.com/license-and-regulations",
           },
           dateModified: new Date().toISOString().split("T")[0],
 
