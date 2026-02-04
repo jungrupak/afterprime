@@ -1,53 +1,58 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import { parse } from "papaparse"; // ✅ correct import
+import { parse } from "papaparse";
 import style from "./SwapTable.module.scss";
-import Tab, { TabItem } from "@/components/ui/Tab";
 import type { Blocks } from "@/types/blocks";
+import { useQuery } from "@tanstack/react-query";
 
-type CsvFields = Blocks["swap-table-section"];
+const tabNames = [
+  "FX Majors",
+  "FX Minors",
+  "FX Exotics",
+  "Commodities",
+  "Metals",
+  "Crypto",
+  "Indices",
+];
 
-export const csvEndpoints: Record<string, string> = {
-  "Forex Majors": "https://cdn.afterprime.com/csvfiles/fx-majors.csv",
-  "Forex Minors": "https://cdn.afterprime.com/csvfiles/fx-minors.csv",
-  "Forex Exotic": "https://cdn.afterprime.com/csvfiles/fx-exotics.csv",
-  Commodities: "https://cdn.afterprime.com/csvfiles/commodities.csv",
-  Indices: "https://cdn.afterprime.com/csvfiles/cfd-indices.csv",
-  Crypto: "https://cdn.afterprime.com/csvfiles/cryptocurrencies.csv?as",
-};
-
-export interface InstrumentData {
-  Instrument: string;
-  Short: number;
-  Long: number;
+interface InstrumentDataType {
+  symbol?: string;
+  path?: string;
+  swapLong?: number;
+  swapShort?: number;
 }
 
 export function SwapDataTabs() {
-  const categories = Object.keys(csvEndpoints);
-  const [activeCategory, setActiveCategory] = useState(categories[0]);
-  const [data, setData] = useState<InstrumentData[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("Forex Majors");
+  const { data, isLoading, error } = useQuery<InstrumentDataType[]>({
+    queryKey: ["swapTable"],
+    queryFn: async () => {
+      const res = await fetch("/api/instruments");
+      if (!res.ok) {
+        throw new Error("Failed to fetch compare data");
+      }
+      const data = await res.json();
+      return data;
+    },
+    staleTime: 1000 * 60 * 480,
+  });
 
-  useEffect(() => {
-    const fetchCSV = async () => {
-      setLoading(true);
-      const url = csvEndpoints[activeCategory];
-      const response = await fetch(url);
-      const csvText = await response.text();
-
-      const parsed = parse<InstrumentData>(csvText, {
-        header: true,
-        dynamicTyping: true,
-        skipEmptyLines: true,
-      });
-
-      setData(parsed.data);
-      setLoading(false);
-    };
-
-    fetchCSV().catch(console.error);
-  }, [activeCategory]);
+  //##
+  // Filter data based on active tab
+  const filteredData = data?.filter((item) => {
+    if (activeCategory === "FX Majors")
+      return item.path?.startsWith("Forex\\Majors");
+    if (activeCategory === "FX Minors")
+      return item.path?.startsWith("Forex\\Minors");
+    if (activeCategory === "FX Exotics")
+      return item.path?.startsWith("Forex\\Exotics");
+    if (activeCategory === "Commodities")
+      return item.path?.startsWith("Commodities");
+    if (activeCategory === "Metals") return item.path?.startsWith("Metals");
+    if (activeCategory === "Crypto") return item.path?.startsWith("Crypto");
+    if (activeCategory === "Indices") return item.path?.startsWith("Indices");
+    return true;
+  });
 
   return (
     <section>
@@ -57,7 +62,7 @@ export function SwapDataTabs() {
       <div className="ap_container">
         {/* Tabs */}
         <div className={`${style.tabnavWrapper} flex space-x-2`}>
-          {categories.map((cat) => (
+          {tabNames.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
@@ -71,7 +76,7 @@ export function SwapDataTabs() {
         </div>
 
         {/* Table */}
-        {loading ? (
+        {isLoading ? (
           <p>Loading {activeCategory} data...</p>
         ) : (
           <div className={`genericTable ${style.tableParent}`}>
@@ -84,11 +89,11 @@ export function SwapDataTabs() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((row) => (
-                  <tr key={row.Instrument}>
-                    <td className="px-4 py-2">{row.Instrument}</td>
-                    <td className="px-4 py-2">{row.Short}</td>
-                    <td className="px-4 py-2">{row.Long}</td>
+                {filteredData?.map((row) => (
+                  <tr key={row.symbol}>
+                    <td className="px-4 py-2">{row.symbol}</td>
+                    <td className="px-4 py-2">{row.swapShort}</td>
+                    <td className="px-4 py-2">{row.swapLong}</td>
                   </tr>
                 ))}
               </tbody>

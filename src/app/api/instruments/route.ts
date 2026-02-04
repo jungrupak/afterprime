@@ -11,7 +11,7 @@ export async function GET(){
             )
         }
         const res = await fetch(API_URL,{
-            next:{revalidate:60},
+            next:{revalidate:21400},
             headers:{
                 "Accept": "application/json",
                 "User-Agent": "Next.js Server",
