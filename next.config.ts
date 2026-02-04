@@ -111,6 +111,8 @@ const nextConfig: NextConfig = {
         { source: '/wp-admin', destination: '/', permanent: true },
         { source: '/wp-login.php', destination: '/', permanent: true },
         { source: '/cdn-cgi/:path*', destination: '/', permanent: true },
+        { source: '/audusd', destination: '/trade/audusd', permanent: true },
+        { source: '/eurusd', destination: '/trade/eurusd', permanent: true },
       ];
   },
 };
