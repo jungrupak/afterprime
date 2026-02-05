@@ -37,21 +37,21 @@ export default function Card({
           alignItems === "center"
             ? "text-center"
             : alignItems === "left"
-            ? "text-left"
-            : "text-right"
+              ? "text-left"
+              : "text-right"
         }
         ${
           cardSize === "compact"
             ? styles.cardCompact
             : cardSize === "regular"
-            ? styles.cardRegular
-            : cardSize === "large"
-            ? styles.cardLarge
-            : styles.cardSmall
+              ? styles.cardRegular
+              : cardSize === "large"
+                ? styles.cardLarge
+                : styles.cardSmall
         }`}
     >
       {title && <h3>{title}</h3>}
-      {paragraph && <p>{paragraph}</p>}
+      {paragraph && <p className={`opacity-65`}>{paragraph}</p>}
 
       {cardCtaLink && (
         <div className={styles.cardCta}>

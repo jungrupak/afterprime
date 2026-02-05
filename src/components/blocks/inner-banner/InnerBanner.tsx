@@ -17,6 +17,9 @@ export default function InnerBanner({
   inner_banner_button_url,
   inner_banner_is_type_form_cta,
 }: InnerBannerProps) {
+  const shouldShowCTA =
+    inner_banner_is_type_form_cta === "1" ||
+    (inner_banner_button_url && inner_banner_button_label);
   return (
     <>
       <section className={`${styles.innerBannerSection}`}>
@@ -36,18 +39,19 @@ export default function InnerBanner({
               }}
             />
 
-            {inner_banner_is_type_form_cta === "1" ? (
-              <TypeformButton buttonText="Request Invite" size="Large" />
-            ) : (
-              <Button
-                href={inner_banner_button_url}
-                varient="primary-ghost"
-                size="large"
-                isArrowVisible={true}
-              >
-                {inner_banner_button_label}
-              </Button>
-            )}
+            {shouldShowCTA &&
+              (inner_banner_is_type_form_cta === "1" ? (
+                <TypeformButton buttonText="Request Invite" size="Large" />
+              ) : (
+                <Button
+                  href={inner_banner_button_url}
+                  varient="primary-ghost"
+                  size="large"
+                  isArrowVisible={true}
+                >
+                  {inner_banner_button_label}
+                </Button>
+              ))}
           </div>
         </div>
       </section>
