@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 //####
 export default async function Page() {
-  const pageData = await getCalcPageData("trading-calculator");
+  const pageData = await getCalcPageData("trading-calculators");
   if (!pageData) return;
   const faqSection = pageData?.acf?.faq_section;
 
