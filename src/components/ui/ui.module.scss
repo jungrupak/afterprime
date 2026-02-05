@@ -438,6 +438,23 @@
       }
     }
   }
+  &.itemsCenter {
+    text-align: center;
+    p {
+      text-align: center !important;
+    }
+  }
+  &.itemsleft {
+    text-align: left;
+    p {
+      text-align: left;
+      margin-left: 0;
+    }
+    h3,
+    .cardCta {
+      margin-left: 0 !important;
+    }
+  }
 }
 
 //####

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { getCalcPageData } from "@/data/getCalculatorPageData";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import Accordion from "@/utils/accordion/Accordion";
+import { calculatorSchema } from "@/lib/schema/calculatorsPageSchema";
 
 export const metadata: Metadata = {
   title: `Trading Calculators | Free Forex & CFD Tools
@@ -19,11 +20,10 @@ export const metadata: Metadata = {
 //Export Dynamic Page Title Tags Ends####
 
 //####
-export default async function Calculator() {
-  const pageData = await getCalcPageData("calculators");
+export default async function Page() {
+  const pageData = await getCalcPageData("trading-calculator");
   if (!pageData) return;
   const faqSection = pageData?.acf?.faq_section;
-  console.log("faqs", faqSection);
 
   const sectionTitle = faqSection?.ssection_title;
   const faqData = faqSection?.q_and_a;
@@ -107,6 +107,27 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
     `Use the <b>Swap Calculator</b> for overnight hold strategies`,
   ];
 
+  const faqSchema =
+    faqData && faqData.length
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqData
+            .filter(
+              (item: { question: string; answer: string }) =>
+                item.question && item.answer,
+            )
+            .map((item: { question: string; answer: string }) => ({
+              "@type": "Question",
+              name: item.question.replace(/(<([^>]+)>)/gi, ""),
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer.replace(/(<([^>]+)>)/gi, ""),
+              },
+            })),
+        }
+      : null;
+
   return (
     <>
       {/* Banner Section */}
@@ -134,21 +155,21 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
       {/* Banner Section Ends */}
 
       {/* INtro sectio */}
-      <section className="">
+      <section className="pt-10!">
         <div className="grainy_bg"></div>
         <div className="ap_container">
-          <h2>Trading Calculators</h2>
           {/* Cards */}
-          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
+          <div className="ap_cards_wrapper grid flex flex-col md:grid-cols-[repeat(auto-fit_,minmax(600px,1fr))] text-left! gap-6 md:mt-18">
             {cards.length > 0 &&
               cards.map((card, index) => (
                 <Card
                   key={index}
                   title={card.title}
                   paragraph={card.paragraph}
-                  cardCtaLabel={"Try it Out"}
+                  cardCtaLabel={card.title}
                   cardCtaLink={card.button_url}
                   cardSize={"large"} //compact|large|regular|small|
+                  alignItems="left"
                 />
               ))}
           </div>
@@ -157,7 +178,7 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
       </section>
       {/* INtro sectio Ends */}
 
-      {/* sectio */}
+      {/* section */}
       <section className="py-4! md:py_10!">
         <div className="grainy_bg"></div>
         <div className="ap_container">
@@ -178,7 +199,7 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
           </div>
         </div>
       </section>
-      {/* sectio Ends */}
+      {/* section Ends */}
 
       {/* When to use calculator */}
       <section className="SectionCardRepeater-module-scss-module__tw0V9a__section_generic_cards_content undefined">
@@ -212,6 +233,26 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
       {/* When to use calculator */}
 
       <FaqCalc faqSubject={sectionTitle} data={faqData} />
+
+      {/* //render data comparison schema */}
+      {calculatorSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(calculatorSchema),
+          }}
+        />
+      )}
+
+      {/* FAQ schema */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
+          }}
+        />
+      )}
     </>
   );
 }

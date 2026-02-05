@@ -26,11 +26,6 @@ export default function SectionTableMarginLeverage() {
       margin: "33%",
       leverage: "1:3",
     },
-    {
-      assetsClass: "Shares",
-      margin: "20%",
-      leverage: "1:5",
-    },
   ];
   //Ends
 
@@ -48,21 +43,21 @@ export default function SectionTableMarginLeverage() {
           <div className="genericTable">
             <table>
               <thead>
-              <tr>
-                <th>Asset Class</th>
-                <th>Margin</th>
-                <th>Leverage</th>
-              </tr>
+                <tr>
+                  <th>Asset Class</th>
+                  <th>Margin</th>
+                  <th>Leverage</th>
+                </tr>
               </thead>
 
               <tbody>
-              {tableData.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.assetsClass}</td>
-                  <td>{item.margin}</td>
-                  <td>{item.leverage}</td>
-                </tr>
-              ))}
+                {tableData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.assetsClass}</td>
+                    <td>{item.margin}</td>
+                    <td>{item.leverage}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

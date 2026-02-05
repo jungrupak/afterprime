@@ -11,10 +11,12 @@ type CardProps = {
   cardCtaLabel?: string;
   cardCtaLink?: string;
   active?: boolean;
+  customClass?: string | undefined;
   type?: "bold" | "regular";
 };
 
 export default function Card({
+  customClass,
   title,
   paragraph,
   borderEnable = false,
@@ -22,23 +24,23 @@ export default function Card({
   cardSize = "regular",
   cardCtaLabel,
   cardCtaLink,
-  active = false,
   type = "regular",
+  active = false,
 }: CardProps) {
   // Determine link target automatically
   const linkTarget = cardCtaLink?.startsWith("/") ? "_self" : "_blank";
 
   return (
     <div
-      className={`${styles.cardItem} ${borderEnable ? "border-2" : ""}
+      className={`${styles.cardItem} ${customClass} ${borderEnable ? "border-2" : ""}
         ${active ? styles.activeCard : ""}
         ${type === "bold" ? styles.cardBold : ""}
         ${
           alignItems === "center"
-            ? "text-center"
+            ? styles.itemsCenter
             : alignItems === "left"
-              ? "text-left"
-              : "text-right"
+              ? styles.itemsleft
+              : styles.itemsRight
         }
         ${
           cardSize === "compact"
