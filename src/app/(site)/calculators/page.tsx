@@ -16,16 +16,6 @@ export const metadata: Metadata = {
   },
 };
 
-interface faqtype {
-  question: string;
-  answer: string;
-}
-
-interface FAQ_DATA {
-  ssection_title?: string;
-  faq?: faqtype[];
-}
-
 //Export Dynamic Page Title Tags Ends####
 
 //####
