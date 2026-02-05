@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   const socialItems = [
     {
       imgFileName: "discord.svg",
@@ -207,8 +209,8 @@ export default function Footer() {
             regulation.
           </p>
           <p>
-            © Copyright 2022-2022 Afterprime Pty Ltd | Global Gateway 8, Rue de
-            la Perle, Providence, Mahé, Seychelles.
+            © Copyright {currentYear} Afterprime Pty Ltd | Global Gateway 8, Rue
+            de la Perle, Providence, Mahé, Seychelles.
           </p>
         </div>
       </div>
