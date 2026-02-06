@@ -71,7 +71,7 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Member Login
+                Login
               </Link>
               <TypeformButton buttonText="Request Invite" size="small" />
             </div>
