@@ -13,7 +13,7 @@ export const MegaMenuItems = [
         categoryName: "Why Traders Switch",
         catMenuItems: [
           {
-            menuItem: "Get Paid to Trade",
+            menuItem: "Flow Rewards",
             pageUrl: "/get-paid-to-trade",
           },
           {
@@ -44,10 +44,10 @@ export const MegaMenuItems = [
         ],
       },
       {
-        categoryName: "Community Hub",
+        categoryName: "Trading Community",
         catMenuItems: [
           {
-            menuItem: "Our Discord",
+            menuItem: "Discord",
             pageUrl: "/our-discord",
           },
           {
@@ -77,7 +77,7 @@ export const MegaMenuItems = [
           },
           {
             menuItem: "Deposits & Withdrawals",
-            pageUrl: "deposit-withdrawal",
+            pageUrl: "/deposit-withdrawal",
           },
         ],
       },
@@ -202,7 +202,7 @@ export const MegaMenuItems = [
     },
     category: [
       {
-        categoryName: "Support",
+        categoryName: "Need Support?",
         catMenuItems: [
           {
             menuItem: "Help Center",
@@ -215,7 +215,7 @@ export const MegaMenuItems = [
         ],
       },
       {
-        categoryName: "Trust",
+        categoryName: "Compliance",
         catMenuItems: [
           {
             menuItem: "Licenses & Regulations",
