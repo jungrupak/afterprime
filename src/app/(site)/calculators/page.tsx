@@ -137,7 +137,7 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
         <div className="ap_container flex items-center h-full">
           <div className="apBannerContent md:max-w-[800px]">
             <h1 className="h1-size mt-28 lg:mt-42 ">
-              <span className="font-[600]">Calculators</span>
+              <span className="font-[600]">Trading Calculators</span>
             </h1>
             <div
               className="paragraph mb-12 max-lg:mx-auto lg:mt-20 opacity-80"

@@ -82,7 +82,7 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Member Login
+          Login
         </Link>
         <TypeformButton buttonText="Request Invite" size="small" />
       </div>
