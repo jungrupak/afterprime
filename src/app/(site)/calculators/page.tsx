@@ -5,7 +5,6 @@ import Card from "@/components/ui/Card";
 import Image from "next/image";
 import { getCalcPageData } from "@/data/getCalculatorPageData";
 import FaqCalc from "@/components/faq-calculators/Faq";
-import Accordion from "@/utils/accordion/Accordion";
 import { calculatorSchema } from "@/lib/schema/calculatorsPageSchema";
 
 export const metadata: Metadata = {
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
 
 //####
 export default async function Page() {
-  const pageData = await getCalcPageData("trading-calculators");
+  const pageData = await getCalcPageData("calculators");
   if (!pageData) return;
   const faqSection = pageData?.acf?.faq_section;
 

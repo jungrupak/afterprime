@@ -20,17 +20,6 @@ export async function generateMetadata({
   return seoData;
 }
 
-export function generateViewport() {
-  return {
-    viewport: {
-      width: "device-width",
-      initialScale: 1,
-      maximumScale: 1,
-      minimumScale: 1,
-    },
-  };
-}
-
 // ✅ Home page component
 export default async function HomePage({ params }: PageProps) {
   const frontPageSlug =

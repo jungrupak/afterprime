@@ -65,9 +65,7 @@ export default function PagesLayout({
         <HeadScripts />
         <AfterprimeOrgSchema />
         {/* Head Scripts Ends */}
-
         <TypeformLoader />
-
         {/* Fixed Vid Bg for entire website */}
         <div className="home_banner_video">
           <video

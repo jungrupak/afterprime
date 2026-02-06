@@ -20,18 +20,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return seoData;
 }
 
-export function generateViewport() {
-  return {
-    viewport: {
-      width: "device-width",
-      initialScale: 1,
-      maximumScale: 1,
-      minimumScale: 1,
-    },
-    themeColor: "#0c0c0d",
-  };
-}
-
 export default async function DynamicPage({ params }: Props) {
   const { slug: pageSlug } = await params; //renamed variable slug to custm name
   const pageData = await getWpPagedata(pageSlug);
