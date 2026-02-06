@@ -32,6 +32,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
     "Tickmill UK (Raw)",
     "FXCM",
     "FXOpen (TickTrader)",
+    "Industry Avg",
   ];
   const pickedBrokersLists = brokerList?.filter((item) =>
     brokersToPick.includes(item.broker),
