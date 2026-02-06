@@ -4,7 +4,10 @@
 
 - [XML Sitemap](https://afterprime.com/sitemap.xml): Contains all public & indexable URLs for this website.
 
-## Pages
+## Trading Instrument Pages
+
+Trade pages follow a consistent structure and live under:
+https://afterprime.com/trade/{symbol}/
 
 - [Home Page](https://afterprime.com/) - Ranked #1 lowest total trading cost - verified by ForexBenchmark
 - [USDZAR](https://afterprime.com/trade/usdzar/) - Trade USDZAR on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
@@ -65,7 +68,7 @@
 - [EURUSD](https://afterprime.com/trade/eurusd/) - Trade EURUSD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
 - [Lowest Cost Verified](https://afterprime.com/lowest-cost-verified/) - Verified by ForexBenchmark: AfterPrime offers the world's lowest total forex trading costs, 43% lower than second-best.
 - [Trade](https://afterprime.com/trade/)
-- [Forex](https://afterprime.com//forex/) - Experience forex trading with 43% lower costs than competitors. AfterPrime combines Flow Rewards cashback with ultra-fast execution and transparent pricing.
+- [Forex](https://afterprime.com/forex/) - Experience forex trading with 43% lower costs than competitors. AfterPrime combines Flow Rewards cashback with ultra-fast execution and transparent pricing.
 - [Trading Hours](https://afterprime.com/trading-hours/) - Complete trading hours for all markets. Trade 24/5 on major, minor, and exotic pairs with AfterPrime. View session times for indices, commodities, and crypto.
 - [Aligned Execution](https://afterprime.com/aligned-execution/) - Lightning-fast execution for serious traders. Sub-1ms speeds, zero slippage, lowest total costs verified by ForexBenchmark.
 - [Why We Exist](https://afterprime.com/why-we-exist/) - Built for traders tired of hidden costs. AfterPrime delivers ForexBenchmark-verified lowest pricing and Flow Rewards cashback. Fair trading starts here.
