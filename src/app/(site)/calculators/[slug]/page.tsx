@@ -1,31 +1,39 @@
 import styles from "../Page.module.scss";
 import { getWpPagedata } from "@/utils/getWpPagedata";
 import FaqCalc from "@/components/faq-calculators/Faq";
-import { Metadata } from "next";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
 }
 
+//## Function to get data source here
+async function pageDataSource(slug: string) {
+  try {
+    const res = await fetch(
+      `${process.env.WORDPRESS_REST_ENDPOINT}/pages?slug=${slug}`,
+    );
+    if (!res.ok) return {};
+    const pageData = await res.json();
+    if (!pageData || !pageData.length) return;
+    return pageData?.[0];
+  } catch (err) {
+    console.error("Faild to load data:", err);
+  }
+}
+//##
+
 export async function generateMetadata({ params }: PageSlug) {
   const { slug } = await params;
-  const res = await fetch(
-    `${process.env.WORDPRESS_REST_ENDPOINT}"/pages?slug=${slug}`,
-  );
-  if (!res.ok) return {};
-  // if (!pageData) return;
-
-  // const metaTitle = pageData?.aioseo_head_json?.title;
-
+  const dataSource = await pageDataSource(slug);
   return {
-    title: `Trading Calculators | Free Forex & CFD Tools
-`,
-    description: `Free trading calculators for forex, CFD, and crypto traders. Position size, profit/loss, margin, pip value, compound growth, and risk analysis tools.`,
+    title: dataSource.aioseo_head_json?.title,
+    description: dataSource.aioseo_head_json?.description,
     alternates: {
-      canonical: "https://afterprime.com/calculators",
+      canonical: `https://afterprime.com/calculators/${slug}`,
     },
   };
 }
+//##
 
 export default async function Page({ params }: PageSlug) {
   const { slug } = await params;
