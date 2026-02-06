@@ -109,7 +109,7 @@ export const MegaMenuItems = [
       },
 
       {
-        categoryName: "Markets",
+        categoryName: "Trade Markets",
         catMenuItems: [
           {
             menuItem: "Forex",
