@@ -1,10 +1,32 @@
 import styles from "../Page.module.scss";
 import { getWpPagedata } from "@/utils/getWpPagedata";
 import FaqCalc from "@/components/faq-calculators/Faq";
+import { Metadata } from "next";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
 }
+
+export async function generateMetadata({ params }: PageSlug) {
+  const { slug } = await params;
+  const res = await fetch(
+    `${process.env.WORDPRESS_REST_ENDPOINT}"/pages?slug=${slug}`,
+  );
+  if (!res.ok) return {};
+  // if (!pageData) return;
+
+  // const metaTitle = pageData?.aioseo_head_json?.title;
+
+  return {
+    title: `Trading Calculators | Free Forex & CFD Tools
+`,
+    description: `Free trading calculators for forex, CFD, and crypto traders. Position size, profit/loss, margin, pip value, compound growth, and risk analysis tools.`,
+    alternates: {
+      canonical: "https://afterprime.com/calculators",
+    },
+  };
+}
+
 export default async function Page({ params }: PageSlug) {
   const { slug } = await params;
   const pageData = await getWpPagedata(slug);
