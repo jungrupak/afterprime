@@ -124,6 +124,7 @@ export function useLivePrices() {
       else if (item.group.startsWith("Commodities")) commodities.push(item);
       else if (item.group.startsWith("Metals")) metals.push(item);
       else if (item.group.startsWith("Indices")) indices.push(item);
+      else if (item.group.startsWith("Stocks")) stocks.push(item);
     }
 
     //returning categories so that this component would accept these cat values whenever it's been used
@@ -137,6 +138,7 @@ export function useLivePrices() {
       metals,
       indices,
       commodities,
+      stocks
     };
   }, [prices]);
 
