@@ -8,6 +8,5 @@ export async function getWpPagedata(slug: string): Promise<WPPage> {
 
   // ✅ Handle possible null/undefined
   if (!pageData) notFound();
-
   return pageData;
 }

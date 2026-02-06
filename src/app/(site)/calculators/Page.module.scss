@@ -50,5 +50,38 @@
   gap: 5px;
 }
 
-@media all and (max-width: 1023px) {
+//Page generic content from WYSWYG editor
+.pageEditorContent {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: clamp(20px, 5vw, 30px);
+  }
+  > hr {
+    display: none;
+  }
+  > p {
+    font-size: clamp(18px, 5vw, 20px);
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+    &:not(:last-child) {
+      margin-bottom: clamp(20px, 5vw, 30px);
+    }
+  }
+
+  ul {
+    margin-left: 16px;
+    li {
+      list-style: disc;
+      font-size: clamp(18px, 5vw, 20px);
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.8);
+      &:not(:last-child) {
+        margin-bottom: clamp(20px, 5vw, 30px);
+      }
+    }
+  }
 }

@@ -303,6 +303,14 @@ export type PageFieldGroups = {
     execution_quality_rational?:Record<string,string> // instead of writing "{}" for object items
     lp_cta?:Record<string,string>
   }
+  //Custom fields for calculator slug pages
+  calculator_page_fields?:{
+    intro_paragraph?: string;
+    choose_calculator?: string;
+    page_schema?: string;
+    page_content?: string;    
+  }
+  
 };
 
 //AIOSEO Types

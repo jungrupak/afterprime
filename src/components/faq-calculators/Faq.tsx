@@ -3,8 +3,8 @@ import Accordion from "@/utils/accordion/Accordion";
 import type { AccordionObjectsKeys } from "@/utils/accordion/Accordion";
 
 interface FAQItem {
-  question: string;
-  answer: string;
+  question?: string;
+  answer?: string;
 }
 
 type faqContents = {
