@@ -1,6 +1,6 @@
 import styles from "../Page.module.scss";
-import { getWpPagedata } from "@/utils/getWpPagedata";
 import FaqCalc from "@/components/faq-calculators/Faq";
+import CompoundGrowthCalculator from "@/components/all-calculators/CompoundGrowthCalculator/CompoundGrowthCalculator";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageSlug) {
 
 export default async function Page({ params }: PageSlug) {
   const { slug } = await params;
-  const pageData = await getWpPagedata(slug);
+  const pageData = await pageDataSource(slug);
   if (!pageData) return;
 
   const acfFields = pageData?.acf;
@@ -93,12 +93,10 @@ export default async function Page({ params }: PageSlug) {
       {/* Banner Section Ends */}
 
       {/* Calculator WIdget Section */}
-      <section>
+      <section className={`pt-15! pb-0!`}>
         <div className="grainy_bg"></div>
         <div className="ap_container flex items-center h-full">
-          <div className="apBannerContent md:max-w-[800px]">
-            Here goes ... {slug} calculator
-          </div>
+          <CompoundGrowthCalculator />
         </div>
       </section>
       {/* Calculator WIdget Section */}

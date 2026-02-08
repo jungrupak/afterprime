@@ -307,6 +307,7 @@ export type PageFieldGroups = {
   calculator_page_fields?:{
     intro_paragraph?: string;
     choose_calculator?: string;
+    calculator_ui_iframe_url?:string;
     page_schema?: string;
     page_content?: string;    
   }

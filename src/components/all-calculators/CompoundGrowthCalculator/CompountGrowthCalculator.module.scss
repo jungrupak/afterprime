@@ -1,0 +1,375 @@
+.calculator {
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  background: linear-gradient(135deg, #64ffda 0%, #48bb78 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #8892b0;
+  margin: 0;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+
+  @media (max-width: 850px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #8892b0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+
+  &:focus-within {
+    border-color: #64ffda;
+    box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.1);
+  }
+
+  input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    outline: none;
+    min-width: 0;
+  }
+
+  select {
+    background: transparent;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+
+    option {
+      background: #112240;
+    }
+  }
+}
+
+.currencySymbol,
+.suffix {
+  padding: 0 12px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.rrInputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0 12px;
+
+  &:focus-within {
+    border-color: #64ffda;
+  }
+
+  input {
+    background: transparent;
+    border: none;
+    padding: 12px 0;
+    font-size: 16px;
+    color: #fff;
+    outline: none;
+    width: 60px;
+  }
+}
+
+.rrLabel {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  -webkit-appearance: none;
+  margin-top: 4px;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #64ffda;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #64ffda;
+    cursor: pointer;
+    border: none;
+  }
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.resultCard {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  text-align: center;
+
+  &.resultPrimary {
+    background: linear-gradient(
+      135deg,
+      rgba(100, 255, 218, 0.1) 0%,
+      rgba(72, 187, 120, 0.05) 100%
+    );
+    border-color: rgba(100, 255, 218, 0.3);
+  }
+}
+
+.resultLabel {
+  display: block;
+  font-size: 12px;
+  color: #8892b0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.resultValue {
+  display: block;
+  font-size: 36px;
+  font-weight: 700;
+  color: #64ffda;
+}
+
+.resultChange {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 12px;
+  background: rgba(100, 255, 218, 0.15);
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64ffda;
+
+  &.negative {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.statCard {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.statLabel {
+  display: block;
+  font-size: 11px;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.statValue {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.statNote {
+  display: block;
+  font-size: 10px;
+  color: #475569;
+  margin-top: 4px;
+}
+
+.edgeIndicator {
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.edgeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.edgeLabel {
+  font-size: 13px;
+  color: #8892b0;
+}
+
+.edgeValue {
+  font-size: 18px;
+  font-weight: 700;
+  color: #64ffda;
+
+  &.negative {
+    color: #ef4444;
+  }
+}
+
+.edgeBar {
+  display: flex;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.edgeNegative {
+  flex: 1;
+  background: linear-gradient(90deg, #ef4444, #f97316);
+}
+
+.edgeCenter {
+  width: 4px;
+  background: #1e293b;
+}
+
+.edgePositive {
+  flex: 1;
+  background: linear-gradient(90deg, #22c55e, #64ffda);
+}
+
+.edgeMarker {
+  position: absolute !important;
+  top: -3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: left 0.3s;
+  transform: translateX(-50%);
+}
+
+.edgeMessage {
+  font-size: 13px;
+  color: #8892b0;
+  margin: 12px 0 0 0;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #8892b0;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chartContainer {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 16px;
+  height: 200px;
+
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+.milestoneGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.milestone {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.milestoneTarget {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #64ffda;
+}
+
+.milestoneTrades {
+  display: block;
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 4px;
+}

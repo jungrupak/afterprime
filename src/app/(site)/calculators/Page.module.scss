@@ -59,6 +59,7 @@
   h5,
   h6 {
     margin-bottom: clamp(20px, 5vw, 30px);
+    line-height: 1.1;
   }
   > hr {
     display: none;
@@ -84,6 +85,10 @@
         margin-bottom: clamp(20px, 5vw, 30px);
       }
     }
+  }
+  .wp-block-table {
+    overflow-x: auto;
+    table-layout: auto;
   }
   table {
     width: 100%;
