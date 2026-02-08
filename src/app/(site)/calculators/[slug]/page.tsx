@@ -74,7 +74,9 @@ export default async function Page({ params }: PageSlug) {
   return (
     <>
       {/* Banner Section */}
-      <section className={`${styles.innerBannerSection}`}>
+      <section
+        className={`${styles.innerBannerSection} max-md:h-[80vh]! max-md:pb-0!`}
+      >
         <div className="grainy_bg"></div>
         <div className="ap_container flex items-center h-full">
           <div className="apBannerContent md:max-w-[800px]">
@@ -93,7 +95,7 @@ export default async function Page({ params }: PageSlug) {
       {/* Banner Section Ends */}
 
       {/* Calculator WIdget Section */}
-      <section className={`pt-15! pb-0!`}>
+      <section className={`pb-0!`}>
         <div className="grainy_bg"></div>
         <div className="ap_container flex items-center h-full">
           <CompoundGrowthCalculator />

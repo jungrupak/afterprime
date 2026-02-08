@@ -86,32 +86,4 @@
       }
     }
   }
-  .wp-block-table {
-    overflow-x: auto;
-    table-layout: auto;
-  }
-  table {
-    width: 100%;
-    tr th {
-      background-color: rgba(var(--alphaWhite), 0.06);
-      border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
-      padding: 15px 20px;
-      font-size: 16px;
-      text-align: left;
-    }
-    tr {
-      td {
-        background-color: rgba(var(--alphaWhite), 0.06);
-        border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
-        padding: 15px 20px;
-        font-size: 20px;
-        transition: all 0.2s ease-in-out;
-      }
-      &:hover {
-        td {
-          background-color: rgba(var(--alphaWhite), 0.1);
-        }
-      }
-    }
-  }
 }
