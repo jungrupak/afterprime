@@ -1,6 +1,7 @@
 import styles from "../Page.module.scss";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import CompoundGrowthCalculator from "@/components/all-calculators/CompoundGrowthCalculator/CompoundGrowthCalculator";
+import DrawdownCalculator from "@/components/all-calculators/DradownCalculator/DrawdonCalculator";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -48,6 +49,7 @@ export default async function Page({ params }: PageSlug) {
   const sectionTitle = acfFields?.faq_section?.ssection_title;
   const faqData = acfFields?.faq_section?.q_and_a;
   const pageFullContent = calculatorPageFields?.page_content;
+  const selectCalculator = calculatorPageFields?.select_calculator;
 
   const pageSchema = calculatorPageFields?.page_schema;
   const faqSchema =
@@ -98,7 +100,10 @@ export default async function Page({ params }: PageSlug) {
       <section className={`pb-0!`}>
         <div className="grainy_bg"></div>
         <div className="ap_container flex items-center h-full">
-          <CompoundGrowthCalculator />
+          {selectCalculator === "Compound Growth Calculator" && (
+            <CompoundGrowthCalculator />
+          )}
+          {selectCalculator === "Drawdown Calculator" && <DrawdownCalculator />}
         </div>
       </section>
       {/* Calculator WIdget Section */}

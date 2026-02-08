@@ -76,6 +76,7 @@
   ul,
   ol {
     margin-left: 16px;
+    margin-bottom: clamp(20px, 5vw, 30px);
     li {
       list-style: disc;
       font-size: clamp(18px, 5vw, 20px);
@@ -83,6 +84,33 @@
       color: rgba(255, 255, 255, 0.8);
       &:not(:last-child) {
         margin-bottom: clamp(20px, 5vw, 30px);
+      }
+    }
+  }
+  table {
+    width: 100%;
+    margin-bottom: clamp(20px, 5vw, 30px);
+    tr th {
+      background-color: rgba(var(--alphaWhite), 0.06);
+      border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
+      padding: 15px 20px;
+      font-size: 16px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    tr {
+      td {
+        background-color: rgba(var(--alphaWhite), 0.06);
+        border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
+        padding: 15px 20px;
+        font-size: 20px;
+        transition: all 0.2s ease-in-out;
+        white-space: nowrap;
+      }
+      &:hover {
+        td {
+          background-color: rgba(var(--alphaWhite), 0.1);
+        }
       }
     }
   }
