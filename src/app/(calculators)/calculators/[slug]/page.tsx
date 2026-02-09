@@ -88,16 +88,16 @@ export default async function Page({ params }: PageSlug) {
     <>
       {/* Banner Section */}
       <section
-        className={`${styles.innerBannerSection} max-md:h-[80vh]! max-md:pb-0!`}
+        className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
         <div className="grainy_bg"></div>
         <div className="ap_container flex items-center h-full">
           <div className="apBannerContent md:max-w-[800px]">
-            <h1 className="h1-size mt-28 lg:mt-42 ">
+            <h1 className="h1-size mt-10 lg:mt-15">
               <span className="font-[600]">{pageTitle}</span>
             </h1>
             <div
-              className="paragraph mb-12 max-lg:mx-auto lg:mt-20 opacity-80"
+              className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
               style={{ fontWeight: "300" }}
             >
               {heroParagraph}
@@ -108,7 +108,7 @@ export default async function Page({ params }: PageSlug) {
       {/* Banner Section Ends */}
 
       {/* Calculator WIdget Section */}
-      <section className={`pb-0!`}>
+      <section className={`compact-section`}>
         <div className="grainy_bg"></div>
         <div className="ap_container flex items-center h-full">
           {selectCalculator === "Compound Growth Calculator" && (
@@ -134,7 +134,7 @@ export default async function Page({ params }: PageSlug) {
 
       {/* Page Contents */}
       {pageFullContent && (
-        <section>
+        <section className={`compact-section`}>
           <div className="grainy_bg"></div>
           <div className="ap_container">
             <div

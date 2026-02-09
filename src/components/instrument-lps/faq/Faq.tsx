@@ -177,7 +177,7 @@ export default function Faq({
 
   return (
     <>
-      <section className={`${styles.faq_section} max-md:py-0! md:py-15!`}>
+      <section className={`${styles.faq_section} compact-section`}>
         {/* grain bg effect */}
         <div className="grainy_bg"></div>
         {/* grain bg effect */}

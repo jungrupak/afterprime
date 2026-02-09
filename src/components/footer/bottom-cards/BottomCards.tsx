@@ -31,7 +31,7 @@ export default function BottomCards() {
   ];
 
   return (
-    <section className={`${styles.bottom_cards}`}>
+    <section className={`compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}

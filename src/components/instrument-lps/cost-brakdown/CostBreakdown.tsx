@@ -41,7 +41,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
   }
 
   return (
-    <section className={`md:py-20!`}>
+    <section className={`compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
@@ -80,7 +80,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
               <tr>
                 <td>50</td>
                 <td className="max-md:hidden">
-                  ${afterprimeCost - rebatePerLot}
+                  ${(afterprimeCost - rebatePerLot).toFixed(2)}
                 </td>
                 <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
                 <td>
@@ -93,7 +93,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
               <tr>
                 <td>200</td>
                 <td className="max-md:hidden">
-                  ${afterprimeCost - rebatePerLot}
+                  ${(afterprimeCost - rebatePerLot).toFixed(2)}
                 </td>
                 <td>${multiplyAllInCost(rebatePerLot, 200)}</td>
                 <td>
@@ -108,7 +108,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
               <tr>
                 <td>1000</td>
                 <td className="max-md:hidden">
-                  ${afterprimeCost - rebatePerLot}
+                  ${(afterprimeCost - rebatePerLot).toFixed(2)}
                 </td>
                 <td>${multiplyAllInCost(rebatePerLot, 1000)}</td>
                 <td>

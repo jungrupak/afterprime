@@ -8,7 +8,7 @@ interface Props {
 
 export default function CostCalculator({ instrument }: Props) {
   return (
-    <section className={`${styles.pageCalcWrap} md:py-20!`}>
+    <section className={`compact-section`}>
       <div className="grainy_bg"></div>
       <div className={`ap_container_small`}>
         <h2 className={`md:mb-5!`}>{instrument} Trade Cost Calculator</h2>
