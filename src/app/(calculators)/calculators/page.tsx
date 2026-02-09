@@ -134,7 +134,7 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
         className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
         <div className="grainy_bg"></div>
-        <div className="ap_container flex items-center h-full">
+        <div className="ap_container_small flex items-center h-full">
           <div className="apBannerContent md:max-w-[800px]">
             <h1 className="h1-size mt-10 lg:mt-15 ">
               <span className="font-[600]">Trading Calculators</span>
@@ -154,9 +154,9 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
       {/* Banner Section Ends */}
 
       {/* INtro sectio */}
-      <section className="py-[clamp(40px_,10vw_,60px)]!">
+      <section className="compact-section">
         <div className="grainy_bg"></div>
-        <div className="ap_container">
+        <div className="ap_container_small">
           {/* Cards */}
           <div className="ap_cards_wrapper grid flex flex-col md:grid-cols-[repeat(auto-fit_,minmax(600px,1fr))] text-left! gap-6">
             {cards.length > 0 &&
@@ -178,9 +178,9 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
       {/* INtro sectio Ends */}
 
       {/* section */}
-      <section className="py-[clamp(40px_,10vw_,60px)]!">
+      <section className="compact-section">
         <div className="grainy_bg"></div>
-        <div className="ap_container">
+        <div className="ap_container_small">
           <div className="grid grid-cols-2 lg:grid-cols-2 xl:gap-25 gap-10">
             <div className="col-span-2 md:col-span-1 order-2 h-full">
               <Image
@@ -201,9 +201,9 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
       {/* section Ends */}
 
       {/* When to use calculator */}
-      <section className="py-[clamp(40px_,10vw_,60px)]!">
+      <section className="compact-section">
         <div className="grainy_bg"></div>
-        <div className="ap_container">
+        <div className="ap_container_small">
           <div className="grid max-md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 justify-center max-md:mb-8">
             <div className="" />
           </div>
