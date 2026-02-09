@@ -7,6 +7,7 @@ import NotFound from "../../[slug]/not-found";
 import { notFound } from "next/navigation";
 import MarginCalculator from "@/components/all-calculators/MarginCalculator/MarginCalculator";
 import PositionSizeCalculator from "@/components/all-calculators/PositionSizeCalculator/PositionSizeCalculator";
+import ProfitLossCalculator from "@/components/all-calculators/ProfitLossCalculator/ProfitLossCalculator";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -116,6 +117,9 @@ export default async function Page({ params }: PageSlug) {
           {selectCalculator === "Margin Calculator" && <MarginCalculator />}
           {selectCalculator === "Position Size Calculator" && (
             <PositionSizeCalculator />
+          )}
+          {selectCalculator === "Profit Loss Calculator" && (
+            <ProfitLossCalculator />
           )}
         </div>
       </section>
