@@ -6,6 +6,7 @@ import Image from "next/image";
 import { getCalcPageData } from "@/data/getCalculatorPageData";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import { calculatorSchema } from "@/lib/schema/calculatorsPageSchema";
+import NotFound from "@/app/(site)/[slug]/not-found";
 
 export const metadata: Metadata = {
   title: `Trading Calculators | Free Forex & CFD Tools
@@ -21,7 +22,9 @@ export const metadata: Metadata = {
 //####
 export default async function Page() {
   const pageData = await getCalcPageData("calculators");
-  if (!pageData) return;
+  if (!pageData) {
+    NotFound();
+  }
   const faqSection = pageData?.acf?.faq_section;
 
   const sectionTitle = faqSection?.ssection_title;

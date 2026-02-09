@@ -14,7 +14,8 @@ type faqContents = {
 
 export default function FaqCalc({ data, faqSubject }: faqContents) {
   // map nested faq_item into flat structure
-  const faqObjects: AccordionObjectsKeys[] = data.map((item) => ({
+  const safeData = Array.isArray(data) ? data : [];
+  const faqObjects: AccordionObjectsKeys[] = safeData.map((item) => ({
     question: item.question,
     answer: item.answer,
   }));
