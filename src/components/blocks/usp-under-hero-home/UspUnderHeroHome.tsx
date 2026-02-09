@@ -22,7 +22,7 @@ export function UspUnderHome(props: USPBlockProps) {
         setLoading(true);
         const res = await fetch(
           "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true",
-          { next: { revalidate: 14400 } } // ISR: revalidate every 4 hours
+          { next: { revalidate: 14400 } }, // ISR: revalidate every 4 hours
         );
         if (!res.ok) {
           throw new Error(`Failed to fetch: ${res.status}`);
@@ -52,7 +52,7 @@ export function UspUnderHome(props: USPBlockProps) {
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
       {!loading ? (
-        <div className="ap_container">
+        <div className="ap_container_small">
           <div className={`${styles.usp_items_wrapper} items-center`}>
             <div>
               <h3>#1</h3>

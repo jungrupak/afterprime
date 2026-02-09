@@ -3,13 +3,13 @@ import FaqCalc from "@/components/faq-calculators/Faq";
 import CompoundGrowthCalculator from "@/components/all-calculators/CompoundGrowthCalculator/CompoundGrowthCalculator";
 import DrawdownCalculator from "@/components/all-calculators/DradownCalculator/DrawdonCalculator";
 import CurrencyConverter from "@/components/all-calculators/CurrencyConverter/CurrencyConverter";
-import NotFound from "../../[slug]/not-found";
 import { notFound } from "next/navigation";
 import MarginCalculator from "@/components/all-calculators/MarginCalculator/MarginCalculator";
 import PositionSizeCalculator from "@/components/all-calculators/PositionSizeCalculator/PositionSizeCalculator";
 import ProfitLossCalculator from "@/components/all-calculators/ProfitLossCalculator/ProfitLossCalculator";
 import PipValueCalculator from "@/components/all-calculators/PipValueCalculator/PipValueCalculator";
 import SwapCalculator from "@/components/all-calculators/SwapCalculator/SwapCalculator";
+import TradingCalculator from "@/components/all-calculators/TradingCalculator/TradingCalculator";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -88,16 +88,16 @@ export default async function Page({ params }: PageSlug) {
     <>
       {/* Banner Section */}
       <section
-        className={`${styles.innerBannerSection} max-md:h-[80vh]! max-md:pb-0!`}
+        className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
         <div className="grainy_bg"></div>
-        <div className="ap_container flex items-center h-full">
+        <div className="ap_container_small flex items-center h-full">
           <div className="apBannerContent md:max-w-[800px]">
-            <h1 className="h1-size mt-28 lg:mt-42 ">
+            <h1 className="h1-size mt-10 lg:mt-15">
               <span className="font-[600]">{pageTitle}</span>
             </h1>
             <div
-              className="paragraph mb-12 max-lg:mx-auto lg:mt-20 opacity-80"
+              className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
               style={{ fontWeight: "300" }}
             >
               {heroParagraph}
@@ -108,9 +108,9 @@ export default async function Page({ params }: PageSlug) {
       {/* Banner Section Ends */}
 
       {/* Calculator WIdget Section */}
-      <section className={`pb-0!`}>
+      <section className={`compact-section`}>
         <div className="grainy_bg"></div>
-        <div className="ap_container flex items-center h-full">
+        <div className="ap_container_small flex items-center h-full">
           {selectCalculator === "Compound Growth Calculator" && (
             <CompoundGrowthCalculator />
           )}
@@ -127,20 +127,23 @@ export default async function Page({ params }: PageSlug) {
             <PipValueCalculator />
           )}
           {selectCalculator === "Swap Calculator" && <SwapCalculator />}
+          {selectCalculator === "Trading Calculator" && <TradingCalculator />}
         </div>
       </section>
       {/* Calculator WIdget Section */}
 
       {/* Page Contents */}
-      <section>
-        <div className="grainy_bg"></div>
-        <div className="ap_container">
-          <div
-            className={`${styles.pageEditorContent}`}
-            dangerouslySetInnerHTML={{ __html: pageFullContent || `&nbsp` }}
-          />
-        </div>
-      </section>
+      {pageFullContent && (
+        <section className={`compact-section`}>
+          <div className="grainy_bg"></div>
+          <div className="ap_container_small">
+            <div
+              className={`${styles.pageEditorContent}`}
+              dangerouslySetInnerHTML={{ __html: pageFullContent || `&nbsp` }}
+            />
+          </div>
+        </section>
+      )}
 
       {/* Page Contents Ends */}
 

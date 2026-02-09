@@ -34,7 +34,7 @@ export default function Header() {
         }`}
       >
         <div
-          className={`${styles.ap_container} ap_container flex items-center py-5 max-lg:px-5 max-xl:px-5 max-lg:py-5 max-xl:gap-10 justify-between`}
+          className={`${styles.ap_container} ap_container_small flex items-center py-5 max-lg:px-5 max-xl:px-5 max-lg:py-5 max-xl:gap-10 justify-between`}
         >
           {/* Logo */}
           <div className={`${styles.ap_logo}`}>

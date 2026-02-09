@@ -31,11 +31,11 @@ export default function BottomCards() {
   ];
 
   return (
-    <section className={`${styles.bottom_cards}`}>
+    <section className={`compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         {/* Cards */}
         <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6 ">
           <div className={`${styles.card_item_block}`}>

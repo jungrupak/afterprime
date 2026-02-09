@@ -9,12 +9,12 @@ export function SectionCardsBigStatic(props: PropData) {
 
   return (
     <section
-      className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection}`}
+      className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection} compact-section`}
     >
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         <div className="grid max-md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 justify-center max-md:mb-8">
           <div className="">
             <h2 className="h2-size mb-6 text-center md:text-left">

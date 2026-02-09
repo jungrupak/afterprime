@@ -57,7 +57,7 @@ export default function Navigation({ menus }: MenuItems) {
               </span>
             </li>
           ))}
-          <li className="self-center">
+          {/* <li className="self-center">
             <Button
               size="x-small"
               varient="ghost"
@@ -69,7 +69,7 @@ export default function Navigation({ menus }: MenuItems) {
               </span>
               Trading Calculator
             </Button>
-          </li>
+          </li> */}
         </ul>
       </nav>
 
@@ -106,7 +106,7 @@ export default function Navigation({ menus }: MenuItems) {
                           {menuItem.menuItem}
                         </Link>
                         {menuItem.menuItem === "Trading Calculator" && (
-                          <span className="absolute top-1 -right-5 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
+                          <span className="absolute top-1 -right-10 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
                             NEW
                           </span>
                         )}

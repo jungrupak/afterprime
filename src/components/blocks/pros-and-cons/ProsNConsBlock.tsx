@@ -45,7 +45,7 @@ export function ProsNConsBlock({
       items.push(
         bulletLists[
           `pros_and_cons_pros_title_pros_or_advantages_${i}_list_item`
-        ]!
+        ]!,
       );
       i++;
     }
@@ -71,7 +71,7 @@ export function ProsNConsBlock({
       items.push(
         bulletLists[
           `pros_and_cons_cons_title_cons_or_disadvantages_${i}_list_item`
-        ]!
+        ]!,
       );
       i++;
     }
@@ -83,11 +83,11 @@ export function ProsNConsBlock({
   //
 
   return (
-    <section>
+    <section className={`compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         <BoxedBlock isBoxed={false} vAlign="center">
           {/* Left */}
           <div>

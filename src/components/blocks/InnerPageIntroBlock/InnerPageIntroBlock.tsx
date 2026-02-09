@@ -11,11 +11,13 @@ export default function InnerPageIntroBlock({
   intro_block_description,
 }: Props) {
   return (
-    <section className={`${styles.sectionIntroBlockGeneric}`}>
+    <section
+      className={`${styles.sectionIntroBlockGeneric} py-[clamp(40px_,10vw_,60px)]!`}
+    >
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         <div className={`${styles.sectionIntroContents}`}>
           <div>
             <h3>{intro_block_title_}</h3>

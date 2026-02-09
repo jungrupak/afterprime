@@ -17,11 +17,11 @@ export default function Faq(props: FaqProps) {
   return (
     <>
       {ssection_title && (
-        <section className={`${styles.faq_section}`}>
+        <section className={`${styles.faq_section} compact-section`}>
           {/* grain bg effect */}
           <div className="grainy_bg"></div>
           {/* grain bg effect */}
-          <div className="ap_container">
+          <div className="ap_container_small">
             <div className={`${styles.faq_block}`}>
               <h2 className="text-[34px] font-[700] mb-10">{ssection_title}</h2>
               <Accordion faqObjects={accordionItems} />

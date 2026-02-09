@@ -121,18 +121,18 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
     <>
       {/* Banner Section */}
       <section
-        className={`${styles.innerBannerSection} md:pb-10! max-h-[600px]! md:max-h-[72vh]!`}
+        className={`${styles.innerBannerSection} h-auto! compact-innerpage-banner`}
       >
         <div className="grainy_bg"></div>
-        <div className="ap_container flex items-center h-full">
+        <div className="ap_container_small flex items-center h-full">
           <div className="apBannerContent">
-            <h1 className="h1-size mt-28 lg:mt-42 md:max-w-[800px]">
+            <h1 className="h1-size mt-10 lg:mt-15 md:max-w-[800px]">
               <span className="font-[600]">
                 Trade FX With Verifiable Lowest All In Costs
               </span>
             </h1>
             <div
-              className="paragraph mb-12 max-lg:mx-auto lg:mt-20 opacity-80"
+              className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
               style={{ fontWeight: "300" }}
             >
               Trade major, minor, and exotic FX pairs with transparent pricing,
@@ -146,9 +146,9 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
       {/* Banner Section Ends */}
 
       {/* INtro sectio */}
-      <section className="py-4! md:py_10!">
+      <section className="compact-section">
         <div className="grainy_bg"></div>
-        <div className="ap_container">
+        <div className="ap_container_small">
           <h2>Why Afterprime FX Pricing Is Different</h2>
           <Lists bulletStyle="arrow_blue" items={listItems} />
         </div>
@@ -156,9 +156,9 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
       {/* INtro sectio Ends */}
 
       {/* FX Pairs sectio */}
-      <section className="pb-4! md:py-10!">
+      <section className="compact-section">
         <div className="grainy_bg"></div>
-        <div className="ap_container">
+        <div className="ap_container_small">
           <h2>FX Pairs You Can Trade</h2>
           <div>
             <div className={`${styles.instumentLists}`}>
@@ -196,9 +196,9 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
       {/* INtro sectio Ends */}
 
       {/* Bottom section */}
-      <section className="p-4! md:py_10!">
+      <section className="compact-section">
         <div className="grainy_bg"></div>
-        <div className="ap_container">
+        <div className="ap_container_small">
           <h2>How To Compare FX Trading Costs Properly</h2>
           <p className={`paragraph`}>
             Spreads show potential cost. All in cost shows actual cost.

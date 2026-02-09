@@ -124,7 +124,7 @@ export function EarningCalc() {
         </div>
 
         {/* BUTTON */}
-        <div className="self-start md:mt-[45px] max-md:col-span-2">
+        {/* <div className="self-start md:mt-[45px] max-md:col-span-2">
           <Btn
             size="small"
             varient="primary-ghost"
@@ -134,7 +134,7 @@ export function EarningCalc() {
           >
             Calculate
           </Btn>
-        </div>
+        </div> */}
       </div>
 
       {/* RESULT */}

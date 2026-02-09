@@ -14,17 +14,18 @@ type faqContents = {
 
 export default function FaqCalc({ data, faqSubject }: faqContents) {
   // map nested faq_item into flat structure
-  const faqObjects: AccordionObjectsKeys[] = data.map((item) => ({
+  const safeData = Array.isArray(data) ? data : [];
+  const faqObjects: AccordionObjectsKeys[] = safeData.map((item) => ({
     question: item.question,
     answer: item.answer,
   }));
 
   return (
-    <section className={`${styles.faq_section}`}>
+    <section className={`${styles.faq_section} compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         <div className={`${styles.faq_block}`}>
           <h2 className="text-[34px] font-[700] mb-10">{faqSubject}</h2>
           <Accordion faqObjects={faqObjects} />
