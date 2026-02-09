@@ -1,0 +1,379 @@
+.calculator {
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #a1a1aa;
+  margin: 0;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+
+  @media (max-width: 850px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  > select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+
+    &:focus {
+      border-color: #a855f7;
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+    }
+
+    option {
+      background: #1a1a2e;
+    }
+  }
+}
+
+.directionToggle {
+  display: flex;
+  gap: 8px;
+}
+
+.dirBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #a1a1aa;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  &.active[data-direction="long"] {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: #22c55e;
+    color: #22c55e;
+  }
+
+  &.active[data-direction="short"] {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: #ef4444;
+    color: #ef4444;
+  }
+}
+
+.dirIcon {
+  font-size: 14px;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+
+  &:focus-within {
+    border-color: #a855f7;
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+  }
+
+  input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    outline: none;
+  }
+
+  select {
+    background: transparent;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+
+    option {
+      background: #1a1a2e;
+    }
+  }
+}
+
+.suffix {
+  padding: 0 12px;
+  color: #71717a;
+  font-size: 14px;
+}
+
+.quickDays {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.dayBtn {
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: #a1a1aa;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(168, 85, 247, 0.2);
+    border-color: rgba(168, 85, 247, 0.3);
+    color: #a855f7;
+  }
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.resultPrimary {
+  text-align: center;
+  padding: 28px;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.15) 0%,
+    rgba(239, 68, 68, 0.05) 100%
+  );
+  border: 1px solid rgba(239, 68, 68, 0.3);
+
+  &.credit {
+    background: linear-gradient(
+      135deg,
+      rgba(34, 197, 94, 0.15) 0%,
+      rgba(34, 197, 94, 0.05) 100%
+    );
+    border-color: rgba(34, 197, 94, 0.3);
+
+    .resultType {
+      color: #22c55e;
+    }
+
+    .resultValue {
+      color: #22c55e;
+    }
+  }
+}
+
+.resultType {
+  display: block;
+  font-size: 12px;
+  color: #ef4444;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.resultValue {
+  display: block;
+  font-size: 42px;
+  font-weight: 700;
+  color: #ef4444;
+}
+
+.resultPeriod {
+  display: block;
+  font-size: 14px;
+  color: #71717a;
+  margin-top: 4px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.statCard {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.statLabel {
+  display: block;
+  font-size: 11px;
+  color: #71717a;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.statValue {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.statNote {
+  display: block;
+  font-size: 10px;
+  color: #52525b;
+  margin-top: 4px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #a1a1aa;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ratesNote {
+  font-size: 12px;
+  color: #71717a;
+  margin: -8px 0 12px 0;
+}
+
+.ratesRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.rateItem {
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+
+  &.rateLong {
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+
+  &.rateShort {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+}
+
+.rateLabel {
+  display: block;
+  font-size: 11px;
+  color: #71717a;
+  margin-bottom: 4px;
+}
+
+.rateValue {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.infoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.infoItem {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.infoIcon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.infoContent {
+  strong {
+    display: block;
+    font-size: 13px;
+    color: #e4e4e7;
+    margin-bottom: 2px;
+  }
+
+  p {
+    font-size: 12px;
+    color: #71717a;
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+.disclaimer {
+  padding: 14px;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 8px;
+
+  p {
+    margin: 0;
+    font-size: 12px;
+    color: #c4b5fd;
+    line-height: 1.5;
+  }
+}
