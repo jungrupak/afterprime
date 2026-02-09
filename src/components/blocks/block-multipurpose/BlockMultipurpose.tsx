@@ -40,7 +40,7 @@ export function MultipurposeBlock({
     .join("");
 
   const contents_2 = String(
-    multipurpose_block_text_content_block_content || ""
+    multipurpose_block_text_content_block_content || "",
   );
   const htmlContent2 = contents_2
     .split(/\r?\n\r?\n/)
@@ -61,7 +61,7 @@ export function MultipurposeBlock({
       bulletLists[`multipurpose_block_feature_bullet_lists_${i}_list_item`]
     ) {
       items.push(
-        bulletLists[`multipurpose_block_feature_bullet_lists_${i}_list_item`]!
+        bulletLists[`multipurpose_block_feature_bullet_lists_${i}_list_item`]!,
       );
       i++;
     }
@@ -73,11 +73,11 @@ export function MultipurposeBlock({
 
   ////////
   return (
-    <section>
+    <section className={`compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         <BoxedBlock isBoxed={isBoxed === 1 ? true : false} vAlign={vrAlign}>
           {/* Left */}
           <div>

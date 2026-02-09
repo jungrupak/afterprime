@@ -12,11 +12,11 @@ export function BottomCta(props: CtaProps) {
 
   return (
     <>
-      <section className={`${styles.section_cta}`}>
+      <section className={`${styles.section_cta} compact-section`}>
         {/* grain bg effect */}
         <div className="grainy_bg"></div>
         {/* grain bg effect */}
-        <div className="ap_container">
+        <div className="ap_container_small">
           <div className="max-w-[700px] mx-auto text-center">
             <h2 className="h2-size mb-6">
               Built on alignment,

@@ -34,7 +34,7 @@ export default function Footer() {
   ];
 
   return (
-    <section className={`${styles.footer_section}`}>
+    <section className={`${styles.footer_section} compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}

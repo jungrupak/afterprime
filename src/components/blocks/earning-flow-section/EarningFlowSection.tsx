@@ -21,7 +21,7 @@ export function EarningFlowSection(block: EarningFlowBlock) {
     .filter(
       ([key]) =>
         key.startsWith("earning_flow_list_items_") &&
-        key.endsWith("_list_point") // be careful with key names
+        key.endsWith("_list_point"), // be careful with key names
     )
     .sort((a, b) => {
       const numA = Number(a[0].match(/\d+/)?.[0]);
@@ -32,11 +32,11 @@ export function EarningFlowSection(block: EarningFlowBlock) {
   //Ends
 
   return (
-    <section className={`${styles.section_earning_flow}`}>
+    <section className={`${styles.section_earning_flow} compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         <BoxedBlock isBoxed={false} vAlign="center">
           {/* Left */}
           <div>

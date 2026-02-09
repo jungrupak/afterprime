@@ -96,9 +96,9 @@ export function TableDataRewardFlow({
   const placeholderText = "Flow Rewards: Expanding soon";
 
   return (
-    <section>
+    <section className={`compact-section`}>
       <div className="grainy_bg"></div>
-      <div className="ap_container">
+      <div className="ap_container_small">
         <div className="mb-10 md:mb-20">
           <h2 className={style.sectionTitle}>{rebate_table_title}</h2>
           {rebate_table_section_paragraph && (

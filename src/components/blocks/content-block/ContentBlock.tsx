@@ -37,11 +37,11 @@ export default function ContentBlock({
 
   return (
     <>
-      <section>
+      <section className={`compact-section`}>
         {/* grain bg effect */}
         <div className="grainy_bg"></div>
         {/* grain bg effect */}
-        <div className={`ap_container`}>
+        <div className={`ap_container_small`}>
           <div className={`grid grid-cols-1 lg:grid-cols-2 xl:gap-25 gap-10`}>
             <div
               className={` ${

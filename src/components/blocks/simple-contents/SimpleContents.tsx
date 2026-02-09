@@ -18,11 +18,11 @@ export function SimpleContentBlock({ reading_content, block_image }: Props) {
   const { url, alt } = block_image ?? {}; //type safe if block_image is undifined dont throw error in component
 
   return (
-    <section>
+    <section className={`compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         <div className={`grid grid-cols-5 gap-20 `}>
           <div
             className={`${styles.editorStyles} col-span-5 md:col-span-3`}

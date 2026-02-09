@@ -54,7 +54,7 @@ export default function DataVisual(props: SectionProps) {
   const [advPct, setAdvPct] = useState(0);
 
   const [brokerData, setBrokerData] = useState<Record<string, BrokerApiData>>(
-    {}
+    {},
   );
   const [COSTS, setCOSTS] = useState<Record<string, number>>({}); // dynamic costs
 
@@ -152,7 +152,7 @@ export default function DataVisual(props: SectionProps) {
         ctx.restore();
       },
     }),
-    []
+    [],
   );
 
   function computeSeries() {
@@ -287,9 +287,9 @@ export default function DataVisual(props: SectionProps) {
   };
 
   return (
-    <section className={styles.section_earning_flow}>
+    <section className={`${styles.section_earning_flow} compact-section`}>
       <div className="grainy_bg"></div>
-      <div className="ap_container">
+      <div className="ap_container_small">
         <div className={styles.costAdvantageSection}>
           <div
             className="h2-size font-semibold"
@@ -452,7 +452,7 @@ function BrokerSelect({
             <option key={`${o}-${i}`} value={o}>
               {o}
             </option>
-          )
+          ),
         )}
       </select>
     </div>

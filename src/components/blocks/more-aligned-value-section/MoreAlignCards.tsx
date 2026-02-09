@@ -13,12 +13,12 @@ export function MoreValueRealAlignment(props: SectionProps) {
 
   return (
     <section
-      className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection}`}
+      className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection} compact-section`}
     >
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
           <div className="">
             <h2
@@ -43,7 +43,7 @@ export function MoreValueRealAlignment(props: SectionProps) {
               paragraph={card.subTitle}
               cardCtaLabel={card.ctaLabel}
               cardCtaLink={card.ctaLink}
-              cardSize="large"
+              cardSize="small"
               active={index == 1 ? true : false}
             />
           ))}
