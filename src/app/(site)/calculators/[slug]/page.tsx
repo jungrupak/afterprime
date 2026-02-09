@@ -9,6 +9,7 @@ import MarginCalculator from "@/components/all-calculators/MarginCalculator/Marg
 import PositionSizeCalculator from "@/components/all-calculators/PositionSizeCalculator/PositionSizeCalculator";
 import ProfitLossCalculator from "@/components/all-calculators/ProfitLossCalculator/ProfitLossCalculator";
 import PipValueCalculator from "@/components/all-calculators/PipValueCalculator/PipValueCalculator";
+import SwapCalculator from "@/components/all-calculators/SwapCalculator/SwapCalculator";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -125,6 +126,7 @@ export default async function Page({ params }: PageSlug) {
           {selectCalculator === "Pip Value Calculator" && (
             <PipValueCalculator />
           )}
+          {selectCalculator === "Swap Calculator" && <SwapCalculator />}
         </div>
       </section>
       {/* Calculator WIdget Section */}
