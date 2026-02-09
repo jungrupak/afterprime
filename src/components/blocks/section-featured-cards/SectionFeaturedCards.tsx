@@ -27,15 +27,15 @@ export default function SectionFeaturedCards({
     .join("");
 
   return (
-    <section className={`${styles.sectionBlockWithCards}`}>
+    <section className={`${styles.sectionBlockWithCards} compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
 
-      <div className="ap_container relative">
+      <div className="ap_container_small relative">
         {/* <div className={`dotted_bg_in_container dotted-block`}></div> */}
         <div
-          className={`${styles.content_block} flex gap-28 max-md:gap-10 max-md:flex-col items-center max-[1265px]:flex-wrap`}
+          className={`${styles.content_block} flex gap-15 max-md:gap-10 max-md:flex-col items-center max-[1265px]:flex-wrap`}
         >
           <div
             className={`contentTextBlockWrapper max-md:text-center min-[1260px]:max-w-[450px]`}
@@ -62,7 +62,7 @@ export default function SectionFeaturedCards({
               </div>
             )}
           </div>
-          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 text-center w-full">
+          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(270px,1fr))] gap-6 text-center w-full">
             {cards.map((item, index) => (
               <Card
                 key={index}

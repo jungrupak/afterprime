@@ -22,36 +22,40 @@ export default function InnerBanner({
     (inner_banner_button_url && inner_banner_button_label);
   return (
     <>
-      <section className={`${styles.innerBannerSection} innerpage-banner`}>
+      <section
+        className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
+      >
         {/* grain bg effect */}
         <div className="grainy_bg"></div>
         {/* grain bg effect */}
-        <div className="ap_container flex items-center h-full">
+        <div className="ap_container_small flex items-center h-full">
           <div className={`apBannerContent`}>
-            <h1 className="h1-size mt-28 lg:mt-42">
+            <h1 className="h1-size mt-10 lg:mt-15">
               <span className="font-[600]">{inner_banner_title}</span>
             </h1>
             <div
-              className="paragraph max-w-[600px] mb-12 max-lg:mx-auto lg:mt-20 opacity-80"
+              className="paragraph max-w-[600px] lg:mt-8 opacity-80"
               style={{ fontWeight: "300" }}
               dangerouslySetInnerHTML={{
                 __html: inner_banner_paragraph || "&nbsp;",
               }}
             />
 
-            {shouldShowCTA &&
-              (inner_banner_is_type_form_cta === "1" ? (
-                <TypeformButton buttonText="Request Invite" size="Large" />
-              ) : (
-                <Button
-                  href={inner_banner_button_url}
-                  varient="primary-ghost"
-                  size="large"
-                  isArrowVisible={true}
-                >
-                  {inner_banner_button_label}
-                </Button>
-              ))}
+            <div className={`mt-8 md:mt-15`}>
+              {shouldShowCTA &&
+                (inner_banner_is_type_form_cta === "1" ? (
+                  <TypeformButton buttonText="Request Invite" size="Large" />
+                ) : (
+                  <Button
+                    href={inner_banner_button_url}
+                    varient="primary-ghost"
+                    size="large"
+                    isArrowVisible={true}
+                  >
+                    {inner_banner_button_label}
+                  </Button>
+                ))}
+            </div>
           </div>
         </div>
       </section>

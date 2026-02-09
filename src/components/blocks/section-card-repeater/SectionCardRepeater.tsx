@@ -15,12 +15,12 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
 
   return (
     <section
-      className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection}`}
+      className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection} compact-section`}
     >
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         <div className="grid max-md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 justify-center max-md:mb-8">
           <div className="">
             {section_card_repeator_section_title && (
@@ -53,10 +53,10 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
                 cardSize === "Small"
                   ? "small"
                   : cardSize === "Compact"
-                  ? "compact"
-                  : cardSize === "Large"
-                  ? "large"
-                  : "regular"
+                    ? "compact"
+                    : cardSize === "Large"
+                      ? "large"
+                      : "regular"
               } //compact|large|regular|small|
             />
           ))}

@@ -10,12 +10,12 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
 
   return (
     <section
-      className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection}`}
+      className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection} compact-section`}
     >
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
           <div>
             <h2 className="h2-size mb-6 text-center md:text-left">
@@ -27,7 +27,7 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
         </div>
         {/* Cards */}
         <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
-          <div className={`${styles.cardItem} ${styles.cardLarge}`}>
+          <div className={`${styles.cardItem} ${styles.cardSmall}`}>
             <h3>Save More.</h3>
             <p>
               The lowest all-in costs cleared through Tier-1 liquidity via PBs.
@@ -61,7 +61,7 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
             </div>
           </div>
           <div
-            className={`${styles.cardItem} ${styles.cardLarge} ${styles.activeCard}`}
+            className={`${styles.cardItem} ${styles.cardSmall} ${styles.activeCard}`}
           >
             <h3>Get Paid.</h3>
             <p>
@@ -96,7 +96,7 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
               </Link>
             </div>
           </div>
-          <div className={`${styles.cardItem} ${styles.cardLarge}`}>
+          <div className={`${styles.cardItem} ${styles.cardSmall}`}>
             <h3>Trade Aligned.</h3>
             <p>We profit on volume, not your losses — no B-book, ever.</p>
             <div className={`${styles.cardCta}`}>

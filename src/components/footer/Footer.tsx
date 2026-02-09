@@ -34,11 +34,11 @@ export default function Footer() {
   ];
 
   return (
-    <section className={`${styles.footer_section}`}>
+    <section className={`${styles.footer_section} compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         <div
           className={`flex flex-wrap md:grid md:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-10 md:gap-12 sm:gap-6`}
         >

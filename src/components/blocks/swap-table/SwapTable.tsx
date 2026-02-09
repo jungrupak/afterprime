@@ -55,11 +55,11 @@ export function SwapDataTabs() {
   });
 
   return (
-    <section>
+    <section className={`compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
-      <div className="ap_container">
+      <div className="ap_container_small">
         {/* Tabs */}
         <div className={`${style.tabnavWrapper} flex space-x-2`}>
           {tabNames.map((cat) => (

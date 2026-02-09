@@ -31,13 +31,15 @@ export function HeroHome(props: HeroHomeProps) {
   }, []);
 
   return (
-    <div className={`${styles.hero_home} h-screen max-md:h-[100%] relative`}>
+    <div
+      className={`${styles.hero_home} h-screen max-md:h-[100%] md:max-h-[1080px] relative`}
+    >
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
 
       <div className="flex flex-wrap flex-col justify-center items-center h-[100%] min-h-[400px] lg:min-h-[600px] relative z-2 md:pt-10 max-md:pb-5">
-        <div className="w-full max-w-[1324] mx-auto">
+        <div className="w-full max-w-[1200] mx-auto">
           <h1
             className={`${styles.heroHeading} h1-size flex gap-20 justify-between`}
           >
@@ -57,7 +59,10 @@ export function HeroHome(props: HeroHomeProps) {
 
           <div className="flex max-md:flex-col gap-4 items-center justify-center">
             {hero_banner_home_is_type_form_cta === "1" ? (
-              <TypeformButton buttonText="Apply for Invite Code" size="Regular" />
+              <TypeformButton
+                buttonText="Apply for Invite Code"
+                size="Regular"
+              />
             ) : (
               <Btn
                 size="regular"
