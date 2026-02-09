@@ -44,7 +44,7 @@ export default function Footer() {
         >
           <div className="col-span-full sm:col-auto order-1">
             <Link href="/" className="block mb-6">
-              <Image src="/img/logo-text.svg" alt="" width={160} height={29} />
+              <Image src="/img/logo-text.svg" alt="Afterprime Broker Logo" width={160} height={29} />
             </Link>
             <div className="flex gap-3 mb-6">
               {socialItems.map((item, index) => (
@@ -68,8 +68,8 @@ export default function Footer() {
               target="_blank"
               className="flex gap-2 items-center font-[600] mb-12"
             >
-              <Image width={34} height={34} src="/img/yt.png" alt="" />
-              Checkout our Youtube Channel
+              <Image width={34} height={34} src="/img/yt.png" alt="YouTube Logo" />
+              Afterprime YouTube
             </Link>
             <div className="flex gap-3">
               <Link
@@ -81,7 +81,7 @@ export default function Footer() {
                   width={112}
                   height={38}
                   src="/img/app-download-ios.png"
-                  alt=""
+                  alt="Afterprime iOS App"
                 />
               </Link>
               <Link
@@ -93,7 +93,7 @@ export default function Footer() {
                   width={112}
                   height={38}
                   src="/img/app-download-android.png"
-                  alt=""
+                  alt="Afterprime Android App"
                 />
               </Link>
             </div>
@@ -102,7 +102,7 @@ export default function Footer() {
             <h2>Quick Links</h2>
             <ul>
               <li>
-                <Link href="/get-paid-to-trade">Get Paid To Trade</Link>
+                <Link href="/get-paid-to-trade">Flow Rewards<sup>TM</sup></Link>
               </li>
               <li>
                 <Link href="/lowest-cost-verified">Lowest Cost Verified</Link>
@@ -114,7 +114,7 @@ export default function Footer() {
                 <Link href="/deposit-withdrawal">Deposit and Withdrawal</Link>
               </li>
               <li>
-                <Link href="/how-to-qualify">How to Qualify</Link>
+                <Link href="/how-to-qualify">How to Apply</Link>
               </li>
               <li>
                 <Link href="/trade-execution">Trade Execution</Link>
@@ -128,10 +128,10 @@ export default function Footer() {
                 <Link href="/live-spreads">Live Spreads</Link>
               </li>
               <li>
-                <Link href="/forex">Forex</Link>
+                <Link href="/forex">Forex CFDs</Link>
               </li>
               <li>
-                <Link href="/crypto">Crypto</Link>
+                <Link href="/crypto">Crypto CFDs</Link>
               </li>
               <li>
                 <Link href="/indices">Indices</Link>
@@ -139,9 +139,10 @@ export default function Footer() {
               <li>
                 <Link href="/commodities">Commodities</Link>
               </li>
-              {/* <li>
-                <Link href="/stocks">Stocks</Link>
-              </li> */}
+              <li>
+                <Link href="/trade">Compare Trading Costs</Link>
+              </li>
+
             </ul>
           </div>
           <div className={`${styles.footer_links} order-4`}>
@@ -162,13 +163,16 @@ export default function Footer() {
               <li>
                 <Link href="/fix-api">FIX API</Link>
               </li>
+              <li>
+                <Link href="/calculators">Trading Calculators</Link>
+              </li>
             </ul>
           </div>
           <div className={`${styles.footer_links} order-5`}>
             <h2>Afterprime</h2>
             <ul>
               <li>
-                <Link href="/our-story">Our Story</Link>
+                <Link href="/our-story">Who is Afterprime?</Link>
               </li>
               <li>
                 <Link href="/why-we-exist">Why We Exist</Link>
@@ -178,7 +182,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/license-and-regulations">
-                  License and Regulation
+                  CFD Broker License
                 </Link>
               </li>
               <li>
@@ -199,7 +203,7 @@ export default function Footer() {
             product described on this website is not a reliable indication of
             future performance. You should consider whether you’re part of our
             target market by reviewing our Target Market Determination, and read
-            our PDS and other legal documents to ensure you fully understand the
+            our PDS and other <Link href="/legal-documents"><u>legal documents</u></Link> to ensure you fully understand the
             risks before you make any trading decisions.
           </p>
           <p>
@@ -209,7 +213,7 @@ export default function Footer() {
             regulation.
           </p>
           <p>
-            © Copyright {currentYear} Afterprime Pty Ltd | Global Gateway 8, Rue
+            © Copyright 2018-{currentYear} Afterprime Pty Ltd | Global Gateway 8, Rue
             de la Perle, Providence, Mahé, Seychelles.
           </p>
         </div>
