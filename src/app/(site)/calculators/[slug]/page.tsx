@@ -2,6 +2,11 @@ import styles from "../Page.module.scss";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import CompoundGrowthCalculator from "@/components/all-calculators/CompoundGrowthCalculator/CompoundGrowthCalculator";
 import DrawdownCalculator from "@/components/all-calculators/DradownCalculator/DrawdonCalculator";
+import CurrencyConverter from "@/components/all-calculators/CurrencyConverter/CurrencyConverter";
+import NotFound from "../../[slug]/not-found";
+import { notFound } from "next/navigation";
+import MarginCalculator from "@/components/all-calculators/MarginCalculator/MarginCalculator";
+import PositionSizeCalculator from "@/components/all-calculators/PositionSizeCalculator/PositionSizeCalculator";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -26,9 +31,10 @@ async function pageDataSource(slug: string) {
 export async function generateMetadata({ params }: PageSlug) {
   const { slug } = await params;
   const dataSource = await pageDataSource(slug);
+
   return {
-    title: dataSource.aioseo_head_json?.title,
-    description: dataSource.aioseo_head_json?.description,
+    title: dataSource?.aioseo_head_json?.title,
+    description: dataSource?.aioseo_head_json?.description,
     alternates: {
       canonical: `https://afterprime.com/calculators/${slug}`,
     },
@@ -39,7 +45,9 @@ export async function generateMetadata({ params }: PageSlug) {
 export default async function Page({ params }: PageSlug) {
   const { slug } = await params;
   const pageData = await pageDataSource(slug);
-  if (!pageData) return;
+  if (!pageData) {
+    notFound();
+  }
 
   const acfFields = pageData?.acf;
   const calculatorPageFields = acfFields?.calculator_page_fields;
@@ -104,6 +112,11 @@ export default async function Page({ params }: PageSlug) {
             <CompoundGrowthCalculator />
           )}
           {selectCalculator === "Drawdown Calculator" && <DrawdownCalculator />}
+          {selectCalculator === "Currency Convertor" && <CurrencyConverter />}
+          {selectCalculator === "Margin Calculator" && <MarginCalculator />}
+          {selectCalculator === "Position Size Calculator" && (
+            <PositionSizeCalculator />
+          )}
         </div>
       </section>
       {/* Calculator WIdget Section */}
