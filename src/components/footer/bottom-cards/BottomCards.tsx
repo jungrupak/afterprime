@@ -7,7 +7,7 @@ export default function BottomCards() {
     {
       subtitle: "Support",
       title: "24/5",
-      paragraph: "Get expert support 24/5—whenever you need it!",
+      paragraph: "Get expert support 24/5 - whenever you need it!",
       ctaLabel: "Customer Support",
       ctaLink: "mailto:support@afterprime.com",
       cardIconUrl: "/img/icon-support.svg",
@@ -48,7 +48,7 @@ export default function BottomCards() {
             />
             <span>Support</span>
             <h2>24/5</h2>
-            <p>Get expert support 24/5—whenever you need it!</p>
+            <p>Get expert support 24/5 - whenever you need it!</p>
             <a
               href={`mailto:support@afterprime.com`}
               className="card_href_link hover:underline"
