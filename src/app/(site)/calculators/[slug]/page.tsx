@@ -10,6 +10,8 @@ import PositionSizeCalculator from "@/components/all-calculators/PositionSizeCal
 import ProfitLossCalculator from "@/components/all-calculators/ProfitLossCalculator/ProfitLossCalculator";
 import PipValueCalculator from "@/components/all-calculators/PipValueCalculator/PipValueCalculator";
 import SwapCalculator from "@/components/all-calculators/SwapCalculator/SwapCalculator";
+import TradingCalculatorClient from "@/components/trading-calculator-client/TradingCalculatorClient";
+import TradingCalculator from "@/components/all-calculators/TradingCalculator/TradingCalculator";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -127,20 +129,23 @@ export default async function Page({ params }: PageSlug) {
             <PipValueCalculator />
           )}
           {selectCalculator === "Swap Calculator" && <SwapCalculator />}
+          {selectCalculator === "Trading Calculator" && <TradingCalculator />}
         </div>
       </section>
       {/* Calculator WIdget Section */}
 
       {/* Page Contents */}
-      <section>
-        <div className="grainy_bg"></div>
-        <div className="ap_container">
-          <div
-            className={`${styles.pageEditorContent}`}
-            dangerouslySetInnerHTML={{ __html: pageFullContent || `&nbsp` }}
-          />
-        </div>
-      </section>
+      {pageFullContent && (
+        <section>
+          <div className="grainy_bg"></div>
+          <div className="ap_container">
+            <div
+              className={`${styles.pageEditorContent}`}
+              dangerouslySetInnerHTML={{ __html: pageFullContent || `&nbsp` }}
+            />
+          </div>
+        </section>
+      )}
 
       {/* Page Contents Ends */}
 
