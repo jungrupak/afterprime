@@ -42,7 +42,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
 
   // After defining pickedBrokersLists and rebatePerLot, calculate the lowest cost broker
   let lowestNetCost = Infinity;
-  let lowestBrokerName = '';
+  let lowestBrokerName = "";
   let lowestNetCostValue = 0;
 
   pickedBrokersLists?.forEach((broker) => {
@@ -177,7 +177,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
 
   return (
     <>
-      <section className={`md:py-20! max-md:pt-0!`}>
+      <section className={`compact-section`}>
         {/* grain bg effect */}
         <div className="grainy_bg"></div>
         {/* grain bg effect */}
@@ -311,7 +311,8 @@ export default function CostComparison({ instrument }: { instrument: string }) {
           </div>
 
           <div className="mt-4 text-center font-bold">
-            The Lowest {instrument} Cost Broker is {lowestBrokerName} at ${lowestNetCostValue.toFixed(2)}/lot round turn.
+            The Lowest {instrument} Cost Broker is {lowestBrokerName} at $
+            {lowestNetCostValue.toFixed(2)}/lot round turn.
           </div>
 
           <div

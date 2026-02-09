@@ -28,7 +28,7 @@ export default function FlowRewardIntro({
   ).filter(Boolean) as string[];
 
   return (
-    <section className={`md:py-20! max-md:py-0!`}>
+    <section className={`compact-section`}>
       {/* grain bg effect */}
       <div className="grainy_bg"></div>
       {/* grain bg effect */}

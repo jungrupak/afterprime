@@ -58,7 +58,7 @@ export default function PagesLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <main className={`compact-section-ui`}>
       <ReactQueryProvider>
         {/* Head Scripts */}
         <HeadScripts />
@@ -94,6 +94,6 @@ export default function PagesLayout({
         <FooterScripts />
         {/* Footer Scripts */}
       </ReactQueryProvider>
-    </>
+    </main>
   );
 }

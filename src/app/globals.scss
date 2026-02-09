@@ -913,3 +913,16 @@ section {
     text-align: right;
   }
 }
+
+// Compact Section UI overrites
+.compact-section-ui {
+  .innerpage-banner {
+    padding-bottom: clamp(40px, 10vw, 60px);
+  }
+}
+.compact-innerpage-banner {
+  padding-bottom: clamp(40px, 10vw, 60px);
+}
+.compact-section {
+  padding-block: clamp(40px, 10vw, 60px);
+}

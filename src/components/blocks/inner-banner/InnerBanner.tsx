@@ -22,7 +22,7 @@ export default function InnerBanner({
     (inner_banner_button_url && inner_banner_button_label);
   return (
     <>
-      <section className={`${styles.innerBannerSection}`}>
+      <section className={`${styles.innerBannerSection} innerpage-banner`}>
         {/* grain bg effect */}
         <div className="grainy_bg"></div>
         {/* grain bg effect */}
