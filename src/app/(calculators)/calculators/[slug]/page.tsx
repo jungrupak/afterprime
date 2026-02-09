@@ -3,14 +3,12 @@ import FaqCalc from "@/components/faq-calculators/Faq";
 import CompoundGrowthCalculator from "@/components/all-calculators/CompoundGrowthCalculator/CompoundGrowthCalculator";
 import DrawdownCalculator from "@/components/all-calculators/DradownCalculator/DrawdonCalculator";
 import CurrencyConverter from "@/components/all-calculators/CurrencyConverter/CurrencyConverter";
-import NotFound from "../../[slug]/not-found";
 import { notFound } from "next/navigation";
 import MarginCalculator from "@/components/all-calculators/MarginCalculator/MarginCalculator";
 import PositionSizeCalculator from "@/components/all-calculators/PositionSizeCalculator/PositionSizeCalculator";
 import ProfitLossCalculator from "@/components/all-calculators/ProfitLossCalculator/ProfitLossCalculator";
 import PipValueCalculator from "@/components/all-calculators/PipValueCalculator/PipValueCalculator";
 import SwapCalculator from "@/components/all-calculators/SwapCalculator/SwapCalculator";
-import TradingCalculatorClient from "@/components/trading-calculator-client/TradingCalculatorClient";
 import TradingCalculator from "@/components/all-calculators/TradingCalculator/TradingCalculator";
 
 interface PageSlug {
