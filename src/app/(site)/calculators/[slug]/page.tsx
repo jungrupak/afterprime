@@ -6,6 +6,7 @@ import CurrencyConverter from "@/components/all-calculators/CurrencyConverter/Cu
 import NotFound from "../../[slug]/not-found";
 import { notFound } from "next/navigation";
 import MarginCalculator from "@/components/all-calculators/MarginCalculator/MarginCalculator";
+import PositionSizeCalculator from "@/components/all-calculators/PositionSizeCalculator/PositionSizeCalculator";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -113,6 +114,9 @@ export default async function Page({ params }: PageSlug) {
           {selectCalculator === "Drawdown Calculator" && <DrawdownCalculator />}
           {selectCalculator === "Currency Convertor" && <CurrencyConverter />}
           {selectCalculator === "Margin Calculator" && <MarginCalculator />}
+          {selectCalculator === "Position Size Calculator" && (
+            <PositionSizeCalculator />
+          )}
         </div>
       </section>
       {/* Calculator WIdget Section */}

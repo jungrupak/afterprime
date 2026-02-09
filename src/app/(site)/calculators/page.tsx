@@ -32,25 +32,25 @@ export default async function Page() {
       title: "Position Size Calculator",
       paragraph:
         "Calculate the optimal lot size for any trade based on your account balance, risk percentage, and stop-loss distance. Primary Use: Determine how many lots to trade while staying within your risk limits",
-      button_url: "/calcutors/position-size-calculator",
+      button_url: "/calculators/position-size-calculator",
     },
     {
       title: "Profit/Loss Calculator",
       paragraph:
         "See your potential profit and loss before entering a trade. Enter entry, stop-loss, and take-profit levels with position size. Primary Use: Know exactly what you stand to gain or lose before committing capital. ",
-      button_url: "/calcutors/profit-loss-calculator",
+      button_url: "/calculators/profit-loss-calculator",
     },
     {
       title: "Margin & Leverage Calculator",
       paragraph:
         "Calculate margin requirements and understand your leverage exposure. See how much capital is tied up and risk of margin call. Primary Use: Ensure you have sufficient margin and understand your effective leverage ",
-      button_url: "/calcutors/margin-calculator",
+      button_url: "/calculators/margin-calculator",
     },
     {
       title: "Pip Value Calculator",
       paragraph:
         "Find the exact value of a pip for any instrument and position size. Supports forex pairs, commodities, and indices. Primary Use: Know the dollar value of price movements before sizing positions.",
-      button_url: "/calcutors/pip-value-calculator",
+      button_url: "/calculators/pip-value-calculator",
     },
     {
       title: "Compound Growth Calculator",
