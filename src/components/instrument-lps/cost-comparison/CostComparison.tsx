@@ -40,6 +40,26 @@ export default function CostComparison({ instrument }: { instrument: string }) {
 
   const rebatePerLot = data?.rebate?.rebate_usd_per_lot ?? null;
 
+  // After defining pickedBrokersLists and rebatePerLot, calculate the lowest cost broker
+  let lowestNetCost = Infinity;
+  let lowestBrokerName = '';
+  let lowestNetCostValue = 0;
+
+  pickedBrokersLists?.forEach((broker) => {
+    let netCost;
+    if (broker.broker === "Afterprime") {
+      const rebate = rebatePerLot ?? 0;
+      netCost = broker.costPerLot - rebate;
+    } else {
+      netCost = broker.costPerLot;
+    }
+    if (netCost < lowestNetCost) {
+      lowestNetCost = netCost;
+      lowestBrokerName = broker.broker;
+      lowestNetCostValue = netCost;
+    }
+  });
+
   //Broker Commissions
   const commissionByBroker: Record<string, number> = {
     Afterprime: 0,
@@ -288,6 +308,10 @@ export default function CostComparison({ instrument }: { instrument: string }) {
           <div className="text-center text-[14px] bg-[rgba(255,255,255,.12)] rounded-[5px] p-2 text-[rgba(255,255,255,.48)]">
             Savings represent how much more each broker costs per trade compared
             to Afterprime, after fees and rebates.
+          </div>
+
+          <div className="mt-4 text-center font-bold">
+            The Lowest {instrument} Cost Broker is {lowestBrokerName} at ${lowestNetCostValue.toFixed(2)}/lot round turn.
           </div>
 
           <div
