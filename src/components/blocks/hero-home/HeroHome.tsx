@@ -60,7 +60,7 @@ export function HeroHome(props: HeroHomeProps) {
           <div className="flex max-md:flex-col gap-4 items-center justify-center">
             {hero_banner_home_is_type_form_cta === "1" ? (
               <TypeformButton
-                buttonText="Apply for Invite Code"
+                buttonText="Get Invite Code"
                 size="Regular"
               />
             ) : (
@@ -73,15 +73,6 @@ export function HeroHome(props: HeroHomeProps) {
                 {hero_banner_home_banner_btn_text || "Button"}
               </Btn>
             )}
-            <span className="block max-md:w-full">
-              <Link
-                href="https://app.afterprime.com/live"
-                className={`regular ap_button ghost`}
-                target="_blank"
-              >
-                Enter Invite Code
-              </Link>
-            </span>
           </div>
         </div>
       </div>
