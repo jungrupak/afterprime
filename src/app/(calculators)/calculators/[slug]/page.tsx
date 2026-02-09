@@ -3,13 +3,13 @@ import FaqCalc from "@/components/faq-calculators/Faq";
 import CompoundGrowthCalculator from "@/components/all-calculators/CompoundGrowthCalculator/CompoundGrowthCalculator";
 import DrawdownCalculator from "@/components/all-calculators/DradownCalculator/DrawdonCalculator";
 import CurrencyConverter from "@/components/all-calculators/CurrencyConverter/CurrencyConverter";
-import NotFound from "../../[slug]/not-found";
 import { notFound } from "next/navigation";
 import MarginCalculator from "@/components/all-calculators/MarginCalculator/MarginCalculator";
 import PositionSizeCalculator from "@/components/all-calculators/PositionSizeCalculator/PositionSizeCalculator";
 import ProfitLossCalculator from "@/components/all-calculators/ProfitLossCalculator/ProfitLossCalculator";
 import PipValueCalculator from "@/components/all-calculators/PipValueCalculator/PipValueCalculator";
 import SwapCalculator from "@/components/all-calculators/SwapCalculator/SwapCalculator";
+import TradingCalculator from "@/components/all-calculators/TradingCalculator/TradingCalculator";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -127,20 +127,23 @@ export default async function Page({ params }: PageSlug) {
             <PipValueCalculator />
           )}
           {selectCalculator === "Swap Calculator" && <SwapCalculator />}
+          {selectCalculator === "Trading Calculator" && <TradingCalculator />}
         </div>
       </section>
       {/* Calculator WIdget Section */}
 
       {/* Page Contents */}
-      <section>
-        <div className="grainy_bg"></div>
-        <div className="ap_container">
-          <div
-            className={`${styles.pageEditorContent}`}
-            dangerouslySetInnerHTML={{ __html: pageFullContent || `&nbsp` }}
-          />
-        </div>
-      </section>
+      {pageFullContent && (
+        <section>
+          <div className="grainy_bg"></div>
+          <div className="ap_container">
+            <div
+              className={`${styles.pageEditorContent}`}
+              dangerouslySetInnerHTML={{ __html: pageFullContent || `&nbsp` }}
+            />
+          </div>
+        </section>
+      )}
 
       {/* Page Contents Ends */}
 

@@ -908,4 +908,8 @@ section {
 .wp-block-table {
   overflow-x: auto !important;
   table-layout: auto;
+  table tr th:last-child,
+  table tr td:last-child {
+    text-align: right;
+  }
 }
