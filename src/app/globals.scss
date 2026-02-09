@@ -899,7 +899,13 @@ section {
   }
 
   .eapps-google-reviews-8396dec5-bde7-4ee9-b280-ec33390374f6-custom-css-root
-  .hHcZSh {
+    .hHcZSh {
     left: 111px;
   }
+}
+
+// Generic table in content
+.wp-block-table {
+  overflow-x: auto !important;
+  table-layout: auto;
 }

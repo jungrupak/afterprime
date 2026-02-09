@@ -1,6 +1,7 @@
 import styles from "../Page.module.scss";
-import { getWpPagedata } from "@/utils/getWpPagedata";
 import FaqCalc from "@/components/faq-calculators/Faq";
+import CompoundGrowthCalculator from "@/components/all-calculators/CompoundGrowthCalculator/CompoundGrowthCalculator";
+import DrawdownCalculator from "@/components/all-calculators/DradownCalculator/DrawdonCalculator";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: PageSlug) {
 
 export default async function Page({ params }: PageSlug) {
   const { slug } = await params;
-  const pageData = await getWpPagedata(slug);
+  const pageData = await pageDataSource(slug);
   if (!pageData) return;
 
   const acfFields = pageData?.acf;
@@ -48,6 +49,7 @@ export default async function Page({ params }: PageSlug) {
   const sectionTitle = acfFields?.faq_section?.ssection_title;
   const faqData = acfFields?.faq_section?.q_and_a;
   const pageFullContent = calculatorPageFields?.page_content;
+  const selectCalculator = calculatorPageFields?.select_calculator;
 
   const pageSchema = calculatorPageFields?.page_schema;
   const faqSchema =
@@ -74,7 +76,9 @@ export default async function Page({ params }: PageSlug) {
   return (
     <>
       {/* Banner Section */}
-      <section className={`${styles.innerBannerSection}`}>
+      <section
+        className={`${styles.innerBannerSection} max-md:h-[80vh]! max-md:pb-0!`}
+      >
         <div className="grainy_bg"></div>
         <div className="ap_container flex items-center h-full">
           <div className="apBannerContent md:max-w-[800px]">
@@ -93,12 +97,13 @@ export default async function Page({ params }: PageSlug) {
       {/* Banner Section Ends */}
 
       {/* Calculator WIdget Section */}
-      <section>
+      <section className={`pb-0!`}>
         <div className="grainy_bg"></div>
         <div className="ap_container flex items-center h-full">
-          <div className="apBannerContent md:max-w-[800px]">
-            Here goes ... {slug} calculator
-          </div>
+          {selectCalculator === "Compound Growth Calculator" && (
+            <CompoundGrowthCalculator />
+          )}
+          {selectCalculator === "Drawdown Calculator" && <DrawdownCalculator />}
         </div>
       </section>
       {/* Calculator WIdget Section */}
