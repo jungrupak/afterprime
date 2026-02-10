@@ -22,7 +22,8 @@ export function BottomCta() {
             </p>
             <TypeformButton buttonText="Apply for Invite code" size="Regular" />
             <div className={`mt-5 opacity-65`}>
-              Invite only access for approved trading profiles.
+              Invite only access for approved trading profiles.<br/>
+              Get an invite code from a <Link href="https://discord.com/invite/NKBcxyWzdM">Discord</Link> friend.
             </div>
           </div>
         </div>

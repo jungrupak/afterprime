@@ -17,7 +17,7 @@ export default function WebTraderMt5() {
           servers: ["Afterprime-Live AP"],
           server: "Afterprime-Live AP",
           utmCampaign: "direct",
-          utmSource: "www.afterprime.com",
+          utmSource: "afterprime.com",
           startMode: "login",
           language: "en",
           colorScheme: "white_on_black",
