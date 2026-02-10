@@ -9,7 +9,6 @@ import ProductSpecification from "@/components/instrument-lps/product-specificat
 import Faq from "@/components/instrument-lps/faq/Faq";
 import Cta from "@/components/instrument-lps/cta/Cta";
 import { metaDataHelper } from "./metaDataHelper";
-import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
