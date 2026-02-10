@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "./SwapCalculator.module.scss";
+import { useQuery } from "@tanstack/react-query";
 
 /* =======================
    TYPES
@@ -32,8 +33,6 @@ interface CalculationResult {
 /* =======================
    CONSTANTS
 ======================= */
-
-const API_URL = "https://scoreboard.argamon.com:8443/api/instruments/";
 
 const PIP_VALUES: { [key: string]: number } = {
   "EUR/USD": 10,
@@ -91,7 +90,7 @@ export default function SwapCalculator() {
   useEffect(() => {
     const fetchSwapRates = async () => {
       try {
-        const res = await fetch(API_URL);
+        const res = await fetch("/api/instruments");
         const data: InstrumentApiResponse[] = await res.json();
 
         const mapped: SwapRates = {};

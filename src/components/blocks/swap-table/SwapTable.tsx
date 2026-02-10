@@ -1,8 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { parse } from "papaparse";
 import style from "./SwapTable.module.scss";
-import type { Blocks } from "@/types/blocks";
 import { useQuery } from "@tanstack/react-query";
 
 const tabNames = [
