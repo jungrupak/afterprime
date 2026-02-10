@@ -76,25 +76,21 @@ export default function HeroUsp({ text }: ReceiveText) {
         <div className={`${styles.upsItem}`}>
           <div className={`${styles.value}`}>#1</div>
           <div className={`${styles.descp}`}>
-            Verified All-In Costs
+            Lowest All-In Costs Worldwide.
             <br />
-            Globally
+            Independently Benchmarked.
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
           <div className={`${styles.value}`}>{dataSaving}%</div>
           <div className={`${styles.descp}`}>
-            Saving vs 2nd
-            <br />
-            Best
+            Lower Costs vs <br/>2nd-Ranked Broker
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
           <div className={`${styles.value}`}>{averageVsInds}%</div>
           <div className={`${styles.descp}`}>
-            Saving vs Industry
-            <br />
-            Avg.
+            Lower All-In Costs vs <br/>Industry Average
           </div>
         </div>
         <div className={`hero-usp-badge`}>
