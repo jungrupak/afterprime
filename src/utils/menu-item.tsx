@@ -13,16 +13,16 @@ export const MegaMenuItems = [
         categoryName: "Why Traders Switch",
         catMenuItems: [
           {
+            menuItem: "Execution Integrity",
+            pageUrl: "/aligned-execution/",
+          },
+          {
             menuItem: "Flow Rewards",
             pageUrl: "/get-paid-to-trade",
           },
           {
             menuItem: "Lowest Costs Verified",
             pageUrl: "/lowest-cost-verified",
-          },
-          {
-            menuItem: "Execution Integrity",
-            pageUrl: "/aligned-execution/",
           },
         ],
       },
