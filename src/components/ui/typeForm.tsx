@@ -53,13 +53,13 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
         size === "Large"
           ? styles.large
           : size === "Regular"
-          ? styles.regular
-          : size === "small"
-          ? styles.small
-          : size === "x-small"
-          ? styles.xSmall
-          : ""
-      } ${styles.primaryGhost}`}
+            ? styles.regular
+            : size === "small"
+              ? styles.small
+              : size === "x-small"
+                ? styles.xSmall
+                : ""
+      } ${styles.primary}`}
     >
       {buttonText}
       <svg
