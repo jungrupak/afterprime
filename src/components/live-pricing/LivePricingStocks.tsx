@@ -37,7 +37,6 @@ export function LivePricingStocks() {
                     <th className="px-4 py-2">Ask</th>
                     <th className="px-4 py-2">Spread</th>
                     <th className="px-4 py-2">Market</th>
-                    <th className="px-4 py-2">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -70,15 +69,6 @@ export function LivePricingStocks() {
                       </td>
                       <td className="px-4 py-2 " t-name="Market">
                         {item.market}
-                      </td>
-                      <td>
-                        <Btn
-                          varient="secondary-ghost"
-                          size="x-small"
-                          href="https://app.afterprime.com/login"
-                        >
-                          Trade Now
-                        </Btn>
                       </td>
                     </tr>
                   ))}
