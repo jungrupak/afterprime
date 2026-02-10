@@ -1,4 +1,3 @@
-import Cta from "@/components/instrument-lps/cta/Cta";
 import TypeformButton from "@/components/instrument-lps/typeform-btn/typeForm";
 import styles from "@/components/instrument-lps/cta/Cta.module.scss";
 export function BottomCta() {
