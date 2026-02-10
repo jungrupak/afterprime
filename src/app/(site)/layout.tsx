@@ -1,6 +1,6 @@
 import TypeformLoader from "@/utils/TypeFormLoader";
 import Header from "@/components/header/Header";
-import BottomCards from "@/components/footer/bottom-cards/BottomCards";
+//import BottomCards from "@/components/footer/bottom-cards/BottomCards";
 import Footer from "@/components/footer/Footer";
 import { Metadata } from "next";
 import FooterScripts from "@/components/FooterScripts";
@@ -90,7 +90,7 @@ export default function PagesLayout({
         {/* Fixed Vid Bg for entire website ends */}
         <Header />
         {children}
-        <BottomCards />
+        {/* <BottomCards /> */}
         <Footer />
         {/* Footer Scripts */}
         <FooterScripts />
