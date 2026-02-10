@@ -19,7 +19,7 @@ interface PageSlug {
 async function pageDataSource(slug: string) {
   try {
     const res = await fetch(
-      `${process.env.WORDPRESS_REST_ENDPOINT}/pages?slug=${slug}`,
+      `${process.env.WORDPRESS_REST_ENDPOINT}pages?slug=${slug}`,
     );
     if (!res.ok) return {};
     const pageData = await res.json();
