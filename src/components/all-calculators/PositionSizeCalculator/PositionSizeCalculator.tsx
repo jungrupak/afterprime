@@ -233,7 +233,6 @@ export default function PositionSizeCalculator() {
                 <option value="SPX500">SPX500 (S&P 500)</option>
                 <option value="NAS100">NAS100 (Nasdaq)</option>
               </optgroup>
-              <option value="CUSTOM">Custom Instrument</option>
             </select>
           </div>
 

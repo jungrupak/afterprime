@@ -1,0 +1,54 @@
+.innerBannerSection {
+  height: 100vh;
+  //max-height: 600px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  background-color: transparent;
+  backdrop-filter: blur(0);
+  background-image: none !important;
+  @media all and (min-width: 1024px) {
+    height: 100vh;
+    max-height: 100vh;
+    text-align: left;
+  }
+  @media all and (min-width: 1600px) {
+    height: 100vh;
+    //max-height: 980px;
+    text-align: left;
+  }
+}
+
+.instumentLists {
+  ul {
+    li {
+      margin-bottom: 10px;
+      a {
+        transition: all 0.3s ease;
+        border-radius: 6px;
+        background-color: rgba(255, 255, 255, 0.08);
+        display: block;
+        padding: 10px 15px;
+        color: rgba(255, 255, 255, 0.68);
+      }
+      &:hover {
+        a {
+          text-decoration: underline;
+          background-color: rgba(255, 255, 255, 0.14);
+          text-align: center;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.listParent ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 5px;
+}
+
+@media all and (max-width: 1023px) {
+}
