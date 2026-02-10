@@ -3,27 +3,6 @@
 import { useState, useEffect } from "react";
 import styles from "./CurrencyConverter.module.scss";
 
-const EXCHANGE_RATES: { [key: string]: number } = {
-  USD: 1.0,
-  EUR: 0.9217,
-  GBP: 0.7906,
-  JPY: 149.5,
-  CHF: 0.885,
-  CAD: 1.365,
-  AUD: 1.5267,
-  NZD: 1.6393,
-  CNY: 7.245,
-  HKD: 7.81,
-  SGD: 1.342,
-  INR: 83.12,
-  MXN: 17.15,
-  ZAR: 18.65,
-  BTC: 0.0000148,
-  ETH: 0.00029,
-  XAU: 0.000425,
-  XAG: 0.0351,
-};
-
 const CURRENCY_INFO: {
   [key: string]: {
     name: string;
@@ -46,7 +25,6 @@ const CURRENCY_INFO: {
   MXN: { name: "Mexican Peso", symbol: "MX$", flag: "🇲🇽" },
   ZAR: { name: "South African Rand", symbol: "R", flag: "🇿🇦" },
   BTC: { name: "Bitcoin", symbol: "₿", flag: "🪙" },
-  ETH: { name: "Ethereum", symbol: "Ξ", flag: "🪙" },
   XAU: { name: "Gold (oz)", symbol: "XAU", flag: "🥇" },
   XAG: { name: "Silver (oz)", symbol: "XAG", flag: "🥈" },
 };
@@ -58,14 +36,76 @@ interface ConversionResult {
   decimals: number;
 }
 
+interface ExchangeRates {
+  [key: string]: number;
+}
+
 export default function CurrencyConverter() {
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
   const [amount, setAmount] = useState(1000);
   const [result, setResult] = useState<ConversionResult | null>(null);
+  const [exchangeRates, setExchangeRates] = useState<ExchangeRates>({});
+  const [loading, setLoading] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+
+  // Fetch exchange rates
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          "https://scoreboard.argamon.com:8443/api/rebates/exchange-rates?base_currency=USD",
+        );
+        const data = await response.json();
+        setExchangeRates(data);
+        setLastUpdated(new Date());
+      } catch (error) {
+        console.error("Failed to fetch exchange rates:", error);
+        // Set default rates as fallback
+        setExchangeRates({
+          USD: 1.0,
+          EUR: 0.92,
+          GBP: 0.79,
+          JPY: 149.5,
+          CHF: 0.88,
+          CAD: 1.36,
+          AUD: 1.52,
+          NZD: 1.63,
+          CNY: 7.24,
+          HKD: 7.81,
+          SGD: 1.34,
+          INR: 83.12,
+          MXN: 17.15,
+          ZAR: 18.65,
+          BTC: 0.0000148,
+          XAU: 0.000425,
+          XAG: 0.0351,
+        });
+        setLastUpdated(new Date());
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRates();
+  }, []);
+
+  const getExchangeRate = (from: string, to: string): number => {
+    if (from === to) return 1;
+
+    // All rates are based on USD
+    const fromRate = exchangeRates[from] || 1;
+    const toRate = exchangeRates[to] || 1;
+
+    // Convert: from -> USD -> to
+    return toRate / fromRate;
+  };
 
   const calculate = () => {
-    const rate = EXCHANGE_RATES[toCurrency] / EXCHANGE_RATES[fromCurrency];
+    if (Object.keys(exchangeRates).length === 0) return;
+
+    const rate = getExchangeRate(fromCurrency, toCurrency);
     const converted = amount * rate;
     const decimals = ["JPY", "KRW"].includes(toCurrency)
       ? 0
@@ -83,7 +123,7 @@ export default function CurrencyConverter() {
 
   useEffect(() => {
     calculate();
-  }, [fromCurrency, toCurrency, amount]);
+  }, [fromCurrency, toCurrency, amount, exchangeRates]);
 
   const handleSwap = () => {
     setFromCurrency(toCurrency);
@@ -93,6 +133,32 @@ export default function CurrencyConverter() {
   const handleQuickAmount = (quickAmount: number) => {
     setAmount(quickAmount);
   };
+
+  const handleRefreshRates = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "https://scoreboard.argamon.com:8443/api/rebates/exchange-rates?base_currency=USD",
+      );
+      const data = await response.json();
+      setExchangeRates(data);
+      setLastUpdated(new Date());
+    } catch (error) {
+      console.error("Failed to refresh exchange rates:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading && Object.keys(exchangeRates).length === 0) {
+    return (
+      <div className={styles.calculator}>
+        <div className={styles.body}>
+          <p>Loading exchange rates...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!result) return null;
 
@@ -169,6 +235,28 @@ export default function CurrencyConverter() {
               1 {toCurrency} = {result.inverseRate.toFixed(4)} {fromCurrency}
             </span>
           </div>
+          {lastUpdated && (
+            <div className={styles.rate}>
+              <span className={styles.rateLabel}>Updated:</span>{" "}
+              <span>
+                {lastUpdated.toLocaleTimeString()}
+                <button
+                  type="button"
+                  onClick={handleRefreshRates}
+                  disabled={loading}
+                  style={{
+                    marginLeft: "8px",
+                    padding: "2px 6px",
+                    fontSize: "12px",
+                    cursor: loading ? "not-allowed" : "pointer",
+                    opacity: loading ? 0.5 : 1,
+                  }}
+                >
+                  {loading ? "..." : "↻"}
+                </button>
+              </span>
+            </div>
+          )}
         </div>
 
         <div className={styles.quick}>
