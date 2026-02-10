@@ -21,7 +21,7 @@ export const MegaMenuItems = [
             pageUrl: "/lowest-cost-verified",
           },
           {
-            menuItem: "Aligned Execution",
+            menuItem: "Execution Integrity",
             pageUrl: "/aligned-execution/",
           },
         ],
