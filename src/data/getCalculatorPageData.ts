@@ -1,8 +1,7 @@
 
-
 export async function getCalcPageData(pageSlug:string) {
   const res = await fetch(
-    `${process.env.WORDPRESS_REST_ENDPOINT}/pages?slug=${pageSlug}`,
+    `${process.env.WORDPRESS_REST_ENDPOINT}pages?slug=${pageSlug}`,
     { cache: "no-store" } // or revalidate if you want ISR
   )
 
