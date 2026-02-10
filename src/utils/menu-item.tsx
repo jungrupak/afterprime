@@ -1,8 +1,8 @@
 export const MegaMenuItems = [
   {
-    menu: "Rethink Trading",
+    menu: "Our Approach",
     menuInfos: {
-      title: "Rethink Trading",
+      title: "Our Approach",
       description:
         "Paragraph texts a short description of the menu context for this category.",
       btnText: "Learn More",
