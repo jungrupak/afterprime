@@ -3,48 +3,107 @@
 import { useState, useEffect } from "react";
 import styles from "./MarginCalculator.module.scss";
 
-// Default prices and contract sizes for instruments
+// Default contract sizes for instruments
 const INSTRUMENTS: {
   [key: string]: {
-    price: number;
     contractSize: number;
     marginCurrency: string;
     isGold?: boolean;
+    symbol: string; // Symbol name in the price feed
+    defaultPrice: number; // Fallback price
   };
 } = {
-  "EUR/USD": { price: 1.085, contractSize: 100000, marginCurrency: "EUR" },
-  "GBP/USD": { price: 1.265, contractSize: 100000, marginCurrency: "GBP" },
-  "USD/JPY": { price: 149.5, contractSize: 100000, marginCurrency: "USD" },
-  "USD/CHF": { price: 0.885, contractSize: 100000, marginCurrency: "USD" },
-  "USD/CAD": { price: 1.365, contractSize: 100000, marginCurrency: "USD" },
-  "AUD/USD": { price: 0.655, contractSize: 100000, marginCurrency: "AUD" },
-  "NZD/USD": { price: 0.61, contractSize: 100000, marginCurrency: "NZD" },
-  "EUR/GBP": { price: 0.858, contractSize: 100000, marginCurrency: "EUR" },
-  "EUR/JPY": { price: 162.2, contractSize: 100000, marginCurrency: "EUR" },
-  "GBP/JPY": { price: 189.1, contractSize: 100000, marginCurrency: "GBP" },
+  "EUR/USD": {
+    contractSize: 100000,
+    marginCurrency: "EUR",
+    symbol: "EURUSD",
+    defaultPrice: 1.085,
+  },
+  "GBP/USD": {
+    contractSize: 100000,
+    marginCurrency: "GBP",
+    symbol: "GBPUSD",
+    defaultPrice: 1.265,
+  },
+  "USD/JPY": {
+    contractSize: 100000,
+    marginCurrency: "USD",
+    symbol: "USDJPY",
+    defaultPrice: 149.5,
+  },
+  "USD/CHF": {
+    contractSize: 100000,
+    marginCurrency: "USD",
+    symbol: "USDCHF",
+    defaultPrice: 0.885,
+  },
+  "USD/CAD": {
+    contractSize: 100000,
+    marginCurrency: "USD",
+    symbol: "USDCAD",
+    defaultPrice: 1.365,
+  },
+  "AUD/USD": {
+    contractSize: 100000,
+    marginCurrency: "AUD",
+    symbol: "AUDUSD",
+    defaultPrice: 0.655,
+  },
+  "NZD/USD": {
+    contractSize: 100000,
+    marginCurrency: "NZD",
+    symbol: "NZDUSD",
+    defaultPrice: 0.61,
+  },
+  "EUR/GBP": {
+    contractSize: 100000,
+    marginCurrency: "EUR",
+    symbol: "EURGBP",
+    defaultPrice: 0.858,
+  },
+  "EUR/JPY": {
+    contractSize: 100000,
+    marginCurrency: "EUR",
+    symbol: "EURJPY",
+    defaultPrice: 162.2,
+  },
+  "GBP/JPY": {
+    contractSize: 100000,
+    marginCurrency: "GBP",
+    symbol: "GBPJPY",
+    defaultPrice: 189.1,
+  },
   "XAU/USD": {
-    price: 2350.0,
     contractSize: 100,
     marginCurrency: "XAU",
     isGold: true,
+    symbol: "XAUUSD",
+    defaultPrice: 2350.0,
   },
-  USOIL: { price: 78.5, contractSize: 1000, marginCurrency: "USD" },
-  US30: { price: 39500, contractSize: 1, marginCurrency: "USD" },
-  SPX500: { price: 5200, contractSize: 1, marginCurrency: "USD" },
-  NAS100: { price: 18200, contractSize: 1, marginCurrency: "USD" },
-};
-
-// Currency conversion rates to USD (approximate)
-const CURRENCY_RATES: { [key: string]: number } = {
-  USD: 1,
-  EUR: 1.085,
-  GBP: 1.265,
-  AUD: 0.655,
-  NZD: 0.61,
-  CAD: 0.733,
-  CHF: 1.13,
-  JPY: 0.0067,
-  XAU: 2350,
+  USOIL: {
+    contractSize: 1000,
+    marginCurrency: "USD",
+    symbol: "USOIL",
+    defaultPrice: 78.5,
+  },
+  US30: {
+    contractSize: 1,
+    marginCurrency: "USD",
+    symbol: "US30",
+    defaultPrice: 39500,
+  },
+  SPX500: {
+    contractSize: 1,
+    marginCurrency: "USD",
+    symbol: "SPX500",
+    defaultPrice: 5200,
+  },
+  NAS100: {
+    contractSize: 1,
+    marginCurrency: "USD",
+    symbol: "NAS100",
+    defaultPrice: 18200,
+  },
 };
 
 interface CalculationResult {
@@ -69,14 +128,33 @@ interface MarginCallLevels {
   move50: string;
 }
 
+interface ExchangeRates {
+  [key: string]: number;
+}
+
+interface MarketPrice {
+  symbol: string;
+  bestBid: number;
+  bestAsk: number;
+  spread: number;
+  market: string;
+  group: string;
+}
+
 export default function MarginCalculator() {
   const [instrument, setInstrument] = useState("EUR/USD");
-  const [price, setPrice] = useState(1.085);
+  const [price, setPrice] = useState(0);
   const [tradeSize, setTradeSize] = useState(1.0);
   const [lotType, setLotType] = useState("standard");
   const [leverage, setLeverage] = useState(100);
   const [accountBalance, setAccountBalance] = useState(10000);
   const [accountCurrency, setAccountCurrency] = useState("USD");
+  const [exchangeRates, setExchangeRates] = useState<ExchangeRates>({});
+  const [marketPrices, setMarketPrices] = useState<{
+    [key: string]: MarketPrice;
+  }>({});
+  const [loadingRates, setLoadingRates] = useState(true);
+  const [loadingPrices, setLoadingPrices] = useState(true);
 
   const [result, setResult] = useState<CalculationResult | null>(null);
   const [riskAssessment, setRiskAssessment] = useState<RiskAssessment | null>(
@@ -87,15 +165,130 @@ export default function MarginCalculator() {
     move50: "—",
   });
 
-  const handleInstrumentChange = (newInstrument: string) => {
-    setInstrument(newInstrument);
-    const instrumentData = INSTRUMENTS[newInstrument];
-    if (instrumentData) {
-      setPrice(instrumentData.price);
+  // Fetch exchange rates on mount only
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        setLoadingRates(true);
+        const response = await fetch(
+          "https://scoreboard.argamon.com:8443/api/rebates/exchange-rates?base_currency=USD",
+        );
+        const data = await response.json();
+        setExchangeRates(data);
+      } catch (error) {
+        console.error("Failed to fetch exchange rates:", error);
+        // Set default rates as fallback
+        setExchangeRates({
+          USD: 1,
+          EUR: 0.92,
+          GBP: 0.79,
+          AUD: 1.52,
+          JPY: 149.5,
+          CHF: 0.88,
+          CAD: 1.36,
+        });
+      } finally {
+        setLoadingRates(false);
+      }
+    };
+
+    fetchRates();
+  }, []);
+
+  // Fetch market prices on mount
+  useEffect(() => {
+    const fetchPrices = async () => {
+      try {
+        setLoadingPrices(true);
+        const response = await fetch(
+          "https://marketprice.afterprime.io:5000/MarketPrice",
+        );
+        const data = await response.json();
+
+        // Convert array to object with symbol as key
+        const pricesMap: { [key: string]: MarketPrice } = {};
+        data.forEach((item: MarketPrice) => {
+          pricesMap[item.symbol] = item;
+        });
+
+        setMarketPrices(pricesMap);
+      } catch (error) {
+        console.error("Failed to fetch market prices:", error);
+      } finally {
+        setLoadingPrices(false);
+      }
+    };
+
+    fetchPrices();
+  }, []);
+
+  // Update price whenever instrument changes OR when market prices are loaded
+  useEffect(() => {
+    const instrumentData = INSTRUMENTS[instrument];
+    if (!instrumentData) return;
+
+    // Try to get price from API using bestBid
+    const marketData = marketPrices[instrumentData.symbol];
+
+    if (marketData && marketData.bestBid && marketData.bestBid > 0) {
+      // Use API price (bestBid)
+      setPrice(marketData.bestBid);
+      console.log(`Setting API price for ${instrument}: ${marketData.bestBid}`);
+    } else {
+      // Use default price as fallback
+      setPrice(instrumentData.defaultPrice);
+      console.log(
+        `Setting default price for ${instrument}: ${instrumentData.defaultPrice}`,
+      );
+    }
+  }, [instrument, marketPrices]);
+
+  const getExchangeRate = (
+    fromCurrency: string,
+    toCurrency: string,
+  ): number => {
+    if (fromCurrency === toCurrency) return 1;
+
+    // All rates are based on USD
+    const fromRate = exchangeRates[fromCurrency] || 1;
+    const toRate = exchangeRates[toCurrency] || 1;
+
+    // Convert: from -> USD -> to
+    return toRate / fromRate;
+  };
+
+  const handleRefreshPrice = async () => {
+    try {
+      setLoadingPrices(true);
+      const response = await fetch(
+        "https://marketprice.afterprime.io:5000/MarketPrice",
+      );
+      const data = await response.json();
+
+      // Convert array to object with symbol as key
+      const pricesMap: { [key: string]: MarketPrice } = {};
+      data.forEach((item: MarketPrice) => {
+        pricesMap[item.symbol] = item;
+      });
+
+      setMarketPrices(pricesMap);
+
+      // Update current instrument price
+      const instrumentData = INSTRUMENTS[instrument];
+      const marketData = pricesMap[instrumentData.symbol];
+      if (marketData && marketData.bestBid > 0) {
+        setPrice(marketData.bestBid);
+      }
+    } catch (error) {
+      console.error("Failed to refresh market prices:", error);
+    } finally {
+      setLoadingPrices(false);
     }
   };
 
   const calculate = () => {
+    if (Object.keys(exchangeRates).length === 0 || price <= 0) return;
+
     const instrumentData = INSTRUMENTS[instrument] || INSTRUMENTS["EUR/USD"];
 
     // Convert trade size to standard lots
@@ -106,24 +299,37 @@ export default function MarginCalculator() {
     // Calculate notional value in base currency
     let notionalValueBase = instrumentData.contractSize * standardLots * price;
 
-    // Convert to USD
+    // Convert margin currency to USD using exchange rates
     let notionalValueUSD = notionalValueBase;
     if (instrumentData.marginCurrency !== "USD") {
-      const rate = CURRENCY_RATES[instrumentData.marginCurrency] || 1;
-      notionalValueUSD = notionalValueBase * rate;
+      // For XAU (Gold), use the current gold price
+      if (instrumentData.marginCurrency === "XAU") {
+        const goldPrice =
+          marketPrices["XAUUSD"]?.bestBid || instrumentData.defaultPrice;
+        notionalValueUSD = notionalValueBase * goldPrice;
+      } else {
+        const rate = getExchangeRate(instrumentData.marginCurrency, "USD");
+        notionalValueUSD = notionalValueBase * rate;
+      }
     }
 
-    // Calculate margin required
+    // Calculate margin required in USD
     const marginRequiredUSD = notionalValueUSD / leverage;
 
     // Convert to account currency
     let marginRequired = marginRequiredUSD;
     let currencySymbol = "$";
     if (accountCurrency !== "USD") {
-      const rate = CURRENCY_RATES[accountCurrency] || 1;
-      marginRequired = marginRequiredUSD / rate;
+      const rate = getExchangeRate("USD", accountCurrency);
+      marginRequired = marginRequiredUSD * rate;
       currencySymbol =
-        accountCurrency === "EUR" ? "€" : accountCurrency === "GBP" ? "£" : "$";
+        accountCurrency === "EUR"
+          ? "€"
+          : accountCurrency === "GBP"
+            ? "£"
+            : accountCurrency === "AUD"
+              ? "A$"
+              : "$";
     }
 
     // Calculate free margin
@@ -136,8 +342,8 @@ export default function MarginCalculator() {
     // Calculate effective leverage
     let notionalInAccountCurrency = notionalValueUSD;
     if (accountCurrency !== "USD") {
-      const rate = CURRENCY_RATES[accountCurrency] || 1;
-      notionalInAccountCurrency = notionalValueUSD / rate;
+      const rate = getExchangeRate("USD", accountCurrency);
+      notionalInAccountCurrency = notionalValueUSD * rate;
     }
     const effectiveLeverage =
       accountBalance > 0 ? notionalInAccountCurrency / accountBalance : 0;
@@ -231,7 +437,19 @@ export default function MarginCalculator() {
     leverage,
     accountBalance,
     accountCurrency,
+    exchangeRates,
+    marketPrices,
   ]);
+
+  if (loadingRates || (loadingPrices && price === 0)) {
+    return (
+      <div className={styles.calculator}>
+        <div className={styles.body}>
+          <p>Loading market data...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!result || !riskAssessment) return null;
 
@@ -244,7 +462,7 @@ export default function MarginCalculator() {
             <select
               id="mgc-instrument"
               value={instrument}
-              onChange={(e) => handleInstrumentChange(e.target.value)}
+              onChange={(e) => setInstrument(e.target.value)}
             >
               <optgroup label="Major Pairs">
                 <option value="EUR/USD">EUR/USD</option>
@@ -273,7 +491,9 @@ export default function MarginCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="mgc-price">Current Price</label>
+            <label htmlFor="mgc-price">
+              Current Price {loadingPrices && "(Updating...)"}
+            </label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -282,6 +502,19 @@ export default function MarginCalculator() {
                 onChange={(e) => setPrice(parseFloat(e.target.value) || 0)}
                 step="0.0001"
               />
+              <button
+                type="button"
+                onClick={handleRefreshPrice}
+                disabled={loadingPrices}
+                style={{
+                  padding: "4px 8px",
+                  fontSize: "12px",
+                  cursor: loadingPrices ? "not-allowed" : "pointer",
+                  opacity: loadingPrices ? 0.5 : 1,
+                }}
+              >
+                {loadingPrices ? "..." : "↻"}
+              </button>
             </div>
           </div>
 
@@ -322,14 +555,21 @@ export default function MarginCalculator() {
               <option value="100">1:100</option>
               <option value="200">1:200</option>
               <option value="400">1:400</option>
-              <option value="500">1:500</option>
             </select>
           </div>
 
           <div className={styles.inputGroup}>
             <label htmlFor="mgc-account-balance">Account Balance</label>
             <div className={styles.inputWrapper}>
-              <span className={styles.currencySymbol}>$</span>
+              <span className={styles.currencySymbol}>
+                {accountCurrency === "EUR"
+                  ? "€"
+                  : accountCurrency === "GBP"
+                    ? "£"
+                    : accountCurrency === "AUD"
+                      ? "A$"
+                      : "$"}
+              </span>
               <input
                 type="number"
                 id="mgc-account-balance"

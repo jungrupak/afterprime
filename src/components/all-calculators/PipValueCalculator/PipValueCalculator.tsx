@@ -38,17 +38,78 @@ interface CalculationResult {
   currencySymbol: string;
 }
 
+interface ExchangeRates {
+  [key: string]: number;
+}
+
 export default function PipValueCalculator() {
   const [instrument, setInstrument] = useState("EUR/USD");
   const [size, setSize] = useState(1);
   const [lotType, setLotType] = useState("standard");
   const [currency, setCurrency] = useState("USD");
+  const [exchangeRates, setExchangeRates] = useState<ExchangeRates>({});
+  const [loading, setLoading] = useState(true);
 
   const [result, setResult] = useState<CalculationResult | null>(null);
 
+  // Fetch exchange rates
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          "https://scoreboard.argamon.com:8443/api/rebates/exchange-rates?base_currency=USD",
+        );
+        const data = await response.json();
+        setExchangeRates(data);
+      } catch (error) {
+        console.error("Failed to fetch exchange rates:", error);
+        // Set default rates as fallback
+        setExchangeRates({
+          USD: 1,
+          EUR: 0.92,
+          GBP: 0.79,
+          AUD: 1.52,
+          JPY: 149.5,
+          CHF: 0.88,
+          CAD: 1.36,
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRates();
+    // Refresh rates every 5 minutes
+    const interval = setInterval(fetchRates, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const getExchangeRate = (
+    fromCurrency: string,
+    toCurrency: string,
+  ): number => {
+    if (fromCurrency === toCurrency) return 1;
+
+    // All rates are based on USD
+    const fromRate = exchangeRates[fromCurrency] || 1;
+    const toRate = exchangeRates[toCurrency] || 1;
+
+    // Convert: from -> USD -> to
+    return toRate / fromRate;
+  };
+
   const calculate = () => {
+    if (Object.keys(exchangeRates).length === 0) return;
+
     const config = INSTRUMENTS[instrument];
-    const stdPipValue = config.pipValueStd;
+    let stdPipValue = config.pipValueStd;
+
+    // Convert pip value from quote currency to account currency
+    if (config.quote !== currency) {
+      const conversionRate = getExchangeRate(config.quote, currency);
+      stdPipValue = stdPipValue * conversionRate;
+    }
 
     // Convert lot type to standard lots
     let lots = size;
@@ -57,7 +118,13 @@ export default function PipValueCalculator() {
 
     const pipValue = stdPipValue * lots;
     const currencySymbol =
-      currency === "EUR" ? "€" : currency === "GBP" ? "£" : "$";
+      currency === "EUR"
+        ? "€"
+        : currency === "GBP"
+          ? "£"
+          : currency === "AUD"
+            ? "A$"
+            : "$";
 
     setResult({
       pipValue,
@@ -71,7 +138,17 @@ export default function PipValueCalculator() {
 
   useEffect(() => {
     calculate();
-  }, [instrument, size, lotType, currency]);
+  }, [instrument, size, lotType, currency, exchangeRates]);
+
+  if (loading) {
+    return (
+      <div className={styles.calculator}>
+        <div className={styles.body}>
+          <p>Loading exchange rates...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!result) return null;
 

@@ -11,29 +11,105 @@ const INSTRUMENT_CONFIG: {
     pipValuePerLot: number;
     pointValue?: number;
     isIndex?: boolean;
+    quote: string;
   };
 } = {
-  "EUR/USD": { pipDecimal: 4, pipSize: 0.0001, pipValuePerLot: 10 },
-  "GBP/USD": { pipDecimal: 4, pipSize: 0.0001, pipValuePerLot: 10 },
-  "AUD/USD": { pipDecimal: 4, pipSize: 0.0001, pipValuePerLot: 10 },
-  "NZD/USD": { pipDecimal: 4, pipSize: 0.0001, pipValuePerLot: 10 },
-  "USD/JPY": { pipDecimal: 2, pipSize: 0.01, pipValuePerLot: 6.7 },
-  "USD/CHF": { pipDecimal: 4, pipSize: 0.0001, pipValuePerLot: 10.6 },
-  "USD/CAD": { pipDecimal: 4, pipSize: 0.0001, pipValuePerLot: 7.3 },
-  "EUR/GBP": { pipDecimal: 4, pipSize: 0.0001, pipValuePerLot: 12.5 },
-  "EUR/JPY": { pipDecimal: 2, pipSize: 0.01, pipValuePerLot: 6.7 },
-  "GBP/JPY": { pipDecimal: 2, pipSize: 0.01, pipValuePerLot: 6.7 },
+  "EUR/USD": {
+    pipDecimal: 4,
+    pipSize: 0.0001,
+    pipValuePerLot: 10,
+    quote: "USD",
+  },
+  "GBP/USD": {
+    pipDecimal: 4,
+    pipSize: 0.0001,
+    pipValuePerLot: 10,
+    quote: "USD",
+  },
+  "AUD/USD": {
+    pipDecimal: 4,
+    pipSize: 0.0001,
+    pipValuePerLot: 10,
+    quote: "USD",
+  },
+  "NZD/USD": {
+    pipDecimal: 4,
+    pipSize: 0.0001,
+    pipValuePerLot: 10,
+    quote: "USD",
+  },
+  "USD/JPY": {
+    pipDecimal: 2,
+    pipSize: 0.01,
+    pipValuePerLot: 6.7,
+    quote: "JPY",
+  },
+  "USD/CHF": {
+    pipDecimal: 4,
+    pipSize: 0.0001,
+    pipValuePerLot: 10.6,
+    quote: "CHF",
+  },
+  "USD/CAD": {
+    pipDecimal: 4,
+    pipSize: 0.0001,
+    pipValuePerLot: 7.3,
+    quote: "CAD",
+  },
+  "EUR/GBP": {
+    pipDecimal: 4,
+    pipSize: 0.0001,
+    pipValuePerLot: 12.5,
+    quote: "GBP",
+  },
+  "EUR/JPY": {
+    pipDecimal: 2,
+    pipSize: 0.01,
+    pipValuePerLot: 6.7,
+    quote: "JPY",
+  },
+  "GBP/JPY": {
+    pipDecimal: 2,
+    pipSize: 0.01,
+    pipValuePerLot: 6.7,
+    quote: "JPY",
+  },
   "XAU/USD": {
     pipDecimal: 2,
     pipSize: 0.01,
     pipValuePerLot: 1,
     pointValue: 100,
+    quote: "USD",
   },
-  XAUUSD: { pipDecimal: 2, pipSize: 0.01, pipValuePerLot: 1, pointValue: 100 },
-  US30: { pipDecimal: 0, pipSize: 1, pipValuePerLot: 1, isIndex: true },
-  SPX500: { pipDecimal: 1, pipSize: 0.1, pipValuePerLot: 1, isIndex: true },
-  NAS100: { pipDecimal: 1, pipSize: 0.1, pipValuePerLot: 1, isIndex: true },
-  USOIL: { pipDecimal: 2, pipSize: 0.01, pipValuePerLot: 10 },
+  XAUUSD: {
+    pipDecimal: 2,
+    pipSize: 0.01,
+    pipValuePerLot: 1,
+    pointValue: 100,
+    quote: "USD",
+  },
+  US30: {
+    pipDecimal: 0,
+    pipSize: 1,
+    pipValuePerLot: 1,
+    isIndex: true,
+    quote: "USD",
+  },
+  SPX500: {
+    pipDecimal: 1,
+    pipSize: 0.1,
+    pipValuePerLot: 1,
+    isIndex: true,
+    quote: "USD",
+  },
+  NAS100: {
+    pipDecimal: 1,
+    pipSize: 0.1,
+    pipValuePerLot: 1,
+    isIndex: true,
+    quote: "USD",
+  },
+  USOIL: { pipDecimal: 2, pipSize: 0.01, pipValuePerLot: 10, quote: "USD" },
 };
 
 interface CalculationResult {
@@ -49,6 +125,10 @@ interface CalculationResult {
   standardLots: number;
 }
 
+interface ExchangeRates {
+  [key: string]: number;
+}
+
 export default function ProfitLossCalculator() {
   const [instrument, setInstrument] = useState("EUR/USD");
   const [direction, setDirection] = useState<"buy" | "sell">("buy");
@@ -58,10 +138,61 @@ export default function ProfitLossCalculator() {
   const [positionSize, setPositionSize] = useState(1.0);
   const [lotType, setLotType] = useState("standard");
   const [accountCurrency, setAccountCurrency] = useState("USD");
+  const [exchangeRates, setExchangeRates] = useState<ExchangeRates>({});
+  const [loading, setLoading] = useState(true);
 
   const [result, setResult] = useState<CalculationResult | null>(null);
 
+  // Fetch exchange rates
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          "https://scoreboard.argamon.com:8443/api/rebates/exchange-rates?base_currency=USD",
+        );
+        const data = await response.json();
+        setExchangeRates(data);
+      } catch (error) {
+        console.error("Failed to fetch exchange rates:", error);
+        // Set default rates as fallback
+        setExchangeRates({
+          USD: 1,
+          EUR: 0.92,
+          GBP: 0.79,
+          AUD: 1.52,
+          JPY: 149.5,
+          CHF: 0.88,
+          CAD: 1.36,
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRates();
+    // Refresh rates every 5 minutes
+    const interval = setInterval(fetchRates, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const getExchangeRate = (
+    fromCurrency: string,
+    toCurrency: string,
+  ): number => {
+    if (fromCurrency === toCurrency) return 1;
+
+    // All rates are based on USD
+    const fromRate = exchangeRates[fromCurrency] || 1;
+    const toRate = exchangeRates[toCurrency] || 1;
+
+    // Convert: from -> USD -> to
+    return toRate / fromRate;
+  };
+
   const calculate = () => {
+    if (Object.keys(exchangeRates).length === 0) return;
+
     const config =
       INSTRUMENT_CONFIG[instrument] || INSTRUMENT_CONFIG["EUR/USD"];
 
@@ -101,6 +232,12 @@ export default function ProfitLossCalculator() {
     let pipValuePerLot = config.pipValuePerLot;
     if (config.pointValue) {
       pipValuePerLot = config.pointValue * config.pipSize;
+    }
+
+    // Convert pip value from quote currency to account currency
+    if (config.quote !== accountCurrency) {
+      const conversionRate = getExchangeRate(config.quote, accountCurrency);
+      pipValuePerLot = pipValuePerLot * conversionRate;
     }
 
     // Calculate profit and loss
@@ -148,7 +285,18 @@ export default function ProfitLossCalculator() {
     positionSize,
     lotType,
     accountCurrency,
+    exchangeRates,
   ]);
+
+  if (loading) {
+    return (
+      <div className={styles.calculator}>
+        <div className={styles.body}>
+          <p>Loading exchange rates...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!result) return null;
 
@@ -157,6 +305,16 @@ export default function ProfitLossCalculator() {
   const totalRR = 1 + result.rrRatio;
   const riskWidth = (1 / totalRR) * 100;
   const rewardWidth = (result.rrRatio / totalRR) * 100;
+
+  // Get currency symbol
+  const currencySymbol =
+    accountCurrency === "EUR"
+      ? "€"
+      : accountCurrency === "GBP"
+        ? "£"
+        : accountCurrency === "AUD"
+          ? "A$"
+          : "$";
 
   return (
     <div className={styles.calculator}>
@@ -314,7 +472,7 @@ export default function ProfitLossCalculator() {
               <div className={styles.resultContent}>
                 <span className={styles.resultLabel}>Potential Profit</span>
                 <span className={styles.resultValue}>
-                  $
+                  {currencySymbol}
                   {result.potentialProfit.toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
@@ -331,7 +489,7 @@ export default function ProfitLossCalculator() {
               <div className={styles.resultContent}>
                 <span className={styles.resultLabel}>Potential Loss</span>
                 <span className={styles.resultValue}>
-                  -$
+                  -{currencySymbol}
                   {result.potentialLoss.toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
@@ -392,13 +550,14 @@ export default function ProfitLossCalculator() {
             <div className={styles.resultItem}>
               <span className={styles.itemLabel}>Pip Value</span>
               <span className={styles.itemValue}>
-                ${result.pipValue.toFixed(2)}
+                {currencySymbol}
+                {result.pipValue.toFixed(2)}
               </span>
             </div>
             <div className={styles.resultItem}>
               <span className={styles.itemLabel}>Notional Value</span>
               <span className={styles.itemValue}>
-                $
+                {currencySymbol}
                 {result.notionalValue.toLocaleString("en-US", {
                   maximumFractionDigits: 0,
                 })}
