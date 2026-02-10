@@ -30,7 +30,7 @@ export function LivePricingCommodities() {
           Keep More, <span>Earn More.</span>
         </h2>
         <p className="paragraph max-w-2xl mx-auto mb-20 max-md:mb-10 opacity-90">
-          Lowest all-in trading costs, plus Flow Rewards<sup>TM</sup> that pay you per lot traded.
+          Lowest verified all-in costs worldwide + Flow Rewards<sup>TM</sup> up to $14/lot on every trade.
         </p>
       </div>
 
