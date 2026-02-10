@@ -3,34 +3,38 @@
 import { useState, useEffect } from "react";
 import styles from "./SwapCalculator.module.scss";
 
-// Swap rates (in points per lot per night) - Example rates
-// Positive = credit, Negative = charge
-const SWAP_RATES: {
+/* =======================
+   TYPES
+======================= */
+
+type SwapRates = {
   [key: string]: {
     long: number;
     short: number;
   };
-} = {
-  "EUR/USD": { long: -7.5, short: 2.3 },
-  "GBP/USD": { long: -4.2, short: 0.8 },
-  "USD/JPY": { long: 8.5, short: -15.2 },
-  "USD/CHF": { long: 5.6, short: -10.8 },
-  "USD/CAD": { long: -1.2, short: -2.8 },
-  "AUD/USD": { long: -3.8, short: 0.5 },
-  "NZD/USD": { long: -2.9, short: -0.4 },
-  "EUR/GBP": { long: -4.5, short: 1.2 },
-  "EUR/JPY": { long: 4.2, short: -9.8 },
-  "GBP/JPY": { long: 7.8, short: -14.5 },
-  "XAU/USD": { long: -35.5, short: 18.2 },
-  USOIL: { long: -8.2, short: -3.5 },
-  US30: { long: -95.0, short: 45.0 },
-  SPX500: { long: -12.5, short: 5.8 },
-  NAS100: { long: -45.0, short: 22.0 },
-  BTCUSD: { long: -150.0, short: -150.0 },
-  ETHUSD: { long: -12.0, short: -12.0 },
 };
 
-// Pip values for calculating actual cost
+type InstrumentApiResponse = {
+  symbol: string;
+  swapLong: number;
+  swapShort: number;
+};
+
+interface CalculationResult {
+  totalSwap: number;
+  dailySwap: number;
+  weeklySwap: number;
+  monthlySwap: number;
+  annualRate: number;
+  isCredit: boolean;
+}
+
+/* =======================
+   CONSTANTS
+======================= */
+
+const API_URL = "https://scoreboard.argamon.com:8443/api/instruments/";
+
 const PIP_VALUES: { [key: string]: number } = {
   "EUR/USD": 10,
   "GBP/USD": 10,
@@ -51,16 +55,26 @@ const PIP_VALUES: { [key: string]: number } = {
   ETHUSD: 1,
 };
 
-interface CalculationResult {
-  totalSwap: number;
-  dailySwap: number;
-  weeklySwap: number;
-  monthlySwap: number;
-  annualRate: number;
-  isCredit: boolean;
+/* =======================
+   HELPERS
+======================= */
+
+function formatSymbol(symbol: string): string {
+  // EURUSD → EUR/USD
+  if (symbol.length === 6 && /^[A-Z]{6}$/.test(symbol)) {
+    return `${symbol.slice(0, 3)}/${symbol.slice(3)}`;
+  }
+  return symbol;
 }
 
+/* =======================
+   COMPONENT
+======================= */
+
 export default function SwapCalculator() {
+  const [swapRates, setSwapRates] = useState<SwapRates>({});
+  const [loadingRates, setLoadingRates] = useState(true);
+
   const [instrument, setInstrument] = useState("EUR/USD");
   const [direction, setDirection] = useState<"long" | "short">("long");
   const [positionSize, setPositionSize] = useState(1.0);
@@ -70,23 +84,52 @@ export default function SwapCalculator() {
 
   const [result, setResult] = useState<CalculationResult | null>(null);
 
+  /* =======================
+     FETCH SWAP RATES
+  ======================= */
+
+  useEffect(() => {
+    const fetchSwapRates = async () => {
+      try {
+        const res = await fetch(API_URL);
+        const data: InstrumentApiResponse[] = await res.json();
+
+        const mapped: SwapRates = {};
+        data.forEach((item) => {
+          const symbol = formatSymbol(item.symbol);
+          mapped[symbol] = {
+            long: item.swapLong,
+            short: item.swapShort,
+          };
+        });
+
+        setSwapRates(mapped);
+      } catch (err) {
+        console.error("Failed to load swap rates", err);
+      } finally {
+        setLoadingRates(false);
+      }
+    };
+
+    fetchSwapRates();
+  }, []);
+
+  /* =======================
+     CALCULATION (UNCHANGED)
+  ======================= */
+
   const calculate = () => {
-    // Convert to standard lots
     let standardLots = positionSize;
     if (lotType === "mini") standardLots = positionSize / 10;
     if (lotType === "micro") standardLots = positionSize / 100;
 
-    // Get swap rate
-    const rates = SWAP_RATES[instrument] || { long: 0, short: 0 };
+    const rates = swapRates[instrument] || { long: 0, short: 0 };
     const swapRate = direction === "long" ? rates.long : rates.short;
 
-    // Get pip value for conversion
     const pipValue = PIP_VALUES[instrument] || 10;
 
-    // Calculate daily swap cost
     const dailySwap = ((swapRate * pipValue) / 10) * standardLots;
 
-    // Calculate total including triple Wednesday
     const weeks = Math.floor(daysHeld / 7);
     const totalSwapDays = daysHeld + weeks * 2;
 
@@ -94,7 +137,6 @@ export default function SwapCalculator() {
     const weeklySwap = dailySwap * 7;
     const monthlySwap = dailySwap * 30;
 
-    // Calculate annual rate
     const annualSwap = dailySwap * 365;
     const positionValue = standardLots * 100000;
     const annualRate =
@@ -113,8 +155,18 @@ export default function SwapCalculator() {
   };
 
   useEffect(() => {
-    calculate();
-  }, [instrument, direction, positionSize, lotType, daysHeld, accountCurrency]);
+    if (!loadingRates) {
+      calculate();
+    }
+  }, [
+    instrument,
+    direction,
+    positionSize,
+    lotType,
+    daysHeld,
+    accountCurrency,
+    loadingRates,
+  ]);
 
   const formatSwap = (value: number): string => {
     const isPositive = value > 0;
@@ -125,9 +177,11 @@ export default function SwapCalculator() {
     setDaysHeld(days);
   };
 
-  if (!result) return null;
+  if (loadingRates || !result) {
+    return <p>Loading calculator..</p>;
+  }
 
-  const rates = SWAP_RATES[instrument] || { long: 0, short: 0 };
+  const rates = swapRates[instrument] || { long: 0, short: 0 };
 
   return (
     <div className={styles.calculator}>
