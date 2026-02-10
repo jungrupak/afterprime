@@ -128,7 +128,7 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
           <div className="apBannerContent">
             <h1 className="h1-size mt-10 lg:mt-15 md:max-w-[800px]">
               <span className="font-[600]">
-                Trade FX With Verifiable Lowest All In Costs
+                Trade Forex With Verifiable Lowest All-In Costs
               </span>
             </h1>
             <div
@@ -137,7 +137,7 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
             >
               Trade major, minor, and exotic FX pairs with transparent pricing,
               zero commission, and Flow Rewards<sup>TM</sup> credited per lot.
-              Afterprime publishes real all in costs so you can model execution
+              Afterprime publishes real all-in costs so you can model execution
               before deploying capital. No spread games. No hidden charges.
             </div>
           </div>
@@ -149,7 +149,7 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
       <section className="compact-section">
         <div className="grainy_bg"></div>
         <div className="ap_container_small">
-          <h2>Why Afterprime FX Pricing Is Different</h2>
+          <h2>Why Afterprime Forex Pricing Is Different</h2>
           <Lists bulletStyle="arrow_blue" items={listItems} />
         </div>
       </section>
@@ -199,7 +199,7 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
       <section className="compact-section">
         <div className="grainy_bg"></div>
         <div className="ap_container_small">
-          <h2>How To Compare FX Trading Costs Properly</h2>
+          <h2>How To Compare Forex Trading Costs</h2>
           <p className={`paragraph`}>
             Spreads show potential cost. All in cost shows actual cost.
           </p>
