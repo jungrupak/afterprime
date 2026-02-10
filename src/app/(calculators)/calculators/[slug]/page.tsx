@@ -17,10 +17,9 @@ interface PageSlug {
 
 //## Function to get data source here
 async function pageDataSource(slug: string) {
+  const baseUrl = process.env.NEXT_PUBLIC_WP_BASE_URL;
   try {
-    const res = await fetch(
-      `${process.env.WORDPRESS_REST_ENDPOINT}pages?slug=${slug}`,
-    );
+    const res = await fetch(`${baseUrl}/wp-json/wp/v2/pages?slug=${slug}`);
     if (!res.ok) return {};
     const pageData = await res.json();
     if (!pageData || !pageData.length) return;
