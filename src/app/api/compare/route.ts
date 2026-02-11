@@ -14,7 +14,6 @@ export async function GET() {
           );
       }
       const res = await fetch(API_URL, {
-          next:{revalidate:21600},
           //if EP managed in Cloudflare
            headers: {
             "Accept": "application/json",

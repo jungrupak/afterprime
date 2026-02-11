@@ -67,7 +67,7 @@ export default function HeroUsp({ text }: ReceiveText) {
 
   const dataSaving = data?.secondBestVsAfterprimePct?.toFixed(1);
   const top10Saving = Math.round(data?.top10VsAfterprimeAvgPct || 0);
-  const averageVsInds = data?.industryVsAfterprimeAvgPct?.toFixed(1);
+  const averageVsInds = Math.round(data?.industryVsAfterprimeAvgPct || 0);
 
   return (
     <>
@@ -75,11 +75,11 @@ export default function HeroUsp({ text }: ReceiveText) {
         className={`${styles.HeroUps} lg:absolute left-0 bottom-0 z-5 py-8 md:pt-13 md:pb-15 px-10 flex-col flex-wrap flex md:flex-row items-center justify-center gap-y-5 gap-x-5 lg:gap-x-25`}
       >
         <div className={`${styles.upsItem}`}>
-          <div className={`${styles.value}`}>{dataSaving}%</div>
+          <div className={`${styles.value}`}>#1</div>
           <div className={`${styles.descp}`}>
-            Lower Cost vs
+            Lowest All-in Costs Worldwide.
             <br />
-            2nd Best
+            Independently Benchmarked
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
