@@ -91,7 +91,7 @@ export default function Navigation({ menus }: MenuItems) {
             <div className={`${styles.catWrapper} flex gap-0`}>
               {menus?.[openIndex]?.category?.map((cat, i) => (
                 <div key={i} className={`${styles.menuCat_item}`}>
-                  <h2>{cat.categoryName}</h2>
+                  <div className={`${styles.catName}`}>{cat.categoryName}</div>
                   <ul>
                     {cat.catMenuItems?.map((menuItem, index) => (
                       <li
