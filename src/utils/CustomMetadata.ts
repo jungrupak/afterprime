@@ -20,7 +20,7 @@ export async function CustomMetadata(slug: string) {
         seoData?.opengraph?.description ||
         "Forex broker with lowest costs, A-Book forex broker, Get paid to trade",
       url: `${slug === "home-page" ? "https://afterprime.com/" : `https://afterprime.com/${slug}`}`,
-      siteName: `${seoData?.opengraph?.sitename || "Afterprime"} ${slug}`,
+      siteName: `${seoData?.opengraph?.sitename || "Afterprime"}`,
       images: [
         {
           url:
