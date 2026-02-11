@@ -27,7 +27,7 @@ export default function GetCalculators() {
           activeIndex === 0 ? styles.active : ""
         }`}
       >
-        <h2>Trading Calculator</h2>
+        <h2>Trading</h2>
         <TradingCalculator />
       </div>
       <div
@@ -35,7 +35,7 @@ export default function GetCalculators() {
           activeIndex === 1 ? styles.active : ""
         }`}
       >
-        <h2>Profit Calculator</h2>
+        <h2>Profit</h2>
         <ProfitCalculator />
       </div>
     </div>
