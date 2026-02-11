@@ -10,6 +10,7 @@ import ProfitLossCalculator from "@/components/all-calculators/ProfitLossCalcula
 import PipValueCalculator from "@/components/all-calculators/PipValueCalculator/PipValueCalculator";
 import SwapCalculator from "@/components/all-calculators/SwapCalculator/SwapCalculator";
 import TradingCalculator from "@/components/all-calculators/TradingCalculator/TradingCalculator";
+import DollarSavingsCalculator from "@/components/all-calculators/CostSavingCalculator/CostSavingCalculator";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -127,6 +128,9 @@ export default async function Page({ params }: PageSlug) {
           )}
           {selectCalculator === "Swap Calculator" && <SwapCalculator />}
           {selectCalculator === "Trading Calculator" && <TradingCalculator />}
+          {selectCalculator === "Savings Calculator" && (
+            <DollarSavingsCalculator />
+          )}
         </div>
       </section>
       {/* Calculator WIdget Section */}

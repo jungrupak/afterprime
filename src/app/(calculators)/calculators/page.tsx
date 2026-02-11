@@ -164,7 +164,10 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
         <div className="grainy_bg"></div>
         <div className="ap_container_small">
           {/* Cards */}
-          <div className="ap_cards_wrapper grid flex flex-col md:grid-cols-[repeat(auto-fit_,minmax(600px,1fr))] text-left! gap-6" style={{ whiteSpace: "pre-line" }}>
+          <div
+            className="ap_cards_wrapper grid flex flex-col md:grid-cols-[repeat(auto-fit_,minmax(600px,1fr))] text-left! gap-6"
+            style={{ whiteSpace: "pre-line" }}
+          >
             {cards.length > 0 &&
               cards.map((card, index) => (
                 <Card
