@@ -110,7 +110,7 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
         >
           {menus?.[activeIndex || 0]?.category?.map((item, idx) => (
             <div key={idx} className={`${styles.subMenuItem} mt-6`}>
-              <h4>{item.categoryName}</h4>
+              <div className={`${styles.catName}`}>{item.categoryName}</div>
               <ul>
                 {item.catMenuItems?.map((label, i) => (
                   <li
