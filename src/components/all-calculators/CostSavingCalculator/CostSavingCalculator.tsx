@@ -339,7 +339,9 @@ export default function DollarSavingsCalculator() {
   );
 
   return (
-    <div className={`grid grid-cols-[350px_1fr] w-full gap-5`}>
+    <div
+      className={`max-md:flex max-md:flex-col lg:grid lg:grid-cols-[350px_1fr] w-full gap-5`}
+    >
       {/* Left: Calculator */}
       <div className={styles.calculator}>
         <div className={styles.calcHeader}>
