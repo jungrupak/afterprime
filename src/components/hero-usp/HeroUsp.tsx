@@ -67,6 +67,7 @@ export default function HeroUsp({ text }: ReceiveText) {
 
   const dataSaving = data?.secondBestVsAfterprimePct?.toFixed(1);
   const averageVsInds = data?.industryVsAfterprimeAvgPct?.toFixed(1);
+  const topTenVsAp = data?.top10VsAfterprimeAvgPct;
 
   return (
     <>
@@ -82,14 +83,16 @@ export default function HeroUsp({ text }: ReceiveText) {
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
-          <div className={`${styles.value}`}>{dataSaving}%</div>
+          <div className={`${styles.value}`}>{topTenVsAp}%</div>
           <div className={`${styles.descp}`}>
             Lower Costs vs <br />
-            2nd-Ranked Broker
+            Top 10 Average
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
-          <div className={`${styles.value}`}>{averageVsInds}%</div>
+          <div className={`${styles.value}`}>
+            {Math.round(Number(averageVsInds))}%
+          </div>
           <div className={`${styles.descp}`}>
             Lower Costs vs <br />
             Industry Average
