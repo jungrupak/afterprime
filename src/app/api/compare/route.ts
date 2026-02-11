@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 
-const API_URL = "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true";
+//const API_URL = "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true";
 //const API_URL = "https://scoreboard.argamon.com:8443/api/costs/comparison?period=1d&brokers=&symbols=All%20pairs&commission=true&mode=24h";
 // const API_URL = "https://scoreboard.argamon.com:8443/api/costs/comparison?period=1d&brokers=&symbols=All%20pairs&commission=true&mode=day";
 
-//const API_URL = "https://feed.afterprime.com/api/costs"
+const API_URL = "https://feed.afterprime.com/api/costs"
 export async function GET() {
   try {
       if(!API_URL){
@@ -19,6 +19,7 @@ export async function GET() {
             "Accept": "application/json",
             "User-Agent": "Next.js Server",
           },
+          cache: 'no-store',
       });
       if(!res.ok){
           console.error(`Upstream API failed: ${res.status} ${res.statusText}`);

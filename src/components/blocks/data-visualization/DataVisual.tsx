@@ -63,9 +63,21 @@ export default function DataVisual(props: SectionProps) {
 
   // Fetch broker costs dynamically and generate COSTS
   useEffect(() => {
-    fetch("/api/compare")
-      .then((res) => res.json())
+    fetch("https://feed.afterprime.com/api/costs")
       .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((res) => {
+        // Defensive check
+        if (!res || !Array.isArray(res.brokers)) {
+          console.error("Invalid response structure:", res);
+          setCOSTS({ Afterprime: 4.2, "Industry Average": 7.0 });
+          return;
+        }
+
         const dynamicCosts: Record<string, number> = {};
         const map: Record<string, BrokerApiData> = {};
 
@@ -84,7 +96,11 @@ export default function DataVisual(props: SectionProps) {
         setCOSTS(dynamicCosts);
         setBrokerData(map);
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error("Error fetching broker data:", err);
+        // Fallback data so the component still works
+        setCOSTS({ Afterprime: 4.2, "Industry Average": 7.0 });
+      });
   }, []);
 
   // Generate options for dropdowns, filter duplicates
