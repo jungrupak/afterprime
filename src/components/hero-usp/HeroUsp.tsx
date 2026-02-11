@@ -90,7 +90,7 @@ export default function HeroUsp({ text }: ReceiveText) {
         <div className={`${styles.upsItem}`}>
           <div className={`${styles.value}`}>{averageVsInds}%</div>
           <div className={`${styles.descp}`}>
-            Lower All-In Costs vs <br/>Industry Average
+            Lower Costs vs <br/>Industry Average
           </div>
         </div>
         <div className={`hero-usp-badge`}>
