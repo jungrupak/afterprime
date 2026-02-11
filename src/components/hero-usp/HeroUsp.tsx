@@ -79,14 +79,14 @@ export default function HeroUsp({ text }: ReceiveText) {
           <div className={`${styles.descp}`}>
             Lowest All-in Costs Worldwide.
             <br />
-            Independently Benchmarked
+            Independently Benchmarked.
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
           <div className={`${styles.value}`}>{top10Saving}%</div>
           <div className={`${styles.descp}`}>
             Lower Cost vs <br />
-            Top 10
+            Top 10 Average
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
