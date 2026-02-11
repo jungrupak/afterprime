@@ -11,7 +11,7 @@ export default function AfterprimeOrgSchema() {
     logo: "https://afterprime.com/img/logo-main.svg",
     description:
       "AfterPrime is an invite-only forex broker with the lowest total trading costs globally, independently verified by ForexBenchmark. Traders earn money back through Flow Rewards when they trade.",
-    foundingDate: "2012",
+    foundingDate: "2018",
     slogan: "Lowest Costs. Real Rewards.",
     contactPoint: [
       {
