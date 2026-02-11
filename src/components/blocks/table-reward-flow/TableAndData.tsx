@@ -12,6 +12,29 @@ type rabateData = {
   rebate_usd_per_lot: number;
 };
 
+function isRebateRow(item: unknown): item is rabateData {
+  if (!item || typeof item !== "object") return false;
+
+  const row = item as Record<string, unknown>;
+  return (
+    typeof row.symbol === "string" &&
+    typeof row.product === "string" &&
+    typeof row.rebate_usd_per_lot === "number"
+  );
+}
+
+function normalizeRebatesPayload(payload: unknown): rabateData[] {
+  const maybeRows = Array.isArray(payload)
+    ? payload
+    : payload &&
+        typeof payload === "object" &&
+          Array.isArray((payload as { data?: unknown }).data)
+      ? (payload as { data: unknown[] }).data
+      : [];
+
+  return maybeRows.filter(isRebateRow);
+}
+
 export function TableDataRewardFlow({
   rebate_table_title,
   rebate_table_section_paragraph,
@@ -31,51 +54,49 @@ export function TableDataRewardFlow({
       try {
         const res = await fetch("/api/rebates");
         if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
-        const data: rabateData[] = (await res.json()) as rabateData[];
+        const payload = await res.json();
+        const data = normalizeRebatesPayload(payload);
+        if (data.length === 0) {
+          throw new Error("Invalid rebate data response.");
+        }
 
-        // Only FOREX
-        const forexOnly = data.filter((row) => row.product.startsWith("FOREX"));
-
-        // Sort alphabetically by symbol
-        // forexOnly.sort((a, b) => a.symbol.localeCompare(b.symbol));
-        // setForexRows(forexOnly);
-
-        //Forex Majors
+        // Forex Majors
         const forexMajors = data.filter(
           (row) => row.product === "FOREX-MAJORS",
         );
         setForexMajors(forexMajors);
 
-        //Forex Minors
+        // Forex Minors
         const forexMinors = data.filter(
           (row) => row.product === "FOREX-MINORS",
         );
         setForexMinors(forexMinors);
 
-        //Forex Exotics
+        // Forex Exotics
         const forexExotics = data.filter(
           (row) => row.product === "FOREX-EXOTICS",
         );
         setForexExotics(forexExotics);
 
-        //Commodities
+        // Commodities
         const commoditiesOnly = data.filter((row) =>
           row.product.startsWith("COMMODITIES"),
         );
         setCommodityRows(commoditiesOnly);
 
-        //Crypto data
+        // Crypto
         const cryptoOnly = data.filter((row) =>
           row.product.startsWith("CRYPTO"),
         );
         setCryptoRows(cryptoOnly);
 
-        //Indices data
+        // Indices
         const indicesOnly = data.filter((row) =>
           row.product.startsWith("INDICES"),
         );
         setIndicesRows(indicesOnly);
-        //Indices data
+
+        // Metals
         const metalsOnly = data.filter((row) =>
           row.product.startsWith("METALS"),
         );

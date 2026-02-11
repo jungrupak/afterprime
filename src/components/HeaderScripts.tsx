@@ -110,21 +110,27 @@ export default function HeadScripts() {
 
       <Script id="url-search-params" strategy="afterInteractive">
         {`
-
     document.addEventListener('DOMContentLoaded', function () {
-      const iframe = document.querySelector('iframe');
-      if (!iframe) return; // stop if iframe doesn't exist
+      try {
+        const iframe = document.querySelector('iframe');
+        if (!iframe || iframe.tagName !== 'IFRAME') return; // stop if iframe doesn't exist
 
-      const params = new URLSearchParams(window.location.search);
-      if (!params.toString()) return; // stop if no params
+        const src = iframe.getAttribute('src');
+        if (!src) return;
 
-      const url = new URL(iframe.src, window.location.origin);
-      // merge existing params with new ones
-      params.forEach((value, key) => {
-        url.searchParams.set(key, value);
-      });
+        const params = new URLSearchParams(window.location.search);
+        if (!params.toString()) return; // stop if no params
 
-      iframe.src = url.toString();
+        const url = new URL(src, window.location.origin);
+        // merge existing params with new ones
+        params.forEach((value, key) => {
+          url.searchParams.set(key, value);
+        });
+
+        iframe.setAttribute('src', url.toString());
+      } catch (e) {
+        console.error("URL param iframe sync error:", e);
+      }
     });
   `}
       </Script>

@@ -33,11 +33,13 @@ export function useLivePrices() {
     if (!connectionRef.current) {
       const connection = new HubConnectionBuilder()
         .withUrl("https://marketprice.afterprime.io:5000/marketpricestream", {
-          transport: HttpTransportType.WebSockets, //using only websocket##
-          //HttpTransportType.ServerSentEvents |
-          //HttpTransportType.LongPolling,
+          // Allow protocol fallback when pure WebSocket is blocked by network/proxy/CDN.
+          transport:
+            HttpTransportType.WebSockets |
+            HttpTransportType.ServerSentEvents |
+            HttpTransportType.LongPolling,
         })
-        .withAutomaticReconnect()
+        .withAutomaticReconnect([0, 2000, 5000, 10000, 30000])
         .configureLogging(LogLevel.Information)
         .build();
 
@@ -66,7 +68,20 @@ export function useLivePrices() {
 
     startConnection();
 
-    connection.onclose(() => {
+    connection.onreconnecting((err) => {
+      console.warn("SignalR reconnecting...", err);
+      setStatus("connecting");
+    });
+
+    connection.onreconnected(() => {
+      console.log("SignalR reconnected");
+      setStatus("connected");
+    });
+
+    connection.onclose((err) => {
+      if (err) {
+        console.error("SignalR closed with error:", err);
+      }
       setStatus("disconnected");
     });
 

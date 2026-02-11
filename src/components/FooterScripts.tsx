@@ -81,7 +81,7 @@ export default function FooterScripts() {
 
             eraseCookie(name){ this.createCookie(name,"",-1,null,this._domain,this._secure); }
 
-            getParameterByName(name){ let regex=new RegExp("[\\?&]"+name+"=([^&#]*)"); let results = regex.exec(window.location.search); return results? decodeURIComponent(results[1].replace(/\+/g,' ')):""; }
+            getParameterByName(name){ let regex=new RegExp("[\\?&]"+name+"=([^&#]*)"); let results = regex.exec(window.location.search); return results? decodeURIComponent(results[1].replace(/\\+/g,' ')):""; }
 
             additionalParamsPresentInUrl(){ return this._additionalParams.some(p=>this.getParameterByName(p)); }
             utmPresentInUrl(){ return this._utmParams.some(p=>this.getParameterByName(p)); }
@@ -242,28 +242,34 @@ export default function FooterScripts() {
       <Script id="utm-typeform" strategy="lazyOnload">
         {`
         document.addEventListener("DOMContentLoaded", () => {
-      const observer = new MutationObserver((mutationsList, observer) => {
-        const iframe = document.getElementById("typeform-iframe") as HTMLIFrameElement | null;
-        if (!iframe) return;
+          try {
+            const observer = new MutationObserver((mutationsList, observer) => {
+              const iframe = document.getElementById("typeform-iframe");
+              if (!iframe || iframe.tagName !== "IFRAME") return;
 
-        observer.disconnect(); // stop watching once found
+              observer.disconnect(); // stop watching once found
 
-        const params = new URLSearchParams(window.location.search);
-        const utms: string[] = [];
+              const params = new URLSearchParams(window.location.search);
+              const utms = [];
 
-        ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => {
-          const value = params.get(key);
-          if (value) utms.push(\`\${key}=\${value}\`);
-        });
+              ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => {
+                const value = params.get(key);
+                if (value) utms.push(\`\${key}=\${value}\`);
+              });
 
-        if (utms.length) {
-          const separator = iframe.src.includes('?') ? '&' : '?';
-          iframe.src = iframe.src + separator + utms.join('&');
-        }
-      });
+              if (utms.length) {
+                const src = iframe.getAttribute("src");
+                if (!src) return;
+                const separator = src.includes("?") ? "&" : "?";
+                iframe.setAttribute("src", src + separator + utms.join("&"));
+              }
+            });
 
-      observer.observe(document.body, { childList: true, subtree: true });
-    }); `}
+            observer.observe(document.body, { childList: true, subtree: true });
+          } catch (e) {
+            console.error("Typeform UTM sync error:", e);
+          }
+        }); `}
       </Script>
     </>
   );

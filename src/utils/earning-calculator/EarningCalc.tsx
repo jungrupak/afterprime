@@ -1,6 +1,5 @@
 "use client";
-import Btn from "@/components/ui/Button";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -13,6 +12,29 @@ interface RebateDataType {
   effective_to: string;
 }
 
+function isRebateDataType(item: unknown): item is RebateDataType {
+  if (!item || typeof item !== "object") return false;
+
+  const row = item as Record<string, unknown>;
+  return (
+    typeof row.symbol === "string" &&
+    typeof row.product === "string" &&
+    typeof row.rebate_usd_per_lot === "number"
+  );
+}
+
+function normalizeRebatesPayload(payload: unknown): RebateDataType[] {
+  const maybeRows = Array.isArray(payload)
+    ? payload
+    : payload &&
+        typeof payload === "object" &&
+          Array.isArray((payload as { data?: unknown }).data)
+      ? (payload as { data: unknown[] }).data
+      : [];
+
+  return maybeRows.filter(isRebateDataType);
+}
+
 export function EarningCalc() {
   const [selectedSymbol, setSelectedSymbol] = useState<string>("");
   const [lotTradedValue, setLotTradedValue] = useState<number | "">(100);
@@ -20,27 +42,23 @@ export function EarningCalc() {
   const [result, setResult] = useState<number>(0);
   const [error, setError] = useState<string>("");
 
-  const { data } = useQuery({
+  const {
+    data: rebates = [],
+    error: rebatesQueryError,
+    isFetching,
+  } = useQuery<RebateDataType[]>({
     queryKey: ["rebatesD"],
     queryFn: async () => {
-      try {
-        const res = await axios.get("/api/rebates");
-        return res.data;
-      } catch (err) {
-        throw new Error("Failed to load rebates");
-      }
+      const res = await axios.get("/api/rebates");
+      return normalizeRebatesPayload(res.data);
     },
     staleTime: 1000, // considers as fresh data for 12 hrs
     gcTime: 12 * 60 * 60 * 1000, // cache data for 12 hrs
   });
 
-  const rebates: RebateDataType[] = data ?? [];
-
   // Fetch Data
   useEffect(() => {
     if (!rebates || rebates.length === 0) return;
-
-    console.log("Rebates:", rebates);
 
     const defaultSymbol =
       rebates.find((s) => s.symbol === "CADCHF") ?? rebates[0];
@@ -114,6 +132,7 @@ export function EarningCalc() {
             className={`${styles.customSelect} block mt-5 w-full`}
             value={selectedSymbol}
             onChange={handleSymbolChange}
+            disabled={isFetching && rebates.length === 0}
           >
             {rebates.map((symbol) => (
               <option key={symbol.symbol} value={symbol.symbol}>
@@ -121,6 +140,11 @@ export function EarningCalc() {
               </option>
             ))}
           </select>
+          {rebatesQueryError && rebates.length === 0 && (
+            <span className="text-red-500 block mt-4 text-[12px]">
+              Unable to load symbols right now. Please try again shortly.
+            </span>
+          )}
         </div>
 
         {/* BUTTON */}
