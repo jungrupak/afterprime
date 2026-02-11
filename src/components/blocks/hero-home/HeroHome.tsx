@@ -58,7 +58,7 @@ export function HeroHome(props: HeroHomeProps) {
           />
 
           <div className="flex max-md:flex-col gap-4 items-center justify-center">
-            <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-col items-center gap-5 mb-5 md:mb-10">
               {hero_banner_home_is_type_form_cta === "1" ? (
                 <TypeformButton buttonText="Get Invite Code" size="Regular" />
               ) : (

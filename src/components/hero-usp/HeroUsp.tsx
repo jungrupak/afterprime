@@ -84,13 +84,15 @@ export default function HeroUsp({ text }: ReceiveText) {
         <div className={`${styles.upsItem}`}>
           <div className={`${styles.value}`}>{dataSaving}%</div>
           <div className={`${styles.descp}`}>
-            Lower Costs vs <br/>2nd-Ranked Broker
+            Lower Costs vs <br />
+            2nd-Ranked Broker
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
           <div className={`${styles.value}`}>{averageVsInds}%</div>
           <div className={`${styles.descp}`}>
-            Lower Costs vs <br/>Industry Average
+            Lower Costs vs <br />
+            Industry Average
           </div>
         </div>
         <div className={`hero-usp-badge`}>
