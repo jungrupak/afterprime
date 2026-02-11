@@ -29,51 +29,57 @@ export default async function Page() {
 
   const cards = [
     {
+      title: "Forex Trading Cost Savings Calculator",
+      paragraph:
+        "This tool lets you compare your monthly trading costs against top brokers and industry averages using verified spread and commission data. Enter the number of standard lots you trade per month, pick a broker to compare against, and see your estimated savings per month and over 12 months.\n\nPrimary Use: This tool is built for traders who want clarity on pricing.",
+      button_url: "/calculators/cost-savings-calculator",
+    },
+    {
       title: "Position Size Calculator",
       paragraph:
-        "Calculate the optimal lot size for any trade based on your account balance, risk percentage, and stop-loss distance. Primary Use: Determine how many lots to trade while staying within your risk limits",
+        "Calculate the optimal lot size for any trade based on your account balance, risk percentage, and stop-loss distance.\n\nPrimary Use: Determine how many lots to trade while staying within your risk limits",
       button_url: "/calculators/position-size-calculator",
     },
     {
       title: "Profit/Loss Calculator",
       paragraph:
-        "See your potential profit and loss before entering a trade. Enter entry, stop-loss, and take-profit levels with position size. Primary Use: Know exactly what you stand to gain or lose before committing capital. ",
+        "See your potential profit and loss before entering a trade. Enter entry, stop-loss, and take-profit levels with position size.\n\nPrimary Use: Know exactly what you stand to gain or lose before committing capital. ",
       button_url: "/calculators/profit-loss-calculator",
     },
     {
       title: "Margin & Leverage Calculator",
       paragraph:
-        "Calculate margin requirements and understand your leverage exposure. See how much capital is tied up and risk of margin call. Primary Use: Ensure you have sufficient margin and understand your effective leverage ",
+        "Calculate margin requirements and understand your leverage exposure. See how much capital is tied up and risk of margin call.\n\nPrimary Use: Ensure you have sufficient margin and understand your effective leverage ",
       button_url: "/calculators/margin-calculator",
     },
     {
       title: "Pip Value Calculator",
       paragraph:
-        "Find the exact value of a pip for any instrument and position size. Supports forex pairs, commodities, and indices. Primary Use: Know the dollar value of price movements before sizing positions.",
+        "Find the exact value of a pip for any instrument and position size. Supports forex pairs, commodities, and indices.\n\nPrimary Use: Know the dollar value of price movements before sizing positions.",
       button_url: "/calculators/pip-value-calculator",
     },
     {
       title: "Compound Growth Calculator",
       paragraph:
-        "Project your account growth over time based on win rate, risk-reward ratio, and position sizing with compound returns. Primary Use: Set realistic expectations and understand the power of consistent trading",
+        "Project your account growth over time based on win rate, risk-reward ratio, and position sizing with compound returns.\n\nPrimary Use: Set realistic expectations and understand the power of consistent trading",
       button_url: "/calculators/compound-growth-calculator",
     },
     {
       title: "Drawdown & Risk of Ruin Calculator",
       paragraph:
-        "Calculate maximum expected drawdown, probability of losing streaks, and risk of ruin for your trading strategy. Primary Use: Understand worst-case scenarios and ensure your strategy survives variance.",
+        "Calculate maximum expected drawdown, probability of losing streaks, and risk of ruin for your trading strategy.\n\nPrimary Use: Understand worst-case scenarios and ensure your strategy survives variance.",
       button_url: "/calculators/drawdown-calculator/",
     },
     {
       title: "Currency Converter",
       paragraph:
-        "Convert between major currencies, crypto, and precious metals. Useful when your account currency differs from trading instruments. Primary Use: Quick currency conversions for international trading and profit calculation.",
+        "Convert between major currencies, crypto, and precious metals. Useful when your account currency differs from trading instruments.\n\nPrimary Use: Quick currency conversions for international trading and profit calculation.",
       button_url: "/calculators/currency-converter/",
     },
     {
       title: "Swap/Overnight Cost Calculator",
       paragraph:
-        "Calculate the cost or credit of holding positions overnight. Estimate financing charges for swing trades and longer holds. Primary Use: Factor overnight costs into multi-day trading strategies.",
+        "Calculate the cost or credit of holding positions overnight. Estimate financing charges for swing trades and longer holds.\n\nPrimary Use: Factor overnight costs into multi-day trading strategies.",
       button_url: "/calculators/swap-calculator/",
     },
   ];
@@ -158,7 +164,7 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
         <div className="grainy_bg"></div>
         <div className="ap_container_small">
           {/* Cards */}
-          <div className="ap_cards_wrapper grid flex flex-col md:grid-cols-[repeat(auto-fit_,minmax(600px,1fr))] text-left! gap-6">
+          <div className="ap_cards_wrapper grid flex flex-col md:grid-cols-[repeat(auto-fit_,minmax(600px,1fr))] text-left! gap-6" style={{ whiteSpace: "pre-line" }}>
             {cards.length > 0 &&
               cards.map((card, index) => (
                 <Card

@@ -66,6 +66,7 @@ export default function HeroUsp({ text }: ReceiveText) {
     );
 
   const dataSaving = data?.secondBestVsAfterprimePct?.toFixed(1);
+  const top10Saving = data?.top10VsAfterprimeAvgPct?.toFixed(1);
   const averageVsInds = data?.industryVsAfterprimeAvgPct?.toFixed(1);
   const topTenVsAp = data?.top10VsAfterprimeAvgPct;
 
@@ -75,18 +76,18 @@ export default function HeroUsp({ text }: ReceiveText) {
         className={`${styles.HeroUps} lg:absolute left-0 bottom-0 z-5 py-8 md:pt-13 md:pb-15 px-10 flex-col flex-wrap flex md:flex-row items-center justify-center gap-y-5 gap-x-5 lg:gap-x-25`}
       >
         <div className={`${styles.upsItem}`}>
-          <div className={`${styles.value}`}>#1</div>
+          <div className={`${styles.value}`}>{dataSaving}%</div>
           <div className={`${styles.descp}`}>
-            Lowest All-In Costs Worldwide.
+            Lower Cost vs
             <br />
-            Independently Benchmarked.
+            2nd Best
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
-          <div className={`${styles.value}`}>{topTenVsAp}%</div>
+          <div className={`${styles.value}`}>{top10Saving}%</div>
           <div className={`${styles.descp}`}>
-            Lower Costs vs <br />
-            Top 10 Average
+            Lower Cost vs <br />
+            Top 10
           </div>
         </div>
         <div className={`${styles.upsItem}`}>
@@ -94,7 +95,7 @@ export default function HeroUsp({ text }: ReceiveText) {
             {Math.round(Number(averageVsInds))}%
           </div>
           <div className={`${styles.descp}`}>
-            Lower Costs vs <br />
+            Lower Cost vs <br />
             Industry Average
           </div>
         </div>
