@@ -63,17 +63,9 @@ export default function DataVisual(props: SectionProps) {
 
   // Fetch broker costs dynamically and generate COSTS
   useEffect(() => {
-    async function fetchCompareData() {
-      try {
-        const response = await fetch("/api/compare");
-        const res = await response.json();
-
-        // Check if res AND res.brokers exist
-        if (!res || !res.brokers || !Array.isArray(res.brokers)) {
-          console.warn("Invalid or missing broker data from API");
-          return;
-        }
-
+    fetch("/api/compare")
+      .then((res) => res.json())
+      .then((res) => {
         const dynamicCosts: Record<string, number> = {};
         const map: Record<string, BrokerApiData> = {};
 
@@ -91,13 +83,8 @@ export default function DataVisual(props: SectionProps) {
 
         setCOSTS(dynamicCosts);
         setBrokerData(map);
-      } catch (error) {
-        console.error("Error fetching compare data:", error);
-        // Optionally set fallback data here
-      }
-    }
-
-    fetchCompareData();
+      })
+      .catch(console.error);
   }, []);
 
   // Generate options for dropdowns, filter duplicates
