@@ -25,7 +25,7 @@ export default function Cta() {
             <TypeformButton buttonText="Apply for Invite code" size="Regular" />
             <div className={`mt-5 opacity-65`}>
               Invite only access for approved trading profiles.<br />
-              Get <a href="https://discord.com/invite/NKBcxyWzdM" target="_blank">invite from Discord</a> friend.
+              Get <a href="https://discord.com/invite/NKBcxyWzdM" target="_blank"><u>invite from Discord</u></a> friend.
             </div>
           </div>
         </div>
