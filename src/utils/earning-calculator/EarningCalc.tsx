@@ -163,7 +163,7 @@ export function EarningCalc() {
 
       {/* RESULT */}
       <div className="mt-8 text-[18px] font-[600] max-md:text-center">
-        In 5 years, your Flow Earnings could be worth:{" "}
+        Over 5 years, your Flow Earnings:{" "}
         <span
           className="inline-block md:ml-15 text-[24px] font-[700]"
           style={{ color: "var(--secondary-color)" }}
@@ -173,8 +173,7 @@ export function EarningCalc() {
       </div>
 
       <div className="bg-white py-5 px-10 note_box text-center mt-10">
-        Afterprime smart execution can capture up to $3 saved per lot traded and
-        compound into thousands in additional earnings over time.
+        Afterprime's execution captures up to $3 per lot traded, compounding into thousands in additional earnings.
       </div>
     </>
   );
