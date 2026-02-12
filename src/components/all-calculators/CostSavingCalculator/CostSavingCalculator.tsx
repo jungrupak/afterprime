@@ -56,11 +56,16 @@ interface MonthlyTotals {
   bro: number;
 }
 
-const SPECIAL_BROKERS = new Set(["Afterprime", "Top 10 Avg", "Industry Avg"]);
+const SPECIAL_BROKERS = new Set([
+  "Afterprime",
+  "Second Best",
+  "Top 10 Avg",
+  "Industry Avg",
+]);
 
 export default function DollarSavingsCalculator() {
   const [lots, setLots] = useState<number>(100);
-  const [selectedBroker, setSelectedBroker] = useState<string>("Top 10 Avg");
+  const [selectedBroker, setSelectedBroker] = useState<string>("Second Best");
   const [brokersData, setBrokersData] = useState<BrokerData[]>([]);
   const [brokerList, setBrokerList] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -148,7 +153,7 @@ export default function DollarSavingsCalculator() {
     selectedBroker,
   );
   const moSave: number = Math.max(0, bro - ap);
-  const totSave: number = moSave * 12;
+  const totSave: number = moSave * 20;
 
   const cycleBroker = (direction: number): void => {
     const idx: number = brokerList.indexOf(selectedBroker);
@@ -228,7 +233,8 @@ export default function DollarSavingsCalculator() {
 
         const x: number = bar.x;
         const y: number = bar.y - 6;
-        const label: string = "+$" + Math.round(Math.abs(d)).toLocaleString();
+        //const label: string = "+$" + (bro - ap * 20);
+        const label: string = "";
         ctx.fillText(label, x, y);
       });
 
@@ -261,7 +267,7 @@ export default function DollarSavingsCalculator() {
         enabled: true,
         callbacks: {
           label: function (context: TooltipItem<"bar">): string {
-            return "Monthly Cost: " + formatUSD(context.parsed.y ?? 0);
+            return "Monthly Cost: " + formatUSD(context.parsed.y * 20);
           },
         },
       },
@@ -425,22 +431,23 @@ export default function DollarSavingsCalculator() {
 
         <div className={styles.results}>
           <div className={styles.headline}>
-            Trading {lots} lots / month saves {formatUSD(moSave)} monthly vs{" "}
-            {selectedBroker}.
+            Trading {lots} lots / month saves {formatUSD(moSave * 20)} monthly
+            vs {selectedBroker}.
           </div>
           <div className={styles.subline}>
-            - {formatUSD(totSave)} annually. Chart shows total monthly cost comparison.
+            That&apos;s {formatUSD(totSave * 12)} over 12 months. Graph shows
+            monthly total cost.
           </div>
         </div>
 
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
             <div className={styles.statLabel}>Savings per month vs broker</div>
-            <div className={styles.statValue}>{formatUSD(moSave)}</div>
+            <div className={styles.statValue}>{formatUSD(moSave * 20)}</div>
           </div>
           <div className={styles.statCard}>
             <div className={styles.statLabel}>Total savings over 12 months</div>
-            <div className={styles.statValue}>{formatUSD(totSave)}</div>
+            <div className={styles.statValue}>{formatUSD(totSave * 12)}</div>
           </div>
         </div>
       </div>
