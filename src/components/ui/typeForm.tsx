@@ -19,7 +19,7 @@ interface TypeformButtonProps {
 }
 
 const TypeformButton: React.FC<TypeformButtonProps> = ({
-  buttonText = "Request Invite",
+  buttonText = "Get Invite Code",
   size = "Regular",
 }) => {
   const [formId, setFormId] = useState<string | null>(null);

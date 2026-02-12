@@ -44,7 +44,7 @@ export default function InnerBanner({
             <div className={`mt-8 md:mt-15`}>
               {shouldShowCTA &&
                 (inner_banner_is_type_form_cta === "1" ? (
-                  <TypeformButton buttonText="Request Invite" size="Large" />
+                  <TypeformButton buttonText="Get Invite Code" size="Large" />
                 ) : (
                   <Button
                     href={inner_banner_button_url}

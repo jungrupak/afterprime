@@ -73,7 +73,7 @@ export function HeroHome(props: HeroHomeProps) {
                 </Btn>
               )}
               <a href="https://app.afterprime.com/live">
-                I already <u>have an invite code</u>
+                Have a code? <u>Signup Now</u>
               </a>
             </div>
           </div>

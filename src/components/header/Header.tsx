@@ -73,7 +73,7 @@ export default function Header() {
               >
                 Login
               </Link>
-              <TypeformButton buttonText="Apply to Trade" size="small" />
+              <TypeformButton buttonText="Signup" size="small" />
             </div>
           </div>
 
