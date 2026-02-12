@@ -72,39 +72,43 @@ export default function HeroUsp({ text }: ReceiveText) {
   return (
     <>
       <div
-        className={`${styles.HeroUps} lg:absolute left-0 bottom-0 z-5 py-8 md:pt-13 md:pb-15 px-10 flex-col flex-wrap flex md:flex-row items-center justify-center gap-y-5 gap-x-5 lg:gap-x-25`}
+        className={`${styles.heroUspContainer} mx-auto lg:absolute left-0 bottom-0 z-5`}
       >
-        <div className={`${styles.upsItem}`}>
-          <div className={`${styles.value}`}>#1</div>
-          <div className={`${styles.descp}`}>
-            Lowest All-in Costs Worldwide.
-            <br />
-            Independently Benchmarked.
-          </div>
-        </div>
-        <div className={`${styles.upsItem}`}>
-          <div className={`${styles.value}`}>{top10Saving}%</div>
-          <div className={`${styles.descp}`}>
-            Lower Cost vs <br />
-            Top 10 Average
-          </div>
-        </div>
-        <div className={`${styles.upsItem}`}>
-          <div className={`${styles.value}`}>{averageVsInds}%</div>
-          <div className={`${styles.descp}`}>
-            Lower Cost vs <br />
-            Industry Average
-          </div>
-        </div>
-        <div className={`hero-usp-badge`}>
-          <GoogleReviewBadge />
-        </div>
-        <p
-          className={`${styles.note} text-[14px] absolute bottom-5 opacity-55 max-md:static`}
-          style={{ opacity: note ? "0.55" : "0" }}
+        <div
+          className={`${styles.HeroUps} ap_container_small py-8 md:pt-13 md:pb-15 flex-col flex-wrap flex md:flex-row items-center justify-center gap-y-5 gap-x-5 lg:gap-x-12 px-5 mx:px-0`}
         >
-          {text}
-        </p>
+          <div className={`${styles.upsItem}`}>
+            <div className={`${styles.value}`}>#1</div>
+            <div className={`${styles.descp}`}>
+              Lowest All-in Costs Worldwide.
+              <br />
+              Independently Benchmarked.
+            </div>
+          </div>
+          <div className={`${styles.upsItem}`}>
+            <div className={`${styles.value}`}>{top10Saving}%</div>
+            <div className={`${styles.descp}`}>
+              Lower Cost vs <br />
+              Top 10 Average
+            </div>
+          </div>
+          <div className={`${styles.upsItem}`}>
+            <div className={`${styles.value}`}>{averageVsInds}%</div>
+            <div className={`${styles.descp}`}>
+              Lower Cost vs <br />
+              Industry Average
+            </div>
+          </div>
+          <div className={`hero-usp-badge`}>
+            <GoogleReviewBadge />
+          </div>
+          <p
+            className={`${styles.note} text-[14px] absolute bottom-5 opacity-55 max-md:static`}
+            style={{ opacity: note ? "0.55" : "0" }}
+          >
+            {text}
+          </p>
+        </div>
       </div>
     </>
   );
