@@ -19,11 +19,11 @@ export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const instrumentUppercase = slug.toUpperCase();
   if (!params) return;
-  const { getpercentage, rebate, industryVsApAvgPct } =
+  const { rebate, industryVsApAvgPct, top10VsAfterprimeAvgPct } =
     await metaDataHelper(slug);
   //const formattedPercentage = Math.trunc(getpercentage);
 
-  const formattedPercentage = Math.trunc(Math.abs(Number(getpercentage)));
+  const formattedPercentage = Math.trunc(Math.abs(Number(top10VsAfterprimeAvgPct)));
 
   //for canonical ur
   const canonicalUrl = `https://afterprime.com/trade/${slug.toLowerCase()}`;
@@ -46,8 +46,8 @@ export async function generateMetadata({ params }: PageProps) {
     };
   } else {
     return {
-      title: `Trade ${instrumentUppercase} at ${formattedPercentage}% Lower Cost vs the Next Best Option`,
-      description: `Trade ${instrumentUppercase} on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.`,
+      title: `Trade ${instrumentUppercase} at ${formattedPercentage}% Lower Cost vs Top 10 Brokers`,
+      description: `Trade ${instrumentUppercase} on Afterprime with verified lowest trading costs. Compare brokers ${instrumentUppercase} cost.`,
       alternates: {
         canonical: canonicalUrl,
       },

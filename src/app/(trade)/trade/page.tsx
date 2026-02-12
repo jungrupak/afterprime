@@ -14,7 +14,7 @@ type FxCategory = {
 };
 
 export const metadata: Metadata = {
-  title: `Trade at Lower Cost vs the Next Best Option`,
+  title: `Trade at Lowest Cost vs Top 10 Brokers`,
   description: `Trade on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.`,
   alternates: {
     canonical: "https://afterprime.com/trade",

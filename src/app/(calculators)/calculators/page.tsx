@@ -31,7 +31,7 @@ export default async function Page() {
     {
       title: "Forex Trading Cost Savings Calculator",
       paragraph:
-        "This tool lets you compare your monthly trading costs against top brokers and industry averages using verified spread and commission data. Enter the number of standard lots you trade per month, pick a broker to compare against, and see your estimated savings per month and over 12 months.\n\nPrimary Use: This tool is built for traders who want clarity on pricing.",
+        "This tool lets you compare your monthly trading costs against top brokers and industry averages using verified spread and commission data. Compare your estimated savings per month and over 12 months.\n\nPrimary Use: This tool is built for traders who want clarity on pricing.",
       button_url: "/calculators/cost-savings-calculator",
     },
     {
@@ -61,7 +61,7 @@ export default async function Page() {
     {
       title: "Compound Growth Calculator",
       paragraph:
-        "Project your account growth over time based on win rate, risk-reward ratio, and position sizing with compound returns.\n\nPrimary Use: Set realistic expectations and understand the power of consistent trading",
+        "Project your account growth over time based on win rate, risk-reward ratio, and position sizing with compound returns.\n\nPrimary Use: Set realistic expectations and understand the power of consistent trading.",
       button_url: "/calculators/compound-growth-calculator",
     },
     {
@@ -81,6 +81,12 @@ export default async function Page() {
       paragraph:
         "Calculate the cost or credit of holding positions overnight. Estimate financing charges for swing trades and longer holds.\n\nPrimary Use: Factor overnight costs into multi-day trading strategies.",
       button_url: "/calculators/swap-calculator/",
+    },
+    {
+      title: "Trading Calculator",
+      paragraph:
+        "This trading calculator helps you estimate outcomes before you open a position.\n\nPrimary Use: Make more grounded choices with data you can trust.",
+      button_url: "/calculators/trading-calculator",
     },
   ];
 

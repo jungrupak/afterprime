@@ -306,7 +306,7 @@ export default function DollarSavingsCalculator() {
       <div className={styles.container}>
         <div className={styles.loadingState}>
           <div className={styles.spinner}></div>
-          <p>Loading broker data...</p>
+          <p>Loading data...</p>
         </div>
       </div>
     );
@@ -455,7 +455,7 @@ export default function DollarSavingsCalculator() {
       <div className={styles.chartSection}>
         <div className={styles.chartHeader}>
           <div>
-            <div className={styles.chartTitle}>Monthly total cost</div>
+            <div className={styles.chartTitle}>Monthly Total Cost</div>
             <div className={styles.chartSubtitle}>
               Bars show total trading cost for your selected lots per month.
             </div>

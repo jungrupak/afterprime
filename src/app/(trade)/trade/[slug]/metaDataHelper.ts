@@ -14,7 +14,7 @@ const CACHE: Record<
 const CACHE_TTL = 60 * 1000; // 1 minute cache
 
 export async function metaDataHelper(instrument: string) : Promise<MetaDataResult> {
-  
+
   if (!instrument) {
     return {
       getpercentage: 0,
@@ -49,9 +49,10 @@ export async function metaDataHelper(instrument: string) : Promise<MetaDataResul
     const data = await res.json();
 
     const result = {
-       getpercentage : data?.secondBestVsAfterprimePct ?? 0,
+      getpercentage : data?.secondBestVsAfterprimePct ?? 0,
       rebate : data?.rebate?.rebate_usd_per_lot ?? 0,
-      industryVsApAvgPct : data?.industryVsAfterprimeAvgPct ?? 0
+      industryVsApAvgPct : data?.industryVsAfterprimeAvgPct ?? 0,
+      top10VsAfterprimeAvgPct : data?.top10VsAfterprimeAvgPct ?? 0
     }
 
     // Save to cache
@@ -59,6 +60,6 @@ export async function metaDataHelper(instrument: string) : Promise<MetaDataResul
     return result;
   } catch (err) {
     console.error(`Error fetching ${instrument}:`, err);
-    return { getpercentage: 0, rebate: 0, industryVsApAvgPct: 0 };
+    return { getpercentage: 0, rebate: 0, industryVsApAvgPct: 0, top10VsAfterprimeAvgPct: 0 };
   }
 }
