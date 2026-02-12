@@ -435,12 +435,8 @@ export default function DollarSavingsCalculator() {
             {selectedBroker}.
           </div>
           <div className={styles.subline}>
-<<<<<<< HEAD
-            - {formatUSD(totSave)} annually. Chart shows total monthly cost comparison.
-=======
             ${(totSave * 12).toFixed(2)} annually. Graph shows monthly total
             cost.
->>>>>>> main
           </div>
         </div>
 
