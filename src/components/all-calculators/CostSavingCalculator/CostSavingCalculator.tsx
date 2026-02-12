@@ -56,16 +56,11 @@ interface MonthlyTotals {
   bro: number;
 }
 
-const SPECIAL_BROKERS = new Set([
-  "Afterprime",
-  "Second Best",
-  "Top 10 Avg",
-  "Industry Avg",
-]);
+const SPECIAL_BROKERS = new Set(["Afterprime", "Top 10 Avg", "Industry Avg"]);
 
 export default function DollarSavingsCalculator() {
   const [lots, setLots] = useState<number>(100);
-  const [selectedBroker, setSelectedBroker] = useState<string>("Second Best");
+  const [selectedBroker, setSelectedBroker] = useState<string>("Top 10 Avg");
   const [brokersData, setBrokersData] = useState<BrokerData[]>([]);
   const [brokerList, setBrokerList] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
