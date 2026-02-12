@@ -191,8 +191,8 @@ export default function DollarSavingsCalculator() {
 
   // Prepare chart data
   const coreBars: ChartBarData[] = [
-    { label: "Top 10 Avg", value: top10, color: "#e3a43e" },
-    { label: "Industry Avg", value: indAvg, color: "#ef4444" },
+    { label: "Top 10 Average", value: top10, color: "#e3a43e" },
+    { label: "Industry Averge", value: indAvg, color: "#ef4444" },
   ];
   const shouldShowSelectedBroker: boolean =
     !BENCHMARK_BROKERS.includes(selectedBroker) &&
