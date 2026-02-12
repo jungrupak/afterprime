@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Button from "@/components/ui/Button";
 
 export default function WebTraderMt5() {
   const [loading, setLoading] = useState(true);

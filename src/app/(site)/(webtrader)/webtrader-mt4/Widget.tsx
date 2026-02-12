@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 
-export default function WebTraderMt4() {
+export default function WebTraderMt4Widget() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

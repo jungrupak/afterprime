@@ -4,6 +4,7 @@ type MetaDataResult = {
   getpercentage: number;
   rebate: number;
   industryVsApAvgPct: number;
+  top10VsAfterprimeAvgPct:number;
 };
 
 // lib/metaDataHelper.ts
@@ -20,6 +21,7 @@ export async function metaDataHelper(instrument: string) : Promise<MetaDataResul
       getpercentage: 0,
       rebate: 0,
       industryVsApAvgPct: 0,
+      top10VsAfterprimeAvgPct:0,
     };
   }
 
@@ -43,7 +45,7 @@ export async function metaDataHelper(instrument: string) : Promise<MetaDataResul
 
     if (!res.ok) {
       console.warn(`Failed to fetch ${instrument}: ${res.status}`);
-      return { getpercentage: 0, rebate: 0, industryVsApAvgPct: 0 };
+      return { getpercentage: 0, rebate: 0, industryVsApAvgPct: 0 , top10VsAfterprimeAvgPct:0};
     }
 
     const data = await res.json();
