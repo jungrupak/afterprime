@@ -136,22 +136,32 @@ export function TableDataRewardFlow({
               <p className="text-red-500">{error}</p>
             ) : forexMajors.length > 0 ? (
               <div className="genericTable overflow-x-auto">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Symbol</th>
-                      <th>Rebate (USD per lot)</th>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Symbol<br/>{" "}</th>
+                    <th style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: 'bold'}}>
+                      Flow Rewards<sup>TM</sup><br/>(Per lot round turn)
+                    </th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 50 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 100 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 250 Lots<br/>Earn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {forexMajors.map((row, idx) => (
+                    <tr key={idx}>
+                      <td>{row.symbol}</td>
+                      <td style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: '600'}}>
+                        ${row.rebate_usd_per_lot.toFixed(2)}
+                      </td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 50).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 100).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 250).toFixed(2)}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {forexMajors.map((row, idx) => (
-                      <tr key={idx}>
-                        <td>{row.symbol}</td>
-                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  ))}
+                </tbody>
+              </table>
               </div>
             ) : (
               <p>{placeholderText}</p>
@@ -166,22 +176,32 @@ export function TableDataRewardFlow({
               <p className="text-red-500">{error}</p>
             ) : forexMinors.length > 0 ? (
               <div className="genericTable overflow-x-auto">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Symbol</th>
-                      <th>Rebate (USD per lot)</th>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Symbol<br/>{" "}</th>
+                    <th style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: 'bold'}}>
+                      Flow Rewards<sup>TM</sup><br/>(Per lot round turn)
+                    </th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 50 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 100 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 250 Lots<br/>Earn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {forexMinors.map((row, idx) => (
+                    <tr key={idx}>
+                      <td>{row.symbol}</td>
+                      <td style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: '600'}}>
+                        ${row.rebate_usd_per_lot.toFixed(2)}
+                      </td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 50).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 100).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 250).toFixed(2)}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {forexMinors.map((row, idx) => (
-                      <tr key={idx}>
-                        <td>{row.symbol}</td>
-                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  ))}
+                </tbody>
+              </table>
               </div>
             ) : (
               <p>{placeholderText}</p>
@@ -196,22 +216,32 @@ export function TableDataRewardFlow({
               <p className="text-red-500">{error}</p>
             ) : forexExotics.length > 0 ? (
               <div className="genericTable overflow-x-auto">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Symbol</th>
-                      <th>Rebate (USD per lot)</th>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Symbol<br/>{" "}</th>
+                    <th style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: 'bold'}}>
+                      Flow Rewards<sup>TM</sup><br/>(Per lot round turn)
+                    </th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 50 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 100 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 250 Lots<br/>Earn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {forexExotics.map((row, idx) => (
+                    <tr key={idx}>
+                      <td>{row.symbol}</td>
+                      <td style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: '600'}}>
+                        ${row.rebate_usd_per_lot.toFixed(2)}
+                      </td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 50).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 100).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 250).toFixed(2)}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {forexExotics.map((row, idx) => (
-                      <tr key={idx}>
-                        <td>{row.symbol}</td>
-                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  ))}
+                </tbody>
+              </table>
               </div>
             ) : (
               <p>{placeholderText}</p>
@@ -227,22 +257,32 @@ export function TableDataRewardFlow({
               <p className="text-red-500">{error}</p>
             ) : commodityRows.length > 0 ? (
               <div className="genericTable overflow-x-auto">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Symbol</th>
-                      <th>Rebate (USD per lot)</th>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Symbol<br/>{" "}</th>
+                    <th style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: 'bold'}}>
+                      Flow Rewards<sup>TM</sup><br/>(Per lot round turn)
+                    </th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 50 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 100 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 250 Lots<br/>Earn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {commodityRows.map((row, idx) => (
+                    <tr key={idx}>
+                      <td>{row.symbol}</td>
+                      <td style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: '600'}}>
+                        ${row.rebate_usd_per_lot.toFixed(2)}
+                      </td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 50).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 100).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 250).toFixed(2)}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {commodityRows.map((row, idx) => (
-                      <tr key={idx}>
-                        <td>{row.symbol}</td>
-                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  ))}
+                </tbody>
+              </table>
               </div>
             ) : (
               <p>{placeholderText}</p>
@@ -256,22 +296,32 @@ export function TableDataRewardFlow({
               <p className="text-red-500">{error}</p>
             ) : metalsRows.length > 0 ? (
               <div className="genericTable overflow-x-auto">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Symbol</th>
-                      <th>Rebate (USD per lot)</th>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Symbol<br/>{" "}</th>
+                    <th style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: 'bold'}}>
+                      Flow Rewards<sup>TM</sup><br/>(Per lot round turn)
+                    </th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 50 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 100 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 250 Lots<br/>Earn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {metalsRows.map((row, idx) => (
+                    <tr key={idx}>
+                      <td>{row.symbol}</td>
+                      <td style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: '600'}}>
+                        ${row.rebate_usd_per_lot.toFixed(2)}
+                      </td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 50).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 100).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 250).toFixed(2)}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {metalsRows.map((row, idx) => (
-                      <tr key={idx}>
-                        <td>{row.symbol}</td>
-                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  ))}
+                </tbody>
+              </table>
               </div>
             ) : (
               <p>{placeholderText}</p>
@@ -285,22 +335,32 @@ export function TableDataRewardFlow({
               <p className="text-red-500">{error}</p>
             ) : indicesRows.length > 0 ? (
               <div className="genericTable overflow-x-auto">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Symbol</th>
-                      <th>Rebate (USD per lot)</th>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Symbol<br/>{" "}</th>
+                    <th style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: 'bold'}}>
+                      Flow Rewards<sup>TM</sup><br/>(Per lot round turn)
+                    </th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 50 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 100 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 250 Lots<br/>Earn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {indicesRows.map((row, idx) => (
+                    <tr key={idx}>
+                      <td>{row.symbol}</td>
+                      <td style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: '600'}}>
+                        ${row.rebate_usd_per_lot.toFixed(2)}
+                      </td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 50).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 100).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 250).toFixed(2)}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {indicesRows.map((row, idx) => (
-                      <tr key={idx}>
-                        <td>{row.symbol}</td>
-                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  ))}
+                </tbody>
+              </table>
               </div>
             ) : (
               <p>{placeholderText}</p>
@@ -314,22 +374,32 @@ export function TableDataRewardFlow({
               <p className="text-red-500">{error}</p>
             ) : cryptoRows.length > 0 ? (
               <div className="genericTable overflow-x-auto">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Symbol</th>
-                      <th>Rebate (USD per lot)</th>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Symbol<br/>{" "}</th>
+                    <th style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: 'bold'}}>
+                      Flow Rewards<sup>TM</sup><br/>(Per lot round turn)
+                    </th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 50 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 100 Lots<br/>Earn</th>
+                    <th style={{width: '25%', textAlign: 'center'}}>Trade 250 Lots<br/>Earn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cryptoRows.map((row, idx) => (
+                    <tr key={idx}>
+                      <td>{row.symbol}</td>
+                      <td style={{backgroundColor: 'rgb(67, 59, 249)', color: 'white', fontWeight: '600'}}>
+                        ${row.rebate_usd_per_lot.toFixed(2)}
+                      </td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 50).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 100).toFixed(2)}</td>
+                      <td style={{textAlign: 'center'}}>${(row.rebate_usd_per_lot * 250).toFixed(2)}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {cryptoRows.map((row, idx) => (
-                      <tr key={idx}>
-                        <td>{row.symbol}</td>
-                        <td>${row.rebate_usd_per_lot.toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  ))}
+                </tbody>
+              </table>
               </div>
             ) : (
               <p>{placeholderText}</p>
