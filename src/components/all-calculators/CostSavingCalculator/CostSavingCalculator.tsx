@@ -153,7 +153,7 @@ export default function DollarSavingsCalculator() {
     selectedBroker,
   );
   const moSave: number = Math.max(0, bro - ap);
-  const totSave: number = moSave * 20;
+  const totSave: number = moSave;
 
   const cycleBroker = (direction: number): void => {
     const idx: number = brokerList.indexOf(selectedBroker);
@@ -267,7 +267,7 @@ export default function DollarSavingsCalculator() {
         enabled: true,
         callbacks: {
           label: function (context: TooltipItem<"bar">): string {
-            return "Monthly Cost: " + formatUSD(context.parsed.y * 20);
+            return "Monthly Cost: $" + context.parsed.y.toFixed(2);
           },
         },
       },
@@ -431,23 +431,23 @@ export default function DollarSavingsCalculator() {
 
         <div className={styles.results}>
           <div className={styles.headline}>
-            Trading {lots} lots / month saves {formatUSD(moSave * 20)} monthly
-            vs {selectedBroker}.
+            Trading {lots} lots / month saves ${moSave.toFixed(2)} monthly vs{" "}
+            {selectedBroker}.
           </div>
           <div className={styles.subline}>
-            That&apos;s {formatUSD(totSave * 12)} over 12 months. Graph shows
-            monthly total cost.
+            ${(totSave * 12).toFixed(2)} annually. Graph shows monthly total
+            cost.
           </div>
         </div>
 
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
             <div className={styles.statLabel}>Savings per month vs broker</div>
-            <div className={styles.statValue}>{formatUSD(moSave * 20)}</div>
+            <div className={styles.statValue}>${moSave.toFixed(2)}</div>
           </div>
           <div className={styles.statCard}>
             <div className={styles.statLabel}>Total savings over 12 months</div>
-            <div className={styles.statValue}>{formatUSD(totSave * 12)}</div>
+            <div className={styles.statValue}>${(totSave * 12).toFixed(2)}</div>
           </div>
         </div>
       </div>
