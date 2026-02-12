@@ -18,6 +18,12 @@ function escapeXml(url: string) {
     .replace(/'/g, "&apos;");
 }
 
+const webtraderPages = [
+  "webtrader-mt4",
+  "webtrader-mt4-demo",
+  "webtrader-mt5",
+];
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 
@@ -51,5 +57,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "weekly" as const,
   })) ?? [];
 
-  return [...staticRoutes, ...dynamicRoutes];
+  // Webtrader route
+  const webtraderRoutes: MetadataRoute.Sitemap = webtraderPages.map(
+  (slug) => ({
+    url: `${baseUrl}/${slug}`,
+    lastModified: new Date(),
+    priority: 0.9,
+    changeFrequency: "weekly" as const,
+  })
+);
+
+  return [...staticRoutes, ...dynamicRoutes, ...webtraderRoutes];
 }
