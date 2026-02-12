@@ -267,7 +267,7 @@ export default function DollarSavingsCalculator() {
         enabled: true,
         callbacks: {
           label: function (context: TooltipItem<"bar">): string {
-            return "Monthly Cost: $" + context.parsed.y.toFixed(2);
+            return "Monthly Cost: $" + (context.parsed.y || 0).toFixed(2);
           },
         },
       },
