@@ -62,10 +62,11 @@ const SPECIAL_BROKERS = new Set([
   "Top 10 Avg",
   "Industry Avg",
 ]);
+const BENCHMARK_BROKERS = ["Second Best", "Top 10 Avg", "Industry Avg"];
 
 export default function DollarSavingsCalculator() {
-  const [lots, setLots] = useState<number>(100);
-  const [selectedBroker, setSelectedBroker] = useState<string>("Second Best");
+  const [lots, setLots] = useState<number>(250);
+  const [selectedBroker, setSelectedBroker] = useState<string>("Industry Avg");
   const [brokersData, setBrokersData] = useState<BrokerData[]>([]);
   const [brokerList, setBrokerList] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -98,11 +99,7 @@ export default function DollarSavingsCalculator() {
           .sort();
 
         // Add special brokers at the beginning
-        const specialBrokers: string[] = [
-          "Second Best",
-          "Top 10 Avg",
-          "Industry Avg",
-        ];
+        const specialBrokers: string[] = [...BENCHMARK_BROKERS];
         const fullList: string[] = [...specialBrokers, ...brokers];
 
         setBrokerList(fullList);
@@ -152,6 +149,7 @@ export default function DollarSavingsCalculator() {
     lots,
     selectedBroker,
   );
+  const secondBest: number = getBrokerCost("Second Best") * lots;
   const moSave: number = Math.max(0, bro - ap);
   const totSave: number = moSave;
 
@@ -164,8 +162,8 @@ export default function DollarSavingsCalculator() {
   };
 
   const handleReset = (): void => {
-    setLots(100);
-    setSelectedBroker("Second Best");
+    setLots(250);
+    setSelectedBroker("Industry Avg");
   };
 
   const handleLotsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -192,21 +190,31 @@ export default function DollarSavingsCalculator() {
   };
 
   // Prepare chart data
-  const others: ChartBarData[] = [
-    { label: selectedBroker, value: bro, color: "#3b82f6" },
-    { label: "Top 10 Avg", value: top10, color: "#ef4444" },
+  const coreBars: ChartBarData[] = [
+    { label: "Top 10 Avg", value: top10, color: "#e3a43e" },
     { label: "Industry Avg", value: indAvg, color: "#ef4444" },
-  ].sort((a: ChartBarData, b: ChartBarData) => a.value - b.value);
+  ];
+  const shouldShowSelectedBroker: boolean =
+    !BENCHMARK_BROKERS.includes(selectedBroker) &&
+    selectedBroker !== "Afterprime";
+  const compareBar: ChartBarData = shouldShowSelectedBroker
+    ? { label: selectedBroker, value: bro, color: "#3b82f6" }
+    : { label: "Second Best", value: secondBest, color: "#3b82f6" };
+  const bars: ChartBarData[] = shouldShowSelectedBroker
+    ? [
+        { label: "Afterprime", value: ap, color: "#22c55e" },
+        compareBar,
+        ...coreBars,
+      ]
+    : [
+        { label: "Afterprime", value: ap, color: "#22c55e" },
+        ...coreBars,
+        compareBar,
+      ];
 
-  const labels: string[] = ["Afterprime"].concat(
-    others.map((o: ChartBarData) => o.label),
-  );
-  const values: number[] = [ap].concat(
-    others.map((o: ChartBarData) => o.value),
-  );
-  const colors: string[] = ["#22c55e"].concat(
-    others.map((o: ChartBarData) => o.color),
-  );
+  const labels: string[] = bars.map((o: ChartBarData) => o.label);
+  const values: number[] = bars.map((o: ChartBarData) => o.value);
+  const colors: string[] = bars.map((o: ChartBarData) => o.color);
   const deltas: number[] = values.map((v: number, i: number) =>
     i === 0 ? 0 : v - ap,
   );
@@ -330,11 +338,7 @@ export default function DollarSavingsCalculator() {
     );
   }
 
-  const benchmarkBrokers: string[] = [
-    "Second Best",
-    "Top 10 Avg",
-    "Industry Avg",
-  ];
+  const benchmarkBrokers: string[] = [...BENCHMARK_BROKERS];
   const regularBrokers: string[] = brokerList.filter(
     (name: string) => !benchmarkBrokers.includes(name),
   );
@@ -396,7 +400,7 @@ export default function DollarSavingsCalculator() {
               aria-label="Select broker for comparison"
             >
               {brokerList.length === 0 ? (
-                <option value="Second Best">Second Best</option>
+                <option value="Industry Avg">Industry Avg</option>
               ) : (
                 <>
                   <optgroup label="Benchmarks">
@@ -477,7 +481,8 @@ export default function DollarSavingsCalculator() {
           />
         </div>
         <div className={styles.chartFootnote}>
-          Source: ForexBenchmark 7‑day averages (spread+commission).
+          Source: ForexBenchmark - Previous 7 Days Range | All Pairs | Incl.
+          Commissions + Spreads
           {/* Day session 04:00–22:00. Past averages don&apos;t guarantee future
             outcomes. */}
         </div>
