@@ -2,9 +2,9 @@ import WebTraderMt4Demo from "./Widget";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Afterprime | Get Paid to Trade",
+  title: "Afterprime MT4 Demo WebTrader | Practice Trading Online",
   description:
-    "Lowest costs, transparent execution, shared rewards. Value you won't find anywhere else.",
+    "Open and use an Afterprime MT4 demo account in your browser. Test strategies with real market data, full MT4 functionality, and zero risk, no installation needed.",
   alternates: {
     canonical: "https://afterprime.com/webtrader-mt4-demo",
   },

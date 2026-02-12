@@ -8,7 +8,6 @@ import CostCalculator from "@/components/instrument-lps/cost-calculator/CostCalc
 import ProductSpecification from "@/components/instrument-lps/product-specification/ProductSpecification";
 import Faq from "@/components/instrument-lps/faq/Faq";
 import Cta from "@/components/instrument-lps/cta/Cta";
-import { metaDataHelper } from "./metaDataHelper";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
