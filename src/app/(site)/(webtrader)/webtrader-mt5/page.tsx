@@ -2,9 +2,9 @@ import WebTraderMt5 from "./Widget";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Afterprime | Get Paid to Trade",
+  title: "Afterprime MT5 WebTrader | Advanced Trading Platform",
   description:
-    "Lowest costs, transparent execution, shared rewards. Value you won't find anywhere else.",
+    "Trade on Afterprime MT5 WebTrader with powerful charting, fast execution, and expanded market access.",
   alternates: {
     canonical: "https://afterprime.com/webtrader-mt5",
   },

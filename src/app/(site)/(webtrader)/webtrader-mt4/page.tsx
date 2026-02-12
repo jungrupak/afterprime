@@ -2,9 +2,9 @@ import WebTraderMt4Widget from "./Widget";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Afterprime | Get Paid to Trade",
+  title: "Afterprime MT4 Live WebTrader | Trade Live Online",
   description:
-    "Lowest costs, transparent execution, shared rewards. Value you won't find anywhere else.",
+    "Access your live Afterprime MT4 account directly from your browser. Trade forex, indices, commodities, and more with real time pricing.",
   alternates: {
     canonical: "https://afterprime.com/webtrader-mt4",
   },
