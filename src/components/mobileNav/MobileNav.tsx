@@ -64,18 +64,6 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
       </div>
       {/* Footer */}
       <div className={`${styles.mobileMenuFooter} text-center`}>
-        <Button
-          size="small"
-          varient="ghost"
-          className="relative"
-          href="/trading-calculator"
-          onclick={onClick}
-        >
-          <span className="absolute -top-4 right-0 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
-            NEW
-          </span>
-          Trading Calculator
-        </Button>
         <Link
           className={`ap_button washed small`}
           href="https://app.afterprime.com/login"
@@ -84,7 +72,7 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
         >
           Login
         </Link>
-        <TypeformButton buttonText="Request Invite" size="small" />
+        <TypeformButton buttonText="Apply to Trade" size="small" />
       </div>
 
       {/* ## */}

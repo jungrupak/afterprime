@@ -127,10 +127,10 @@ export const MegaMenuItems = [
             menuItem: "Crypto",
             pageUrl: "/crypto",
           },
-          // {
-          //   menuItem: "Stocks",
-          //   pageUrl: "/stocks",
-          // },
+          {
+            menuItem: "Trading Calculators",
+            pageUrl: "/calculators",
+          },
         ],
       },
       {
@@ -155,10 +155,6 @@ export const MegaMenuItems = [
           {
             menuItem: "Trading Hours",
             pageUrl: "/trading-hours",
-          },
-          {
-            menuItem: "Trading Calculator",
-            pageUrl: "/trading-calculator",
           },
         ],
       },

@@ -73,7 +73,7 @@ https://afterprime.com/trade/{symbol}
 - [Aligned Execution](https://afterprime.com/aligned-execution) - Lightning-fast execution for serious traders. Sub-1ms speeds, zero slippage, lowest total costs verified by ForexBenchmark.
 - [Why We Exist](https://afterprime.com/why-we-exist) - Built for traders tired of hidden costs. AfterPrime delivers ForexBenchmark-verified lowest pricing and Flow Rewards cashback. Fair trading starts here.
 - [What Traders Say](https://afterprime.com/what-traders-say) - Verified reviews from traders using AfterPrime. Learn why pros switched to the broker with sub-1ms execution, Flow Rewards, and the lowest total trading costs.
-- [Trading Calculator](https://afterprime.com/trading-calculator) - Free forex trading calculator. Calculate pip values, position size, margin requirements, and profit/loss instantly. Essential tool for traders at AfterPrime.
+- [Trading Calculator](https://afterprime.com/calculators/trading-calculator) - Free forex trading calculator. Calculate pip values, position size, margin requirements, and profit/loss instantly. Essential tool for traders at AfterPrime.
 - [Trade Execution](https://afterprime.com/trade-execution) - Sub-1ms execution speeds built for serious traders. AfterPrime delivers zero requotes, minimal slippage, and the lowest costs verified by ForexBenchmark.
 - [Terms](https://afterprime.com/terms) - AfterPrime terms and conditions: understand your rights and obligations as a trader. Complete terms of service, trading rules, and client agreement details.
 - [Swaps](https://afterprime.com/swaps) - AfterPrime delivers competitive overnight financing with the lowest total costs - verified by Forexbenchmark.
