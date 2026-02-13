@@ -58,11 +58,7 @@ export default function ProductSpecification({ instrument }: Specification) {
             Trade connected FX pairs
           </h3>
           <p className={`opacity-80`}>
-            Trade these related pairs or browse the full range of{" "}
-            <Link href={"/trade"} className={`underline`}>
-              FX markets
-            </Link>{" "}
-            available on Afterprime.
+          Afterprime's trading environment gives you complete cost transparency. Every {instrument} quote displays <Link href={"/live-spreads"} className={`underline`}>real-time spread pricing</Link>, no hidden markups, no commission surprises. Use the integrated calculator to <Link href={"/calculators/cost-savings-calculator"} className={`underline`}>calculate trading costs</Link> for any position size before you trade. This clarity matters: when spreads are genuinely lower and you're earning Flow Rewards<sup>TM</sup> on every lot, the savings accelerate. {instrument}'s deep liquidity and our structural cost advantage make it the natural choice for both scalpers and position traders.{" "}Access the full{" "}<Link href={"/trade"} className={`underline`}>suite of FX markets available on Afterprime</Link>{" "}with institutional-grade execution.
           </p>
           <div className={`flex flex-wrap gap-2 mt-4`}>
             {relatedPairs.map((pair) => (
