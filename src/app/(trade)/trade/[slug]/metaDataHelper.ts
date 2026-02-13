@@ -40,7 +40,9 @@ export async function metaDataHelper(instrument: string) : Promise<MetaDataResul
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
         "Accept": "application/json",
       },
-      cache: "no-store", // Always fetch fresh data
+      //cache: "no-store", // Always fetch fresh data
+      cache:"force-cache",
+      next:{revalidate:2460}
     });
 
     if (!res.ok) {

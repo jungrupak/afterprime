@@ -10,7 +10,7 @@ import FaqSchema from "@/lib/schema/faqSchema";
 export const dynamicParams = true;
 
 //Revalidate every 60s (ISR)
-export const revalidate = 60;
+export const revalidate = 2460;
 
 type Props = { params: Promise<{ slug: string }> };
 
