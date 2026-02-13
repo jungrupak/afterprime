@@ -5,6 +5,7 @@ export async function fetchSeoFieldData(slug: string) {
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_WP_BASE_URL}/wp-json/wp/v2/pages?slug=${slug}`,
       {
+        
         headers: {
         // ✅ Tell WordPress we expect JSON
         Accept: "application/json",

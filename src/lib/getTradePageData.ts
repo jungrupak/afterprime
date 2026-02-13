@@ -10,7 +10,9 @@ export async function getTradePageData({params}: GetParams) {
   if (!restEndpoint) {
     throw new Error("WORDPRESS_REST_ENDPOINT is not defined")
   }
-  const res = await fetch(restEndpoint + `/pages?slug=${slug}`, {cache: "no-store"});
+  const res = await fetch(restEndpoint + `/pages?slug=${slug}`, {
+      cache:"force-cache",
+      next:{revalidate:2460}});
   if (!res.ok) {
     throw new Error("Failed to retrieve data from external service")
   }

@@ -22,7 +22,8 @@ export async function getSavingCompare(
   try {
     const res = await fetch(
       `/api/compare`,
-      { cache: "no-store" },
+      { cache:"force-cache",
+      next:{revalidate:2460} },
     );
 
     if (!res.ok) {
