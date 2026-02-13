@@ -7,6 +7,7 @@ import { MegaMenuItems } from "@/utils/menu-item";
 import TypeformButton from "../ui/typeForm";
 import Navigation from "../nav/Nav";
 import MobileNav from "../mobileNav/MobileNav";
+import Button from "../ui/Button";
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
@@ -65,15 +66,23 @@ export default function Header() {
           {/* Right Side (Desktop) */}
           <div className={`${styles.ap_header_right} max-[1204px]:hidden`}>
             <div className="flex items-center gap-4">
-              <Link
-                className={`ap_button washed small`}
+              <Button
+                linkTarget="_blank"
+                varient="washed"
+                size="small"
                 href="https://app.afterprime.com/login"
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 Login
-              </Link>
-              <TypeformButton buttonText="Signup" size="small" />
+              </Button>
+              <Button
+                linkTarget="_blank"
+                varient="primary"
+                size="small"
+                isArrowVisible={true}
+                href="https://app.afterprime.com/live"
+              >
+                Signup
+              </Button>
             </div>
           </div>
 

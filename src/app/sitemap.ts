@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { wpFetch } from "@/utils/wpFetch";
 import { WPPage } from "@/types/blocks";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 // Extend WPPage type locally
 type WPPageExtended = WPPage & {

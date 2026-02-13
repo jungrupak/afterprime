@@ -3,7 +3,6 @@ import {NextResponse} from "next/server";
 const API_URL = "https://scoreboard.argamon.com:8443/api/rebates/current"
 //const API_URL = "https://afterprime.com/api/rebates"
 
-//export const dynamic = "force-dynamic"; //important while fetching endpoint data with cloudflare
 
 export async function GET() {
     try {
