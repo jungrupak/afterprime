@@ -55,6 +55,7 @@ export default async function ChildPage({ params }: Props) {
 
   return (
     <>
+      <h2>sdf</h2>
       <PageRenderer pageData={pageData} />
     </>
   );

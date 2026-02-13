@@ -13,11 +13,25 @@
   --accent-color: #ffba08;
 }
 
+html {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+  }
+}
+
 body {
   background-color: var(--body-bg);
   color: var(--white);
   font-family: Arial, Helvetica, sans-serif;
   scroll-behavior: smooth;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
 }
 
 .grainy_bg {
