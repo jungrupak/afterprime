@@ -55,7 +55,6 @@ export default async function ChildPage({ params }: Props) {
 
   return (
     <>
-      {/* If needed dynamic block to added in CMS */}
       <PageRenderer pageData={pageData} />
     </>
   );
