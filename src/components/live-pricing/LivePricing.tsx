@@ -158,6 +158,7 @@ export function LivePricingAll() {
               </div>
             )}
           </div>
+        <p className="opacity-80">Ready to compare? <a href="/calculators/cost-savings-calculator"><u>Calculate your trading costs</u></a> across your typical trading volume to see the total savings.</p>
         </div>
       )}
 
