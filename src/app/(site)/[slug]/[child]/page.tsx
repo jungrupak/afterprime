@@ -4,6 +4,7 @@ import PageRenderer from "@/components/PageRender";
 import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
 import { notFound } from "next/navigation";
+import { getWpPagedata } from "@/utils/getWpPagedata";
 
 // Allow runtime slugs
 export const dynamicParams = true;
@@ -50,10 +51,12 @@ export default async function ChildPage({ params }: Props) {
     notFound();
   }
 
+  const pageData = await getWpPagedata(child);
+
   return (
     <>
-      <h1>This is static</h1>
-      <PageRenderer pageData={page} />
+      {/* If needed dynamic block to added in CMS */}
+      <PageRenderer pageData={pageData} />
     </>
   );
 }

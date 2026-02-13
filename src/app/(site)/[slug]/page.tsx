@@ -31,21 +31,13 @@ export default async function DynamicPage({ params }: Props) {
   );
 }
 
-//Pre-generate slugs for better performance
+// ✅ Pre-generate slugs for better performance
 export async function generateStaticParams() {
   try {
-    const pages = await wpFetch<WPPage[]>(`/pages?_fields=link`);
-
-    if (!pages) return [];
-
-    return pages.map((page) => {
-      const path = new URL(page.link).pathname.replace(/^\/|\/$/g, ""); // remove leading/trailing slash
-
-      return {
-        slug: path.split("/"), // ✅ MUST be array
-      };
-    });
+    const pages = (await wpFetch<WPPage[]>(`/pages?_fields=slug`)) ?? [];
+    return pages.map((p) => ({ slug: p.slug }));
   } catch {
+    // If fetch fails at build → still allow runtime rendering
     return [];
   }
 }
