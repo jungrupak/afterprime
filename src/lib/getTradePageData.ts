@@ -1,7 +1,7 @@
 import {WPPage} from "@/types/blocks";
 
 interface GetParams {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string}>
 }
 
 export async function getTradePageData({params}: GetParams) {
@@ -10,7 +10,8 @@ export async function getTradePageData({params}: GetParams) {
   if (!restEndpoint) {
     throw new Error("WORDPRESS_REST_ENDPOINT is not defined")
   }
-  const res = await fetch(restEndpoint + `/pages?slug=${slug}`, {
+  //defined parend ID to call only slugs that has Trade Page as parent
+  const res = await fetch(restEndpoint + `/pages?slug=${slug}&parent=2709`, {
       cache:"force-cache",
       next:{revalidate:2400}});
   if (!res.ok) {

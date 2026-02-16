@@ -48,7 +48,7 @@ export default function CostBreakdown({ instrument }: Breakdown) {
 
       <div className={`ap_container_small relative z-1 w-full`}>
         <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
-          {instrument} All-In-Cost
+          {instrument.toUpperCase()} All-In-Cost
         </h2>
         <div className={`${styles.costBreakDownTable}`}>
           <table cellPadding={"0"} cellSpacing={"0"} border={0}>

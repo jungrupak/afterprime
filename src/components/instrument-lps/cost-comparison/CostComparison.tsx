@@ -184,7 +184,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
 
         <div className={`ap_container_small relative z-1 w-full`}>
           <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
-            Compare {instrument} Broker Costs
+            Compare {instrument.toUpperCase()} Broker Costs
           </h2>
           <div className={`${styles.costCompareTable}`}>
             <div
