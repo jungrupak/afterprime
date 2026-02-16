@@ -22,6 +22,11 @@ export default function SectionTableMarginLeverage() {
       leverage: "1:100",
     },
     {
+      assetsClass: "Indices",
+      margin: "1%",
+      leverage: "1:100",
+    },
+    {
       assetsClass: "Crypto",
       margin: "33%",
       leverage: "1:3",
