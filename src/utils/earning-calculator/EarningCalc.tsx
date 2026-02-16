@@ -173,7 +173,7 @@ export function EarningCalc() {
       </div>
 
       <div className="bg-white py-5 px-10 note_box text-center mt-10">
-        Afterprime's execution captures up to $3 per lot traded, compounding into thousands in additional earnings.
+        Afterprime's <a href="/trade-execution"><u>transparent execution model</u></a> captures up to $3 per lot traded, compounding into thousands in additional earnings.
       </div>
     </>
   );
