@@ -65,10 +65,10 @@ export default async function TradeSlugPage({ params }: PageProps) {
   }
 
   const flowRewardContent =
-    page.acf?.instrument_page_fields?.what_is_flow_rewards_section || undefined;
+    page.acf?.instrument_page_fields?.what_is_flow_rewards_section;
 
   const rationalData =
-    page.acf?.instrument_page_fields?.execution_quality_rational || undefined;
+    page.acf?.instrument_page_fields?.execution_quality_rational;
 
   const customFieldFaqBlock = page.acf?.faq_section?.q_and_a;
 
@@ -81,7 +81,6 @@ export default async function TradeSlugPage({ params }: PageProps) {
       {/* <GoogleReview /> */}
 
       <FlowRewardIntro
-        instrument={page.slug}
         content={flowRewardContent}
         rationalData={rationalData}
       />
