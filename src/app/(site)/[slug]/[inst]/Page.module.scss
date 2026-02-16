@@ -74,15 +74,18 @@
   h2:not(:first-child) {
     margin-top: clamp(40px, 10vw, 60px);
   }
-  > hr {
+  hr {
     display: none;
   }
-  > p {
+  p {
     font-size: clamp(18px, 5vw, 20px);
-    line-height: 1.4;
+    line-height: 1.6;
     color: rgba(255, 255, 255, 0.8);
     &:not(:last-child) {
       margin-bottom: clamp(20px, 5vw, 30px);
+    }
+    @media all and (max-width: 767px) {
+      line-height: 1.4;
     }
   }
 
@@ -109,20 +112,37 @@
       padding: 15px 20px;
       font-size: 16px;
       text-align: left;
-      white-space: nowrap;
+      &:last-child {
+        text-align: right;
+      }
     }
     tr {
       td {
         background-color: rgba(var(--alphaWhite), 0.06);
         border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
         padding: 15px 20px;
-        font-size: 20px;
+        font-size: 18px;
         transition: all 0.2s ease-in-out;
-        white-space: nowrap;
+        color: rgba(255, 255, 255, 0.68);
+        &:last-child {
+          text-align: right;
+        }
       }
       &:hover {
         td {
           background-color: rgba(var(--alphaWhite), 0.1);
+        }
+      }
+    }
+    @media all and (max-width: 767px) {
+      tr th {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      tr {
+        td {
+          padding: 10px 15px;
+          font-size: 16px;
         }
       }
     }

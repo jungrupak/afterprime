@@ -3,13 +3,11 @@ import { AP_FX_PAIRS } from "@/data/ap-fx-pairs-specs";
 import { getRelatedPairs } from "@/lib/getRelatedPairs";
 import styles from "./ProductSpecification.module.scss";
 import Link from "next/link";
+import SpecificationTable from "./SpecificationTable";
 
 interface Specification {
   instrument?: string;
 }
-
-//##
-const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
 
 export default function ProductSpecification({ instrument }: Specification) {
   //##
@@ -40,17 +38,7 @@ export default function ProductSpecification({ instrument }: Specification) {
           {instrument} Trading Specification
         </h2>
         <div className={`${styles.costBreakDownTable}`}>
-          <table cellPadding={"0"} cellSpacing={"0"} border={0}>
-            <tbody>
-              {selectedInstrument &&
-                Object.entries(selectedInstrument).map(([key, value]) => (
-                  <tr key={key}>
-                    <td>{key}</td>
-                    <td>{value}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+          <SpecificationTable instrument={instrument} />
         </div>
 
         <div className={`mt-15`}>

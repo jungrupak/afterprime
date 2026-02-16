@@ -6,13 +6,14 @@ import styles from "./Page.module.scss";
 import getSymbolSinglePageData from "@/lib/getSymbolSinglePageData";
 import CostComparison from "@/components/instrument-lps/cost-comparison/CostComparison";
 import InstrumentKeyBenifits from "@/components/instrument-key-benifits/InstrumentKeyBenifits";
-import NotFound from "../not-found";
+import { renderSection } from "@/lib/flexibleContentMap";
+import Script from "next/script";
 
 // Allow runtime slugs
 export const dynamicParams = true;
 
 // ISR
-export const revalidate = 60;
+export const revalidate = 3600;
 
 type Props = {
   params: Promise<{
@@ -52,11 +53,41 @@ export default async function ChildPage({ params }: Props) {
     notFound();
   }
 
-  // console.log("page data:", data);
-
   //Get CUstom Fields
   const getFields = data?.acf?.instrument_single_page_fields;
-  const allContent = getFields?.page_content;
+  const pageSchema = getFields?.page_schema;
+
+  //get Flexible ACF content here
+  const pageBuilder = data?.acf?.instrument_single_page_fields?.page_builder;
+  //Faq data
+  const faqData = data?.acf?.faq_section?.q_and_a;
+  //FAQ schema##
+  const faqSchema =
+    faqData && faqData.length
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqData
+            .filter(
+              (item: { question: string; answer: string }) =>
+                item.question && item.answer,
+            )
+            .map((item: { question: string; answer: string }) => ({
+              "@type": "Question",
+              name: item.question.replace(/(<([^>]+)>)/gi, ""),
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer.replace(/(<([^>]+)>)/gi, ""),
+              },
+            })),
+        }
+      : null;
+
+  // Ends FAQ schema
+
+  if (!inst) {
+    notFound();
+  }
 
   return (
     <>
@@ -103,18 +134,39 @@ export default async function ChildPage({ params }: Props) {
       {/* Cost Comparision */}
 
       {/* Page Contents */}
-      {allContent && (
+      {pageBuilder && (
         <section className={`compact-section`}>
           <div className="grainy_bg"></div>
           <div className="ap_container_small">
-            <div
-              className={`${styles.pageEditorContent}`}
-              dangerouslySetInnerHTML={{ __html: allContent || `&nbsp` }}
-            />
+            <div className={`${styles.pageEditorContent}`}>
+              {pageBuilder.map(renderSection)}
+            </div>
           </div>
         </section>
       )}
       {/* Page Contents Ends */}
+
+      {/* Page Schema */}
+      {pageSchema && (
+        <Script
+          id="faq-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(pageSchema),
+          }}
+        />
+      )}
+      {/* Page Schema Ends */}
+      {/* FAQ schema */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
+          }}
+        />
+      )}
+      {/* FAQ schema ends */}
     </>
   );
 }
