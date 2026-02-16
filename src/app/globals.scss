@@ -940,3 +940,7 @@ section {
 .compact-section {
   padding-block: clamp(40px, 10vw, 60px);
 }
+
+.table-wrapper {
+  overflow-x: auto;
+}

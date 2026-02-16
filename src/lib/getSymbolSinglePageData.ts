@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default async function getSymbolSinglePageData(instrument:string) {
+export default async function getSymbolSinglePageData(instrument:string, parentId:string) {
     try {
     const res = await fetch(
       `${process.env.WORDPRESS_REST_ENDPOINT}/pages?slug=${instrument}`,

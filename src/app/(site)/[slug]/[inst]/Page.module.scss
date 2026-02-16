@@ -1,0 +1,150 @@
+.innerBannerSection {
+  height: 100vh;
+  //max-height: 600px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  background-color: transparent;
+  backdrop-filter: blur(0);
+  background-image: none !important;
+  @media all and (min-width: 1024px) {
+    height: 100vh;
+    max-height: 100vh;
+    text-align: left;
+  }
+  @media all and (min-width: 1600px) {
+    height: 100vh;
+    //max-height: 980px;
+    text-align: left;
+  }
+}
+
+.sectionIntroBlockGeneric {
+  background-color: rgba(var(--alphaWhite), 0.08);
+  padding-block: 80px;
+  backdrop-filter: blur(15px);
+  position: relative;
+  z-index: 2;
+}
+
+.sectionIntroContents {
+  display: flex;
+  gap: 8rem;
+  align-items: center;
+  > div {
+    flex: 1;
+    h3 {
+      font-size: clamp(38px, 5vw, 50px);
+      line-height: 1.15;
+      margin-bottom: 10px;
+      font-weight: 200;
+      color: var(--white);
+    }
+    p {
+      font-size: clamp(22px, 5vw, 26px);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+  }
+  @media all and (max-width: 767px) {
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+//Page generic content from WYSWYG editor
+.pageEditorContent {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: clamp(20px, 5vw, 30px);
+    line-height: 1.1;
+  }
+  h3,
+  h4 {
+    font-size: clamp(30px, 8vw, 35px);
+    margin-top: clamp(40px, 10vw, 60px);
+  }
+  h2:not(:first-child) {
+    margin-top: clamp(40px, 10vw, 60px);
+  }
+  hr {
+    display: none;
+  }
+  p {
+    font-size: clamp(18px, 5vw, 20px);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    &:not(:last-child) {
+      margin-bottom: clamp(20px, 5vw, 30px);
+    }
+    @media all and (max-width: 767px) {
+      line-height: 1.4;
+    }
+  }
+
+  ul,
+  ol {
+    margin-left: 16px;
+    margin-bottom: clamp(20px, 5vw, 30px);
+    li {
+      list-style: disc;
+      font-size: clamp(18px, 5vw, 20px);
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.8);
+      &:not(:last-child) {
+        margin-bottom: clamp(20px, 5vw, 30px);
+      }
+    }
+  }
+  table {
+    width: 100%;
+    margin-bottom: clamp(20px, 5vw, 30px);
+    tr th {
+      background-color: rgba(var(--alphaWhite), 0.06);
+      border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
+      padding: 15px 20px;
+      font-size: 16px;
+      text-align: left;
+      &:last-child {
+        text-align: right;
+      }
+    }
+    tr {
+      td {
+        background-color: rgba(var(--alphaWhite), 0.06);
+        border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
+        padding: 15px 20px;
+        font-size: 18px;
+        transition: all 0.2s ease-in-out;
+        color: rgba(255, 255, 255, 0.68);
+        &:last-child {
+          text-align: right;
+        }
+      }
+      &:hover {
+        td {
+          background-color: rgba(var(--alphaWhite), 0.1);
+        }
+      }
+    }
+    @media all and (max-width: 767px) {
+      tr th {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      tr {
+        td {
+          padding: 10px 15px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
