@@ -50,7 +50,7 @@ export default function Footer() {
             target market by reviewing our Target Market Determination, and read
             our{" "}
             <a href="/legal-documents" rel="noopener">
-              PDS and other legal documents
+              <u>PDS and other legal documents</u>
             </a>{" "}
             to ensure you fully understand the risks before you make any trading
             decisions.
