@@ -3,7 +3,7 @@ import React from 'react'
 export default async function getSymbolSinglePageData(instrument:string) {
     try {
     const res = await fetch(
-      `${process.env.WORDPRESS_REST_ENDPOINT}/pages?slug=${instrument}&parent=688`,
+      `${process.env.WORDPRESS_REST_ENDPOINT}/pages?slug=${instrument}`,
       {
         cache: "force-cache",
         next: { revalidate: 2400 },

@@ -14,8 +14,8 @@ export const revalidate = 60;
 
 type Props = {
   params: Promise<{
-    slug: string;
-    child: string;
+    slug: string; //this is domain.com/dynamic page slug i.e [slug]
+    child: string; //remember this is name of child dynamic folder i.e [child]
   }>;
 };
 
@@ -24,7 +24,10 @@ type Props = {
 //
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { child } = await params;
-  return await CustomMetadata(child);
+  return {
+    title: `This is ${child}`,
+    description: ``,
+  };
 }
 
 //
@@ -32,16 +35,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 //
 export default async function ChildPage({ params }: Props) {
   const { slug, child } = await params;
-
   const data = await getSymbolSinglePageData(child);
-
   if (!data) notFound();
 
   // Validate parent relationship
   if (!data.parent) notFound();
 
   const parent = await wpFetch<WPPage>(`/pages/${data.parent}?_fields=slug`);
-
   if (!parent || parent.slug !== slug) {
     notFound();
   }
