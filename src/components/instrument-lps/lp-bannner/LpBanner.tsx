@@ -90,7 +90,7 @@ export default function LPBanner({ instrument }: BannerTitle) {
             {dynamicContent.contentDefault && (
               <>
                 <h1 className={`max-md:mb-5`}>
-                  Trade {instrument} <br />
+                  Trade {instrument?.toUpperCase()} <br />
                   <span>
                     Save Up to {industryVsApAvgPct.toFixed(2)}% vs Most Brokers
                   </span>
