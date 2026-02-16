@@ -103,7 +103,7 @@ export default function HeroUsp({ text }: ReceiveText) {
             <GoogleReviewBadge />
           </div>
           <p
-            className={`${styles.note} text-[14px] absolute bottom-5 opacity-55 max-md:static`}
+            className={`${styles.note} text-[14px] absolute bottom-2 opacity-55 max-md:static`}
             style={{ opacity: note ? "0.55" : "0" }}
           >
             {text} <br/>Afterprime Ltd is a licensed CFD Broker (FSA #SD057)
