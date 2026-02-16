@@ -76,12 +76,12 @@ export default async function TradeSlugPage({ params }: PageProps) {
 
   return (
     <>
-      <LPBanner instrument={page.title.rendered} />
+      <LPBanner instrument={page.slug} />
       <CostComparison instrument={page.slug} />
       {/* <GoogleReview /> */}
 
       <FlowRewardIntro
-        instrument={page.title.rendered}
+        instrument={page.slug}
         content={flowRewardContent}
         rationalData={rationalData}
       />
@@ -89,7 +89,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
       <Faq data={customFieldFaqBlock} faqSubject="FAQ" instrument={page.slug} />
       <Cta />
       <CostCalculator instrument={page.slug.toUpperCase()} />
-      <ProductSpecification instrument={page.title.rendered} />
+      <ProductSpecification instrument={page.slug.toUpperCase()} />
     </>
   );
 }
