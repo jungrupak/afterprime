@@ -23,7 +23,9 @@ export async function generateMetadata({ params }: PageProps) {
     await metaDataHelper(slug);
   //const formattedPercentage = Math.trunc(getpercentage);
 
-  const formattedPercentage = Math.trunc(Math.abs(Number(top10VsAfterprimeAvgPct)));
+  const formattedPercentage = Math.trunc(
+    Math.abs(Number(top10VsAfterprimeAvgPct)),
+  );
 
   //for canonical ur
   const canonicalUrl = `https://afterprime.com/trade/${slug.toLowerCase()}`;
@@ -75,7 +77,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
   return (
     <>
       <LPBanner instrument={page.title.rendered} />
-      <CostComparison instrument={page.title.rendered} />
+      <CostComparison instrument={page.slug} />
       {/* <GoogleReview /> */}
 
       <FlowRewardIntro
@@ -83,14 +85,10 @@ export default async function TradeSlugPage({ params }: PageProps) {
         content={flowRewardContent}
         rationalData={rationalData}
       />
-      <CostBreakdown instrument={page.title.rendered} />
-      <Faq
-        data={customFieldFaqBlock}
-        faqSubject="FAQ"
-        instrument={page.title.rendered}
-      />
+      <CostBreakdown instrument={page.slug} />
+      <Faq data={customFieldFaqBlock} faqSubject="FAQ" instrument={page.slug} />
       <Cta />
-      <CostCalculator instrument={page.title.rendered} />
+      <CostCalculator instrument={page.slug.toUpperCase()} />
       <ProductSpecification instrument={page.title.rendered} />
     </>
   );

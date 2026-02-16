@@ -310,8 +310,7 @@ export type PageFieldGroups = {
     calculator_ui_iframe_url?:string;
     page_schema?: string;
     page_content?: string;    
-  }
-  
+  }  
 };
 
 //AIOSEO Types

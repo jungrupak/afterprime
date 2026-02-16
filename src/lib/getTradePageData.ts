@@ -12,7 +12,7 @@ export async function getTradePageData({params}: GetParams) {
   }
   const res = await fetch(restEndpoint + `/pages?slug=${slug}`, {
       cache:"force-cache",
-      next:{revalidate:2460}});
+      next:{revalidate:2400}});
   if (!res.ok) {
     throw new Error("Failed to retrieve data from external service")
   }

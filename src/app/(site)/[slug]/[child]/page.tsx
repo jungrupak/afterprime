@@ -1,10 +1,11 @@
 import { wpFetch } from "@/utils/wpFetch";
 import { WPPage } from "@/types/blocks";
-import PageRenderer from "@/components/PageRender";
 import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
 import { notFound } from "next/navigation";
 import { getWpPagedata } from "@/utils/getWpPagedata";
+import styles from "./Page.module.scss";
+import getSymbolSinglePageData from "@/lib/getSymbolSinglePageData";
 
 // Allow runtime slugs
 export const dynamicParams = true;
@@ -33,30 +34,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ChildPage({ params }: Props) {
   const { slug, child } = await params;
 
-  // Fetch child page
-  const pages = await wpFetch<WPPage[]>(
-    `/pages?slug=${child}&_fields=id,slug,parent,content,title`,
-  );
+  const data = await getSymbolSinglePageData(child);
 
-  const page = pages?.[0];
-
-  if (!page) notFound();
+  if (!data) notFound();
 
   // Validate parent relationship
-  if (!page.parent) notFound();
+  if (!data.parent) notFound();
 
-  const parent = await wpFetch<WPPage>(`/pages/${page.parent}?_fields=slug`);
+  const parent = await wpFetch<WPPage>(`/pages/${data.parent}?_fields=slug`);
 
   if (!parent || parent.slug !== slug) {
     notFound();
   }
 
-  const pageData = await getWpPagedata(child);
+  // console.log("page data:", data);
 
   return (
     <>
-      <h2>sdf</h2>
-      <PageRenderer pageData={pageData} />
+      {/* Page Bannder */}
+      <section
+        className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
+      >
+        {/* grain bg effect */}
+        <div className="grainy_bg"></div>
+        {/* grain bg effect */}
+        <div className="ap_container_small flex items-center h-full">
+          <div className={`apBannerContent`}>
+            <h1 className="h1-size mt-10 lg:mt-15">
+              <span className="font-[600]">{data?.title.rendered}</span>
+            </h1>
+          </div>
+        </div>
+      </section>
+      {/* Page Bannder Ends */}
     </>
   );
 }
