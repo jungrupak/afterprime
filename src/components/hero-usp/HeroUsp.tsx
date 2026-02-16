@@ -106,7 +106,7 @@ export default function HeroUsp({ text }: ReceiveText) {
             className={`${styles.note} text-[14px] absolute bottom-5 opacity-55 max-md:static`}
             style={{ opacity: note ? "0.55" : "0" }}
           >
-            {text}
+            {text} <br/>Afterprime Ltd is a licensed CFD Broker (FSA #SD057)
           </p>
         </div>
       </div>

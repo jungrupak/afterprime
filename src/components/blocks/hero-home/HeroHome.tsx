@@ -75,7 +75,6 @@ export function HeroHome(props: HeroHomeProps) {
               <a href="https://app.afterprime.com/live">
                 Have a code? <u>Signup Now</u>
               </a>
-              <br />Afterprime Ltd is a licensed CFD Broker (FSA #SD057)
             </div>
           </div>
         </div>
