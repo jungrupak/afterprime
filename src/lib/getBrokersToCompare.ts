@@ -24,9 +24,6 @@ interface BrokerIndividualDataType {
   symbol?:string;
 }
 
-// #### Cache time
-const CACHE_TTL = 2 * 60; // in seconds (Next.js expects seconds for revalidate)
-
 // #### Fetch function
 export async function getBrokerCompareData(
   symbol: string,
@@ -38,7 +35,7 @@ export async function getBrokerCompareData(
       `https://feed.afterprime.com/api/symbol/${symbol}`,
       {
         cache: "force-cache", // reuse cached data
-        next: { revalidate: CACHE_TTL }, // revalidate cache every 2 min
+        next: { revalidate: 2100 }, // revalidate cache every 2 min
         
       }
     );

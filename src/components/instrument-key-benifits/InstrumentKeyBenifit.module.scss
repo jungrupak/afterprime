@@ -1,0 +1,25 @@
+.listUi {
+  ul {
+    li {
+      font-size: clamp(20px, 5vw, 24px);
+      margin-bottom: 30px;
+      position: relative;
+      padding-left: 45px;
+
+      &:before {
+        content: "";
+        background-image: url("/img/list-bullet.svg");
+        height: 26px;
+        width: 26px;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 6px;
+        left: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

@@ -147,7 +147,6 @@ export default async function Page({ params }: PageSlug) {
           </div>
         </section>
       )}
-
       {/* Page Contents Ends */}
 
       {/* FAQ FROM CMS */}
