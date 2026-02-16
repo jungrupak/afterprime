@@ -26,11 +26,6 @@ export default function SectionMarginCallOut() {
       marginCall: "120%",
       levels: "80%",
     },
-    {
-      assetsClass: "Shares",
-      marginCall: "120%",
-      levels: "80%",
-    },
   ];
   //Ends
 
