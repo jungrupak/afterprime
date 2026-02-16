@@ -3,7 +3,6 @@ import { WPPage } from "@/types/blocks";
 import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
 import { notFound } from "next/navigation";
-import { getWpPagedata } from "@/utils/getWpPagedata";
 import styles from "./Page.module.scss";
 import getSymbolSinglePageData from "@/lib/getSymbolSinglePageData";
 

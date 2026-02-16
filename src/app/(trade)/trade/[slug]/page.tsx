@@ -11,7 +11,7 @@ import Cta from "@/components/instrument-lps/cta/Cta";
 import { metaDataHelper } from "./metaDataHelper";
 
 interface PageProps {
-  params: Promise<{ slug: string; parent: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 //Export Dynamic Page Title Tags####
