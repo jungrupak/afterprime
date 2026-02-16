@@ -139,7 +139,7 @@ export function LivePricingForex() {
             )}
           </div>
           <p className="opacity-80">
-          Explore detailed pricing for <a href="/trade/eurusd"><u>EUR/USD with zero commissions</u></a>, <a href="/trade/gbpusd"><u>GBP/USD trading conditions</u></a>, and <a href="/trade/audusd"><u>AUD/USD low-cost execution</u></a>.</p>
+          Explore detailed pricing for <a href="/trade/eurusd"><u>EUR/USD with zero commissions</u></a>, <a href="/trade/gbpusd"><u>GBP/USD trading conditions</u></a>, and <a href="/trade/audusd"><u>AUD/USD low-cost execution</u></a> or <a href="/live-spreads"><u>live forex spreads</u></a> and other instruments.</p>
 
           <p className="opacity-80">Ready to compare? <a href="/calculators/cost-savings-calculator"><u>Calculate your trading costs</u></a> across your typical trading volume to see the total savings.</p>
         </div>
