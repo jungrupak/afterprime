@@ -1,5 +1,5 @@
 import { wpFetch } from "@/utils/wpFetch";
-import { WPPage } from "@/types/blocks";
+import type { WPPage } from "@/types/blocks";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import styles from "./Page.module.scss";
@@ -12,6 +12,9 @@ import Cta from "@/components/instrument-lps/cta/Cta";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import TradingGlossary from "@/components/TradingGlossary/TradingGlossary";
 import Author from "@/components/AuthorForInstrumentPage/Author";
+
+// ISR
+export const revalidate = 60;
 
 type Props = {
   params: Promise<{
@@ -153,10 +156,17 @@ export default async function ChildPage({ params }: Props) {
       <section className={`compact-section`}>
         <div className="grainy_bg"></div>
         <div className="ap_container_small">
-          <h2 className={`mb-5! md:mb-8!`}>
-            {inst.toUpperCase()} Trading Glossary
-          </h2>
-          <TradingGlossary glossaryBlockData={glossaryData} instrument={inst} />
+          {glossaryData && (
+            <>
+              <h2 className={`mb-5! md:mb-8!`}>
+                {inst.toUpperCase()} Trading Glossary
+              </h2>
+              <TradingGlossary
+                glossaryBlockData={glossaryData}
+                instrument={inst}
+              />
+            </>
+          )}
           {/* AUthor */}
           <div className={`mt-5 md:mt-8`}>
             <Author />
@@ -166,13 +176,13 @@ export default async function ChildPage({ params }: Props) {
       </section>
       {/* Trading Glossary page Eds */}
 
-      {/* CTA Global */}
-      <Cta />
-      {/* CTA Global Ends */}
-
       {/* FAQ */}
       <FaqCalc faqSubject={faqSectionTitle} data={faqData} />
       {/* FAQ */}
+
+      {/* CTA Global */}
+      <Cta />
+      {/* CTA Global Ends */}
 
       {/* Page Schema */}
       {pageSchema && (

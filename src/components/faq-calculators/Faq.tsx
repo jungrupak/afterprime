@@ -26,7 +26,7 @@ export default function FaqCalc({ data, faqSubject }: faqContents) {
       <div className="grainy_bg"></div>
       {/* grain bg effect */}
       <div className="ap_container_small">
-        <div className={`${styles.faq_block}`}>
+        <div className={`${styles.faq_block} mb-0!`}>
           <h2 className="text-[34px] font-[700] mb-10">{faqSubject}</h2>
           <Accordion faqObjects={faqObjects} />
         </div>
