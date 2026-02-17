@@ -1,0 +1,12 @@
+.glossaryWrapper {
+  ul {
+    li {
+      padding: clamp(20px, 5vw, 40px);
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

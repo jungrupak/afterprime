@@ -30,6 +30,11 @@ export default function InstrumentKeyBenifits({
   return (
     <>
       <div className={`${styles.listUi}`}>
+        <h3
+          className={`text-[clamp(28px_,5vw_,34px)]! font-semibold! mb-5! md:mb-10!`}
+        >
+          Key advantages for {instrument} traders:
+        </h3>
         <ul>
           {rebate !== null ? (
             <>

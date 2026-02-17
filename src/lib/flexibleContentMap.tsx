@@ -1,7 +1,8 @@
 import React from "react";
 import SpecificationTable from "@/components/instrument-lps/product-specification/SpecificationTable";
-import CostBreakdown from "@/components/instrument-lps/cost-brakdown/CostBreakdown";
+// import CostBreakdown from "@/components/instrument-lps/cost-brakdown/CostBreakdown";
 import CostBreakdownTable from "@/components/instrument-lps/cost-brakdown/CostBreakdownTable";
+import CalculatorToolsBlock from "@/app/(site)/[slug]/[inst]/CalculatorToolsBlock";
 
 interface TextBlockSection {
   acf_fc_layout: "text_block";
@@ -13,16 +14,26 @@ interface ProductSpecSection {
   instrument_name: string;
 }
 
-interface CostBreakdown {
+interface CostBreakdownBlock {
   acf_fc_layout: "cost_breakdown";
   instrument: string;
 }
 
-type PageBuilderSection = TextBlockSection | ProductSpecSection | CostBreakdown;
+interface CalculatorTools {
+  acf_fc_layout: "calculator_tools";
+  instrument: string;
+}
+
+type PageBuilderSection =
+  | TextBlockSection
+  | ProductSpecSection
+  | CostBreakdownBlock
+  | CalculatorTools;
 
 export function renderSection(
   section: PageBuilderSection,
   index: number,
+  slug?: string,
 ): React.ReactNode {
   switch (section.acf_fc_layout) {
     case "text_block":
@@ -46,6 +57,13 @@ export function renderSection(
       return (
         <div key={index}>
           <CostBreakdownTable instrument={section.instrument ?? ""} />
+        </div>
+      );
+
+    case "calculator_tools":
+      return (
+        <div key={index}>
+          <CalculatorToolsBlock instrumentSlug={section.instrument ?? ""} />
         </div>
       );
 

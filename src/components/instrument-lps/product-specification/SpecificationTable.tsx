@@ -41,9 +41,7 @@ export default function SpecificationTable({ instrument }: Specification) {
           onClick={() => setIsCollapsible(!isCollapsible)}
           className="expand-toggle mt-5 md:mt-8 rounded-[40px] bg-[#ffffff1c] hover:bg-[#ffffff30] p-[8px_20px]"
         >
-          {isCollapsible
-            ? "Show Less"
-            : `Show ${entries.length - INITIAL_ROWS} Rows More..`}
+          {isCollapsible ? "Show Less" : `Show All`}
         </button>
       )}
     </div>

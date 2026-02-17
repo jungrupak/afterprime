@@ -944,3 +944,11 @@ section {
 .table-wrapper {
   overflow-x: auto;
 }
+
+.risk-warning-all {
+  background: linear-gradient(135deg, #f59e0b26 0%, #ef44441a 100%);
+  border: 1px solid #f59e0b4d;
+  border-radius: 8px;
+  padding: 24px;
+  font-size: 14px !important;
+}

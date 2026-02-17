@@ -341,7 +341,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
               />
             </svg>
             <div>
-              Ranked #1 Lowest Cost Broker on
+              Ranked #1 Lowest Cost Broker on{" "}
               <Link
                 className={`underline`}
                 target={`_blank`}

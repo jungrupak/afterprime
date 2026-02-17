@@ -8,6 +8,10 @@ import CostComparison from "@/components/instrument-lps/cost-comparison/CostComp
 import InstrumentKeyBenifits from "@/components/instrument-key-benifits/InstrumentKeyBenifits";
 import { renderSection } from "@/lib/flexibleContentMap";
 import Script from "next/script";
+import Cta from "@/components/instrument-lps/cta/Cta";
+import FaqCalc from "@/components/faq-calculators/Faq";
+import TradingGlossary from "@/components/TradingGlossary/TradingGlossary";
+import Author from "@/components/AuthorForInstrumentPage/Author";
 
 // ISR
 export const revalidate = 86400;
@@ -25,8 +29,8 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { inst } = await params;
   return {
-    title: `This is ${inst}`,
-    description: ``,
+    title: `${inst.toUpperCase()} Forex Pair Overview and Trading with Afterprime`,
+    description: `See how the ${inst.toUpperCase()} forex pair moves, what drives its price and how Afterprime supports ${inst.toUpperCase()} trading with low costs, deep liquidity and pro tools.`,
   };
 }
 
@@ -58,6 +62,10 @@ export default async function ChildPage({ params }: Props) {
   const pageBuilder = data?.acf?.instrument_single_page_fields?.page_builder;
   //Faq data
   const faqData = data?.acf?.faq_section?.q_and_a;
+  const faqSectionTitle = data?.acf?.faq_section?.ssection_title;
+  //Glossary Data
+  const glossaryData =
+    data?.acf?.instrument_single_page_fields?.glossary_content_block;
   //FAQ schema##
   const faqSchema =
     faqData && faqData.length
@@ -115,7 +123,7 @@ export default async function ChildPage({ params }: Props) {
         {/* grain bg effect */}
         <div className="ap_container_small">
           <div className={`${styles.sectionIntroContents}`}>
-            <div className={`max-md:order-2`}>
+            <div className={`max-md:order-2 max-md:text-left`}>
               <p>{getFields.hero_paragraph_two ?? ""}</p>
             </div>
             <div className={`max-md:order-1 text-left`}>
@@ -143,8 +151,31 @@ export default async function ChildPage({ params }: Props) {
       )}
       {/* Page Contents Ends */}
 
+      {/* Trading Glossary page */}
+
+      <section className={`compact-section`}>
+        <div className="grainy_bg"></div>
+        <div className="ap_container_small">
+          <h2 className={`mb-5! md:mb-8!`}>
+            {inst.toUpperCase()} Trading Glossary
+          </h2>
+          <TradingGlossary glossaryBlockData={glossaryData} instrument={inst} />
+          {/* AUthor */}
+          <div className={`mt-5 md:mt-8`}>
+            <Author />
+          </div>
+          {/* AUthor Ends */}
+        </div>
+      </section>
+      {/* Trading Glossary page Eds */}
+
       {/* CTA Global */}
+      <Cta />
       {/* CTA Global Ends */}
+
+      {/* FAQ */}
+      <FaqCalc faqSubject={faqSectionTitle} data={faqData} />
+      {/* FAQ */}
 
       {/* Page Schema */}
       {pageSchema && (
