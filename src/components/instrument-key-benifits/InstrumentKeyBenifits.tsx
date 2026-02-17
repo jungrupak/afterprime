@@ -33,7 +33,7 @@ export default function InstrumentKeyBenifits({
         <h3
           className={`text-[clamp(28px_,5vw_,34px)]! font-semibold! mb-5! md:mb-10!`}
         >
-          Key advantages for {instrument} traders:
+          Key advantages for {instrument.toUpperCase()} traders:
         </h3>
         <ul>
           {rebate !== null ? (
