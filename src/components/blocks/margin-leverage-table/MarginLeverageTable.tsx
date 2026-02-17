@@ -4,7 +4,7 @@ export default function SectionTableMarginLeverage() {
   //Static Data Const
   const title = "Margin and Leverage";
   const paragraph =
-    "CFDs are leveraged products — you only need to deposit a fraction of your trade's total value as margin, giving you greater market exposure with less capital.";
+    "CFDs are leveraged products, you only need to deposit a fraction of your trade's total value as margin, giving you greater market exposure with less capital.";
   const tableData = [
     {
       assetsClass: "Forex",
@@ -18,6 +18,11 @@ export default function SectionTableMarginLeverage() {
     },
     {
       assetsClass: "Commodities",
+      margin: "1%",
+      leverage: "1:100",
+    },
+    {
+      assetsClass: "Indices",
       margin: "1%",
       leverage: "1:100",
     },

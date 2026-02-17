@@ -22,14 +22,19 @@ export default function SectionMarginCallOut() {
       levels: "80%",
     },
     {
+      assetsClass: "Indices",
+      marginCall: "120%",
+      levels: "80%",
+    },
+    {
       assetsClass: "Crypto",
       marginCall: "120%",
       levels: "80%",
     },
     {
-      assetsClass: "Shares",
-      marginCall: "120%",
-      levels: "80%",
+      assetsClass: "Traderevolution (All classes)",
+      marginCall: "100%",
+      levels: "120%",
     },
   ];
   //Ends
