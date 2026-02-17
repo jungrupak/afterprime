@@ -13,9 +13,6 @@ import FaqCalc from "@/components/faq-calculators/Faq";
 import TradingGlossary from "@/components/TradingGlossary/TradingGlossary";
 import Author from "@/components/AuthorForInstrumentPage/Author";
 
-// ISR
-export const revalidate = 60;
-
 type Props = {
   params: Promise<{
     slug: string; //this is domain.com/dynamic page slug i.e [slug]

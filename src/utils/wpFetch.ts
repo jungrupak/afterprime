@@ -1,7 +1,5 @@
 // src/utils/wpFetch.ts
 
-export const revalidate = 60;
-
 export async function wpFetch<T>(endpoint: string): Promise<T | null> {
   const baseUrl =
     process.env.NEXT_PUBLIC_WP_BASE_URL ||
