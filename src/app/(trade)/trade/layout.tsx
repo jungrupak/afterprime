@@ -40,7 +40,7 @@ export default function TradeLayout({
             aria-label="video-player"
             controlsList="nodownload"
           >
-            <source src="/low-res.mp4" type="video/mp4" />
+            <source src="https://cfcdn.afterprime.com/low-res.mp4" type="video/mp4" />
           </video>
         </div>
         {/* Fixed Vid Bg for entire website ends */}
