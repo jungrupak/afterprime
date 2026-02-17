@@ -143,6 +143,9 @@ export default async function ChildPage({ params }: Props) {
       )}
       {/* Page Contents Ends */}
 
+      {/* CTA Global */}
+      {/* CTA Global Ends */}
+
       {/* Page Schema */}
       {pageSchema && (
         <Script
@@ -170,25 +173,18 @@ export default async function ChildPage({ params }: Props) {
 }
 
 //
-// 🔹 Static Params
-//
+// 🔹 Pre-build all static params for ISR
 export async function generateStaticParams() {
-  try {
-    const pages = await wpFetch<WPPage[]>(`/pages?_fields=id,slug,parent`);
+  const pages = await wpFetch<WPPage[]>(`/pages?_fields=id,slug,parent`);
+  if (!pages) return [];
 
-    if (!pages) return [];
+  const parents = pages.filter((p) => p.parent === 0);
+  const parentMap = Object.fromEntries(parents.map((p) => [p.id, p.slug]));
 
-    const parents = pages.filter((p) => p.parent === 0);
-
-    const parentMap = Object.fromEntries(parents.map((p) => [p.id, p.slug]));
-
-    return pages
-      .filter((p) => p.parent !== 0 && parentMap[p.parent])
-      .map((p) => ({
-        slug: parentMap[p.parent], // parent slug
-        inst: p.slug, // child slug
-      }));
-  } catch {
-    return [];
-  }
+  return pages
+    .filter((p) => p.parent !== 0 && parentMap[p.parent])
+    .map((p) => ({
+      slug: parentMap[p.parent],
+      inst: p.slug,
+    }));
 }

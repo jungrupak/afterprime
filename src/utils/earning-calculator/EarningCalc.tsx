@@ -49,7 +49,9 @@ export function EarningCalc() {
   } = useQuery<RebateDataType[]>({
     queryKey: ["rebatesD"],
     queryFn: async () => {
-      const res = await axios.get("https://afterprime.com/api/rebates");
+      const res = await axios.get(
+        "https://scoreboard.argamon.com:8443/api/rebates/current",
+      );
       return normalizeRebatesPayload(res.data);
     },
     staleTime: 1000, // considers as fresh data for 12 hrs
