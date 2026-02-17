@@ -26,7 +26,7 @@ export default function TradingGlossary({
           "@context": "https://schema.org",
           "@type": "DefinedTermSet",
           name: `${instrument.toUpperCase()} Trading Glossary`,
-          url: `https://afterprime.com/forex/${instrument}`,
+          url: `https://afterprime.com/forex/${instrument.toLowerCase()}`,
           hasDefinedTerm: schemaData.map((term) => ({
             "@type": "DefinedTerm",
             name: term.title,
@@ -35,7 +35,7 @@ export default function TradingGlossary({
             inDefinedTermSet: {
               "@type": "DefinedTermSet",
               name: `${instrument.toUpperCase()} Trading Glossary`,
-              url: `https://afterprime.com/forex/${instrument}`,
+              url: `https://afterprime.com/forex/${instrument.toLowerCase()}`,
             },
           })),
         }
