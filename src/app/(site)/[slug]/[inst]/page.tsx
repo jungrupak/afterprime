@@ -9,11 +9,8 @@ import InstrumentKeyBenifits from "@/components/instrument-key-benifits/Instrume
 import { renderSection } from "@/lib/flexibleContentMap";
 import Script from "next/script";
 
-// Allow runtime slugs
-export const dynamicParams = true;
-
 // ISR
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 type Props = {
   params: Promise<{
@@ -149,7 +146,7 @@ export default async function ChildPage({ params }: Props) {
       {/* Page Schema */}
       {pageSchema && (
         <Script
-          id="faq-schema"
+          id="page-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(pageSchema),
@@ -159,7 +156,8 @@ export default async function ChildPage({ params }: Props) {
       {/* Page Schema Ends */}
       {/* FAQ schema */}
       {faqSchema && (
-        <script
+        <Script
+          id="faq-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(faqSchema),

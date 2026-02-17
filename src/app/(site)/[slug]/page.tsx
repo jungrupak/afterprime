@@ -6,13 +6,16 @@ import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
 import FaqSchema from "@/lib/schema/faqSchema";
 
-//Allow runtime slugs
-export const dynamicParams = true;
-
 //Revalidate every 60s (ISR)
-export const revalidate = 2460;
+export const revalidate = 86400;
 
 type Props = { params: Promise<{ slug: string }> };
+
+// ✅ Pre-generate slugs for better performance
+export async function generateStaticParams() {
+  const pages = (await wpFetch<WPPage[]>(`/pages?_fields=slug`)) ?? [];
+  return pages.map((p) => ({ slug: p.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug: pageSlug } = await params;
@@ -29,15 +32,4 @@ export default async function DynamicPage({ params }: Props) {
       <PageRenderer pageData={pageData} />
     </>
   );
-}
-
-// ✅ Pre-generate slugs for better performance
-export async function generateStaticParams() {
-  try {
-    const pages = (await wpFetch<WPPage[]>(`/pages?_fields=slug`)) ?? [];
-    return pages.map((p) => ({ slug: p.slug }));
-  } catch {
-    // If fetch fails at build → still allow runtime rendering
-    return [];
-  }
 }

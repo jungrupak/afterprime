@@ -25,7 +25,9 @@ export function SwapDataTabs() {
   const { data, isLoading, error } = useQuery<InstrumentDataType[]>({
     queryKey: ["swapTable"],
     queryFn: async () => {
-      const res = await fetch("/api/instruments");
+      const res = await fetch(
+        "https://scoreboard.argamon.com:8443/api/instruments/",
+      );
       if (!res.ok) {
         throw new Error("Failed to fetch compare data");
       }

@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { wpFetch } from "@/utils/wpFetch";
 import { WPPage } from "@/types/blocks";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 // Extend WPPage type locally
 type WPPageExtended = WPPage & {

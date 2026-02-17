@@ -21,9 +21,9 @@ export async function getSavingCompare(
 ): Promise<BrokerIndividualDataType | undefined> {
   try {
     const res = await fetch(
-      `/api/compare`,
+      `https://feed.afterprime.com/api/costs`,
       { cache:"force-cache",
-      next:{revalidate:2460} },
+      next:{revalidate:86400} },
     );
 
     if (!res.ok) {

@@ -14,7 +14,7 @@ export async function GET() {
         }
         const res = await fetch(API_URL, {
             next: {
-                revalidate: 21600
+                revalidate: 86400
             },
             headers: {
                 "Accept": "application/json",

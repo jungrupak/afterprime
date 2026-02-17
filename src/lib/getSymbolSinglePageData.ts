@@ -6,7 +6,7 @@ export default async function getSymbolSinglePageData(instrument:string, parentI
       `${process.env.WORDPRESS_REST_ENDPOINT}/pages?slug=${instrument}`,
       {
         cache: "force-cache",
-        next: { revalidate: 2400 },
+        next: { revalidate: 86400 },
       },
     );
     if (!res.ok) return;

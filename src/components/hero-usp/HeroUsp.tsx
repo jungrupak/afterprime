@@ -1,5 +1,4 @@
 "use client";
-
 import GoogleReviewBadge from "../ui/GoogleReviewBadge";
 import styles from "./HeroUsp.module.scss";
 import { Loader } from "../Loading/Loading";
@@ -39,7 +38,7 @@ export default function HeroUsp({ text }: ReceiveText) {
   const { data, isLoading, error } = useQuery<ApiResponse>({
     queryKey: ["compareCost"],
     queryFn: async () => {
-      const res = await axios.get("/api/compare");
+      const res = await axios.get("https://feed.afterprime.com/api/costs");
       return res.data;
     },
     staleTime: 1000 * 60 * 480,
@@ -106,7 +105,8 @@ export default function HeroUsp({ text }: ReceiveText) {
             className={`${styles.note} text-[14px] absolute bottom-5 opacity-55 max-md:static`}
             style={{ opacity: note ? "0.55" : "0" }}
           >
-            {text} <br/>Afterprime Ltd is a licensed CFD Broker (FSA #SD057)
+            {text} <br />
+            Afterprime Ltd is a licensed CFD Broker (FSA #SD057)
           </p>
         </div>
       </div>

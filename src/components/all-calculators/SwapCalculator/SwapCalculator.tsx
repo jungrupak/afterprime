@@ -90,7 +90,9 @@ export default function SwapCalculator() {
   useEffect(() => {
     const fetchSwapRates = async () => {
       try {
-        const res = await fetch("/api/instruments");
+        const res = await fetch(
+          "https://scoreboard.argamon.com:8443/api/instruments/",
+        );
         const data: InstrumentApiResponse[] = await res.json();
 
         const mapped: SwapRates = {};

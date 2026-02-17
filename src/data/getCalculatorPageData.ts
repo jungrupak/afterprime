@@ -5,7 +5,7 @@ export async function getCalcPageData(pageSlug:string) {
   const res = await fetch(
     `${baseUrl}/wp-json/wp/v2/pages?slug=${pageSlug}`,
     {cache:"force-cache",
-      next:{revalidate:2460} } // or revalidate if you want ISR
+      next:{revalidate:86400} } // or revalidate if you want ISR
   )
 
   if (!res.ok) {

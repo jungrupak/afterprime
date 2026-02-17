@@ -1,30 +1,21 @@
-import axios from "axios";
-
 export async function fetchSeoFieldData(slug: string) {
   try {
-    const res = await axios.get(
+    const res = await fetch(
       `${process.env.NEXT_PUBLIC_WP_BASE_URL}/wp-json/wp/v2/pages?slug=${slug}`,
       {
-        
         headers: {
-        // ✅ Tell WordPress we expect JSON
-        Accept: "application/json",
-        "User-Agent": "Next.js Server Fetch",
-        "Content-Type": "application/json",
-      },
+          Accept: "application/json",
+        },
+        next: { revalidate: 86400 }, // 🔥 important
       }
     );
 
-    // Ensure there’s at least one result
-    const page = res.data && res.data.length > 0 ? res.data[0] : null;
+    const data = await res.json();
+    const page = data?.[0] ?? null;
 
-    if (!page) {
-      console.warn(`No page found for slug: ${slug}`);
-      return null;
-    }
+    if (!page) return null;
 
-    const seoFields = page.acf?.seo_block || null;
-    return seoFields;
+    return page.acf?.seo_block ?? null;
   } catch (err) {
     console.error("SEO fetch error:", err);
     return null;

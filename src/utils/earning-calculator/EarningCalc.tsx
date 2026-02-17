@@ -28,7 +28,7 @@ function normalizeRebatesPayload(payload: unknown): RebateDataType[] {
     ? payload
     : payload &&
         typeof payload === "object" &&
-          Array.isArray((payload as { data?: unknown }).data)
+        Array.isArray((payload as { data?: unknown }).data)
       ? (payload as { data: unknown[] }).data
       : [];
 
@@ -49,7 +49,7 @@ export function EarningCalc() {
   } = useQuery<RebateDataType[]>({
     queryKey: ["rebatesD"],
     queryFn: async () => {
-      const res = await axios.get("/api/rebates");
+      const res = await axios.get("https://afterprime.com/api/rebates");
       return normalizeRebatesPayload(res.data);
     },
     staleTime: 1000, // considers as fresh data for 12 hrs
@@ -173,7 +173,12 @@ export function EarningCalc() {
       </div>
 
       <div className="bg-white py-5 px-10 note_box text-center mt-10">
-        Afterprime's <a href="/trade-execution"><u>transparent execution model</u></a> captures up to $3 per lot traded, compounding into thousands in additional earnings.
+        Afterprime's{" "}
+        <a href="/trade-execution">
+          <u>transparent execution model</u>
+        </a>{" "}
+        captures up to $3 per lot traded, compounding into thousands in
+        additional earnings.
       </div>
     </>
   );

@@ -1,3 +1,5 @@
+
+"use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -18,7 +20,7 @@ export function useInstrument(){
   useEffect(()=>{
     const fetchInstruments = async () => {
       try{
-        const res = await axios.get("/api/instruments");
+        const res = await axios.get("https://scoreboard.argamon.com:8443/api/instruments/");
         if(!res){
           throw new Error ("Failed to Fetch")
         }

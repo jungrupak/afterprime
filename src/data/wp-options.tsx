@@ -1,7 +1,7 @@
 export async function getOptionsACF() {
   const res = await fetch(
     `https://wordpress-1264747-4900526.cloudwaysapps.com/wp-json/custom/v1/options`,
-    { next: { revalidate: 60 } } // ISR
+    { next: { revalidate: 86400 } }, // ISR
   );
 
   if (!res.ok) {

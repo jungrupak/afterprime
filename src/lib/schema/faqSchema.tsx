@@ -7,7 +7,7 @@ type JsonLd = Record<string, unknown>;
 export default async function FaqSchema({ pageSlug }: FaqSchemaProp) {
   const res = await fetch(
     `${process.env.WORDPRESS_REST_ENDPOINT}/pages?slug=${pageSlug}`,
-    { next: { revalidate: 60 } },
+    { next: { revalidate: 86400 } },
   );
 
   if (!res.ok) return null;

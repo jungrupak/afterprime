@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
 import FaqSchema from "@/lib/schema/faqSchema";
 //####
-export const revalidate = 60;
+export const revalidate = 86400;
 
 interface PageProps {
   params?: { slug?: string };

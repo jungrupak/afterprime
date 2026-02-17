@@ -481,8 +481,11 @@ export default function DollarSavingsCalculator() {
           />
         </div>
         <div className={styles.chartFootnote}>
-          Source: <a href='https://www.forexbenchmark.com' target='_blank'><u>ForexBenchmark</u></a> - Previous 7 Days Range | All Pairs | Incl.
-          Commissions + Spreads
+          Source:{" "}
+          <a href="https://www.forexbenchmark.com" target="_blank">
+            <u>ForexBenchmark</u>
+          </a>{" "}
+          - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads
           {/* Day session 04:00–22:00. Past averages don&apos;t guarantee future
             outcomes. */}
         </div>
