@@ -213,17 +213,6 @@ export default async function ChildPage({ params }: Props) {
         />
       )}
       {/* Page Schema Ends */}
-      {/* FAQ schema */}
-      {faqSchema && (
-        <Script
-          id="faq-schema"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqSchema),
-          }}
-        />
-      )}
-      {/* FAQ schema ends */}
     </>
   );
 }

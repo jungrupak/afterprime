@@ -28,7 +28,6 @@ export default async function DynamicPage({ params }: Props) {
   const pageData = await getWpPagedata(pageSlug);
   return (
     <>
-      <FaqSchema pageSlug={pageSlug} />
       <PageRenderer pageData={pageData} />
     </>
   );

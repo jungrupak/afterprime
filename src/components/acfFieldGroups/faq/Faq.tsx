@@ -14,6 +14,25 @@ export default function Faq(props: FaqProps) {
     answer: item?.answer || "No answer provided",
   }));
 
+  // ### FAQ Schema Read
+  const FAQ_SCHEMA =
+    accordionItems && accordionItems.length
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: accordionItems.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer,
+            },
+          })),
+        }
+      : null;
+
+  // ### FAQ Schema Read Ends
+
   return (
     <>
       {ssection_title && (
@@ -29,6 +48,13 @@ export default function Faq(props: FaqProps) {
           </div>
         </section>
       )}
+      {/*  */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(FAQ_SCHEMA),
+        }}
+      />
     </>
   );
 }
