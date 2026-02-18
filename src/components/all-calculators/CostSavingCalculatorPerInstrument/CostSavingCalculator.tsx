@@ -369,7 +369,7 @@ export default function CostSavingsCalculatorInstrument({
       {/* Left: Calculator */}
       <div className={styles.calculator}>
         <div className={styles.calcHeader}>
-          <div className={styles.calcTitle}>Your Savings Calculator</div>
+          <div className={styles.calcTitle}>{instrument.toUpperCase()} Savings Calculator</div>
           <span className={styles.badge}>ForexBenchmark verified</span>
         </div>
 
@@ -454,7 +454,7 @@ export default function CostSavingsCalculatorInstrument({
 
         <div className={styles.results}>
           <div className={styles.headline}>
-            Trading {lots} lots / month saves ${moSave.toFixed(2)} monthly vs{" "}
+            Trading {instrument.toUpperCase()} {lots} lots/month saves ${moSave.toFixed(2)} monthly vs{" "}
             {selectedBroker}.
           </div>
           <div className={styles.subline}>
@@ -504,7 +504,7 @@ export default function CostSavingsCalculatorInstrument({
           <a href="https://www.forexbenchmark.com" target="_blank">
             <u>ForexBenchmark</u>
           </a>{" "}
-          - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads
+          - Previous 7 Days Range | {instrument.toUpperCase()} Pair | Incl. Commissions + Spreads
           {/* Day session 04:00–22:00. Past averages don&apos;t guarantee future
             outcomes. */}
         </div>
