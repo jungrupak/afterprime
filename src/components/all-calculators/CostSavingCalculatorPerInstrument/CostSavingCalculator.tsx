@@ -481,7 +481,7 @@ export default function CostSavingsCalculatorInstrument({
           <div>
             <div className={styles.chartTitle}>Monthly Total Cost</div>
             <div className={styles.chartSubtitle}>
-              Bars show total trading cost for your selected lots per month.
+              Bars show total cost trading {instrument.toUpperCase()} {lots} {lots === 1 ? 'lot' : 'lots'}/per month.
             </div>
           </div>
           <button
