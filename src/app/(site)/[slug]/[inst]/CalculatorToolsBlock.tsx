@@ -35,12 +35,12 @@ export default function CalculatorToolsBlock({
     <>
       <h2>Run the Numbers Yourself</h2>
       <p>
-        Use Afterprime’s professional calculators to model position sizing,
+        Use Afterprime’s professional <a href="/calculators"><u>trading calculators</u></a> to model position sizing,
         margin requirements, swap impact, and true trading cost for{" "}
         {instrumentSlug}.
       </p>
       <p>
-        <strong>Available tools:</strong>
+        <strong>Available Calculators</strong>
       </p>
       <div className={`grid md:grid-cols-5 gap-5 mb-[clamp(25px_,5vw_,40px)]`}>
         {calCardData.map((item, index) => (
