@@ -106,6 +106,7 @@ export default function CostBreakdownTable({ instrument }: Breakdown) {
           </tr>
         </tbody>
       </table>
+      <br/><h2>{data.instrument_name} Flow Rewards<sup>TM</sup></h2>
     </div>
   );
 }
