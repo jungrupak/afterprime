@@ -12,6 +12,8 @@ import Cta from "@/components/instrument-lps/cta/Cta";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import TradingGlossary from "@/components/TradingGlossary/TradingGlossary";
 import Author from "@/components/AuthorForInstrumentPage/Author";
+import DollarSavingsCalculator from "@/components/all-calculators/CostSavingCalculator/CostSavingCalculator";
+import CostSavingsCalculatorInstrument from "@/components/all-calculators/CostSavingCalculatorPerInstrument/CostSavingCalculator";
 
 // ISR
 export const revalidate = 60;
@@ -31,6 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${inst.toUpperCase()} Forex Pair Overview and Trading with Afterprime`,
     description: `See how the ${inst.toUpperCase()} forex pair moves, what drives its price and how Afterprime supports ${inst.toUpperCase()} trading with low costs, deep liquidity and pro tools.`,
+    alternates: {
+      canonical: `https://afterprime.com/forex/${inst}`,
+    },
   };
 }
 
@@ -50,6 +55,7 @@ export default async function ChildPage({ params }: Props) {
   if (!data.parent) notFound();
 
   const parent = await wpFetch<WPPage>(`/pages/${data.parent}?_fields=slug`); // this line is asking parent ID's slug
+
   if (!parent || parent.slug !== slug) {
     notFound();
   }
@@ -89,6 +95,7 @@ export default async function ChildPage({ params }: Props) {
       : null;
 
   // Ends FAQ schema
+  //  console.log("faq schema", faqSchema);
 
   if (!inst) {
     notFound();
@@ -143,6 +150,10 @@ export default async function ChildPage({ params }: Props) {
         <section className={`compact-section`}>
           <div className="grainy_bg"></div>
           <div className="ap_container_small">
+            {/* Cost Saving Calculator */}
+            <CostSavingsCalculatorInstrument instrument={inst} />
+            {/* Cost Saving Calculator Ends */}
+
             <div className={`${styles.pageEditorContent}`}>
               {pageBuilder.map(renderSection)}
             </div>

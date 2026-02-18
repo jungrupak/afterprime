@@ -20,7 +20,7 @@ export default function TradingGlossary({
   const schemaData = glossaryBlockData;
 
   //FAQ schema##
-  const faqSchema =
+  const glossarySchema =
     schemaData && schemaData.length
       ? {
           "@context": "https://schema.org",
@@ -64,12 +64,12 @@ export default function TradingGlossary({
         </ul>
       </div>
       {/* FAQ schema */}
-      {schemaData && (
+      {glossarySchema && (
         <Script
           id="faq-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(schemaData),
+            __html: JSON.stringify(glossarySchema),
           }}
         />
       )}
