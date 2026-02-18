@@ -76,8 +76,8 @@ export default function CostComparison({ instrument }: { instrument: string }) {
       ? {
           "@context": "https://schema.org",
           "@type": "Dataset",
-          name: `${instrument} Cost Comparison`,
-          description: `Instrument specific comparison of ${instrument} trading costs across major FX brokers.`,
+          name: `${instrument.toUpperCase()} Cost Comparison`,
+          description: `Instrument specific comparison of ${instrument.toUpperCase()} trading costs across major FX brokers.`,
           creator: {
             "@type": "Organization",
             name: "Afterprime",
@@ -311,7 +311,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
           </div>
 
           <div className="mt-4 text-center font-bold">
-            The Lowest {instrument} Cost Broker is {lowestBrokerName} at $
+            The Lowest {instrument.toUpperCase()} Cost Broker is {lowestBrokerName} at $
             {lowestNetCostValue.toFixed(2)}/lot round turn.
           </div>
 
