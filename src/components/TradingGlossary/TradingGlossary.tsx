@@ -21,23 +21,24 @@ export default function TradingGlossary({
 
   //FAQ schema##
   const glossarySchema =
-    schemaData && schemaData.length
+    Array.isArray(schemaData) && schemaData.length > 0
       ? {
           "@context": "https://schema.org",
           "@type": "DefinedTermSet",
-          name: `${instrument.toUpperCase()} Trading Glossary`,
-          url: `https://afterprime.com/forex/${instrument.toLowerCase()}`,
-          hasDefinedTerm: schemaData.map((term) => ({
-            "@type": "DefinedTerm",
-            name: term.title,
-            description: term.paragraph,
-            termCode: term.title,
-            inDefinedTermSet: {
-              "@type": "DefinedTermSet",
-              name: `${instrument.toUpperCase()} Trading Glossary`,
-              url: `https://afterprime.com/forex/${instrument.toLowerCase()}`,
-            },
-          })),
+          "@id": `https://afterprime.com/forex/${instrument?.toLowerCase()}#glossary`,
+          name: `${instrument?.toUpperCase()} Trading Glossary`,
+          url: `https://afterprime.com/forex/${instrument?.toLowerCase()}`,
+          hasDefinedTerm: schemaData
+            .filter((term) => term?.title && term?.paragraph) // remove invalid items
+            .map((term) => ({
+              "@type": "DefinedTerm",
+              "@id": `https://afterprime.com/forex/${instrument?.toLowerCase()}#${term.title
+                .toLowerCase()
+                .replace(/\s+/g, "-")}`,
+              name: term.title,
+              description: term.paragraph,
+              termCode: term.title.toLowerCase().replace(/\s+/g, "-"),
+            })),
         }
       : null;
 

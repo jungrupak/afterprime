@@ -33,7 +33,6 @@ export default async function HomePage({ params }: PageProps) {
 
   return (
     <>
-      <FaqSchema pageSlug={frontPageSlug} />
       <PageRenderer pageData={pageData} />
     </>
   );
