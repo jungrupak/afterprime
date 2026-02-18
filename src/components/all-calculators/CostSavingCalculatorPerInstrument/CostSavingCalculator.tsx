@@ -454,7 +454,7 @@ export default function CostSavingsCalculatorInstrument({
 
         <div className={styles.results}>
           <div className={styles.headline}>
-            Trading {instrument.toUpperCase()} {lots} lots/month saves ${moSave.toFixed(2)} monthly vs{" "}
+            {instrument.toUpperCase()} {lots} {lots === 1 ? 'lot' : 'lots'}/month saves ${moSave.toFixed(2)} monthly vs{" "}
             {selectedBroker}.
           </div>
           <div className={styles.subline}>
