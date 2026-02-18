@@ -34,9 +34,7 @@ export async function getBrokerCompareData(
     const res = await fetch(
       `https://feed.afterprime.com/api/symbol/${symbol}`,
       {
-        cache: "force-cache", // reuse cached data
-        next: { revalidate: 86400 }, // revalidate cache every 2 min
-        
+        next: { revalidate: 43200 }, // revalidate cache every 12 hrs       
       }
     );
 

@@ -6,7 +6,7 @@ export async function fetchSeoFieldData(slug: string) {
         headers: {
           Accept: "application/json",
         },
-        next: { revalidate: 86400 }, // 🔥 important
+        next: { revalidate: 800 }, // 🔥 important
       }
     );
 
