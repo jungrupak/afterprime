@@ -77,18 +77,30 @@ export default async function TradeSlugPage({ params }: PageProps) {
   return (
     <>
       <LPBanner instrument={page.slug} />
-      <CostComparison instrument={page.slug} />
-      {/* <GoogleReview /> */}
 
-      <FlowRewardIntro
-        content={flowRewardContent}
-        rationalData={rationalData}
-      />
-      <CostBreakdown instrument={page.slug} />
-      <Faq data={customFieldFaqBlock} faqSubject="FAQ" instrument={page.slug} />
-      <Cta />
-      <CostCalculator instrument={page.slug.toUpperCase()} />
-      <ProductSpecification instrument={page.slug.toUpperCase()} />
+      <section className={`compact-section pt-[0.5px]!`}>
+        {/* grain bg effect */}
+        <div className="grainy_bg"></div>
+        {/* grain bg effect */}
+        <div className="ap_container_small">
+          <CostComparison instrument={page.slug} />
+          {/* <GoogleReview /> */}
+
+          <FlowRewardIntro
+            content={flowRewardContent}
+            rationalData={rationalData}
+          />
+          <CostBreakdown instrument={page.slug} />
+          <Faq
+            data={customFieldFaqBlock}
+            faqSubject="FAQ"
+            instrument={page.slug}
+          />
+          <Cta />
+          <CostCalculator instrument={page.slug.toUpperCase()} />
+          <ProductSpecification instrument={page.slug.toUpperCase()} />
+        </div>
+      </section>
     </>
   );
 }

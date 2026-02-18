@@ -24,6 +24,7 @@ export default function SpecificationTable({ instrument }: Specification) {
 
   return (
     <div className={`table-wrapper mb-4 md:mb-10`}>
+      <h2>Afterprime Product Specs for {instrument}</h2>
       <table cellPadding={"0"} cellSpacing={"0"} border={0} className={`m-0!`}>
         <tbody>
           {selectedInstrument &&

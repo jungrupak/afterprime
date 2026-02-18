@@ -65,6 +65,7 @@
   h6 {
     margin-bottom: clamp(20px, 5vw, 30px);
     line-height: 1.1;
+    scroll-margin-top: 100px !important;
   }
   h3,
   h4 {
@@ -81,11 +82,20 @@
     font-size: clamp(18px, 5vw, 20px);
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.8);
-    &:not(:last-child) {
-      margin-bottom: clamp(20px, 5vw, 30px);
-    }
+    margin-bottom: clamp(20px, 5vw, 30px);
+
     @media all and (max-width: 767px) {
       line-height: 1.4;
+    }
+  }
+  > div {
+    scroll-margin-top: 100px !important;
+    &:last-child {
+      p {
+        &:not(:last-child) {
+          margin-bottom: clamp(20px, 5vw, 30px);
+        }
+      }
     }
   }
 

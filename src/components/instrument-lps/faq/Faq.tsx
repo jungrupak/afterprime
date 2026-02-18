@@ -176,21 +176,14 @@ export default function Faq({
   //FAQ Schema Data Ends
 
   return (
-    <>
-      <section className={`${styles.faq_section} compact-section`}>
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
-        <div className="ap_container_small">
-          <div className={`${styles.faq_block}`}>
-            <h2 className="text-[34px] font-[700] mb-10">{faqSubject}</h2>
-            {/* Fixed Questions */}
-            <Accordion faqObjects={fixedFaqs} />
-            {/* Fixed Questions ends*/}
-            {/* <Accordion faqObjects={data} /> */}
-          </div>
-        </div>
-      </section>
+    <div className={`my-8 md:my-20`}>
+      <div className={`${styles.faq_block}`}>
+        <h2 className="text-[34px] font-[700] mb-10">{faqSubject}</h2>
+        {/* Fixed Questions */}
+        <Accordion faqObjects={fixedFaqs} />
+        {/* Fixed Questions ends*/}
+        {/* <Accordion faqObjects={data} /> */}
+      </div>
       {/* //render data comparison schema */}
       {schemaFaq && (
         <script
@@ -200,6 +193,6 @@ export default function Faq({
           }}
         />
       )}
-    </>
+    </div>
   );
 }

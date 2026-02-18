@@ -28,67 +28,61 @@ export default function ProductSpecification({ instrument }: Specification) {
   //####
 
   return (
-    <section className={`compact-section`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
+    <div className={`my-8 md:my-20 mb-0!`}>
+      <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
+        {instrument} Trading Specification
+      </h2>
+      <div className={`${styles.costBreakDownTable}`}>
+        <SpecificationTable instrument={instrument} />
+      </div>
 
-      <div className={`ap_container_small relative z-1 w-full`}>
-        <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
-          {instrument} Trading Specification
-        </h2>
-        <div className={`${styles.costBreakDownTable}`}>
-          <SpecificationTable instrument={instrument} />
-        </div>
-
-        <div className={`mt-15`}>
-          <h3 className={`font-bold text-[clamp(18px,5vw,24px)] mb-2`}>
-            Trade connected FX pairs
-          </h3>
-          <p className={`opacity-80`}>
-            Afterprime's trading environment gives you complete cost
-            transparency. Every {instrument} quote displays{" "}
-            <Link href={"/live-spreads"} className={`underline`}>
-              real-time spread pricing
-            </Link>
-            , no hidden markups, no commission surprises. Use the integrated
-            calculator to{" "}
+      <div className={`mt-15`}>
+        <h3 className={`font-bold text-[clamp(18px,5vw,24px)] mb-2`}>
+          Trade connected FX pairs
+        </h3>
+        <p className={`opacity-80`}>
+          Afterprime's trading environment gives you complete cost transparency.
+          Every {instrument} quote displays{" "}
+          <Link href={"/live-spreads"} className={`underline`}>
+            real-time spread pricing
+          </Link>
+          , no hidden markups, no commission surprises. Use the integrated
+          calculator to{" "}
+          <Link
+            href={"/calculators/cost-savings-calculator"}
+            className={`underline`}
+          >
+            calculate trading costs
+          </Link>{" "}
+          for any position size before you trade. This clarity matters: when
+          spreads are genuinely lower and you're earning Flow Rewards
+          <sup>TM</sup> on every lot, the savings accelerate. {instrument}'s
+          deep liquidity and our structural cost advantage make it the natural
+          choice for both scalpers and position traders. You can{" "}
+          <Link href={"/trade"} className={`underline`}>
+            explore all forex pairs
+          </Link>{" "}
+          with institutional-grade execution or alternatively the{" "}
+          <Link
+            href={"/calculators/position-size-calculator"}
+            className={`underline`}
+          >
+            position sizing for this pair
+          </Link>
+          .
+        </p>
+        <div className={`flex flex-wrap gap-2 mt-4`}>
+          {relatedPairs.map((pair) => (
             <Link
-              href={"/calculators/cost-savings-calculator"}
-              className={`underline`}
+              key={pair.Symbol}
+              href={`/trade/${pair.Symbol.toLowerCase()}`}
+              className={`underline hover:no-underline`}
             >
-              calculate trading costs
-            </Link>{" "}
-            for any position size before you trade. This clarity matters: when
-            spreads are genuinely lower and you're earning Flow Rewards
-            <sup>TM</sup> on every lot, the savings accelerate. {instrument}'s
-            deep liquidity and our structural cost advantage make it the natural
-            choice for both scalpers and position traders. You can{" "}
-            <Link href={"/trade"} className={`underline`}>
-              explore all forex pairs
-            </Link>{" "}
-            with institutional-grade execution or alternatively the{" "}
-            <Link
-              href={"/calculators/position-size-calculator"}
-              className={`underline`}
-            >
-              position sizing for this pair
+              <div className={``}>{pair.Symbol}</div>
             </Link>
-            .
-          </p>
-          <div className={`flex flex-wrap gap-2 mt-4`}>
-            {relatedPairs.map((pair) => (
-              <Link
-                key={pair.Symbol}
-                href={`/trade/${pair.Symbol.toLowerCase()}`}
-                className={`underline hover:no-underline`}
-              >
-                <div className={``}>{pair.Symbol}</div>
-              </Link>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
