@@ -952,3 +952,18 @@ section {
   padding: 24px;
   font-size: 14px !important;
 }
+
+//Table of content##
+.table-of-contents {
+  padding: 20px;
+  border: solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  ul {
+    li {
+      margin-bottom: 10px !important;
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+}
