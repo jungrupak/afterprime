@@ -14,6 +14,7 @@ import TradingGlossary from "@/components/TradingGlossary/TradingGlossary";
 import Author from "@/components/AuthorForInstrumentPage/Author";
 import DollarSavingsCalculator from "@/components/all-calculators/CostSavingCalculator/CostSavingCalculator";
 import CostSavingsCalculatorInstrument from "@/components/all-calculators/CostSavingCalculatorPerInstrument/CostSavingCalculator";
+import CostBreakdownTable from "@/components/instrument-lps/cost-brakdown/CostBreakdownTable";
 
 // ISR
 export const revalidate = 60;
@@ -150,6 +151,12 @@ export default async function ChildPage({ params }: Props) {
         <section className={`compact-section`}>
           <div className="grainy_bg"></div>
           <div className="ap_container_small">
+            <div className={`mb-5 md:mb-10`}>
+              <h2 className="max-md:leading-[1.2] mb-5!">
+                {inst.toUpperCase()} All-In-Cost
+              </h2>
+              <CostBreakdownTable instrument={inst} />
+            </div>
             {/* Cost Saving Calculator */}
             <CostSavingsCalculatorInstrument instrument={inst} />
             {/* Cost Saving Calculator Ends */}

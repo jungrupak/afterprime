@@ -45,10 +45,12 @@ export default function InstrumentKeyBenifits({
               <li>
                 <b>
                   Save $
-                  {((indAvgCostPerLot ?? 0) -
-                    (apCostPerLot ?? 0) -
-                    (rebateUsd ?? 0)) *
-                    100}
+                  {(
+                    ((indAvgCostPerLot ?? 0) -
+                      (apCostPerLot ?? 0) -
+                      (rebateUsd ?? 0)) *
+                    100
+                  ).toFixed(2)}
                 </b>{" "}
                 per 100 lots vs Industry Average
               </li>

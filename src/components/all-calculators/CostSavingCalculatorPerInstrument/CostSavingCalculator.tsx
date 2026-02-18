@@ -136,6 +136,10 @@ export default function CostSavingsCalculatorInstrument({
     fetchCostData();
   }, []);
 
+  //Flow Reward by Afterprime
+  const flowReward = data?.rebate?.rebate_usd_per_lot ?? 0;
+  //Ends
+
   const formatUSD = (value: number): string => {
     return value.toLocaleString(undefined, {
       style: "currency",
@@ -155,7 +159,7 @@ export default function CostSavingsCalculatorInstrument({
     lots: number,
     brokerName: string,
   ): MonthlyTotals => {
-    const ap: number = getBrokerCost("Afterprime") * lots;
+    const ap: number = getBrokerCost("Afterprime") * lots - flowReward;
     const top10: number = getBrokerCost("Top 10 Avg") * lots;
     const indAvg: number = getBrokerCost("Industry Avg") * lots;
     const bro: number = getBrokerCost(brokerName) * lots;
@@ -369,7 +373,9 @@ export default function CostSavingsCalculatorInstrument({
       {/* Left: Calculator */}
       <div className={styles.calculator}>
         <div className={styles.calcHeader}>
-          <div className={styles.calcTitle}>{instrument.toUpperCase()} Savings Calculator</div>
+          <div className={styles.calcTitle}>
+            {instrument.toUpperCase()} Savings Calculator
+          </div>
           <span className={styles.badge}>ForexBenchmark verified</span>
         </div>
 
@@ -454,8 +460,8 @@ export default function CostSavingsCalculatorInstrument({
 
         <div className={styles.results}>
           <div className={styles.headline}>
-            {instrument.toUpperCase()} {lots} {lots === 1 ? 'lot' : 'lots'}/month saves ${moSave.toFixed(2)} monthly vs{" "}
-            {selectedBroker}.
+            {instrument.toUpperCase()} {lots} {lots === 1 ? "lot" : "lots"}
+            /month saves ${moSave.toFixed(2)} monthly vs {selectedBroker}.
           </div>
           <div className={styles.subline}>
             ${(totSave * 12).toFixed(2)} annually. Graph shows monthly total
@@ -504,7 +510,8 @@ export default function CostSavingsCalculatorInstrument({
           <a href="https://www.forexbenchmark.com" target="_blank">
             <u>ForexBenchmark</u>
           </a>{" "}
-          - Previous 7 Days Range | {instrument.toUpperCase()} Pair | Incl. Commissions + Spreads
+          - Previous 7 Days Range | {instrument.toUpperCase()} Pair | Incl.
+          Commissions + Spreads
           {/* Day session 04:00–22:00. Past averages don&apos;t guarantee future
             outcomes. */}
         </div>
