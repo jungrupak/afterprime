@@ -15,7 +15,7 @@ export async function wpFetch<T>(endpoint: string): Promise<T | null> {
 
   try {
     const res = await fetch(url, {
-      cache: "no-store",
+      next: { revalidate: 60 },
       headers: {
         Accept: "application/json",
         "User-Agent": "Next.js Server Fetch",
