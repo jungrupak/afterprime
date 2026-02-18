@@ -58,15 +58,15 @@ interface MonthlyTotals {
 
 const SPECIAL_BROKERS = new Set([
   "Afterprime",
-  "Second Best",
+  "Darwinex",
   "Top 10 Avg",
   "Industry Avg",
 ]);
-const BENCHMARK_BROKERS = ["Second Best", "Top 10 Avg", "Industry Avg"];
+const BENCHMARK_BROKERS = ["Top 10 Avg", "Industry Avg", "Second Best"];
 
 export default function DollarSavingsCalculator() {
   const [lots, setLots] = useState<number>(250);
-  const [selectedBroker, setSelectedBroker] = useState<string>("Industry Avg");
+  const [selectedBroker, setSelectedBroker] = useState<string>("Top 10 Avg");
   const [brokersData, setBrokersData] = useState<BrokerData[]>([]);
   const [brokerList, setBrokerList] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -149,7 +149,7 @@ export default function DollarSavingsCalculator() {
     lots,
     selectedBroker,
   );
-  const secondBest: number = getBrokerCost("Second Best") * lots;
+  const secondBest: number = getBrokerCost("Darwinex") * lots;
   const moSave: number = Math.max(0, bro - ap);
   const totSave: number = moSave;
 
@@ -199,7 +199,7 @@ export default function DollarSavingsCalculator() {
     selectedBroker !== "Afterprime";
   const compareBar: ChartBarData = shouldShowSelectedBroker
     ? { label: selectedBroker, value: bro, color: "#3b82f6" }
-    : { label: "Second Best", value: secondBest, color: "#3b82f6" };
+    : { label: "Darwinex", value: secondBest, color: "#3b82f6" };
   const bars: ChartBarData[] = shouldShowSelectedBroker
     ? [
         { label: "Afterprime", value: ap, color: "#22c55e" },
