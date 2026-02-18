@@ -3,6 +3,18 @@ import SpecificationTable from "@/components/instrument-lps/product-specificatio
 // import CostBreakdown from "@/components/instrument-lps/cost-brakdown/CostBreakdown";
 import CostBreakdownTable from "@/components/instrument-lps/cost-brakdown/CostBreakdownTable";
 import CalculatorToolsBlock from "@/app/(site)/[slug]/[inst]/CalculatorToolsBlock";
+import CostComparison from "@/components/instrument-lps/cost-comparison/CostComparison";
+import CostSavingsCalculatorInstrument from "@/components/all-calculators/CostSavingCalculatorPerInstrument/CostSavingCalculator";
+
+interface ComparisonTable {
+  acf_fc_layout: "comparison_table";
+  instrument: string;
+}
+
+interface CostSavingClc {
+  acf_fc_layout: "cost_saving_calculator";
+  instrument: string;
+}
 
 interface TextBlockSection {
   acf_fc_layout: "text_block";
@@ -25,6 +37,8 @@ interface CalculatorTools {
 }
 
 type PageBuilderSection =
+  | ComparisonTable
+  | CostSavingClc
   | TextBlockSection
   | ProductSpecSection
   | CostBreakdownBlock
@@ -36,6 +50,28 @@ export function renderSection(
   slug?: string,
 ): React.ReactNode {
   switch (section.acf_fc_layout) {
+    case "comparison_table":
+      return (
+        <div id="cost-comparison" key={index}>
+          <CostComparison
+            instrument={section.instrument?.toLowerCase() ?? ""}
+          />
+        </div>
+      );
+
+    case "cost_saving_calculator":
+      return (
+        <div
+          id="cost-saving-calculator"
+          key={index}
+          className={`my-8 md:my-20`}
+        >
+          <CostSavingsCalculatorInstrument
+            instrument={section.instrument?.toLowerCase() ?? ""}
+          />
+        </div>
+      );
+
     case "text_block":
       return (
         <div
@@ -46,7 +82,7 @@ export function renderSection(
 
     case "product_spec":
       return (
-        <div key={index}>
+        <div id="product-specification" key={index}>
           <SpecificationTable
             instrument={section.instrument_name?.toUpperCase() ?? ""}
           />
@@ -55,14 +91,18 @@ export function renderSection(
 
     case "cost_breakdown":
       return (
-        <div key={index}>
+        <div key={index} id="const-breakdown-table">
+          <h2 className="max-md:leading-[1.2] mb-5! md:mb-10!">
+            {section.instrument ?? ""} All-in-Cost
+            {/* AUDUSD All-in-Cost */}
+          </h2>
           <CostBreakdownTable instrument={section.instrument ?? ""} />
         </div>
       );
 
     case "calculator_tools":
       return (
-        <div key={index}>
+        <div key={index} id="calculator-tools">
           <CalculatorToolsBlock instrumentSlug={section.instrument ?? ""} />
         </div>
       );

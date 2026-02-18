@@ -8,21 +8,18 @@ interface Props {
 
 export default function CostCalculator({ instrument }: Props) {
   return (
-    <section className={`compact-section`}>
-      <div className="grainy_bg"></div>
-      <div className={`ap_container_small`}>
-        <h2 className={`md:mb-5!`}>{instrument} Trade Cost Calculator</h2>
-        <p className={`paragraph mb-10 md:mb-15!`}>
-          Use calculator to model {instrument} trading costs across volume
-          assumption, spread inputs and swaps.
-        </p>
-        <div className={`relative z-4!`}>
-          <TradingCalculator selectedInstrument={instrument} />
-        </div>
-        <p className={`max-md:mt-4`}>
-          This tool is intended for cost modeling only.
-        </p>
+    <div className={`my-8 md:my-20 z-6`}>
+      <h2 className={`md:mb-5!`}>{instrument} Trade Cost Calculator</h2>
+      <p className={`paragraph mb-10 md:mb-15!`}>
+        Use calculator to model {instrument} trading costs across volume
+        assumption, spread inputs and swaps.
+      </p>
+      <div className={`relative z-4!`}>
+        <TradingCalculator selectedInstrument={instrument} />
       </div>
-    </section>
+      <p className={`max-md:mt-4`}>
+        This tool is intended for cost modeling only.
+      </p>
+    </div>
   );
 }

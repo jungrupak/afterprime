@@ -28,26 +28,21 @@ export default function FlowRewardIntro({
   ).filter(Boolean) as string[];
 
   return (
-    <section className={`compact-section`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
-      <div className={`ap_container_small relative z-1 w-full`}>
-        <h2
-          dangerouslySetInnerHTML={{ __html: content.heading || "" }}
-          className={`leading-[1.1]`}
-        />
-        <p
-          className={`paragraph`}
-          dangerouslySetInnerHTML={{
-            __html: `${content.paragraph || ""}`,
-          }}
-        />
-        <div className={`mt-10 md:mt-15`}>
-          <h2 className={`leading-[1.1]`}>Execution Quality</h2>
-          <Lists listItems={executionQualityItems} />
-        </div>
+    <div className="my-8 md:my-20">
+      <h2
+        dangerouslySetInnerHTML={{ __html: content.heading || "" }}
+        className={`leading-[1.1]`}
+      />
+      <p
+        className={`paragraph`}
+        dangerouslySetInnerHTML={{
+          __html: `${content.paragraph || ""}`,
+        }}
+      />
+      <div className={`mt-10 md:mt-15`}>
+        <h2 className={`leading-[1.1]`}>Execution Quality</h2>
+        <Lists listItems={executionQualityItems} />
       </div>
-    </section>
+    </div>
   );
 }

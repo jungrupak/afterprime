@@ -4,7 +4,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import styles from "./Page.module.scss";
 import getSymbolSinglePageData from "@/lib/getSymbolSinglePageData";
-import CostComparison from "@/components/instrument-lps/cost-comparison/CostComparison";
 import InstrumentKeyBenifits from "@/components/instrument-key-benifits/InstrumentKeyBenifits";
 import { renderSection } from "@/lib/flexibleContentMap";
 import Script from "next/script";
@@ -12,7 +11,6 @@ import Cta from "@/components/instrument-lps/cta/Cta";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import TradingGlossary from "@/components/TradingGlossary/TradingGlossary";
 import Author from "@/components/AuthorForInstrumentPage/Author";
-import DollarSavingsCalculator from "@/components/all-calculators/CostSavingCalculator/CostSavingCalculator";
 import CostSavingsCalculatorInstrument from "@/components/all-calculators/CostSavingCalculatorPerInstrument/CostSavingCalculator";
 import CostBreakdownTable from "@/components/instrument-lps/cost-brakdown/CostBreakdownTable";
 
@@ -73,30 +71,6 @@ export default async function ChildPage({ params }: Props) {
   //Glossary Data
   const glossaryData =
     data?.acf?.instrument_single_page_fields?.glossary_content_block;
-  //FAQ schema##
-  const faqSchema =
-    faqData && faqData.length
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faqData
-            .filter(
-              (item: { question: string; answer: string }) =>
-                item.question && item.answer,
-            )
-            .map((item: { question: string; answer: string }) => ({
-              "@type": "Question",
-              name: item.question.replace(/(<([^>]+)>)/gi, ""),
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: item.answer.replace(/(<([^>]+)>)/gi, ""),
-              },
-            })),
-        }
-      : null;
-
-  // Ends FAQ schema
-  //  console.log("faq schema", faqSchema);
 
   if (!inst) {
     notFound();
@@ -142,25 +116,11 @@ export default async function ChildPage({ params }: Props) {
       </section>
       {/* Key Advantages */}
 
-      {/* Cost Comparision */}
-      <CostComparison instrument={inst} />
-      {/* Cost Comparision */}
-
       {/* Page Contents */}
       {pageBuilder && (
         <section className={`compact-section`}>
           <div className="grainy_bg"></div>
           <div className="ap_container_small">
-            <div className={`mb-5 md:mb-10`}>
-              <h2 className="max-md:leading-[1.2] mb-5!">
-                {inst.toUpperCase()} All-In-Cost
-              </h2>
-              <CostBreakdownTable instrument={inst} />
-            </div>
-            {/* Cost Saving Calculator */}
-            <CostSavingsCalculatorInstrument instrument={inst} />
-            {/* Cost Saving Calculator Ends */}
-
             <div className={`${styles.pageEditorContent}`}>
               {pageBuilder.map(renderSection)}
             </div>
@@ -171,7 +131,7 @@ export default async function ChildPage({ params }: Props) {
 
       {/* Trading Glossary page */}
 
-      <section className={`compact-section`}>
+      <section id="trading-glossaries" className={`compact-section`}>
         <div className="grainy_bg"></div>
         <div className="ap_container_small">
           {glossaryData && (
