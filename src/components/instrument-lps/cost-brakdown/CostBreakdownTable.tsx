@@ -106,9 +106,6 @@ export default function CostBreakdownTable({ instrument }: Breakdown) {
           </tr>
         </tbody>
       </table>
-      <div className={`opacity-65`}>
-        {data.instrument_name} Flow Rewards<sup>TM</sup>
-      </div>
     </div>
   );
 }
