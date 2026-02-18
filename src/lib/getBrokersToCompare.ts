@@ -19,6 +19,7 @@ interface BrokerIndividualDataType {
     effective_from?: string;
     effective_to?: string;
   };
+  instrument_name:string;
   //sometimes shows error on endpoint
   error?:string;
   symbol?:string;
