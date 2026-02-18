@@ -33,8 +33,8 @@ export default function SectionMarginCallOut() {
     },
     {
       assetsClass: "Traderevolution (All classes)",
-      marginCall: "100%",
-      levels: "120%",
+      marginCall: "83%",
+      levels: "125%",
     },
   ];
   //Ends
