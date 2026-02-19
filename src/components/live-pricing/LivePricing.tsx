@@ -40,7 +40,8 @@ export function LivePricingAll() {
           Keep More, <span>Earn More.</span>
         </h2>
         <p className="paragraph max-w-2xl mx-auto mb-20 max-md:mb-10 opacity-90">
-          Lowest verified all-in costs worldwide + Flow Rewards<sup>TM</sup> up to $3/lot on every trade.
+          Lowest verified all-in costs worldwide + Flow Rewards<sup>TM</sup> up
+          to $3/lot on every trade.
         </p>
       </div>
 
@@ -81,8 +82,8 @@ export function LivePricingAll() {
                       .filter(
                         (item) =>
                           !["CA60", "SA40", "NOR25", "XCUUSD"].includes(
-                            item.symbol
-                          )
+                            item.symbol,
+                          ),
                       )
                       .map((item, index) => (
                         <tr key={index} className="">
@@ -158,7 +159,13 @@ export function LivePricingAll() {
               </div>
             )}
           </div>
-        <p className="opacity-80">Ready to compare? <a href="/calculators/cost-savings-calculator"><u>Calculate your trading costs</u></a> across your typical trading volume to see the total savings.</p>
+          <p className="opacity-80 mt-5">
+            Ready to compare?{" "}
+            <a href="/calculators/cost-savings-calculator">
+              <u>Calculate your trading costs</u>
+            </a>{" "}
+            across your typical trading volume to see the total savings.
+          </p>
         </div>
       )}
 
