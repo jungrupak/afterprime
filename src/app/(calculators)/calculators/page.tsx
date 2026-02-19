@@ -257,16 +257,6 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
           }}
         />
       )}
-
-      {/* FAQ schema */}
-      {faqSchema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqSchema),
-          }}
-        />
-      )}
     </>
   );
 }

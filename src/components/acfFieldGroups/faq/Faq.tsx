@@ -56,12 +56,14 @@ export default function Faq(props: FaqProps) {
         </section>
       )}
       {/*  */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(FAQ_SCHEMA),
-        }}
-      />
+      {FAQ_SCHEMA && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(FAQ_SCHEMA),
+          }}
+        />
+      )}
     </>
   );
 }
