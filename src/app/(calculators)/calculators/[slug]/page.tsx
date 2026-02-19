@@ -138,7 +138,7 @@ export default async function Page({ params }: PageSlug) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(pageSchema),
+            __html: pageSchema,
           }}
         />
       )}

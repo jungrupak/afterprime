@@ -118,27 +118,6 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
     `Use the <b>Swap Calculator</b> for overnight hold strategies`,
   ];
 
-  const faqSchema =
-    faqData && faqData.length
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faqData
-            .filter(
-              (item: { question: string; answer: string }) =>
-                item.question && item.answer,
-            )
-            .map((item: { question: string; answer: string }) => ({
-              "@type": "Question",
-              name: item.question.replace(/(<([^>]+)>)/gi, ""),
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: item.answer.replace(/(<([^>]+)>)/gi, ""),
-              },
-            })),
-        }
-      : null;
-
   return (
     <>
       {/* Banner Section */}
