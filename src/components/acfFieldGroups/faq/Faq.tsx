@@ -14,6 +14,13 @@ export default function Faq(props: FaqProps) {
     answer: item?.answer || "No answer provided",
   }));
 
+  const stripHtml = (html?: string | null): string => {
+    if (!html) return "";
+    return html
+      .replace(/<[^>]*>/g, "") // remove tags
+      .replace(/\s+/g, " ") // normalize whitespace
+      .trim();
+  };
   // ### FAQ Schema Read
   const FAQ_SCHEMA =
     accordionItems && accordionItems.length
@@ -25,7 +32,7 @@ export default function Faq(props: FaqProps) {
             name: item.question,
             acceptedAnswer: {
               "@type": "Answer",
-              text: item.answer,
+              text: stripHtml(item.answer),
             },
           })),
         }
