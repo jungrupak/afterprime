@@ -17,8 +17,9 @@ export default function Faq(props: FaqProps) {
   const stripHtml = (html?: string | null): string => {
     if (!html) return "";
     return html
-      .replace(/<[^>]*>/g, "") // remove tags
-      .replace(/\s+/g, " ") // normalize whitespace
+      .replace(/<\/(p|div|li)>/gi, "\n") // replace closing block tags with newline
+      .replace(/<[^>]+>/g, "") // remove remaining tags
+      .replace(/\n+/g, "\n") // collapse multiple newlines
       .trim();
   };
   // ### FAQ Schema Read
@@ -32,7 +33,7 @@ export default function Faq(props: FaqProps) {
             name: item.question,
             acceptedAnswer: {
               "@type": "Answer",
-              text: stripHtml(item.answer),
+              text: item.answer,
             },
           })),
         }

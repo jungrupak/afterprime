@@ -167,7 +167,7 @@ export default async function ChildPage({ params }: Props) {
           id="page-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(pageSchema),
+            __html: pageSchema,
           }}
         />
       )}
