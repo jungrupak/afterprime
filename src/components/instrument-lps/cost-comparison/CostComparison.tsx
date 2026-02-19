@@ -8,6 +8,9 @@ import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
 
 export default function CostComparison({ instrument }: { instrument: string }) {
+  const asFiniteNumber = (value: unknown, fallback = 0) =>
+    typeof value === "number" && Number.isFinite(value) ? value : fallback;
+
   //####
   const { data, isLoading, error } = useQuery({
     queryKey: ["cost-comparison", instrument],
@@ -23,7 +26,8 @@ export default function CostComparison({ instrument }: { instrument: string }) {
   if (data?.rebate === null) return;
   if (!data) return;
 
-  const brokerList = data?.brokers;
+  const brokerList = Array.isArray(data?.brokers) ? data.brokers : [];
+  if (!brokerList.length) return;
   //console.log("data:", brokerList);
   const brokersToPick = [
     "Afterprime",
@@ -38,7 +42,10 @@ export default function CostComparison({ instrument }: { instrument: string }) {
     brokersToPick.includes(item.broker),
   );
 
-  const rebatePerLot = data?.rebate?.rebate_usd_per_lot ?? null;
+  const rebatePerLot =
+    typeof data?.rebate?.rebate_usd_per_lot === "number"
+      ? data.rebate.rebate_usd_per_lot
+      : null;
 
   // After defining pickedBrokersLists and rebatePerLot, calculate the lowest cost broker
   let lowestNetCost = Infinity;
@@ -46,12 +53,13 @@ export default function CostComparison({ instrument }: { instrument: string }) {
   let lowestNetCostValue = 0;
 
   pickedBrokersLists?.forEach((broker) => {
+    const brokerCostPerLot = asFiniteNumber(broker.costPerLot);
     let netCost;
     if (broker.broker === "Afterprime") {
       const rebate = rebatePerLot ?? 0;
-      netCost = broker.costPerLot - rebate;
+      netCost = brokerCostPerLot - rebate;
     } else {
-      netCost = broker.costPerLot;
+      netCost = brokerCostPerLot;
     }
     if (netCost < lowestNetCost) {
       lowestNetCost = netCost;
@@ -122,8 +130,8 @@ export default function CostComparison({ instrument }: { instrument: string }) {
 
             const netCost =
               broker.broker === "Afterprime"
-                ? broker.costPerLot - rebate
-                : broker.costPerLot + commission;
+                ? asFiniteNumber(broker.costPerLot) - rebate
+                : asFiniteNumber(broker.costPerLot) + commission;
 
             return {
               "@type": "Organization",
@@ -133,13 +141,13 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                 {
                   "@type": "PropertyValue",
                   name: "Spread (Incl. Commission)",
-                  value: broker.cost.toFixed(2),
+                  value: asFiniteNumber(broker.cost).toFixed(2),
                   unitText: "USD",
                 },
                 {
                   "@type": "PropertyValue",
                   name: "All-In Cost (Lot Round Turn)",
-                  value: broker.costPerLot.toFixed(2),
+                  value: asFiniteNumber(broker.costPerLot).toFixed(2),
                   unitText: "USD",
                 },
                 ...(broker.broker === "Afterprime"
@@ -161,7 +169,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                 {
                   "@type": "PropertyValue",
                   name: "Savings (vs Afterprime)",
-                  value: broker.savingPercentage,
+                  value: asFiniteNumber(broker.savingPercentage),
                   unitText: "%",
                 },
               ],
@@ -250,14 +258,14 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                   data-label={`Spread (Incl. Commission)`}
                   className={`col-span-1 md:block hidden`}
                 >
-                  {broker.cost.toFixed(2)}
+                  {asFiniteNumber(broker.cost).toFixed(2)}
                 </div>
 
                 <div
                   data-label={`All-In-Cost (Lot Round Turn)`}
                   className={`col-span-1 md:block hidden`}
                 >
-                  ${broker.costPerLot.toFixed(2)}
+                  ${asFiniteNumber(broker.costPerLot).toFixed(2)}
                 </div>
 
                 <div
@@ -281,12 +289,12 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                     // AfterPrime: costPerLot minus rebate
                     if (broker.broker === "Afterprime") {
                       const rebate = rebatePerLot ?? 0;
-                      const allIn = broker.costPerLot - rebate;
+                      const allIn = asFiniteNumber(broker.costPerLot) - rebate;
                       return `$${allIn.toFixed(2)}`;
                     }
 
                     // Other brokers: costPerLot FEED ALREADY INCLUDES COMMISSION
-                    const allIn = broker.costPerLot;
+                    const allIn = asFiniteNumber(broker.costPerLot);
                     return `$${allIn.toFixed(2)}`;
                   })()}
                 </div>
@@ -294,7 +302,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                   data-label={`Savings (vs Afterprime)`}
                   className={`max-md:col-span-2 col-span-1`}
                 >
-                  <b>{broker.savingPercentage}%</b>
+                  <b>{asFiniteNumber(broker.savingPercentage)}%</b>
                 </div>
               </div>
             ))}

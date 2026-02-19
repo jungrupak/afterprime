@@ -1,9 +1,7 @@
 // components/HeadScripts.tsx
 "use client";
-import Head from "next/head";
 import Script from "next/script";
 import React from "react";
-import SchemaData from "@/utils/SchemaData";
 
 export default function HeadScripts() {
   return (
@@ -135,11 +133,6 @@ export default function HeadScripts() {
   `}
       </Script>
 
-      {/* Example: Any additional head meta or script tags */}
-      <Head>
-        <meta name="theme-color" content="#000000" />
-        <SchemaData />
-      </Head>
     </>
   );
 }

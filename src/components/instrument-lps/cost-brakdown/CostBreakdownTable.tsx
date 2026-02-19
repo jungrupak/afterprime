@@ -12,6 +12,8 @@ interface Breakdown {
 
 export default function CostBreakdownTable({ instrument }: Breakdown) {
   if (!instrument) return null;
+  const asFiniteNumber = (value: unknown, fallback = 0) =>
+    typeof value === "number" && Number.isFinite(value) ? value : fallback;
 
   //####
   const { data, isLoading, error } = useQuery({
@@ -27,13 +29,14 @@ export default function CostBreakdownTable({ instrument }: Breakdown) {
   if (data?.industryVsAfterprimeAvgPct === 0) return;
   if (data?.rebate === null) return;
   if (!data) return;
+  if (!Array.isArray(data?.brokers) || data.brokers.length === 0) return;
 
   const afterprimeCost =
-    data?.brokers?.find((b) => b.broker === "Afterprime")?.costPerLot ?? 0;
-  const rebatePerLot = data?.rebate?.rebate_usd_per_lot ?? 0;
+    asFiniteNumber(data.brokers.find((b) => b.broker === "Afterprime")?.costPerLot);
+  const rebatePerLot = asFiniteNumber(data?.rebate?.rebate_usd_per_lot);
 
   const industryAvgCostPerLot =
-    data?.brokers?.find((b) => b.broker === "Industry Avg")?.costPerLot ?? 0;
+    asFiniteNumber(data.brokers.find((b) => b.broker === "Industry Avg")?.costPerLot);
 
   function multiplyAllInCost(item: number, volume: number) {
     const multiply = item * volume;
