@@ -367,6 +367,13 @@ export default function CostSavingsCalculatorInstrument({
   if (data?.rebate === null) return;
 
   return (
+    <>
+    <div className="w-full mb-6">
+      <h2 className="text-5xl font-light">
+        {data.instrument_name} Flow Rewards<sup>TM</sup>
+      </h2>
+    </div>
+
     <div
       className={`max-md:flex max-md:flex-col lg:grid lg:grid-cols-[350px_1fr] w-full gap-5 mb-5 md:mb-10`}
     >
@@ -517,5 +524,6 @@ export default function CostSavingsCalculatorInstrument({
         </div>
       </div>
     </div>
+      </>
   );
 }

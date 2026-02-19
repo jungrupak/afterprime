@@ -9,9 +9,6 @@ export default function CostBreakdown({ instrument }: Breakdown) {
   if (!instrument) return null;
 
   return (
-    <div className={`opacity-65`}>
-      {data.instrument_name} Flow Rewards<sup>TM</sup>
-    </div>
     <div className="my-8 md:my-20">
       <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
         {instrument.toUpperCase()} All-In-Cost
