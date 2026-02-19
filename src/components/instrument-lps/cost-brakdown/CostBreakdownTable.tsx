@@ -41,73 +41,81 @@ export default function CostBreakdownTable({ instrument }: Breakdown) {
   }
 
   return (
-    <div className={`${styles.costBreakDownTable}`}>
-      <table cellPadding={"0"} cellSpacing={"0"} border={0}>
-        <thead>
-          <tr>
-            <th>
-              Volume
-              <br />
-              (Lots)
-            </th>
-            <th className="max-md:hidden">
-              Net Cost
-              <br />
-              (Lot Round Turn)
-            </th>
-            <th>
-              Flow Rewards<sup>TM</sup>
-              <br />
-              (${rebatePerLot.toFixed(2)}/lot)
-            </th>
-            <th>
-              Saved
-              <br />
-              (vs Industry Avg.)
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>50</td>
-            <td className="max-md:hidden">
-              ${(afterprimeCost - rebatePerLot).toFixed(2)}
-            </td>
-            <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
-            <td>
-              <span className="text-[#03C554]!">
-                $ {((industryAvgCostPerLot - afterprimeCost) * 50).toFixed(2)}
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>200</td>
-            <td className="max-md:hidden">
-              ${(afterprimeCost - rebatePerLot).toFixed(2)}
-            </td>
-            <td>${multiplyAllInCost(rebatePerLot, 200)}</td>
-            <td>
-              <span className="text-[#03C554]!">
-                $ {((industryAvgCostPerLot - afterprimeCost) * 200).toFixed(2)}
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>1000</td>
-            <td className="max-md:hidden">
-              ${(afterprimeCost - rebatePerLot).toFixed(2)}
-            </td>
-            <td>${multiplyAllInCost(rebatePerLot, 1000)}</td>
-            <td>
-              <span className="text-[#03C554]!">
-                $ {((industryAvgCostPerLot - afterprimeCost) * 1000).toFixed(2)}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div className={`opacity-65`}>
-        {data.instrument_name} Flow Rewards<sup>TM</sup>
+    <div className="my-8 md:my-20">
+      <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
+        {instrument.toUpperCase()} All-In-Cost
+      </h2>
+      <div className={`${styles.costBreakDownTable}`}>
+        <table cellPadding={"0"} cellSpacing={"0"} border={0}>
+          <thead>
+            <tr>
+              <th>
+                Volume
+                <br />
+                (Lots)
+              </th>
+              <th className="max-md:hidden">
+                Net Cost
+                <br />
+                (Lot Round Turn)
+              </th>
+              <th>
+                Flow Rewards<sup>TM</sup>
+                <br />
+                (${rebatePerLot.toFixed(2)}/lot)
+              </th>
+              <th>
+                Saved
+                <br />
+                (vs Industry Avg.)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>50</td>
+              <td className="max-md:hidden">
+                ${(afterprimeCost - rebatePerLot).toFixed(2)}
+              </td>
+              <td>${multiplyAllInCost(rebatePerLot, 50)}</td>
+              <td>
+                <span className="text-[#03C554]!">
+                  $ {((industryAvgCostPerLot - afterprimeCost) * 50).toFixed(2)}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>200</td>
+              <td className="max-md:hidden">
+                ${(afterprimeCost - rebatePerLot).toFixed(2)}
+              </td>
+              <td>${multiplyAllInCost(rebatePerLot, 200)}</td>
+              <td>
+                <span className="text-[#03C554]!">
+                  ${" "}
+                  {((industryAvgCostPerLot - afterprimeCost) * 200).toFixed(2)}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>1000</td>
+              <td className="max-md:hidden">
+                ${(afterprimeCost - rebatePerLot).toFixed(2)}
+              </td>
+              <td>${multiplyAllInCost(rebatePerLot, 1000)}</td>
+              <td>
+                <span className="text-[#03C554]!">
+                  ${" "}
+                  {((industryAvgCostPerLot - afterprimeCost) * 1000).toFixed(2)}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div className={`text-[14px] w-full text-center mt-10 opacity-65`}>
+        Flow Rewards<sup>TM</sup> are credited per traded lot (round turn) and
+        recorded as a separate PnL line.
       </div>
     </div>
   );

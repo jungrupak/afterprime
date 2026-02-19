@@ -114,7 +114,7 @@ export default function LPBanner({ instrument }: BannerTitle) {
             {dynamicContent.contentDataZero && (
               <>
                 <h1 className={`max-md:mb-5`}>
-                  Trade {instrument}
+                  Trade {instrument?.toUpperCase()}
                   <br />
                   <span>With Flow Rewards</span>
                 </h1>
@@ -133,7 +133,9 @@ export default function LPBanner({ instrument }: BannerTitle) {
 
             {dynamicContent.contentRebateNull && (
               <>
-                <h1 className={`max-md:mb-5`}>Trade {instrument}</h1>
+                <h1 className={`max-md:mb-5`}>
+                  Trade {instrument?.toUpperCase()}
+                </h1>
                 <div className={`${styles.listUi} md:mt-12`}>
                   <ul>
                     <li>

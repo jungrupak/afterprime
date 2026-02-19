@@ -7,13 +7,4 @@
   padding-block: clamp(40px, 5vw, 80px);
   padding-inline: clamp(30px, 5vw, 45px);
   overflow: hidden;
-  h2 {
-    font-size: max(38px, min(5vw, 50px));
-  }
-  .paragraph {
-    color: #e1e1e1;
-    font-size: clamp(20px, 5vw, 26px);
-    font-weight: 300;
-    line-height: 1.5;
-  }
 }
