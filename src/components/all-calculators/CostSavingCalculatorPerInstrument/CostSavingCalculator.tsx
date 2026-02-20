@@ -365,15 +365,15 @@ export default function CostSavingsCalculatorInstrument({
     (name: string) => !benchmarkBrokers.includes(name),
   );
 
-  if (data?.rebate === null) return;
+  if (data?.rebate === null) return null;
 
   return (
-    <div>
-      {data?.instrument_name && (
-        <h2>
+    <>
+      <div className="w-full mb-6">
+        <h2 className="text-5xl font-light">
           {data?.instrument_name} Flow Rewards<sup>TM</sup>
         </h2>
-      )}
+      </div>
 
       <div
         className={`max-md:flex max-md:flex-col lg:grid lg:grid-cols-[350px_1fr] w-full gap-5 mb-5 md:mb-10`}
@@ -513,6 +513,7 @@ export default function CostSavingsCalculatorInstrument({
               Reset
             </button>
           </div>
+
           <div className={styles.chartWrap}>
             <Bar
               data={chartData}
@@ -520,6 +521,7 @@ export default function CostSavingsCalculatorInstrument({
               plugins={[deltaLabelsPlugin]}
             />
           </div>
+
           <div className={styles.chartFootnote}>
             Source:{" "}
             <a href="https://www.forexbenchmark.com" target="_blank">
@@ -527,12 +529,9 @@ export default function CostSavingsCalculatorInstrument({
             </a>{" "}
             - Previous 7 Days Range | {instrument.toUpperCase()} Pair | Incl.
             Commissions + Spreads
-            {/* Day session 04:00–22:00. Past averages don&apos;t guarantee future
-            outcomes. */}
           </div>
         </div>
       </div>
-    </div>
-      </>
+    </>
   );
 }
