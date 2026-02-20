@@ -139,7 +139,7 @@ export function LivePricingForex() {
               </div>
             )}
           </div>
-          <p className="opacity-80">
+          <p className="opacity-80 mt-8">
             Explore detailed pricing for{" "}
             <a href="/trade/eurusd">
               <u>EUR/USD with zero commissions</u>
@@ -159,7 +159,7 @@ export function LivePricingForex() {
             and other instruments.
           </p>
 
-          <p className="opacity-80 mt-5">
+          <p className="opacity-80 mt-2">
             Ready to compare?{" "}
             <a href="/calculators/cost-savings-calculator">
               <u>Calculate your trading costs</u>
