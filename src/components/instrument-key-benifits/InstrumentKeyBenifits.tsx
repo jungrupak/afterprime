@@ -36,7 +36,7 @@ export default function InstrumentKeyBenifits({
           Key advantages for {instrument.toUpperCase()} traders
         </h3>
         <ul>
-          {rebate !== null ? (
+          {rebate !== null && brokerAp ? (
             <>
               <li>
                 <b>{indVsAvgLowerCost?.toFixed(2)}%</b> lower cost vs Industry
