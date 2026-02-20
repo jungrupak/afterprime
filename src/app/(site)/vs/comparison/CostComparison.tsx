@@ -22,6 +22,21 @@ type CostApiResponse = {
   lastUpdated?: string; // optional if API provides it
 };
 
+const brokerSlugMap = {
+  "Tickmill UK (Raw)": "tickmill",
+  FXCM: "fxcm",
+  "IC Markets (Raw)": "ic-markets",
+  "Pepperstone UK (.r)": "pepperstone",
+  "FXOpen (TickTrader)": "fxopen",
+  Dukascopy: "dukascopy",
+  Darwinex: "darwinex",
+  "Global Prime": "globalprime",
+  "Markets.com": "markets-dot-com",
+  Swissquote: "swissquote",
+} as const satisfies Record<string, string>;
+export type BrokerName = keyof typeof brokerSlugMap;
+export type BrokerSlug = (typeof brokerSlugMap)[BrokerName];
+
 //##
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
 
@@ -134,7 +149,8 @@ export default function CostComparison() {
                 </div>
                 <div className={`max-md:col-span-2 col-span-1`}>
                   <Link
-                    href={`/vs/broker`}
+                    href={`/vs/${brokerSlugMap[broker.broker as BrokerName] ?? ""}`}
+                    scroll={true}
                     className={`underline hover:no-underline text-[14px] max-md:text-[16px] block`}
                   >
                     Full Comparison

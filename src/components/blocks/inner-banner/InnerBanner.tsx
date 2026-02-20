@@ -50,8 +50,8 @@ export default function InnerBanner({
                 <div className={`mt-8 md:mt-15`}>
                   <Button
                     href={inner_banner_button_url}
-                    varient="primary-ghost"
-                    size="large"
+                    varient="primary"
+                    size="regular"
                     isArrowVisible={true}
                   >
                     {inner_banner_button_label}
