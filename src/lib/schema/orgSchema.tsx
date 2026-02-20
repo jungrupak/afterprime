@@ -1,5 +1,3 @@
-import Script from "next/script";
-
 export default function AfterprimeOrgSchema() {
   const orgSchema = {
     "@context": "https://schema.org",
@@ -170,7 +168,7 @@ export default function AfterprimeOrgSchema() {
     parentOrganization: {
       "@type": "Organization",
       name: "Argamon Markets Pty Ltd",
-      address: {"@type": "PostalAddress", addressCountry: "AU"},
+      address: { "@type": "PostalAddress", addressCountry: "AU" },
     },
     subOrganization: {
       "@type": "Organization",
@@ -181,7 +179,7 @@ export default function AfterprimeOrgSchema() {
         propertyID: "Company Registration Number",
         value: "8426189-1",
       },
-      address: {"@type": "PostalAddress", addressCountry: "SC"},
+      address: { "@type": "PostalAddress", addressCountry: "SC" },
     },
     knowsAbout: [
       "Forex Trading",
@@ -247,10 +245,9 @@ export default function AfterprimeOrgSchema() {
   if (!orgSchema) return null;
 
   return (
-    <Script
+    <script
       id="financial-service-schema"
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(orgSchema),
       }}
