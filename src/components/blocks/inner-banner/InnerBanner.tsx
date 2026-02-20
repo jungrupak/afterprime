@@ -30,7 +30,7 @@ export default function InnerBanner({
         {/* grain bg effect */}
         <div className="ap_container_small flex items-center h-full">
           <div className={`apBannerContent`}>
-            <h1 className="h1-size mt-10 lg:mt-15">
+            <h1 className="h1-size mt-10 lg:mt-15 max-w-[800px]">
               <span className="font-[600]">{inner_banner_title}</span>
             </h1>
             <div
@@ -41,11 +41,13 @@ export default function InnerBanner({
               }}
             />
 
-            <div className={`mt-8 md:mt-15`}>
-              {shouldShowCTA &&
-                (inner_banner_is_type_form_cta === "1" ? (
+            {shouldShowCTA &&
+              (inner_banner_is_type_form_cta === "1" ? (
+                <div className={`mt-8 md:mt-15`}>
                   <TypeformButton buttonText="Get Invite Code" size="Large" />
-                ) : (
+                </div>
+              ) : (
+                <div className={`mt-8 md:mt-15`}>
                   <Button
                     href={inner_banner_button_url}
                     varient="primary-ghost"
@@ -54,8 +56,8 @@ export default function InnerBanner({
                   >
                     {inner_banner_button_label}
                   </Button>
-                ))}
-            </div>
+                </div>
+              ))}
           </div>
         </div>
       </section>

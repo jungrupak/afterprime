@@ -12,8 +12,7 @@ export async function getTradePageData({params}: GetParams) {
   }
   //defined parend ID to call only slugs that has Trade Page as parent
   const res = await fetch(restEndpoint + `/pages?slug=${slug}&parent=2709`, {
-      cache:"force-cache",
-      next:{revalidate:86400}});
+      next:{revalidate:80}});
   if (!res.ok) {
     throw new Error("Failed to retrieve data from external service")
   }

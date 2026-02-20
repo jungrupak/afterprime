@@ -14,13 +14,14 @@ export default function CalculatorNotFound() {
       <div className="ap_container">
         <div className="text-center px-6">
           <h1 className="text-[clamp(50px,10vw,68px)] font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mt-30">
-            Sorry, We can't find this calculator.
+            Sorry, Broker Not Available To Compare!
           </h1>
           <p className="mt-4 text-xl text-gray-400 mb-20">
-            Oops! The page you&apos;re looking for doesn&apos;t exist.
+            Oops! The page you&apos;re looking for doesn&apos;t exist. Please
+            make sure that you have entered correct broker name in url.
           </p>
-          <Button varient="primary-ghost" size="regular" href="/calculators/">
-            Calculators
+          <Button varient="primary-ghost" size="regular" href="/vs/">
+            Back To VS Page
           </Button>
         </div>
       </div>

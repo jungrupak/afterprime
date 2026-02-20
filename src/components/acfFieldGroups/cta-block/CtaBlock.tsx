@@ -10,9 +10,11 @@ export async function CtaBlock() {
         className={`${styles.bottomCta} flex flex-col justify-center items-center text-center`}
       >
         <div>
-          <h2 className={`md:mb-8! leading-[1]`}>{fieldsData?.headline}</h2>
+          <h2 className={`text-[clamp(30px_,5vw_,50px)]! md:mb-8! leading-[1]`}>
+            {fieldsData?.headline}
+          </h2>
           <p
-            className={`${styles.paragraph} mb-8 md:mb-10 opacity-80`}
+            className={`paragraph mb-8 md:mb-10 opacity-80`}
             dangerouslySetInnerHTML={{ __html: fieldsData?.paragraph || "" }}
           />
           {/* <p className={`paragraph mb-8 md:mb-10 opacity-80`}>
