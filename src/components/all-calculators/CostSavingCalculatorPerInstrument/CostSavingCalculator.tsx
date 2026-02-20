@@ -48,6 +48,7 @@ interface ApiResponse {
   top10VsAfterprimeAvgPct: number;
   industryVsAfterprimeAvgPct: number;
   rebate: RebateObject;
+  instrument_name: string;
 }
 
 // Type for chart bar data
@@ -367,160 +368,168 @@ export default function CostSavingsCalculatorInstrument({
   if (data?.rebate === null) return;
 
   return (
-    <>
-    <div className="w-full mb-6">
-      <h2 className="text-5xl font-light">
-        {data.instrument_name} Flow Rewards<sup>TM</sup>
-      </h2>
-    </div>
+    <div>
+      {data?.instrument_name && (
+        <h2>
+          {data?.instrument_name} Flow Rewards<sup>TM</sup>
+        </h2>
+      )}
 
-    <div
-      className={`max-md:flex max-md:flex-col lg:grid lg:grid-cols-[350px_1fr] w-full gap-5 mb-5 md:mb-10`}
-    >
-      {/* Left: Calculator */}
-      <div className={styles.calculator}>
-        <div className={styles.calcHeader}>
-          <div className={styles.calcTitle}>
-            {instrument.toUpperCase()} Savings Calculator
+      <div
+        className={`max-md:flex max-md:flex-col lg:grid lg:grid-cols-[350px_1fr] w-full gap-5 mb-5 md:mb-10`}
+      >
+        {/* Left: Calculator */}
+        <div className={styles.calculator}>
+          <div className={styles.calcHeader}>
+            <div className={styles.calcTitle}>
+              {instrument.toUpperCase()} Savings Calculator
+            </div>
+            <span className={styles.badge}>ForexBenchmark verified</span>
           </div>
-          <span className={styles.badge}>ForexBenchmark verified</span>
-        </div>
 
-        <div className={styles.inputGroup}>
-          <div className={styles.label}>Lots per month (1–1000)</div>
-          <div className={styles.sliderRow}>
-            <input
-              type="range"
-              min="1"
-              max="1000"
-              step="1"
-              value={lots}
-              onChange={handleLotsChange}
-              className={styles.slider}
-              aria-label="Lots per month"
-            />
-            <input
-              type="number"
-              min="1"
-              max="1000"
-              step="1"
-              value={lots}
-              onChange={handleLotsNumberChange}
-              className={styles.numberInput}
-              aria-label="Lots per month (number input)"
-            />
-          </div>
-        </div>
-
-        <div className={styles.inputGroup}>
-          <div className={styles.label}>Compare your savings vs broker</div>
-          <div className={styles.brokerRow}>
-            <button
-              onClick={() => cycleBroker(-1)}
-              className={styles.iconBtn}
-              title="Previous broker"
-              aria-label="Previous broker"
-              disabled={brokerList.length === 0}
-              type="button"
-            >
-              ◀
-            </button>
-            <select
-              value={selectedBroker}
-              onChange={handleBrokerChange}
-              className={styles.select}
-              aria-label="Select broker for comparison"
-            >
-              {brokerList.length === 0 ? (
-                <option value="Industry Avg">Industry Avg</option>
-              ) : (
-                <>
-                  <optgroup label="Benchmarks">
-                    {benchmarkBrokers.map((name: string) => (
-                      <option key={name} value={name}>
-                        {name}
-                      </option>
-                    ))}
-                  </optgroup>
-                  <optgroup label="Brokers">
-                    {regularBrokers.map((name: string) => (
-                      <option key={name} value={name}>
-                        {name}
-                      </option>
-                    ))}
-                  </optgroup>
-                </>
-              )}
-            </select>
-            <button
-              onClick={() => cycleBroker(1)}
-              className={styles.iconBtn}
-              title="Next broker"
-              aria-label="Next broker"
-              disabled={brokerList.length === 0}
-              type="button"
-            >
-              ▶
-            </button>
-          </div>
-        </div>
-
-        <div className={styles.results}>
-          <div className={styles.headline}>
-            {instrument.toUpperCase()} {lots} {lots === 1 ? "lot" : "lots"}
-            /month saves ${moSave.toFixed(2)} monthly vs {selectedBroker}.
-          </div>
-          <div className={styles.subline}>
-            ${(totSave * 12).toFixed(2)} annually. Graph shows monthly total
-            cost.
-          </div>
-        </div>
-
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <div className={styles.statLabel}>Savings per month vs broker</div>
-            <div className={styles.statValue}>${moSave.toFixed(2)}</div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statLabel}>Total savings over 12 months</div>
-            <div className={styles.statValue}>${(totSave * 12).toFixed(2)}</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Right: Graph */}
-      <div className={styles.chartSection}>
-        <div className={styles.chartHeader}>
-          <div>
-            <div className={styles.chartTitle}>Monthly Total Cost</div>
-            <div className={styles.chartSubtitle}>
-              Bars show total cost trading {instrument.toUpperCase()} {lots} {lots === 1 ? 'lot' : 'lots'}/per month.
+          <div className={styles.inputGroup}>
+            <div className={styles.label}>Lots per month (1–1000)</div>
+            <div className={styles.sliderRow}>
+              <input
+                type="range"
+                min="1"
+                max="1000"
+                step="1"
+                value={lots}
+                onChange={handleLotsChange}
+                className={styles.slider}
+                aria-label="Lots per month"
+              />
+              <input
+                type="number"
+                min="1"
+                max="1000"
+                step="1"
+                value={lots}
+                onChange={handleLotsNumberChange}
+                className={styles.numberInput}
+                aria-label="Lots per month (number input)"
+              />
             </div>
           </div>
-          <button
-            onClick={handleReset}
-            className={styles.resetBtn}
-            type="button"
-          >
-            Reset
-          </button>
+
+          <div className={styles.inputGroup}>
+            <div className={styles.label}>Compare your savings vs broker</div>
+            <div className={styles.brokerRow}>
+              <button
+                onClick={() => cycleBroker(-1)}
+                className={styles.iconBtn}
+                title="Previous broker"
+                aria-label="Previous broker"
+                disabled={brokerList.length === 0}
+                type="button"
+              >
+                ◀
+              </button>
+              <select
+                value={selectedBroker}
+                onChange={handleBrokerChange}
+                className={styles.select}
+                aria-label="Select broker for comparison"
+              >
+                {brokerList.length === 0 ? (
+                  <option value="Industry Avg">Industry Avg</option>
+                ) : (
+                  <>
+                    <optgroup label="Benchmarks">
+                      {benchmarkBrokers.map((name: string) => (
+                        <option key={name} value={name}>
+                          {name}
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Brokers">
+                      {regularBrokers.map((name: string) => (
+                        <option key={name} value={name}>
+                          {name}
+                        </option>
+                      ))}
+                    </optgroup>
+                  </>
+                )}
+              </select>
+              <button
+                onClick={() => cycleBroker(1)}
+                className={styles.iconBtn}
+                title="Next broker"
+                aria-label="Next broker"
+                disabled={brokerList.length === 0}
+                type="button"
+              >
+                ▶
+              </button>
+            </div>
+          </div>
+
+          <div className={styles.results}>
+            <div className={styles.headline}>
+              {instrument.toUpperCase()} {lots} {lots === 1 ? "lot" : "lots"}
+              /month saves ${moSave.toFixed(2)} monthly vs {selectedBroker}.
+            </div>
+            <div className={styles.subline}>
+              ${(totSave * 12).toFixed(2)} annually. Graph shows monthly total
+              cost.
+            </div>
+          </div>
+
+          <div className={styles.statsGrid}>
+            <div className={styles.statCard}>
+              <div className={styles.statLabel}>
+                Savings per month vs broker
+              </div>
+              <div className={styles.statValue}>${moSave.toFixed(2)}</div>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statLabel}>
+                Total savings over 12 months
+              </div>
+              <div className={styles.statValue}>
+                ${(totSave * 12).toFixed(2)}
+              </div>
+            </div>
+          </div>
         </div>
-        <div className={styles.chartWrap}>
-          <Bar
-            data={chartData}
-            options={chartOptions}
-            plugins={[deltaLabelsPlugin]}
-          />
-        </div>
-        <div className={styles.chartFootnote}>
-          Source:{" "}
-          <a href="https://www.forexbenchmark.com" target="_blank">
-            <u>ForexBenchmark</u>
-          </a>{" "}
-          - Previous 7 Days Range | {instrument.toUpperCase()} Pair | Incl.
-          Commissions + Spreads
-          {/* Day session 04:00–22:00. Past averages don&apos;t guarantee future
+
+        {/* Right: Graph */}
+        <div className={styles.chartSection}>
+          <div className={styles.chartHeader}>
+            <div>
+              <div className={styles.chartTitle}>Monthly Total Cost</div>
+              <div className={styles.chartSubtitle}>
+                Bars show total cost trading {instrument.toUpperCase()} {lots}{" "}
+                {lots === 1 ? "lot" : "lots"}/per month.
+              </div>
+            </div>
+            <button
+              onClick={handleReset}
+              className={styles.resetBtn}
+              type="button"
+            >
+              Reset
+            </button>
+          </div>
+          <div className={styles.chartWrap}>
+            <Bar
+              data={chartData}
+              options={chartOptions}
+              plugins={[deltaLabelsPlugin]}
+            />
+          </div>
+          <div className={styles.chartFootnote}>
+            Source:{" "}
+            <a href="https://www.forexbenchmark.com" target="_blank">
+              <u>ForexBenchmark</u>
+            </a>{" "}
+            - Previous 7 Days Range | {instrument.toUpperCase()} Pair | Incl.
+            Commissions + Spreads
+            {/* Day session 04:00–22:00. Past averages don&apos;t guarantee future
             outcomes. */}
+          </div>
         </div>
       </div>
     </div>

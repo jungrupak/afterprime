@@ -91,11 +91,7 @@ export function renderSection(
 
     case "cost_breakdown":
       return (
-        <div key={index} id="const-breakdown-table">
-          <h2 className="max-md:leading-[1.2] mb-5! md:mb-10!">
-            {section.instrument ?? ""} All-in-Cost
-            {/* AUDUSD All-in-Cost */}
-          </h2>
+        <div key={index} id="const-breakdown-table" className={`my-8 md:my-20`}>
           <CostBreakdownTable instrument={section.instrument ?? ""} />
         </div>
       );

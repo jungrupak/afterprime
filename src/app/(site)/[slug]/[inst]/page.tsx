@@ -7,12 +7,11 @@ import getSymbolSinglePageData from "@/lib/getSymbolSinglePageData";
 import InstrumentKeyBenifits from "@/components/instrument-key-benifits/InstrumentKeyBenifits";
 import { renderSection } from "@/lib/flexibleContentMap";
 import Script from "next/script";
-import Cta from "@/components/instrument-lps/cta/Cta";
+
 import FaqCalc from "@/components/faq-calculators/Faq";
 import TradingGlossary from "@/components/TradingGlossary/TradingGlossary";
 import Author from "@/components/AuthorForInstrumentPage/Author";
-import CostSavingsCalculatorInstrument from "@/components/all-calculators/CostSavingCalculatorPerInstrument/CostSavingCalculator";
-import CostBreakdownTable from "@/components/instrument-lps/cost-brakdown/CostBreakdownTable";
+import { BottomCta } from "@/components/acfFieldGroups/bottom-cta/BottomCta";
 
 // ISR
 export const revalidate = 60;
@@ -78,7 +77,7 @@ export default async function ChildPage({ params }: Props) {
 
   return (
     <>
-      {/* Page Bannder */}
+      {/* Page Banner */}
       <section
         className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
@@ -159,7 +158,7 @@ export default async function ChildPage({ params }: Props) {
       {/* FAQ */}
 
       {/* CTA Global */}
-      <Cta />
+      <BottomCta />
       {/* CTA Global Ends */}
 
       {/* Page Schema */}
@@ -168,7 +167,7 @@ export default async function ChildPage({ params }: Props) {
           id="page-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(pageSchema),
+            __html: pageSchema,
           }}
         />
       )}

@@ -7,8 +7,8 @@ import FlowRewardIntro from "@/components/instrument-lps/what-is-flow-reward/Flo
 import CostCalculator from "@/components/instrument-lps/cost-calculator/CostCalculator";
 import ProductSpecification from "@/components/instrument-lps/product-specification/ProductSpecification";
 import Faq from "@/components/instrument-lps/faq/Faq";
-import Cta from "@/components/instrument-lps/cta/Cta";
 import { metaDataHelper } from "./metaDataHelper";
+import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -96,7 +96,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
             faqSubject="FAQ"
             instrument={page.slug}
           />
-          <Cta />
+          <CtaBlock />
           <CostCalculator instrument={page.slug.toUpperCase()} />
           <ProductSpecification instrument={page.slug.toUpperCase()} />
         </div>

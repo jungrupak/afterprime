@@ -79,7 +79,7 @@
             min-width: 0;
             width: auto;
             position: relative;
-            background-color: rgba(var(--alphaWhite), 0.04);
+            background-color: rgba(var(--alphaWhite), 0.08);
             &:before {
               content: attr(t-name);
               font-size: 14px;
@@ -90,8 +90,8 @@
             }
             &:nth-child(1) {
               order: 1;
-              flex: 0 0 50%;
-              background-color: rgba(var(--alphaWhite), 0.04);
+              flex: 0 0 100%;
+              background-color: rgba(var(--alphaWhite), 0.14);
               &:before {
                 display: none;
               }

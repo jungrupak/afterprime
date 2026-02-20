@@ -72,7 +72,7 @@
     font-size: clamp(30px, 8vw, 35px);
     margin-top: clamp(40px, 10vw, 60px);
   }
-  h2:not(:first-child) {
+  h2 {
     margin-top: clamp(40px, 10vw, 60px);
   }
   hr {
@@ -95,6 +95,11 @@
         &:not(:last-child) {
           margin-bottom: clamp(20px, 5vw, 30px);
         }
+      }
+    }
+    &:first-child {
+      h2 {
+        margin-top: 0;
       }
     }
   }

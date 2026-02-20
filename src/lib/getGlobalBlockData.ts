@@ -4,7 +4,7 @@ export async function getGlobalOptionFields(filedname:string){
     try{
         if(!baseUrl)return;
         const res = await fetch(`${baseUrl}/wp-json/custom/v1/options?field=${filedname}`, {
-            next:{revalidate:86400},
+            next:{revalidate:2100},
         });
         if(!res.ok){
             return "failed to load option block data";

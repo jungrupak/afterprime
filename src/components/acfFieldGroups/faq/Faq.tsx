@@ -14,6 +14,14 @@ export default function Faq(props: FaqProps) {
     answer: item?.answer || "No answer provided",
   }));
 
+  const stripHtml = (html?: string | null): string => {
+    if (!html) return "";
+    return html
+      .replace(/<\/(p|div|li)>/gi, "\n") // replace closing block tags with newline
+      .replace(/<[^>]+>/g, "") // remove remaining tags
+      .replace(/\n+/g, "\n") // collapse multiple newlines
+      .trim();
+  };
   // ### FAQ Schema Read
   const FAQ_SCHEMA =
     accordionItems && accordionItems.length
@@ -49,12 +57,14 @@ export default function Faq(props: FaqProps) {
         </section>
       )}
       {/*  */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(FAQ_SCHEMA),
-        }}
-      />
+      {FAQ_SCHEMA && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(FAQ_SCHEMA),
+          }}
+        />
+      )}
     </>
   );
 }

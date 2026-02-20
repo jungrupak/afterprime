@@ -63,26 +63,6 @@ export default async function Page({ params }: PageSlug) {
   const selectCalculator = calculatorPageFields?.select_calculator;
 
   const pageSchema = calculatorPageFields?.page_schema;
-  const faqSchema =
-    faqData && faqData.length
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faqData
-            .filter(
-              (item: { question?: string; answer?: string }) =>
-                item.question && item.answer,
-            )
-            .map((item: { question?: string; answer?: string }) => ({
-              "@type": "Question",
-              name: item.question?.replace(/(<([^>]+)>)/gi, ""),
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: item.answer?.replace(/(<([^>]+)>)/gi, ""),
-              },
-            })),
-        }
-      : null;
 
   return (
     <>
@@ -152,21 +132,13 @@ export default async function Page({ params }: PageSlug) {
       {/* FAQ FROM CMS */}
       {faqData && <FaqCalc faqSubject={sectionTitle} data={faqData} />}
       {/* FAQ FROM CMS ENDS */}
-      {/* FAQ schema */}
-      {faqSchema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqSchema),
-          }}
-        />
-      )}
+
       {/* //render data comparison schema */}
       {pageSchema && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(pageSchema),
+            __html: pageSchema,
           }}
         />
       )}
