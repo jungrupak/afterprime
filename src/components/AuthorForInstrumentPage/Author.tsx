@@ -1,7 +1,5 @@
 "use client";
-import styles from "./Author.module.scss";
 import Image from "next/image";
-import Script from "next/script";
 export default function Author() {
   //####
   const getFourDayDate = () => {
@@ -69,7 +67,7 @@ export default function Author() {
         </div>
       </div>
       {SCHEMA_DATA && (
-        <Script
+        <script
           id="page-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{

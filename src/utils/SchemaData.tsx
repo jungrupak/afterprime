@@ -1,8 +1,6 @@
-import Script from "next/script";
-
 export default function SchemaData() {
   return (
-    <Script
+    <script
       type="application/ld+json"
       id="organization-schema"
       dangerouslySetInnerHTML={{

@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./TradingGloassary.module.scss";
-import Script from "next/script";
 
 interface GlossaryItems {
   title: string;
@@ -66,7 +65,7 @@ export default function TradingGlossary({
       </div>
       {/* FAQ schema */}
       {glossarySchema && (
-        <Script
+        <script
           id="faq-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{

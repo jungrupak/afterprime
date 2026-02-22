@@ -6,8 +6,6 @@ import styles from "./Page.module.scss";
 import getSymbolSinglePageData from "@/lib/getSymbolSinglePageData";
 import InstrumentKeyBenifits from "@/components/instrument-key-benifits/InstrumentKeyBenifits";
 import { renderSection } from "@/lib/flexibleContentMap";
-import Script from "next/script";
-
 import FaqCalc from "@/components/faq-calculators/Faq";
 import TradingGlossary from "@/components/TradingGlossary/TradingGlossary";
 import Author from "@/components/AuthorForInstrumentPage/Author";
@@ -163,7 +161,7 @@ export default async function ChildPage({ params }: Props) {
 
       {/* Page Schema */}
       {pageSchema && (
-        <Script
+        <script
           id="page-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
