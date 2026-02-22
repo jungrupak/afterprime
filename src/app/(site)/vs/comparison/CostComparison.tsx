@@ -85,6 +85,7 @@ export default function CostComparison() {
     "Global Prime",
     "Markets.com",
     "Swissquote",
+    "Afterprime",
   ];
   const pickedBrokersLists = brokerList?.filter((item) =>
     brokersToPick.includes(item.broker),
@@ -109,10 +110,10 @@ export default function CostComparison() {
           <div
             className={`${styles.costCompareTableHead} grid grid-cols-7 gp-10 md:gap-5 max-md:hidden`}
           >
-            <div className={`col-span-3`}>Broker</div>
+            <div className={`col-span-3`}><b>Broker</b></div>
 
             <div className={`max-md:col-span-2 col-span-2`}>
-              Cost Per Lot (Including Commission)
+              <b>Cost Per Lot</b><br/>(Including Commission)
             </div>
             <div className={`max-md:col-span-2 col-span-2 text-[#ffffff]!`}>
               <b>Savings</b>
