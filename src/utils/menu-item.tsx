@@ -72,11 +72,15 @@ export const MegaMenuItems = [
         categoryName: "Accounts",
         catMenuItems: [
           {
-            menuItem: "How to Qualify",
+            menuItem: "How to Apply",
             pageUrl: "/how-to-qualify",
           },
           {
-            menuItem: "Deposits & Withdrawals",
+            menuItem: "Deposit Options",
+            pageUrl: "/deposit-withdrawal",
+          },
+          {
+            menuItem: "Withdrawal Options",
             pageUrl: "/deposit-withdrawal",
           },
         ],
