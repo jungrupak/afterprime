@@ -74,7 +74,7 @@ export default function HeroUsp({ text }: ReceiveText) {
         className={`${styles.heroUspContainer} mx-auto lg:absolute left-0 bottom-0 z-5`}
       >
         <div
-          className={`${styles.HeroUps} ap_container_small py-8 md:pt-10 md:pb-22 flex-col flex-wrap flex md:flex-row items-center justify-center gap-y-5 gap-x-5 lg:gap-x-12 px-5 mx:px-0`}
+          className={`${styles.HeroUps} ap_container_small py-8 md:pt-6 md:pb-15 flex-col flex-wrap flex md:flex-row items-center justify-center gap-y-5 gap-x-5 lg:gap-x-12 px-5 mx:px-0`}
         >
           <div className={`${styles.upsItem}`}>
             <div className={`${styles.value}`}>#1</div>
@@ -102,7 +102,7 @@ export default function HeroUsp({ text }: ReceiveText) {
             <GoogleReviewBadge />
           </div>
           <p
-            className={`${styles.note} text-[14px] absolute bottom-9 opacity-55 max-md:static leading-[1.4]`}
+            className={`${styles.note} text-[14px] absolute bottom-5 opacity-55 max-md:static leading-[1.4]`}
             style={{ opacity: note ? "0.55" : "0" }}
           >
             {text}. {""}

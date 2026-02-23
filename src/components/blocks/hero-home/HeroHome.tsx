@@ -38,7 +38,7 @@ export function HeroHome(props: HeroHomeProps) {
       <div className="flex flex-wrap flex-col justify-center items-center h-[100%] min-h-[400px] lg:min-h-[600px] relative z-2 md:pt-10 max-md:pb-5">
         <div className="w-full max-w-[800] mx-auto max-md:px-5">
           <h1
-            className={`${styles.heroHeading} h1-size flex gap-20 justify-center text-center font-bold`}
+            className={`${styles.heroHeading} h1-size flex lg:mb-[20px]! gap-20 justify-center text-center font-bold`}
           >
             {/* {title.map((text, i) => (
               <span key={i}>{text}</span>
