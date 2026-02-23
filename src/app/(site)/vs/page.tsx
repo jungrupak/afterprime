@@ -7,6 +7,7 @@ import CostComparison from "./comparison/CostComparison";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
 import Button from "@/components/ui/Button";
+import ImpactCards from "./impact-cards/ImpactCards";
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await getPageDataBySlug("vs");
@@ -191,6 +192,10 @@ export default async function Page() {
         </section>
       )}
       {/* Contents */}
+
+      {/* Impact Cards */}
+      <ImpactCards />
+      {/* Impact Cards Ends */}
 
       {/* CTA */}
       <section className={`compact-section`}>

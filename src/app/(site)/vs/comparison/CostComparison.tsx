@@ -75,6 +75,7 @@ export default function CostComparison() {
   if (!brokerList.length) return;
   //console.log("data:", brokerList);
   const brokersToPick = [
+    "Afterprime",
     "Tickmill UK (Raw)",
     "FXCM",
     "IC Markets (Raw)",
@@ -125,7 +126,7 @@ export default function CostComparison() {
             {pickedBrokersLists?.map((broker, indx) => (
               <div
                 key={`${broker.broker}-${broker.symbol}`}
-                className={`${styles.costCompareTableRow} grid grid-cols-7 md:gap-5`}
+                className={`${styles.costCompareTableRow} ${broker.broker === "Afterprime" ? styles.afterprime : ""} grid grid-cols-7 md:gap-5`}
               >
                 <div
                   className={`col-span-3 max-md:col-span-7 max-md:pb-2! relative`}
@@ -149,13 +150,15 @@ export default function CostComparison() {
                   <b>{asFiniteNumber(broker.savingPercentage)}%</b>
                 </div>
                 <div className={`max-md:col-span-2 col-span-1`}>
-                  <Link
-                    href={`/vs/${brokerSlugMap[broker.broker as BrokerName] ?? ""}`}
-                    scroll={true}
-                    className={`underline hover:no-underline text-[14px] max-md:text-[16px] block`}
-                  >
-                    Full Comparison
-                  </Link>
+                  {broker.broker !== "Afterprime" && (
+                    <Link
+                      href={`/vs/${brokerSlugMap[broker.broker as BrokerName] ?? ""}`}
+                      scroll={true}
+                      className={`underline hover:no-underline text-[14px] max-md:text-[16px] block`}
+                    >
+                      Full Comparison
+                    </Link>
+                  )}
                 </div>
               </div>
             ))}
