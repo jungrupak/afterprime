@@ -1,0 +1,59 @@
+.costCompareTableHead {
+  > div {
+    padding: 15px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+  }
+}
+
+.costCompareTableRow {
+  font-size: clamp(16px, 5vw, 18px);
+  opacity: 0.68;
+  margin-bottom: 5px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+  > div {
+    padding: 20px 15px;
+    cursor: default;
+    position: relative;
+  }
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(10px);
+    opacity: 1;
+  }
+  &.afterprime {
+    background-color: var(--secondary-color);
+    backdrop-filter: blur(10px);
+    opacity: 1;
+  }
+  @media all and (max-width: 767px) {
+    padding: 10px 15px;
+    > div {
+      padding: 0;
+      &:before {
+        content: attr(data-label);
+        display: block;
+        font-size: 12px;
+        opacity: 0.68;
+      }
+    }
+  }
+}
+
+.isBest {
+  width: 80px;
+  height: 34px;
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute !important;
+  top: -2px;
+  left: -30px;
+  transform: rotate(-45deg);
+}
