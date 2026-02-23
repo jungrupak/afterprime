@@ -20,9 +20,13 @@
     cursor: default;
     position: relative;
   }
-  &:hover,
-  &.afterprime {
+  &:hover {
     background-color: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    opacity: 1;
+  }
+  &.afterprime {
+    background-color: var(--secondary-color);
     backdrop-filter: blur(10px);
     opacity: 1;
   }
