@@ -119,7 +119,6 @@ export default async function ChildPage({ params }: Props) {
         <div className="ap_container_small">
           <div className={`${styles.pageEditorContent}`}>
             <h2 className={`mt-0!`}>Spreads</h2>
-            <p>Dynamic narrative addresses:</p>
             <ul>
               <li>Spread differential</li>
               <li>Cost per lot impact</li>
