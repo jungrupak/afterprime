@@ -1,0 +1,152 @@
+.section_generic_cards_content,
+.section_platforms {
+  background-position: center top;
+  background-repeat: repeat-x;
+  .generic_card {
+    h3 {
+      font-size: 34px;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+    p {
+      font-size: 18px;
+      font-weight: 400;
+      margin-bottom: 40px;
+      opacity: 0.84;
+      max-width: 90%;
+      margin-inline: auto;
+    }
+  }
+}
+
+.section_generic_cards_content {
+  background-size: 100%;
+  background-position: center;
+  @media all and (min-width: 1800px) {
+    background-size: contain;
+  }
+  .generic_card {
+    &:nth-child(2) {
+      background-color: var(--secondary-color);
+    }
+  }
+}
+
+.cardItem {
+  padding: 45px 32px;
+  backdrop-filter: blur(19.1619px);
+  background: rgba(255, 255, 255, 0.04);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    margin-bottom: 20px;
+    font-size: max(30px, min(5vw, 34px));
+    font-weight: 600;
+    line-height: 1.2;
+    max-width: 90%;
+    margin-inline: auto;
+  }
+  p {
+    margin-bottom: 0;
+    font-size: max(18px, min(5vw, 20px));
+    font-weight: 400;
+    line-height: 1.4;
+    color: #e1e1e1;
+    max-width: 90%;
+    margin-inline: auto;
+  }
+  .cardCta {
+    margin-top: clamp(20px, 5vw, 30px);
+    max-width: 90%;
+    margin-inline: auto;
+    a {
+      font-size: inherit;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      font-weight: 700;
+      display: flex;
+    }
+    svg {
+      display: inline-block;
+      circle {
+        fill: var(--secondary-color);
+      }
+      mask {
+        fill: var(--secondary-color);
+      }
+      path {
+        fill: var(--white);
+      }
+    }
+  }
+
+  &.cardCompact {
+    padding: 38px 30px;
+    h3 {
+      margin-bottom: 18px;
+    }
+    p {
+      margin-bottom: 0;
+    }
+    .cardCta {
+      margin-top: clamp(15px, 5vw, 20px);
+    }
+  }
+  &.cardLarge {
+    padding: 60px 50px;
+    h3 {
+      margin-bottom: 30px;
+      max-width: 100%;
+    }
+    p {
+      margin-bottom: 0;
+      max-width: 100%;
+    }
+    .cardCta {
+      max-width: 100%;
+      margin-top: clamp(25px, 5vw, 40px);
+    }
+  }
+  &.cardSmall {
+    padding: 60px 50px;
+    h3 {
+      font-size: max(25px, min(5vw, 30px));
+      line-height: 1.1;
+      margin-bottom: 30px;
+      max-width: 100%;
+    }
+    p {
+      margin-bottom: 0;
+      max-width: 100%;
+    }
+    .cardCta {
+      max-width: 100%;
+      margin-top: clamp(25px, 5vw, 40px);
+    }
+  }
+  &.cardBold {
+    h3 {
+      font-weight: 700;
+    }
+  }
+  &.activeCard {
+    background-color: var(--secondary-color);
+    color: white;
+    .cardCta {
+      a {
+        svg circle {
+          fill: var(--white);
+        }
+        svg mask {
+          fill: var(--white);
+        }
+        svg path {
+          fill: var(--secondary-color);
+        }
+      }
+    }
+  }
+}

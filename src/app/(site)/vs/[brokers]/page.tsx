@@ -4,12 +4,12 @@ import { Metadata } from "next";
 import styles from "./Page.module.scss";
 import { notFound } from "next/navigation";
 import { getPageDataBySlug } from "@/data/getPageDataBySlug";
-import PageRenderer from "@/components/PageRender";
 import CostComparisonWithSelected from "./compare-ap-with-selected/CostComparison";
 import CompareWithMajors from "./compare-with-majors/CostComparison";
 import Button from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
 import FaqCalc from "@/components/faq-calculators/Faq";
+import { DynamicDataTexts } from "./dynamic-data-text/DynamicDataText";
 
 // ISR
 export const revalidate = 60;
@@ -124,6 +124,8 @@ export default async function ChildPage({ params }: Props) {
               <li>Cost per lot impact</li>
               <li>How it affects total cost calculation</li>
             </ul>
+            {/* ## */}
+            <DynamicDataTexts />
           </div>
         </div>
       </section>
