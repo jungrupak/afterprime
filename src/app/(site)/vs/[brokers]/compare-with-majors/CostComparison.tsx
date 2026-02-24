@@ -142,7 +142,7 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
                         setRowIndex((prev) => (prev === index ? null : index))
                       }
                     >
-                      {index === rowIndex ? "Collapse" : "View"} Breakdown Table
+                      {index === rowIndex ? "Hide" : "Show"} By Volume
                     </div>
                   </div>
                 </div>
@@ -178,7 +178,7 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
                     <h4
                       className={`font-semibold text-[16px] px-[15px] py-[10px] bg-[rgba(255_,255_,255_,.04)]`}
                     >
-                      Monthly Cost by Volume - {symbol}
+                      Cost by Volume - {symbol}
                     </h4>
                     <div className={`${styles.volumeTable}`}>
                       <table>
@@ -192,7 +192,7 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
                         </thead>
                         <tbody>
                           <tr>
-                            <td>50 lot</td>
+                            <td>50 lots</td>
                             <td>
                               ${(competitorBrokerCostPerLot * 50).toFixed(2)}
                             </td>
@@ -212,7 +212,7 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
                             </td>
                           </tr>
                           <tr>
-                            <td>100 lot</td>
+                            <td>100 lots</td>
                             <td>
                               ${(competitorBrokerCostPerLot * 100).toFixed(2)}
                             </td>
@@ -232,7 +232,7 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
                             </td>
                           </tr>
                           <tr>
-                            <td>250 lot</td>
+                            <td>250 lots</td>
                             <td>
                               ${(competitorBrokerCostPerLot * 250).toFixed(2)}
                             </td>
@@ -252,7 +252,7 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
                             </td>
                           </tr>
                           <tr>
-                            <td>500 lot</td>
+                            <td>500 lots</td>
                             <td>
                               ${(competitorBrokerCostPerLot * 500).toFixed(2)}
                             </td>
@@ -272,7 +272,7 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
                             </td>
                           </tr>
                           <tr>
-                            <td>1000 lot</td>
+                            <td>1000 lots</td>
                             <td>
                               ${(competitorBrokerCostPerLot * 1000).toFixed(2)}
                             </td>
