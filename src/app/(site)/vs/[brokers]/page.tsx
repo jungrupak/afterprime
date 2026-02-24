@@ -9,7 +9,6 @@ import CompareWithMajors from "./compare-with-majors/CostComparison";
 import Button from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
 import FaqCalc from "@/components/faq-calculators/Faq";
-import { DynamicDataTexts } from "./dynamic-data-text/DynamicDataText";
 
 // ISR
 export const revalidate = 60;
@@ -117,46 +116,105 @@ export default async function ChildPage({ params }: Props) {
       <section className={`compact-section`}>
         <div className="grainy_bg"></div>
         <div className="ap_container_small">
+          {/*  */}
           <div className={`${styles.pageEditorContent}`}>
             <h2 className={`mt-0!`}>Spreads - The Invisible Variable</h2>
 
-            <p>The spread is the primary cost of entry for any trader, but it is rarely static. Most brokers quote "typical" spreads that fluctuate wildly during high volatility or low liquidity periods (like the New York/London crossover or market open).</p>
+            <p>
+              The spread is the primary cost of entry for any trader, but it is
+              rarely static. Most brokers quote "typical" spreads that fluctuate
+              wildly during high volatility or low liquidity periods (like the
+              New York/London crossover or market open).
+            </p>
 
             <ul>
-            <li><b>The "Raw" Reality</b>
-            <br/>Many brokers claim "$0.0 spreads," but the frequency of those spreads actually being available to fill your order is the true metric of quality.</li>
-            <li><b>The Afterprime Edge</b>
-            <br/>We focus on spread stability. By curating our flow, we reduce the "noise" and "gapping" that often occurs with retail-heavy brokers, ensuring that the price you see is the price you get.</li>
+              <li>
+                <b>The "Raw" Reality</b>
+                <br />
+                Many brokers claim "$0.0 spreads," but the frequency of those
+                spreads actually being available to fill your order is the true
+                metric of quality.
+              </li>
+              <li>
+                <b>The Afterprime Edge</b>
+                <br />
+                We focus on spread stability. By curating our flow, we reduce
+                the "noise" and "gapping" that often occurs with retail-heavy
+                brokers, ensuring that the price you see is the price you get.
+              </li>
             </ul>
 
-            <h2 className={`mt-0!`}>Cost Per Lot Impact - More Than Just Commission</h2>
+            <h2 className={`mt-0!`}>
+              Cost Per Lot Impact - More Than Just Commission
+            </h2>
 
-            <p>Traders often make the mistake of looking at commission in isolation. A low commission is meaningless if it’s paired with wide spreads or poor execution (slippage).</p>
+            <p>
+              Traders often make the mistake of looking at commission in
+              isolation. A low commission is meaningless if it’s paired with
+              wide spreads or poor execution (slippage).
+            </p>
 
-            <p><b>The Total Cost Per Lot formula is:</b> (Spread in Pips x Pip Value) + Round Turn Commission = <b>Total Cost</b></p>
+            <p>
+              <b>The Total Cost Per Lot formula is:</b> (Spread in Pips x Pip
+              Value) + Round Turn Commission = <b>Total Cost</b>
+            </p>
 
             <ul>
-            <li><b>The Slippage Factor</b>
-            <br/>If a broker has "cheap" costs but slips your entry by 0.2 pips, that is an extra $2.00 per lot added to your cost that doesn't show up on their pricing page.</li>
+              <li>
+                <b>The Slippage Factor</b>
+                <br />
+                If a broker has "cheap" costs but slips your entry by 0.2 pips,
+                that is an extra $2.00 per lot added to your cost that doesn't
+                show up on their pricing page.
+              </li>
 
-            <li><b>Cumulative Friction</b>
-            <br/>For a high-frequency trader or someone moving 1,000 lots a month, a mere $2.00 difference in total cost per lot is the difference between a $2,000 profit and a $2,000 loss.</li>
+              <li>
+                <b>Cumulative Friction</b>
+                <br />
+                For a high-frequency trader or someone moving 1,000 lots a
+                month, a mere $2.00 difference in total cost per lot is the
+                difference between a $2,000 profit and a $2,000 loss.
+              </li>
             </ul>
 
             <h2 className={`mt-0!`}>How it Affects Total Cost Calculation</h2>
 
-            <p>When we calculate the comparison between Afterprime and other brokers, we don't just look at a snapshot. We aggregate data across different market sessions to provide a "Net Cost" profile.</p>
+            <p>
+              When we calculate the comparison between Afterprime and other
+              brokers, we don't just look at a snapshot. We aggregate data
+              across different market sessions to provide a "Net Cost" profile.
+            </p>
 
-            <ul>
-            <li><b>Volume Weighting</b>
-            <br/>We analyze how costs scale. As your volume increases, the impact of "Flow Rewards<sup>TM</sup> becomes the deciding factor. While other brokers keep your commission static regardless of your contribution to the ecosystem, we believe in rewarding "clean" flow.</li>
-            <li><b>The Logic of "Flow Rewards<sup>TM</sup>"</b>
-            <br/>Unlike traditional "cashback" models which are often just rebates of marked-up spreads, Flow Rewards<sup>TM</sup> are a direct reflection of the value your trading flow brings to our liquidity providers.</li>
-            <li><b>Insight</b>
-            <br/>By reducing the "toxic" flow (latency arbitrage, etc.) through our invite-only model, our Liquidity Providers (LPs) can offer us tighter pricing. We simply pass those savings directly back to you.</li>
+            <ul className={`mb-0!`}>
+              <li>
+                <b>Volume Weighting</b>
+                <br />
+                We analyze how costs scale. As your volume increases, the impact
+                of "Flow Rewards<sup>TM</sup> becomes the deciding factor. While
+                other brokers keep your commission static regardless of your
+                contribution to the ecosystem, we believe in rewarding "clean"
+                flow.
+              </li>
+              <li>
+                <b>
+                  The Logic of "Flow Rewards<sup>TM</sup>"
+                </b>
+                <br />
+                Unlike traditional "cashback" models which are often just
+                rebates of marked-up spreads, Flow Rewards<sup>TM</sup> are a
+                direct reflection of the value your trading flow brings to our
+                liquidity providers.
+              </li>
+              <li>
+                <b>Insight</b>
+                <br />
+                By reducing the "toxic" flow (latency arbitrage, etc.) through
+                our invite-only model, our Liquidity Providers (LPs) can offer
+                us tighter pricing. We simply pass those savings directly back
+                to you.
+              </li>
             </ul>
             {/* ## */}
-            <DynamicDataTexts />
           </div>
         </div>
       </section>
