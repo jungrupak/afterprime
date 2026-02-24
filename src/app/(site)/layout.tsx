@@ -1,5 +1,5 @@
 import TypeformLoader from "@/utils/TypeFormLoader";
-import Header from "@/components/header/Header";
+import Header from "@/components/instrument-lps/header/Header";
 //import BottomCards from "@/components/footer/bottom-cards/BottomCards";
 import Footer from "@/components/footer/Footer";
 import { Metadata } from "next";
