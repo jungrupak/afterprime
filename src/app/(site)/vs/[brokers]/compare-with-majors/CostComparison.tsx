@@ -75,55 +75,99 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
         <div
           className={`${styles.costCompareTableHead} grid grid-cols-8 gp-10 md:gap-5 max-md:hidden`}
         >
-          <div className="col-span-2">FX Majors</div>
+          <div className="col-span-2 text-[#ffffff]!">FX Pair</div>
           <div className="col-span-2 text-[#ffffff]!">
-            {data?.competitor_contains?.[0].toUpperCase()} <br /> Cost/lot
+            {data?.competitor_contains?.[0].toUpperCase()} <br /> Net Cost/lot
           </div>
           <div className="col-span-2 bg-[var(--secondary-color)] text-white!">
-            Afterprime <br /> Cost/lot
+            Afterprime <br /> Net Cost/lot + Flow Rewards<sup>TM</sup>
           </div>
           <div className="col-span-2 text-[#ffffff]! text-right">
-            <b>Cost Saved $</b>
+            <b>% Savings<br/>
+            (vs Afterprime)</b>
           </div>
         </div>
 
         <div className={styles.compareTableBody}>
-          {MAJORS.map(([symbol, item]) => (
-            <div
-              key={symbol}
-              className={`${styles.costCompareTableRow} grid grid-cols-8 md:gap-5`}
-            >
-              <div className="col-span-2 max-md:col-span-12 max-md:pb-2!">
-                <div data-label="Pairs">{symbol}</div>
-              </div>
+          {MAJORS.map(([symbol, item]) => {
+            const competitorName = data?.competitor_contains?.[0] || "";
 
-              <div
-                className="col-span-2 max-md:col-span-3 max-md:pb-2!"
-                data-label={
-                  data?.competitor_contains?.[0].toUpperCase() + "(Cost/Lot)"
-                }
-              >
-                <div>${(item?.brokers?.[1]?.costPerLot ?? 0).toFixed(2)}</div>
-              </div>
+            const competitorBrokers =
+              item?.brokers?.filter((b) =>
+                String(b?.broker || "")
+                  .toLowerCase()
+                  .includes(competitorName.toLowerCase())
+              ) || [];
 
+            return (
               <div
-                data-label="Afterprime (Cost/Lot)"
-                className="col-span-2 max-md:col-span-3 md:bg-[var(--secondary-color)] text-white! max-md:px-1!"
+                key={symbol}
+                className={`${styles.costCompareTableRow} grid grid-cols-8 md:gap-5`}
               >
-                ${(item?.brokers?.[0].costPerLot).toFixed(2)}
+                <div className="col-span-2 max-md:col-span-12 max-md:pb-2!">
+                  <div data-label="Pairs">{symbol}</div>
+                </div>
+                <div
+                  className="col-span-2 max-md:col-span-3 max-md:pb-2!"
+                  data-label={`${competitorName} (Cost/Lot)`}
+                >
+                  {competitorBrokers.length ? (
+                    <div className="flex flex-col gap-1">
+                      {competitorBrokers.map((b) => (
+                        <div key={b?.broker}>
+                          <div className="text-xs opacity-80">{b?.broker}</div>
+                          <div>${(b?.costPerLot ?? 0).toFixed(2)}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div>${(item?.brokers?.[1]?.costPerLot ?? 0).toFixed(2)}</div>
+                  )}
+                </div>
+
+                <div
+                  data-label="Afterprime (Cost/Lot)"
+                  className="col-span-2 max-md:col-span-3 md:bg-[var(--secondary-color)] text-white! max-md:px-1!"
+                >
+                  <b>$
+                  {(
+                    (item?.brokers?.[0]?.costPerLot ?? 0) -
+                    (item?.rebate?.rebate_usd_per_lot ?? 0)
+                  ).toFixed(2)}</b>
+                </div>
+
+                <div
+                  data-label="Savings"
+                  className="col-span-2 max-md:col-span-2 text-right"
+                >
+                  {competitorBrokers.length ? (
+                    <div className="flex flex-col gap-1">
+                      {competitorBrokers.map((b) => (
+                        <div key={b?.broker}>
+                          <div className="text-xs opacity-80">{b?.broker}</div>
+                          <div>
+                            $
+                            {(
+                              (b?.costPerLot ?? 0) -
+                              (item?.brokers?.[0]?.costPerLot ?? 0)
+                            ).toFixed(2)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <>
+                      $
+                      {(
+                        (item?.brokers?.[1]?.costPerLot ?? 0) -
+                        (item?.brokers?.[0]?.costPerLot ?? 0)
+                      ).toFixed(2)}
+                    </>
+                  )}
+                </div>
               </div>
-              <div
-                data-label="Savings"
-                className="col-span-2 max-md:col-span-2 text-right"
-              >
-                $
-                {(
-                  (item?.brokers?.[1]?.costPerLot ?? 0) -
-                  (item?.brokers?.[0]?.costPerLot ?? 0)
-                ).toFixed(2)}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
