@@ -27,11 +27,10 @@ export default function ImpactCards() {
               <span className={`text-[16px] opacity-60 block`}>Lots/Month</span>
             </h3>
             <p className={`opacity-65 text-[16px]! mb-8!`}>
-              Entry point for Flow Rewards<sup>TM</sup>. Typical for active day
-              traders and small systematic strategies.
+              <b>Ideal For</b><br/>Active day traders & small systematic strategies.
             </p>
             <div className={`${styles.cardCta} ml-0! mt-auto!`}>
-              <span className={`opacity-80`}>Monthly savings range:</span>
+              <span className={`opacity-80`}>Monthly savings:</span>
               <br />{" "}
               <b>
                 <span
@@ -40,7 +39,7 @@ export default function ImpactCards() {
                   $115–$450
                 </span>
                 <span className={`font-[300] block opacity-60`}>
-                  vs Major Competitors
+                  vs Major Brokers
                 </span>
               </b>
             </div>
@@ -54,11 +53,10 @@ export default function ImpactCards() {
               <span className={`text-[16px] opacity-60 block`}>Lots/Month</span>
             </h3>
             <p className={`opacity-65 text-[16px]! mb-8!`}>
-              Standard volume for full-time retail traders and small prop
-              accounts.
+              <b>Ideal For</b><br/>Full-time retail traders and small prop accounts.
             </p>
             <div className={`${styles.cardCta} ml-0! mt-auto!`}>
-              <span className={`opacity-80`}>Monthly savings range:</span>
+              <span className={`opacity-80`}>Monthly savings:</span>
               <br />{" "}
               <b>
                 <span
@@ -67,7 +65,7 @@ export default function ImpactCards() {
                   $460–$1,800
                 </span>
                 <span className={`font-[300] block opacity-60`}>
-                  vs Major Competitors
+                  vs Major Brokers
                 </span>
               </b>
             </div>
@@ -81,11 +79,10 @@ export default function ImpactCards() {
               <span className={`text-[16px] opacity-60 block`}>Lots/Month</span>
             </h3>
             <p className={`opacity-65 text-[16px]! mb-8!`}>
-              Professional trader and fund threshold. Flow Rewards<sup>TM</sup>{" "}
-              create negative net costs.
+              <b>Ideal For</b><br/>Professional traders, fund managers, and high-frequency accounts.
             </p>
             <div className={`${styles.cardCta} ml-0! mt-auto!`}>
-              <span className={`opacity-80`}>Monthly savings range:</span>
+              <span className={`opacity-80`}>Monthly savings:</span>
               <br />{" "}
               <b>
                 <span
@@ -94,7 +91,7 @@ export default function ImpactCards() {
                   $2,300–$9,000
                 </span>
                 <span className={`font-[300] block opacity-60`}>
-                  vs Major Competitors
+                  vs Major Brokers
                 </span>
               </b>
             </div>

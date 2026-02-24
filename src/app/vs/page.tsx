@@ -145,16 +145,13 @@ export default async function Page() {
 
                 <ul>
                   <li>
-                    {formatPercentage(vsTopTen)}% lower costs than top 10
-                    average
+                    {formatPercentage(vsTopTen)}% Lower Cost vs Top 10 Brokers
                   </li>
                   <li>
-                    {formatPercentage(vsIndustryAvg)}% lower costs than industry
-                    average
+                    {formatPercentage(vsIndustryAvg)}% Lower Cost vs Industry Avg.
                   </li>
                   <li>
-                    {formatPercentage(vsSecondBest)}% lower costs than 2nd best
-                    competitor
+                    {formatPercentage(vsSecondBest)}% Lower Cost vs Next Best Broker
                   </li>
 
                   <li>Zero commission on all instruments</li>

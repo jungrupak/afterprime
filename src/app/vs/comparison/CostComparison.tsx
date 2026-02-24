@@ -104,8 +104,7 @@ export default function CostComparison() {
           Detailed Broker Comparisons
         </h2>
         <p className={`paragraph mb-[clamp(25px_,5vw_,50px)]`}>
-          Select a broker below to see detailed cost breakdowns, execution
-          metrics, and monthly savings calculations at your trading volume.
+          Select a broker below to view detailed cost breakdowns and savings calculations at your trading volume.
         </p>
         <div className={`${styles.costCompareTable}`}>
           <div
