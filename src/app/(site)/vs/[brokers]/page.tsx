@@ -248,13 +248,7 @@ export default async function ChildPage({ params }: Props) {
                   __html: ctaBlockFields?.paragraph || "",
                 }}
               />
-              <Button
-                varient="primary"
-                size="regular"
-                href={ctaBlockFields?.button_url}
-              >
-                {ctaBlockFields?.button_text}
-              </Button>
+              <TypeformButton buttonText="Get Invite Code" size="Regular" />
             </div>
           </div>
         </div>

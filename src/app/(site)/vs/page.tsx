@@ -5,7 +5,6 @@ import { getPageDataBySlug } from "@/data/getPageDataBySlug";
 import { notFound } from "next/navigation";
 import CostComparison from "./comparison/CostComparison";
 import FaqCalc from "@/components/faq-calculators/Faq";
-import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
 import Button from "@/components/ui/Button";
 import ImpactCards from "./impact-cards/ImpactCards";
 
@@ -64,7 +63,7 @@ const formatPercentage = (value?: number): string => {
 const fetchCostData = async (): Promise<CostApiResponse | null> => {
   try {
     const res = await fetch("https://feed.afterprime.com/api/costs", {
-      next: { revalidate: 80 },
+      next: { revalidate: 2400 },
     });
 
     if (!res.ok) {

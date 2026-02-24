@@ -39,7 +39,7 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
         const res = await fetch(
           `https://feed.afterprime.com/api/majors/by-competitor?contains=${broker}`,
           {
-            next: { revalidate: 80 },
+            next: { revalidate: 2400 },
           },
         );
 
@@ -75,6 +75,12 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
     ? competitorName.toUpperCase()
     : "Competitor";
   const MAJORS: [string, CostApiResponse][] = Object.entries(data?.items || {});
+
+  const lastUpdated = new Date().toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
   return (
     <div className="ap_container_small relative z-1 w-full z-5">
@@ -302,6 +308,14 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
             );
           })}
         </div>
+      </div>
+      <div className="text-[14px] opacity-60 mt-5">
+        Source:{" "}
+        <a href="https://www.forexbenchmark.com" target="_blank">
+          <u>ForexBenchmark</u>
+        </a>{" "}
+        - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads. (Last
+        Updated: {lastUpdated})
       </div>
     </div>
   );

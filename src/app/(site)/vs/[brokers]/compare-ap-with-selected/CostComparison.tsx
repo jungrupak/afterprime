@@ -55,7 +55,7 @@ export default function CostComparisonWithSelected({
     queryFn: async () => {
       try {
         const res = await fetch("https://feed.afterprime.com/api/costs", {
-          next: { revalidate: 80 },
+          next: { revalidate: 2400 },
         });
 
         if (!res.ok) {
@@ -90,6 +90,12 @@ export default function CostComparisonWithSelected({
     brokersToPick.includes(item.broker),
   );
 
+  const lastUpdated = new Date().toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
   if (!pickedBrokersLists.length) return null;
 
   return (
@@ -100,9 +106,17 @@ export default function CostComparisonWithSelected({
         >
           <div className="col-span-2 text-[#ffffff]!">Broker</div>
           <div className="col-span-2 text-[#ffffff]!">Pairs</div>
-          <div className="col-span-2 text-[#ffffff]!">Cost Per Lot<br/>(Including Commission)</div>
+          <div className="col-span-2 text-[#ffffff]!">
+            Cost Per Lot
+            <br />
+            (Including Commission)
+          </div>
           <div className="col-span-1 text-[#ffffff]! text-right">
-            <b>% Savings<br/>(vs Afterprime)</b>
+            <b>
+              % Savings
+              <br />
+              (vs Afterprime)
+            </b>
           </div>
         </div>
 
@@ -141,6 +155,14 @@ export default function CostComparisonWithSelected({
             </div>
           ))}
         </div>
+      </div>
+      <div className="text-[14px] opacity-60 mt-5">
+        Source:{" "}
+        <a href="https://www.forexbenchmark.com" target="_blank">
+          <u>ForexBenchmark</u>
+        </a>{" "}
+        - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads. (Last
+        Updated: {lastUpdated})
       </div>
     </div>
   );
