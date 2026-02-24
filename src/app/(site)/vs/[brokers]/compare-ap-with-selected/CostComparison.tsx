@@ -98,11 +98,11 @@ export default function CostComparisonWithSelected({
         <div
           className={`${styles.costCompareTableHead} grid grid-cols-7 gp-10 md:gap-5 max-md:hidden`}
         >
-          <div className="col-span-2">Broker</div>
-          <div className="col-span-2">Pairs</div>
-          <div className="col-span-2">Cost Per Lot (Including Commission)</div>
+          <div className="col-span-2 text-[#ffffff]!">Broker</div>
+          <div className="col-span-2 text-[#ffffff]!">Pairs</div>
+          <div className="col-span-2 text-[#ffffff]!">Cost Per Lot<br/>(Including Commission)</div>
           <div className="col-span-1 text-[#ffffff]! text-right">
-            <b>Savings</b>
+            <b>% Savings<br/>(vs Afterprime)</b>
           </div>
         </div>
 
