@@ -24,10 +24,12 @@ type Props = {
 //
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { brokers } = await params;
+  const renderPage = await getPageDataBySlug(brokers);
+  const pageTitle = renderPage?.title?.rendered;
   return {
-    title: `Afterprime vs ${brokers} - Total Cost Comparison
+    title: `Afterprime vs ${pageTitle} - Total Cost Comparison
 `,
-    description: `Compare Afterprime vs ${brokers}: zero commission, Flow Rewards, verified data. See total cost breakdown and monthly savings.`,
+    description: `Compare Afterprime vs ${pageTitle}: zero commission, Flow Rewards, verified data. See total cost breakdown and monthly savings.`,
     alternates: {
       canonical: `https://afterprime.com/vs/${brokers}`,
     },
@@ -47,6 +49,7 @@ export default async function ChildPage({ params }: Props) {
 
   const ctaBlockFields = pageData?.acf?.cta_block;
   const heroBanner = pageData?.acf?.hero_banner_home;
+  const content = pageData?.acf?.reading_text_content;
   const faqData = pageData?.acf?.faq_section?.q_and_a;
   return (
     <>
@@ -185,7 +188,7 @@ export default async function ChildPage({ params }: Props) {
               across different market sessions to provide a "Net Cost" profile.
             </p>
 
-            <ul className={`mb-0!`}>
+            <ul>
               <li>
                 <b>Volume Weighting</b>
                 <br />
@@ -214,6 +217,8 @@ export default async function ChildPage({ params }: Props) {
                 to you.
               </li>
             </ul>
+
+            <div dangerouslySetInnerHTML={{ __html: content ?? "" }} />
             {/* ## */}
           </div>
         </div>
