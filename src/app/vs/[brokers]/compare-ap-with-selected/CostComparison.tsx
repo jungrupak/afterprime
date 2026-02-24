@@ -33,7 +33,7 @@ const brokerSlugMap = {
   fxopen: "FXOpen (TickTrader)",
   dukascopy: "Dukascopy",
   darwinex: "Darwinex",
-  globalprime: "Global Prime",
+  "global-prime": "Global Prime",
   "markets-dot-com": "Markets.com",
   swissquote: "Swissquote",
 } as const;

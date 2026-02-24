@@ -145,10 +145,6 @@ export default async function Page() {
 
                 <ul>
                   <li>
-                    {formatPercentage(vsSecondBest)}% lower costs than
-                    second-best competitor
-                  </li>
-                  <li>
                     {formatPercentage(vsTopTen)}% lower costs than top 10
                     average
                   </li>
@@ -156,6 +152,11 @@ export default async function Page() {
                     {formatPercentage(vsIndustryAvg)}% lower costs than industry
                     average
                   </li>
+                  <li>
+                    {formatPercentage(vsSecondBest)}% lower costs than 2nd best
+                    competitor
+                  </li>
+
                   <li>Zero commission on all instruments</li>
                   <li>Flow Rewards up to $3/lot (round turn)</li>
                 </ul>

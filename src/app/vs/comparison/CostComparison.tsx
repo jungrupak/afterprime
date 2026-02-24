@@ -30,7 +30,7 @@ const brokerSlugMap = {
   "FXOpen (TickTrader)": "fxopen",
   Dukascopy: "dukascopy",
   Darwinex: "darwinex",
-  "Global Prime": "globalprime",
+  "Global Prime": "global-prime",
   "Markets.com": "markets-dot-com",
   Swissquote: "swissquote",
 } as const satisfies Record<string, string>;
@@ -111,10 +111,14 @@ export default function CostComparison() {
           <div
             className={`${styles.costCompareTableHead} grid grid-cols-7 gp-10 md:gap-5 max-md:hidden`}
           >
-            <div className={`col-span-3`}><b>Broker</b></div>
+            <div className={`col-span-3`}>
+              <b>Broker</b>
+            </div>
 
             <div className={`max-md:col-span-2 col-span-2`}>
-              <b>Cost Per Lot</b><br/>(Including Commission)
+              <b>Cost Per Lot</b>
+              <br />
+              (Including Commission)
             </div>
             <div className={`max-md:col-span-2 col-span-2 text-[#ffffff]!`}>
               <b>Savings</b>
