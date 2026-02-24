@@ -70,6 +70,10 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
       <p className={`text-red text-[12px] text-center`}>Error while data..</p>
     );
 
+  const competitorName = String(data?.competitor_contains?.[0] ?? "");
+  const competitorLabel = competitorName
+    ? competitorName.toUpperCase()
+    : "Competitor";
   const MAJORS: [string, CostApiResponse][] = Object.entries(data?.items || {});
 
   return (
@@ -80,7 +84,7 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
         >
           <div className="col-span-2 text-[#ffffff]!">FX Pair</div>
           <div className="col-span-2 text-[#ffffff]!">
-            {data?.competitor_contains?.[0].toUpperCase()} <br /> Net Cost/lot
+            {competitorLabel} <br /> Net Cost/lot
           </div>
           <div className="col-span-2 bg-[var(--secondary-color)] text-white!">
             Afterprime <br /> Net Cost/lot + Flow Rewards<sup>TM</sup>
@@ -96,15 +100,6 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
 
         <div className={styles.compareTableBody}>
           {MAJORS.map(([symbol, item], index) => {
-            const competitorName = data?.competitor_contains?.[0] ?? "";
-
-            const competitorBrokers =
-              item?.brokers?.filter((b) =>
-                String(b?.broker || "")
-                  .toLowerCase()
-                  .includes(competitorName.toLowerCase()),
-              ) ?? [];
-
             const rebate = item?.rebate?.rebate_usd_per_lot ?? 0;
             const competitorBrokerCostPerLot =
               item?.brokers?.find(
@@ -118,7 +113,7 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
                 (b) =>
                   b.broker !== "Afterprime" &&
                   b.broker !== "IC Markets (cTrader)",
-              )?.broker ?? [];
+              )?.broker ?? "";
 
             const afterprimeCostPerLot =
               item?.brokers?.find((b) => b.broker === "Afterprime")
@@ -134,12 +129,22 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
               <div
                 key={symbol}
                 className={`${styles.costCompareTableRow} grid grid-cols-8 md:gap-0 `}
-                onClick={() =>
-                  setRowIndex((prev) => (prev === index ? null : index))
-                }
               >
                 <div className="col-span-2 max-md:col-span-12 max-md:pb-2!">
-                  <div data-label="Pairs">{symbol}</div>
+                  <div
+                    data-label="Pairs"
+                    className={`flex gap-5 max-md:justify-between`}
+                  >
+                    {symbol}
+                    <div
+                      className={`${styles.monthlyVloumeBtn}`}
+                      onClick={() =>
+                        setRowIndex((prev) => (prev === index ? null : index))
+                      }
+                    >
+                      {index === rowIndex ? "Collapse" : "View"} Breakdown Table
+                    </div>
+                  </div>
                 </div>
                 <div
                   className="col-span-2 max-md:col-span-3 max-md:pb-2!"
