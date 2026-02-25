@@ -27,7 +27,9 @@ export default function ImpactCards() {
               <span className={`text-[16px] opacity-60 block`}>Lots/Month</span>
             </h3>
             <p className={`opacity-65 text-[16px]! mb-8!`}>
-              <b>Ideal For</b><br/>Active day traders & small systematic strategies.
+              <b>Ideal For</b>
+              <br />
+              Active day traders & small systematic strategies.
             </p>
             <div className={`${styles.cardCta} ml-0! mt-auto!`}>
               <span className={`opacity-80`}>Monthly savings:</span>
@@ -53,7 +55,9 @@ export default function ImpactCards() {
               <span className={`text-[16px] opacity-60 block`}>Lots/Month</span>
             </h3>
             <p className={`opacity-65 text-[16px]! mb-8!`}>
-              <b>Ideal For</b><br/>Full-time retail traders and small prop accounts.
+              <b>Ideal For</b>
+              <br />
+              Full-time retail traders and small prop accounts.
             </p>
             <div className={`${styles.cardCta} ml-0! mt-auto!`}>
               <span className={`opacity-80`}>Monthly savings:</span>
@@ -79,7 +83,9 @@ export default function ImpactCards() {
               <span className={`text-[16px] opacity-60 block`}>Lots/Month</span>
             </h3>
             <p className={`opacity-65 text-[16px]! mb-8!`}>
-              <b>Ideal For</b><br/>Professional traders, fund managers, and high-frequency accounts.
+              <b>Ideal For</b>
+              <br />
+              Professional traders, fund managers, and high-frequency accounts.
             </p>
             <div className={`${styles.cardCta} ml-0! mt-auto!`}>
               <span className={`opacity-80`}>Monthly savings:</span>
