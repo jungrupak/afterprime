@@ -52,8 +52,7 @@ export default async function page() {
               </h3>
               <p className={`opacity-80 text-[18px]! mb-0!`}>
                 Use the <b>Category List</b> if you want to learn a group of
-                related concepts at once such as margin and leverage or spreads
-                and costs.
+                related concepts at once such as margin or leverage.
               </p>
             </div>
 
@@ -81,7 +80,7 @@ export default async function page() {
               </h3>
               <p className={`opacity-80 text-[18px]! mb-0!`}>
                 On each term page read the first answer block for the quick
-                definition then scan the examples comparison table and
+                definition then scan the examples table and
                 verification steps.
               </p>
             </div>

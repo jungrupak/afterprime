@@ -24,7 +24,7 @@ export default async function page({ params }: PageSlug) {
     paragraph: pageData?.acf?.inner_banner?.hero_paragraph ?? "",
   };
   //Reading Content
-  const contents = pageData?.acf?.reading_text_content;
+  const contents = pageData?.content.rendered;
 
   console.log("Page Slug", terms);
 
