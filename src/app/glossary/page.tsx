@@ -80,8 +80,7 @@ export default async function page() {
               </h3>
               <p className={`opacity-80 text-[18px]! mb-0!`}>
                 On each term page read the first answer block for the quick
-                definition then scan the examples table and
-                verification steps.
+                definition then scan the examples table.
               </p>
             </div>
           </div>
