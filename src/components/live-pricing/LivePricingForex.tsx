@@ -88,7 +88,9 @@ export function LivePricingForex() {
                                   alt={`${item.symbol} ${item.group}`}
                                 />
                               </div>
-                              {item.symbol}
+                              <a href={"/trade/" + item.symbol.toLowerCase()}>
+                                {item.symbol}
+                              </a>
                             </div>
                           ) : item.group.startsWith("Stocks") ? (
                             <div className={`${styles.instrumentIcons}`}>
