@@ -3,7 +3,6 @@ import { WPPage } from "@/types/blocks";
 import PageRenderer from "@/components/PageRender";
 import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
-import FaqSchema from "@/lib/schema/faqSchema";
 //####
 export const revalidate = 86400;
 

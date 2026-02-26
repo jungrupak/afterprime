@@ -4,11 +4,27 @@ import styles from "../Page.module.scss";
 import InnerBannerGeneric from "@/components/InnerBannerGeneric/InnerBannerGeneric";
 import { wpFetch } from "@/utils/wpFetch";
 import type { WPPage } from "@/types/blocks";
+import { Metadata } from "next";
 
 interface PageSlug {
   params: Promise<{
     terms: string;
   }>;
+}
+
+export async function generateMetadata({
+  params,
+}: PageSlug): Promise<Metadata> {
+  const { terms } = await params;
+  const pageData = await getPageDataBySlug(terms);
+  const pageTitle = pageData?.title?.rendered;
+  return {
+    title: `${pageTitle} | Forex Glossary | Afterprime`,
+    description: `Learn what ${pageTitle} means in forex trading. Clear, concise definitions for serious traders, part of the Afterprime forex glossary.`,
+    alternates: {
+      canonical: `https://afterprime.com/glossary/${terms}`,
+    },
+  };
 }
 
 export default async function page({ params }: PageSlug) {

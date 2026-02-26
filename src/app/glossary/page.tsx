@@ -2,9 +2,21 @@ import InnerBannerGeneric from "@/components/InnerBannerGeneric/InnerBannerGener
 import { getPageDataBySlug } from "@/data/getPageDataBySlug";
 import styles from "./Page.module.scss";
 import FaqCalc from "@/components/faq-calculators/Faq";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Forex Trading Glossary | Afterprime",
+  description:
+    "Master forex trading terminology with Afterprime's complete glossary. Definitions for spreads, leverage, pips, margin, and more — built for serious traders.",
+  alternates: {
+    canonical: "https://afterprime.com/glossary",
+  },
+};
 
 export default async function page() {
   const pageData = await getPageDataBySlug("glossary");
+
+  if (!pageData) return null;
 
   //Banner Content
   const Banner_CONTENT = {

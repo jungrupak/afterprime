@@ -1,7 +1,7 @@
 
 export async function getPageDataBySlug(pageSlug:string) {
   const baseUrl = process.env.NEXT_PUBLIC_WP_BASE_URL; 
-   if(!baseUrl)return;
+   if(!baseUrl)return null;
   const res = await fetch(
     `${baseUrl}/wp-json/wp/v2/pages?slug=${pageSlug}`,
     {
