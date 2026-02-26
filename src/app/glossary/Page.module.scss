@@ -118,6 +118,13 @@
     }
   }
 
+  a {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   ul,
   ol {
     margin-left: 16px;
@@ -172,6 +179,12 @@
 }
 
 .glossaryContent {
+  a {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
   h2,
   h3 {
     margin: 0 !important;

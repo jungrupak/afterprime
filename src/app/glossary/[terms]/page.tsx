@@ -17,7 +17,11 @@ export async function generateMetadata({
 }: PageSlug): Promise<Metadata> {
   const { terms } = await params;
   const pageData = await getPageDataBySlug(terms);
-  const pageTitle = pageData?.title?.rendered;
+  const pageTitle = pageData?.title?.rendered ?? "";
+  // 🚫 If no page OR wrong parent → no metadata
+  if (!pageData || pageData.parent !== 4100) {
+    return {};
+  }
   return {
     title: `${pageTitle} | Forex Glossary | Afterprime`,
     description: `Learn what ${pageTitle} means in forex trading. Clear, concise definitions for serious traders, part of the Afterprime forex glossary.`,
@@ -34,15 +38,18 @@ export default async function page({ params }: PageSlug) {
     notFound();
   }
 
+  // 🚫 If no page OR wrong parent → page not found
+  if (!pageData || pageData.parent !== 4100) {
+    return notFound();
+  }
+
   //Banner Content
   const banner = {
-    heading: pageData?.title?.rendered,
+    heading: pageData?.title?.rendered ?? "",
     paragraph: pageData?.acf?.inner_banner?.hero_paragraph ?? "",
   };
   //Reading Content
-  const contents = pageData?.content.rendered;
-
-  console.log("Page Slug", terms);
+  const contents = pageData?.content.rendered ?? "";
 
   return (
     <main>
