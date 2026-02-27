@@ -5,6 +5,7 @@ import InnerBannerGeneric from "@/components/InnerBannerGeneric/InnerBannerGener
 import { wpFetch } from "@/utils/wpFetch";
 import type { WPPage } from "@/types/blocks";
 import { Metadata } from "next";
+import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
 
 interface PageSlug {
   params: Promise<{
@@ -69,6 +70,16 @@ export default async function page({ params }: PageSlug) {
         </div>
       </section>
       {/*  */}
+
+      {/* CTA */}
+      <section className="compact-section">
+        <div className="grainy_bg"></div>
+        <div className="ap_container_small">
+          <CtaBlock />
+        </div>
+      </section>
+
+      {/* CTA ends */}
     </main>
   );
 }
