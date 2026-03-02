@@ -108,7 +108,9 @@ export function LivePricingAll() {
                                     alt={`${item.symbol} ${item.group}`}
                                   />
                                 </div>
-                                {item.symbol}
+                                <a href={"/forex/" + item.symbol.toLowerCase()}>
+                                  {item.symbol}
+                                </a>
                               </div>
                             ) : item.group.startsWith("Stocks") ? (
                               <div className={`${styles.instrumentIcons}`}>
@@ -150,7 +152,7 @@ export function LivePricingAll() {
                             {item.spread}
                           </td>
                           <td className="px-4 py-2 " t-name="Market">
-                            {item.market}
+                            {item.market.charAt(0).toUpperCase() + item.market.slice(1).toLowerCase()}
                           </td>
                         </tr>
                       ))}
