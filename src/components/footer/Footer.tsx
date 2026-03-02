@@ -35,16 +35,18 @@ export default function Footer() {
 
   return (
     <section className={`${styles.footer_section} compact-section`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container_small">
         <div
           className={`flex flex-wrap md:grid md:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-10 md:gap-12 sm:gap-6`}
         >
           <div className="col-span-full sm:col-auto order-1">
             <Link href="/" className="block mb-6">
-              <Image src="/img/logo-text.svg" alt="Afterprime Broker Logo" width={160} height={29} />
+              <Image
+                src="/img/logo-text.svg"
+                alt="Afterprime Broker Logo"
+                width={160}
+                height={29}
+              />
             </Link>
             <div className="flex gap-3 mb-6">
               {socialItems.map((item, index) => (
@@ -68,7 +70,12 @@ export default function Footer() {
               target="_blank"
               className="flex gap-2 items-center font-[600] mb-12"
             >
-              <Image width={34} height={34} src="/img/yt.png" alt="YouTube Logo" />
+              <Image
+                width={34}
+                height={34}
+                src="/img/yt.png"
+                alt="YouTube Logo"
+              />
               Afterprime YouTube
             </Link>
             <div className="flex gap-3">
@@ -102,7 +109,9 @@ export default function Footer() {
             <h2>Quick Links</h2>
             <ul>
               <li>
-                <Link href="/get-paid-to-trade">Flow Rewards<sup>TM</sup></Link>
+                <Link href="/get-paid-to-trade">
+                  Flow Rewards<sup>TM</sup>
+                </Link>
               </li>
               <li>
                 <Link href="/lowest-cost-verified">Lowest Cost Verified</Link>
@@ -142,7 +151,6 @@ export default function Footer() {
               <li>
                 <Link href="/trade">Compare Trading Costs</Link>
               </li>
-
             </ul>
           </div>
           <div className={`${styles.footer_links} order-4`}>
@@ -184,9 +192,7 @@ export default function Footer() {
                 <Link href="/legal-documents">Legal Documents</Link>
               </li>
               <li>
-                <Link href="/license-and-regulations">
-                  CFD Broker License
-                </Link>
+                <Link href="/license-and-regulations">CFD Broker License</Link>
               </li>
               <li>
                 <Link href="/kyc-aml">KYC & AML/CTF</Link>
@@ -206,8 +212,12 @@ export default function Footer() {
             product described on this website is not a reliable indication of
             future performance. You should consider whether you’re part of our
             target market by reviewing our Target Market Determination, and read
-            our PDS and other <Link href="/legal-documents"><u>legal documents</u></Link> to ensure you fully understand the
-            risks before you make any trading decisions.
+            our PDS and other{" "}
+            <Link href="/legal-documents">
+              <u>legal documents</u>
+            </Link>{" "}
+            to ensure you fully understand the risks before you make any trading
+            decisions.
           </p>
           <p>
             The information on this website is not intended to be an inducement,
@@ -216,8 +226,8 @@ export default function Footer() {
             regulation.
           </p>
           <p>
-            © Copyright 2018-{currentYear} Afterprime Pty Ltd | Global Gateway 8, Rue
-            de la Perle, Providence, Mahé, Seychelles.
+            © Copyright 2018-{currentYear} Afterprime Pty Ltd | Global Gateway
+            8, Rue de la Perle, Providence, Mahé, Seychelles.
           </p>
         </div>
       </div>

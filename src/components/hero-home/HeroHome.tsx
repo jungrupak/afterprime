@@ -107,10 +107,6 @@ export function HeroHome({ data, title = [] }: heroContent) {
   console.log("url:", data.hero_banner_home_banner_btn_url);
   return (
     <div className={`${styles.hero_home} h-screen`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
-
       <div className="ap_container h-full relative z-2">
         <div className="flex flex-wrap items-center h-full min-h-[400px] lg:min-h-[600px] relative">
           <div className="w-full">

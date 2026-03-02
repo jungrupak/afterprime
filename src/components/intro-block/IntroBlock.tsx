@@ -10,9 +10,6 @@ export default function GenericIntroBlock({
 }: IntroBlockProps) {
   return (
     <section className={`${styles.sectionIntroBlockGeneric}`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container">
         <div className={`${styles.sectionIntroContents}`}>
           <div>

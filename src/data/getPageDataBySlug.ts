@@ -13,7 +13,8 @@ export async function getPageDataBySlug(pageSlug:string) {
     throw new Error("Failed to fetch WP page")
   }
 
-  const pages = await res.json()
+  const pages = await res.json();
+  if(!pages.length) return null;
   return pages[0] // slug is unique → first item
 }
 

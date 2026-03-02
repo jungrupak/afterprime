@@ -25,9 +25,6 @@ export default function InnerBanner({
       <section
         className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div className="ap_container_small flex items-center h-full">
           <div className={`apBannerContent`}>
             <h1 className="h1-size mt-10 lg:mt-15 max-w-[800px]">

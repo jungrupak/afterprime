@@ -15,9 +15,6 @@ export default function GoogleReview(props: Props) {
   return (
     <>
       <section id="googleReviewSection" className={`compact-section`}>
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div className="ap_container_small">
           {isFullReview === "1" ? (
             ""

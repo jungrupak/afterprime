@@ -70,7 +70,6 @@ export default async function Page({ params }: PageSlug) {
       <section
         className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
-        <div className="grainy_bg"></div>
         <div className="ap_container_small flex items-center h-full">
           <div className="apBannerContent md:max-w-[800px]">
             <h1 className="h1-size mt-10 lg:mt-15">
@@ -89,7 +88,6 @@ export default async function Page({ params }: PageSlug) {
 
       {/* Calculator WIdget Section */}
       <section className={`compact-section`}>
-        <div className="grainy_bg"></div>
         <div className="ap_container_small flex items-center h-full">
           {selectCalculator === "Compound Growth Calculator" && (
             <CompoundGrowthCalculator />
@@ -118,7 +116,6 @@ export default async function Page({ params }: PageSlug) {
       {/* Page Contents */}
       {pageFullContent && (
         <section className={`compact-section`}>
-          <div className="grainy_bg"></div>
           <div className="ap_container_small">
             <div
               className={`${styles.pageEditorContent}`}

@@ -80,7 +80,6 @@ export default async function ChildPage({ params }: Props) {
         className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
         {/* grain bg effect */}
-        <div className="grainy_bg"></div>
         {/* grain bg effect */}
         <div className="ap_container_small flex items-center h-full">
           <div className={`apBannerContent`}>
@@ -97,9 +96,6 @@ export default async function ChildPage({ params }: Props) {
       <section
         className={`${styles.sectionIntroBlockGeneric} py-[clamp(40px_,10vw_,60px)]!`}
       >
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div className="ap_container_small">
           <div className={`${styles.sectionIntroContents}`}>
             <div className={`max-md:order-2 max-md:text-left`}>
@@ -116,7 +112,6 @@ export default async function ChildPage({ params }: Props) {
       {/* Page Contents */}
       {pageBuilder && (
         <section className={`compact-section`}>
-          <div className="grainy_bg"></div>
           <div className="ap_container_small">
             <div className={`${styles.pageEditorContent}`}>
               {pageBuilder.map(renderSection)}
@@ -129,7 +124,6 @@ export default async function ChildPage({ params }: Props) {
       {/* Trading Glossary page */}
 
       <section id="trading-glossaries" className={`compact-section`}>
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           {glossaryData && (
             <>

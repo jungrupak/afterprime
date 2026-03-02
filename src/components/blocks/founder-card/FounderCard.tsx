@@ -10,7 +10,6 @@ export default function FoundersCard(props: FounderCardProps) {
 
   return (
     <section className="compact-section">
-      <div className="grainy_bg"></div>
       <div className="ap_container_small">
         <div
           className={`${styles.founders_block} grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] min-md:grid-cols-[repeat(auto-fit,minmax(500px,1fr))]  min-[1204px]:gap-40 items-center group`}

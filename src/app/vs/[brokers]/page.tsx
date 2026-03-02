@@ -57,9 +57,6 @@ export default async function ChildPage({ params }: Props) {
       <section
         className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div className="ap_container_small flex items-center h-full">
           <div className={`apBannerContent`}>
             <h1 className="h1-size mt-10 lg:mt-15 max-w-[800px]">
@@ -97,7 +94,6 @@ export default async function ChildPage({ params }: Props) {
 
       {/* Trading Cost Breakdown */}
       <section className={`compact-section`}>
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           <h2 className={`leading-[1.2]`}>Total Trading Cost Breakdown</h2>
           <CostComparisonWithSelected selectedBrokerSlug={brokers} />
@@ -107,7 +103,6 @@ export default async function ChildPage({ params }: Props) {
 
       {/* Trading Cost Breakdown */}
       <section className={`compact-section`}>
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           <h2 className={`leading-[1.2]`}>Trading Cost by Forex Major</h2>
           <CompareWithMajors broker={brokers} />
@@ -117,7 +112,6 @@ export default async function ChildPage({ params }: Props) {
 
       {/* Dynamic Content Area */}
       <section className={`compact-section`}>
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           {/*  */}
           <div className={`${styles.pageEditorContent}`}>
@@ -231,7 +225,6 @@ export default async function ChildPage({ params }: Props) {
 
       {/* CTA */}
       <section className={`compact-section`}>
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           <div
             className={`${styles.bottomCta} flex flex-col justify-center items-center text-center`}

@@ -18,9 +18,6 @@ export default function SectionTable({
   return (
     <>
       <section>
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div className="ap_container">
           <div className="mb-10 md:mb-20">
             <h2 className={`${styles.sectionTitle}`}>{sectionTitle}</h2>

@@ -80,9 +80,6 @@ export default function LPBanner({ instrument }: BannerTitle) {
       <section
         className={`${styles.lpBanner} max-md:mt-10 md:pb-0! md:h-[100vh]`}
       >
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div
           className={`ap_container_small grid grid-cols-2 gap-8 md:gap-20 relative z-1 flex items-center h-full`}
         >

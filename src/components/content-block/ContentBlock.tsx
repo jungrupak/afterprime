@@ -17,19 +17,16 @@ export default function ContentBlock({
   return (
     <>
       <section>
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div className={`ap_container`}>
           <div
             className={`grid grid-cols-1 md:grid-cols-2 gap-25 max-md:gap-10 ${
               vAlign === "start"
                 ? "items-start"
                 : vAlign === "center"
-                ? "items-center"
-                : vAlign === "end"
-                ? "items-end"
-                : ""
+                  ? "items-center"
+                  : vAlign === "end"
+                    ? "items-end"
+                    : ""
             }`}
           >
             <div

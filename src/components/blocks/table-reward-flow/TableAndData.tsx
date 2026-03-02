@@ -120,7 +120,6 @@ export function TableDataRewardFlow({
 
   return (
     <section className={`compact-section`}>
-      <div className="grainy_bg"></div>
       <div className="ap_container_small">
         <div className="mb-10 md:mb-20">
           <h2 className={style.sectionTitle}>{rebate_table_title}</h2>

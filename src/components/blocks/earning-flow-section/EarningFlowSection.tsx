@@ -33,9 +33,6 @@ export function EarningFlowSection(block: EarningFlowBlock) {
 
   return (
     <section className={`${styles.section_earning_flow} compact-section`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container_small">
         <BoxedBlock isBoxed={false} vAlign="center">
           {/* Left */}

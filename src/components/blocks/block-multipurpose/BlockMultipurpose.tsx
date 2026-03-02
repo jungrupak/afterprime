@@ -74,9 +74,6 @@ export function MultipurposeBlock({
   ////////
   return (
     <section className={`compact-section`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container_small">
         <BoxedBlock isBoxed={isBoxed === 1 ? true : false} vAlign={vrAlign}>
           {/* Left */}

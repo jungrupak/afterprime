@@ -1,23 +1,20 @@
-import {WPPage} from "@/types/blocks";
 
 
-export async function getGlossaryPageData(params:string) {
-  const restEndpoint = process.env.WORDPRESS_REST_ENDPOINT;
-  if (!restEndpoint) {
-    throw new Error("WORDPRESS_REST_ENDPOINT is not defined")
-  }
-  //defined parend ID to call only slugs that has Trade Page as parent
-  const res = await fetch(restEndpoint + `/pages?slug=${params}&parent=4100`, {
-      next:{revalidate:80}});
+export async function getGlossaryPageSlug(pageSlug:string) {
+  const baseUrl = process.env.NEXT_PUBLIC_WP_BASE_URL; 
+   if(!baseUrl)return null;
+  const res = await fetch(
+    `${baseUrl}/wp-json/wp/v2/pages?slug=${pageSlug}&parent=4100`,
+    {
+      next:{revalidate:80} 
+    } // or revalidate if you want ISR
+  )
+
   if (!res.ok) {
-    throw new Error("Failed to retrieve data from external service")
-  }
-  const data: WPPage[] = await res.json();
-
-  // WordPress returns an array — even for a single slug
-  if (!data.length) {
-    return null
+    throw new Error("Failed to fetch WP page")
   }
 
-  return data[0]
+  const pages = await res.json();
+  if(!pages.length) return {};
+  return pages[0] // slug is unique → first item
 }

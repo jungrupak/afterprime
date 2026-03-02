@@ -129,8 +129,6 @@ export default async function Page() {
       <section
         className={`${styles.sectionIntroBlockGeneric} py-[clamp(40px_,10vw_,60px)]!`}
       >
-        <div className="grainy_bg"></div>
-
         <div className="ap_container_small">
           <div className={styles.sectionIntroContents}>
             <div className="max-md:order-2 max-md:text-left">
@@ -148,10 +146,12 @@ export default async function Page() {
                     {formatPercentage(vsTopTen)}% Lower Cost vs Top 10 Brokers
                   </li>
                   <li>
-                    {formatPercentage(vsIndustryAvg)}% Lower Cost vs Industry Avg.
+                    {formatPercentage(vsIndustryAvg)}% Lower Cost vs Industry
+                    Avg.
                   </li>
                   <li>
-                    {formatPercentage(vsSecondBest)}% Lower Cost vs Next Best Broker
+                    {formatPercentage(vsSecondBest)}% Lower Cost vs Next Best
+                    Broker
                   </li>
 
                   <li>Zero commission on all instruments</li>
@@ -170,7 +170,6 @@ export default async function Page() {
       {/* Intro Block ends */}
       {/* Comparison Directory */}
       <section className={`py-[clamp(40px_,10vw_,60px)]!`}>
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           <CostComparison />
         </div>
@@ -179,7 +178,6 @@ export default async function Page() {
       {/* Contents */}
       {pageContent && (
         <section className={`compact-section`}>
-          <div className="grainy_bg"></div>
           <div className="ap_container_small">
             <div
               className={`${styles.pageEditorContent}`}
@@ -196,7 +194,6 @@ export default async function Page() {
 
       {/* CTA */}
       <section className={`compact-section`}>
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           <div
             className={`${styles.bottomCta} flex flex-col justify-center items-center text-center`}

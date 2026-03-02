@@ -9,7 +9,6 @@ export default function TradingCalculatorClient() {
   const navItems = ["Trading Calculator", "Profit Calculator"];
   return (
     <section className={`${styles.pageCalcWrap}`}>
-      <div className="grainy_bg"></div>
       <div className={`${styles.pageCalcWrapContainer}`}>
         <div className={`${styles.tabNav}`}>
           {navItems.map((item, idx) => (

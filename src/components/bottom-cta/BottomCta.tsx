@@ -26,9 +26,6 @@ export function BottomCta({ data }: Props) {
   return (
     <>
       <section className={`${styles.section_cta} compact-section`}>
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div className="ap_container_small">
           <div className="max-w-[700px] mx-auto text-center">
             <h2 className="h2-size mb-6">{data?.section_title}</h2>
