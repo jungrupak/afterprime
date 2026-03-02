@@ -166,6 +166,9 @@ export default function Footer() {
               <li>
                 <Link href="/calculators">Trading Calculators</Link>
               </li>
+              <li>
+                <Link href="/glossary">Trading Glossary</Link>
+              </li>
             </ul>
           </div>
           <div className={`${styles.footer_links} order-5`}>
