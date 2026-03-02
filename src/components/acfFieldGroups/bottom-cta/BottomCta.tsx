@@ -6,10 +6,6 @@ export async function BottomCta() {
 
   return (
     <section className={`compact-section`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
-
       <div className={`ap_container_small relative z-1 w-full`}>
         <div
           className={`${styles.bottomCta} flex flex-col justify-center items-center text-center`}

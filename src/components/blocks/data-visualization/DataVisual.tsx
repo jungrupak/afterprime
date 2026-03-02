@@ -13,7 +13,6 @@ export default function DataVisual(props: SectionProps) {
 
   return (
     <section className={`${styles.section_earning_flow} compact-section`}>
-      <div className="grainy_bg"></div>
       <div className="ap_container_small">
         <div className={`${styles.costAdvantageSection} `}>
           <div

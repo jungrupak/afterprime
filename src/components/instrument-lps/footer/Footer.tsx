@@ -33,9 +33,6 @@ export default function Footer() {
 
   return (
     <section className={`${styles.footer_section} py-8! md:py-10!`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container_small">
         <div className={`${styles.footer_texts}`}>
           <h3>Customer Notice</h3>

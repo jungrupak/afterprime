@@ -1,7 +1,6 @@
 export default function Loading() {
   return (
     <section>
-      <div className="grainy_bg"></div>
       <div
         className="ap_container gap-4 flex justify-center items-center h-full w-full"
         style={{ minHeight: "90vh" }}

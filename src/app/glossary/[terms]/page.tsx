@@ -1,4 +1,4 @@
-import { getPageDataBySlug } from "@/data/getPageDataBySlug";
+import { getGlossaryPageSlug } from "@/lib/getGlossaryPageData";
 import { notFound } from "next/navigation";
 import styles from "../Page.module.scss";
 import InnerBannerGeneric from "@/components/InnerBannerGeneric/InnerBannerGeneric";
@@ -17,7 +17,7 @@ export async function generateMetadata({
   params,
 }: PageSlug): Promise<Metadata> {
   const { terms } = await params;
-  const pageData = await getPageDataBySlug(terms);
+  const pageData = await getGlossaryPageSlug(terms);
   const pageTitle = pageData?.title?.rendered ?? "";
   // 🚫 If no page OR wrong parent → no metadata
   if (!pageData || pageData.parent !== 4100) {
@@ -34,13 +34,13 @@ export async function generateMetadata({
 
 export default async function page({ params }: PageSlug) {
   const { terms } = await params;
-  const pageData = await getPageDataBySlug(terms);
+  const pageData = await getGlossaryPageSlug(terms);
   if (!pageData) {
     notFound();
   }
 
   // 🚫 If no page OR wrong parent → page not found
-  if (!pageData || pageData.parent !== 4100) {
+  if (!pageData) {
     return notFound();
   }
 
@@ -60,7 +60,6 @@ export default async function page({ params }: PageSlug) {
 
       {/*  */}
       <section className="compact-section">
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           {/* Cards */}
           <div className={`${styles.pageEditorContent}`}>
@@ -73,7 +72,6 @@ export default async function page({ params }: PageSlug) {
 
       {/* CTA */}
       <section className="compact-section">
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           <CtaBlock />
         </div>

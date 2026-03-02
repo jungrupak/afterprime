@@ -19,9 +19,6 @@ export function SimpleContentBlock({ reading_content, block_image }: Props) {
 
   return (
     <section className={`compact-section`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container_small">
         <div className={`grid grid-cols-5 gap-20 `}>
           <div

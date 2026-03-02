@@ -124,7 +124,6 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
       <section
         className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
-        <div className="grainy_bg"></div>
         <div className="ap_container_small flex items-center h-full">
           <div className="apBannerContent md:max-w-[800px]">
             <h1 className="h1-size mt-10 lg:mt-15 ">
@@ -146,7 +145,6 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
 
       {/* INtro sectio */}
       <section className="compact-section">
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           {/* Cards */}
           <div
@@ -173,7 +171,6 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
 
       {/* section */}
       <section className="compact-section">
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           <div className="grid grid-cols-2 lg:grid-cols-2 xl:gap-25 gap-10">
             <div className="col-span-2 md:col-span-1 order-2 h-full">
@@ -196,7 +193,6 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
 
       {/* When to use calculator */}
       <section className="compact-section">
-        <div className="grainy_bg"></div>
         <div className="ap_container_small">
           <div className="grid max-md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 justify-center max-md:mb-8">
             <div className="" />

@@ -15,9 +15,6 @@ export function SectionDownloadPlatform({
 }: SectionProps) {
   return (
     <section className={`${styles.section_generic_cards_content}`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
           <div className="">

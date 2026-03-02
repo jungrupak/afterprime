@@ -4,7 +4,6 @@ import Button from "@/components/ui/Button";
 export default function InstrumentNotFound() {
   return (
     <section>
-      <div className="grainy_bg"></div>
       <div className="ap_container">
         <div className="text-center px-6">
           <h1 className="text-[clamp(30px_,5vw_,120px)] font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mt-30">

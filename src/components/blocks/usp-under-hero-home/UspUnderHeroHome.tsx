@@ -48,9 +48,6 @@ export function UspUnderHome(props: USPBlockProps) {
 
   return (
     <section className={`${styles.section_usp}`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       {!loading ? (
         <div className="ap_container_small">
           <div className={`${styles.usp_items_wrapper} items-center`}>

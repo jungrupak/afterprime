@@ -15,7 +15,7 @@ export function MultipurposeBlock({ data, isBoxed }: DataProps) {
   const aBookListsItems = useAcfRepeaterValues(
     data,
     "multipurpose_block_feature_bullet_lists",
-    "list_item"
+    "list_item",
   );
 
   // ////////
@@ -29,9 +29,6 @@ export function MultipurposeBlock({ data, isBoxed }: DataProps) {
   ////////
   return (
     <section>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container">
         <BoxedBlock isBoxed={isBoxed} vAlign="center">
           {/* Left */}

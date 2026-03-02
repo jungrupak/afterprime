@@ -14,9 +14,6 @@ export default function InnerPageIntroBlock({
     <section
       className={`${styles.sectionIntroBlockGeneric} py-[clamp(40px_,10vw_,60px)]!`}
     >
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container_small">
         <div className={`${styles.sectionIntroContents}`}>
           <div>

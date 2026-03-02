@@ -25,9 +25,6 @@ export function TableDataRewardFlow({
   return (
     <>
       <section>
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div className="ap_container">
           <div className="mb-10 md:mb-20">
             <h2 className={`${style.sectionTitle}`}>{sectionTitle}</h2>

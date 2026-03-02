@@ -21,7 +21,6 @@ export default function Section({
     <>
       <section className={sectionClass || ""}>
         {/* grain bg effect */}
-        {noiseEffect && <div className="grainy_bg"></div>}
 
         {/* grain bg effect */}
         <div className="ap_container">

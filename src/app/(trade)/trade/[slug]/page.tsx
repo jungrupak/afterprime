@@ -79,9 +79,6 @@ export default async function TradeSlugPage({ params }: PageProps) {
       <LPBanner instrument={page.slug} />
 
       <section className={`compact-section pt-[0.5px]!`}>
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div className="ap_container_small">
           <CostComparison instrument={page.slug} />
           {/* <GoogleReview /> */}

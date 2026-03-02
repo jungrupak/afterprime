@@ -6,10 +6,6 @@ interface SectionProps {
 export default function BlockWIthCards({ children }: SectionProps) {
   return (
     <section className={`${styles.sectionBlockWithCards}`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
-
       <div className="ap_container relative">
         {/* <div className={`dotted_bg_in_container dotted-block`}></div> */}
         <div

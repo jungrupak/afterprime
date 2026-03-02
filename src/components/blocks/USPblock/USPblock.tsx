@@ -5,9 +5,6 @@ type USPBlockProps = Blocks["inner-page-usp"];
 export default function USPBlock({ usps = [] }: USPBlockProps) {
   return (
     <section className={`${styles.innerPageUsp} compact-section`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container_small">
         <div className={`${styles.uspWrapper}`}>
           {usps.map((usp, i) => (

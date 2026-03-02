@@ -42,9 +42,6 @@ export default function SectionMarginCallOut() {
   return (
     <>
       <section className={`compact-section`}>
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div className="ap_container_small">
           <div className="mb-10 md:mb-20">
             <h2 className={`${styles.sectionTitle}`}>{title}</h2>

@@ -11,9 +11,6 @@ export default function HighlightBlockQuote({
 }: HighlightTextProp) {
   return (
     <section className={`compact-section`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container_small">
         <HighlightText
           highlight_text={highlight_text}

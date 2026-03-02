@@ -12,14 +12,12 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
     <section
       className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection} compact-section`}
     >
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
       <div className="ap_container_small">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
           <div>
             <h2 className="h2-size mb-6 text-center md:text-left">
-            A Cost Structure Built <br/><span>Around Your Profitability</span>.
+              A Cost Structure Built <br />
+              <span>Around Your Profitability</span>.
             </h2>
           </div>
         </div>
@@ -28,7 +26,8 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
           <div className={`${styles.cardItem} ${styles.cardSmall}`}>
             <h3>Save on Every Trade.</h3>
             <p>
-              Lowest total trading costs, executed by Tier-1 liquidity via prime brokers.
+              Lowest total trading costs, executed by Tier-1 liquidity via prime
+              brokers.
             </p>
             <div className={`${styles.cardCta}`}>
               <Link
@@ -63,7 +62,8 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
           >
             <h3>Get Paid on Volume.</h3>
             <p>
-              Earn up to $3/per lot on eligible flow. Volume compounds cost savings.
+              Earn up to $3/per lot on eligible flow. Volume compounds cost
+              savings.
             </p>
             <div className={`${styles.cardCta}`}>
               <Link
@@ -95,7 +95,9 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
           </div>
           <div className={`${styles.cardItem} ${styles.cardSmall}`}>
             <h3>Built Without Conflicts.</h3>
-            <p>We profit from trading volume, not client losses. No B-book. Ever.</p>
+            <p>
+              We profit from trading volume, not client losses. No B-book. Ever.
+            </p>
             <div className={`${styles.cardCta}`}>
               <Link
                 className="card_href_link hover:underline"

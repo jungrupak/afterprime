@@ -22,9 +22,6 @@ export default function BlockWithLists({
   return (
     <>
       <section className={``}>
-        {/* grain bg effect */}
-        <div className="grainy_bg"></div>
-        {/* grain bg effect */}
         <div className="ap_container">
           <div
             className={`${styles.compWrapper} ${

@@ -31,10 +31,6 @@ export function HeroHome(props: HeroHomeProps) {
 
   return (
     <div className={`${styles.hero_home} h-screen max-md:h-[100%] relative`}>
-      {/* grain bg effect */}
-      <div className="grainy_bg"></div>
-      {/* grain bg effect */}
-
       <div className="flex flex-wrap flex-col justify-center items-center h-[100%] min-h-[400px] lg:min-h-[600px] relative z-2 md:pt-10 max-md:pb-5">
         <div className="w-full max-w-[800] mx-auto max-md:px-5">
           <h1
