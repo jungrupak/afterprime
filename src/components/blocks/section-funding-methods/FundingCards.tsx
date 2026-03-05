@@ -56,7 +56,7 @@ export function SectionFundingCards({
           <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 text-center md:mt-18">
             {cards.map((card, idx) => (
               <div key={idx} className={`${styles.cardItem} items-center`}>
-                <Image
+                <img
                   src={card.method_icon}
                   height={30}
                   width={120}
@@ -96,7 +96,7 @@ export function SectionFundingCards({
           <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 text-center md:mt-18">
             {wthDrawCards.map((card, idx) => (
               <div key={idx} className={`${styles.cardItem} items-center`}>
-                <Image
+                <img
                   src={card.method_icon}
                   height={30}
                   width={120}
