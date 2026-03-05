@@ -95,8 +95,90 @@ export default function FooterScripts() {
             writeInitialUtmCookieFromParams(){ this._utmParams.forEach(p=>{ this.writeCookieOnce("initial_"+p,this.getParameterByName(p)||null); }); }
 
             _sameDomainReferrer(ref){ let h=document.location.hostname; return ref.indexOf(this._domain)>-1 || ref.indexOf(h)>-1; }
-            writeInitialReferrer(){ let v=document.referrer, url=window.location.href; if(v.includes("facebook")) v="facebook"; if(v.includes("youtube")) v="youtube"; if(v.includes("twitter")||v.includes("t.co")) v="twitter"; if(v.includes("linkedin")) v="linkedin"; if(v.includes("instagram")) v="instagram"; if(v.includes("bing")) v="bing"; if(v.includes("google")&&!url.includes("gclid=")) v="organic search"; if(v.includes("google")&&url.includes("gclid=")) v="google ppc"; if(v.includes("bing")&&url.includes("utm_medium=cpc")) v="bing ppc"; if(this._sameDomainReferrer(v)) v="direct"; this.writeCookieOnce("referrer",v);}
-            writeLastReferrer(){ let v=document.referrer, url=window.location.href; if(v.includes("facebook")) v="facebook"; if(v.includes("youtube")) v="youtube"; if(v.includes("twitter")||v.includes("t.co")) v="twitter"; if(v.includes("linkedin")) v="linkedin"; if(v.includes("instagram")) v="instagram"; if(v.includes("bing")) v="bing"; if(v.includes("google")&&!url.includes("gclid=")) v="organic search"; if(v.includes("google")&&url.includes("gclid=")) v="google ppc"; if(v.includes("bing")&&url.includes("utm_medium=cpc")) v="bing ppc"; if(this._sameDomainReferrer(v)) v="direct"; this.writeCookie("last_referrer",v);}
+          
+
+writeInitialReferrer() {
+  let v = document.referrer, url = window.location.href;
+
+  // Social
+  if (v.includes("facebook")) v = "facebook";
+  else if (v.includes("youtube")) v = "youtube";
+  else if (v.includes("twitter") || v.includes("t.co") || v.includes("x.com")) v = "twitter/x";
+  else if (v.includes("linkedin")) v = "linkedin";
+  else if (v.includes("instagram")) v = "instagram";
+  else if (v.includes("reddit")) v = "reddit";
+  else if (v.includes("tiktok")) v = "tiktok";
+  else if (v.includes("pinterest")) v = "pinterest";
+  else if (v.includes("quora")) v = "quora";
+  else if (v.includes("threads.net")) v = "threads";
+
+  // Search engines
+  else if (v.includes("google") && !url.includes("gclid=")) v = "organic search";
+  else if (v.includes("google") && url.includes("gclid=")) v = "google ppc";
+  else if (v.includes("bing") && url.includes("utm_medium=cpc")) v = "bing ppc";
+  else if (v.includes("bing")) v = "bing";
+  else if (v.includes("duckduckgo")) v = "duckduckgo";
+  else if (v.includes("yahoo")) v = "yahoo";
+  else if (v.includes("baidu")) v = "baidu";
+  else if (v.includes("yandex")) v = "yandex";
+  else if (v.includes("ecosia")) v = "ecosia";
+
+  // LLMs
+  else if (v.includes("chatgpt.com") || v.includes("chat.openai.com")) v = "chatgpt";
+  else if (v.includes("perplexity.ai")) v = "perplexity";
+  else if (v.includes("gemini.google.com")) v = "gemini";
+  else if (v.includes("copilot.microsoft.com")) v = "copilot";
+  else if (v.includes("claude.ai")) v = "claude";
+  else if (v.includes("grok.x.ai")) v = "grok";
+  else if (v.includes("you.com")) v = "you.com";
+
+  // Direct / same domain
+  else if (!v || this._sameDomainReferrer(v)) v = "direct";
+
+  this.writeCookieOnce("referrer", v);
+}
+
+writeLastReferrer() {
+  let v = document.referrer, url = window.location.href;
+
+  // Social
+  if (v.includes("facebook")) v = "facebook";
+  else if (v.includes("youtube")) v = "youtube";
+  else if (v.includes("twitter") || v.includes("t.co") || v.includes("x.com")) v = "twitter/x";
+  else if (v.includes("linkedin")) v = "linkedin";
+  else if (v.includes("instagram")) v = "instagram";
+  else if (v.includes("reddit")) v = "reddit";
+  else if (v.includes("tiktok")) v = "tiktok";
+  else if (v.includes("pinterest")) v = "pinterest";
+  else if (v.includes("quora")) v = "quora";
+  else if (v.includes("threads.net")) v = "threads";
+
+  // Search engines
+  else if (v.includes("google") && !url.includes("gclid=")) v = "organic search";
+  else if (v.includes("google") && url.includes("gclid=")) v = "google ppc";
+  else if (v.includes("bing") && url.includes("utm_medium=cpc")) v = "bing ppc";
+  else if (v.includes("bing")) v = "bing";
+  else if (v.includes("duckduckgo")) v = "duckduckgo";
+  else if (v.includes("yahoo")) v = "yahoo";
+  else if (v.includes("baidu")) v = "baidu";
+  else if (v.includes("yandex")) v = "yandex";
+  else if (v.includes("ecosia")) v = "ecosia";
+
+  // LLMs
+  else if (v.includes("chatgpt.com") || v.includes("chat.openai.com")) v = "chatgpt";
+  else if (v.includes("perplexity.ai")) v = "perplexity";
+  else if (v.includes("gemini.google.com")) v = "gemini";
+  else if (v.includes("copilot.microsoft.com")) v = "copilot";
+  else if (v.includes("claude.ai")) v = "claude";
+  else if (v.includes("grok.x.ai")) v = "grok";
+  else if (v.includes("you.com")) v = "you.com";
+
+  // Direct / same domain
+  else if (!v || this._sameDomainReferrer(v)) v = "direct";
+
+  this.writeCookie("last_referrer", v);
+}
+          
             writeIBReferrer(){ let v=this.getParameterByName("clickId"); if(v) this.writeCookie("ib_referrer",v); }
             writeVisitorId(){ let old=this.lastVisitor(); if(old){ this.writeCookie("visitor_id",old); return; } old=localStorage.getItem("_gpfx_visitor_id"); if(old){ this.writeCookie("visitor_id",old); return; } const userAgent=navigator.userAgent, t=Date.now(), r=Math.random().toString(36).substring(2,15), id=btoa(r+"|"+t+"|"+userAgent).substring(0,32); this.writeCookie("visitor_id",id); localStorage.setItem("_gpfx_visitor_id",id); }
             writeInitialLandingPageUrl(){ this.writeCookieOnce("initial_landing_page", window.location.origin + window.location.pathname + window.location.search + window.location.hash); }
