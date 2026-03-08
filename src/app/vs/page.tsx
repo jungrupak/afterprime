@@ -7,31 +7,11 @@ import CostComparison from "./comparison/CostComparison";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import Button from "@/components/ui/Button";
 import ImpactCards from "./impact-cards/ImpactCards";
+import { CustomMetadata } from "@/utils/CustomMetadata";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await getPageDataBySlug("vs");
-  if (!pageData) {
-    return {
-      title: "No Title Found",
-      description: "No description Found",
-    };
-  }
-  const aiseoField = pageData?.aioseo_head_json;
-  if (!aiseoField)
-    return {
-      title: "No title field for aiseo",
-      description: "No description field for aiseo",
-    };
-
-  const metaTitle = aiseoField?.title;
-  const metaDescription = aiseoField?.description;
-  return {
-    title: metaTitle,
-    description: metaDescription,
-    alternates: {
-      canonical: "https://afterprime.com/vs",
-    },
-  };
+export async function generateMetadata() {
+  const seoData = await CustomMetadata("vs");
+  return seoData;
 }
 
 /* ----------------------------- */

@@ -26,12 +26,78 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { brokers } = await params;
   const renderPage = await getPageDataBySlug(brokers);
   const pageTitle = renderPage?.title?.rendered;
+  const pageAiseo = renderPage?.aioseo_head_json;
   return {
     title: `Afterprime vs ${pageTitle} - Total Cost Comparison
 `,
     description: `Compare Afterprime vs ${pageTitle}: zero commission, Flow Rewards, verified data. See total cost breakdown and monthly savings.`,
     alternates: {
       canonical: `https://afterprime.com/vs/${brokers}`,
+    },
+    keywords:
+      pageAiseo?.keywords ||
+      "Get Paid to Trade, Forex broker with lowest costs, A-Book forex broker",
+
+    authors: [{ name: "Afterprime", url: "https://afterprime.com" }],
+
+    creator: "Afterprime",
+    publisher: "Afterprime",
+
+    openGraph: {
+      title: pageAiseo?.["og:title"] ?? "Afterprime",
+
+      description:
+        pageAiseo?.["og:description"] ??
+        "Forex broker with lowest costs, A-Book forex broker, Get paid to trade",
+
+      url: `https://afterprime.com/vs/${brokers}`,
+      siteName: pageAiseo?.["og:site_name"] ?? "afterprime.com",
+      type: pageAiseo?.["og:type"] ?? "website",
+      images: [
+        {
+          url:
+            pageAiseo?.["og:image"] ??
+            "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
+          width: 1200,
+          height: 630,
+          alt:
+            pageAiseo?.["og:title"] ??
+            pageAiseo?.["og:description"] ??
+            "Afterprime",
+        },
+      ],
+    },
+
+    twitter: {
+      card: pageAiseo?.["twitter:card"] ?? "summary_large_image",
+      title: pageAiseo?.["twitter:title"] ?? "Afterprime",
+      description:
+        pageAiseo?.["twitter:description"] ??
+        "Forex broker with Flow Rewards program, Forex broker with institutional-grade execution",
+
+      images: [
+        pageAiseo?.["twitter:image"] ??
+          "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
+      ],
+      creator: pageAiseo?.["twitter:creator"] ?? "@afterprime_com",
+      site: pageAiseo?.["twitter:site"] ?? "@afterprime_com",
+    },
+
+    icons: {
+      icon: "/favicon.ico",
+      apple: [
+        { url: "/AppIcon57x57.png", sizes: "57x57" },
+        { url: "/AppIcon57x57@2x.png", sizes: "114x114" },
+        { url: "/AppIcon57x57@2x.png", sizes: "120x120" },
+        { url: "/AppIcon72x72.png", sizes: "72x72" },
+        { url: "/AppIcon72x72@2x.png", sizes: "144x144" },
+        { url: "/AppIcon72x72@2x.png", sizes: "152x152" },
+      ],
+    },
+
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }

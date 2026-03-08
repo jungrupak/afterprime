@@ -6,15 +6,12 @@ import Image from "next/image";
 import { getCalcPageData } from "@/data/getCalculatorPageData";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import { calculatorSchema } from "@/lib/schema/calculatorsPageSchema";
+import { CustomMetadata } from "@/utils/CustomMetadata";
 
-export const metadata: Metadata = {
-  title: `Trading Calculators | Free Forex & CFD Tools
-`,
-  description: `Free trading calculators for forex, CFD, and crypto traders. Position size, profit/loss, margin, pip value, compound growth, and risk analysis tools.`,
-  alternates: {
-    canonical: "https://afterprime.com/calculators",
-  },
-};
+export async function generateMetadata() {
+  const seoData = await CustomMetadata("calculators");
+  return seoData;
+}
 
 //Export Dynamic Page Title Tags Ends####
 

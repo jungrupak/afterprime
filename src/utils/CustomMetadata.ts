@@ -2,60 +2,88 @@ import {fetchSeoFieldData} from "@/utils/fetchSeoFieldData";
 
 export async function CustomMetadata(slug: string) {
   const seoData = await fetchSeoFieldData(slug);
+
+  const canonicalUrl =
+    slug === "home-page"
+      ? "https://afterprime.com/"
+      : `https://afterprime.com/${slug}`;
+
   return {
     title: seoData?.title || "Afterprime",
+
     description:
       seoData?.description ||
       "Lowest costs, transparent execution, shared rewards. Value you won't find anywhere else.",
+
     keywords:
       seoData?.keywords ||
       "Get Paid to Trade, Forex broker with lowest costs, A-Book forex broker",
-    authors: [{name: "Afterprime", url: "https://afterprime.com"}],
+
+    authors: [{ name: "Afterprime", url: "https://afterprime.com" }],
+
     creator: "Afterprime",
     publisher: "Afterprime",
+
     openGraph: {
-      title: seoData?.opengraph?.title || "Afterprime",
+      title: seoData?.["og:title"] ?? "Afterprime",
+
       description:
-        seoData?.opengraph?.description ||
+        seoData?.["og:description"]??
         "Forex broker with lowest costs, A-Book forex broker, Get paid to trade",
-      url: `${slug === "home-page" ? "https://afterprime.com/" : `https://afterprime.com/${slug}`}`,
-      siteName: `${seoData?.opengraph?.sitename || "Afterprime"}`,
+
+      url: canonicalUrl,
+      siteName: seoData?.["og:site_name"] ?? "afterprime.com",
+      type: seoData?.["og:type"] ?? "website",
       images: [
         {
           url:
-            seoData?.opengraph?.og_image_url ||
+            seoData?.["og:image"] ??
             "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
           width: 1200,
           height: 630,
-          alt: seoData?.opengraph?.og_image?.alt || "Afterprime",
+          alt:
+            seoData?.["og:title"] ??
+            seoData?.["og:description"] ??
+            "Afterprime",
         },
       ],
-      locale: "en_US",
-      type: "website",
     },
+
     twitter: {
-      card: "summary_large_image",
-      title: seoData?.title || "Afterprime",
+      card: seoData?.["twitter:card"] ?? "summary_large_image",
+      title: seoData?.["twitter:title"] ?? "Afterprime",
       description:
-        seoData?.description ||
+        seoData?.["twitter:description"] ??
         "Forex broker with Flow Rewards program, Forex broker with institutional-grade execution",
-      images: ["https://afterprime.com/image.jpg"],
-      creator: "@afterprime_com",
-      site: "https://x.com/afterprime_com",
+
+      images: [
+        seoData?.["twitter:image"] ??
+          "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
+      ],
+      creator: seoData?.["twitter:creator"] ?? "@afterprime_com",
+      site: seoData?.["twitter:site"] ?? "@afterprime_com",
     },
+
     alternates: {
-      canonical: `${slug === "home-page" ? "https://afterprime.com/" : `https://afterprime.com/${slug}`}`,
+      canonical: canonicalUrl,
     },
+
     icons: {
       icon: "/favicon.ico",
-      shortcut: "/favicon.ico",
-      apple: "/apple-touch-icon.png",
+      apple: [
+        { url: "/AppIcon57x57.png", sizes: "57x57" },
+        { url: "/AppIcon57x57@2x.png", sizes: "114x114" },
+        { url: "/AppIcon57x57@2x.png", sizes: "120x120" },
+        { url: "/AppIcon72x72.png", sizes: "72x72" },
+        { url: "/AppIcon72x72@2x.png", sizes: "144x144" },
+        { url: "/AppIcon72x72@2x.png", sizes: "152x152" },
+      ],
     },
+
     robots: {
       index: true,
       follow: true,
+      maxImagePreview: "large",
     },
-
-    // metadataBase: new URL("https://afterprime.com"), // it is like base path for above links just like basepath/img/img.jpg// will render as https://afterprime.com/img/im.jpg##
   };
 }

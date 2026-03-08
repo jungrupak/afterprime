@@ -15,9 +15,9 @@ export async function fetchSeoFieldData(slug: string) {
 
     if (!page) return null;
 
-    return page.acf?.seo_block ?? null;
+    return page.aioseo_head_json ?? null;
   } catch (err) {
-    console.error("SEO fetch error:", err);
+    console.error("AIOSEO fetch error:", err);
     return null;
   }
 }

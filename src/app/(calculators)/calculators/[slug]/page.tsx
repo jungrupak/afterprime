@@ -11,6 +11,7 @@ import PipValueCalculator from "@/components/all-calculators/PipValueCalculator/
 import SwapCalculator from "@/components/all-calculators/SwapCalculator/SwapCalculator";
 import TradingCalculator from "@/components/all-calculators/TradingCalculator/TradingCalculator";
 import DollarSavingsCalculator from "@/components/all-calculators/CostSavingCalculator/CostSavingCalculator";
+import { CustomMetadata } from "@/utils/CustomMetadata";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -33,15 +34,8 @@ async function pageDataSource(slug: string) {
 
 export async function generateMetadata({ params }: PageSlug) {
   const { slug } = await params;
-  const dataSource = await pageDataSource(slug);
-
-  return {
-    title: dataSource?.aioseo_head_json?.title,
-    description: dataSource?.aioseo_head_json?.description,
-    alternates: {
-      canonical: `https://afterprime.com/calculators/${slug}`,
-    },
-  };
+  const seoData = await CustomMetadata(slug);
+  return seoData;
 }
 //##
 

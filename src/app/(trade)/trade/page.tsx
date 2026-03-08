@@ -1,6 +1,7 @@
 import Lists from "@/utils/lists/Lists";
 import styles from "./TradePage.module.scss";
 import { Metadata } from "next";
+import { CustomMetadata } from "@/utils/CustomMetadata";
 
 type FxPair = {
   symbol: string;
@@ -13,13 +14,11 @@ type FxCategory = {
   exotics?: FxPair[];
 };
 
-export const metadata: Metadata = {
-  title: `Trade at Lowest Cost vs Top 10 Brokers`,
-  description: `Trade on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.`,
-  alternates: {
-    canonical: "https://afterprime.com/trade",
-  },
-};
+export async function generateMetadata() {
+  const seoData = await CustomMetadata("trade");
+  return seoData;
+}
+//##
 
 //Export Dynamic Page Title Tags Ends####
 
