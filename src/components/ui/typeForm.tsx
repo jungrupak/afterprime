@@ -33,11 +33,32 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
   const handleClick = () => {
     if (!formId) return;
 
+    const params = new URLSearchParams(window.location.search);
+
+    const getUTM = (key: string) => {
+      const value = params.get(key);
+
+      if (value) {
+        localStorage.setItem(key, value);
+        return value;
+      }
+
+      return localStorage.getItem(key) || "";
+    };
+
     const options: ExtendedSliderOptions = {
       autoOpen: false,
       hideHeaders: true,
       hideFooter: true,
-      position: "right", // slides in from the right
+      position: "right",
+
+      hidden: {
+        utm_source: getUTM("utm_source"),
+        utm_medium: getUTM("utm_medium"),
+        utm_campaign: getUTM("utm_campaign"),
+        utm_term: getUTM("utm_term"),
+        utm_content: getUTM("utm_content"),
+      },
     };
 
     const slider = createSlider(formId, options);
