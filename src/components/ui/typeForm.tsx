@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "./ui.module.scss";
-
 import { createSlider, type SliderOptions } from "@typeform/embed";
 import "@typeform/embed/build/css/slider.css";
+import { persistUTMs, getStoredUTMs } from "@/utils/persistUTM";
 
 interface ExtendedSliderOptions extends SliderOptions {
   autoOpen?: boolean;
@@ -25,36 +25,20 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
   const [formId, setFormId] = useState<string | null>(null);
 
   useEffect(() => {
-    // get the correct form for this session
     const assignedForm = getSessionFormId();
     setFormId(assignedForm);
+    // capture UTMs once
+    persistUTMs();
   }, []);
 
   const handleClick = () => {
     if (!formId) return;
 
-    const params = new URLSearchParams(window.location.search);
+    const utms = getStoredUTMs();
 
-    const getUTM = (key: string) => {
-      const value = params.get(key);
-
-      if (value) {
-        localStorage.setItem(key, value);
-        return value;
-      }
-
-      return localStorage.getItem(key) || "";
-    };
-
-    const utmParams = new URLSearchParams({
-      utm_source: getUTM("utm_source"),
-      utm_medium: getUTM("utm_medium"),
-      utm_campaign: getUTM("utm_campaign"),
-      utm_term: getUTM("utm_term"),
-      utm_content: getUTM("utm_content"),
-    });
-
-    const url = `https://form.typeform.com/to/${formId}?${utmParams.toString()}`;
+    const url = `https://form.typeform.com/to/${formId}?${new URLSearchParams(
+      utms,
+    ).toString()}`;
 
     const options: ExtendedSliderOptions = {
       autoOpen: false,
