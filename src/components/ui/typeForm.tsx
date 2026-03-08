@@ -46,22 +46,24 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
       return localStorage.getItem(key) || "";
     };
 
+    const utmParams = new URLSearchParams({
+      utm_source: getUTM("utm_source"),
+      utm_medium: getUTM("utm_medium"),
+      utm_campaign: getUTM("utm_campaign"),
+      utm_term: getUTM("utm_term"),
+      utm_content: getUTM("utm_content"),
+    });
+
+    const url = `https://form.typeform.com/to/${formId}?${utmParams.toString()}`;
+
     const options: ExtendedSliderOptions = {
       autoOpen: false,
       hideHeaders: true,
       hideFooter: true,
       position: "right",
-
-      hidden: {
-        utm_source: getUTM("utm_source"),
-        utm_medium: getUTM("utm_medium"),
-        utm_campaign: getUTM("utm_campaign"),
-        utm_term: getUTM("utm_term"),
-        utm_content: getUTM("utm_content"),
-      },
     };
 
-    const slider = createSlider(formId, options);
+    const slider = createSlider(url, options);
     slider.open();
   };
 
