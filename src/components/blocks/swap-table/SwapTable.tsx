@@ -21,7 +21,7 @@ interface InstrumentDataType {
 }
 
 export function SwapDataTabs() {
-  const [activeCategory, setActiveCategory] = useState("Forex Majors");
+  const [activeCategory, setActiveCategory] = useState("FX Majors");
   const { data, isLoading, error } = useQuery<InstrumentDataType[]>({
     queryKey: ["swapTable"],
     queryFn: async () => {
