@@ -5,7 +5,7 @@ import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "./ui.module.scss";
 import { createSlider, type SliderOptions } from "@typeform/embed";
 import "@typeform/embed/build/css/slider.css";
-import { persistUTMs, getStoredUTMs } from "@/utils/persistUTM";
+import { getStoredUTMs } from "@/utils/persistUTM";
 
 interface ExtendedSliderOptions extends SliderOptions {
   autoOpen?: boolean;
@@ -27,8 +27,6 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
   useEffect(() => {
     const assignedForm = getSessionFormId();
     setFormId(assignedForm);
-    // capture UTMs once
-    persistUTMs();
   }, []);
 
   const handleClick = () => {

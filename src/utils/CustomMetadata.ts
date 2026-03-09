@@ -57,7 +57,7 @@ export async function CustomMetadata(slug: string) {
         "Forex broker with Flow Rewards program, Forex broker with institutional-grade execution",
 
       images: [
-        seoData?.["twitter:image"] ??
+        seoData?.["og:image:secure_url"] ??
           "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
       ],
       creator: seoData?.["twitter:creator"] ?? "@afterprime_com",
@@ -71,12 +71,10 @@ export async function CustomMetadata(slug: string) {
     icons: {
       icon: "/favicon.ico",
       apple: [
-        { url: "/AppIcon57x57.png", sizes: "57x57" },
-        { url: "/AppIcon57x57@2x.png", sizes: "114x114" },
-        { url: "/AppIcon57x57@2x.png", sizes: "120x120" },
-        { url: "/AppIcon72x72.png", sizes: "72x72" },
-        { url: "/AppIcon72x72@2x.png", sizes: "144x144" },
-        { url: "/AppIcon72x72@2x.png", sizes: "152x152" },
+        { url: "https://cdn.afterprime.com/images/AppleIcon57x57.png", sizes: "57x57" },
+        { url: "https://cdn.afterprime.com/images/AppIcon57x57@2x.png", sizes: "114x114" },
+        { url: "https://cdn.afterprime.com/images/AppIcon72x72.png", sizes: "72x72" },
+        { url: "https://cdn.afterprime.com/images/AppIcon72x72@2x.png", sizes: "144x144" },
       ],
     },
 
