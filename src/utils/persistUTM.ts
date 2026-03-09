@@ -1,9 +1,14 @@
 const UTM_KEYS = [
-  "utm_source",
-  "utm_medium",
-  "utm_campaign",
-  "utm_term",
-  "utm_content",
+  "_gpfx_initial_utm_campaign",
+  "_gpfx_initial_utm_medium",
+  "_gpfx_initial_utm_campaign",
+  "_gpfx_initial_utm_term",
+  "_gpfx_initial_utm_content",
+  "_gpfx_utm_campaign",
+  "_gpfx_utm_medium",
+  "_gpfx_utm_campaign",
+  "_gpfx_utm_term",
+  "_gpfx_utm_content",
 ];
 
 // Helper to set a cookie (expires in 30 days)
