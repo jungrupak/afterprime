@@ -37,7 +37,7 @@ export async function CustomMetadata(slug: string) {
       images: [
         {
           url:
-            seoData?.["og:image"] ??
+            seoData?.["og:image:secure_url"] ??
             "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
           width: 1200,
           height: 630,
