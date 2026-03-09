@@ -4,6 +4,8 @@ const UTM_KEYS = [
   "_gpfx_initial_utm_campaign",
   "_gpfx_initial_utm_term",
   "_gpfx_initial_utm_content",
+  //pass these values to typeform
+  //?utm_campaign=(value of _gpfx_utm_campaign)
   "_gpfx_utm_campaign",
   "_gpfx_utm_medium",
   "_gpfx_utm_campaign",
