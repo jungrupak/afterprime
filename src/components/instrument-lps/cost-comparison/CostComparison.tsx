@@ -383,7 +383,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
             >
               ForexBenchmark
             </Link>
-            . Prices quoted in US Dollars.
+            . All prices quoted in US Dollars.
           </div>
         </div>
       </div>
