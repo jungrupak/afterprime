@@ -17,9 +17,11 @@ export default function CostCalculator({ instrument }: Props) {
       <div className={`relative z-4!`}>
         <TradingCalculator selectedInstrument={instrument} />
       </div>
-      <p className={`max-md:mt-4`}>
-        This tool is intended for cost modeling only.
-      </p>
+      <div className="text-[14px] opacity-60">
+      <p className="risk-warning-all">
+      This tool is intended for cost modelling purposes only and does not constitute a guarantee of trading costs, margin requirements, or execution outcomes.<br/><br/>Live spreads and swap rates will differ from modelled inputs.</p>
+      </div>
     </div>
+
   );
 }

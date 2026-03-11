@@ -273,11 +273,15 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                   )}
 
                   <div data-label={`Broker`} className={`col-span-3 relative`}>
-                  {broker.broker !== "Afterprime" && (
+                  {broker.broker === "Afterprime" ? (
+                    <span className="text-[14px] max-md:text-[16px] block">
+                      <strong>Afterprime</strong>
+                    </span>
+                  ) : (
                     <Link
                       href={`/vs/${brokerSlugMap[broker.broker] ?? ""}`}
                       scroll={true}
-                      className={`underline hover:no-underline text-[14px] max-md:text-[16px] block`}
+                      className="underline hover:no-underline text-[14px] max-md:text-[16px] block"
                     >
                       {broker.broker}
                     </Link>
@@ -385,6 +389,17 @@ export default function CostComparison({ instrument }: { instrument: string }) {
             </Link>
             . All prices quoted in US Dollars.
           </div>
+        </div>
+        <br/>
+        <div className="text-[14px] opacity-60">
+        <p className="risk-warning-all">
+        Source:{" "}
+        <a href="https://www.forexbenchmark.com" target="_blank">
+          <u>ForexBenchmark</u>
+        </a>{" "}
+        - Previous 7 Days Range | {instrument.toUpperCase()} Pair | Incl.
+        Commissions + Spreads.<br/><br/>
+        Afterprime net cost figures include Flow Rewards™, applicable to eligible client accounts on qualifying instruments. Flow Rewards™ rates may vary. See <a href="/get-paid-to-trade"><u>Flow Rewards</u></a> for full eligibility criteria. Flow Rewards™ eligibility and rates are subject to account approval. Savings modelled using ForexBenchmark 7-day average spread data. Actual savings will vary with live spread conditions and applicable Flow Rewards™ rate.<br/><br/>Ranked #1 lowest all-in net cost for {instrument.toUpperCase()} among brokers tracked by ForexBenchmark.com. Rankings are subject to change as market conditions and broker pricing fluctuate.<br/><br/>Savings represent the percentage by which each broker's all-in cost per lot exceeds Afterprime's net cost after Flow Rewards™. Competitor costs reflect their lowest-cost equivalent account type.<br/><br/>Execution quality metrics are based on internal order data under normal market conditions. Performance may vary during periods of high volatility or low liquidity.<br/><br/>Cost comparisons are based on third-party data and are for informational purposes only. Trading involves significant risk of loss. Individual trading costs will vary based on account type, instrument, and market conditions.</p>
         </div>
       </div>
       {/* //render data comparison schema */}
