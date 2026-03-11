@@ -112,7 +112,7 @@ export default async function ChildPage({ params }: Props) {
   if (!pageData) {
     notFound();
   }
-
+  const pageTitle = pageData?.title?.rendered || brokers;
   const ctaBlockFields = pageData?.acf?.cta_block;
   const heroBanner = pageData?.acf?.hero_banner_home;
   const content = pageData?.acf?.reading_text_content;
@@ -203,7 +203,7 @@ export default async function ChildPage({ params }: Props) {
                 <br />
                 We focus on spread stability. By curating our flow, we reduce
                 the "noise" and "gapping" that often occurs with retail-heavy
-                brokers, ensuring that the price you see is the price you get.
+                brokers, ensuring that the price you see is the price you get, under normal market conditions.
               </li>
             </ul>
 
@@ -228,7 +228,7 @@ export default async function ChildPage({ params }: Props) {
                 <br />
                 If a broker has "cheap" costs but slips your entry by 0.2 pips,
                 that is an extra $2.00 per lot added to your cost that doesn't
-                show up on their pricing page.
+                show up on their pricing page. This is an industry-wide dynamic and does not constitute a specific claim regarding {pageTitle}'s execution quality.
               </li>
 
               <li>
