@@ -1,7 +1,10 @@
 
 export async function getCalcPageData(pageSlug:string) {
   const baseUrl = process.env.NEXT_PUBLIC_WP_BASE_URL; 
-   if(!baseUrl)return;
+   if (!baseUrl) {
+    console.error("NEXT_PUBLIC_WP_BASE_URL is not defined");
+    return null;
+  }
   const res = await fetch(
     `${baseUrl}/wp-json/wp/v2/pages?slug=${pageSlug}`,
     {cache:"force-cache",
@@ -9,10 +12,11 @@ export async function getCalcPageData(pageSlug:string) {
   )
 
   if (!res.ok) {
-    throw new Error("Failed to fetch WP page")
+    console.error("WP fetch failed:", res.status);
+    return null;
   }
 
   const pages = await res.json()
-  return pages[0] // slug is unique → first item
+  return pages[0] ?? null // slug is unique → first item
 }
 

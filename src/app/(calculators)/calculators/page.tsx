@@ -18,7 +18,9 @@ export async function generateMetadata() {
 //####
 export default async function Page() {
   const pageData = await getCalcPageData("calculators");
-  if (!pageData) return;
+  if (!pageData) {
+    return <div>Page content unavailable</div>;
+  }
   const faqSection = pageData?.acf?.faq_section;
 
   const sectionTitle = faqSection?.ssection_title;
