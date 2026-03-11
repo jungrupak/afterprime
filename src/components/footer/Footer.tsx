@@ -151,6 +151,9 @@ export default function Footer() {
               <li>
                 <Link href="/trade">Compare Trading Costs</Link>
               </li>
+              <li>
+                <Link href="/vs">Afterprime vs Broker</Link>
+              </li>
             </ul>
           </div>
           <div className={`${styles.footer_links} order-4`}>

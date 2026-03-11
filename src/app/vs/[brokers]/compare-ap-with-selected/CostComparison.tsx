@@ -36,6 +36,8 @@ const brokerSlugMap = {
   "global-prime": "Global Prime",
   "markets-dot-com": "Markets.com",
   swissquote: "Swissquote",
+  "top-10-avg": "Top 10 Avg",
+  "industry-avg": "Industry Avg",
 } as const;
 
 const CACHE_TTL = 2 * 60 * 1000;

@@ -33,6 +33,8 @@ const brokerSlugMap = {
   "Global Prime": "global-prime",
   "Markets.com": "markets-dot-com",
   Swissquote: "swissquote",
+  "Top 10 Avg": "top-10-avg",
+  "Industry Avg": "industry-avg",
 } as const satisfies Record<string, string>;
 export type BrokerName = keyof typeof brokerSlugMap;
 export type BrokerSlug = (typeof brokerSlugMap)[BrokerName];
@@ -86,7 +88,8 @@ export default function CostComparison() {
     "Global Prime",
     "Markets.com",
     "Swissquote",
-    "Afterprime",
+    "Industry Avg",
+    "Top 10 Avg",
   ];
   const pickedBrokersLists = brokerList?.filter((item) =>
     brokersToPick.includes(item.broker),
