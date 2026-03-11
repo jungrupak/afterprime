@@ -36,11 +36,33 @@ export default function CostComparison({ instrument }: { instrument: string }) {
     "Tickmill UK (Raw)",
     "FXCM",
     "FXOpen (TickTrader)",
+    "Pepperstone UK (.r)",
+    "Dukascopy",
+    "Darwinex",
+    "Global Prime",
+    "Markets.com",
+    "Swissquote",
+    "Top 10 Avg",
     "Industry Avg",
   ];
   const pickedBrokersLists = brokerList?.filter((item) =>
     brokersToPick.includes(item.broker),
   );
+
+  const brokerSlugMap: Record<string, string> = {
+    "IC Markets (Raw)": "ic-markets",
+    "Pepperstone UK (.r)": "pepperstone",
+    "Tickmill UK (Raw)": "tickmill",
+    FXCM: "fxcm",
+    "FXOpen (TickTrader)": "fxopen",
+    Dukascopy: "dukascopy",
+    Darwinex: "darwinex",
+    "Global Prime": "global-prime",
+    "Markets.com": "markets-dot-com",
+    Swissquote: "swissquote",
+    "Top 10 Avg": "top-10-avg",
+    "Industry Avg": "industry-avg",
+  };
 
   const rebatePerLot =
     typeof data?.rebate?.rebate_usd_per_lot === "number"
@@ -251,7 +273,15 @@ export default function CostComparison({ instrument }: { instrument: string }) {
                   )}
 
                   <div data-label={`Broker`} className={`col-span-3 relative`}>
-                    {broker.broker}
+                  {broker.broker !== "Afterprime" && (
+                    <Link
+                      href={`/vs/${brokerSlugMap[broker.broker] ?? ""}`}
+                      scroll={true}
+                      className={`underline hover:no-underline text-[14px] max-md:text-[16px] block`}
+                    >
+                      {broker.broker}
+                    </Link>
+                  )}
                   </div>
                 </div>
                 <div

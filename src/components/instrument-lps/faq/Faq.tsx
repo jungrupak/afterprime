@@ -56,8 +56,8 @@ export default function Faq({
       answer: `Flow Rewards are paid per traded lot (round turn) using instrument specific rates published on the Afterprime website.`,
     },
     {
-      question: `Is ${instrument} eligible for Flow Rewards?`,
-      answer: `${isRebate ? `Yes. ${instrument} does qualify for Flow Rewards.` : `No. ${instrument} does not qualify for Flow Rewards.`}`,
+      question: `Is ${instrument.toUpperCase()} eligible for Flow Rewards?`,
+      answer: `${isRebate ? `Yes. ${instrument.toUpperCase()} does qualify for Flow Rewards.` : `No. ${instrument} does not qualify for Flow Rewards.`}`,
     },
     {
       question: `How does Afterprime make money?`,
