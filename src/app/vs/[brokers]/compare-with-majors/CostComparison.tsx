@@ -82,6 +82,8 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
     year: "numeric",
   });
 
+const footerRebate = MAJORS[0]?.[1]?.rebate?.rebate_usd_per_lot ?? null;
+
   return (
     <div className="ap_container_small relative z-1 w-full z-5">
       <div className={styles.costCompareTable}>
@@ -310,12 +312,14 @@ export default function CompareWithMajors({ broker }: { broker: string }) {
         </div>
       </div>
       <div className="text-[14px] opacity-60 mt-5">
-        Source:{" "}
-        <a href="https://www.forexbenchmark.com" target="_blank">
-          <u>ForexBenchmark</u>
-        </a>{" "}
-        - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads. (Last
-        Updated: {lastUpdated})
+      <p className="risk-warning-all">
+      Source:{" "}
+      <a href="https://www.forexbenchmark.com" target="_blank">
+        <u>ForexBenchmark</u>
+      </a>{" "}
+      - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads. (Last
+      Updated: {lastUpdated})<br/><br/>
+      Afterprime net cost figures include Flow Rewards™ at ${footerRebate.toFixed(2)}/lot (round turn), applicable to eligible client accounts on qualifying instruments. Flow Rewards™ rates may vary. See <a href="/get-paid-to-trade">Flow Rewards</a> for full eligibility criteria.<br/><br/>Cost comparisons are based on third-party data and are for informational purposes only. Trading involves significant risk of loss. Individual trading costs will vary based on account type, instrument, and market conditions.</p>
       </div>
     </div>
   );

@@ -98,6 +98,8 @@ export default function CostComparisonWithSelected({
     year: "numeric",
   });
 
+  const selectedBrokerName = mappedBrokerName ?? "selected broker";
+
   if (!pickedBrokersLists.length) return null;
 
   return (
@@ -159,20 +161,19 @@ export default function CostComparisonWithSelected({
         </div>
       </div>
       <div className="text-[14px] opacity-60 mt-5">
-        Source:{" "}
-        <a href="https://www.forexbenchmark.com" target="_blank">
-          <u>ForexBenchmark</u>
-        </a>{" "}
-        - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads. (Last
-        Updated: {lastUpdated})
-        {pickedBrokersLists.map((broker) => (
-          <>
-            {broker.broker} costs reflect spread including commission on
-            standard lot. Afterprime costs include zero commission with Flow
-            Rewards™ applied at standard eligible rates. Comparisons are on a
-            like-for-like account basis.
-          </>
-        ))}
+        <p className="risk-warning-all">
+          Source:{" "}
+          <a href="https://www.forexbenchmark.com" target="_blank">
+            <u>ForexBenchmark</u>
+          </a>{" "}
+          - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads.
+          (Last Updated: {lastUpdated})<br />
+          <br />
+          {selectedBrokerName} costs reflect spread including commission on
+          standard lot. Afterprime costs include zero commission with Flow
+          Rewards™ applied at standard eligible rates. Comparisons are on a
+          like-for-like account basis.
+        </p>
       </div>
     </div>
   );
