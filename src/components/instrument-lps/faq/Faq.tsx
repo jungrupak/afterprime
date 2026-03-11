@@ -13,7 +13,7 @@ interface FAQItem {
 type faqContents = {
   faqSubject?: string;
   data?: FAQItem[];
-  instrument?: string;
+  instrument: string;
   hasRebateValue?: boolean;
 };
 
@@ -174,6 +174,8 @@ export default function Faq({
       }
     : null;
   //FAQ Schema Data Ends
+
+  if (!instrument) return <p>No Instrument found ..</p>;
 
   return (
     <div className={`my-8 md:my-20`}>
