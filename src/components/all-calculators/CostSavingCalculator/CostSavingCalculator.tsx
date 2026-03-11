@@ -490,9 +490,20 @@ export default function DollarSavingsCalculator() {
             outcomes. */}
         </div>
       </div>
-      <div className="text-[14px] opacity-60">
-      <p className="risk-warning-all">
-      Afterprime net cost figures include Flow Rewards™, applicable to eligible client accounts on qualifying instruments. Flow Rewards™ rates may vary. See <a href="/get-paid-to-trade">Flow Rewards</a> for full eligibility criteria.<br/><br/>Cost comparisons are based on third-party data and are for informational purposes only. Trading involves significant risk of loss. Individual trading costs will vary based on account type, instrument, and market conditions.</p>
+      {/* ## */}
+      <div className="text-[14px] col-span-full opacity-60">
+        <p className="risk-warning-all">
+          Afterprime net cost figures include Flow Rewards™, applicable to
+          eligible client accounts on qualifying instruments. Flow Rewards™
+          rates may vary. See <a href="/get-paid-to-trade">Flow Rewards</a> for
+          full eligibility criteria.
+          <br />
+          <br />
+          Cost comparisons are based on third-party data and are for
+          informational purposes only. Trading involves significant risk of
+          loss. Individual trading costs will vary based on account type,
+          instrument, and market conditions.
+        </p>
       </div>
     </div>
   );

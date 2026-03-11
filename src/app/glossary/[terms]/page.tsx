@@ -35,12 +35,8 @@ export async function generateMetadata({
 export default async function page({ params }: PageSlug) {
   const { terms } = await params;
   const pageData = await getGlossaryPageSlug(terms);
-  if (!pageData) {
-    notFound();
-  }
-
   // 🚫 If no page OR wrong parent → page not found
-  if (!pageData) {
+  if (!pageData || pageData.parent !== 4100) {
     return notFound();
   }
 
@@ -49,8 +45,9 @@ export default async function page({ params }: PageSlug) {
     heading: pageData?.title?.rendered ?? "",
     paragraph: pageData?.acf?.inner_banner?.hero_paragraph ?? "",
   };
+
   //Reading Content
-  const contents = pageData?.content.rendered ?? "";
+  const contents = pageData?.content?.rendered ?? "";
 
   return (
     <main>
@@ -84,16 +81,9 @@ export default async function page({ params }: PageSlug) {
 
 // 🔹 Pre-build all static params for ISR
 export async function generateStaticParams() {
-  const pages = await wpFetch<WPPage[]>(`/pages?_fields=id,slug,parent`);
-  if (!pages) return [];
-
-  const parents = pages.filter((p) => p.parent === 0);
-  const parentMap = Object.fromEntries(parents.map((p) => [p.id, p.slug]));
-
-  return pages
-    .filter((p) => p.parent !== 0 && parentMap[p.parent])
-    .map((p) => ({
-      slug: parentMap[p.parent],
-      inst: p.slug,
-    }));
+  const pages = await wpFetch<WPPage[]>(`/pages?parent=4100&_fields=slug`);
+  if (!Array.isArray(pages)) return [];
+  return pages.map((p) => ({
+    terms: p.slug,
+  }));
 }

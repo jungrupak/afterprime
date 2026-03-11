@@ -15,9 +15,7 @@ export const metadata: Metadata = {
 
 export default async function page() {
   const pageData = await getPageDataBySlug("glossary");
-
   if (!pageData) return null;
-
   //Banner Content
   const Banner_CONTENT = {
     heading: pageData?.acf?.inner_banner?.hero_title,

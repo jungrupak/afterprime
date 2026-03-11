@@ -10,11 +10,12 @@ export async function getPageDataBySlug(pageSlug:string) {
   )
 
   if (!res.ok) {
-    throw new Error("Failed to fetch WP page")
+    console.error("Failed to fetch WP page", res.status);
+    return null;
   }
 
   const pages = await res.json();
   if(!pages.length) return null;
-  return pages[0] // slug is unique → first item
+  return pages[0] ?? null // slug is unique → first item
 }
 
