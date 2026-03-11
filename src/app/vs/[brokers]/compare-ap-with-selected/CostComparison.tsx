@@ -165,6 +165,9 @@ export default function CostComparisonWithSelected({
         </a>{" "}
         - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads. (Last
         Updated: {lastUpdated})
+
+{broker.broker} costs reflect spread including commission on standard lot. Afterprime costs include zero commission with Flow Rewards™ applied at standard eligible rates. Comparisons are on a like-for-like account basis.
+
       </div>
     </div>
   );
