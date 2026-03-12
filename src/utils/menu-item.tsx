@@ -47,12 +47,12 @@ export const MegaMenuItems = [
         categoryName: "Trading Community",
         catMenuItems: [
           {
-            menuItem: "Discord",
+            menuItem: "The Engine Room",
             pageUrl: "/our-discord",
           },
           {
             menuItem: "What Traders Say",
-            pageUrl: "what-traders-say",
+            pageUrl: "/what-traders-say",
           },
         ],
       },
