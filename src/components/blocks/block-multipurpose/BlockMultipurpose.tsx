@@ -77,8 +77,25 @@ export function MultipurposeBlock({
       <div className="ap_container_small">
         <BoxedBlock isBoxed={isBoxed === 1 ? true : false} vAlign={vrAlign}>
           {/* Left */}
-          <div>
-            <div className="max-md:text-center xl:pr-25">
+          <div
+            className={`
+              ${
+                multipurpose_block_block_has_featured_image === "1" ||
+                multipurpose_block_has_feature_bullet_list === "1" ||
+                multipurpose_block_active_right_column_content_block === "1"
+                  ? ""
+                  : "col-span-full"
+              }`}
+          >
+            <div
+              className={`max-md:text-center ${
+                multipurpose_block_block_has_featured_image === "1" ||
+                multipurpose_block_has_feature_bullet_list === "1" ||
+                multipurpose_block_active_right_column_content_block === "1"
+                  ? "xl:pr-25"
+                  : ""
+              } `}
+            >
               <h2
                 className="h2-size mb-6"
                 dangerouslySetInnerHTML={{ __html: heading || "&nbsp;" }}
@@ -87,20 +104,28 @@ export function MultipurposeBlock({
                 className="wysWygEditor"
                 dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
               />
-              <div className="mt-12 btn-group">
-                {multipurpose_block_is_type_form_cta === "1" ? (
-                  <TypeformButton buttonText="Get Invite Code" size="Large" />
-                ) : (
-                  <Button
-                    varient="primary-ghost"
-                    href={multipurpose_block_cta_url || ""}
-                    isArrowVisible={true}
-                    size="large"
-                  >
-                    {ctaText}
-                  </Button>
-                )}
-              </div>
+              {multipurpose_block_is_type_form_cta === "1" ||
+                (multipurpose_block_cta_url !== "" && (
+                  <>
+                    <div className="mt-12 btn-group">
+                      {multipurpose_block_is_type_form_cta === "1" ? (
+                        <TypeformButton
+                          buttonText="Get Invite Code"
+                          size="Large"
+                        />
+                      ) : (
+                        <Button
+                          varient="primary-ghost"
+                          href={multipurpose_block_cta_url || ""}
+                          isArrowVisible={true}
+                          size="large"
+                        >
+                          {ctaText}
+                        </Button>
+                      )}
+                    </div>
+                  </>
+                ))}
             </div>
           </div>
           {/* Left ends */}
