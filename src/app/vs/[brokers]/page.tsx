@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Afterprime vs ${pageTitle} - Lowest Verified Cost Comparison ${year}
 `,
-    description: `Save ${brokerSavingPcnt}% vs ${pageTitle} trading costs. Verified net cost of $${findAfterprime?.costPerLot}/lot vs ${pageTitle}’s $${currentPageBroker?.costPerLot}. See the total cost breakdown.`,
+    description: `Save ${brokerSavingPcnt}% vs ${pageTitle} trading costs. Verified average cost all pairs $${findAfterprime?.costPerLot}/lot vs ${pageTitle}’s $${currentPageBroker?.costPerLot}. See the total cost breakdown.`,
     alternates: {
       canonical: `https://afterprime.com/vs/${brokers}`,
     },
