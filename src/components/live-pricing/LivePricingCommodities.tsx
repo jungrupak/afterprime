@@ -30,7 +30,7 @@ export function LivePricingCommodities() {
           Lowest <span>Commodity Costs.</span>
         </h2>
       <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Stop overpaying for your exposure. Trade on commodities independently verified as the world’s lowest all-in costs by Forexbenchmark.com. We offer raw spreads with zero commissions across our entire suite - plus, earn up to $2/lot back via Flow Rewards<sup>TM</sup> on Gold (XAU/USD).
+          Stop overpaying for your exposure. We offer raw spreads with zero commissions across our entire suite - plus, earn up to $2/lot back via Flow Rewards<sup>TM</sup> on Gold (XAU/USD).
         </p>
       </div>
 
