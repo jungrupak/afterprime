@@ -34,9 +34,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: `https://afterprime.com/vs/${brokers}`,
     },
-    keywords:
-      pageAiseo?.keywords ||
-      "Get Paid to Trade, Forex broker with lowest costs, A-Book forex broker",
 
     authors: [{ name: "Afterprime", url: "https://afterprime.com" }],
 
