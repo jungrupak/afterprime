@@ -10,6 +10,7 @@ import FaqCalc from "@/components/faq-calculators/Faq";
 import TradingGlossary from "@/components/TradingGlossary/TradingGlossary";
 import Author from "@/components/AuthorForInstrumentPage/Author";
 import { BottomCta } from "@/components/acfFieldGroups/bottom-cta/BottomCta";
+import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 
 // ISR
 export const revalidate = 60;
@@ -26,9 +27,16 @@ type Props = {
 //
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { inst } = await params;
+
+  const allBrokers = await getBrokerCompareData(inst);
+  const getAfterprime = allBrokers?.brokers.find(
+    (broker) => broker.broker === "Afterprime",
+  );
+  const afterprimeCostPerLot = getAfterprime?.costPerLot;
+
   return {
     title: `${inst.toUpperCase()} Spreads & Lowest Verified Trading Costs | Afterprime`,
-    description: `Trade ${inst.toUpperCase()} at $[APCOSTPERLOT]/lot RT. Sub 50ms execution with $0 commission. Compare live ${inst.toUpperCase()} spreads.`,
+    description: `Trade ${inst.toUpperCase()} at $ ${afterprimeCostPerLot}/lot RT. Sub 50ms execution with $0 commission. Compare live ${inst.toUpperCase()} spreads.`,
     alternates: {
       canonical: `https://afterprime.com/forex/${inst}`,
     },
