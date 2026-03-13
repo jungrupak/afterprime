@@ -16,9 +16,7 @@ interface BrokerIndividualDataType {
 // ####
 
 //#######
-export async function getSavingCompare(
-  symbol: string,
-): Promise<BrokerIndividualDataType | undefined> {
+export async function getSavingCompare(): Promise<BrokerIndividualDataType | null> {
   try {
     const res = await fetch(
       `https://feed.afterprime.com/api/costs`,
@@ -27,13 +25,14 @@ export async function getSavingCompare(
     );
 
     if (!res.ok) {
-      throw new Error("Failed to fetch saving comparison data");
+      console.error("Failed to fetch saving comparison data", res.status);
+      return null;
     }
 
     return await res.json();
   } catch (err) {
     console.error("Failed to refresh data", err);
-    throw new Error("Failed to fetch saving comparison data");
+    return null;
   }
 }
 //########

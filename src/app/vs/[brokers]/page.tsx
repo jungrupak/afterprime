@@ -9,6 +9,7 @@ import CompareWithMajors from "./compare-with-majors/CostComparison";
 import Button from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
 import FaqCalc from "@/components/faq-calculators/Faq";
+import { getSavingCompare } from "@/lib/getSavingCompare";
 
 // ISR
 export const revalidate = 60;
@@ -22,15 +23,46 @@ type Props = {
 //
 // 🔹 Metadata
 //
+
+const brokerSlugMap = {
+  tickmill: "Tickmill UK (Raw)",
+  fxcm: "FXCM",
+  "ic-markets": "IC Markets (Raw)",
+  pepperstone: "Pepperstone UK (.r)",
+  fxopen: "FXOpen (TickTrader)",
+  dukascopy: "Dukascopy",
+  darwinex: "Darwinex",
+  "global-prime": "Global Prime",
+  "markets-dot-com": "Markets.com",
+  swissquote: "Swissquote",
+  "top-10-avg": "Top 10 Avg",
+  "industry-avg": "Industry Avg",
+} as const;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { brokers } = await params;
   const renderPage = await getPageDataBySlug(brokers);
   const pageTitle = renderPage?.title?.rendered;
   const pageAiseo = renderPage?.aioseo_head_json;
+  const year = new Date().getFullYear();
+
+  // ## get brokers data
+  const savingCompares = await getSavingCompare();
+  const mappedBrokerName = brokerSlugMap[brokers as keyof typeof brokerSlugMap];
+  const currentPageBroker = savingCompares?.brokers?.find(
+    (item) => item.broker === mappedBrokerName,
+  );
+  const findAfterprime = savingCompares?.brokers?.find(
+    (item) => item.broker === "Afterprime",
+  );
+  const brokerSavingPcnt = currentPageBroker?.savingPercentage.toFixed(1) ?? 0;
+  console.log("what broker", findAfterprime);
+  // ## Ends
+
   return {
-    title: `Afterprime vs ${pageTitle} - Lowest Verified Cost Comparison ([Year])
+    title: `Afterprime vs ${pageTitle} - Lowest Verified Cost Comparison ${year}
 `,
-    description: `Save [Savings_PercentALLPAIRS]% vs ${pageTitle} trading costs. Verified net cost of $[Afterprime_Net_CostALLPAIRS]/lot vs ${pageTitle}’s $[Competitor_Net_CostALLPAIRS]. See the total cost breakdown.`,
+    description: `Save ${brokerSavingPcnt}% vs ${pageTitle} trading costs. Verified net cost of $${findAfterprime?.costPerLot}/lot vs ${pageTitle}’s $${currentPageBroker?.costPerLot}. See the total cost breakdown.`,
     alternates: {
       canonical: `https://afterprime.com/vs/${brokers}`,
     },
@@ -200,7 +232,8 @@ export default async function ChildPage({ params }: Props) {
                 <br />
                 We focus on spread stability. By curating our flow, we reduce
                 the "noise" and "gapping" that often occurs with retail-heavy
-                brokers, ensuring that the price you see is the price you get, under normal market conditions.
+                brokers, ensuring that the price you see is the price you get,
+                under normal market conditions.
               </li>
             </ul>
 
@@ -225,7 +258,9 @@ export default async function ChildPage({ params }: Props) {
                 <br />
                 If a broker has "cheap" costs but slips your entry by 0.2 pips,
                 that is an extra $2.00 per lot added to your cost that doesn't
-                show up on their pricing page. This is an industry-wide dynamic and does not constitute a specific claim regarding {pageTitle}'s execution quality.
+                show up on their pricing page. This is an industry-wide dynamic
+                and does not constitute a specific claim regarding {pageTitle}'s
+                execution quality.
               </li>
 
               <li>
