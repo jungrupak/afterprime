@@ -27,8 +27,8 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { inst } = await params;
   return {
-    title: `${inst.toUpperCase()} Forex Pair Overview and Trading with Afterprime`,
-    description: `See how the ${inst.toUpperCase()} forex pair moves, what drives its price and how Afterprime supports ${inst.toUpperCase()} trading with low costs, deep liquidity and pro tools.`,
+    title: `${inst.toUpperCase()} Spreads & Lowest Verified Trading Costs | Afterprime`,
+    description: `Trade ${inst.toUpperCase()} at $[APCOSTPERLOT]/lot RT. Sub 50ms execution with $0 commission. Compare live ${inst.toUpperCase()} spreads.`,
     alternates: {
       canonical: `https://afterprime.com/forex/${inst}`,
     },
