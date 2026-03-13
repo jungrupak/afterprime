@@ -25,12 +25,12 @@ export function LivePricingCommodities() {
 
   return (
     <div>
-      <div className="max-w-[700px] mx-auto text-center">
-        <h2 className="h2-size mb-6">
-          Keep More, <span>Earn More.</span>
+    <div className="w-full text-center px-6">
+      <h2 className="h2-size mb-6">
+          Lowest <span>Commodity Costs.</span>
         </h2>
-        <p className="paragraph max-w-2xl mx-auto mb-20 max-md:mb-10 opacity-90">
-          Lowest verified all-in costs worldwide + Flow Rewards<sup>TM</sup> up to $14/lot on every trade.
+      <p className="paragraph mb-20 max-md:mb-10 opacity-90">
+          Stop overpaying for your exposure. Trade on commodities independently verified as the world’s lowest all-in costs by Forexbenchmark.com. We offer raw spreads with zero commissions across our entire suite - plus, earn up to $2/lot back via Flow Rewards<sup>TM</sup> on Gold (XAU/USD).
         </p>
       </div>
 
