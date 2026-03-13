@@ -69,6 +69,12 @@ export default function CostComparison({ instrument }: { instrument: string }) {
       ? data.rebate.rebate_usd_per_lot
       : null;
 
+const lastUpdated = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+}).format(new Date());
+
   // After defining pickedBrokersLists and rebatePerLot, calculate the lowest cost broker
   let lowestNetCost = Infinity;
   let lowestBrokerName = "";
@@ -390,8 +396,7 @@ export default function CostComparison({ instrument }: { instrument: string }) {
             . All prices quoted in US Dollars.
           </div>
         </div>
-        <br/>
-        <div className="text-[14px] opacity-60">
+        <div className="text-[14px] opacity-60 mt-5">
         <p className="risk-warning-all">
         Source:{" "}
         <a href="https://www.forexbenchmark.com" target="_blank">

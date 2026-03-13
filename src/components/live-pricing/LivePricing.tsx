@@ -35,15 +35,14 @@ export function LivePricingAll() {
 
   return (
     <div>
-      <div className="max-w-[700px] mx-auto text-center">
-        <h2 className="h2-size mb-6">
-          Keep More, <span>Earn More.</span>
-        </h2>
-        <p className="paragraph max-w-2xl mx-auto mb-20 max-md:mb-10 opacity-90">
-          Lowest verified all-in costs worldwide + Flow Rewards<sup>TM</sup> up
-          to $3/lot on every trade.
-        </p>
-      </div>
+    <div className="w-full text-center px-6">
+      <h2 className="h2-size mb-6">
+        Beyond Zero-Commission, <span>Get Paid to Trade.</span>
+      </h2>
+      <p className="paragraph mb-20 max-md:mb-10 opacity-90">
+        Most brokers hide their profit in the spread. We do the opposite. We combine the industry’s tightest raw spreads with Flow Rewards<sup>TM</sup> paying you up to $3/lot back on your volume. We don't just lower your costs; we turn your execution into a revenue stream.
+      </p>
+    </div>
 
       {status === "connecting" && <Loader />}
 

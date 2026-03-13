@@ -16,12 +16,12 @@ export function LivePricingCrypto() {
 
   return (
     <div>
-      <div className="max-w-[700px] mx-auto text-center">
-        <h2 className="h2-size mb-6">
-          Keep More, <span>Earn More.</span>
+    <div className="w-full text-center px-6">
+      <h2 className="h2-size mb-6">
+          Lowest <span>Crypto Costs.</span>
         </h2>
-        <p className="paragraph max-w-2xl mx-auto mb-20 max-md:mb-10 opacity-90">
-          Lowest verified all-in costs worldwide + Flow Rewards<sup>TM</sup> up to $3/lot on every trade.
+      <p className="paragraph mb-20 max-md:mb-10 opacity-90">
+          Stop losing your margin to exchange fees. Trade on Crypto CFDs. We offer raw spreads with zero commissions - plus, earn up to $3/lot back via Flow Rewards™ on Bitcoin.
         </p>
       </div>
 
