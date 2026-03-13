@@ -28,9 +28,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const pageTitle = renderPage?.title?.rendered;
   const pageAiseo = renderPage?.aioseo_head_json;
   return {
-    title: `Afterprime vs ${pageTitle} - Total Cost Comparison
+    title: `Afterprime vs ${pageTitle} - Lowest Verified Cost Comparison ([Year])
 `,
-    description: `Compare Afterprime vs ${pageTitle}: zero commission, Flow Rewards, verified data. See total cost breakdown and monthly savings.`,
+    description: `Save [Savings_PercentALLPAIRS]% vs ${pageTitle} trading costs. Verified net cost of $[Afterprime_Net_CostALLPAIRS]/lot vs ${pageTitle}’s $[Competitor_Net_CostALLPAIRS]. See the total cost breakdown.`,
     alternates: {
       canonical: `https://afterprime.com/vs/${brokers}`,
     },
