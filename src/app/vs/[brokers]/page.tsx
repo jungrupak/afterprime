@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     (item) => item.broker === "Afterprime",
   );
   const brokerSavingPcnt = currentPageBroker?.savingPercentage.toFixed(1) ?? 0;
-  console.log("what broker", findAfterprime);
+
   // ## Ends
 
   return {
