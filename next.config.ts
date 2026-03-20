@@ -113,6 +113,7 @@ const nextConfig: NextConfig = {
         { source: '/cdn-cgi/:path*', destination: '/', permanent: true },
         { source: '/audusd', destination: '/trade/audusd', permanent: true },
         { source: '/eurusd', destination: '/trade/eurusd', permanent: true },
+        { source: '/glossary/glossary-forex', destination: '/glossary/forex-trading', permanent: true },
         { source: '/trading-calculator', destination: '/calculators/trading-calculator', permanent: true },
       ];
   },
