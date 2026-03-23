@@ -152,7 +152,7 @@ export default function Footer() {
                 <Link href="/trade">Compare Trading Costs</Link>
               </li>
               <li>
-                <Link href="/vs">Afterprime vs Broker</Link>
+                <Link href="/vs">Compare Brokers</Link>
               </li>
             </ul>
           </div>
