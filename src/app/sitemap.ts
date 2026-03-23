@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const wpBaseUrl = "https://wordpress-1264747-4900526.cloudwaysapps.com";
 
   const pages = await wpFetch<WPPageExtended[] | null>(
-    "/pages?per_page=100&status=publish"
+    "/pages?per_page=1000&status=publish"
   );
 
   const staticRoutes: MetadataRoute.Sitemap = [
