@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { WPPage } from "@/types/blocks";
+import { wpFetch } from "@/utils/wpFetch";
 
 export const revalidate = 86400;
 
@@ -118,8 +119,33 @@ async function fetchPublishedPages(): Promise<WPPageExtended[]> {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = normalizeBaseUrl("https://afterprime.com");
-  const pages = await fetchPublishedPages();
+
+
+  const baseUrl = "https://afterprime.com";
+  const wpBaseUrl = "https://wordpress-1264747-4900526.cloudwaysapps.com";
+
+  async function fetchAllPages(): Promise<WPPageExtended[]> {
+    let allPages: WPPageExtended[] = [];
+    let page = 1;
+    let hasMore = true;
+
+    while (hasMore) {
+      const res = await wpFetch<WPPageExtended[] | null>(
+        `/pages?per_page=100&status=publish&page=${page}`
+      );
+
+      if (!res || res.length === 0) {
+        hasMore = false;
+      } else {
+        allPages = [...allPages, ...res];
+        page++;
+      }
+    }
+
+    return allPages;
+  }
+  
+  const pages = await fetchAllPages();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
