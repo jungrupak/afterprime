@@ -1,17 +1,21 @@
 // src/utils/wpFetch.ts
 
 export async function wpFetch<T>(endpoint: string): Promise<T | null> {
-  const baseUrl =
+  const rawBaseUrl =
     process.env.NEXT_PUBLIC_WP_BASE_URL ||
     process.env.WORDPRESS_REST_ENDPOINT;
 
-  if (!baseUrl) {
+  if (!rawBaseUrl) {
     console.error("❌ Missing WordPress API base URL.");
     return null;
   }
 
-  const cleanBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
-  const url = `${cleanBaseUrl}wp-json/wp/v2${endpoint}`;
+  const cleanBaseUrl = rawBaseUrl.endsWith("/") ? rawBaseUrl.slice(0, -1) : rawBaseUrl;
+  const apiBaseUrl = cleanBaseUrl.includes("/wp-json/")
+    ? cleanBaseUrl
+    : `${cleanBaseUrl}/wp-json/wp/v2`;
+  const normalizedEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+  const url = `${apiBaseUrl}${normalizedEndpoint}`;
 
   try {
     const res = await fetch(url, {

@@ -14,7 +14,7 @@ type Props = { params: Promise<{ slug: string }> };
 // ✅ Pre-generate slugs for better performance
 export async function generateStaticParams() {
   const pages = await wpFetch<WPPage[]>(`/pages?_fields=id,slug,parent`);
-  if (!pages) return [];
+  if (!Array.isArray(pages)) return [];
 
   const parents = pages.filter((p) => p.parent === 0);
   const parentMap = Object.fromEntries(parents.map((p) => [p.id, p.slug]));
@@ -22,8 +22,7 @@ export async function generateStaticParams() {
   return pages
     .filter((p) => p.parent !== 0 && parentMap[p.parent])
     .map((p) => ({
-      slug: parentMap[p.parent],
-      inst: p.slug,
+      slug: p.slug,
     }));
 }
 

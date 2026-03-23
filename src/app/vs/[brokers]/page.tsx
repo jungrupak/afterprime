@@ -353,7 +353,7 @@ export default async function ChildPage({ params }: Props) {
 // 🔹 Pre-build all static params for ISR
 export async function generateStaticParams() {
   const pages = await wpFetch<WPPage[]>(`/pages?_fields=id,slug,parent`);
-  if (!pages) return [];
+  if (!Array.isArray(pages)) return [];
 
   const parents = pages.filter((p) => p.parent === 0);
   const parentMap = Object.fromEntries(parents.map((p) => [p.id, p.slug]));
