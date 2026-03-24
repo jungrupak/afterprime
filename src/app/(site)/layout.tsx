@@ -85,7 +85,7 @@ export default function PagesLayout({
             controlsList="nodownload"
           >
             <source
-              src="https://cfcdn.afterprime.com/low-res.mp4"
+              src="https://motion.afterprime.com/web/low-res.mp4"
               type="video/mp4"
             />
           </video>
