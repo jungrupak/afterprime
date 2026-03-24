@@ -78,7 +78,7 @@ export default function LPBanner({ instrument }: BannerTitle) {
   return (
     <>
       <section
-        className={`${styles.lpBanner} max-md:mt-10 md:pb-0! md:h-[100vh]`}
+        className={`${styles.lpBanner} lp-banner max-md:mt-10 md:pb-0! md:h-[100vh]`}
       >
         <div
           className={`ap_container_small grid grid-cols-2 gap-8 md:gap-20 relative z-1 flex items-center h-full`}
