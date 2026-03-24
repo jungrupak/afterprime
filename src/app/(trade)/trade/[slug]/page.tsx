@@ -81,7 +81,6 @@ export default async function TradeSlugPage({ params }: PageProps) {
       <section className={`compact-section pt-[0.5px]!`}>
         <div className="ap_container_small">
           <CostComparison instrument={page.slug} />
-          {/* <GoogleReview /> */}
 
           <FlowRewardIntro
             content={flowRewardContent}
