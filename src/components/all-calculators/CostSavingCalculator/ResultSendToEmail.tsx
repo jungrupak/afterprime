@@ -89,11 +89,15 @@ export default function ResultSendToEmail({
   }
 
   return (
-    <div className={`${styles.resultSendinEmail} p-[25px] md:p-[40px]`}>
+    <div
+      className={`${styles.resultSendinEmail} p-[25px] md:p-[30px_40px_40px_40px]`}
+    >
       <div className={styles.resultSendinEmailContent}>
-        <h3 className={`text-[18px] font-semibold mb-5`}>
-          Send the Cost Saving Data
-        </h3>
+        <h3 className={`text-[20px] font-bold mb-2`}>Save This Report</h3>
+        <p className={`text-[16px] mb-5 opacity-65`}>
+          Get your cost comparison emailed. No signup required - just your
+          savings data and next steps.
+        </p>
         <div
           className={`${styles.resultSendinEmailForm} flex flex-col md:flex-row gap-4`}
         >
@@ -117,7 +121,7 @@ export default function ResultSendToEmail({
             size="small"
             onclick={sendCalculatorData}
           >
-            Send Cost Savings Data
+            Send My Savings Report
           </Button>
         </div>
         {status !== "idle" && (
