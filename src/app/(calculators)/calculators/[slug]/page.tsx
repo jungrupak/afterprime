@@ -12,6 +12,7 @@ import SwapCalculator from "@/components/all-calculators/SwapCalculator/SwapCalc
 import TradingCalculator from "@/components/all-calculators/TradingCalculator/TradingCalculator";
 import DollarSavingsCalculator from "@/components/all-calculators/CostSavingCalculator/CostSavingCalculator";
 import { CustomMetadata } from "@/utils/CustomMetadata";
+import Script from "next/script";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -126,7 +127,7 @@ export default async function Page({ params }: PageSlug) {
 
       {/* //render data comparison schema */}
       {pageSchema && (
-        <script
+        <Script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: pageSchema,
