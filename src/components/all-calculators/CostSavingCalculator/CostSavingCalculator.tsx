@@ -15,6 +15,7 @@ import {
   TooltipItem,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import ResultSendToEmail from "./ResultSendToEmail";
 
 ChartJS.register(
   CategoryScale,
@@ -455,7 +456,6 @@ export default function DollarSavingsCalculator() {
           </div>
         </div>
       </div>
-
       {/* Right: Graph */}
       <div className={styles.chartSection}>
         <div className={styles.chartHeader}>
@@ -489,6 +489,14 @@ export default function DollarSavingsCalculator() {
           {/* Day session 04:00–22:00. Past averages don&apos;t guarantee future
             outcomes. */}
         </div>
+      </div>
+      {/* ## */}
+      <div className="text-[14px] col-span-full">
+        <ResultSendToEmail
+          activeBroker={selectedBroker}
+          lotsPerMonth={lots}
+          savingPerMonth={moSave.toFixed(2)}
+        />
       </div>
       {/* ## */}
       <div className="text-[14px] col-span-full opacity-60">
