@@ -6,6 +6,9 @@ interface InputBoxProps {
   type?: string;
   value?: string;
   steps?: string;
+  placeholder?: string;
+  className?: string;
+  wrapperClassName?: string;
   onchange: (value: string) => void;
   error?: string;
 }
@@ -14,6 +17,9 @@ export default function Input({
   type = "text",
   value,
   steps,
+  placeholder,
+  className,
+  wrapperClassName,
   onchange,
   error,
 }: InputBoxProps) {
@@ -21,13 +27,14 @@ export default function Input({
     <div
       className={`${styles.inputWrapper} ${
         type === "number" ? styles.numberInput : ""
-      }`}
+      } ${wrapperClassName || ""}`}
     >
       <input
         type={type}
         step={steps || "0.01"}
         value={value}
-        className={`${styles.inputBox}`}
+        placeholder={placeholder}
+        className={`${styles.inputBox} ${className || ""}`}
         onChange={(e) => onchange && onchange(e.target.value)}
       />
 

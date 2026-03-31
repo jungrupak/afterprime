@@ -266,3 +266,42 @@
 .errorState {
   color: #ef4444;
 }
+
+.resultSendinEmail {
+  background: linear-gradient(135deg, #2a3039 0%, #0f141b1b 100%);
+  border: 1px solid #313a48;
+  border-radius: 8px;
+  font-size: 14px !important;
+}
+.resultSendinEmailInput {
+  width: 100%;
+}
+.resultSendinEmailForm {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+.resultSendinEmailInputWrap {
+  width: 100%;
+}
+.sendEmailBtn {
+  flex: 0 0 20%;
+}
+
+.resultSendinEmailStatus {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.resultSendinEmailStatusError {
+  color: #f87171;
+}
+
+.resultSendinEmailStatusSending {
+  color: #fbbf24;
+}
+
+.resultSendinEmailStatusSuccess {
+  color: #4ade80;
+}

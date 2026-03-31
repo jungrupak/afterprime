@@ -4,7 +4,6 @@ import PageRenderer from "@/components/PageRender";
 import { getWpPagedata } from "@/utils/getWpPagedata";
 import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
-import FaqSchema from "@/lib/schema/faqSchema";
 
 //Revalidate every 60s (ISR)
 export const revalidate = 86400;
