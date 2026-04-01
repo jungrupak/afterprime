@@ -175,7 +175,11 @@ export function TableDataRewardFlow({
                   <tbody>
                     {forexMajors.map((row, idx) => (
                       <tr key={idx}>
-                        <td>{row.symbol}</td>
+                        <td>
+                        <Link href={`/trade/${row.symbol.toLowerCase()}`}>
+                        {row.symbol}
+                        </Link>
+                        </td>
                         <td
                           style={{
                             backgroundColor: "rgb(67, 59, 249)",
