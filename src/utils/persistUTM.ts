@@ -1,27 +1,21 @@
 const UTM_KEYS = [
-  //pass these values to typeform
-  //?utm_campaign=(value of _gpfx_utm_campaign)
-  "_gpfx_utm_campaign",
-  "_gpfx_utm_source",
-  "_gpfx_utm_medium",
-  "_gpfx_utm_term",
-  "_gpfx_utm_content",
+  "utm_campaign",
+  "utm_source",
+  "utm_medium",
+  "utm_term",
+  "utm_content"
 ];
 
-// set cookie
-const setCookie = (name: string, value: string, days = 30) => {
-  const date = new Date();
-  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+// GET cookie VALUES
 
-  const domain =
-    window.location.hostname === "localhost"
-      ? ""
-      : ";domain=.afterprime.com";
-
-  document.cookie = `${name}=${encodeURIComponent(
-    value
-  )};expires=${date.toUTCString()};path=/${domain}`;
-};
+/*
+utm_campaign = _gpfx_utm_campaign.value
+utm_source = _gpfx_utm_source.value
+utm_medium = _gpfx_utm_medium.value
+utm_term = _gpfx_utm_term.value
+utm_content = _gpfx_utm_content.value
+*/
+//
 
 // get cookie
 const getCookie = (name: string) => {
