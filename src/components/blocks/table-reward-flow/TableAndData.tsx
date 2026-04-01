@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Tab, { TabItem } from "@/components/ui/Tab";
 import style from "./style.module.scss";
 import { Blocks } from "@/types/blocks";
+import Link from "next/link";
 
 type SectionPropsHead = Blocks["rebate-table"];
 
@@ -176,9 +177,9 @@ export function TableDataRewardFlow({
                     {forexMajors.map((row, idx) => (
                       <tr key={idx}>
                         <td>
-                        <Link href={`/trade/${row.symbol.toLowerCase()}`}>
-                        {row.symbol}
-                        </Link>
+                          <Link href={`/trade/${row.symbol.toLowerCase()}`}>
+                            {row.symbol}
+                          </Link>
                         </td>
                         <td
                           style={{
