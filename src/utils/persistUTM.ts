@@ -1,35 +1,33 @@
-const UTM_KEYS = [
-  "utm_campaign",
-  "utm_source",
-  "utm_medium",
-  "utm_term",
-  "utm_content"
-];
+const UTM_COOKIE_MAP = {
+  utm_campaign: "_gpfx_utm_campaign",
+  utm_source: "_gpfx_utm_source",
+  utm_medium: "_gpfx_utm_medium",
+  utm_term: "_gpfx_utm_term",
+  utm_content: "_gpfx_utm_content",
+} as const;
 
-// GET cookie VALUES
+type UTMKey = keyof typeof UTM_COOKIE_MAP;
 
-/*
-utm_campaign = _gpfx_utm_campaign.value
-utm_source = _gpfx_utm_source.value
-utm_medium = _gpfx_utm_medium.value
-utm_term = _gpfx_utm_term.value
-utm_content = _gpfx_utm_content.value
-*/
-//
+const DEFAULT_UTM_VALUE = "direct";
 
-// get cookie
-const getCookie = (name: string) => {
-  const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
-  return match ? decodeURIComponent(match[2]) : null;
+const getCookie = (cookieStore: string, name: string) => {
+  const match = cookieStore.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+  return match ? decodeURIComponent(match[1]) : null;
 };
 
-export const getStoredUTMs = () => {
-  const utms: Record<string, string> = {};
+export const parseStoredUTMs = (cookieStore: string): Record<UTMKey, string> => {
+  const utms = {} as Record<UTMKey, string>;
 
-  UTM_KEYS.forEach((key) => {
-    const cookie = getCookie(`_gpfx_${key}`);
-    utms[key] = cookie || "direct";
-  });
+  (Object.entries(UTM_COOKIE_MAP) as [UTMKey, string][]).forEach(
+    ([utmKey, cookieKey]) => {
+      const cookieValue = getCookie(cookieStore, cookieKey)?.trim();
+      utms[utmKey] = cookieValue || DEFAULT_UTM_VALUE;
+    },
+  );
 
   return utms;
+};
+
+export const getStoredUTMs = (): Record<UTMKey, string> => {
+  return parseStoredUTMs(document.cookie);
 };
