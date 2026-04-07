@@ -8,7 +8,7 @@ type HeroHomeProps = Blocks["hero-banner-home"];
 
 export function HeroHome(props: HeroHomeProps) {
   const {
-    hero_banner_home_banner_heading = "",
+    hero_banner_home_banner_heading,
     hero_banner_home_banner_paragraph,
     hero_banner_home_banner_btn_text,
     hero_banner_home_banner_btn_url,
@@ -26,7 +26,7 @@ export function HeroHome(props: HeroHomeProps) {
             {/* {title.map((text, i) => (
               <span key={i}>{text}</span>
             ))} */}
-            {hero_banner_home_banner_heading}
+            {hero_banner_home_banner_heading ?? "Afterprime Hero Banner Text"}
           </h1>
         </div>
         <div className={`${styles.heroBannerPara} max-md:px-5`}>

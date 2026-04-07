@@ -1,15 +1,20 @@
 "use client";
-import { useLivePrices } from "@/hooks/useLivePrices";
+import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
 import { useState } from "react";
 import styles from "./style.module.scss";
-import Btn from "@/components/ui/Button";
 import Image from "next/image";
 import { Loader } from "../Loading/Loading";
 import { Retrying } from "../retrying/Retry";
 import { Disconnected } from "../disconnected/Disconnected";
 
-export function LivePricingForex() {
-  const { categories, status } = useLivePrices();
+interface LivePricingForexProps {
+  initialPrices?: PricesObjects[];
+}
+
+export function LivePricingForex({
+  initialPrices = [],
+}: LivePricingForexProps) {
+  const { categories, status } = useLivePrices(initialPrices);
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
 
@@ -20,6 +25,7 @@ export function LivePricingForex() {
   ];
 
   const tabNavs = ["Majors", "Minors", "Exotics"];
+  const hasInitialTableData = pricingCatLists.some((items) => items.length > 0);
 
   return (
     <div>
@@ -32,9 +38,9 @@ export function LivePricingForex() {
       </p>
     </div>
 
-      {status === "connecting" && <Loader />}
+      {status === "connecting" && !hasInitialTableData && <Loader />}
 
-      {status === "connected" && (
+      {hasInitialTableData && (
         <div className={`${styles.ap_tab}`}>
           <div className={`${styles.ap_tab_nav}`}>
             {tabNavs.map((nav, index) => (
@@ -170,8 +176,8 @@ export function LivePricingForex() {
         </div>
       )}
 
-      {status === "disconnected" && <Retrying />}
-      {status === "error" && <Disconnected />}
+      {status === "disconnected" && !hasInitialTableData && <Retrying />}
+      {status === "error" && !hasInitialTableData && <Disconnected />}
 
       {/* <div className="text-center mt-10 text-[20px]">
         At 100 lots/month, that’s $480 saved vs{" "}

@@ -1,17 +1,22 @@
 "use client";
-import { useLivePrices } from "@/hooks/useLivePrices";
+import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
 import styles from "./style.module.scss";
-import Btn from "@/components/ui/Button";
 import Image from "next/image";
 import { Loader } from "../Loading/Loading";
 import { Retrying } from "../retrying/Retry";
 import { Disconnected } from "../disconnected/Disconnected";
 
-export function LivePricingIndices() {
-  const { categories, status } = useLivePrices();
+interface LivePricingIndicesProps {
+  initialPrices?: PricesObjects[];
+}
+
+export function LivePricingIndices({
+  initialPrices = [],
+}: LivePricingIndicesProps) {
+  const { categories, status } = useLivePrices(initialPrices);
 
   const pricingCatLists = [categories.indices];
-  console.log("Indices data:", pricingCatLists);
+  const hasInitialTableData = pricingCatLists.some((items) => items.length > 0);
 
   return (
     <div>
@@ -24,9 +29,9 @@ export function LivePricingIndices() {
         </p>
       </div>
 
-      {status === "connecting" && <Loader />}
+      {status === "connecting" && !hasInitialTableData && <Loader />}
 
-      {status === "connected" && (
+      {hasInitialTableData && (
         <div className={`${styles.ap_tab}`}>
           <div className={`${styles.ap_tab_container}`}>
             <div className={`${styles.livepricing_table_wrapper}`}>
@@ -82,8 +87,8 @@ export function LivePricingIndices() {
         </div>
       )}
 
-      {status === "disconnected" && <Retrying />}
-      {status === "error" && <Disconnected />}
+      {status === "disconnected" && !hasInitialTableData && <Retrying />}
+      {status === "error" && !hasInitialTableData && <Disconnected />}
 
       {/* <div className="text-center mt-10 text-[20px]">
         At 100 lots/month, that’s $480 saved vs{" "}

@@ -1,15 +1,20 @@
 "use client";
-import { useLivePrices } from "@/hooks/useLivePrices";
+import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
 import { useState } from "react";
 import styles from "./style.module.scss";
-import Btn from "@/components/ui/Button";
 import Image from "next/image";
 import { Loader } from "../Loading/Loading";
 import { Disconnected } from "../disconnected/Disconnected";
 import { Retrying } from "../retrying/Retry";
 
-export function LivePricingAll() {
-  const { categories, status } = useLivePrices();
+interface LivePricingAllProps {
+  initialPrices?: PricesObjects[];
+}
+
+export function LivePricingAll({
+  initialPrices = [],
+}: LivePricingAllProps) {
+  const { categories, status } = useLivePrices(initialPrices);
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
 
@@ -33,20 +38,28 @@ export function LivePricingAll() {
     //"Stocks",
   ];
 
+  const visibleRows = pricingCatLists[activeTabNav].filter(
+    (item) => !["CA60", "SA40", "NOR25", "XCUUSD"].includes(item.symbol),
+  );
+  const hasInitialTableData = pricingCatLists.some((items) => items.length > 0);
+
   return (
     <div>
-    <div className="w-full text-center px-6">
-      <h2 className="h2-size mb-6">
-        Beyond Zero-Commission, <span>Get Paid to Trade.</span>
-      </h2>
-      <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-        Most brokers hide their profit in the spread. We do the opposite. We combine the industry’s tightest raw spreads with Flow Rewards<sup>TM</sup> paying you up to $3/lot back on your volume. We don't just lower your costs; we turn your execution into a revenue stream.
-      </p>
-    </div>
+      <div className="w-full text-center px-6">
+        <h2 className="h2-size mb-6">
+          Beyond Zero-Commission, <span>Get Paid to Trade.</span>
+        </h2>
+        <p className="paragraph mb-20 max-md:mb-10 opacity-90">
+          Most brokers hide their profit in the spread. We do the opposite. We
+          combine the industry’s tightest raw spreads with Flow Rewards
+          <sup>TM</sup> paying you up to $3/lot back on your volume. We don't
+          just lower your costs; we turn your execution into a revenue stream.
+        </p>
+      </div>
 
-      {status === "connecting" && <Loader />}
+      {status === "connecting" && !hasInitialTableData && <Loader />}
 
-      {status === "connected" && (
+      {hasInitialTableData && (
         <div className={`${styles.ap_tab}`}>
           <div className={`${styles.ap_tab_nav}`}>
             {tabNavs.map((nav, index) => (
@@ -67,24 +80,31 @@ export function LivePricingAll() {
             {activeTabContentID === activeTabContentID && (
               <div className={`${styles.livepricing_table_wrapper}`}>
                 <table className="">
+                  <caption className={`hidden`}>
+                    Beyond Zero-Commission, Get Paid to Trade. Popular
+                    Instruments, Forex, Crypto, Commodities, Metals, Indices
+                  </caption>
                   <thead>
                     <tr className="">
-                      <th className="px-4 py-2">Symbol</th>
-                      <th className="px-4 py-2">Bid</th>
-                      <th className="px-4 py-2">Ask</th>
-                      <th className="px-4 py-2">Spread</th>
-                      <th className="px-4 py-2">Market</th>
+                      <th scope="col" className="px-4 py-2">
+                        Symbol
+                      </th>
+                      <th scope="col" className="px-4 py-2">
+                        Bid Price
+                      </th>
+                      <th scope="col" className="px-4 py-2">
+                        Ask Price
+                      </th>
+                      <th scope="col" className="px-4 py-2">
+                        Spread (Pips)
+                      </th>
+                      <th scope="col" className="px-4 py-2">
+                        Market
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {pricingCatLists[activeTabNav]
-                      .filter(
-                        (item) =>
-                          !["CA60", "SA40", "NOR25", "XCUUSD"].includes(
-                            item.symbol,
-                          ),
-                      )
-                      .map((item, index) => (
+                    {visibleRows.map((item, index) => (
                         <tr key={index} className="">
                           <td className="px-4 py-2 " t-name="Symbol">
                             {item.group.startsWith("Forex") ? (
@@ -151,10 +171,11 @@ export function LivePricingAll() {
                             {item.spread}
                           </td>
                           <td className="px-4 py-2 " t-name="Market">
-                            {item.market.charAt(0).toUpperCase() + item.market.slice(1).toLowerCase()}
+                            {item.market.charAt(0).toUpperCase() +
+                              item.market.slice(1).toLowerCase()}
                           </td>
                         </tr>
-                      ))}
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -170,35 +191,8 @@ export function LivePricingAll() {
         </div>
       )}
 
-      {status === "disconnected" && <Retrying />}
-      {status === "error" && <Disconnected />}
-
-      {/* <div className="text-center mt-10 text-[20px]">
-        At 100 lots/month, that’s $480 saved vs{" "}
-        <span
-          className={`${styles.indAverageCompareOpen} inline-flex ml-1 mr-2 items-center gap-1`}
-        >
-          {" "}
-          Industry Average{" "}
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 12 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <mask id="path-1-inside-1_733_115" fill="white">
-              <path d="M5.98633 0L11.9727 5.98633L5.98633 11.9727L2.62032e-07 5.98633L5.98633 0Z" />
-            </mask>
-            <path
-              d="M5.98633 11.9727L4.92567 13.0333L5.98633 14.094L7.04699 13.0333L5.98633 11.9727ZM11.9727 5.98633L10.912 4.92567L4.92567 10.912L5.98633 11.9727L7.04699 13.0333L13.0333 7.04699L11.9727 5.98633ZM5.98633 11.9727L7.04699 10.912L1.06066 4.92567L2.62032e-07 5.98633L-1.06066 7.04699L4.92567 13.0333L5.98633 11.9727Z"
-              fill="var(--secondary-color)"
-              mask="url(#path-1-inside-1_733_115)"
-            />
-          </svg>{" "}
-        </span>
-        plus $220 back in your pocket on flow.
-      </div> */}
+      {status === "disconnected" && !hasInitialTableData && <Retrying />}
+      {status === "error" && !hasInitialTableData && <Disconnected />}
     </div>
   );
 }
