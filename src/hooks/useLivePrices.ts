@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, useRef, useMemo } from "react";
+import { categorizePrices } from "@/lib/pricingCategory";
 import {
   HubConnectionBuilder,
   LogLevel,
@@ -23,9 +24,11 @@ export type ConnectionStatus =
   | "disconnected"
   | "error";
 
-export function useLivePrices() {
-  const [prices, setPrices] = useState<PricesObjects[]>([]);
-  const [status, setStatus] = useState<ConnectionStatus>("connecting");
+export function useLivePrices(initialPrices: PricesObjects[] = []) {
+  const [prices, setPrices] = useState<PricesObjects[]>(initialPrices);
+  const [status, setStatus] = useState<ConnectionStatus>(
+    initialPrices.length > 0 ? "connected" : "connecting",
+  );
   const connectionRef = useRef<HubConnection | null>(null); // persistent connection
 
   useEffect(() => {
@@ -96,65 +99,7 @@ export function useLivePrices() {
   const iconName = prices.map((p) => p.symbol.toLocaleLowerCase());
 
   const categories = useMemo(() => {
-    const popular: PricesObjects[] = [];
-    const forex: PricesObjects[] = [];
-    const forexMajor: PricesObjects[] = [];
-    const forexMinor: PricesObjects[] = [];
-    const forexExotic: PricesObjects[] = [];
-    const crypto: PricesObjects[] = [];
-    const metals: PricesObjects[] = [];
-    const commodities: PricesObjects[] = [];
-    const indices: PricesObjects[] = [];
-    const stocks: PricesObjects[] = [];
-
-    for (const item of prices) {
-      const groupValueToArray = item.group.split("\\");
-      const category = groupValueToArray[0] || "";
-      const subCategory = groupValueToArray[1] || "";
-      const populrItems = groupValueToArray[2] || groupValueToArray[1] || "";
-
-      // Popular
-      if (
-        [
-          "GBPJPY",
-          "EURUSD",
-          "BTCUSD",
-          "ETHUSD",
-          "XAUUSD",
-          "XAUAUD",
-          "GER30",
-          "NAS100",
-        ].includes(populrItems)
-      ) {
-        popular.push(item);
-      }
-
-      // Forex
-      if (category === "Forex") {
-        forex.push(item);
-        if (subCategory === "Majors") forexMajor.push(item);
-        else if (subCategory === "Minors") forexMinor.push(item);
-        else if (subCategory === "Exotics") forexExotic.push(item);
-      } else if (item.group.startsWith("Crypto")) crypto.push(item);
-      else if (item.group.startsWith("Commodities")) commodities.push(item);
-      else if (item.group.startsWith("Metals")) metals.push(item);
-      else if (item.group.startsWith("Indices")) indices.push(item);
-      else if (item.group.startsWith("Stocks")) stocks.push(item);
-    }
-
-    //returning categories so that this component would accept these cat values whenever it's been used
-    return {
-      popular,
-      forex,
-      forexMajor,
-      forexMinor,
-      forexExotic,
-      crypto,
-      metals,
-      indices,
-      commodities,
-      stocks
-    };
+    return categorizePrices(prices);
   }, [prices]);
 
   return { prices, categories, status, iconName };

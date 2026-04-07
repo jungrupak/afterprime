@@ -35,6 +35,9 @@
       background-color: rgb(17, 17, 26);
       font-weight: 600;
       color: rgba(var(--alphaWhite), 0.68);
+      &:last-child {
+        text-align: right;
+      }
     }
     tbody {
       max-height: 100vh;
