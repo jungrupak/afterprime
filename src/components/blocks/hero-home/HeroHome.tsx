@@ -1,8 +1,6 @@
-"use client";
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
-import { useEffect, useState } from "react";
 import type { Blocks } from "@/types/blocks";
 import HeroUsp from "@/components/hero-usp/HeroUsp";
 
@@ -17,17 +15,6 @@ export function HeroHome(props: HeroHomeProps) {
     hero_banner_home_is_type_form_cta,
     hero_banner_home_data_source_note,
   } = props;
-
-  const heroWords = hero_banner_home_banner_heading.split(" ");
-  const title = heroWords.map((word) => word.toLocaleUpperCase() + " ");
-
-  const [width, setWidth] = useState<number>(0);
-
-  useEffect(() => {
-    const resizedWindow = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", resizedWindow);
-    return () => window.removeEventListener("resize", resizedWindow);
-  }, []);
 
   return (
     <div className={`${styles.hero_home} h-screen max-md:h-[100%] relative`}>
@@ -60,9 +47,9 @@ export function HeroHome(props: HeroHomeProps) {
                   size="regular"
                   varient="primary"
                   isArrowVisible={true}
-                  href={hero_banner_home_banner_btn_url || "#"}
+                  href={hero_banner_home_banner_btn_url ?? "#"}
                 >
-                  {hero_banner_home_banner_btn_text || "Button"}
+                  {hero_banner_home_banner_btn_text ?? "Button"}
                 </Btn>
               )}
               <a href="https://app.afterprime.com/live">
@@ -73,7 +60,7 @@ export function HeroHome(props: HeroHomeProps) {
         </div>
       </div>
       {/* ## */}
-      <HeroUsp text={hero_banner_home_data_source_note} />
+      <HeroUsp text={hero_banner_home_data_source_note ?? ""} />
     </div>
   );
 }

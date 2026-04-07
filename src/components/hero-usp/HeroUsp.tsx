@@ -1,72 +1,26 @@
-"use client";
 import GoogleReviewBadge from "../ui/GoogleReviewBadge";
 import styles from "./HeroUsp.module.scss";
-import { Loader } from "../Loading/Loading";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 
-interface BrokerObject {
-  broker?: string;
-  symbol?: string;
-  cost?: number | null;
-  costPerLot?: number | null;
-  savingPercentage?: number | null;
-}
+const DynamicData = async () => {
+  try {
+    const res = await fetch(`https://feed.afterprime.com/api/costs`, {
+      next: { revalidate: 1800 },
+    });
+    if (!res.ok) {
+      return "Failed to load Data from api source";
+    }
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Failded to fetch data:", err);
+  }
+};
+const dynamicData = await DynamicData();
 
-interface CompareDataType {
-  brokers?: BrokerObject[];
-  secondBestVsAfterprimePct?: number | null;
-  top10VsAfterprimeAvgPct?: number | null;
-  industryVsAfterprimeAvgPct?: number | null;
-  text?: string;
-}
-
-interface ReceiveText {
-  text?: string;
-}
-
-interface ApiResponse {
-  brokers?: [];
-  secondBestVsAfterprimePct?: number;
-  top10VsAfterprimeAvgPct?: number;
-  industryVsAfterprimeAvgPct?: number;
-}
-
-export default function HeroUsp({ text }: ReceiveText) {
-  const [note, setNote] = useState(false);
-  const { data, isLoading, error } = useQuery<ApiResponse>({
-    queryKey: ["compareCost"],
-    queryFn: async () => {
-      const res = await axios.get("https://feed.afterprime.com/api/costs");
-      return res.data;
-    },
-    staleTime: 1000 * 60 * 480,
-  });
-
-  useEffect(() => {
-    const showNote = setTimeout(() => {
-      setNote(true);
-    }, 1500);
-    return () => clearTimeout(showNote);
-  }, []);
-
-  if (isLoading)
-    return (
-      <div className="text-center mt-10 relative z-2">
-        <Loader />
-      </div>
-    );
-  if (error)
-    return (
-      <div className="text-center mt-10 text-red">
-        Error while fetching Compare Data...
-      </div>
-    );
-
-  const dataSaving = data?.secondBestVsAfterprimePct?.toFixed(1);
-  const top10Saving = Math.round(data?.top10VsAfterprimeAvgPct || 0);
-  const averageVsInds = Math.round(data?.industryVsAfterprimeAvgPct || 0);
+export default async function HeroUsp({ text }: { text: string }) {
+  const { top10VsAfterprimeAvgPct, industryVsAfterprimeAvgPct } = dynamicData;
+  const top10Saving = Math.round(top10VsAfterprimeAvgPct ?? 0);
+  const averageVsInds = Math.round(industryVsAfterprimeAvgPct ?? 0);
 
   return (
     <>
@@ -103,7 +57,7 @@ export default function HeroUsp({ text }: ReceiveText) {
           </div>
           <p
             className={`${styles.note} text-[14px] absolute bottom-5 opacity-55 max-md:static leading-[1.4]`}
-            style={{ opacity: note ? "0.55" : "0" }}
+            //style={{ opacity: note ? "0.55" : "0" }}
           >
             {text}. {""}
             (Afterprime Ltd is a licensed CFD Broker - FSA #SD057)
