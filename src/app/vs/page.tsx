@@ -1,6 +1,5 @@
 import InnerBanner from "@/components/blocks/inner-banner/InnerBanner";
 import styles from "./Page.module.scss";
-import { Metadata } from "next";
 import { getPageDataBySlug } from "@/data/getPageDataBySlug";
 import { notFound } from "next/navigation";
 import CostComparison from "./comparison/CostComparison";

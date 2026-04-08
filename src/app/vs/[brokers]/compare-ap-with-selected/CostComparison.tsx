@@ -1,6 +1,5 @@
-"use client";
 import styles from "./CostComparison.module.scss";
-import { useQuery } from "@tanstack/react-query";
+import { getSavingCompare } from "@/lib/getSavingCompare";
 
 /* ----------------------------- */
 /* Types                         */
@@ -42,7 +41,7 @@ const brokerSlugMap = {
 
 const CACHE_TTL = 2 * 60 * 1000;
 
-export default function CostComparisonWithSelected({
+export default async function CostComparisonWithSelected({
   selectedBrokerSlug,
 }: Props) {
   const asFiniteNumber = (value: unknown, fallback = 0) =>
@@ -52,30 +51,10 @@ export default function CostComparisonWithSelected({
   const mappedBrokerName =
     brokerSlugMap[selectedBrokerSlug as keyof typeof brokerSlugMap];
 
-  const { data, isLoading, error } = useQuery<CostApiResponse | null>({
-    queryKey: ["cost-comparison"],
-    queryFn: async () => {
-      try {
-        const res = await fetch("https://feed.afterprime.com/api/costs", {
-          next: { revalidate: 2400 },
-        });
-
-        if (!res.ok) {
-          throw new Error(`Cost API error: ${res.status}`);
-        }
-
-        return await res.json();
-      } catch (err) {
-        console.error("Failed to fetch compare data:", err);
-        return null;
-      }
-    },
-    staleTime: CACHE_TTL,
-    gcTime: 10 * 60 * 1000,
-  });
-
-  if (isLoading) return <div className="text-center z-4">Loading...</div>;
-  if (error || !data) return null;
+  const data = await getSavingCompare();
+  if (!data) {
+    throw new Error("Failed to fetch cost comparison data");
+  }
 
   const brokerList = Array.isArray(data.brokers) ? data.brokers : [];
   if (!brokerList.length) return null;
