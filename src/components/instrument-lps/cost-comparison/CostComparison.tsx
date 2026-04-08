@@ -1,32 +1,31 @@
-"use client";
 import styles from "./CostComparison.module.scss";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 
 //##
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
 
-export default function CostComparison({ instrument }: { instrument: string }) {
+export default async function CostComparison({
+  instrument,
+}: {
+  instrument: string;
+}) {
   const asFiniteNumber = (value: unknown, fallback = 0) =>
     typeof value === "number" && Number.isFinite(value) ? value : fallback;
 
-  //####
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["cost-comparison", instrument],
-    queryFn: () => getBrokerCompareData(instrument!),
-    enabled: !!instrument, //prevents undefined crash
-    staleTime: CACHE_TTL, // fresh for 2 minutes
-    gcTime: 10 * 60 * 1000, // cache stays for 10 minutes
-  });
-  //####
+  const compareData = await getBrokerCompareData(instrument);
+  if (!compareData) {
+    throw new Error("Failed to fetch cost comparison data");
+  }
 
   //Hide this component if below condition matches
-  if (data?.industryVsAfterprimeAvgPct === 0) return;
-  if (data?.rebate === null) return;
-  if (!data) return;
+  if (compareData?.industryVsAfterprimeAvgPct === 0) return;
+  if (compareData?.rebate === null) return;
+  if (!compareData) return;
 
-  const brokerList = Array.isArray(data?.brokers) ? data.brokers : [];
+  const brokerList = Array.isArray(compareData?.brokers)
+    ? compareData.brokers
+    : [];
   if (!brokerList.length) return;
   //console.log("data:", brokerList);
   const brokersToPick = [
@@ -65,15 +64,15 @@ export default function CostComparison({ instrument }: { instrument: string }) {
   };
 
   const rebatePerLot =
-    typeof data?.rebate?.rebate_usd_per_lot === "number"
-      ? data.rebate.rebate_usd_per_lot
+    typeof compareData?.rebate?.rebate_usd_per_lot === "number"
+      ? compareData.rebate.rebate_usd_per_lot
       : null;
 
-const lastUpdated = new Intl.DateTimeFormat("en-GB", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-}).format(new Date());
+  const lastUpdated = new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date());
 
   // After defining pickedBrokersLists and rebatePerLot, calculate the lowest cost broker
   let lowestNetCost = Infinity;
@@ -108,7 +107,7 @@ const lastUpdated = new Intl.DateTimeFormat("en-GB", {
 
   //build comparison DATA json schema
   const schemaData =
-    data && pickedBrokersLists
+    compareData && pickedBrokersLists
       ? {
           "@context": "https://schema.org",
           "@type": "Dataset",
@@ -208,9 +207,6 @@ const lastUpdated = new Intl.DateTimeFormat("en-GB", {
 
   //Schema Ends ##
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Failed to load data</div>;
-
   return (
     <>
       <div
@@ -279,19 +275,19 @@ const lastUpdated = new Intl.DateTimeFormat("en-GB", {
                   )}
 
                   <div data-label={`Broker`} className={`col-span-3 relative`}>
-                  {broker.broker === "Afterprime" ? (
-                    <span className="text-[14px] max-md:text-[16px] block">
-                      <strong>Afterprime</strong>
-                    </span>
-                  ) : (
-                    <Link
-                      href={`/vs/${brokerSlugMap[broker.broker] ?? ""}`}
-                      scroll={true}
-                      className="underline hover:no-underline text-[14px] max-md:text-[16px] block"
-                    >
-                      {broker.broker}
-                    </Link>
-                  )}
+                    {broker.broker === "Afterprime" ? (
+                      <span className="text-[14px] max-md:text-[16px] block">
+                        <strong>Afterprime</strong>
+                      </span>
+                    ) : (
+                      <Link
+                        href={`/vs/${brokerSlugMap[broker.broker] ?? ""}`}
+                        scroll={true}
+                        className="underline hover:no-underline text-[14px] max-md:text-[16px] block"
+                      >
+                        {broker.broker}
+                      </Link>
+                    )}
                   </div>
                 </div>
                 <div
@@ -397,14 +393,47 @@ const lastUpdated = new Intl.DateTimeFormat("en-GB", {
           </div>
         </div>
         <div className="text-[14px] opacity-60 mt-5">
-        <p className="risk-warning-all">
-        Source:{" "}
-        <a href="https://www.forexbenchmark.com" target="_blank">
-          <u>ForexBenchmark</u>
-        </a>{" "}
-        - Previous 7 Days Range | {instrument.toUpperCase()} Pair | Incl.
-        Commissions + Spreads.<br/><br/>
-        Afterprime net cost figures include Flow Rewards™, applicable to eligible client accounts on qualifying instruments. Flow Rewards™ rates may vary. See <a href="/get-paid-to-trade"><u>Flow Rewards</u></a> for full eligibility criteria. Flow Rewards™ eligibility and rates are subject to account approval. Savings modelled using ForexBenchmark 7-day average spread data. Actual savings will vary with live spread conditions and applicable Flow Rewards™ rate.<br/><br/>Ranked #1 lowest all-in net cost for {instrument.toUpperCase()} among brokers tracked by ForexBenchmark.com. Rankings are subject to change as market conditions and broker pricing fluctuate.<br/><br/>Savings represent the percentage by which each broker's all-in cost per lot exceeds Afterprime's net cost after Flow Rewards™. Competitor costs reflect their lowest-cost equivalent account type.<br/><br/>Execution quality metrics are based on internal order data under normal market conditions. Performance may vary during periods of high volatility or low liquidity.<br/><br/>Cost comparisons are based on third-party data and are for informational purposes only. Trading involves significant risk of loss. Individual trading costs will vary based on account type, instrument, and market conditions.</p>
+          <p className="risk-warning-all">
+            Source:{" "}
+            <a href="https://www.forexbenchmark.com" target="_blank">
+              <u>ForexBenchmark</u>
+            </a>{" "}
+            - Previous 7 Days Range | {instrument.toUpperCase()} Pair | Incl.
+            Commissions + Spreads.
+            <br />
+            <br />
+            Afterprime net cost figures include Flow Rewards™, applicable to
+            eligible client accounts on qualifying instruments. Flow Rewards™
+            rates may vary. See{" "}
+            <a href="/get-paid-to-trade">
+              <u>Flow Rewards</u>
+            </a>{" "}
+            for full eligibility criteria. Flow Rewards™ eligibility and rates
+            are subject to account approval. Savings modelled using
+            ForexBenchmark 7-day average spread data. Actual savings will vary
+            with live spread conditions and applicable Flow Rewards™ rate.
+            <br />
+            <br />
+            Ranked #1 lowest all-in net cost for {instrument.toUpperCase()}{" "}
+            among brokers tracked by ForexBenchmark.com. Rankings are subject to
+            change as market conditions and broker pricing fluctuate.
+            <br />
+            <br />
+            Savings represent the percentage by which each broker's all-in cost
+            per lot exceeds Afterprime's net cost after Flow Rewards™.
+            Competitor costs reflect their lowest-cost equivalent account type.
+            <br />
+            <br />
+            Execution quality metrics are based on internal order data under
+            normal market conditions. Performance may vary during periods of
+            high volatility or low liquidity.
+            <br />
+            <br />
+            Cost comparisons are based on third-party data and are for
+            informational purposes only. Trading involves significant risk of
+            loss. Individual trading costs will vary based on account type,
+            instrument, and market conditions.
+          </p>
         </div>
       </div>
       {/* //render data comparison schema */}

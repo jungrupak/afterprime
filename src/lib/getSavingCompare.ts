@@ -28,7 +28,6 @@ export async function getSavingCompare(): Promise<BrokerIndividualDataType | nul
       console.error("Failed to fetch saving comparison data", res.status);
       return null;
     }
-
     return await res.json();
   } catch (err) {
     console.error("Failed to refresh data", err);
