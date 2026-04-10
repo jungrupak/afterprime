@@ -1,7 +1,6 @@
 import TypeformLoader from "@/utils/TypeFormLoader";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
-
 import FooterScripts from "@/components/FooterScripts";
 import HeadScripts from "@/components/HeaderScripts";
 import AfterprimeOrgSchema from "@/lib/schema/orgSchema";

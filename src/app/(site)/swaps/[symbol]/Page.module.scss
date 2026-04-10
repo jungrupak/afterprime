@@ -1,0 +1,333 @@
+.innerBannerSection {
+  height: 100vh;
+  //max-height: 600px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  background-color: transparent;
+  backdrop-filter: blur(0);
+  background-image: none !important;
+  @media all and (min-width: 1024px) {
+    height: 100vh;
+    max-height: 100vh;
+    text-align: left;
+  }
+  @media all and (min-width: 1600px) {
+    height: 100vh;
+    //max-height: 980px;
+    text-align: left;
+  }
+}
+
+.instumentLists {
+  ul {
+    li {
+      margin-bottom: 10px;
+      a {
+        transition: all 0.3s ease;
+        border-radius: 6px;
+        background-color: rgba(255, 255, 255, 0.08);
+        display: block;
+        padding: 10px 15px;
+        color: rgba(255, 255, 255, 0.68);
+      }
+      &:hover {
+        a {
+          text-decoration: underline;
+          background-color: rgba(255, 255, 255, 0.14);
+          text-align: center;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.listParent ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 5px;
+}
+
+.swapTableSection {
+  table {
+    table-layout: fixed;
+
+    th,
+    td {
+      &:first-child {
+        width: 60%;
+      }
+
+      &:nth-child(2),
+      &:nth-child(3) {
+        text-align: left;
+      }
+    }
+
+    th {
+      font-size: clamp(14px, 4vw, 16px) !important;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    td {
+      font-size: clamp(16px, 4vw, 18px) !important;
+      line-height: 1.35;
+      color: #fff;
+      vertical-align: top;
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.valueAccent {
+  color: #22c55e;
+}
+
+.costNegative {
+  color: #f8b4b4;
+}
+
+.calculatorWrap {
+  margin-top: clamp(24px, 5vw, 40px);
+  display: grid;
+  gap: 20px;
+}
+
+.calculatorCard,
+.positiveCarryCallout {
+  background-color: rgba(var(--alphaWhite), 0.06);
+  border: 1px solid rgba(var(--alphaWhite), 0.14);
+  backdrop-filter: blur(12px);
+  padding: clamp(20px, 4vw, 32px);
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+.calculatorHeader {
+  margin-bottom: 24px;
+
+  p {
+    margin-top: 10px;
+    max-width: 760px;
+  }
+}
+
+.calculatorGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+
+  @media all and (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.inputGroup {
+  display: grid;
+  gap: 8px;
+}
+
+.fieldLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.fieldWrapper {
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.fieldInput {
+  width: 100%;
+  min-height: 52px;
+  font-size: 18px;
+  color: #fff;
+  background: rgba(var(--alphaWhite), 0.08) !important;
+  border: 1px solid rgba(var(--alphaWhite), 0.16) !important;
+  border-radius: 6px;
+  padding: 14px 16px !important;
+}
+
+.directionToggle {
+  width: 100%;
+  border: solid 1px rgba(255, 255, 255, 0.18);
+  border-radius: 40px;
+  padding: 4px;
+  display: flex;
+  gap: 4px;
+  min-height: 52px;
+  background: rgba(var(--alphaWhite), 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.directionButton {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  border-radius: 38px;
+  line-height: 42px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.6);
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.4);
+    outline-offset: 1px;
+  }
+}
+
+.activeDirection {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.outputCard {
+  margin-top: 24px;
+  padding: clamp(18px, 3vw, 24px);
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.14) 0%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+}
+
+.outputLabel {
+  font-size: clamp(22px, 4vw, 30px);
+  line-height: 1.3;
+  color: #fff;
+}
+
+.helperText {
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.noteChip {
+  display: inline-flex;
+  margin-top: 14px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.positiveCarryCallout {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.18) 0%,
+    rgba(34, 197, 94, 0.05) 100%
+  );
+  border-color: rgba(134, 239, 172, 0.24);
+}
+
+.calloutEyebrow {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #86efac;
+}
+
+.calloutTitle {
+  margin-top: 10px;
+  font-size: clamp(24px, 4vw, 34px);
+  line-height: 1.2;
+  color: #fff;
+}
+
+.calloutBody {
+  margin-top: 12px;
+  max-width: 900px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+//Page generic content from WYSWYG editor
+.pageEditorContent {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: clamp(20px, 5vw, 30px);
+    line-height: 1.1;
+  }
+  h3,
+  h4 {
+    font-size: clamp(30px, 8vw, 35px);
+    margin-top: clamp(40px, 10vw, 60px);
+  }
+  h2:not(:first-child) {
+    margin-top: clamp(40px, 10vw, 60px);
+  }
+  > hr {
+    display: none;
+  }
+  > p {
+    font-size: clamp(18px, 5vw, 20px);
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+    &:not(:last-child) {
+      margin-bottom: clamp(20px, 5vw, 30px);
+    }
+  }
+
+  ul,
+  ol {
+    margin-left: 16px;
+    margin-bottom: clamp(20px, 5vw, 30px);
+    li {
+      list-style: disc;
+      font-size: clamp(18px, 5vw, 20px);
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.8);
+      &:not(:last-child) {
+        margin-bottom: clamp(20px, 5vw, 30px);
+      }
+    }
+  }
+  table {
+    width: 100%;
+    margin-bottom: clamp(20px, 5vw, 30px);
+    tr th {
+      background-color: rgba(var(--alphaWhite), 0.06);
+      border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
+      padding: 15px 20px;
+      font-size: 16px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    tr {
+      td {
+        background-color: rgba(var(--alphaWhite), 0.06);
+        border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
+        padding: 15px 20px;
+        font-size: 20px;
+        transition: all 0.2s ease-in-out;
+        white-space: nowrap;
+      }
+      &:hover {
+        td {
+          background-color: rgba(var(--alphaWhite), 0.1);
+        }
+      }
+    }
+  }
+}

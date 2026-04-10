@@ -1,6 +1,5 @@
 import styles from "./Page.module.scss";
 import Lists from "@/utils/lists/Lists";
-import { Metadata } from "next";
 import Card from "@/components/ui/Card";
 import Image from "next/image";
 import { getCalcPageData } from "@/data/getCalculatorPageData";
