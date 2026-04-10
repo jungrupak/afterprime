@@ -60,6 +60,13 @@ export default function PagesLayout({
 }>) {
   return (
     <>
+      <head>
+        <link
+          rel="preconnect"
+          href="https://motion.afterprime.com"
+          crossOrigin=""
+        />
+      </head>
       <ReactQueryProvider>
         {/* Head Scripts */}
         <HeadScripts />
@@ -79,7 +86,7 @@ export default function PagesLayout({
             loop
             muted
             autoPlay
-            poster=""
+            poster="/img/hero-video-poster.jpg"
             preload="auto"
             aria-label="video-player"
             controlsList="nodownload"
