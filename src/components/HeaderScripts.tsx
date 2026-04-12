@@ -115,20 +115,6 @@ export default function HeadScripts() {
         `}
       </Script>
 
-      <Script id="clarity-inline-script" strategy="afterInteractive">
-        {`
-            try {
-              (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-              })(window, document, "clarity", "script", "tsxcbosv2y");
-            } catch(e) {
-              console.error("Clarity init error:", e);
-            }
-          `}
-      </Script>
-
       <Script id="url-search-params" strategy="afterInteractive">
         {`
     document.addEventListener('DOMContentLoaded', function () {
