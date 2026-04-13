@@ -171,7 +171,9 @@ export function LivePricingForex({
             <a href="/calculators/cost-savings-calculator">
               <u>Calculate your trading costs</u>
             </a>{" "}
-            across your typical trading volume to see the total savings.
+            across your typical trading volume to see the total savings or <a href="/vs">
+              <u>compare broker costs</u></a>{" "}across 10+ brokers.
+            </a>
           </p>
         </div>
       )}
