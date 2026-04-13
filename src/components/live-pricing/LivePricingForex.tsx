@@ -29,14 +29,19 @@ export function LivePricingForex({
 
   return (
     <div>
-    <div className="w-full text-center px-6">
-      <h2 className="h2-size mb-6">
-        Institutional FX Spreads. <span>Professional FX Rewards.</span>
-      </h2>
-      <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-        Most brokers widen their currency spreads to hide their markup, eroding your edge before the trade even breathes. We’ve removed that barrier. By combining the industry’s tightest raw FX spreads with Flow Rewards™, we pay you up to $3/lot back on your volume. We don’t just lower your cost of entry; we turn your Forex execution into a revenue stream.
-      </p>
-    </div>
+      <div className="w-full text-center px-6">
+        <h2 className="h2-size mb-6">
+          Institutional FX Spreads. <span>Professional FX Rewards.</span>
+        </h2>
+        <p className="paragraph mb-20 max-md:mb-10 opacity-90">
+          Most brokers widen their currency spreads to hide their markup,
+          eroding your edge before the trade even breathes. We’ve removed that
+          barrier. By combining the industry’s tightest raw FX spreads with Flow
+          Rewards™, we pay you up to $3/lot back on your volume. We don’t just
+          lower your cost of entry; we turn your Forex execution into a revenue
+          stream.
+        </p>
+      </div>
 
       {status === "connecting" && !hasInitialTableData && <Loader />}
 
@@ -171,9 +176,11 @@ export function LivePricingForex({
             <a href="/calculators/cost-savings-calculator">
               <u>Calculate your trading costs</u>
             </a>{" "}
-            across your typical trading volume to see the total savings or <a href="/vs">
-              <u>compare broker costs</u></a>{" "}across 10+ brokers.
-            </a>
+            across your typical trading volume to see the total savings or{" "}
+            <a href="/vs">
+              <u>compare broker costs</u>
+            </a>{" "}
+            across 10+ brokers.
           </p>
         </div>
       )}
