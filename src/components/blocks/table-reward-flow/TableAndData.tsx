@@ -185,6 +185,15 @@ function renderTable(rows: RebateRow[], linkSymbols?: boolean) {
           ))}
         </tbody>
       </table>
+      <p className={`mt-5`}>
+        <Link
+          style={{ textDecoration: "underline" }}
+          href={`/calculators/cost-savings-calculator`}
+        >
+          Calculate your savings
+        </Link>{" "}
+        and see how much more your current broker is costing you to trade.
+      </p>
     </div>
   );
 }
