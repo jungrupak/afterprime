@@ -45,6 +45,8 @@ export default async function Page({ params }: PageProps) {
     return notFound();
   }
   const symbolName = instrymentData.symbol ?? undefined;
+  const assetClass = instrymentData.path ?? undefined;
+  const symbolCategory = assetClass.split("\\")[0];
   const currencyProfit = instrymentData.currencyProfit ?? "-";
   const swapLong = instrymentData.swapLong ?? 0;
   const swapShort = instrymentData.swapShort ?? 0;
@@ -54,22 +56,22 @@ export default async function Page({ params }: PageProps) {
 
   const FAQ_DATA = [
     {
-      question: `What is the swap rate for ${symbolName}?`,
-      answer: `Afterprime's current ${symbolName} swap rates are ${swapLong} (long) and ${swapShort} (short) per standard lot per night, denominated in ${currencyProfit}.
+      question: `What is the swap rate for ${symbolName.toUpperCase()}?`,
+      answer: `Afterprime's current ${symbolName.toUpperCase()} swap rates are ${swapLong} (long) and ${swapShort} (short) per standard lot per night, denominated in ${currencyProfit}.
 `,
     },
     {
-      question: `When is the triple swap applied to ${symbolName}?`,
+      question: `When is the triple swap applied to ${symbolName.toUpperCase()}?`,
       answer: `Triple swap is charged on [Wednesday/Friday] to account for the Saturday and Sunday settlement period.`,
     },
     {
-      question: `How do I calculate my ${symbolName} overnight holding cost?`,
+      question: `How do I calculate my ${symbolName.toUpperCase()} overnight holding cost?`,
       answer: `Multiply the swap rate by your lot size and nights held. Example: 2 lots long for 3 nights = ${swapLong * 2 * 3} ${currencyProfit}.
 `,
     },
     {
-      question: `Does ${symbolName} have a positive or negative swap?`,
-      answer: `The long swap on ${symbolName} is ${swapLong} ${currencyProfit} per lot per night — a cost on overnight buy positions.`,
+      question: `Does ${symbolName.toUpperCase()} have a positive or negative swap?`,
+      answer: `The long swap on ${symbolName.toUpperCase()} is ${swapLong} ${currencyProfit} per lot per night — a cost on overnight buy positions.`,
     },
   ];
 
@@ -87,18 +89,17 @@ export default async function Page({ params }: PageProps) {
     })),
   };
 
-  //forex metals = wednesday else friday
-
   return (
     <>
       {/* Banner Section */}
       <section
-        className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
+        className={`${styles.innerBannerSection} h-auto! compact-innerpage-banner`}
       >
         <div className="ap_container_small flex items-center h-full">
           <div className="apBannerContent md:max-w-[800px]">
             <h1 className="h1-size mt-10 lg:mt-15 ">
-              <span className="font-[600]">{symbolName}</span> Swap Rate
+              <span className="font-[600]">{symbolName.toUpperCase()}</span>{" "}
+              Swap Rate
             </h1>
             <div
               className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
@@ -117,7 +118,7 @@ export default async function Page({ params }: PageProps) {
               per standard lot. <br />
               <br />
               Calculate your overnight holding cost before you trade{" "}
-              {symbolName}.
+              {symbolName.toUpperCase()}.
             </div>
           </div>
         </div>
@@ -159,8 +160,16 @@ export default async function Page({ params }: PageProps) {
                 </tr>
                 <tr>
                   <td>Triple Swap Day</td>
-                  <td>Wednesday</td>
-                  <td>Wednesday</td>
+                  <td>
+                    {["Forex", "Metals"].includes(symbolCategory)
+                      ? "Wednesday"
+                      : "Friday"}
+                  </td>
+                  <td>
+                    {["Forex", "Metals"].includes(symbolCategory)
+                      ? "Wednesday"
+                      : "Friday"}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -178,7 +187,7 @@ export default async function Page({ params }: PageProps) {
 
           <div className={`${styles.faq_block} mb-0! mt-10 md:mt-20`}>
             <h2 className="text-[34px] font-[700] mb-10">
-              {symbolName} Swaps FAQs.
+              {symbolName.toUpperCase()} Swaps FAQs.
             </h2>
             <Accordion faqObjects={FAQ_DATA} />
           </div>

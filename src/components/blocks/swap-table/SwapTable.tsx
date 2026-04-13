@@ -106,7 +106,11 @@ function renderTable(rows: InstrumentDataType[]) {
         <tbody>
           {rows.map((row, index) => (
             <tr key={row.symbol ?? `${row.path}-${index}`}>
-              <td className="px-4 py-2">{row.symbol ?? "-"}</td>
+              <td className="px-4 py-2">
+                <a href={`/swaps/${row.symbol?.toLowerCase()}`}>
+                  {row.symbol ?? "-"}
+                </a>
+              </td>
               <td className="px-4 py-2">{row.swapShort ?? "-"}</td>
               <td className="px-4 py-2">{row.swapLong ?? "-"}</td>
             </tr>
