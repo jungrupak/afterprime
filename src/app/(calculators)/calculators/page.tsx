@@ -86,6 +86,12 @@ export default async function Page() {
         "This trading calculator helps you estimate outcomes before you open a position.\n\nPrimary Use: Make more grounded choices with data you can trust.",
       button_url: "/calculators/trading-calculator",
     },
+    {
+      title: "Compare Broker Costs",
+      paragraph:
+        "Compare broker costs with verified data. We track the all-in price: spread + commission + swap — across 10+ brokers, updated daily. Run the numbers before you open an account.\n\nPrimary Use: Compare Trading Costs",
+      button_url: "/vs",
+    },
   ];
 
   const listItems = [
