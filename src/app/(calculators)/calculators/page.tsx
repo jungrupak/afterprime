@@ -89,7 +89,7 @@ export default async function Page() {
     {
       title: "Compare Broker Costs",
       paragraph:
-        "Compare broker costs with verified data. We track the all-in price: spread + commission + swap — across 10+ brokers, updated daily. Run the numbers before you open an account.\n\nPrimary Use: Compare Trading Costs",
+        "Compare broker costs with verified data. We track the all-in price: spread + commission + swap, across 10+ brokers, updated daily. Run the numbers before you open an account.\n\nPrimary Use: Compare Trading Costs",
       button_url: "/vs",
     },
   ];
