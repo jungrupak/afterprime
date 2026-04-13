@@ -22,9 +22,12 @@ export default function DataVisual(props: SectionProps) {
             }}
           />
           <div className="flex items-end justify-between mb-5 md:mb-10">
-            <p className="paragraph max-w-[800px]">
-              {data_visialization_section_paragraph}
-            </p>
+            <p
+              className="paragraph max-w-[800px]"
+              dangerouslySetInnerHTML={{
+                __html: data_visialization_section_paragraph ?? "&nbsp;",
+              }}
+            />
           </div>
           <DollarSavingsCalculator />
         </div>

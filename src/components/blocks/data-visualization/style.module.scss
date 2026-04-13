@@ -1,3 +1,11 @@
 .card {
   background: rgba(var(--alphaWhite), 0.08);
 }
+
+.costAdvantageSection {
+  p {
+    a {
+      text-decoration: underline;
+    }
+  }
+}
