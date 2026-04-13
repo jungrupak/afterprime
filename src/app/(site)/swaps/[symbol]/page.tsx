@@ -96,14 +96,12 @@ export default async function Page({ params }: PageProps) {
         <div className="ap_container_small flex items-center h-full">
           <div className="apBannerContent md:max-w-[800px]">
             <h1 className="h1-size mt-10 lg:mt-15 ">
-              <span className="font-[600]">{symbolName}</span> Swap Rate <br />@
-              Afterprime
-            </h1>
+              <span className="font-[600]">{symbolName}</span> Swap Rate</h1>
             <div
               className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
               style={{ fontWeight: "300" }}
             >
-              Long{" "}
+              {instrymentData.description} swap rates at Afterprime<br/>Long{" "}
               <span className={`font-semibold`}>
                 {swapLong} {currencyProfit}
               </span>
@@ -111,8 +109,8 @@ export default async function Page({ params }: PageProps) {
               <span className={`font-semibold`}>
                 {swapShort} {currencyProfit}
               </span>{" "}
-              per standard lot. <br />
-              Calculate your overnight holding cost before you trade.
+              per standard lot. <br /><br />
+              Calculate your overnight holding cost before you trade {symbolName}.
             </div>
           </div>
         </div>
@@ -160,7 +158,7 @@ export default async function Page({ params }: PageProps) {
               </tbody>
             </table>
             <span className={`block mt-4 opacity-65`}>
-              Last Updated: {todayDate}
+              Last Updated: {todayDate}. Swap rates reflect Afterprime's raw interbank cost structure with zero markup.
             </span>
           </div>
           <SwapCalculatorInline
@@ -171,7 +169,7 @@ export default async function Page({ params }: PageProps) {
           />
 
           <div className={`${styles.faq_block} mb-0! mt-10 md:mt-20`}>
-            <h2 className="text-[34px] font-[700] mb-10">FAQ.</h2>
+            <h2 className="text-[34px] font-[700] mb-10">{symbolName} Swaps FAQs.</h2>
             <Accordion faqObjects={FAQ_DATA} />
           </div>
           {/*  */}

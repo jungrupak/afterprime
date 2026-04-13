@@ -81,7 +81,7 @@ export default function SwapCalculatorInline({
           <div className="text-[32px] font-semibold">Swap Cost Calculator</div>
           <p className="paragraph opacity-80 text-[1.1rem]!">
             Model the current overnight carry for {symbol} using the live long
-            and short swap values on this page.
+            and short swap values.
           </p>
         </div>
 
@@ -104,7 +104,7 @@ export default function SwapCalculatorInline({
           </div>
 
           <div className={styles.inputGroup}>
-            <span className={styles.fieldLabel}>Direction</span>
+            <span className={styles.fieldLabel}>Trade Direction</span>
             <div
               className={styles.directionToggle}
               role="tablist"
