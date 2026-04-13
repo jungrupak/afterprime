@@ -200,8 +200,9 @@ export default function SwapCalculatorInline({
               {positiveCarryDirection === "Long"
                 ? "Holding a buy position"
                 : "Holding a sell position"}{" "}
-              on {symbol} overnight earns you +{formatValue(positiveCarryRate)}{" "}
-              {currencyProfit} per standard lot per night at current rates.
+              on {symbol.toUpperCase()} overnight earns you +
+              {formatValue(positiveCarryRate)} {currencyProfit} per standard lot
+              per night at current rates.
             </h3>
             <p className={styles.calloutBody}>
               This is a carry trade opportunity. Your position generates income
