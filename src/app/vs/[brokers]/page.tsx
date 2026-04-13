@@ -148,44 +148,64 @@ export default async function ChildPage({ params }: Props) {
   const faqData = pageData?.acf?.faq_section?.q_and_a;
   //videos
   const BROKER_VIDEO_URLS = [
-    { broker: 'ic-markets', url: 'ic-markets-raw-web-bumperad.mp4' },
-    { broker: 'fxopen', url: 'fxopen-ticktrader-web-bumperad.mp4' },
-    { broker: 'global-prime', url: 'global-prime-web-bumperad.mp4' },
-    { broker: 'fxcm', url: 'fxcm-web-bumperad.mp4' },
-    { broker: 'tickmill', url: 'tickmill-uk-raw-web-bumperad.mp4' },
-    { broker: 'pepperstone', url: 'pepperstone-uk-r-web-bumperad.mp4' },
-    { broker: 'swissquote', url: 'swissquote-web-bumperad.mp4' },
-    { broker: 'darwinex', url: 'darwinex-web-bumperad.mp4' },
-    { broker: 'dukascopy', url: 'dukascopy-web-bumperad.mp4' },
-    { broker: 'marketscom', url: 'marketscom-web-bumperad.mp4' },
-    { broker: 'markets-dot-com', url: 'marketscom-web-bumperad.mp4' },
-    { broker: 'top-10-avg', url: 'top-10-avg-web-bumperad.mp4' },
-    { broker: 'industry-avg', url: 'industry-avg-web-bumperad.mp4' },
+    { broker: "ic-markets", url: "ic-markets-raw-web-bumperad.mp4" },
+    { broker: "fxopen", url: "fxopen-ticktrader-web-bumperad.mp4" },
+    { broker: "global-prime", url: "global-prime-web-bumperad.mp4" },
+    { broker: "fxcm", url: "fxcm-web-bumperad.mp4" },
+    { broker: "tickmill", url: "tickmill-uk-raw-web-bumperad.mp4" },
+    { broker: "pepperstone", url: "pepperstone-uk-r-web-bumperad.mp4" },
+    { broker: "swissquote", url: "swissquote-web-bumperad.mp4" },
+    { broker: "darwinex", url: "darwinex-web-bumperad.mp4" },
+    { broker: "dukascopy", url: "dukascopy-web-bumperad.mp4" },
+    { broker: "marketscom", url: "marketscom-web-bumperad.mp4" },
+    { broker: "markets-dot-com", url: "marketscom-web-bumperad.mp4" },
+    { broker: "top-10-avg", url: "top-10-avg-web-bumperad.mp4" },
+    { broker: "industry-avg", url: "industry-avg-web-bumperad.mp4" },
   ];
 
-  function getBrokerVideoUrl(brokerName) {
+  function getBrokerVideoUrl(brokerName: string) {
     if (!brokerName) return null;
     const search = brokerName.toLowerCase().trim();
-    const normalized = search.replace(/[-.]/g, ''); // removes dots and dashes
-    const match = BROKER_VIDEO_URLS.find(b =>
-      search.includes(b.broker) || normalized.includes(b.broker.replace(/[-.]/g, ''))
+    const normalized = search.replace(/[-.]/g, ""); // removes dots and dashes
+    const match = BROKER_VIDEO_URLS.find(
+      (b) =>
+        search.includes(b.broker) ||
+        normalized.includes(b.broker.replace(/[-.]/g, "")),
     );
     return match ? match.url : null;
   }
 
-function renderBrokerVideoPlayer(brokerName) {
-  const videoKey = getBrokerVideoUrl(brokerName);
-  if (!videoKey) return <div>Video not found for broker: {brokerName}</div>;
+  function renderBrokerVideoPlayer(brokerName: string) {
+    const videoKey = getBrokerVideoUrl(brokerName);
+    if (!videoKey) return <div>Video not found for broker: {brokerName}</div>;
 
-  return (
-    <div style={{ width: '100%', background: '#000', aspectRatio: '16/9', maxHeight: '500px', borderRadius: '8px', overflow: 'hidden' }}>
-      <video controls muted autoPlay loop style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-        <source src={`https://motion.afterprime.com/${encodeURIComponent(videoKey)}`} type="video/mp4" />
-        Your browser does not support video playback.
-      </video>
-    </div>
-  );
-}
+    return (
+      <div
+        style={{
+          width: "100%",
+          background: "#000",
+          aspectRatio: "16/9",
+          maxHeight: "500px",
+          borderRadius: "8px",
+          overflow: "hidden",
+        }}
+      >
+        <video
+          controls
+          muted
+          autoPlay
+          loop
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        >
+          <source
+            src={`https://motion.afterprime.com/${encodeURIComponent(videoKey)}`}
+            type="video/mp4"
+          />
+          Your browser does not support video playback.
+        </video>
+      </div>
+    );
+  }
 
   return (
     <>
