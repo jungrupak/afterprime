@@ -140,7 +140,7 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
               Free tools to help you trade smarter. Calculate position sizes,
               potential profits, margin requirements, and more - before you
               click the button. Professional traders don't guess these numbers;
-              neither should you.
+              neither should you. <a href="/vs">Compare broker costs</a> with verified data before you open an account.
             </div>
           </div>
         </div>
