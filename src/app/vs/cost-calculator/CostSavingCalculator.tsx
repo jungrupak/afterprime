@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import styles from "./CostSavingCalculator.module.scss";
+import styles from "@/components/all-calculators/CostSavingCalculator/CostSavingCalculator.module.scss";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,7 +15,7 @@ import {
   TooltipItem,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import ResultSendToEmail from "./ResultSendToEmail";
+import ResultSendToEmail from "@/components/all-calculators/CostSavingCalculator/ResultSendToEmail";
 
 ChartJS.register(
   CategoryScale,
@@ -60,9 +60,33 @@ interface MonthlyTotals {
 const SPECIAL_BROKERS = new Set(["Afterprime", "Top 10 Avg", "Industry Avg"]);
 const BENCHMARK_BROKERS = ["Top 10 Avg", "Industry Avg", "Second Best"];
 
-export default function DollarSavingsCalculator() {
+export default function CostSavingCalculatorBrokers({
+  currentBroker,
+}: {
+  currentBroker?: string;
+}) {
+  //Broker Slug Mapping
+  const brokerSlugMapping = {
+    "ic-markets": "IC Markets (Raw)",
+    "global-prime": "Global Prime",
+    fxopen: "FXOpen (TickTrader)",
+    tickmill: "Tickmill UK (Raw)",
+    fxcm: "FXCM",
+    pepperstone: "Pepperstone UK (.r)",
+    swissquote: "Swissquote",
+    darwinex: "Darwinex",
+    dukascopy: "Dukascopy",
+    "markets-dot-com": "Markets.com",
+  };
+
+  const brokerName =
+    (currentBroker &&
+      brokerSlugMapping[currentBroker as keyof typeof brokerSlugMapping]) ||
+    currentBroker ||
+    "Unknown Broker";
+
   const [lots, setLots] = useState<number>(250);
-  const [selectedBroker, setSelectedBroker] = useState<string>("Industry Avg");
+  const [selectedBroker, setSelectedBroker] = useState<string>(brokerName);
   const [brokersData, setBrokersData] = useState<BrokerData[]>([]);
   const [brokerList, setBrokerList] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -70,7 +94,7 @@ export default function DollarSavingsCalculator() {
 
   // Fetch cost data from API
   useEffect(() => {
-    const fetchCostData = async (): Promise<void> => {
+    const fetchCostData = async () => {
       try {
         setLoading(true);
         const response = await fetch("https://feed.afterprime.com/api/costs");
@@ -87,6 +111,8 @@ export default function DollarSavingsCalculator() {
         }
 
         setBrokersData(data.brokers);
+
+        console.log("brokers", brokersData);
 
         // Create broker list excluding Afterprime and special labels
         const brokers: string[] = data.brokers
@@ -396,7 +422,7 @@ export default function DollarSavingsCalculator() {
               aria-label="Select broker for comparison"
             >
               {brokerList.length === 0 ? (
-                <option value="Industry Avg">Industry Avg</option>
+                <option value={currentBroker}>{currentBroker}</option>
               ) : (
                 <>
                   <optgroup label="Benchmarks">
