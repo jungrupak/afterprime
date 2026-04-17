@@ -7,9 +7,11 @@ import { getPageDataBySlug } from "@/data/getPageDataBySlug";
 import CostComparisonWithSelected from "./compare-ap-with-selected/CostComparison";
 import CompareWithMajors from "./compare-with-majors/CostComparison";
 import Button from "@/components/ui/Button";
+import btnStyle from "@/components/ui/ui.module.scss";
 import TypeformButton from "@/components/ui/typeForm";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import { getSavingCompare } from "@/lib/getSavingCompare";
+import CostSavingCalculatorBrokers from "../cost-calculator/CostSavingCalculator";
 
 // ISR
 export const revalidate = 60;
@@ -226,23 +228,26 @@ export default async function ChildPage({ params }: Props) {
               }}
             />
 
-            {heroBanner &&
-              (heroBanner?.is_type_form_cta === true ? (
-                <div className={`mt-8 md:mt-15`}>
-                  <TypeformButton buttonText="Apply to Trade" size="Large" />
-                </div>
-              ) : (
-                <div className={`mt-8 md:mt-15`}>
-                  <Button
-                    href={heroBanner?.banner_btn_url}
-                    varient="primary"
-                    size="regular"
-                    isArrowVisible={true}
-                  >
-                    {heroBanner?.banner_btn_text}
-                  </Button>
-                </div>
-              ))}
+            <div className={`mt-8 md:mt-15`}>
+              <a
+                href={`#costCalculator`}
+                className={`${btnStyle.ap_button} ${btnStyle.primary} ${btnStyle.regular}`}
+              >
+                Compare Your Cost
+                <svg
+                  width="11"
+                  height="17"
+                  viewBox="0 0 11 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.70063 0.707031L10.8916 8.70703L2.70063 16.707L0.891603 14.9402L7.27355 8.70703L0.891602 2.47388L2.70063 0.707031Z"
+                    fill="#fff"
+                  />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -271,6 +276,19 @@ export default async function ChildPage({ params }: Props) {
         </div>
       </section>
       {/* Trading Cost Breakdown Ends */}
+
+      {/* Calculator Embed */}
+      <section
+        id="costCalculator"
+        className={`compact-section`}
+        style={{ scrollMarginTop: "80px" }}
+      >
+        <div className="ap_container_small">
+          <CostSavingCalculatorBrokers currentBroker={brokers} />
+        </div>
+      </section>
+
+      {/* Calculator Embed Ends */}
 
       {/* Dynamic Content Area */}
       <section className={`compact-section`}>
