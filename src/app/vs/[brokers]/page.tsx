@@ -248,6 +248,12 @@ export default async function ChildPage({ params }: Props) {
       </section>
       {/* Inner Banner Ends */}
 
+      <section className={`compact-section`}>
+        <div className="ap_container_small">
+          {renderBrokerVideoPlayer(brokers)}
+        </div>
+      </section>
+      
       {/* Trading Cost Breakdown */}
       <section className={`compact-section`}>
         <div className="ap_container_small">
@@ -256,12 +262,6 @@ export default async function ChildPage({ params }: Props) {
         </div>
       </section>
       {/* Trading Cost Breakdown Ends */}
-
-      <section className={`compact-section`}>
-        <div className="ap_container_small">
-          {renderBrokerVideoPlayer(brokers)}
-        </div>
-      </section>
 
       {/* Trading Cost Breakdown */}
       <section className={`compact-section`}>
