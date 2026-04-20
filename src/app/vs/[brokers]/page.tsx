@@ -258,7 +258,20 @@ export default async function ChildPage({ params }: Props) {
           {renderBrokerVideoPlayer(brokers)}
         </div>
       </section>
-      
+
+      {/* Calculator Embed */}
+      <section
+        id="costCalculator"
+        className={`compact-section`}
+        style={{ scrollMarginTop: "80px" }}
+      >
+        <div className="ap_container_small">
+          <CostSavingCalculatorBrokers currentBroker={brokers} />
+        </div>
+      </section>
+
+      {/* Calculator Embed Ends */}
+
       {/* Trading Cost Breakdown */}
       <section className={`compact-section`}>
         <div className="ap_container_small">
@@ -276,19 +289,6 @@ export default async function ChildPage({ params }: Props) {
         </div>
       </section>
       {/* Trading Cost Breakdown Ends */}
-
-      {/* Calculator Embed */}
-      <section
-        id="costCalculator"
-        className={`compact-section`}
-        style={{ scrollMarginTop: "80px" }}
-      >
-        <div className="ap_container_small">
-          <CostSavingCalculatorBrokers currentBroker={brokers} />
-        </div>
-      </section>
-
-      {/* Calculator Embed Ends */}
 
       {/* Dynamic Content Area */}
       <section className={`compact-section`}>
