@@ -29,67 +29,78 @@ export function useLivePrices(initialPrices: PricesObjects[] = []) {
   const [status, setStatus] = useState<ConnectionStatus>(
     initialPrices.length > 0 ? "connected" : "connecting",
   );
-  const connectionRef = useRef<HubConnection | null>(null); // persistent connection
+  const connectionRef = useRef<HubConnection | null>(null);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
-    // Only create connection once
-    if (!connectionRef.current) {
-      const connection = new HubConnectionBuilder()
-        .withUrl("https://marketprice.afterprime.io:5000/marketpricestream", {
-          // Allow protocol fallback when pure WebSocket is blocked by network/proxy/CDN.
-          transport:
-            HttpTransportType.WebSockets |
-            HttpTransportType.ServerSentEvents |
-            HttpTransportType.LongPolling,
-        })
-        .withAutomaticReconnect([0, 2000, 5000, 10000, 30000])
-        .configureLogging(LogLevel.Information)
-        .build();
-
-      connectionRef.current = connection;
+    if (connectionRef.current) {
+      return;
     }
 
-    const connection = connectionRef.current;
+    const connection = new HubConnectionBuilder()
+      .withUrl("https://marketprice.afterprime.io:5000/marketpricestream", {
+        transport:
+          HttpTransportType.WebSockets |
+          HttpTransportType.ServerSentEvents |
+          HttpTransportType.LongPolling,
+      })
+      .withAutomaticReconnect([0, 2000, 5000, 10000, 30000])
+      .configureLogging(LogLevel.Information)
+      .build();
+
+    connection.on("LatestPrice", (data: PricesObjects[]) => {
+      if (mountedRef.current) {
+        setPrices(data);
+      }
+    });
+
+    connection.onreconnecting((err) => {
+      if (mountedRef.current) {
+        console.warn("SignalR reconnecting...", err);
+        setStatus("connecting");
+      }
+    });
+
+    connection.onreconnected(() => {
+      if (mountedRef.current) {
+        console.log("SignalR reconnected");
+        setStatus("connected");
+      }
+    });
+
+    connection.onclose((err) => {
+      if (mountedRef.current) {
+        if (err) {
+          console.error("SignalR closed with error:", err);
+        }
+        setStatus("disconnected");
+      }
+    });
+
+    connectionRef.current = connection;
 
     const startConnection = async () => {
-      if (connection.state === HubConnectionState.Disconnected) {
+      if (connection.state === HubConnectionState.Disconnected && mountedRef.current) {
         try {
           setStatus("connecting");
           await connection.start();
-          setStatus("connected");
-          console.log("✅ SignalR connected");
-
-          connection.on("LatestPrice", (data: PricesObjects[]) => {
-            setPrices(data);
-          });
+          if (mountedRef.current) {
+            setStatus("connected");
+            console.log("✅ SignalR connected");
+          }
         } catch (err) {
-          console.error("❌ Connection error:", err);
-          setStatus("error");
+          if (mountedRef.current) {
+            console.error("❌ Connection error:", err);
+            setStatus("error");
+          }
         }
       }
     };
 
     startConnection();
 
-    connection.onreconnecting((err) => {
-      console.warn("SignalR reconnecting...", err);
-      setStatus("connecting");
-    });
-
-    connection.onreconnected(() => {
-      console.log("SignalR reconnected");
-      setStatus("connected");
-    });
-
-    connection.onclose((err) => {
-      if (err) {
-        console.error("SignalR closed with error:", err);
-      }
-      setStatus("disconnected");
-    });
-
-    // Cleanup on unmount
     return () => {
+      mountedRef.current = false;
       if (connection.state === HubConnectionState.Connected) {
         connection.stop().then(() => console.log("SignalR disconnected"));
       }
