@@ -30,7 +30,7 @@ export default function FooterScripts() {
 
           var _uf = _uf || {};
           _uf.domain = ".afterprime.com";
-          _uf.initial_utm_params = false;
+          _uf.initial_utm_params = true;
           _uf.additional_params_map = { clickid: "AFFILIATE" };
           _uf.additional_initial_params_map = { clickid: "IAFFILIATE" };
           _uf.secure = true;
