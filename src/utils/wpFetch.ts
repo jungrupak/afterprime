@@ -1,6 +1,6 @@
 // src/utils/wpFetch.ts
 
-export async function wpFetch<T>(endpoint: string): Promise<T | null> {
+export async function wpFetch<T>(endpoint: string, revalidate?: number): Promise<T | null> {
   const rawBaseUrl =
     process.env.NEXT_PUBLIC_WP_BASE_URL ||
     process.env.WORDPRESS_REST_ENDPOINT;
@@ -19,7 +19,7 @@ export async function wpFetch<T>(endpoint: string): Promise<T | null> {
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: 60 },
+      ...(revalidate !== undefined ? { next: { revalidate } } : {}),
       headers: {
         Accept: "application/json",
         "User-Agent": "Next.js Server Fetch",
