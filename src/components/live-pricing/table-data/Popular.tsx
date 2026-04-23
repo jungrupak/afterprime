@@ -5,7 +5,6 @@ import Image from "next/image";
 export function Popular() {
   const { categories, status } = useLivePrices();
   const itemCategory = categories.popular;
-  console.log("cat", itemCategory);
   return (
     <>
       <div className={`${styles.livepricing_table_wrapper}`}>

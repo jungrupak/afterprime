@@ -233,13 +233,9 @@ export default function MarginCalculator() {
     if (marketData && marketData.bestBid && marketData.bestBid > 0) {
       // Use API price (bestBid)
       setPrice(marketData.bestBid);
-      console.log(`Setting API price for ${instrument}: ${marketData.bestBid}`);
     } else {
       // Use default price as fallback
       setPrice(instrumentData.defaultPrice);
-      console.log(
-        `Setting default price for ${instrument}: ${instrumentData.defaultPrice}`,
-      );
     }
   }, [instrument, marketPrices]);
 

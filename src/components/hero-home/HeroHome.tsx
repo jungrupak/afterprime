@@ -104,7 +104,6 @@ type heroContent = {
 };
 
 export function HeroHome({ data, title = [] }: heroContent) {
-  console.log("url:", data.hero_banner_home_banner_btn_url);
   return (
     <div className={`${styles.hero_home} h-screen`}>
       <div className="ap_container h-full relative z-2">

@@ -75,7 +75,7 @@ export default function CostComparison() {
 
   const brokerList = Array.isArray(data?.brokers) ? data.brokers : [];
   if (!brokerList.length) return;
-  //console.log("data:", brokerList);
+
   const brokersToPick = [
     "Afterprime",
     "Tickmill UK (Raw)",

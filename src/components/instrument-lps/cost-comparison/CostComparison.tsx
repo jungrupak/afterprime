@@ -27,7 +27,7 @@ export default async function CostComparison({
     ? compareData.brokers
     : [];
   if (!brokerList.length) return;
-  //console.log("data:", brokerList);
+
   const brokersToPick = [
     "Afterprime",
     "IC Markets (Raw)",

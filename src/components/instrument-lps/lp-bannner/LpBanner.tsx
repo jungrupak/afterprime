@@ -41,8 +41,6 @@ export default function LPBanner({ instrument }: BannerTitle) {
 
   const allInCostAfterprime = afterprimeCostPerLot - rebatePerLot;
 
-  console.log("Rebate:", rebatePerLot);
-
   useEffect(() => {
     if (industryVsApAvgPct <= 0 && rebatePerLot > 0) {
       setDynamicContent((prev) => ({
@@ -70,10 +68,6 @@ export default function LPBanner({ instrument }: BannerTitle) {
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Failed to load data</div>;
-
-  console.log("boolean:", dynamicContent.contentDefault);
-  console.log("boolean:", dynamicContent.contentDataZero);
-  console.log("boolean:", dynamicContent.contentRebateNull);
 
   return (
     <>

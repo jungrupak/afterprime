@@ -63,7 +63,6 @@ export function useLivePrices(initialPrices: PricesObjects[] = []) {
 
     connection.onreconnected(() => {
       if (mountedRef.current) {
-        console.log("SignalR reconnected");
         setStatus("connected");
       }
     });
@@ -86,7 +85,6 @@ export function useLivePrices(initialPrices: PricesObjects[] = []) {
           await connection.start();
           if (mountedRef.current) {
             setStatus("connected");
-            console.log("✅ SignalR connected");
           }
         } catch (err) {
           if (mountedRef.current) {
@@ -102,7 +100,7 @@ export function useLivePrices(initialPrices: PricesObjects[] = []) {
     return () => {
       mountedRef.current = false;
       if (connection.state === HubConnectionState.Connected) {
-        connection.stop().then(() => console.log("SignalR disconnected"));
+        connection.stop();
       }
     };
   }, []);

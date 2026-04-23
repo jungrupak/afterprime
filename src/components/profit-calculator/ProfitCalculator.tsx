@@ -89,7 +89,6 @@ export default function ProfitCalculator() {
   //Exchange rate GET from the getUSDRate FC
   const { getUSDRate } = getUSDRates();
   //const rate = getUSDRate("CAD") || 0;
-  //console.log("CAD curr:", rate.toFixed(4));
   const handleExchangeRate = (value: string) => {
     const rate = getUSDRate(value);
     const trim = rate?.toFixed(4) || 0;

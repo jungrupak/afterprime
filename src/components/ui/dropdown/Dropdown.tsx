@@ -57,7 +57,7 @@ export default function Dropdown({
       )
     : options; // ← if search empty → show full list
 
-  //console.log("lets see filtered:", filtered);
+
 
   return (
     <div

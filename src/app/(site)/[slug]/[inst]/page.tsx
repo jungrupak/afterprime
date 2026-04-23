@@ -56,7 +56,7 @@ export default async function ChildPage({ params }: Props) {
   const parentRes = await wpFetch<WPPage[]>(`/pages?slug=${slug}&_fields=id`); //this asks domain/forex as [slug] page id.
   const getParentId = parentRes?.[0];
   const data = await getSymbolSinglePageData(inst, String(getParentId?.id));
-  //console.log("data", data);
+
   if (!data) notFound();
 
   // Validate parent relationship

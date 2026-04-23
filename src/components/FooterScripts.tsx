@@ -309,7 +309,6 @@ writeLastReferrer() {
 
           var visitorId = getCookie("_gpfx_visitor_id");
           const utmData = getUTMData();
-          console.log({ visitor_id: visitorId, ...utmData });
           if(window.analytics){
               analytics.page({ visitor_id: visitorId, ...utmData });
               analytics.identify(visitorId, { visitor_id: visitorId, ...utmData });

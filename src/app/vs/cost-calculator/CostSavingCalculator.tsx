@@ -112,8 +112,6 @@ export default function CostSavingCalculatorBrokers({
 
         setBrokersData(data.brokers);
 
-        console.log("brokers", brokersData);
-
         // Create broker list excluding Afterprime and special labels
         const brokers: string[] = data.brokers
           .filter((b: BrokerData) => !SPECIAL_BROKERS.has(b.broker))
