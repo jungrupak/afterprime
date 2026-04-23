@@ -27,7 +27,7 @@ export default function CardLists({ cardItems = [] }: CardContentProps) {
               height={40}
               className={`${styles.card_icon}`}
               src={item.cardIconUrl || ""}
-              alt=""
+              alt={item.subtitle || ""}
             />
             <span>{item.subtitle}</span>
             <h2>{item.title}</h2>

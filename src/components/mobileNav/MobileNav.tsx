@@ -41,7 +41,7 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
   return (
     <div className={`${styles.mobMenuWrapper} ${customClass}`}>
       <div className={`${styles.menuHeader} flex justify-between`}>
-        <Image src="/img/logo-text.svg" height={34} width={135} alt="" />
+        <Image src="/img/logo-text.svg" height={34} width={135} alt="Afterprime Logo" />
         <span className={`${styles.closeNav}`} onClick={onClick}>
           +
         </span>

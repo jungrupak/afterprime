@@ -13,6 +13,8 @@ import TradingCalculator from "@/components/all-calculators/TradingCalculator/Tr
 import DollarSavingsCalculator from "@/components/all-calculators/CostSavingCalculator/CostSavingCalculator";
 import { CustomMetadata } from "@/utils/CustomMetadata";
 import Script from "next/script";
+import FaqSchema from "@/lib/schema/faqSchema";
+import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -32,6 +34,29 @@ async function pageDataSource(slug: string) {
   }
 }
 //##
+
+export async function generateStaticParams() {
+  const baseUrl = process.env.NEXT_PUBLIC_WP_BASE_URL;
+  if (!baseUrl) return [];
+  try {
+    const parentRes = await fetch(
+      `${baseUrl}/wp-json/wp/v2/pages?slug=calculators&_fields=id`,
+      { next: { revalidate: 86400 } },
+    );
+    if (!parentRes.ok) return [];
+    const [parent]: { id: number }[] = await parentRes.json();
+    if (!parent?.id) return [];
+    const res = await fetch(
+      `${baseUrl}/wp-json/wp/v2/pages?parent=${parent.id}&_fields=slug&per_page=100`,
+      { next: { revalidate: 86400 } },
+    );
+    if (!res.ok) return [];
+    const pages: { slug: string }[] = await res.json();
+    return pages.map((p) => ({ slug: p.slug }));
+  } catch {
+    return [];
+  }
+}
 
 export async function generateMetadata({ params }: PageSlug) {
   const { slug } = await params;
@@ -123,6 +148,14 @@ export default async function Page({ params }: PageSlug) {
 
       {/* FAQ FROM CMS */}
       {faqData && <FaqCalc faqSubject={sectionTitle} data={faqData} />}
+      <FaqSchema pageSlug={slug} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Calculators", href: "/calculators" },
+          { name: pageTitle ?? slug, href: `/calculators/${slug}` },
+        ]}
+      />
       {/* FAQ FROM CMS ENDS */}
 
       {/* //render data comparison schema */}

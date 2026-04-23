@@ -10,26 +10,31 @@ export default function Footer() {
       imgFileName: "discord.svg",
       link: "https://discord.com/invite/NKBcxyWzdM",
       target: "_blank",
+      alt: "Afterprime on Discord",
     },
     {
       imgFileName: "fb.svg",
       link: "https://www.facebook.com/afterprime.official/",
       target: "_blank",
+      alt: "Afterprime on Facebook",
     },
     {
       imgFileName: "tw.svg",
       link: "https://x.com/afterprime_com",
       target: "_blank",
+      alt: "Afterprime on X (Twitter)",
     },
     {
       imgFileName: "insta.svg",
       link: "https://www.instagram.com/afterprime.official/?hl=en",
       target: "_blank",
+      alt: "Afterprime on Instagram",
     },
     {
       imgFileName: "in.svg",
       link: "https://sc.linkedin.com/company/afterprime",
       target: "_blank",
+      alt: "Afterprime on LinkedIn",
     },
   ];
 
@@ -58,7 +63,7 @@ export default function Footer() {
                 >
                   <Image
                     src={`/img/${item.imgFileName}`}
-                    alt=""
+                    alt={item.alt}
                     width={29}
                     height={29}
                   />

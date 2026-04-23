@@ -7,11 +7,29 @@ import FlowRewardIntro from "@/components/instrument-lps/what-is-flow-reward/Flo
 import CostCalculator from "@/components/instrument-lps/cost-calculator/CostCalculator";
 import ProductSpecification from "@/components/instrument-lps/product-specification/ProductSpecification";
 import Faq from "@/components/instrument-lps/faq/Faq";
+import FaqSchema from "@/lib/schema/faqSchema";
+import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import { metaDataHelper } from "./metaDataHelper";
 import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const restEndpoint = process.env.WORDPRESS_REST_ENDPOINT;
+  if (!restEndpoint) return [];
+  try {
+    const res = await fetch(
+      `${restEndpoint}/pages?parent=2709&_fields=slug&per_page=100`,
+      { next: { revalidate: 86400 } },
+    );
+    if (!res.ok) return [];
+    const pages: { slug: string }[] = await res.json();
+    return pages.map((p) => ({ slug: p.slug }));
+  } catch {
+    return [];
+  }
 }
 
 //Export Dynamic Page Title Tags####
@@ -91,6 +109,14 @@ export default async function TradeSlugPage({ params }: PageProps) {
             data={customFieldFaqBlock}
             faqSubject="FAQ"
             instrument={page.slug}
+          />
+          <FaqSchema pageSlug={page.slug} />
+          <BreadcrumbSchema
+            items={[
+              { name: "Home", href: "/" },
+              { name: "Trade", href: "/trade" },
+              { name: page.slug.toUpperCase(), href: `/trade/${page.slug}` },
+            ]}
           />
           <CtaBlock />
           <CostCalculator instrument={page.slug.toUpperCase()} />

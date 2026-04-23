@@ -3,6 +3,7 @@ import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
 import { useState } from "react";
 import styles from "./style.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 import { Loader } from "../Loading/Loading";
 import { Disconnected } from "../disconnected/Disconnected";
 import { Retrying } from "../retrying/Retry";
@@ -183,9 +184,9 @@ export function LivePricingAll({
           </div>
           <p className="opacity-80 mt-5">
             Ready to compare?{" "}
-            <a href="/calculators/cost-savings-calculator">
+            <Link href="/calculators/cost-savings-calculator">
               <u>Calculate your trading costs</u>
-            </a>{" "}
+            </Link>{" "}
             across your typical trading volume to see the total savings.
           </p>
         </div>

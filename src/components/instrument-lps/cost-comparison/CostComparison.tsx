@@ -405,9 +405,9 @@ export default async function CostComparison({
             Afterprime net cost figures include Flow Rewards™, applicable to
             eligible client accounts on qualifying instruments. Flow Rewards™
             rates may vary. See{" "}
-            <a href="/get-paid-to-trade">
+            <Link href="/get-paid-to-trade">
               <u>Flow Rewards</u>
-            </a>{" "}
+            </Link>{" "}
             for full eligibility criteria. Flow Rewards™ eligibility and rates
             are subject to account approval. Savings modelled using
             ForexBenchmark 7-day average spread data. Actual savings will vary

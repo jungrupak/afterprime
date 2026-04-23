@@ -1,4 +1,3 @@
-"use client";
 import styles from "./BlockMultipurpose.module.scss";
 import BoxedBlock from "@/components/boxed-block/BoxedBlock";
 import Button from "@/components/ui/Button";

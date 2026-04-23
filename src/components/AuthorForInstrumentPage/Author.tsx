@@ -1,25 +1,22 @@
 "use client";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 export default function Author() {
-  //####
-  const getFourDayDate = () => {
+  const [dateStr, setDateStr] = useState<string | null>(null);
+
+  useEffect(() => {
     const today = new Date();
-
-    // Number of days since Unix epoch
     const daysSinceEpoch = Math.floor(today.getTime() / (1000 * 60 * 60 * 24));
-
-    // Round down to nearest multiple of 4
     const roundedDays = Math.floor(daysSinceEpoch / 4) * 4;
-
     const fourDayDate = new Date(roundedDays * 24 * 60 * 60 * 1000);
-
-    return fourDayDate.toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-  };
-  //####Ends
+    setDateStr(
+      fourDayDate.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    );
+  }, []);
   const SCHEMA_DATA = [
     {
       "@context": "https://schema.org",
@@ -59,11 +56,11 @@ export default function Author() {
           src="/img/Jeremy.jpg"
           height={40}
           width={40}
-          alt=""
+          alt="Jeremy Kinstlinger, CEO of Afterprime"
         />
         <div>
           <h5 className={`font-semibold text-[18px]`}>Jeremy Kinstlinger</h5>
-          <span className={`opacity-65`}>{getFourDayDate()}</span>
+          {dateStr && <span className={`opacity-65`}>{dateStr}</span>}
         </div>
       </div>
       {SCHEMA_DATA && (

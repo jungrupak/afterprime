@@ -16,6 +16,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import ResultSendToEmail from "./ResultSendToEmail";
+import Link from "next/link";
 
 ChartJS.register(
   CategoryScale,
@@ -498,7 +499,7 @@ export default function DollarSavingsCalculator() {
         <p className="risk-warning-all">
           Afterprime net cost figures include Flow Rewards™, applicable to
           eligible client accounts on qualifying instruments. Flow Rewards™
-          rates may vary. See <a href="/get-paid-to-trade">Flow Rewards</a> for
+          rates may vary. See <Link href="/get-paid-to-trade">Flow Rewards</Link> for
           full eligibility criteria.
           <br />
           <br />

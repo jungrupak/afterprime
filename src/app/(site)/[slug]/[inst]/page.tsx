@@ -7,6 +7,8 @@ import getSymbolSinglePageData from "@/lib/getSymbolSinglePageData";
 import InstrumentKeyBenifits from "@/components/instrument-key-benifits/InstrumentKeyBenifits";
 import { renderSection } from "@/lib/flexibleContentMap";
 import FaqCalc from "@/components/faq-calculators/Faq";
+import FaqSchema from "@/lib/schema/faqSchema";
+import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import TradingGlossary from "@/components/TradingGlossary/TradingGlossary";
 import Author from "@/components/AuthorForInstrumentPage/Author";
 import { BottomCta } from "@/components/acfFieldGroups/bottom-cta/BottomCta";
@@ -157,11 +159,20 @@ export default async function ChildPage({ params }: Props) {
 
       {/* FAQ */}
       <FaqCalc faqSubject={faqSectionTitle} data={faqData} />
+      <FaqSchema pageSlug={inst} />
       {/* FAQ */}
 
       {/* CTA Global */}
       <BottomCta />
       {/* CTA Global Ends */}
+
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", href: "/" },
+          { name: slug.charAt(0).toUpperCase() + slug.slice(1), href: `/${slug}` },
+          { name: inst.toUpperCase(), href: `/${slug}/${inst}` },
+        ]}
+      />
 
       {/* Page Schema */}
       {pageSchema && (

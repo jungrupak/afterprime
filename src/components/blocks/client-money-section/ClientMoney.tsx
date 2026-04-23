@@ -1,4 +1,3 @@
-"use client";
 import BoxedBlock from "@/components/boxed-block/BoxedBlock";
 import Button from "@/components/ui/Button";
 import { Blocks } from "@/types/blocks";

@@ -2,6 +2,7 @@ import InnerBannerGeneric from "@/components/InnerBannerGeneric/InnerBannerGener
 import { getPageDataBySlug } from "@/data/getPageDataBySlug";
 import styles from "./Page.module.scss";
 import FaqCalc from "@/components/faq-calculators/Faq";
+import FaqSchema from "@/lib/schema/faqSchema";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -121,6 +122,7 @@ export default async function page() {
 
       {/* FAQ  */}
       <FaqCalc faqSubject={faqDataTitle} data={faqData} />
+      <FaqSchema pageSlug="glossary" />
       {/* FAQ Ends */}
     </main>
   );

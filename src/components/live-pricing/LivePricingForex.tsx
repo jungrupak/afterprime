@@ -3,6 +3,7 @@ import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
 import { useState } from "react";
 import styles from "./style.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 import { Loader } from "../Loading/Loading";
 import { Retrying } from "../retrying/Retry";
 import { Disconnected } from "../disconnected/Disconnected";
@@ -153,33 +154,33 @@ export function LivePricingForex({
           </div>
           <p className="opacity-80 mt-8">
             Explore detailed pricing for{" "}
-            <a href="/trade/eurusd">
+            <Link href="/trade/eurusd">
               <u>EUR/USD with zero commissions</u>
-            </a>
+            </Link>
             ,{" "}
-            <a href="/trade/gbpusd">
+            <Link href="/trade/gbpusd">
               <u>GBP/USD trading conditions</u>
-            </a>
+            </Link>
             , and{" "}
-            <a href="/trade/audusd">
+            <Link href="/trade/audusd">
               <u>AUD/USD low-cost execution</u>
-            </a>{" "}
+            </Link>{" "}
             or{" "}
-            <a href="/live-spreads">
+            <Link href="/live-spreads">
               <u>live forex spreads</u>
-            </a>{" "}
+            </Link>{" "}
             and other instruments.
           </p>
 
           <p className="opacity-80 mt-2">
             Ready to compare?{" "}
-            <a href="/calculators/cost-savings-calculator">
+            <Link href="/calculators/cost-savings-calculator">
               <u>Calculate your trading costs</u>
-            </a>{" "}
+            </Link>{" "}
             across your typical trading volume to see the total savings or{" "}
-            <a href="/vs">
+            <Link href="/vs">
               <u>compare broker costs</u>
-            </a>{" "}
+            </Link>{" "}
             across 10+ brokers.
           </p>
         </div>

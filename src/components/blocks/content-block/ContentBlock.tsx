@@ -1,5 +1,3 @@
-"use client";
-
 import styles from "./style.module.scss";
 import Image from "next/image";
 import Button from "@/components/ui/Button";

@@ -82,6 +82,8 @@ export async function CustomMetadata(slug: string) {
       index: true,
       follow: true,
       maxImagePreview: "large",
+      maxSnippet: -1,
+      maxVideoPreview: -1,
     },
   };
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./CostComparison.module.scss";
 
 interface Brokers {
@@ -33,18 +33,23 @@ export default function CompareWithMajorsClient({
   data: CompareMajorsData;
 }) {
   const [rowIndex, setRowIndex] = useState<number | null>(0);
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+
+  useEffect(() => {
+    setLastUpdated(
+      new Date().toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    );
+  }, []);
 
   const competitorName = String(data?.competitor_contains?.[0] ?? "");
   const competitorLabel = competitorName
     ? competitorName.toUpperCase()
     : "Competitor";
   const majors: [string, CostApiResponse][] = Object.entries(data?.items ?? {});
-
-  const lastUpdated = new Date().toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
 
   const footerRebate = majors[0]?.[1]?.rebate?.rebate_usd_per_lot ?? null;
 

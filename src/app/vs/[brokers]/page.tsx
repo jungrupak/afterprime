@@ -10,6 +10,8 @@ import Button from "@/components/ui/Button";
 import btnStyle from "@/components/ui/ui.module.scss";
 import TypeformButton from "@/components/ui/typeForm";
 import FaqCalc from "@/components/faq-calculators/Faq";
+import FaqSchema from "@/lib/schema/faqSchema";
+import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import { getSavingCompare } from "@/lib/getSavingCompare";
 import CostSavingCalculatorBrokers from "../cost-calculator/CostSavingCalculator";
 
@@ -404,6 +406,14 @@ export default async function ChildPage({ params }: Props) {
 
       {/* FAQs */}
       <FaqCalc faqSubject="FAQ." data={faqData} />
+      <FaqSchema pageSlug={brokers} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Broker Comparisons", href: "/vs" },
+          { name: `Afterprime vs ${brokers.charAt(0).toUpperCase() + brokers.slice(1)}`, href: `/vs/${brokers}` },
+        ]}
+      />
       {/* FAQs Ends */}
 
       {/* CTA */}

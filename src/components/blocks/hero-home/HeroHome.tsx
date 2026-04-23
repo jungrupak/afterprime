@@ -18,29 +18,6 @@ export function HeroHome(props: HeroHomeProps) {
 
   return (
     <>
-      <div className="home_banner_video">
-        <video
-          playsInline
-          className="mui-1eodtn4-video"
-          controls={false}
-          data-automation="VideoPlayer"
-          height="100%"
-          width="100%"
-          style={{ height: "calc(100vh + 42vh)" }}
-          loop
-          muted
-          autoPlay
-          poster="/img/hero-video-poster.jpg"
-          preload="auto"
-          aria-label="video-player"
-          controlsList="nodownload"
-        >
-          <source
-            src="https://motion.afterprime.com/web/low-res.mp4"
-            type="video/mp4"
-          />
-        </video>
-      </div>
       <div className={`${styles.hero_home} h-screen max-md:h-[100%] relative`}>
         <div className="flex flex-wrap flex-col justify-center items-center h-[100%] min-h-[400px] lg:min-h-[600px] relative z-2 md:pt-10 max-md:pb-5">
           <div className="w-full max-w-[800] mx-auto max-md:px-5">
