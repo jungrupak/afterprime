@@ -95,7 +95,7 @@ export default function FooterScripts() {
             writeInitialUtmCookieFromParams(){ this._utmParams.forEach(p=>{ this.writeCookieOnce("initial_"+p,this.getParameterByName(p)||null); }); }
 
             _sameDomainReferrer(ref){ let h=document.location.hostname; return ref.indexOf(this._domain)>-1 || ref.indexOf(h)>-1; }
-          
+
 
 writeInitialReferrer() {
   let v = document.referrer, url = window.location.href;
@@ -178,7 +178,7 @@ writeLastReferrer() {
 
   this.writeCookie("last_referrer", v);
 }
-          
+
             writeIBReferrer(){ let v=this.getParameterByName("clickId"); if(v) this.writeCookie("ib_referrer",v); }
             writeVisitorId(){ let old=this.lastVisitor(); if(old){ this.writeCookie("visitor_id",old); return; } old=localStorage.getItem("_gpfx_visitor_id"); if(old){ this.writeCookie("visitor_id",old); return; } const userAgent=navigator.userAgent, t=Date.now(), r=Math.random().toString(36).substring(2,15), id=btoa(r+"|"+t+"|"+userAgent).substring(0,32); this.writeCookie("visitor_id",id); localStorage.setItem("_gpfx_visitor_id",id); }
             writeInitialLandingPageUrl(){ this.writeCookieOnce("initial_landing_page", window.location.origin + window.location.pathname + window.location.search + window.location.hash); }
@@ -232,7 +232,7 @@ writeLastReferrer() {
           window.__lc.license = 2536351;
           window.__lc.integration_name = "manual_channels";
           window.__lc.product_name = "livechat";
-          
+
           (function(n, t, c) {
               function i(n) { return e._h ? e._h.apply(null, n) : e._q.push(n) }
               var e = {

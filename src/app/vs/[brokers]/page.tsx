@@ -62,9 +62,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // ## Ends
 
   return {
-    title: `Afterprime vs ${pageTitle} - Compare Costs ${year}
+    title: `Afterprime vs ${pageTitle} Comparison ${year}
 `,
-    description: `Save ${brokerSavingPcnt}% vs ${pageTitle} trading costs. Verified average cost all pairs $${findAfterprime?.costPerLot}/lot vs ${pageTitle}’s $${currentPageBroker?.costPerLot}. See the total cost breakdown.`,
+    description: `Save ${brokerSavingPcnt}% vs ${pageTitle} trading costs. Verified average cost all pairs $${findAfterprime?.costPerLot}/lot vs ${pageTitle}’s $${currentPageBroker?.costPerLot}. Compare brokers.`,
     alternates: {
       canonical: `https://afterprime.com/vs/${brokers}`,
     },
@@ -253,29 +253,11 @@ export default async function ChildPage({ params }: Props) {
       </section>
       {/* Inner Banner Ends */}
 
-      {/* Trading Cost Breakdown */}
-      <section className={`compact-section`}>
-        <div className="ap_container_small">
-          <h2 className={`leading-[1.2]`}>Total Trading Cost Breakdown</h2>
-          <CostComparisonWithSelected selectedBrokerSlug={brokers} />
-        </div>
-      </section>
-      {/* Trading Cost Breakdown Ends */}
-
       <section className={`compact-section`}>
         <div className="ap_container_small">
           {renderBrokerVideoPlayer(brokers)}
         </div>
       </section>
-
-      {/* Trading Cost Breakdown */}
-      <section className={`compact-section`}>
-        <div className="ap_container_small">
-          <h2 className={`leading-[1.2]`}>Trading Cost by Forex Major</h2>
-          <CompareWithMajors broker={brokers} />
-        </div>
-      </section>
-      {/* Trading Cost Breakdown Ends */}
 
       {/* Calculator Embed */}
       <section
@@ -289,6 +271,24 @@ export default async function ChildPage({ params }: Props) {
       </section>
 
       {/* Calculator Embed Ends */}
+
+      {/* Trading Cost Breakdown */}
+      <section className={`compact-section`}>
+        <div className="ap_container_small">
+          <h2 className={`leading-[1.2]`}>Total Trading Cost Breakdown</h2>
+          <CostComparisonWithSelected selectedBrokerSlug={brokers} />
+        </div>
+      </section>
+      {/* Trading Cost Breakdown Ends */}
+
+      {/* Trading Cost Breakdown */}
+      <section className={`compact-section`}>
+        <div className="ap_container_small">
+          <h2 className={`leading-[1.2]`}>Trading Cost by Forex Major</h2>
+          <CompareWithMajors broker={brokers} />
+        </div>
+      </section>
+      {/* Trading Cost Breakdown Ends */}
 
       {/* Dynamic Content Area */}
       <section className={`compact-section`}>
