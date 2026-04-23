@@ -1,4 +1,5 @@
 //import dynamic from "next/dynamic";
+import React from "react";
 import { Blocks } from "@/types/blocks";
 
 //import all the blocks created in website
@@ -29,8 +30,13 @@ import { SwapDataTabs } from "./swap-table/SwapTable";
 import { TableDataRewardFlow } from "./table-reward-flow/TableAndData";
 import {SimpleContentBlock} from "./simple-contents/SimpleContents";
 
+// Allows both sync React components and async server components in the registry
+type AnyBlockComponent<T> =
+  | React.ComponentType<T>
+  | ((props: T) => Promise<React.JSX.Element | null>);
+
 export const blockRegistry: {
-  [K in keyof Blocks]: React.ComponentType<Blocks[K]>;
+  [K in keyof Blocks]: AnyBlockComponent<Blocks[K]>;
 } = {
   "inner-page-intro-block": InnerPageIntroBlock,
   "inner-page-hero-banner": InnerBanner,
