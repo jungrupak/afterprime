@@ -24,6 +24,10 @@ export const MegaMenuItems = [
             menuItem: "Lowest Costs Verified",
             pageUrl: "/lowest-cost-verified",
           },
+          {
+            menuItem: "Trade Execution",
+            pageUrl: "/trade-execution",
+          },
         ],
       },
       {
@@ -47,7 +51,7 @@ export const MegaMenuItems = [
         categoryName: "Trading Community",
         catMenuItems: [
           {
-            menuItem: "The Engine Room",
+            menuItem: "The Engine Room (Discord)",
             pageUrl: "/our-discord",
           },
           {
