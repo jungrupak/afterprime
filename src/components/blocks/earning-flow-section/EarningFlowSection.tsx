@@ -1,14 +1,15 @@
-"use client";
+// src/components/blocks/earning-flow-section/EarningFlowSection.tsx
 import styles from "./EarningFlow.module.scss";
 import Lists from "@/components/ui/Lists";
 import Btn from "@/components/ui/Button";
 import BoxedBlock from "@/components/boxed-block/BoxedBlock";
 import { EarningCalc } from "@/utils/earning-calculator/EarningCalc";
+import { normalizeRebatesPayload, type RebateDataType } from "@/lib/rebates";
 import type { Blocks } from "@/types/blocks";
 
 type EarningFlowBlock = Blocks["earning-flow-block"];
 
-export function EarningFlowSection(block: EarningFlowBlock) {
+export async function EarningFlowSection(block: EarningFlowBlock) {
   const {
     earning_flow_section_heading = "",
     earning_flow_is_cta_visible,
@@ -16,12 +17,11 @@ export function EarningFlowSection(block: EarningFlowBlock) {
     earning_flow_button_link,
   } = block;
 
-  // Extract numbered list items dynamically
   const listItems: string[] = Object.entries(block)
     .filter(
       ([key]) =>
         key.startsWith("earning_flow_list_items_") &&
-        key.endsWith("_list_point"), // be careful with key names
+        key.endsWith("_list_point"),
     )
     .sort((a, b) => {
       const numA = Number(a[0].match(/\d+/)?.[0]);
@@ -29,7 +29,19 @@ export function EarningFlowSection(block: EarningFlowBlock) {
       return (numA || 0) - (numB || 0);
     })
     .map(([_, value]) => (value !== undefined ? String(value) : ""));
-  //Ends
+
+  let initialRebates: RebateDataType[] = [];
+  try {
+    const res = await fetch(
+      "https://scoreboard.argamon.com:8443/api/rebates/current",
+      { next: { revalidate: 3600 } },
+    );
+    if (res.ok) {
+      initialRebates = normalizeRebatesPayload(await res.json());
+    }
+  } catch {
+    // silently fall back to empty — EarningCalc handles empty array gracefully
+  }
 
   return (
     <section className={`${styles.section_earning_flow} compact-section`}>
@@ -42,7 +54,7 @@ export function EarningFlowSection(block: EarningFlowBlock) {
               dangerouslySetInnerHTML={{
                 __html: earning_flow_section_heading || "&nbsp;",
               }}
-            ></h2>
+            />
             <div className="mt-12">
               <Lists bulletVarient="arrow-blue" listItems={listItems} />
             </div>
@@ -59,16 +71,12 @@ export function EarningFlowSection(block: EarningFlowBlock) {
               </div>
             )}
           </div>
-          {/* Left Ends */}
-
           {/* Right */}
           <div>
-            <EarningCalc />
+            <EarningCalc initialRebates={initialRebates} />
           </div>
-          {/* Right Ends */}
         </BoxedBlock>
       </div>
     </section>
   );
 }
-//
