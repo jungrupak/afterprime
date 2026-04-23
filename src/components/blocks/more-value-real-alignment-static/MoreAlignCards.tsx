@@ -1,4 +1,3 @@
-"use client";
 import styles from "./MoreAlignCard.module.scss";
 import Link from "next/link";
 import { Blocks } from "@/types/blocks";
