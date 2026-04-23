@@ -18,6 +18,10 @@ docs/
 /.next/
 /out/
 
+# extra
+.idea
+/.claude
+
 # production
 /build
 
