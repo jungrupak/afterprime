@@ -6,7 +6,6 @@ import { Metadata } from "next";
 import FooterScripts from "@/components/FooterScripts";
 import HeadScripts from "@/components/HeaderScripts";
 import AfterprimeOrgSchema from "@/lib/schema/orgSchema";
-import ReactQueryProvider from "../providers/ReactQueryProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://afterprime.com"),
@@ -67,20 +66,18 @@ export default function PagesLayout({
           crossOrigin=""
         />
       </head>
-      <ReactQueryProvider>
-        {/* Head Scripts */}
-        <HeadScripts />
-        <AfterprimeOrgSchema />
-        {/* Head Scripts Ends */}
-        <TypeformLoader />
-        <Header />
-        {children}
-        {/* <BottomCards /> */}
-        <Footer />
-        {/* Footer Scripts */}
-        <FooterScripts />
-        {/* Footer Scripts */}
-      </ReactQueryProvider>
+      {/* Head Scripts */}
+      <HeadScripts />
+      <AfterprimeOrgSchema />
+      {/* Head Scripts Ends */}
+      <TypeformLoader />
+      <Header />
+      {children}
+      {/* <BottomCards /> */}
+      <Footer />
+      {/* Footer Scripts */}
+      <FooterScripts />
+      {/* Footer Scripts */}
     </>
   );
 }
