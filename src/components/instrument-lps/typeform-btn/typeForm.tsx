@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "@/components/ui/ui.module.scss";
+import { createSlider, type SliderOptions } from "@typeform/embed";
 import "@typeform/embed/build/css/slider.css";
 
 type ButtonVarients =
@@ -13,11 +14,10 @@ type ButtonVarients =
   | "ghost"
   | "washed";
 
-interface ExtendedSliderOptions {
+interface ExtendedSliderOptions extends SliderOptions {
   autoOpen?: boolean;
   hideHeaders?: boolean;
   hideFooter?: boolean;
-  position?: "left" | "right";
 }
 
 interface TypeformButtonProps {
@@ -38,7 +38,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
     setFormId(assignedForm);
   }, []);
 
-  const handleClick = async () => {
+  const handleClick = () => {
     if (!formId) return;
 
     const options: ExtendedSliderOptions = {
@@ -48,7 +48,6 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
       position: "right",
     };
 
-    const { createSlider } = await import("@typeform/embed");
     const slider = createSlider(formId, options);
     slider.open();
   };
