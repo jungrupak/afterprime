@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "@/components/ui/ui.module.scss";
 import { createSlider, type SliderOptions } from "@typeform/embed";
+import "@typeform/embed/build/css/slider.css";
 
 type ButtonVarients =
   | "default"
