@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "./ui.module.scss";
 import { createSlider, type SliderOptions } from "@typeform/embed";
-import "@typeform/embed/build/css/slider.css";
 import { getStoredUTMs } from "@/utils/persistUTM";
 
 interface ExtendedSliderOptions extends SliderOptions {
