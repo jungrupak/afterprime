@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "./ui.module.scss";
 import { getStoredUTMs } from "@/utils/persistUTM";
+import "@typeform/embed/build/css/slider.css";
 
 interface ExtendedSliderOptions {
   autoOpen?: boolean;
