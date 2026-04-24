@@ -60,11 +60,12 @@ export default function PagesLayout({
   return (
     <>
       <head>
-        <link
-          rel="preconnect"
-          href="https://motion.afterprime.com"
-          crossOrigin=""
-        />
+        <link rel="preconnect" href="https://motion.afterprime.com" crossOrigin="" />
+        <link rel="preconnect" href="https://cdn.afterprime.com" crossOrigin="" />
+        <link rel="preconnect" href="https://cdn.segment.com" crossOrigin="" />
+        <link rel="preconnect" href="https://snap.licdn.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://widget.helpcrunch.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
       </head>
       {/* Head Scripts */}
       <HeadScripts />

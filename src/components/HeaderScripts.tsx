@@ -63,14 +63,14 @@ export default function HeadScripts() {
       </Script>
 
       {/* LinkedIn Insight Tag */}
-      <Script id="linkedin-partner" strategy="afterInteractive">
+      <Script id="linkedin-partner" strategy="lazyOnload">
         {`
           _linkedin_partner_id = "8012492";
           window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
           window._linkedin_data_partner_ids.push(_linkedin_partner_id);
         `}
       </Script>
-      <Script id="linkedin-load" strategy="afterInteractive">
+      <Script id="linkedin-load" strategy="lazyOnload">
         {`
           (function(l){
             if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[]}
@@ -96,7 +96,7 @@ export default function HeadScripts() {
       {/* jQuery and custom JS */}
 
       {/* HelpCrunch widget */}
-      <Script id="helpcrunch-widget" strategy="afterInteractive">
+      <Script id="helpcrunch-widget" strategy="lazyOnload">
         {`
           (function(w,d){
             var widgetPrefix='widget';
@@ -112,7 +112,7 @@ export default function HeadScripts() {
         `}
       </Script>
 
-      <Script id="url-search-params" strategy="afterInteractive">
+      <Script id="url-search-params" strategy="lazyOnload">
         {`
     document.addEventListener('DOMContentLoaded', function () {
       try {

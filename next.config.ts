@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
         hostname: "cdn.afterprime.com",
       },
     ],
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 2592000, // 30 days
   },
   reactStrictMode: true,
 

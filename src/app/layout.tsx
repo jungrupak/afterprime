@@ -1,17 +1,17 @@
 import "./globals.scss";
 import { Blinker } from "next/font/google";
+import VideoBackground from "@/components/VideoBackground";
 
 const blinker = Blinker({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "600", "700", "800"], // choose the weights you need
+  weight: ["100", "200", "300", "400", "600", "700", "800"],
+  display: "swap",
 });
 
 export function generateViewport() {
   return {
     width: "device-width",
     initialScale: 1,
-    maximumScale: 1,
-    minimumScale: 1,
     themeColor: "#0c0c0d",
   };
 }
@@ -24,26 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${blinker.className} antialiased`}>
-        <div className="home_banner_video">
-          <video
-            playsInline
-            className="mui-1eodtn4-video"
-            controls={false}
-            data-automation="VideoPlayer"
-            height="100%"
-            width="100%"
-            style={{ height: "calc(100vh + 42vh)" }}
-            loop
-            muted
-            autoPlay
-            poster="/img/hero-video-poster.jpg"
-            preload="auto"
-            aria-label="video-player"
-            controlsList="nodownload"
-          >
-            <source src="https://motion.afterprime.com/web/low-res.mp4" type="video/mp4" />
-          </video>
-        </div>
+        <VideoBackground />
         {children}
       </body>
     </html>

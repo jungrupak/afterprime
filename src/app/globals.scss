@@ -28,7 +28,6 @@ body {
   background-color: var(--body-bg);
   color: var(--white);
   font-family: Arial, Helvetica, sans-serif;
-  scroll-behavior: smooth;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   overflow-x: hidden;
@@ -42,10 +41,21 @@ body::-webkit-scrollbar {
 
 .home_banner_video {
   position: fixed;
-  inset: 0; /* better than top/left/width/height */
-  z-index: -1; /* behind everything */
-  pointer-events: none; /* never affects interaction */
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background-color: var(--body-bg);
+
+  /* mobile: static bg image instead of video */
+  @media (max-width: 767px) {
+    background-image: url("/img/ap-main-bg-static.jpg");
+    background-size: cover;
+    background-position: center;
+
+    video {
+      display: none;
+    }
+  }
 
   video {
     position: absolute;
@@ -59,13 +69,22 @@ body::-webkit-scrollbar {
 
   &:after {
     content: "";
-    position: fixed; /* key change */
+    position: fixed;
     inset: -50%;
     background-image: url("/img/grain-noise.png");
     opacity: 0.54;
-    animation: animateGrain 4s steps(18) infinite;
     pointer-events: none;
     will-change: transform;
+
+    /* disable grain on mobile — stops continuous paint + battery drain */
+    @media (max-width: 767px) {
+      display: none;
+    }
+
+    /* respect system reduced-motion preference */
+    @media (prefers-reduced-motion: no-preference) {
+      animation: animateGrain 4s steps(18) infinite;
+    }
   }
 }
 
@@ -130,7 +149,10 @@ body::-webkit-scrollbar {
   background-color: transparent;
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
-  animation: noise-before 3s infinite linear alternate-reverse;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: noise-before 3s infinite linear alternate-reverse;
+  }
 }
 
 .glitch-noise:after {
@@ -143,7 +165,10 @@ body::-webkit-scrollbar {
   background-color: transparent;
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
-  animation: noise-after 2s infinite linear alternate-reverse;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: noise-after 2s infinite linear alternate-reverse;
+  }
   mix-blend-mode: exclusion;
 }
 
