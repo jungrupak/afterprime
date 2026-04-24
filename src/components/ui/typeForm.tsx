@@ -3,14 +3,13 @@
 import { useEffect, useState } from "react";
 import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "./ui.module.scss";
-import { createSlider, type SliderOptions } from "@typeform/embed";
-//import "@typeform/embed/build/css/slider.css";
 import { getStoredUTMs } from "@/utils/persistUTM";
 
-interface ExtendedSliderOptions extends SliderOptions {
+interface ExtendedSliderOptions {
   autoOpen?: boolean;
   hideHeaders?: boolean;
   hideFooter?: boolean;
+  position?: "left" | "right";
 }
 
 interface TypeformButtonProps {
@@ -29,7 +28,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
     setFormId(assignedForm);
   }, []);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!formId) return;
 
     const utms = getStoredUTMs();
@@ -45,6 +44,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
       position: "right",
     };
 
+    const { createSlider } = await import("@typeform/embed");
     const slider = createSlider(url, options);
     slider.open();
   };

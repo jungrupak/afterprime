@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   devIndicators: false,
+  experimental: {
+    optimizePackageImports: ["lucide-react"],
+  },
   images: {
     remotePatterns: [
       {
@@ -21,12 +24,33 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        // Self-hosted fonts from next/font — content-addressed, safe to cache forever
+        source: "/_next/static/media/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
         // Next.js hashed static chunks — content-addressed, safe to cache forever
         source: "/_next/static/:path*",
         headers: [
           {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        // Allow bfcache: override Next.js default no-store with no-cache on HTML pages.
+        // no-cache still revalidates every request but allows bfcache restoration.
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-cache, must-revalidate",
           },
         ],
       },

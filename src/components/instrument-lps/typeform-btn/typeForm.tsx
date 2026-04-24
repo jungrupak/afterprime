@@ -3,9 +3,6 @@ import { useEffect, useState } from "react";
 import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "@/components/ui/ui.module.scss";
 
-import { createSlider, type SliderOptions } from "@typeform/embed";
-import "@typeform/embed/build/css/slider.css";
-
 type ButtonVarients =
   | "default"
   | "primary"
@@ -15,10 +12,11 @@ type ButtonVarients =
   | "ghost"
   | "washed";
 
-interface ExtendedSliderOptions extends SliderOptions {
+interface ExtendedSliderOptions {
   autoOpen?: boolean;
   hideHeaders?: boolean;
   hideFooter?: boolean;
+  position?: "left" | "right";
 }
 
 interface TypeformButtonProps {
@@ -35,21 +33,21 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
   const [formId, setFormId] = useState<string | null>(null);
 
   useEffect(() => {
-    // get the correct form for this session
     const assignedForm = getSessionFormId();
     setFormId(assignedForm);
   }, []);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!formId) return;
 
     const options: ExtendedSliderOptions = {
       autoOpen: false,
       hideHeaders: true,
       hideFooter: true,
-      position: "right", // slides in from the right
+      position: "right",
     };
 
+    const { createSlider } = await import("@typeform/embed");
     const slider = createSlider(formId, options);
     slider.open();
   };
