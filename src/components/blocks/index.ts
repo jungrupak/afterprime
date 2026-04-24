@@ -1,4 +1,4 @@
-//import dynamic from "next/dynamic";
+import dynamic from "next/dynamic";
 import React from "react";
 import { Blocks } from "@/types/blocks";
 
@@ -17,8 +17,6 @@ import FoundersCard from "./founder-card/FounderCard";
 import { HeroHome } from "./hero-home/HeroHome";
 import { EarningFlowSection } from "./earning-flow-section/EarningFlowSection";
 import { UspUnderHome } from "./usp-under-hero-home/UspUnderHeroHome";
-import DataVisual from "./data-visualization/DataVisual";
-import { SelectLivePricingTable } from "./live-price-feed/LivePriceFeedBlock";
 import { ProsNConsBlock } from "./pros-and-cons/ProsNConsBlock";
 import { MoreValueRealAlignmentStatic } from "./more-value-real-alignment-static/MoreAlignCards";
 import { SectionCardsBigStatic } from "./platform-cards-section-static/PlatformCards";
@@ -26,9 +24,20 @@ import SectionTableMarginLeverage from "./margin-leverage-table/MarginLeverageTa
 import SectionMarginCallOut from "./margin-call-out-table/MarginCallOutTable";
 import { ClientMoneySection } from "./client-money-section/ClientMoney";
 import { SectionFundingCards } from "./section-funding-methods/FundingCards";
-import { SwapDataTabs } from "./swap-table/SwapTable";
-import { TableDataRewardFlow } from "./table-reward-flow/TableAndData";
 import {SimpleContentBlock} from "./simple-contents/SimpleContents";
+
+// Heavy blocks — dynamically imported so their JS (chart.js, SignalR, live data)
+// is split into separate chunks and not bundled into the initial page load.
+const DataVisual = dynamic(() => import("./data-visualization/DataVisual"));
+const SelectLivePricingTable = dynamic(() =>
+  import("./live-price-feed/LivePriceFeedBlock").then((m) => ({ default: m.SelectLivePricingTable }))
+);
+const SwapDataTabs = dynamic(() =>
+  import("./swap-table/SwapTable").then((m) => ({ default: m.SwapDataTabs }))
+);
+const TableDataRewardFlow = dynamic(() =>
+  import("./table-reward-flow/TableAndData").then((m) => ({ default: m.TableDataRewardFlow }))
+);
 
 // Allows both sync React components and async server components in the registry
 type AnyBlockComponent<T> =

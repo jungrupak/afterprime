@@ -21,17 +21,23 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // Match all images in /public/img/
-        source: "/img/:all*(png|jpg|jpeg|svg|gif)",
+        // Next.js hashed static chunks — content-addressed, safe to cache forever
+        source: "/_next/static/:path*",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=2592000, immutable", // 30 days image caches
+            value: "public, max-age=31536000, immutable",
           },
-          // { key: 'Access-Control-Allow-Credentials', value: 'true' },
-          // { key: 'Access-Control-Allow-Origin', value: '*' },
-          // { key: 'Access-Control-Allow-Methods', value: 'GET,POST,OPTIONS' },
-          // { key: 'Access-Control-Allow-Headers', value: 'Content-Type' },
+        ],
+      },
+      {
+        // Public images — 30 days
+        source: "/img/:all*(png|jpg|jpeg|svg|gif|webp|avif)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=2592000, immutable",
+          },
         ],
       },
     ];
