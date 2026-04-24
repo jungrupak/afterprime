@@ -4,12 +4,13 @@ import Script from "next/script";
 export default function HeadScripts() {
   return (
     <>
-      {/* Google tag (gtag.js) */}
+      {/* Google tag (gtag.js) — lazyOnload keeps 172KB off the hydration critical path */}
       <Script
-        async
+        id="gtag-script"
+        strategy="lazyOnload"
         src="https://www.googletagmanager.com/gtag/js?id=G-HEY7V85S14"
       />
-      <Script id="gtag-init" strategy="afterInteractive">
+      <Script id="gtag-init" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag() { dataLayer.push(arguments); }

@@ -1109,3 +1109,23 @@ section {
 .lp-banner .es-badge-reviews-count {
   left: 108px !important;
 }
+
+// LiveChat CLS containment.
+// The widget injects #chat-widget-container and shifts 3+ times as it loads.
+// position:fixed elements can still cause CLS when they shift on screen.
+// Pinning + disabling transform/animation prevents those shifts.
+#chat-widget-container {
+  position: fixed !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  animation: none !important;
+  will-change: auto !important;
+}
+
+// Prevent the inner iframe from forcing reflow when it loads
+#chat-widget-container iframe {
+  display: block !important;
+}

@@ -222,13 +222,14 @@ writeLastReferrer() {
         `}
       </Script>
 
-      {/* LiveChat */}
+      {/* LiveChat — deferred 5s after idle to keep 12 JS chunks out of LCP window */}
       <Script id="livechat" strategy="lazyOnload">
         {`
           window.__lc = window.__lc || {};
           window.__lc.license = 2536351;
           window.__lc.integration_name = "manual_channels";
           window.__lc.product_name = "livechat";
+          window.__lc.asyncInit = true;
 
           (function(n, t, c) {
               function i(n) { return e._h ? e._h.apply(null, n) : e._q.push(n) }
@@ -248,8 +249,8 @@ writeLastReferrer() {
                       t.head.appendChild(n);
                   }
               };
-              !n.__lc.asyncInit && e.init();
               n.LiveChatWidget = n.LiveChatWidget || e;
+              setTimeout(function() { e.init(); }, 5000);
           })(window, document, [].slice);
         `}
       </Script>
