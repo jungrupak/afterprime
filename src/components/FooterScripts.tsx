@@ -229,7 +229,6 @@ writeLastReferrer() {
           window.__lc.license = 2536351;
           window.__lc.integration_name = "manual_channels";
           window.__lc.product_name = "livechat";
-          window.__lc.asyncInit = true;
 
           (function(n, t, c) {
               function i(n) { return e._h ? e._h.apply(null, n) : e._q.push(n) }

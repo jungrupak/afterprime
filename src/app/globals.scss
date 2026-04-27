@@ -1125,8 +1125,4 @@ section {
   will-change: auto !important;
 }
 
-// Prevent the inner iframe from forcing reflow when it loads
-#chat-widget-container iframe {
-  display: block !important;
-}
 
