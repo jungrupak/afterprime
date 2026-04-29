@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import FooterScripts from "@/components/FooterScripts";
 import HeadScripts from "@/components/HeaderScripts";
 import AfterprimeOrgSchema from "@/lib/schema/orgSchema";
+import ReactQueryProvider from "@/app/providers/ReactQueryProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://afterprime.com"),
@@ -65,7 +66,7 @@ export default function PagesLayout({
       {/* Head Scripts Ends */}
       <TypeformLoader />
       <Header />
-      {children}
+      <ReactQueryProvider>{children}</ReactQueryProvider>
       {/* <BottomCards /> */}
       <Footer />
       {/* Footer Scripts */}
