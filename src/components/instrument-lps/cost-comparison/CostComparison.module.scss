@@ -9,11 +9,12 @@
 
 .costCompareTableRow {
   font-size: clamp(16px, 5vw, 18px);
-  opacity: 0.68;
+  opacity: 1;
   margin-bottom: 5px;
   transition: all 0.3s ease-in-out;
   border-radius: 8px;
   overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.04);
   > div {
     padding: 20px 15px;
     cursor: default;
