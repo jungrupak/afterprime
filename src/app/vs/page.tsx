@@ -106,7 +106,7 @@ export default async function Page() {
       />
       {/* Intro Block */}
       <section
-        className={`${styles.sectionIntroBlockGeneric} py-[clamp(40px_,10vw_,60px)]!`}
+        className={`${styles.sectionIntroBlockGeneric} py-[clamp(40px_,10vw_,60px)]! compact-section`}
       >
         <div className="ap_container_small">
           <div className={styles.sectionIntroContents}>
@@ -148,7 +148,7 @@ export default async function Page() {
       </section>
       {/* Intro Block ends */}
       {/* Comparison Directory */}
-      <section className={`py-[clamp(40px_,10vw_,60px)]!`}>
+      <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
         <div className="ap_container_small">
           <CostComparison />
         </div>
