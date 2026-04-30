@@ -276,14 +276,14 @@ export default async function CostComparison({
 
                   <div data-label={`Broker`} className={`col-span-3 relative`}>
                     {broker.broker === "Afterprime" ? (
-                      <span className="text-[16px] max-md:text-[16px] block">
+                      <span className="text-[14px] max-md:text-[16px] block">
                         <strong>Afterprime</strong>
                       </span>
                     ) : (
                       <Link
                         href={`/vs/${brokerSlugMap[broker.broker] ?? ""}`}
                         scroll={true}
-                        className="underline hover:no-underline text-[16px] max-md:text-[16px] block"
+                        className="underline hover:no-underline text-[14px] max-md:text-[16px] block"
                       >
                         {broker.broker}
                       </Link>
