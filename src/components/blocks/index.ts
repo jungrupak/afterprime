@@ -25,6 +25,7 @@ import SectionMarginCallOut from "./margin-call-out-table/MarginCallOutTable";
 import { ClientMoneySection } from "./client-money-section/ClientMoney";
 import { SectionFundingCards } from "./section-funding-methods/FundingCards";
 import {SimpleContentBlock} from "./simple-contents/SimpleContents";
+import {BlockFacts} from "./fact-cards/BlockFacts"
 
 // Heavy blocks — dynamically imported so their JS (chart.js, SignalR, live data)
 // is split into separate chunks and not bundled into the initial page load.
@@ -73,4 +74,5 @@ export const blockRegistry: {
   "swap-table-section": SwapDataTabs,
   "rebate-table": TableDataRewardFlow,
   "reading-content": SimpleContentBlock,
+  "fact-cards":BlockFacts,
 };

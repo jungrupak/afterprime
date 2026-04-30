@@ -1,0 +1,36 @@
+.factGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(0, 350px));
+  gap: 15px;
+  text-align: center;
+  justify-content: center;
+}
+
+.factCard {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0;
+  padding: 2.5rem 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  h3 {
+    font-size: clamp(24px, 5vw, 26px);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+  }
+
+  p {
+    font-size: clamp(16px, 5vw, 18px);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+  }
+}
+
+.infoText {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 1rem;
+  text-align: center;
+  font-style: italic;
+}

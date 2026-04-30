@@ -207,6 +207,12 @@ export type Blocks = {
       alt?: string | undefined;
     }
   };
+  "fact-cards": {
+    facts_block_title?: string;
+    [key: `facts_fact_card_${number}_title`]: string | undefined;
+    [key: `facts_fact_card_${number}_description`]: string | undefined;
+    facts_info_text?:string;
+  };
 };
 //
 
