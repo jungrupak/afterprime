@@ -87,9 +87,9 @@ export default function FooterScripts() {
             writeCookieOnce(name,value){ if(!this.readCookie(name)){ this.writeCookie(name,value); } }
 
             writeAdditionalParams(){ this._additionalParams.forEach(p=>{ this.writeCookie(p,this.getParameterByName(p)); }); }
-            writeAdditionalInitialParams(){ this._additionalInitialParams.forEach(p=>{ this.writeCookieOnce(""+p,this.getParameterByName(p)||null); }); }
+            writeAdditionalInitialParams(){ this._additionalInitialParams.forEach(p=>{ this.writeCookieOnce(""+p,this.getParameterByName(p)||"direct"); }); }
             writeUtmCookieFromParams(){ this._utmParams.forEach(p=>{ this.writeCookie(p,this.getParameterByName(p)); }); }
-            writeInitialUtmCookieFromParams(){ this._utmParams.forEach(p=>{ this.writeCookieOnce(""+p,this.getParameterByName(p)||null); }); }
+            writeInitialUtmCookieFromParams(){ this._utmParams.forEach(p=>{ this.writeCookieOnce(""+p,this.getParameterByName(p)||"direct"); }); }
 
             _sameDomainReferrer(ref){ let h=document.location.hostname; return ref.indexOf(this._domain)>-1 || ref.indexOf(h)>-1; }
 
