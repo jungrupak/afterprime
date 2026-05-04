@@ -87,9 +87,9 @@ export default function FooterScripts() {
             writeCookieOnce(name,value){ if(!this.readCookie(name)){ this.writeCookie(name,value); } }
 
             writeAdditionalParams(){ this._additionalParams.forEach(p=>{ this.writeCookie(p,this.getParameterByName(p)); }); }
-            writeAdditionalInitialParams(){ this._additionalInitialParams.forEach(p=>{ this.writeCookieOnce(""+p,this.getParameterByName(p)||null); }); }
+            writeAdditionalInitialParams(){ this._additionalInitialParams.forEach(p=>{ this.writeCookieOnce("initial_"+p,this.getParameterByName(p)||null); }); }
             writeUtmCookieFromParams(){ this._utmParams.forEach(p=>{ this.writeCookie(p,this.getParameterByName(p)); }); }
-            writeInitialUtmCookieFromParams(){ this._utmParams.forEach(p=>{ this.writeCookieOnce(""+p,this.getParameterByName(p)||null); }); }
+            writeInitialUtmCookieFromParams(){ this._utmParams.forEach(p=>{ this.writeCookieOnce("initial_"+p,this.getParameterByName(p)||null); }); }
 
             _sameDomainReferrer(ref){ let h=document.location.hostname; return ref.indexOf(this._domain)>-1 || ref.indexOf(h)>-1; }
 
@@ -178,11 +178,11 @@ writeLastReferrer() {
 
             writeIBReferrer(){ let v=this.getParameterByName("clickId"); if(v) this.writeCookie("ib_referrer",v); }
             writeVisitorId(){ let old=this.lastVisitor(); if(old){ this.writeCookie("visitor_id",old); return; } old=localStorage.getItem("_gpfx_visitor_id"); if(old){ this.writeCookie("visitor_id",old); return; } const userAgent=navigator.userAgent, t=Date.now(), r=Math.random().toString(36).substring(2,15), id=btoa(r+"|"+t+"|"+userAgent).substring(0,32); this.writeCookie("visitor_id",id); localStorage.setItem("_gpfx_visitor_id",id); }
-            writeInitialLandingPageUrl(){ this.writeCookieOnce("landing_page", window.location.origin + window.location.pathname + window.location.search + window.location.hash); }
+            writeInitialLandingPageUrl(){ this.writeCookieOnce("initial_landing_page", window.location.origin + window.location.pathname + window.location.search + window.location.hash); }
             lastVisitor(){ return this.readCookie("visitor_id"); }
             initialReferrer(){ return this.readCookie("referrer"); }
             lastReferrer(){ return this.readCookie("last_referrer"); }
-            initialLandingPageUrl(){ return this.readCookie("landing_page"); }
+            initialLandingPageUrl(){ return this.readCookie("initial_landing_page"); }
             incrementVisitCount(){ let n=parseInt(this.readCookie("visits"),10); this.writeCookie("visits",isNaN(n)?1:n+1); }
             visits(){ return this.readCookie("visits"); }
             setCurrentSession(){ if(!this.readCookie("current_session")){ this.createCookie("current_session","true",this._sessionLength/24,null,this._domain,this._secure); this.incrementVisitCount(); } }
@@ -191,7 +191,7 @@ writeLastReferrer() {
           class UtmForm {
             constructor(options={}) {
               this._utmParamsMap={utm_source:"USOURCE",utm_medium:"UMEDIUM",utm_campaign:"UCAMPAIGN",utm_content:"UCONTENT",utm_term:"UTERM"};
-              this._initialUtmParamsMap={utm_source:"IUSOURCE",utm_medium:"IUMEDIUM",utm_campaign:"IUCAMPAIGN",utm_content:"IUCONTENT",utm_term:"IUTERM"};
+              this._initialUtmParamsMap={initial_utm_source:"IUSOURCE",initial_utm_medium:"IUMEDIUM",initial_utm_campaign:"IUCAMPAIGN",initial_utm_content:"IUCONTENT",initial_utm_term:"IUTERM"};
               this._additionalParamsMap = options.additional_params_map || {};
               this._additionalInitialParamsMap = options.additional_initial_params_map || {};
               this._initialReferrerField="IREFERRER";
@@ -213,7 +213,7 @@ writeLastReferrer() {
             }
 
             addAllFields(){ const allForms=document.querySelectorAll(this._formQuerySelector); let len=this._addToForm==="none"?0:this._addToForm==="first"?Math.min(1,allForms.length):allForms.length; for(let i=0;i<len;i++){ this.addAllFieldsToForm(allForms[i]); } }
-            addAllFieldsToForm(form){ if(form&&!form._utm_tagged){form._utm_tagged=true; Object.entries(this._utmParamsMap).forEach(([param,field])=>this.addFormElem(form,field,this.utmCookie.readCookie(param))); Object.entries(this._initialUtmParamsMap).forEach(([param,field])=>this.addFormElem(form,field,this.utmCookie.readCookie(param))); Object.entries(this._additionalParamsMap).forEach(([param,field])=>this.addFormElem(form,field,this.utmCookie.readCookie(param))); Object.entries(this._additionalInitialParamsMap).forEach(([param,field])=>{ this.addFormElem(form,field,this.utmCookie.readCookie(""+param)); }); this.addFormElem(form,this._initialReferrerField,this.utmCookie.initialReferrer()); this.addFormElem(form,this._lastReferrerField,this.utmCookie.lastReferrer()); this.addFormElem(form,this._initialLandingPageField,this.utmCookie.initialLandingPageUrl()); this.addFormElem(form,this._visitsField,this.utmCookie.visits());} }
+            addAllFieldsToForm(form){ if(form&&!form._utm_tagged){form._utm_tagged=true; Object.entries(this._utmParamsMap).forEach(([param,field])=>this.addFormElem(form,field,this.utmCookie.readCookie(param))); Object.entries(this._initialUtmParamsMap).forEach(([param,field])=>this.addFormElem(form,field,this.utmCookie.readCookie(param))); Object.entries(this._additionalParamsMap).forEach(([param,field])=>this.addFormElem(form,field,this.utmCookie.readCookie(param))); Object.entries(this._additionalInitialParamsMap).forEach(([param,field])=>{ this.addFormElem(form,field,this.utmCookie.readCookie("initial_"+param)); }); this.addFormElem(form,this._initialReferrerField,this.utmCookie.initialReferrer()); this.addFormElem(form,this._lastReferrerField,this.utmCookie.lastReferrer()); this.addFormElem(form,this._initialLandingPageField,this.utmCookie.initialLandingPageUrl()); this.addFormElem(form,this._visitsField,this.utmCookie.visits());} }
             addFormElem(form,fieldName,fieldValue){ form.appendChild(this.getFieldEl(fieldName,fieldValue)); }
             getFieldEl(fieldName,fieldValue){ const input=document.createElement("input"); input.type="hidden"; input.name=fieldName; const safeValue = fieldValue == null ? "" : String(fieldValue); if(this._decodeURIs){ try{ input.value=decodeURIComponent(safeValue); } catch(_e){ input.value=safeValue; } } else { input.value=safeValue; } return input; }
           }
