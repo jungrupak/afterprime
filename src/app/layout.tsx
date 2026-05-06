@@ -24,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="facebook-domain-verification" content="00t7hvmnqg2hu47jgje79ofbgdiowc" />
         <link rel="preconnect" href="https://motion.afterprime.com" crossOrigin="" />
         <link rel="preconnect" href="https://cdn.afterprime.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://cdn.segment.com" />
