@@ -21,12 +21,14 @@ export function LivePricingCrypto({
 
   return (
     <div>
-    <div className="w-full text-center px-6">
-      <h2 className="h2-size mb-6">
+      <div className="w-full text-center px-6">
+        <h2 className="h2-size mb-6">
           Lowest <span>Crypto Costs.</span>
         </h2>
-      <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Stop losing your margin to exchange fees. Trade on Crypto CFDs. We offer raw spreads with zero commissions - plus, earn up to $3/lot back via Flow Rewards™ on Bitcoin.
+        <p className="paragraph mb-20 max-md:mb-10 opacity-90">
+          Stop losing your margin to exchange fees. Trade on Crypto CFDs. We
+          offer raw spreads with zero commissions - plus, earn up to $3/lot back
+          via Flow Rewards™ on Bitcoin.
         </p>
       </div>
 
@@ -73,7 +75,20 @@ export function LivePricingCrypto({
                         {item.spread}
                       </td>
                       <td className="px-4 py-2 " t-name="Market">
-                        {item.market}
+                        <div
+                          className={`flex gap-4 md:justify-end text-[16px] items-center`}
+                        >
+                          <span
+                            className={
+                              item.market.toLowerCase() === "open"
+                                ? "text-green-400"
+                                : "text-red-400"
+                            }
+                          >
+                            {item.market.charAt(0).toUpperCase() +
+                              item.market.slice(1).toLowerCase()}
+                          </span>
+                        </div>
                       </td>
                     </tr>
                   ))}

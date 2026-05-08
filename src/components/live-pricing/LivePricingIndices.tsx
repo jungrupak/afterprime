@@ -20,12 +20,14 @@ export function LivePricingIndices({
 
   return (
     <div>
-    <div className="w-full text-center px-6">
-      <h2 className="h2-size mb-6">
+      <div className="w-full text-center px-6">
+        <h2 className="h2-size mb-6">
           The Lowest <span>Verified Index Costs.</span>
         </h2>
-      <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Stop overpaying for your exposure. We combine raw spreads with zero commissions across our entire index suite - plus, earn up to $1/lot back via Flow Rewards™ on high-volume like the US500 and DXY.
+        <p className="paragraph mb-20 max-md:mb-10 opacity-90">
+          Stop overpaying for your exposure. We combine raw spreads with zero
+          commissions across our entire index suite - plus, earn up to $1/lot
+          back via Flow Rewards™ on high-volume like the US500 and DXY.
         </p>
       </div>
 
@@ -48,7 +50,8 @@ export function LivePricingIndices({
                 <tbody>
                   {pricingCatLists[0]
                     .filter(
-                      (item) => !["CA60", "SA40", "NOR25"].includes(item.symbol)
+                      (item) =>
+                        !["CA60", "SA40", "NOR25"].includes(item.symbol),
                     )
                     .map((item, index) => (
                       <tr key={index} className="">
@@ -76,7 +79,20 @@ export function LivePricingIndices({
                           {item.spread}
                         </td>
                         <td className="px-4 py-2 " t-name="Market">
-                          {item.market.toUpperCase()}
+                          <div
+                            className={`flex gap-4 md:justify-end text-[16px] items-center`}
+                          >
+                            <span
+                              className={
+                                item.market.toLowerCase() === "open"
+                                  ? "text-green-400"
+                                  : "text-red-400"
+                              }
+                            >
+                              {item.market.charAt(0).toUpperCase() +
+                                item.market.slice(1).toLowerCase()}
+                            </span>
+                          </div>
                         </td>
                       </tr>
                     ))}

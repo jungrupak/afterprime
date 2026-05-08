@@ -103,28 +103,25 @@ export function MultipurposeBlock({
                 className="wysWygEditor"
                 dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
               />
-              {multipurpose_block_is_type_form_cta === "1" ||
-                (multipurpose_block_cta_url !== "" && (
+
+              <div className="mt-12 btn-group">
+                {multipurpose_block_is_type_form_cta === "1" ? (
                   <>
-                    <div className="mt-12 btn-group">
-                      {multipurpose_block_is_type_form_cta === "1" ? (
-                        <TypeformButton
-                          buttonText="Get Invite Code"
-                          size="Large"
-                        />
-                      ) : (
-                        <Button
-                          varient="primary-ghost"
-                          href={multipurpose_block_cta_url || ""}
-                          isArrowVisible={true}
-                          size="large"
-                        >
-                          {ctaText}
-                        </Button>
-                      )}
-                    </div>
+                    <TypeformButton buttonText="Get Invite Code" size="Large" />
                   </>
-                ))}
+                ) : (
+                  <>
+                    <Button
+                      varient="primary-ghost"
+                      href={multipurpose_block_cta_url || "#"}
+                      isArrowVisible={true}
+                      size="large"
+                    >
+                      {ctaText ?? "Button Label"}
+                    </Button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
           {/* Left ends */}
