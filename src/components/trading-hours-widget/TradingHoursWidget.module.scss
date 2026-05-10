@@ -1,0 +1,216 @@
+// Widget card
+.widget {
+  background-color: rgba(var(--alphaWhite), 0.05);
+  border: 1px solid rgba(var(--alphaWhite), 0.12);
+  border-radius: 16px;
+  padding: clamp(20px, 4vw, 32px);
+  margin-bottom: 48px;
+}
+
+// ── Status row ──────────────────────────────────────────────
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 14px;
+  font-weight: 600;
+
+  &.open {
+    background: rgba(74, 222, 128, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(74, 222, 128, 0.35);
+  }
+  &.closed {
+    background: rgba(248, 113, 113, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(248, 113, 113, 0.35);
+  }
+  &.break {
+    background: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.35);
+  }
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.countdown {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.dateTime {
+  margin-left: auto;
+  font-size: 14px;
+  opacity: 0.65;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+
+  span {
+    font-weight: 600;
+    opacity: 1;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+// ── Timezone row ─────────────────────────────────────────────
+.tzRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid rgba(var(--alphaWhite), 0.12);
+  border-radius: 10px;
+  margin-bottom: 28px;
+}
+
+.tzLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  opacity: 0.55;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tzSelect {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  min-width: 0;
+
+  option {
+    background: #1a1a2e;
+    color: var(--white);
+  }
+}
+
+// ── Day columns ───────────────────────────────────────────────
+.dayColumnsLabel {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-bottom: 14px;
+}
+
+.dayColumns {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.dayCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.dayName {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+.dayTimeRange {
+  width: 100%;
+  text-align: center;
+  padding: 10px 4px;
+  border-radius: 10px;
+  font-size: clamp(11px, 1.5vw, 13px);
+  font-variant-numeric: tabular-nums;
+  background: rgba(var(--alphaWhite), 0.05);
+  border: 1px solid rgba(var(--alphaWhite), 0.08);
+  line-height: 1.4;
+
+  &.today {
+    background: rgba(74, 222, 128, 0.1);
+    border-color: rgba(74, 222, 128, 0.35);
+    color: #4ade80;
+  }
+}
+
+.breakNote {
+  font-size: 12px;
+  opacity: 0.45;
+  margin-top: 16px;
+  text-align: center;
+}
+
+// ── Trading Sessions ──────────────────────────────────────────
+.sessionsSection {
+  margin-bottom: 40px;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-bottom: 14px;
+}
+
+.sessionCards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.sessionCard {
+  background: rgba(var(--alphaWhite), 0.05);
+  border: 1px solid rgba(var(--alphaWhite), 0.1);
+  border-radius: 12px;
+  padding: 16px 20px;
+
+  &.peak {
+    background: rgba(99, 179, 237, 0.08);
+    border-color: rgba(99, 179, 237, 0.25);
+
+    .sessionLabel {
+      color: #63b3ed;
+      opacity: 1;
+    }
+    .sessionTime {
+      color: #63b3ed;
+    }
+  }
+}
+
+.sessionLabel {
+  font-size: 13px;
+  opacity: 0.6;
+  margin-bottom: 6px;
+}
+
+.sessionTime {
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}

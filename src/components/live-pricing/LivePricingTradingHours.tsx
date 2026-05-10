@@ -123,7 +123,10 @@ export function LivePricingTradingHours({
                                   alt={`${item.symbol} ${item.group}`}
                                 />
                               </div>
-                              <a href={"/forex/" + item.symbol.toLowerCase()}>
+                              <a
+                                href={"/forex/" + item.symbol.toLowerCase()}
+                                className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                              >
                                 {item.symbol}
                               </a>
                             </div>
