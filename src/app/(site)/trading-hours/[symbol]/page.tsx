@@ -89,30 +89,31 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
     <>
       {/* ── 1. Breadcrumb + H1 + subhead ─────────────────────── */}
       <section className="innerpage-banner h-auto!">
-        <div className="ap_container_small flex flex-col justify-center h-full">
-          {/* Breadcrumb */}
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-sm opacity-55 mt-10 lg:mt-15 mb-4"
-          >
-            <Link href="/trading-hours" className="hover:opacity-100 transition-opacity">
-              Market hours
-            </Link>
-            <span aria-hidden="true">›</span>
-            <span>{data.symbol}</span>
-          </nav>
-
-          <h1 className="h1-size max-w-[800px]">
-            <span className="font-[600]">
-              {data.description} trading hours
-            </span>
-          </h1>
-          <p
-            className="paragraph max-w-[700px] mt-4 lg:mt-6 opacity-80"
-            style={{ fontWeight: 300 }}
-          >
-            {subline}
-          </p>
+        <div className="ap_container_small flex items-center h-full">
+          <div className={`apBannerContent`}>
+            {/* Breadcrumb */}
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center gap-2 text-sm opacity-55 mt-10 lg:mt-15 mb-4"
+            >
+              <Link href="/trading-hours" className="hover:opacity-100!">
+                Market hours
+              </Link>
+              <span aria-hidden="true">›</span>
+              <span>{data.symbol}</span>
+            </nav>
+            <h1 className="h1-size max-w-[800px]">
+              <span className="font-[600]">
+                {data.description} trading hours
+              </span>
+            </h1>
+            <div
+              className="paragraph max-w-[600px] lg:mt-8 opacity-80"
+              style={{ fontWeight: 300 }}
+            >
+              {subline}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -130,14 +131,14 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
             sessionNyOpen={data.sessionNyOpen}
             sessionOverlapStart={data.sessionOverlapStart}
             sessionOverlapEnd={data.sessionOverlapEnd}
+            openDay={data.openDay}
+            openUtc={data.openUtc}
+            closeDay={data.closeDay}
+            closeUtc={data.closeUtc}
           />
-        </div>
-      </section>
 
-      {/* ── 4. Two info pills ─────────────────────────────────── */}
-      {(data.swap3Day || data.typicalSpreadNote) && (
-        <section className="compact-section">
-          <div className="ap_container_small">
+          {/* ── 4. Two info pills ─────────────────────────────────── */}
+          {(data.swap3Day || data.typicalSpreadNote) && (
             <div className="flex flex-wrap gap-4">
               {data.swap3Day && (
                 <div
@@ -213,15 +214,12 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
                 </div>
               )}
             </div>
-          </div>
-        </section>
-      )}
+          )}
 
-      {/* ── 5. DST callout ───────────────────────────────────── */}
-      {data.dstNote && (
-        <section className="compact-section">
-          <div className="ap_container_small">
+          {/* ── 5. DST callout ───────────────────────────────────── */}
+          {data.dstNote && (
             <div
+              className={`mt-5 md:mt-10`}
               style={{
                 borderLeft: "3px solid #f59e0b",
                 padding: "14px 20px",
@@ -234,20 +232,10 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
               <strong style={{ color: "#f59e0b" }}>DST note —</strong>{" "}
               {data.dstNote}
             </div>
-          </div>
-        </section>
-      )}
+          )}
 
-      {/* ── 6. FAQ block ─────────────────────────────────────── */}
-      <FaqCalc
-        faqSubject={`${data.symbol} Trading Hours — FAQs`}
-        data={faqItems}
-      />
-
-      {/* ── 7. Internal link row ─────────────────────────────── */}
-      <section className="compact-section">
-        <div className="ap_container_small">
-          <div className="flex flex-wrap gap-3">
+          {/* ── 7. Internal link row ─────────────────────────────── */}
+          <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
             <Link
               href={`/swaps/${data.symbol.toLowerCase()}`}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
@@ -272,6 +260,12 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* ── 6. FAQ block ─────────────────────────────────────── */}
+      <FaqCalc
+        faqSubject={`${data.symbol} Trading Hours — FAQs`}
+        data={faqItems}
+      />
 
       <BottomCta />
 

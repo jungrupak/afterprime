@@ -64,20 +64,20 @@ function utcMinutesToLocalTime(utcMinutes: number, timezone: string): string {
   });
 }
 
-function utcStringToLocalTime(utcStr: string | undefined, timezone: string): string {
+function utcStringToLocalTime(
+  utcStr: string | undefined,
+  timezone: string,
+): string {
   const mins = parseUtcTimeString(utcStr);
   if (mins === null) return "--:--";
   return utcMinutesToLocalTime(mins, timezone);
 }
 
-function getCurrentUtcMinutes(): number {
-  const now = new Date();
-  return now.getUTCHours() * 60 + now.getUTCMinutes();
-}
-
 function formatCountdown(totalSeconds: number): string {
-  const h = Math.floor(totalSeconds / 3600);
+  const d = Math.floor(totalSeconds / 86400);
+  const h = Math.floor((totalSeconds % 86400) / 3600);
   const m = Math.floor((totalSeconds % 3600) / 60);
+  if (d > 0) return `${d}d ${h}h ${m}m`;
   if (h > 0) return `${h}h ${m}m`;
   if (m > 0) return `${m}m`;
   return `${totalSeconds % 60}s`;
@@ -88,7 +88,7 @@ type MarketState = "open" | "break" | "closed";
 interface MarketStatus {
   state: MarketState;
   nextEventLabel: string;
-  nextEventUtcMinutes: number | null;
+  nextEventSeconds: number;
 }
 
 function computeMarketStatus(
@@ -99,43 +99,72 @@ function computeMarketStatus(
 ): MarketStatus {
   const now = new Date();
   const apiDay = jsUtcDayToApi(now.getUTCDay());
-  const currentMinutes = getCurrentUtcMinutes();
+  const currentUtcMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
+
+  function minutesToAbsDate(utcMinutes: number, daysOffset = 0): Date {
+    return new Date(
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate() + daysOffset,
+        Math.floor(utcMinutes / 60),
+        utcMinutes % 60,
+        0,
+        0,
+      ),
+    );
+  }
+
+  function secsUntil(target: Date): number {
+    return Math.max(0, Math.floor((target.getTime() - now.getTime()) / 1000));
+  }
 
   const todaySessions = sessionsTrades.filter((s) => s.dayOfWeek === apiDay);
   const currentSession = todaySessions.find(
-    (s) => currentMinutes >= s.open && currentMinutes < s.close,
+    (s) => currentUtcMinutes >= s.open && currentUtcMinutes < s.close,
   );
 
   if (currentSession) {
+    // Inside daily break window
     if (
       hasDailyBreak &&
       breakStartMinutes !== null &&
       breakEndMinutes !== null &&
-      currentMinutes >= breakStartMinutes &&
-      currentMinutes < breakEndMinutes
+      currentUtcMinutes >= breakStartMinutes &&
+      currentUtcMinutes < breakEndMinutes
     ) {
+      let breakEndDate = minutesToAbsDate(breakEndMinutes);
+      if (breakEndDate <= now)
+        breakEndDate = minutesToAbsDate(breakEndMinutes, 1);
       return {
         state: "break",
         nextEventLabel: "Break ends in",
-        nextEventUtcMinutes: breakEndMinutes,
+        nextEventSeconds: secsUntil(breakEndDate),
       };
     }
 
-    const closeAt =
+    // Next event: break start or session close
+    const closeAtMinutes =
       hasDailyBreak &&
       breakStartMinutes !== null &&
-      currentMinutes < breakStartMinutes
+      currentUtcMinutes < breakStartMinutes
         ? breakStartMinutes
         : currentSession.close;
+
+    let closeDate = minutesToAbsDate(closeAtMinutes);
+    if (closeDate <= now) closeDate = minutesToAbsDate(closeAtMinutes, 1);
 
     return {
       state: "open",
       nextEventLabel:
-        hasDailyBreak && closeAt === breakStartMinutes ? "Break in" : "Closes in",
-      nextEventUtcMinutes: closeAt,
+        hasDailyBreak && closeAtMinutes === breakStartMinutes
+          ? "Break in"
+          : "Closes in",
+      nextEventSeconds: secsUntil(closeDate),
     };
   }
 
+  // Find next open — up to 7 days ahead
   for (let daysAhead = 0; daysAhead <= 7; daysAhead++) {
     const checkDate = new Date(now);
     checkDate.setUTCDate(checkDate.getUTCDate() + daysAhead);
@@ -145,27 +174,22 @@ function computeMarketStatus(
       .sort((a, b) => a.open - b.open);
 
     for (const session of sessions) {
-      const minMinutes = daysAhead === 0 ? currentMinutes : -1;
-      if (session.open > minMinutes) {
+      const openDate = minutesToAbsDate(session.open, daysAhead);
+      if (openDate > now) {
         return {
           state: "closed",
-          nextEventLabel: "Opens in",
-          nextEventUtcMinutes: daysAhead === 0 ? session.open : null,
+          nextEventLabel: "Will open in",
+          nextEventSeconds: secsUntil(openDate),
         };
       }
     }
   }
 
-  return { state: "closed", nextEventLabel: "Opens in", nextEventUtcMinutes: null };
-}
-
-function computeCountdownSeconds(targetUtcMinutes: number | null): number {
-  if (targetUtcMinutes === null) return 0;
-  const now = new Date();
-  const currentMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
-  const diffMinutes = targetUtcMinutes - currentMinutes;
-  if (diffMinutes <= 0) return 0;
-  return diffMinutes * 60 - now.getUTCSeconds();
+  return {
+    state: "closed",
+    nextEventLabel: "Will open in",
+    nextEventSeconds: 0,
+  };
 }
 
 interface Props {
@@ -179,6 +203,10 @@ interface Props {
   sessionNyOpen?: string;
   sessionOverlapStart?: string;
   sessionOverlapEnd?: string;
+  openDay?: string;
+  openUtc?: string;
+  closeDay?: string;
+  closeUtc?: string;
 }
 
 export default function TradingHoursWidget({
@@ -191,6 +219,10 @@ export default function TradingHoursWidget({
   sessionNyOpen,
   sessionOverlapStart,
   sessionOverlapEnd,
+  openDay,
+  openUtc,
+  closeDay,
+  closeUtc,
 }: Props) {
   const breakStartMinutes = parseUtcTimeString(dailyBreakStartUtc);
   const breakEndMinutes = parseUtcTimeString(dailyBreakEndUtc);
@@ -199,8 +231,8 @@ export default function TradingHoursWidget({
   const [now, setNow] = useState<Date | null>(null);
   const [status, setStatus] = useState<MarketStatus>({
     state: "closed",
-    nextEventLabel: "Opens in",
-    nextEventUtcMinutes: null,
+    nextEventLabel: "Will open in",
+    nextEventSeconds: 0,
   });
   const [countdown, setCountdown] = useState(0);
 
@@ -221,7 +253,7 @@ export default function TradingHoursWidget({
       breakEndMinutes,
     );
     setStatus(s);
-    setCountdown(computeCountdownSeconds(s.nextEventUtcMinutes));
+    setCountdown(s.nextEventSeconds);
   }, [sessionsTrades, hasDailyBreak, breakStartMinutes, breakEndMinutes]);
 
   useEffect(() => {
@@ -304,15 +336,43 @@ export default function TradingHoursWidget({
             <span className={styles.dot} />
             {pillLabel}
           </span>
+
           {countdown > 0 && (
             <span className={styles.countdown}>
               {status.nextEventLabel}{" "}
               <strong>{formatCountdown(countdown)}</strong>
             </span>
           )}
-          <span className={styles.dateTime}>
-            {dateStr} <span>{timeStr}</span>
-          </span>
+
+          {/* Weekly open / close schedule */}
+          {openDay ? (
+            <>
+              {" "}
+              {openDay && openUtc && (
+                <span className={`md:ml-auto`}>
+                  <span className={styles.scheduleLabel}>Opens</span>
+                  <span className={`text-[14px]`}>
+                    {openDay} {openUtc}
+                  </span>
+                </span>
+              )}
+            </>
+          ) : (
+            <>
+              {closeDay && closeUtc && (
+                <span className={`md:ml-auto`}>
+                  <span className={styles.scheduleLabel}>Closes</span>
+                  <span className={`text-[14px]`}>
+                    {closeDay} {closeUtc}
+                  </span>
+                </span>
+              )}
+            </>
+          )}
+          {/* <span className={styles.dateTime}>
+            {dateStr}
+            <span>{timeStr}</span>
+          </span> */}
         </div>
 
         {/* Timezone row */}
@@ -380,7 +440,7 @@ export default function TradingHoursWidget({
       {/* Trading Sessions */}
       {sessionCards.length > 0 && (
         <div className={styles.sessionsSection}>
-          <p className={styles.sectionLabel}>Trading Sessions</p>
+          <p className={`paragraph mb-3 md:mb-5`}>Trading Sessions</p>
           <div className={styles.sessionCards}>
             {sessionCards.map((card) => (
               <div

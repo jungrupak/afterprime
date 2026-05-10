@@ -153,11 +153,30 @@
   }
 }
 
+.scheduleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.scheduleLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  opacity: 0.45;
+  margin-right: 6px;
+}
+
+.scheduleDot {
+  opacity: 0.3;
+}
+
 .breakNote {
   font-size: 12px;
   opacity: 0.45;
-  margin-top: 16px;
-  text-align: center;
+  margin-top: 12px;
 }
 
 // ── Trading Sessions ──────────────────────────────────────────
