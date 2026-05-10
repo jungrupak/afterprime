@@ -24,7 +24,8 @@ export function LivePricingStocks({
           Keep More, <span>Earn More.</span>
         </h2>
         <p className="paragraph max-w-2xl mx-auto mb-20 max-md:mb-10 opacity-90">
-          Lowest all-in trading costs, plus Flow Rewards<sup>TM</sup> that pay you per lot traded.
+          Lowest all-in trading costs, plus Flow Rewards<sup>TM</sup> that pay
+          you per lot traded.
         </p>
       </div>
 
@@ -73,7 +74,20 @@ export function LivePricingStocks({
                         {item.spread}
                       </td>
                       <td className="px-4 py-2 " t-name="Market">
-                        {item.market}
+                        <div
+                          className={`flex gap-4 md:justify-end text-[16px] items-center`}
+                        >
+                          <span
+                            className={
+                              item.market.toLowerCase() === "open"
+                                ? "text-green-400"
+                                : "text-red-400"
+                            }
+                          >
+                            {item.market.charAt(0).toUpperCase() +
+                              item.market.slice(1).toLowerCase()}
+                          </span>
+                        </div>
                       </td>
                     </tr>
                   ))}

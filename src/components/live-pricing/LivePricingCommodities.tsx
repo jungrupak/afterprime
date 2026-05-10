@@ -18,25 +18,21 @@ export function LivePricingCommodities({
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
 
-  const pricingCatLists = [
-    categories.commodities,
-    categories.metals,
-  ];
+  const pricingCatLists = [categories.commodities, categories.metals];
 
-  const tabNavs = [
-    "Commodities",
-    "Metals",
-  ];
+  const tabNavs = ["Commodities", "Metals"];
   const hasInitialTableData = pricingCatLists.some((items) => items.length > 0);
 
   return (
     <div>
-    <div className="w-full text-center px-6">
-      <h2 className="h2-size mb-6">
+      <div className="w-full text-center px-6">
+        <h2 className="h2-size mb-6">
           Lowest <span>Commodity Costs.</span>
         </h2>
-      <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Stop overpaying for your exposure. We offer raw spreads with zero commissions across our entire suite - plus, earn up to $2/lot back via Flow Rewards<sup>TM</sup> on Gold (XAU/USD).
+        <p className="paragraph mb-20 max-md:mb-10 opacity-90">
+          Stop overpaying for your exposure. We offer raw spreads with zero
+          commissions across our entire suite - plus, earn up to $2/lot back via
+          Flow Rewards<sup>TM</sup> on Gold (XAU/USD).
         </p>
       </div>
 
@@ -73,25 +69,23 @@ export function LivePricingCommodities({
                     </tr>
                   </thead>
                   <tbody>
-                    {pricingCatLists[activeTabNav].filter(
-                        (item) =>
-                          !["XCUUSD"].includes(item.symbol)
-                      )
+                    {pricingCatLists[activeTabNav]
+                      .filter((item) => !["XCUUSD"].includes(item.symbol))
                       .map((item, index) => (
                         <tr key={index} className="">
                           <td className="px-4 py-2 " t-name="Symbol">
                             <div className={`${styles.instrumentIcons}`}>
-                                <div className={`${styles.icon_wrap}`}>
-                                  <Image
-                                    width={40}
-                                    height={40}
-                                    src={`https://cdn.afterprime.com/symbols/${item.symbol.toLocaleLowerCase()}.svg`}
-                                    alt={`${item.symbol} ${item.group}`}
-                                  />
-                                </div>
-
-                                {item.symbol}
+                              <div className={`${styles.icon_wrap}`}>
+                                <Image
+                                  width={40}
+                                  height={40}
+                                  src={`https://cdn.afterprime.com/symbols/${item.symbol.toLocaleLowerCase()}.svg`}
+                                  alt={`${item.symbol} ${item.group}`}
+                                />
                               </div>
+
+                              {item.symbol}
+                            </div>
                           </td>
                           <td className="px-4 py-2 " t-name="Bid">
                             {item.bestBid}
@@ -103,7 +97,20 @@ export function LivePricingCommodities({
                             {item.spread}
                           </td>
                           <td className="px-4 py-2 " t-name="Market">
-                            {item.market}
+                            <div
+                              className={`flex gap-4 md:justify-end text-[16px] items-center`}
+                            >
+                              <span
+                                className={
+                                  item.market.toLowerCase() === "open"
+                                    ? "text-green-400"
+                                    : "text-red-400"
+                                }
+                              >
+                                {item.market.charAt(0).toUpperCase() +
+                                  item.market.slice(1).toLowerCase()}
+                              </span>
+                            </div>
                           </td>
                         </tr>
                       ))}

@@ -12,9 +12,7 @@ interface LivePricingAllProps {
   initialPrices?: PricesObjects[];
 }
 
-export function LivePricingAll({
-  initialPrices = [],
-}: LivePricingAllProps) {
+export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
   const { categories, status } = useLivePrices(initialPrices);
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
@@ -106,76 +104,88 @@ export function LivePricingAll({
                   </thead>
                   <tbody>
                     {visibleRows.map((item, index) => (
-                        <tr key={index} className="">
-                          <td className="px-4 py-2 " t-name="Symbol">
-                            {item.group.startsWith("Forex") ? (
-                              <div className={`${styles.forexIcons}`}>
-                                <div className={`${styles.icon_wrap}`}>
-                                  <Image
-                                    width={40}
-                                    height={40}
-                                    src={`https://cdn.afterprime.com/symbols/${item.symbol
-                                      .toLowerCase()
-                                      .slice(0, 3)}.svg`}
-                                    alt={`${item.symbol} ${item.group}`}
-                                  />
-                                  <Image
-                                    width={40}
-                                    height={40}
-                                    src={`https://cdn.afterprime.com/symbols/${item.symbol
-                                      .toLowerCase()
-                                      .slice(3)}.svg`}
-                                    alt={`${item.symbol} ${item.group}`}
-                                  />
-                                </div>
-                                <a href={"/forex/" + item.symbol.toLowerCase()}>
-                                  {item.symbol}
-                                </a>
+                      <tr key={index} className="">
+                        <td className="px-4 py-2 " t-name="Symbol">
+                          {item.group.startsWith("Forex") ? (
+                            <div className={`${styles.forexIcons}`}>
+                              <div className={`${styles.icon_wrap}`}>
+                                <Image
+                                  width={40}
+                                  height={40}
+                                  src={`https://cdn.afterprime.com/symbols/${item.symbol
+                                    .toLowerCase()
+                                    .slice(0, 3)}.svg`}
+                                  alt={`${item.symbol} ${item.group}`}
+                                />
+                                <Image
+                                  width={40}
+                                  height={40}
+                                  src={`https://cdn.afterprime.com/symbols/${item.symbol
+                                    .toLowerCase()
+                                    .slice(3)}.svg`}
+                                  alt={`${item.symbol} ${item.group}`}
+                                />
                               </div>
-                            ) : item.group.startsWith("Stocks") ? (
-                              <div className={`${styles.instrumentIcons}`}>
-                                <div className={`${styles.icon_wrap}`}>
-                                  <Image
-                                    width={40}
-                                    height={40}
-                                    src={`https://cdn.afterprime.com/symbols/${item.symbol
-                                      .split("_")[1]
-                                      .toLocaleLowerCase()}.svg`}
-                                    alt={`${item.symbol} ${item.group}`}
-                                  />
-                                </div>
-
+                              <a href={"/forex/" + item.symbol.toLowerCase()}>
                                 {item.symbol}
+                              </a>
+                            </div>
+                          ) : item.group.startsWith("Stocks") ? (
+                            <div className={`${styles.instrumentIcons}`}>
+                              <div className={`${styles.icon_wrap}`}>
+                                <Image
+                                  width={40}
+                                  height={40}
+                                  src={`https://cdn.afterprime.com/symbols/${item.symbol
+                                    .split("_")[1]
+                                    .toLocaleLowerCase()}.svg`}
+                                  alt={`${item.symbol} ${item.group}`}
+                                />
                               </div>
-                            ) : (
-                              <div className={`${styles.instrumentIcons}`}>
-                                <div className={`${styles.icon_wrap}`}>
-                                  <Image
-                                    width={40}
-                                    height={40}
-                                    src={`https://cdn.afterprime.com/symbols/${item.symbol.toLocaleLowerCase()}.svg`}
-                                    alt={`${item.symbol} ${item.group}`}
-                                  />
-                                </div>
 
-                                {item.symbol}
+                              {item.symbol}
+                            </div>
+                          ) : (
+                            <div className={`${styles.instrumentIcons}`}>
+                              <div className={`${styles.icon_wrap}`}>
+                                <Image
+                                  width={40}
+                                  height={40}
+                                  src={`https://cdn.afterprime.com/symbols/${item.symbol.toLocaleLowerCase()}.svg`}
+                                  alt={`${item.symbol} ${item.group}`}
+                                />
                               </div>
-                            )}
-                          </td>
-                          <td className="px-4 py-2 " t-name="Bid">
-                            {item.bestBid}
-                          </td>
-                          <td className="px-4 py-2 " t-name="Ask">
-                            {item.bestAsk}
-                          </td>
-                          <td className="px-4 py-2 " t-name="Spread">
-                            {item.spread}
-                          </td>
-                          <td className="px-4 py-2 " t-name="Market">
-                            {item.market.charAt(0).toUpperCase() +
-                              item.market.slice(1).toLowerCase()}
-                          </td>
-                        </tr>
+
+                              {item.symbol}
+                            </div>
+                          )}
+                        </td>
+                        <td className="px-4 py-2 " t-name="Bid">
+                          {item.bestBid}
+                        </td>
+                        <td className="px-4 py-2 " t-name="Ask">
+                          {item.bestAsk}
+                        </td>
+                        <td className="px-4 py-2 " t-name="Spread">
+                          {item.spread}
+                        </td>
+                        <td className="px-4 py-2 " t-name="Market">
+                          <div
+                            className={`flex gap-4 md:justify-end text-[16px] items-center`}
+                          >
+                            <span
+                              className={
+                                item.market.toLowerCase() === "open"
+                                  ? "text-green-400"
+                                  : "text-red-400"
+                              }
+                            >
+                              {item.market.charAt(0).toUpperCase() +
+                                item.market.slice(1).toLowerCase()}
+                            </span>
+                          </div>
+                        </td>
+                      </tr>
                     ))}
                   </tbody>
                 </table>
