@@ -9,6 +9,92 @@ import TradingHoursWidget from "@/components/trading-hours-widget/TradingHoursWi
 import { BottomCta } from "@/components/acfFieldGroups/bottom-cta/BottomCta";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import FaqCalc from "@/components/faq-calculators/Faq";
+import type { InstrumentData } from "@/types/instruments";
+
+function tradingDaysText(data: InstrumentData): string {
+  if (data.is24_7) return "24 hours a day, 7 days a week";
+  if (data.openDay && data.openUtc && data.closeDay && data.closeUtc)
+    return `${data.openDay} ${data.openUtc} to ${data.closeDay} ${data.closeUtc} UTC`;
+  if (data.is24_5) return "24 hours a day, Monday through Friday";
+  return "during scheduled market hours";
+}
+
+function exchangeRef(data: InstrumentData): string {
+  switch (data.category.toLowerCase()) {
+    case "forex": return "the global FX interbank market";
+    case "crypto": return "the global crypto market";
+    case "metals": return "COMEX/LBMA session times";
+    case "commodities": return "CME/NYMEX exchange session times";
+    default: return "the underlying exchange";
+  }
+}
+
+function dstRegions(data: InstrumentData): string {
+  const cat = data.category.toLowerCase();
+  if (["forex", "metals", "crypto"].includes(cat)) return "London, New York, and Sydney";
+  if (["indices", "stocks"].includes(cat)) return "the US and Europe";
+  if (cat === "commodities") return "the US";
+  return "major trading centres";
+}
+
+function peakContext(data: InstrumentData): string {
+  if (data.sessionOverlapContext) return data.sessionOverlapContext;
+  const sym = data.symbol.toUpperCase();
+  const cat = data.category.toLowerCase();
+  if (sym === "XAUUSD") return "Gold correlates strongly with USD moves, peaking when US and European traders are both active";
+  if (cat === "forex") return "This 4-hour window accounts for the majority of daily forex volume";
+  if (cat === "indices" && ["US500", "NAS100", "US30"].some((s) => sym.includes(s)))
+    return "Volume spikes at the US open (9:30 AM ET) and in the final hour of trade";
+  if (cat === "indices") return "Volume is highest when the home exchange regular session is active";
+  if (cat === "commodities" && (sym.includes("XTIUSD") || sym.includes("XBRUSD")))
+    return "Crude volume aligns with NYMEX pit hours and US inventory data releases (Wednesdays)";
+  if (cat === "commodities") return "Liquidity peaks when the relevant commodity exchange pit session is active";
+  if (cat === "crypto") return "Crypto CFDs mirror risk-on sentiment; largest moves typically occur during US trading hours";
+  return "Liquidity and spreads are tightest during this window";
+}
+
+function lowVolumePeriod(data: InstrumentData): string {
+  if (data.lowVolumePeriod) return data.lowVolumePeriod;
+  const sym = data.symbol.toUpperCase();
+  const cat = data.category.toLowerCase();
+  if (["XAUUSD", "XAGUSD"].includes(sym)) return "post-NY close";
+  if (cat === "forex") return "the Asian session";
+  if (cat === "indices") return "pre-market hours";
+  if (cat === "commodities") return "the Asian session";
+  if (cat === "crypto") return "weekend hours";
+  return "off-peak hours";
+}
+
+function executionStyle(data: InstrumentData): string {
+  if (data.executionStyle) return data.executionStyle;
+  const cat = data.category.toLowerCase();
+  if (cat === "forex") return "scalping and intraday";
+  if (cat === "indices") return "momentum and intraday";
+  if (["commodities", "metals"].includes(cat)) return "trend-following and intraday";
+  if (cat === "crypto") return "momentum";
+  return "active";
+}
+
+function outsideHoursStatement(data: InstrumentData): string {
+  if (data.is24_7)
+    return `${data.description} is available to trade 24/7 at Afterprime, including weekends`;
+  if (data.hasDailyBreak)
+    return `${data.description} has a short daily maintenance break but is otherwise available throughout the entire trading week`;
+  const cat = data.category.toLowerCase();
+  if (["indices", "stocks"].includes(cat))
+    return `${data.description} cannot be traded outside the hours shown above. The market closes at the end of each regular session`;
+  if (data.is24_5)
+    return `${data.description} trades continuously 24 hours a day, five days a week. There is no intraday market close between ${data.openDay ?? "Sunday"} and ${data.closeDay ?? "Friday"}`;
+  return `${data.description} cannot be traded outside the hours shown above`;
+}
+
+function alternativeAccessNote(data: InstrumentData): string {
+  if (data.is24_7) return "There is no gap risk from overnight closures for this instrument";
+  const cat = data.category.toLowerCase();
+  if (["indices", "stocks"].includes(cat))
+    return "Orders placed while the market is closed are queued and executed at the next available open price";
+  return "Orders placed while the market is closed are queued and filled at the next available open price";
+}
 
 export const revalidate = 1800;
 
@@ -20,8 +106,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!data) return { title: "Trading Hours | Afterprime" };
 
   return {
-    title: `${data.symbol} Trading Hours — When Does ${data.symbol} Open? | Afterprime`,
-    description: `${data.description} trading hours. Market opens ${data.openDay} ${data.openUtc}, closes ${data.closeDay} ${data.closeUtc}. ${data.typicalSpreadNote ?? ""}`,
+    title: `${data.symbol} Trading Hours: Open & Close Times | Afterprime`,
+    description: `${data.description} trading hours at Afterprime - session open/close times, pre-market, extended hours, and weekend status.`,
     alternates: {
       canonical: `https://afterprime.com/trading-hours/${symbol}`,
     },
@@ -57,8 +143,8 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
   const subline =
     data.openDay && data.openUtc && data.closeDay && data.closeUtc
-      ? `${data.symbol} trades ${data.openDay} ${data.openUtc} to ${data.closeDay} ${data.closeUtc} — ${schedule}.`
-      : `${data.description} — ${schedule}.`;
+      ? `${data.symbol} trades ${data.openDay} ${data.openUtc} to ${data.closeDay} ${data.closeUtc}, ${schedule}.`
+      : `${data.description}, ${schedule}.`;
 
   const faqItems = [
     {
@@ -229,7 +315,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
                 lineHeight: 1.65,
               }}
             >
-              <strong style={{ color: "#f59e0b" }}>DST note —</strong>{" "}
+              <strong style={{ color: "#f59e0b" }}>DST note:</strong>{" "}
               {data.dstNote}
             </div>
           )}
@@ -266,9 +352,84 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
         </div>
       </section>
 
+      {/* ── A. What are X trading hours? ────────────────────── */}
+      <section className="compact-section">
+        <div className="ap_container_small">
+          <h2 className="h2-size mb-6">
+            What are {data.description} trading hours?
+          </h2>
+          <p className="paragraph opacity-85">
+            {data.description} trades {tradingDaysText(data)}.
+            {data.hasDailyBreak &&
+            data.dailyBreakStartUtc &&
+            data.dailyBreakEndUtc
+              ? ` There is a daily break from ${data.dailyBreakStartUtc} to ${data.dailyBreakEndUtc} UTC.`
+              : ""}{" "}
+            Trading is{" "}
+            {data.weekendTrading || data.is24_7 ? "available" : "not available"}{" "}
+            on weekends.
+          </p>
+          <p className="paragraph opacity-85 mt-4">
+            At Afterprime, {data.description} is available as a CFD, meaning
+            you can go long or short within these hours without owning the
+            underlying asset. All times shown follow {exchangeRef(data)} and
+            adjust automatically for daylight saving changes in{" "}
+            {dstRegions(data)}.
+          </p>
+        </div>
+      </section>
+
+      {/* ── B. Best time to trade X ──────────────────────────── */}
+      {data.peakLiquiditySession && (
+        <section className="compact-section">
+          <div className="ap_container_small">
+            <h2 className="h2-size mb-6">
+              Best time to trade {data.description}
+            </h2>
+            <p className="paragraph opacity-85">
+              {data.description} typically sees its highest liquidity and
+              tightest spreads during {data.peakLiquiditySession}
+              {data.sessionOverlapStart && data.sessionOverlapEnd
+                ? ` (${data.sessionOverlapStart}–${data.sessionOverlapEnd} UTC)`
+                : ""}
+              . {peakContext(data)}.
+            </p>
+            <p className="paragraph opacity-85 mt-4">
+              Lower-volume periods, particularly {lowVolumePeriod(data)},
+              may see wider spreads and thinner order books. For traders on{" "}
+              {executionStyle(data)} strategies, timing entries around the{" "}
+              {data.peakLiquiditySession} open tends to offer the most
+              favourable conditions.
+            </p>
+          </div>
+        </section>
+      )}
+
+      {/* ── C. Outside market hours ──────────────────────────── */}
+      <section className="compact-section">
+        <div className="ap_container_small">
+          <h2 className="h2-size mb-6">
+            Can you trade {data.description} outside market hours?
+          </h2>
+          <p className="paragraph opacity-85">
+            {outsideHoursStatement(data)}. {alternativeAccessNote(data)}.
+          </p>
+          {data.swap3Day && (
+            <p className="paragraph opacity-85 mt-4">
+              If you have a pending position when the market closes, it will be
+              held overnight and a swap rate will apply.
+              {data.swapLong !== undefined && data.swapShort !== undefined
+                ? ` For ${data.description}, the current swap rates are ${data.swapLong} points long and ${data.swapShort} points short`
+                : ""}
+              {`, with a triple swap applied on ${data.swap3Day}`}.
+            </p>
+          )}
+        </div>
+      </section>
+
       {/* ── 6. FAQ block ─────────────────────────────────────── */}
       <FaqCalc
-        faqSubject={`${data.symbol} Trading Hours — FAQs`}
+        faqSubject={`${data.symbol} Trading Hours: FAQs`}
         data={faqItems}
       />
 

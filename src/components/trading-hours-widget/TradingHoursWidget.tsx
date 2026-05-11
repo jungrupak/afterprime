@@ -119,7 +119,9 @@ function computeMarketStatus(
     return Math.max(0, Math.floor((target.getTime() - now.getTime()) / 1000));
   }
 
-  const todaySessions = (sessionsTrades ?? []).filter((s) => s.dayOfWeek === apiDay);
+  const todaySessions = (sessionsTrades ?? []).filter(
+    (s) => s.dayOfWeek === apiDay,
+  );
   const currentSession = todaySessions.find(
     (s) => currentUtcMinutes >= s.open && currentUtcMinutes < s.close,
   );
@@ -301,7 +303,9 @@ export default function TradingHoursWidget({
         : "Market Closed";
 
   const todayApiDay = now ? jsUtcDayToApi(now.getUTCDay()) : -1;
-  const sessionMap = new Map((sessionsTrades ?? []).map((s) => [s.dayOfWeek, s]));
+  const sessionMap = new Map(
+    (sessionsTrades ?? []).map((s) => [s.dayOfWeek, s]),
+  );
 
   const sessionCards = [
     sessionAsiaOpen && {
@@ -431,9 +435,10 @@ export default function TradingHoursWidget({
         </div>
 
         {hasDailyBreak && dailyBreakStartUtc && dailyBreakEndUtc && (
-          <p className={styles.breakNote}>
-            Daily break: {dailyBreakStartUtc} – {dailyBreakEndUtc}
-          </p>
+          <div className={`${styles.breakInfoPill} mt-5 max-md:w-full`}>
+            <span className={styles.dot} />
+            <b>Daily break</b> · {dailyBreakStartUtc} – {dailyBreakEndUtc} UTC
+          </div>
         )}
       </div>
 

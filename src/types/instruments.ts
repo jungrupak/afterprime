@@ -38,4 +38,7 @@ export interface InstrumentData {
   typicalSpreadNote?: string;
   dstNote?: string;
   lastUpdated?: string;
+  sessionOverlapContext?: string;
+  lowVolumePeriod?: string;
+  executionStyle?: string;
 }
