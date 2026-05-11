@@ -119,7 +119,7 @@ function computeMarketStatus(
     return Math.max(0, Math.floor((target.getTime() - now.getTime()) / 1000));
   }
 
-  const todaySessions = sessionsTrades.filter((s) => s.dayOfWeek === apiDay);
+  const todaySessions = (sessionsTrades ?? []).filter((s) => s.dayOfWeek === apiDay);
   const currentSession = todaySessions.find(
     (s) => currentUtcMinutes >= s.open && currentUtcMinutes < s.close,
   );
@@ -169,7 +169,7 @@ function computeMarketStatus(
     const checkDate = new Date(now);
     checkDate.setUTCDate(checkDate.getUTCDate() + daysAhead);
     const checkApiDay = jsUtcDayToApi(checkDate.getUTCDay());
-    const sessions = sessionsTrades
+    const sessions = (sessionsTrades ?? [])
       .filter((s) => s.dayOfWeek === checkApiDay)
       .sort((a, b) => a.open - b.open);
 
@@ -301,7 +301,7 @@ export default function TradingHoursWidget({
         : "Market Closed";
 
   const todayApiDay = now ? jsUtcDayToApi(now.getUTCDay()) : -1;
-  const sessionMap = new Map(sessionsTrades.map((s) => [s.dayOfWeek, s]));
+  const sessionMap = new Map((sessionsTrades ?? []).map((s) => [s.dayOfWeek, s]));
 
   const sessionCards = [
     sessionAsiaOpen && {
@@ -345,7 +345,7 @@ export default function TradingHoursWidget({
           )}
 
           {/* Weekly open / close schedule */}
-          {openDay ? (
+          {/* {openDay ? (
             <>
               {" "}
               {openDay && openUtc && (
@@ -368,11 +368,11 @@ export default function TradingHoursWidget({
                 </span>
               )}
             </>
-          )}
-          {/* <span className={styles.dateTime}>
-            {dateStr}
+          )} */}
+          <span className={styles.dateTime}>
+            <span className={`opacity-65`}>{dateStr}</span>{" "}
             <span>{timeStr}</span>
-          </span> */}
+          </span>
         </div>
 
         {/* Timezone row */}

@@ -102,13 +102,13 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
               <span aria-hidden="true">›</span>
               <span>{data.symbol}</span>
             </nav>
-            <h1 className="h1-size max-w-[800px]">
+            <h1 className="h1-size max-w-[1200px]">
               <span className="font-[600]">
                 {data.description} trading hours
               </span>
             </h1>
             <div
-              className="paragraph max-w-[600px] lg:mt-8 opacity-80"
+              className="paragraph max-w-[1200px] lg:mt-8 opacity-80"
               style={{ fontWeight: 300 }}
             >
               {subline}
@@ -121,7 +121,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
       <section className="compact-section">
         <div className="ap_container_small">
           <TradingHoursWidget
-            sessionsTrades={data.sessionsTrades}
+            sessionsTrades={data.sessionsTrades ?? []}
             hasDailyBreak={data.hasDailyBreak}
             dailyBreakStartUtc={data.dailyBreakStartUtc}
             dailyBreakEndUtc={data.dailyBreakEndUtc}
@@ -139,14 +139,13 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
           {/* ── 4. Two info pills ─────────────────────────────────── */}
           {(data.swap3Day || data.typicalSpreadNote) && (
-            <div className="flex flex-wrap gap-4">
+            <div className="flex gap-4">
               {data.swap3Day && (
                 <div
-                  className="flex items-start gap-3 rounded-2xl px-5 py-4 text-sm"
+                  className="flex flex-1 items-start gap-3 rounded-2xl px-5 py-4 text-sm"
                   style={{
                     background: "rgba(255,255,255,0.04)",
                     border: "1px solid rgba(255,255,255,0.09)",
-                    maxWidth: "420px",
                   }}
                 >
                   {/* calendar icon */}
@@ -168,10 +167,10 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
                     <line x1="3" y1="10" x2="21" y2="10" />
                   </svg>
                   <div>
-                    <p className="opacity-55 mb-1 text-xs uppercase tracking-widest">
+                    <p className=" mb-2 text-[clamp(14px_,5vw_,16px)] opacity-55 ">
                       Triple swap day
                     </p>
-                    <p className="leading-snug">
+                    <p className="leading-snug  text-[clamp(16px_,5vw_,18px)]">
                       Swap charges are applied at 3× on{" "}
                       <strong>{data.swap3Day}</strong> to cover the weekend
                       rollover.
@@ -182,11 +181,10 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
               {data.typicalSpreadNote && (
                 <div
-                  className="flex items-start gap-3 rounded-2xl px-5 py-4 text-sm"
+                  className="flex flex-1 items-start gap-3 rounded-2xl px-5 py-4 text-sm"
                   style={{
                     background: "rgba(255,255,255,0.04)",
                     border: "1px solid rgba(255,255,255,0.09)",
-                    maxWidth: "420px",
                   }}
                 >
                   {/* clock icon */}
@@ -206,10 +204,12 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
                     <polyline points="12 6 12 12 16 14" />
                   </svg>
                   <div>
-                    <p className="opacity-55 mb-1 text-xs uppercase tracking-widest">
+                    <p className="mb-2 text-[clamp(14px_,5vw_,16px)] opacity-55">
                       Spread behaviour
                     </p>
-                    <p className="leading-snug">{data.typicalSpreadNote}</p>
+                    <p className="leading-snug text-[clamp(16px_,5vw_,18px)]">
+                      {data.typicalSpreadNote}
+                    </p>
                   </div>
                 </div>
               )}
@@ -243,13 +243,18 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
             >
               {data.symbol} swap rates →
             </Link>
-            <Link
-              href={instrumentHref}
-              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
-              style={{ borderColor: "rgba(255,255,255,0.15)" }}
-            >
-              {data.symbol} instrument page →
-            </Link>
+            {data.category === "Forex" && (
+              <>
+                <Link
+                  href={instrumentHref}
+                  className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+                  style={{ borderColor: "rgba(255,255,255,0.15)" }}
+                >
+                  {data.symbol} instrument page →
+                </Link>
+              </>
+            )}
+
             <Link
               href="/trading-hours"
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
