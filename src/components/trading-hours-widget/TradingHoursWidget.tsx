@@ -373,7 +373,7 @@ export default function TradingHoursWidget({
               )}
             </>
           )} */}
-          <span className={styles.dateTime}>
+          <span className={`${styles.dateTime} md:ml-auto`}>
             <span className={`opacity-65`}>{dateStr}</span>{" "}
             <span>{timeStr}</span>
           </span>

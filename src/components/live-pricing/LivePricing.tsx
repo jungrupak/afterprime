@@ -77,7 +77,9 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
 
           <div className={`${styles.ap_tab_container}`}>
             {activeTabContentID === activeTabContentID && (
-              <div className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}>
+              <div
+                className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}
+              >
                 <table className="">
                   <caption className={`hidden`}>
                     Beyond Zero-Commission, Get Paid to Trade. Popular
@@ -126,7 +128,10 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
                                   alt={`${item.symbol} ${item.group}`}
                                 />
                               </div>
-                              <a href={"/forex/" + item.symbol.toLowerCase()}>
+                              <a
+                                href={"/forex/" + item.symbol.toLowerCase()}
+                                className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                              >
                                 {item.symbol}
                               </a>
                             </div>
