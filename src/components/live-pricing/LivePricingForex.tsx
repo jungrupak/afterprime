@@ -64,7 +64,7 @@ export function LivePricingForex({
           </div>
           <div className={`${styles.ap_tab_container}`}>
             {activeTabContentID === activeTabContentID && (
-              <div className={`${styles.livepricing_table_wrapper}`}>
+              <div className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}>
                 <table className="">
                   <thead>
                     <tr className="">
@@ -72,7 +72,7 @@ export function LivePricingForex({
                       <th className="px-4 py-2">Bid</th>
                       <th className="px-4 py-2">Ask</th>
                       <th className="px-4 py-2">Spread</th>
-                      <th className="px-4 py-2">Market</th>
+                      <th className="px-4 py-2">Market Hours</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -142,20 +142,19 @@ export function LivePricingForex({
                         <td className="px-4 py-2 " t-name="Spread">
                           {item.spread}
                         </td>
-                        <td className="px-4 py-2 " t-name="Market">
+                        <td className="px-4 py-2 " t-name="Market Hours">
                           <div
-                            className={`flex gap-4 md:justify-end text-[16px] items-center`}
+                            className={`flex md:justify-end text-[16px] items-center`}
                           >
-                            <span
-                              className={
-                                item.market.toLowerCase() === "open"
-                                  ? "text-green-400"
-                                  : "text-red-400"
+                            <Link
+                              href={
+                                "/trading-hours/" + item.symbol.toLowerCase()
                               }
                             >
-                              {item.market.charAt(0).toUpperCase() +
-                                item.market.slice(1).toLowerCase()}
-                            </span>
+                              <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
+                                Trading Hours
+                              </span>
+                            </Link>
                           </div>
                         </td>
                       </tr>
