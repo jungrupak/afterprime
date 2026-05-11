@@ -64,7 +64,9 @@ export function LivePricingForex({
           </div>
           <div className={`${styles.ap_tab_container}`}>
             {activeTabContentID === activeTabContentID && (
-              <div className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}>
+              <div
+                className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}
+              >
                 <table className="">
                   <thead>
                     <tr className="">
@@ -99,7 +101,10 @@ export function LivePricingForex({
                                   alt={`${item.symbol} ${item.group}`}
                                 />
                               </div>
-                              <a href={"/trade/" + item.symbol.toLowerCase()}>
+                              <a
+                                href={"/trade/" + item.symbol.toLowerCase()}
+                                className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                              >
                                 {item.symbol}
                               </a>
                             </div>

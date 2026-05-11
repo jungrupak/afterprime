@@ -244,10 +244,10 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
           {/* ── 4. Two info pills ─────────────────────────────────── */}
           {(data.swap3Day || data.typicalSpreadNote) && (
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4">
               {data.swap3Day && (
                 <div
-                  className="flex flex-1 items-start gap-3 rounded-2xl px-5 py-4 text-sm"
+                  className="flex md:flex-1 items-start gap-3 rounded-2xl px-5 py-4 text-sm"
                   style={{
                     background: "rgba(255,255,255,0.04)",
                     border: "1px solid rgba(255,255,255,0.09)",
@@ -286,7 +286,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
               {data.typicalSpreadNote && (
                 <div
-                  className="flex flex-1 items-start gap-3 rounded-2xl px-5 py-4 text-sm"
+                  className="flex md:flex-1 items-start gap-3 rounded-2xl px-5 py-4 text-sm"
                   style={{
                     background: "rgba(255,255,255,0.04)",
                     border: "1px solid rgba(255,255,255,0.09)",

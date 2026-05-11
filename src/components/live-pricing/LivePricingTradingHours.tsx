@@ -74,7 +74,9 @@ export function LivePricingTradingHours({
 
           <div className={`${styles.ap_tab_container}`}>
             {activeTabContentID === activeTabContentID && (
-              <div className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}>
+              <div
+                className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}
+              >
                 <table className="">
                   <caption className={`hidden`}>
                     Beyond Zero-Commission, Get Paid to Trade. Popular
