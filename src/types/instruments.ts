@@ -22,7 +22,7 @@ export interface InstrumentData {
   closeUtc?: string;
   openDay?: string;
   closeDay?: string;
-  sessionsTrades: SessionTrade[];
+  sessionsTrades: SessionTrade[] | null;
   hasDailyBreak: boolean;
   dailyBreakStartUtc?: string;
   dailyBreakEndUtc?: string;
