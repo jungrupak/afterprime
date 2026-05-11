@@ -437,7 +437,7 @@ export default function TradingHoursWidget({
         {hasDailyBreak && dailyBreakStartUtc && dailyBreakEndUtc && (
           <div className={`${styles.breakInfoPill} mt-5 max-md:w-full`}>
             <span className={styles.dot} />
-            <b>Daily break</b> · {dailyBreakStartUtc} – {dailyBreakEndUtc} UTC
+            <b>Daily break</b> · {dailyBreakStartUtc} – {dailyBreakEndUtc}
           </div>
         )}
       </div>
