@@ -213,6 +213,36 @@
   }
 }
 
+.trading_hours_table {
+  @media all and (max-width: 767px) {
+    table tbody tr {
+      td:nth-child(1) {
+        flex: 0 0 60% !important;
+      }
+      td:nth-child(5) {
+        display: flex !important;
+        order: 1;
+        flex: 0 0 40% !important;
+        background-color: rgba(var(--alphaWhite), 0.14) !important;
+        align-items: center;
+        justify-content: flex-end;
+        min-width: 0 !important;
+
+        &:before {
+          display: none;
+        }
+
+        > div {
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 2px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
 .indAverageCompareOpen {
   color: var(--secondary-color);
   cursor: pointer;

@@ -1,6 +1,6 @@
 "use client";
 import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
-
+import Link from "next/link";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import { Loader } from "../Loading/Loading";
@@ -21,12 +21,14 @@ export function LivePricingCrypto({
 
   return (
     <div>
-    <div className="w-full text-center px-6">
-      <h2 className="h2-size mb-6">
+      <div className="w-full text-center px-6">
+        <h2 className="h2-size mb-6">
           Lowest <span>Crypto Costs.</span>
         </h2>
-      <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Stop losing your margin to exchange fees. Trade on Crypto CFDs. We offer raw spreads with zero commissions - plus, earn up to $3/lot back via Flow Rewards™ on Bitcoin.
+        <p className="paragraph mb-20 max-md:mb-10 opacity-90">
+          Stop losing your margin to exchange fees. Trade on Crypto CFDs. We
+          offer raw spreads with zero commissions - plus, earn up to $3/lot back
+          via Flow Rewards™ on Bitcoin.
         </p>
       </div>
 
@@ -35,7 +37,7 @@ export function LivePricingCrypto({
       {hasInitialTableData && (
         <div className={`${styles.ap_tab}`}>
           <div className={`${styles.ap_tab_container}`}>
-            <div className={`${styles.livepricing_table_wrapper}`}>
+            <div className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}>
               <table className="">
                 <thead>
                   <tr className="">
@@ -43,7 +45,7 @@ export function LivePricingCrypto({
                     <th className="px-4 py-2">Bid</th>
                     <th className="px-4 py-2">Ask</th>
                     <th className="px-4 py-2">Spread</th>
-                    <th className="px-4 py-2">Market</th>
+                    <th className="px-4 py-2">Market Hours</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -72,8 +74,18 @@ export function LivePricingCrypto({
                       <td className="px-4 py-2 " t-name="Spread">
                         {item.spread}
                       </td>
-                      <td className="px-4 py-2 " t-name="Market">
-                        {item.market}
+                      <td className="px-4 py-2 " t-name="Market Hours">
+                        <div
+                          className={`flex md:justify-end text-[16px] items-center`}
+                        >
+                          <Link
+                            href={"/trading-hours/" + item.symbol.toLowerCase()}
+                          >
+                            <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
+                              Trading Hours
+                            </span>
+                          </Link>
+                        </div>
                       </td>
                     </tr>
                   ))}

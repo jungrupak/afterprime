@@ -1,5 +1,6 @@
 "use client";
 import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
+import Link from "next/link";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import { Loader } from "../Loading/Loading";
@@ -24,7 +25,8 @@ export function LivePricingStocks({
           Keep More, <span>Earn More.</span>
         </h2>
         <p className="paragraph max-w-2xl mx-auto mb-20 max-md:mb-10 opacity-90">
-          Lowest all-in trading costs, plus Flow Rewards<sup>TM</sup> that pay you per lot traded.
+          Lowest all-in trading costs, plus Flow Rewards<sup>TM</sup> that pay
+          you per lot traded.
         </p>
       </div>
 
@@ -33,7 +35,7 @@ export function LivePricingStocks({
       {hasInitialTableData && (
         <div className={`${styles.ap_tab}`}>
           <div className={`${styles.ap_tab_container}`}>
-            <div className={`${styles.livepricing_table_wrapper}`}>
+            <div className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}>
               <table className="">
                 <thead>
                   <tr className="">
@@ -41,7 +43,7 @@ export function LivePricingStocks({
                     <th className="px-4 py-2">Bid</th>
                     <th className="px-4 py-2">Ask</th>
                     <th className="px-4 py-2">Spread</th>
-                    <th className="px-4 py-2">Market</th>
+                    <th className="px-4 py-2">Market Hours</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -72,8 +74,18 @@ export function LivePricingStocks({
                       <td className="px-4 py-2 " t-name="Spread">
                         {item.spread}
                       </td>
-                      <td className="px-4 py-2 " t-name="Market">
-                        {item.market}
+                      <td className="px-4 py-2 " t-name="Market Hours">
+                        <div
+                          className={`flex md:justify-end text-[16px] items-center`}
+                        >
+                          <Link
+                            href={"/trading-hours/" + item.symbol.toLowerCase()}
+                          >
+                            <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
+                              Trading Hours
+                            </span>
+                          </Link>
+                        </div>
                       </td>
                     </tr>
                   ))}

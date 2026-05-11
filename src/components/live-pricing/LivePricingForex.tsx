@@ -64,7 +64,9 @@ export function LivePricingForex({
           </div>
           <div className={`${styles.ap_tab_container}`}>
             {activeTabContentID === activeTabContentID && (
-              <div className={`${styles.livepricing_table_wrapper}`}>
+              <div
+                className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}
+              >
                 <table className="">
                   <thead>
                     <tr className="">
@@ -72,7 +74,7 @@ export function LivePricingForex({
                       <th className="px-4 py-2">Bid</th>
                       <th className="px-4 py-2">Ask</th>
                       <th className="px-4 py-2">Spread</th>
-                      <th className="px-4 py-2">Market</th>
+                      <th className="px-4 py-2">Market Hours</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -99,7 +101,10 @@ export function LivePricingForex({
                                   alt={`${item.symbol} ${item.group}`}
                                 />
                               </div>
-                              <a href={"/trade/" + item.symbol.toLowerCase()}>
+                              <a
+                                href={"/trade/" + item.symbol.toLowerCase()}
+                                className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                              >
                                 {item.symbol}
                               </a>
                             </div>
@@ -142,8 +147,20 @@ export function LivePricingForex({
                         <td className="px-4 py-2 " t-name="Spread">
                           {item.spread}
                         </td>
-                        <td className="px-4 py-2 " t-name="Market">
-                          {item.market}
+                        <td className="px-4 py-2 " t-name="Market Hours">
+                          <div
+                            className={`flex md:justify-end text-[16px] items-center`}
+                          >
+                            <Link
+                              href={
+                                "/trading-hours/" + item.symbol.toLowerCase()
+                              }
+                            >
+                              <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
+                                Trading Hours
+                              </span>
+                            </Link>
+                          </div>
                         </td>
                       </tr>
                     ))}

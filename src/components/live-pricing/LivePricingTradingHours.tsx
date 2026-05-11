@@ -12,13 +12,14 @@ interface LivePricingAllProps {
   initialPrices?: PricesObjects[];
 }
 
-export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
+export function LivePricingTradingHours({
+  initialPrices = [],
+}: LivePricingAllProps) {
   const { categories, status } = useLivePrices(initialPrices);
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
 
   const pricingCatLists = [
-    categories.popular,
     categories.forex,
     categories.crypto,
     categories.commodities,
@@ -28,7 +29,6 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
   ];
 
   const tabNavs = [
-    "Popular",
     "Forex",
     "Crypto",
     "Commodities",
@@ -49,10 +49,7 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
           Beyond Zero-Commission, <span>Get Paid to Trade.</span>
         </h2>
         <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Most brokers hide their profit in the spread. We do the opposite. We
-          combine the industry’s tightest raw spreads with Flow Rewards
-          <sup>TM</sup> paying you up to $3/lot back on your volume. We don't
-          just lower your costs; we turn your execution into a revenue stream.
+          Get updated on Instruments Trading Hours.
         </p>
       </div>
 

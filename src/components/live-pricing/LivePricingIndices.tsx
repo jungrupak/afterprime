@@ -1,5 +1,6 @@
 "use client";
 import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
+import Link from "next/link";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import { Loader } from "../Loading/Loading";
@@ -20,12 +21,14 @@ export function LivePricingIndices({
 
   return (
     <div>
-    <div className="w-full text-center px-6">
-      <h2 className="h2-size mb-6">
+      <div className="w-full text-center px-6">
+        <h2 className="h2-size mb-6">
           The Lowest <span>Verified Index Costs.</span>
         </h2>
-      <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Stop overpaying for your exposure. We combine raw spreads with zero commissions across our entire index suite - plus, earn up to $1/lot back via Flow Rewards™ on high-volume like the US500 and DXY.
+        <p className="paragraph mb-20 max-md:mb-10 opacity-90">
+          Stop overpaying for your exposure. We combine raw spreads with zero
+          commissions across our entire index suite - plus, earn up to $1/lot
+          back via Flow Rewards™ on high-volume like the US500 and DXY.
         </p>
       </div>
 
@@ -34,7 +37,7 @@ export function LivePricingIndices({
       {hasInitialTableData && (
         <div className={`${styles.ap_tab}`}>
           <div className={`${styles.ap_tab_container}`}>
-            <div className={`${styles.livepricing_table_wrapper}`}>
+            <div className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}>
               <table className="">
                 <thead>
                   <tr className="">
@@ -42,13 +45,14 @@ export function LivePricingIndices({
                     <th className="px-4 py-2">Bid</th>
                     <th className="px-4 py-2">Ask</th>
                     <th className="px-4 py-2">Spread</th>
-                    <th className="px-4 py-2">Market</th>
+                    <th className="px-4 py-2">Market Hours</th>
                   </tr>
                 </thead>
                 <tbody>
                   {pricingCatLists[0]
                     .filter(
-                      (item) => !["CA60", "SA40", "NOR25"].includes(item.symbol)
+                      (item) =>
+                        !["CA60", "SA40", "NOR25"].includes(item.symbol),
                     )
                     .map((item, index) => (
                       <tr key={index} className="">
@@ -75,8 +79,20 @@ export function LivePricingIndices({
                         <td className="px-4 py-2 " t-name="Spread">
                           {item.spread}
                         </td>
-                        <td className="px-4 py-2 " t-name="Market">
-                          {item.market.toUpperCase()}
+                        <td className="px-4 py-2 " t-name="Market Hours">
+                          <div
+                            className={`flex md:justify-end text-[16px] items-center`}
+                          >
+                            <Link
+                              href={
+                                "/trading-hours/" + item.symbol.toLowerCase()
+                              }
+                            >
+                              <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
+                                Trading Hours
+                              </span>
+                            </Link>
+                          </div>
                         </td>
                       </tr>
                     ))}
