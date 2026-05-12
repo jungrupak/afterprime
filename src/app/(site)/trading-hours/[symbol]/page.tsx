@@ -355,7 +355,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
                   className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >
-                  {data.symbol} instrument page →
+                  {data.symbol} specifications →
                 </Link>
               </>
             )}
