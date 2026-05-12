@@ -15,7 +15,6 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -51,7 +50,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -87,7 +86,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -123,7 +122,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -159,7 +158,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -195,7 +194,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -231,7 +230,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -267,7 +266,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -303,7 +302,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -339,7 +338,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -375,7 +374,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -411,7 +410,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -447,7 +446,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -483,7 +482,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -519,7 +518,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -555,7 +554,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -591,7 +590,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -627,7 +626,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -663,7 +662,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -699,7 +698,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -735,7 +734,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -771,7 +770,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -807,7 +806,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -843,7 +842,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -879,7 +878,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -915,7 +914,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -951,7 +950,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -987,7 +986,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1023,7 +1022,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1059,7 +1058,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1095,7 +1094,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1131,7 +1130,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1167,7 +1166,7 @@ export const AP_FX_PAIRS = [
     "MT4": "N",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1203,7 +1202,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1239,7 +1238,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1275,7 +1274,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1311,7 +1310,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1347,7 +1346,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1383,7 +1382,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1419,7 +1418,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1455,7 +1454,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1491,7 +1490,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1527,7 +1526,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1563,7 +1562,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1599,7 +1598,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1635,7 +1634,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1671,7 +1670,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1707,7 +1706,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1743,7 +1742,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1779,7 +1778,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1815,7 +1814,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1851,7 +1850,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1887,7 +1886,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1923,7 +1922,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1959,7 +1958,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -1995,7 +1994,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -2031,7 +2030,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",
@@ -2067,7 +2066,7 @@ export const AP_FX_PAIRS = [
     "MT4": "Y",
     "MT5": "Y",
     "Web": "Y",
-    "Traderevolution": "Y",
+
     "Desktop": "Y",
     "Mobile": "Y",
     "FIX API": "Y",

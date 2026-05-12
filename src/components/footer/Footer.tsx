@@ -96,18 +96,6 @@ export default function Footer() {
                   alt="Afterprime iOS App"
                 />
               </Link>
-              <Link
-                href="https://play.google.com/store/apps/details?id=com.traderevolution.afterprime"
-                target="_blank"
-                className="block"
-              >
-                <Image
-                  width={112}
-                  height={38}
-                  src="/img/app-download-android.png"
-                  alt="Afterprime Android App"
-                />
-              </Link>
             </div>
           </div>
           <div className={`${styles.footer_links} order-2`}>
@@ -172,9 +160,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/webtrader">Webtrader</Link>
-              </li>
-              <li>
-                <Link href="/traderevolution">TraderEvolution</Link>
               </li>
               <li>
                 <Link href="/fix-api">FIX API</Link>

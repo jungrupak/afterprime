@@ -14,7 +14,6 @@ type ForexPair = {
     "MT4": string,
     "MT5": string,
     "Web": string,
-    "Traderevolution": string,
     "Desktop": string,
     "Mobile": string,
     "FIX API": string,

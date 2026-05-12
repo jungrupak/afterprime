@@ -79,7 +79,6 @@ https://afterprime.com/trade/{symbol}
 - [Swaps](https://afterprime.com/swaps) - AfterPrime delivers competitive overnight financing with the lowest total costs - verified by Forexbenchmark.
 - [Privacy](https://afterprime.com/privacy) - AfterPrime privacy policy: learn how we collect, use, and protect your personal data. Our commitment to trader privacy, data security, and GDPR compliance.
 - [WebTrader](https://afterprime.com/platforms/webtrader) - Trade forex from any browser, any device. Sub-1ms execution, ForexBenchmark-verified lowest costs, and Flow Rewards. No software needed.
-- [TraderEvolution](https://afterprime.com/platforms/traderevolution) - Trade on TradeRevolution with AfterPrime's lowest costs and ultra-fast execution. Advanced charting, multi-asset trading, and Flow Rewards cashback. Try now.
 - [Metatrader 5](https://afterprime.com/platforms/mt5) - Trade on MetaTrader 5 with AfterPrime's ultra-fast execution and lowest costs. MT5 platform with advanced charting, algo trading, and Flow Rewards integration.
 - [MetaTrader 4](https://afterprime.com/platforms/mt4) - Trade on MT4 with the world's lowest total costs. AfterPrime offers sub-millisecond execution, full EA support, custom indicators, and Flow Rewards.
 - [FIX API](https://afterprime.com/platforms/fix-api) - FIX API for institutional and algo traders. Sub-1ms execution, direct market access, and the lowest total costs verified by ForexBenchmark. Enterprise-grade.

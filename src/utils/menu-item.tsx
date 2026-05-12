@@ -102,10 +102,6 @@ export const MegaMenuItems = [
             pageUrl: "/mt4",
           },
           {
-            menuItem: "TraderEvolution",
-            pageUrl: "/traderevolution",
-          },
-          {
             menuItem: "WebTrader",
             pageUrl: "/webtrader",
           },

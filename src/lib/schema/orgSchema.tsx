@@ -105,12 +105,7 @@ export default function AfterprimeOrgSchema() {
         "@type": "Offer",
         name: "MetaTrader 5 Platform",
         url: "https://afterprime.com/mt5",
-      },
-      {
-        "@type": "Offer",
-        name: "TradeRevolution Platform",
-        url: "https://afterprime.com/traderevolution",
-      },
+      }
       {
         "@type": "Offer",
         name: "WebTrader Platform",
@@ -126,12 +121,6 @@ export default function AfterprimeOrgSchema() {
         name: "AfterPrime iOS App",
         url: "https://apps.apple.com/us/app/afterprime/id1672935764",
         description: "Free mobile trading app for iOS",
-      },
-      {
-        "@type": "Offer",
-        name: "AfterPrime Android App",
-        url: "https://play.google.com/store/apps/details?id=com.traderevolution.afterprime",
-        description: "Free mobile trading app for Android",
       },
     ],
     areaServed: {
@@ -194,7 +183,6 @@ export default function AfterprimeOrgSchema() {
       "Day Trading",
       "MetaTrader 4",
       "MetaTrader 5",
-      "TradeRevolution",
       "WebTrader",
       "FIX API Trading",
       "Trading Cost Analysis",
