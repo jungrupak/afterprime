@@ -309,6 +309,13 @@ export type PageFieldGroups = {
     execution_quality_rational?:Record<string,string> // instead of writing "{}" for object items
     lp_cta?:Record<string,string>
   }
+  instrument_single_page_fields?: {
+    hero_paragraph_one?: string;
+    hero_paragraph_two?: string;
+    page_schema?: string;
+    page_builder?: { acf_fc_layout: string; [key: string]: unknown }[];
+    glossary_content_block?: { title: string; paragraph: string }[];
+  };
   //Custom fields for calculator slug pages
   calculator_page_fields?:{
     intro_paragraph?: string;
