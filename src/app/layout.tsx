@@ -29,6 +29,13 @@ export default function RootLayout({
         <link rel="preconnect" href="https://cdn.afterprime.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://cdn.segment.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <script src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js" async></script>
+        <script>
+        window.WonderPush = window.WonderPush || [];
+        WonderPush.push(["init", {
+        webKey: "9552eec3af81d433db923f72e6959b9cdd8021e508daf2a7dbb31bf3755702a7",
+        }]);
+        </script>
       </head>
       <body className={`${blinker.className} antialiased`}>
         <VideoBackground />
