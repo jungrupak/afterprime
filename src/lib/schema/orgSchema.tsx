@@ -105,7 +105,7 @@ export default function AfterprimeOrgSchema() {
         "@type": "Offer",
         name: "MetaTrader 5 Platform",
         url: "https://afterprime.com/mt5",
-      }
+      },
       {
         "@type": "Offer",
         name: "WebTrader Platform",
