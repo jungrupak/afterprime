@@ -1,11 +1,6 @@
 import Link from "next/link";
 import styles from "./PlatformCards.module.scss";
-import { Blocks } from "@/types/blocks";
-
-type PropData = Blocks["platform-cards-section-static"];
-
-export function SectionCardsBigStatic(props: PropData) {
-  const { platforms_cards } = props;
+export function SectionCardsBigStatic() {
 
   return (
     <section
@@ -84,7 +79,6 @@ export function SectionCardsBigStatic(props: PropData) {
             </div>
           </div>
           
-          </div>
           <div className={`${styles.cardItem} ${styles.cardRegular}`}>
             <h3>FIX API</h3>
             <p>
