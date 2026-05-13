@@ -11,6 +11,7 @@ import Author from "@/components/AuthorForInstrumentPage/Author";
 import { BottomCta } from "@/components/acfFieldGroups/bottom-cta/BottomCta";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 import type { WPPage } from "@/types/blocks";
+import Link from "next/link";
 
 export const revalidate = 60;
 
@@ -145,6 +146,25 @@ export default async function ForexSlugPage({ params }: Props) {
           )}
           <div className={`mt-5 md:mt-8`}>
             <Author />
+          </div>
+
+          <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
+            <Link
+              href={`/trade/${slug.toLowerCase()}`}
+              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+            >
+              Trade {slug.toUpperCase()}
+              {""} →
+            </Link>
+
+            <Link
+              href={`/trading-hours/${slug.toLowerCase()}`}
+              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+            >
+              {slug.toUpperCase()} trading hours {""}→
+            </Link>
           </div>
         </div>
       </section>

@@ -11,6 +11,7 @@ import FaqSchema from "@/lib/schema/faqSchema";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import { metaDataHelper } from "./metaDataHelper";
 import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
+import Link from "next/link";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -105,6 +106,23 @@ export default async function TradeSlugPage({ params }: PageProps) {
             rationalData={rationalData}
           />
           <CostBreakdown instrument={page.slug} />
+          <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
+            <Link
+              href={`/forex/${page.slug.toLowerCase()}`}
+              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+            >
+              {page.slug.toUpperCase()} Specification {""} →
+            </Link>
+
+            <Link
+              href={`/trading-hours/${page.slug.toLowerCase()}`}
+              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+            >
+              {page.slug.toUpperCase()} trading hours {""} →
+            </Link>
+          </div>
           <Faq
             data={customFieldFaqBlock}
             faqSubject="FAQ"

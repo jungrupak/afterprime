@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { useTodayDate } from "@/hooks/useTodayDate";
 import SwapCalculatorInline from "./SwapCalculatorInline";
 import Accordion from "@/utils/accordion/Accordion";
+import Link from "next/link";
 
 //####
 type PageProps = {
@@ -184,6 +185,24 @@ export default async function Page({ params }: PageProps) {
             swapLong={swapLong}
             swapShort={swapShort}
           />
+
+          <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
+            <Link
+              href={`/forex/${symbolName.toLowerCase()}`}
+              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+            >
+              {symbolName.toUpperCase()} Specification {""} →
+            </Link>
+
+            <Link
+              href={`/trading-hours/${symbolName.toLowerCase()}`}
+              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+            >
+              {symbolName.toUpperCase()} trading hours {""}→
+            </Link>
+          </div>
 
           <div className={`${styles.faq_block} mb-0! mt-10 md:mt-20`}>
             <h2 className="text-[34px] font-[700] mb-10">
