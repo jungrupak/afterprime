@@ -38,7 +38,7 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
   ];
 
   const visibleRows = pricingCatLists[activeTabNav].filter(
-    (item) => !["CA60", "SA40", "NOR25", "XCUUSD"].includes(item.symbol),
+    (item) => !["CA60", "SA40", "NOR25"].includes(item.symbol),
   );
   const hasInitialTableData = pricingCatLists.some((items) => items.length > 0);
 

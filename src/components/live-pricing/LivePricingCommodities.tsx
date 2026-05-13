@@ -24,6 +24,8 @@ export function LivePricingCommodities({
   const tabNavs = ["Commodities", "Metals"];
   const hasInitialTableData = pricingCatLists.some((items) => items.length > 0);
 
+  console.log("data", pricingCatLists);
+
   return (
     <div>
       <div className="w-full text-center px-6">
@@ -58,7 +60,9 @@ export function LivePricingCommodities({
 
           <div className={`${styles.ap_tab_container}`}>
             {activeTabContentID === activeTabContentID && (
-              <div className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}>
+              <div
+                className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}
+              >
                 <table className="">
                   <thead>
                     <tr className="">
@@ -71,7 +75,7 @@ export function LivePricingCommodities({
                   </thead>
                   <tbody>
                     {pricingCatLists[activeTabNav]
-                      .filter((item) => !["XCUUSD"].includes(item.symbol))
+                      //.filter((item) => !["XCUUSD"].includes(item.symbol))
                       .map((item, index) => (
                         <tr key={index} className="">
                           <td className="px-4 py-2 " t-name="Symbol">
