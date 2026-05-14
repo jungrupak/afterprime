@@ -35,7 +35,7 @@ export async function metaDataHelper(instrument: string) : Promise<MetaDataResul
 
 
   try {
-    const res = await fetch(`https://feed.afterprime.com/api/symbol/${instrument}`, {
+    const res = await fetch(`https://feed.afterprime.com/api/symbol/${instrument.toUpperCase()}`, {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
         "Accept": "application/json",

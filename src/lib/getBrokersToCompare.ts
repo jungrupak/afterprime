@@ -33,15 +33,18 @@ export async function getBrokerCompareData(
 
   try {
     const res = await fetch(
-      `https://feed.afterprime.com/api/symbol/${symbol}`,
+      `https://feed.afterprime.com/api/symbol/${symbol.toUpperCase()}`,
       {
         next: { revalidate: 43200 }, // revalidate cache every 12 hrs       
       }
     );
 
     if (!res.ok) {
-      console.error(`API fetch failed (status ${res.status})`);
-      return null; // return null on failed fetch
+      const body = await res.json().catch(() => null);
+      if (body?.error !== "unsupported_symbol") {
+        console.error(`API fetch failed (status ${res.status})`);
+      }
+      return null;
     }
 
     const data: BrokerIndividualDataType = await res.json();

@@ -14,9 +14,7 @@ export default async function CostComparison({
     typeof value === "number" && Number.isFinite(value) ? value : fallback;
 
   const compareData = await getBrokerCompareData(instrument);
-  if (!compareData) {
-    throw new Error("Failed to fetch cost comparison data");
-  }
+  if (!compareData) return null;
 
   //Hide this component if below condition matches
   if (compareData?.industryVsAfterprimeAvgPct === 0) return;

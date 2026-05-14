@@ -93,7 +93,7 @@ export default function CostSavingsCalculatorInstrument({
       try {
         setLoading(true);
         const response = await fetch(
-          `https://feed.afterprime.com/api/symbol/${instrument}`,
+          `https://feed.afterprime.com/api/symbol/${instrument.toUpperCase()}`,
         );
 
         if (!response.ok) {
