@@ -16,8 +16,9 @@ export default function ProductSpecification({ instrument }: Specification) {
   // ####
   const specData = [...AP_FX_PAIRS]; //spreading this since we gonna have other pairs type in future like crypto, indices etc..
   const selectedInstrument = specData.find(
-    (item) => item.Symbol === instrument,
+    (item) => item.Symbol === instrument.toLowerCase(),
   );
+
   //####
 
   //Compute Related pairs
@@ -29,9 +30,9 @@ export default function ProductSpecification({ instrument }: Specification) {
 
   return (
     <div className={`my-8 md:my-20 mb-0!`}>
-      <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
+      {/* <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
         {instrument} Trading Specification
-      </h2>
+      </h2> */}
       <div className={`${styles.costBreakDownTable}`}>
         <SpecificationTable instrument={instrument} />
       </div>
@@ -42,8 +43,8 @@ export default function ProductSpecification({ instrument }: Specification) {
             Trade connected metals
           </h3>
           <p className={`opacity-80`}>
-            Afterprime's trading environment gives you complete cost transparency.
-            Every {instrument} quote displays{" "}
+            Afterprime's trading environment gives you complete cost
+            transparency. Every {instrument} quote displays{" "}
             <Link href={"/live-spreads"} className={`underline`}>
               real-time spread pricing
             </Link>
@@ -72,6 +73,24 @@ export default function ProductSpecification({ instrument }: Specification) {
             </Link>
             .
           </p>
+
+          <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
+            <Link
+              href={`/forex/${instrument.toLowerCase()}`}
+              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+            >
+              {instrument.toUpperCase()} Specification {""} →
+            </Link>
+
+            <Link
+              href={`/trading-hours/${instrument.toLowerCase()}`}
+              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+            >
+              {instrument.toUpperCase()} trading hours {""} →
+            </Link>
+          </div>
         </div>
       ) : (
         <div className={`mt-15`}>
@@ -79,8 +98,8 @@ export default function ProductSpecification({ instrument }: Specification) {
             Trade connected FX pairs
           </h3>
           <p className={`opacity-80`}>
-            Afterprime's trading environment gives you complete cost transparency.
-            Every {instrument} quote displays{" "}
+            Afterprime's trading environment gives you complete cost
+            transparency. Every {instrument} quote displays{" "}
             <Link href={"/live-spreads"} className={`underline`}>
               real-time spread pricing
             </Link>
@@ -119,6 +138,24 @@ export default function ProductSpecification({ instrument }: Specification) {
                 <div className={``}>{pair.Symbol}</div>
               </Link>
             ))}
+          </div>
+
+          <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
+            <Link
+              href={`/forex/${instrument.toLowerCase()}`}
+              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+            >
+              {instrument.toUpperCase()} Specification {""} →
+            </Link>
+
+            <Link
+              href={`/trading-hours/${instrument.toLowerCase()}`}
+              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+            >
+              {instrument.toUpperCase()} trading hours {""} →
+            </Link>
           </div>
         </div>
       )}

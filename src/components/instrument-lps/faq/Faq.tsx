@@ -55,19 +55,19 @@ export default function Faq({
       question: `How are Flow Rewards calculated?`,
       answer: `Flow Rewards are paid per traded lot (round turn) using instrument specific rates published on the Afterprime website.`,
     },
-    ...(instrument === "XAUUSD"
-  ? [
-      {
-        question: `Is XAUUSD eligible for Flow Rewards?`,
-        answer: `Yes, XAUUSD does qualify for Flow Rewards.`,
-      },
-    ]
-  : [
-      {
-        question: `Is ${instrument.toUpperCase()} eligible for Flow Rewards?`,
-        answer: `Yes. ${instrument.toUpperCase()} does qualify for Flow Rewards.`,
-      },
-    ]),
+    ...(instrument === "xauusd"
+      ? [
+          {
+            question: `Is ${instrument.toUpperCase()} eligible for Flow Rewards?`,
+            answer: `No, ${instrument.toUpperCase()} does't qualify for Flow Rewards.`,
+          },
+        ]
+      : [
+          {
+            question: `Is ${instrument.toUpperCase()} eligible for Flow Rewards?`,
+            answer: `Yes. ${instrument.toUpperCase()} does qualify for Flow Rewards.`,
+          },
+        ]),
     {
       question: `How does Afterprime make money?`,
       answer: `Afterprime earns from institutional liquidity relationships and volume based arrangements, not from client losses.`,
@@ -115,7 +115,7 @@ export default function Faq({
             "@type": "FinancialProduct",
             "@id": `https://afterprime.com/trade/${instrumentToLowercase}#financialproduct`,
             name: `${instrument}`,
-            category: instrument === "XAUUSD" ? "Metals" : "Forex",
+            category: instrument === "xauusd" ? "Metals" : "Forex",
             provider: {
               "@id": "https://afterprime.com/#org",
             },
@@ -129,7 +129,10 @@ export default function Faq({
                 "@id": "https://afterprime.com/#org",
               },
               availability: "https://schema.org/InStock",
-              category: instrument === "XAUUSD" ? "Perpetual metals CFD" : "Perpetual currency pair",
+              category:
+                instrument === "xauusd"
+                  ? "Perpetual metals CFD"
+                  : "Perpetual currency pair",
               priceSpecification: [
                 {
                   "@type": "UnitPriceSpecification",
@@ -189,7 +192,9 @@ export default function Faq({
   return (
     <div className={`my-8 md:my-20`}>
       <div className={`${styles.faq_block}`}>
-        <h2 className="text-[34px] font-[700] mb-10">{instrument.toUpperCase()} {faqSubject}</h2>
+        <h2 className="text-[34px] font-[700] mb-10">
+          {instrument.toUpperCase()} {faqSubject}
+        </h2>
         {/* Fixed Questions */}
         <Accordion faqObjects={fixedFaqs} />
         {/* Fixed Questions ends*/}
