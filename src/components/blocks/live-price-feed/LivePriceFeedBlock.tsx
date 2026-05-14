@@ -5,6 +5,7 @@ import LivePricingCommoditiesTable from "@/components/live-pricing-tables/LivePr
 import LivePricingCryptoTable from "@/components/live-pricing-tables/LivePricingCrypto";
 import LivePricingIndicesTable from "@/components/live-pricing-tables/LivePricingIndices";
 import LivePricingStocksTable from "@/components/live-pricing-tables/LivePricingStocks";
+import LivePricingMetalsTable from "@/components/live-pricing-tables/LivePricingMetals";
 import LivePricingTradingHoursTable from "@/components/live-pricing-tables/LivePricingTradingHours";
 
 type CompoProps = Blocks["live-pricing-table"];
@@ -20,6 +21,7 @@ export function SelectLivePricingTable(props: CompoProps) {
         (tableType === "Crypto" && <LivePricingCryptoTable />) ||
         (tableType === "Indices" && <LivePricingIndicesTable />) ||
         (tableType === "Stocks" && <LivePricingStocksTable />) ||
+        (tableType === "Metals" && <LivePricingMetalsTable />) ||
         (tableType === "Trading Hours" && <LivePricingTradingHoursTable />)}
     </>
   );
