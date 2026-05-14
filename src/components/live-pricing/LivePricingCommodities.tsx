@@ -30,11 +30,10 @@ export function LivePricingCommodities({
     <div>
       <div className="w-full text-center px-6">
         <h2 className="h2-size mb-6">
-          Lowest <span>Commodity Costs.</span>
+          <span>Live</span> Commodities Pricing
         </h2>
         <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Stop overpaying for your exposure. We offer raw spreads with zero
-          commissions across our entire range of commodities.
+          Raw spreads. Zero commissions. A-Book execution across all commodity instruments.
         </p>
       </div>
 
@@ -42,20 +41,7 @@ export function LivePricingCommodities({
 
       {hasInitialTableData && (
         <div className={`${styles.ap_tab}`}>
-          <div className={`${styles.ap_tab_nav}`}>
-            {tabNavs.map((nav, index) => (
-              <button
-                key={index}
-                className={`${index === activeTabNav ? styles.active : ""}`}
-                onClick={() => {
-                  setActiveTabNav(index);
-                  setActiveTabContentID(tabNavs[index]);
-                }}
-              >
-                {nav}
-              </button>
-            ))}
-          </div>
+
 
           <div className={`${styles.ap_tab_container}`}>
             {activeTabContentID === activeTabContentID && (
