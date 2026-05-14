@@ -55,10 +55,19 @@ export default function Faq({
       question: `How are Flow Rewards calculated?`,
       answer: `Flow Rewards are paid per traded lot (round turn) using instrument specific rates published on the Afterprime website.`,
     },
-    {
-      question: `Is ${instrument.toUpperCase()} eligible for Flow Rewards?`,
-      answer: `${isRebate ? `Yes. ${instrument.toUpperCase()} does qualify for Flow Rewards.` : `No. ${instrument} does not qualify for Flow Rewards.`}`,
-    },
+    ...(instrument === "XAUUSD"
+  ? [
+      {
+        question: `Is XAUUSD eligible for Flow Rewards?`,
+        answer: `Yes, XAUUSD does qualify for Flow Rewards.`,
+      },
+    ]
+  : [
+      {
+        question: `Is ${instrument.toUpperCase()} eligible for Flow Rewards?`,
+        answer: `Yes. ${instrument.toUpperCase()} does qualify for Flow Rewards.`,
+      },
+    ]),
     {
       question: `How does Afterprime make money?`,
       answer: `Afterprime earns from institutional liquidity relationships and volume based arrangements, not from client losses.`,
@@ -106,13 +115,13 @@ export default function Faq({
             "@type": "FinancialProduct",
             "@id": `https://afterprime.com/trade/${instrumentToLowercase}#financialproduct`,
             name: `${instrument}`,
-            category: "Forex",
+            category: instrument === "XAUUSD" ? "Metals" : "Forex",
             provider: {
               "@id": "https://afterprime.com/#org",
             },
-            description: `${instrument} perpetual currency pair with zero commission and published Flow Rewards.`,
+            description: `Trade ${instrument} with zero commission and published Flow Rewards.`,
             feesAndCommissionsSpecification:
-              "Zero commission. Flow Rewards: {rebate_usd_per_lot} USD per lot.",
+              "Zero commission. Flow Rewards variable USD per lot.",
             offers: {
               "@type": "Offer",
               "@id": `https://afterprime.com/trade/${instrumentToLowercase}#offer`,
@@ -120,7 +129,7 @@ export default function Faq({
                 "@id": "https://afterprime.com/#org",
               },
               availability: "https://schema.org/InStock",
-              category: "Perpetual currency pair",
+              category: instrument === "XAUUSD" ? "Perpetual metals CFD" : "Perpetual currency pair",
               priceSpecification: [
                 {
                   "@type": "UnitPriceSpecification",
@@ -180,7 +189,7 @@ export default function Faq({
   return (
     <div className={`my-8 md:my-20`}>
       <div className={`${styles.faq_block}`}>
-        <h2 className="text-[34px] font-[700] mb-10">{faqSubject}</h2>
+        <h2 className="text-[34px] font-[700] mb-10">{instrument.toUpperCase()} {faqSubject}</h2>
         {/* Fixed Questions */}
         <Accordion faqObjects={fixedFaqs} />
         {/* Fixed Questions ends*/}
