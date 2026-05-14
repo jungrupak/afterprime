@@ -73,8 +73,11 @@ export function LivePricingMetals({
                                   alt={`${item.symbol} ${item.group}`}
                                 />
                               </div>
-
-                              {item.symbol}
+                              {item.symbol === "XAUUSD" ? (
+                                <a href="/metals/xauusd" className={`underline decoration-dotted decoration-2 underline-offset-4`}>{item.symbol}</a>
+                              ) : (
+                                item.symbol
+                              )}
                             </div>
                           </td>
                           <td className="px-4 py-2 " t-name="Bid">
