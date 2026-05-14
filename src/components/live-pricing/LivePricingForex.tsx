@@ -32,15 +32,11 @@ export function LivePricingForex({
     <div>
       <div className="w-full text-center px-6">
         <h2 className="h2-size mb-6">
-          Institutional FX Spreads. <span>Professional FX Rewards.</span>
+          Lowest <span>Verified Forex</span> Pricing
         </h2>
         <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Most brokers widen their currency spreads to hide their markup,
-          eroding your edge before the trade even breathes. We’ve removed that
-          barrier. By combining the industry’s tightest raw FX spreads with Flow
-          Rewards™, we pay you up to $3/lot back on your volume. We don’t just
-          lower your cost of entry; we turn your Forex execution into a revenue
-          stream.
+          Raw spreads. Zero commissions. A-Book execution across all precious metals. Plus Flow
+          Rewards™. We pay you on your volume.
         </p>
       </div>
 
