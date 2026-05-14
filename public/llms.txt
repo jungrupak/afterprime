@@ -95,6 +95,7 @@ https://afterprime.com/trade/{symbol}
 - [Licenses And Regulations](https://afterprime.com/license-and-regulations) - AfterPrime is a licensed and regulated broker. Learn about our regulatory compliance, client fund protection, and commitment to safe trading practices.
 - [Margins & Leverages](https://afterprime.com/margins-and-leverages) - Flexible leverage up to 1:400 with transparent margin requirements. AfterPrime combines ForexBenchmark-verified lowest costs with professional margin policies.
 - [Commodities](https://afterprime.com/commodities) - Trade commodities CFDs with ForexBenchmark-verified lowest costs. Access gold, silver, crude oil, natural gas, and more. Earn Flow Rewards on every trade.
+- [Metals](https://afterprime.com/metals) - Trade precious metals with institutional pricing. Access gold, silver and more. Earn Flow Rewards on every trade.
 - [Crypto](https://afterprime.com/crypto) - Trade Bitcoin, Ethereum, and cryptocurrency CFDs with AfterPrime's lowest costs and Flow Rewards. 24/7 crypto trading with sub-1ms execution.
 - [Indices](https://afterprime.com/indices) - Trade global stock indices with AfterPrime's lowest costs and Flow Rewards. Access S&P 500, NASDAQ, DAX, FTSE, and more. Ultra-fast execution.
 - [Live Spreads](https://afterprime.com/live-spreads) - View spreads in real-time. AfterPrime offers the lowest total trading costs verified by ForexBenchmark. Compare our spreads.

@@ -85,7 +85,7 @@ export default function Footer() {
             </Link>
             <div className="flex gap-3">
               <Link
-                href="https://apps.apple.com/us/app/afterprime/id1672935764"
+                href="https://apps.apple.com/us/app/metatrader-5/id413251709"
                 target="_blank"
                 className="block"
               >
@@ -93,7 +93,19 @@ export default function Footer() {
                   width={112}
                   height={38}
                   src="/img/app-download-ios.png"
-                  alt="Afterprime iOS App"
+                  alt="MT5 iOS App"
+                />
+              </Link>
+              <Link
+                href="https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5"
+                target="_blank"
+                className="block"
+              >
+                <Image
+                  width={112}
+                  height={38}
+                  src="/img/app-download-android.png"
+                  alt="MT5 Android App"
                 />
               </Link>
             </div>
@@ -133,16 +145,19 @@ export default function Footer() {
                 <Link href="/forex">Forex CFDs</Link>
               </li>
               <li>
+                <Link href="/metals">Precious Metals</Link>
+              </li>
+              <li>
+                <Link href="/commodities">Commodities</Link>
+              </li>
+              <li>
                 <Link href="/crypto">Crypto CFDs</Link>
               </li>
               <li>
                 <Link href="/indices">Indices</Link>
               </li>
               <li>
-                <Link href="/commodities">Commodities</Link>
-              </li>
-              <li>
-                <Link href="/trade">Compare Trading Costs</Link>
+                <Link href="/trade">Broker Costs</Link>
               </li>
               <li>
                 <Link href="/vs">Compare Brokers</Link>
@@ -150,7 +165,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className={`${styles.footer_links} order-4`}>
-            <h2>Platforms & Tools</h2>
+            <h2>Trading Platforms</h2>
             <ul>
               <li>
                 <Link href="/mt4">MT4</Link>
@@ -219,7 +234,7 @@ export default function Footer() {
             regulation.
           </p>
           <p>
-            © Copyright 2018-{currentYear} Afterprime Pty Ltd | Global Gateway
+            © Copyright 2018-{currentYear} Afterprime Pty Ltd - FSA Seychelles #SD057 | Global Gateway
             8, Rue de la Perle, Providence, Mahé, Seychelles.
           </p>
         </div>
