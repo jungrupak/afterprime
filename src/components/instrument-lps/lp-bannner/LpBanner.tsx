@@ -19,14 +19,14 @@ function LPBannerXAUUSD() {
       <div className={`ap_container_small grid grid-cols-2 gap-8 md:gap-20 relative z-1 flex items-center h-full`}>
         <div className={`${styles.bannerLeftItem} max-md:col-span-2`}>
           <h1 className={`max-md:mb-5`}>
-            Trade XAUUSD <br />
-            <span>CCCC</span>
+            Trade Gold (XAU/USD)<br />
+            <span>Institutional Access. Zero Commission.</span>
           </h1>
           <div className={`${styles.listUi} md:mt-12`}>
             <ul>
-              <li>xxxFlow Rewards<sup>TM</sup> are currently $0.00 /lot</li>
-              <li>Trading costs are not reduced by rewards</li>
-              <li>Pricing remains unchanged as volume increases</li>
+              <li>Spot gold exposure with sub-50ms execution</li>
+              <li>Zero commission on every lot, every session</li>
+              <li>23-hour market access across all platforms</li>
             </ul>
           </div>
           <div className={`mt-8 md:mt-15`}>
@@ -189,6 +189,6 @@ function LPBannerDefault({ instrument }: BannerTitle) {
 
 // ── Entry point ───────────────────────────────────────────────
 export default function LPBanner({ instrument }: BannerTitle) {
-  if (instrument === "XAUUSD") return <LPBannerXAUUSD />;
+  if (instrument?.toUpperCase() === "XAUUSD") return <LPBannerXAUUSD />;
   return <LPBannerDefault instrument={instrument} />;
 }
