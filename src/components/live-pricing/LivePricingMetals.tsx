@@ -8,20 +8,20 @@ import { Loader } from "../Loading/Loading";
 import { Disconnected } from "../disconnected/Disconnected";
 import { Retrying } from "../retrying/Retry";
 
-interface LivePricingCommoditiesProps {
+interface LivePricingMetalsProps {
   initialPrices?: PricesObjects[];
 }
 
-export function LivePricingCommodities({
+export function LivePricingMetals({
   initialPrices = [],
-}: LivePricingCommoditiesProps) {
+}: LivePricingMetalsProps) {
   const { categories, status } = useLivePrices(initialPrices);
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
 
-  const pricingCatLists = [categories.commodities];
+  const pricingCatLists = [categories.metals];
 
-  const tabNavs = ["Commodities"];
+  const tabNavs = ["Metals"];
   const hasInitialTableData = pricingCatLists.some((items) => items.length > 0);
 
   console.log("data", pricingCatLists);
@@ -30,11 +30,11 @@ export function LivePricingCommodities({
     <div>
       <div className="w-full text-center px-6">
         <h2 className="h2-size mb-6">
-          Lowest <span>Commodity Costs.</span>
+          Precious <span>Metals Costs.</span>
         </h2>
         <p className="paragraph mb-20 max-md:mb-10 opacity-90">
           Stop overpaying for your exposure. We offer raw spreads with zero
-          commissions across our entire range of commodities.
+          commissions across our entire range of precious metals.
         </p>
       </div>
 
