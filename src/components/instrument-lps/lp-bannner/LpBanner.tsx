@@ -24,7 +24,7 @@ function LPBannerXAUUSD() {
           </h1>
           <div className={`${styles.listUi} md:mt-12`}>
             <ul>
-              <li>Flow Rewards<sup>TM</sup> are currently $0.00 /lot</li>
+              <li>xxxFlow Rewards<sup>TM</sup> are currently $0.00 /lot</li>
               <li>Trading costs are not reduced by rewards</li>
               <li>Pricing remains unchanged as volume increases</li>
             </ul>
