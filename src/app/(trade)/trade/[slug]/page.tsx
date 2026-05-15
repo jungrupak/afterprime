@@ -17,7 +17,64 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-// ... generateStaticParams and generateMetadata stay exactly the same ...
+export async function generateStaticParams() {
+  const restEndpoint = process.env.WORDPRESS_REST_ENDPOINT;
+  if (!restEndpoint) return [];
+  try {
+    const res = await fetch(
+      `${restEndpoint}/pages?parent=2709&_fields=slug&per_page=100`,
+      { next: { revalidate: 86400 } },
+    );
+    if (!res.ok) return [];
+    const pages: { slug: string }[] = await res.json();
+    return pages.map((p) => ({ slug: p.slug }));
+  } catch {
+    return [];
+  }
+}
+
+//Export Dynamic Page Title Tags####
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = await params;
+  const instrumentUppercase = slug.toUpperCase();
+  if (!params) return;
+  const { rebate, industryVsApAvgPct, top10VsAfterprimeAvgPct } =
+    await metaDataHelper(slug);
+  //const formattedPercentage = Math.trunc(getpercentage);
+
+  const formattedPercentage = Math.trunc(
+    Math.abs(Number(top10VsAfterprimeAvgPct)),
+  );
+
+  //for canonical ur
+  const canonicalUrl = `https://afterprime.com/trade/${slug.toLowerCase()}`;
+
+  if (rebate === 0) {
+    return {
+      title: `Trade ${instrumentUppercase} | Afterprime`,
+      description: `Trade ${instrumentUppercase} with standard per lot pricing. Flow Rewards TM are not applied to ${instrumentUppercase}`,
+      alternates: {
+        canonical: canonicalUrl,
+      },
+    };
+  } else if (industryVsApAvgPct <= 0) {
+    return {
+      title: `${instrumentUppercase} Trading With Flow Rewards | Afterprime`,
+      description: `Trade ${instrumentUppercase} and earn ${rebate.toFixed(2)}/lot with Flow Rewards`,
+      alternates: {
+        canonical: canonicalUrl,
+      },
+    };
+  } else {
+    return {
+      title: `Trade ${instrumentUppercase} at ${formattedPercentage}% Lower Cost vs Top 10 Brokers`,
+      description: `Trade ${instrumentUppercase} on Afterprime with verified lowest trading costs. Compare brokers ${instrumentUppercase} cost.`,
+      alternates: {
+        canonical: canonicalUrl,
+      },
+    };
+  }
+}
 
 export default async function TradeSlugPage({ params }: PageProps) {
   const { slug } = await params;
