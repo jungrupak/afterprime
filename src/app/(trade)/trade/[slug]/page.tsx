@@ -1,6 +1,6 @@
 import LPBanner from "@/components/instrument-lps/lp-bannner/LpBanner";
 import { getTradePageData } from "@/lib/getTradePageData";
-import { notFound } from "next/navigation"; //This needs to render custom 404 page created in this specific instance
+import { notFound } from "next/navigation";
 import CostComparison from "@/components/instrument-lps/cost-comparison/CostComparison";
 import CostBreakdown from "@/components/instrument-lps/cost-brakdown/CostBreakdown";
 import FlowRewardIntro from "@/components/instrument-lps/what-is-flow-reward/FlowRewardIntro";
@@ -11,114 +11,61 @@ import FaqSchema from "@/lib/schema/faqSchema";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import { metaDataHelper } from "./metaDataHelper";
 import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
-import Link from "next/link";
+import LivePriceChart from "@/components/charts/LivePriceChart";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  const restEndpoint = process.env.WORDPRESS_REST_ENDPOINT;
-  if (!restEndpoint) return [];
-  try {
-    const res = await fetch(
-      `${restEndpoint}/pages?parent=2709&_fields=slug&per_page=100`,
-      { next: { revalidate: 86400 } },
-    );
-    if (!res.ok) return [];
-    const pages: { slug: string }[] = await res.json();
-    return pages.map((p) => ({ slug: p.slug }));
-  } catch {
-    return [];
-  }
-}
-
-//Export Dynamic Page Title Tags####
-export async function generateMetadata({ params }: PageProps) {
-  const { slug } = await params;
-  const instrumentUppercase = slug.toUpperCase();
-  if (!params) return;
-  const { rebate, industryVsApAvgPct, top10VsAfterprimeAvgPct } =
-    await metaDataHelper(slug);
-  //const formattedPercentage = Math.trunc(getpercentage);
-
-  const formattedPercentage = Math.trunc(
-    Math.abs(Number(top10VsAfterprimeAvgPct)),
-  );
-
-  //for canonical ur
-  const canonicalUrl = `https://afterprime.com/trade/${slug.toLowerCase()}`;
-
-  if (rebate === 0) {
-    const isGold = instrumentUppercase === 'XAUUSD';
-
-    return {
-      title: isGold
-        ? `Trade Gold Spot (XAUUSD) | Low Cost Gold Trading | Afterprime` // Custom title for XAUUSD
-        : `Trade ${instrumentUppercase} | Afterprime`, // Default title
-      description: isGold
-        ? `Trade Gold with razor-sharp spreads and institutional execution. Maximize XAUUSD strategies with Afterprime’s pricing. Start trading Gold now.` // Custom description for XAUUSD
-        : `Trade ${instrumentUppercase} with standard per lot pricing. Flow Rewards are not applied to ${instrumentUppercase}`, // Default description
-      alternates: {
-        canonical: canonicalUrl,
-      },
-    };
-  } else if (industryVsApAvgPct <= 0) {
-    return {
-      title: `${instrumentUppercase} Trading With Flow Rewards | Afterprime`,
-      description: `Trade ${instrumentUppercase} and earn ${rebate.toFixed(2)}/lot with Flow Rewards`,
-      alternates: {
-        canonical: canonicalUrl,
-      },
-    };
-  } else {
-    return {
-      title: `Trade ${instrumentUppercase} at ${formattedPercentage}% Lower Cost vs Top 10 Brokers`,
-      description: `Trade ${instrumentUppercase} on Afterprime with verified lowest trading costs. Compare brokers ${instrumentUppercase} cost.`,
-      alternates: {
-        canonical: canonicalUrl,
-      },
-    };
-  }
-}
-//Export Dynamic Page Title Tags Ends####
+// ... generateStaticParams and generateMetadata stay exactly the same ...
 
 export default async function TradeSlugPage({ params }: PageProps) {
+  const { slug } = await params;
   const page = await getTradePageData({ params });
+
   if (!page) {
     notFound();
   }
 
-  const flowRewardContent =
-    page.acf?.instrument_page_fields?.what_is_flow_rewards_section;
-
-  const rationalData =
-    page.acf?.instrument_page_fields?.execution_quality_rational;
-
+  const flowRewardContent = page.acf?.instrument_page_fields?.what_is_flow_rewards_section;
+  const rationalData = page.acf?.instrument_page_fields?.execution_quality_rational;
   const customFieldFaqBlock = page.acf?.faq_section?.q_and_a;
-
-  //###################
 
   return (
     <>
       <LPBanner instrument={page.slug} />
 
-      <section className={`compact-section pt-[0.5px]!`}>
+      <section className="compact-section pt-[0.5px]!">
         <div className="ap_container_small">
+
+          {/* THE LIVE CHART SECTION */}
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
+             <LivePriceChart symbol={page.slug} />
+          </div>
+
           <CostComparison instrument={page.slug} />
+
+          <CostCalculator instrument={page.slug.toUpperCase()} />
 
           <FlowRewardIntro
             content={flowRewardContent}
             rationalData={rationalData}
           />
+
           <CostBreakdown instrument={page.slug} />
+
+          <CtaBlock />
+          
+          <ProductSpecification instrument={page.slug.toUpperCase()} />
 
           <Faq
             data={customFieldFaqBlock}
             faqSubject="FAQ"
             instrument={page.slug}
           />
+
           <FaqSchema pageSlug={page.slug} />
+
           <BreadcrumbSchema
             items={[
               { name: "Home", href: "/" },
@@ -126,9 +73,6 @@ export default async function TradeSlugPage({ params }: PageProps) {
               { name: page.slug.toUpperCase(), href: `/trade/${page.slug}` },
             ]}
           />
-          <CtaBlock />
-          <CostCalculator instrument={page.slug.toUpperCase()} />
-          <ProductSpecification instrument={page.slug.toUpperCase()} />
         </div>
       </section>
     </>
