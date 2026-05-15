@@ -27,8 +27,10 @@ export default async function TradeSlugPage({ params }: PageProps) {
     notFound();
   }
 
-  const flowRewardContent = page.acf?.instrument_page_fields?.what_is_flow_rewards_section;
-  const rationalData = page.acf?.instrument_page_fields?.execution_quality_rational;
+  const flowRewardContent =
+    page.acf?.instrument_page_fields?.what_is_flow_rewards_section;
+  const rationalData =
+    page.acf?.instrument_page_fields?.execution_quality_rational;
   const customFieldFaqBlock = page.acf?.faq_section?.q_and_a;
 
   return (
@@ -37,10 +39,9 @@ export default async function TradeSlugPage({ params }: PageProps) {
 
       <section className="compact-section pt-[0.5px]!">
         <div className="ap_container_small">
-
           {/* THE LIVE CHART SECTION */}
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-             <LivePriceChart symbol={page.slug.toUpperCase()} />
+          <div className="bg-dark pt-10 md:pt-15 rounded-xl mb-8">
+            <LivePriceChart symbol={page.slug.toUpperCase()} />
           </div>
 
           <CostComparison instrument={page.slug.toUpperCase()} />
