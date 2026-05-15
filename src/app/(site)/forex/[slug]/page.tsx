@@ -12,6 +12,7 @@ import { BottomCta } from "@/components/acfFieldGroups/bottom-cta/BottomCta";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 import type { WPPage } from "@/types/blocks";
 import Link from "next/link";
+import LivePriceChart from "@/components/charts/LivePriceChart";
 
 export const revalidate = 60;
 
@@ -121,6 +122,10 @@ export default async function ForexSlugPage({ params }: Props) {
       {pageBuilder && (
         <section className={`compact-section`}>
           <div className="ap_container_small">
+            <div className="bg-dark rounded-xl mb-8">
+              <LivePriceChart symbol={slug.toUpperCase()} />
+            </div>
+
             <div className={`${styles.pageEditorContent}`}>
               {pageBuilder.map((section, index) =>
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
