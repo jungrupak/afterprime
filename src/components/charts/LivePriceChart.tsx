@@ -3,6 +3,7 @@
 import { useMemo, useRef } from "react";
 import { useLivePrices } from "@/hooks/useLivePrices";
 import PriceChart from "./PriceChart";
+import Link from "next/link";
 
 interface LivePriceChartProps {
   symbol: string;
@@ -55,12 +56,31 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
       <div className="p-5 pb-0">
         <div className="flex justify-between items-start mb-1">
           <div>
-            <h3 className="text-[22px] font-semibold text-white/90 tracking-tight">
-              {symbol.toUpperCase()}
+            <h3 className="text-[22px] mb-2 font-semibold text-white/90 tracking-tight">
+              {symbol.toUpperCase()}{" "}
+              <span className="text-[18px] text-white/30 font-medium">
+                Live Price
+              </span>
             </h3>
-            <span className="text-[18px] text-white/30 font-medium">
-              Live Price
-            </span>
+            <div className={`flex`}>
+              <div className="flex flex-wrap gap-2">
+                <Link
+                  href={`/forex/${symbol.toLowerCase()}`}
+                  className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+                  style={{ borderColor: "rgba(255,255,255,0.15)" }}
+                >
+                  Specification
+                </Link>
+
+                <Link
+                  href={`/trading-hours/${symbol.toLowerCase()}`}
+                  className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+                  style={{ borderColor: "rgba(255,255,255,0.15)" }}
+                >
+                  Trading Hours
+                </Link>
+              </div>
+            </div>
           </div>
 
           <div className="text-right">
