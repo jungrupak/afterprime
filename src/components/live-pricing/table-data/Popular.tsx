@@ -46,7 +46,7 @@ export function Popular() {
                         {item.symbol}
                       </a>
                     </div>
-                  ) : item.group.startsWith("Stocks") ? (
+                  ) : item.group.startsWith("Metals") ? (
                     <div className={`${styles.instrumentIcons}`}>
                       <div className={`${styles.icon_wrap}`}>
                         <Image
@@ -58,8 +58,11 @@ export function Popular() {
                           alt={`${item.symbol} ${item.group}`}
                         />
                       </div>
-
-                      {item.symbol}
+                      {item.symbol === "XAUUSD" ? (
+                        <a href="/trade/xauusd" className={`underline decoration-dotted decoration-2 underline-offset-4`}>{item.symbol}</a>
+                      ) : (
+                        item.symbol
+                      )}
                     </div>
                   ) : (
                     <div className={`${styles.instrumentIcons}`}>
@@ -71,8 +74,11 @@ export function Popular() {
                           alt={`${item.symbol} ${item.group}`}
                         />
                       </div>
-
-                      {item.symbol}
+                      {item.symbol === "XAUUSD" ? (
+                        <a href="/trade/xauusd" className={`underline decoration-dotted decoration-2 underline-offset-4`}>{item.symbol}</a>
+                      ) : (
+                        item.symbol
+                      )}
                     </div>
                   )}
                 </td>
