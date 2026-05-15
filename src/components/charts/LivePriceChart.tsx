@@ -120,7 +120,7 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
       </div>
 
       <div className="h-[280px] w-full mt-2">
-        <PriceChart liveData={liveData ?? undefined} symbol={symbol} />
+        <PriceChart liveData={liveData ?? undefined} />
       </div>
     </div>
   );
