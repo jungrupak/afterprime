@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { useLivePrices } from "@/hooks/useLivePrices";
-import PriceChart from "./PriceChart"; // The component we made previously
+import PriceChart from "./PriceChart";
 
 interface LivePriceChartProps {
   symbol: string;
@@ -11,8 +11,6 @@ interface LivePriceChartProps {
 export default function LivePriceChart({ symbol }: LivePriceChartProps) {
   const { prices } = useLivePrices();
 
-  // 1. Isolate the specific instrument from the feed
-  // 2. Format it for Lightweight Charts update()
   const liveData = useMemo(() => {
     const instrumentKey = symbol.toUpperCase();
     const data = prices?.[instrumentKey];
@@ -20,26 +18,42 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
     if (!data) return null;
 
     return {
-      // Lightweight charts uses Unix timestamps in seconds
       time: Math.floor(Date.now() / 1000),
-      // Using 'bid' as the price point; change to 'last' if available
       value: typeof data.bid === "string" ? parseFloat(data.bid) : data.bid,
     };
   }, [prices, symbol]);
 
   return (
-    <div className="w-full">
-      <div className="flex justify-between items-end mb-4">
-        <h3 className="text-xl font-bold">{symbol.toUpperCase()} Live Price</h3>
+    /* Glassmorphism container: darkened background with blur and subtle border */
+    <div className="w-full p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl">
+      <div className="flex justify-between items-end mb-6">
+        <div>
+          <h3 className="text-xl font-bold text-white tracking-tight">
+            {symbol.toUpperCase()} <span className="text-white/50 font-light">Live Price</span>
+          </h3>
+        </div>
+
         <div className="text-right">
-          <span className="text-sm text-gray-500 block">Live Bid</span>
-          <span className="text-2xl font-mono font-semibold text-blue-600">
+          <span className="text-xs uppercase tracking-widest text-white/40 block mb-1">
+            Live Bid
+          </span>
+          {/* Price uses the orange from your "Apply" button and a subtle glow */}
+          <span
+            className="text-3xl font-mono font-bold text-[#FF4500]"
+            style={{ textShadow: '0 0 15px rgba(255, 69, 0, 0.3)' }}
+          >
             {liveData?.value.toFixed(2) || "---"}
           </span>
         </div>
       </div>
 
-      <PriceChart liveData={liveData ?? undefined} />
+      {/* Note: Ensure your PriceChart component is configured with:
+          - layout: { background: { color: 'transparent' }, textColor: '#ffffff80' }
+          - grid: { vertLines: { visible: false }, horzLines: { color: 'rgba(255,255,255,0.05)' } }
+      */}
+      <div className="h-[300px] w-full">
+        <PriceChart liveData={liveData ?? undefined} />
+      </div>
     </div>
   );
 }
