@@ -76,14 +76,6 @@ export default function ProductSpecification({ instrument }: Specification) {
 
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
             <Link
-              href={`/forex/${instrument.toLowerCase()}`}
-              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
-              style={{ borderColor: "rgba(255,255,255,0.15)" }}
-            >
-              {instrument.toUpperCase()} Specification {""} →
-            </Link>
-
-            <Link
               href={`/trading-hours/${instrument.toLowerCase()}`}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}

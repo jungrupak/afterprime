@@ -65,11 +65,11 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
             <div className={`flex`}>
               <div className="flex flex-wrap gap-2">
                 <Link
-                  href={`/forex/${symbol.toLowerCase()}`}
+                  href={`/swaps/${symbol.toLowerCase()}`}
                   className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >
-                  Specification
+                  Swap Rate
                 </Link>
 
                 <Link
