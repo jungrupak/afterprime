@@ -20,8 +20,14 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
 
     return {
       time: Math.floor(Date.now() / 1000),
-      value: typeof data.bestBid === "string" ? parseFloat(data.bestBid) : data.bestBid,
-      bestAsk: typeof data.bestAsk === "string" ? parseFloat(data.bestAsk) : data.bestAsk,
+      value:
+        typeof data.bestBid === "string"
+          ? parseFloat(data.bestBid)
+          : data.bestBid,
+      bestAsk:
+        typeof data.bestAsk === "string"
+          ? parseFloat(data.bestAsk)
+          : data.bestAsk,
       spread: typeof data.spread === "number" ? data.spread : 0,
     };
   }, [prices, symbol]);
@@ -49,17 +55,19 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
       <div className="p-5 pb-0">
         <div className="flex justify-between items-start mb-1">
           <div>
-            <h3 className="text-lg font-semibold text-white/90 tracking-tight">
+            <h3 className="text-[22px] font-semibold text-white/90 tracking-tight">
               {symbol.toUpperCase()}
             </h3>
-            <span className="text-[11px] uppercase tracking-[0.15em] text-white/30 font-medium">
+            <span className="text-[18px] text-white/30 font-medium">
               Live Price
             </span>
           </div>
 
           <div className="text-right">
             <div className="flex items-center gap-2 justify-end">
-              <span className={`text-sm font-medium ${arrowColor} transition-colors duration-300`}>
+              <span
+                className={`text-sm font-medium ${arrowColor} transition-colors duration-300`}
+              >
                 {arrow}
               </span>
               <span
@@ -72,13 +80,13 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
             <div className="flex items-center gap-3 justify-end mt-0.5">
               {liveData && (
                 <>
-                  <span className="text-[11px] text-white/30">
+                  <span className="text-[16px] text-white/30">
                     Ask:{" "}
                     <span className="text-white/60 font-medium">
                       {liveData.bestAsk.toFixed(5)}
                     </span>
                   </span>
-                  <span className="text-[11px] text-white/30">
+                  <span className="text-[16px] text-white/30">
                     Spread:{" "}
                     <span className="text-white/60 font-medium">
                       {liveData.spread.toFixed(1)}
