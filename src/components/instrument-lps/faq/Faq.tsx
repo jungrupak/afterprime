@@ -55,11 +55,11 @@ export default function Faq({
       question: `How are Flow Rewards calculated?`,
       answer: `Flow Rewards are paid per traded lot (round turn) using instrument specific rates published on the Afterprime website.`,
     },
-    ...(instrument === "xauusd"
+    ...(instrument.toUpperCase() === "XAUUSD"
       ? [
           {
             question: `Is ${instrument.toUpperCase()} eligible for Flow Rewards?`,
-            answer: `No, ${instrument.toUpperCase()} does't qualify for Flow Rewards.`,
+            answer: `Yes.`,
           },
         ]
       : [

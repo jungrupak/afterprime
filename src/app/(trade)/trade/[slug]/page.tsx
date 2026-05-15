@@ -50,9 +50,15 @@ export async function generateMetadata({ params }: PageProps) {
   const canonicalUrl = `https://afterprime.com/trade/${slug.toLowerCase()}`;
 
   if (rebate === 0) {
+    const isGold = instrumentUppercase === 'XAUUSD';
+
     return {
-      title: `Trade ${instrumentUppercase} | Afterprime`,
-      description: `Trade ${instrumentUppercase} with standard per lot pricing. Flow Rewards TM are not applied to ${instrumentUppercase}`,
+      title: isGold
+        ? `Trade Gold Spot (XAUUSD) | Low Cost Gold Trading | Afterprime` // Custom title for XAUUSD
+        : `Trade ${instrumentUppercase} | Afterprime`, // Default title
+      description: isGold
+        ? `Trade Gold with razor-sharp spreads and institutional execution. Maximize XAUUSD strategies with Afterprime’s pricing. Start trading Gold now.` // Custom description for XAUUSD
+        : `Trade ${instrumentUppercase} with standard per lot pricing. Flow Rewards are not applied to ${instrumentUppercase}`, // Default description
       alternates: {
         canonical: canonicalUrl,
       },
