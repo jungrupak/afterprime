@@ -40,10 +40,10 @@ export default async function TradeSlugPage({ params }: PageProps) {
 
           {/* THE LIVE CHART SECTION */}
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-             <LivePriceChart symbol={page.slug} />
+             <LivePriceChart symbol={page.slug.toUpperCase()} />
           </div>
 
-          <CostComparison instrument={page.slug} />
+          <CostComparison instrument={page.slug.toUpperCase()} />
 
           <CostCalculator instrument={page.slug.toUpperCase()} />
 
@@ -52,10 +52,10 @@ export default async function TradeSlugPage({ params }: PageProps) {
             rationalData={rationalData}
           />
 
-          <CostBreakdown instrument={page.slug} />
+          <CostBreakdown instrument={page.slug.toUpperCase()} />
 
           <CtaBlock />
-          
+
           <ProductSpecification instrument={page.slug.toUpperCase()} />
 
           <Faq
@@ -64,7 +64,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
             instrument={page.slug}
           />
 
-          <FaqSchema pageSlug={page.slug} />
+          <FaqSchema pageSlug={page.slug.toUpperCase()} />
 
           <BreadcrumbSchema
             items={[
