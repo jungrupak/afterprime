@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${slug.toUpperCase()} Spreads & Lowest Verified Trading Costs | Afterprime`,
-    description: `Trade ${slug.toUpperCase()} at $${netCostPerLot}/lot RT. Sub 50ms execution with $0 commission. Compare live ${slug.toUpperCase()} spreads.`,
+    description: `Trade ${slug.toUpperCase()} at ${netCostPerLot}/lot RT. Sub 50ms execution with $0 commission. Compare live ${slug.toUpperCase()} spreads.`,
     alternates: {
       canonical: `https://afterprime.com/forex/${slug.toLowerCase()}`,
     },
