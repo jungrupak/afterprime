@@ -148,6 +148,7 @@ const nextConfig: NextConfig = {
         { source: '/glossary/glossary-forex', destination: '/glossary/forex-trading', permanent: true },
         { source: '/trading-calculator', destination: '/calculators/trading-calculator', permanent: true },
         { source: '/traderevolution', destination: '/', permanent: true },
+        { source: '/forex/xaueur', destination: '/forex', permanent: true },
       ];
   },
 };
