@@ -109,7 +109,7 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
                   <span className="text-[16px] text-white/30">
                     Spread:{" "}
                     <span className="text-white/60 font-medium">
-                      {liveData.spread.toFixed(1)}
+                      {liveData.spread}
                     </span>
                   </span>
                 </>
