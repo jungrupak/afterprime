@@ -142,3 +142,7 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+
+.relatedLinkPill {
+  border-color: rgba(var(--alphaWhite), 0.15) !important;
+}

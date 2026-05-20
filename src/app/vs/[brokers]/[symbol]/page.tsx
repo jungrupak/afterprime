@@ -84,7 +84,7 @@ export default async function VsSymbolPage({ params }: Props) {
   const sym = symbol.toUpperCase();
   const rebate = data.rebate?.rebate_usd_per_lot ?? 0;
   const savingPer100Lots = (comp.costPerLot - ap.costPerLot) * 100;
-  const apNetCost = ap.costPerLot - rebate;
+  const apNetCost = Math.max(0, ap.costPerLot - rebate);
   const savingPct = comp.savingPercentage;
   const nextBrokerSlug = getNextBrokerSlug(brokers);
 
@@ -95,7 +95,7 @@ export default async function VsSymbolPage({ params }: Props) {
     },
     {
       question: `Does ${mappedBrokerName} charge commission on ${sym}?`,
-      answer: `Yes, ${mappedBrokerName} commission varies by account type. Afterprime charges $0 commission on all trades — cost is entirely spread-based.`,
+      answer: `${mappedBrokerName}'s all-in cost includes spread and any applicable commission depending on account type. Afterprime charges $0 commission on all trades — cost is entirely spread-based.`,
     },
     {
       question: `What is Afterprime's Flow Rewards and how does it affect the comparison?`,
@@ -103,7 +103,7 @@ export default async function VsSymbolPage({ params }: Props) {
     },
     {
       question: `How often is this data updated?`,
-      answer: `Spread and cost data is sourced from Forexbenchmark.com's feed and reflects current market conditions. This page refreshes every 60 seconds via ISR.`,
+      answer: `Spread and cost data is sourced from Forexbenchmark.com's feed and reflects current market conditions. Data is refreshed approximately every 12 hours.`,
     },
   ];
 
@@ -203,30 +203,26 @@ export default async function VsSymbolPage({ params }: Props) {
           <div className={styles.relatedLinks}>
             <Link
               href={`/forex/${symbol.toLowerCase()}`}
-              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
-              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+              className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
               {sym} Trading Conditions →
             </Link>
             <Link
               href={`/swaps/${symbol.toLowerCase()}`}
-              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
-              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+              className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
               {sym} Swap Rates →
             </Link>
             <Link
               href={`/trading-hours/${symbol.toLowerCase()}`}
-              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
-              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+              className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
               {sym} Market Hours →
             </Link>
             {nextBrokerSlug && (
               <Link
                 href={`/vs/${nextBrokerSlug}/${symbol.toLowerCase()}`}
-                className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
-                style={{ borderColor: "rgba(255,255,255,0.15)" }}
+                className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
               >
                 Afterprime vs{" "}
                 {getBrokerDisplayName(nextBrokerSlug)} {sym} →
@@ -234,8 +230,7 @@ export default async function VsSymbolPage({ params }: Props) {
             )}
             <Link
               href={`/vs/${brokers}`}
-              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
-              style={{ borderColor: "rgba(255,255,255,0.15)" }}
+              className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
               Afterprime vs {mappedBrokerName} — All Pairs →
             </Link>
