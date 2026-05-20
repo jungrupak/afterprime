@@ -44,13 +44,11 @@
 }
 
 .tableParent {
-  table-layout: fixed;
   table {
+    table-layout: fixed;
     tr {
-      td {
-        width: 33.33%;
-        max-width: 33.33%;
-        min-width: 33.33%;
+      th {
+        padding: 10px 15px;
       }
     }
   }
