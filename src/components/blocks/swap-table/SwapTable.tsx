@@ -98,21 +98,37 @@ function renderTable(rows: InstrumentDataType[]) {
       <table className="min-w-full">
         <thead>
           <tr>
-            <th className="px-4 py-2 text-left">Instrument</th>
-            <th className="px-4 py-2 text-left">Short</th>
-            <th className="px-4 py-2 text-left">Long</th>
+            <th className="md:px-4 md:py-2 text-left">Instrument</th>
+            <th className="md:px-4 md:py-2 text-left">Long</th>
+            <th className="md:px-4 md:py-2 text-left">Short</th>
+            <th className="md:px-4 md:py-2 text-left">Market Hours</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((row, index) => (
             <tr key={row.symbol ?? `${row.path}-${index}`}>
               <td className="px-4 py-2">
-                <a href={`/swaps/${row.symbol?.toLowerCase()}`}>
+                <a
+                  href={
+                    row.path?.startsWith("Forex") ||
+                    row.symbol?.toLowerCase() === "xauusd"
+                      ? `/trade/${row.symbol?.toLowerCase()}`
+                      : `/swaps/${row.symbol?.toLowerCase()}`
+                  }
+                  className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                >
                   {row.symbol ?? "-"}
                 </a>
               </td>
-              <td className="px-4 py-2">{row.swapShort ?? "-"}</td>
               <td className="px-4 py-2">{row.swapLong ?? "-"}</td>
+              <td className="px-4 py-2">{row.swapShort ?? "-"}</td>
+              <td>
+                <a href={`/trading-hours/${row.symbol?.toLowerCase()}`}>
+                  <span className="text-[14px] block underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
+                    Trading Hours
+                  </span>
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>
