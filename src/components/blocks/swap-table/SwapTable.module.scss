@@ -48,7 +48,9 @@
     table-layout: fixed;
     tr {
       th {
-        padding: 10px 15px;
+        @media all and (max-width: 767px) {
+          padding: 10px 15px;
+        }
       }
     }
   }
