@@ -1,0 +1,144 @@
+.innerBannerSection {
+  min-height: 60vh;
+  background-color: transparent;
+  backdrop-filter: blur(0);
+  background-image: none !important;
+  display: flex;
+  align-items: center;
+  @media all and (min-width: 1024px) {
+    min-height: 70vh;
+  }
+}
+
+.statPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(28px, 5vw, 40px);
+}
+
+.statPill {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 16px 20px;
+  min-width: 160px;
+}
+
+.statPillAfterPrime {
+  border-left: 3px solid #263dea;
+}
+
+.statPillLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.statPillValue {
+  font-size: clamp(20px, 4vw, 26px);
+  font-weight: 700;
+  color: #fff;
+}
+
+.statPillSaving {
+  color: #22c55e;
+}
+
+.verdictGrid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+  @media all and (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.verdictBlock {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 10px;
+  padding: clamp(20px, 4vw, 28px);
+}
+
+.verdictEyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 10px;
+}
+
+.verdictHeading {
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.verdictText {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.comparisonTableSection {
+  table {
+    table-layout: fixed;
+    th:first-child,
+    td:first-child {
+      width: 40%;
+    }
+    th {
+      font-size: clamp(14px, 3vw, 16px) !important;
+      font-weight: 600;
+      color: #fff;
+    }
+    td {
+      font-size: clamp(15px, 3vw, 18px) !important;
+      vertical-align: top;
+    }
+  }
+}
+
+.afterprimeCol {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.savingHighlight {
+  color: #ff301d;
+  font-weight: 600;
+}
+
+.tableNote {
+  margin-top: 14px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.5;
+}
+
+.aboutSection {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: clamp(20px, 4vw, 28px);
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.faqBlock {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.relatedLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
