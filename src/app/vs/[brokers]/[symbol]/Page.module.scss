@@ -59,7 +59,7 @@
 
 .verdictBlock {
   background-color: rgba(var(--alphaWhite), 0.05);
-  border: 1px solid rgba(var(--alphaWhite), 0.10);
+  border: 1px solid rgba(var(--alphaWhite), 0.1);
   border-radius: 10px;
   padding: clamp(20px, 4vw, 28px);
 }
@@ -127,7 +127,7 @@
   border: 1px solid rgba(var(--alphaWhite), 0.08);
   border-radius: 8px;
   padding: clamp(20px, 4vw, 28px);
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.6;
   color: rgba(var(--alphaWhite), 0.65);
 }
@@ -145,4 +145,141 @@
 
 .relatedLinkPill {
   border-color: rgba(var(--alphaWhite), 0.15) !important;
+}
+
+//Card Item
+.cardItem {
+  padding: 45px 32px;
+  backdrop-filter: blur(19.1619px);
+  background: rgba(255, 255, 255, 0.04);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    margin-bottom: 20px;
+    font-size: max(30px, min(5vw, 34px));
+    font-weight: 600;
+    line-height: 1.2;
+    max-width: 90%;
+    margin-inline: auto;
+  }
+  p {
+    margin-bottom: 0;
+    font-size: max(18px, min(5vw, 20px));
+    font-weight: 400;
+    line-height: 1.4;
+    color: #e1e1e1;
+    max-width: 90%;
+    margin-inline: auto;
+  }
+  .cardCta {
+    margin-top: clamp(20px, 5vw, 30px);
+    max-width: 90%;
+    margin-inline: auto;
+    a {
+      font-size: inherit;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      font-weight: 700;
+      display: flex;
+    }
+    svg {
+      display: inline-block;
+      circle {
+        fill: var(--secondary-color);
+      }
+      mask {
+        fill: var(--secondary-color);
+      }
+      path {
+        fill: var(--white);
+      }
+    }
+  }
+
+  &.cardCompact {
+    padding: clamp(25px, 5vw, 38px) clamp(20px, 5vw, 30px);
+    h3 {
+      margin-bottom: 18px;
+    }
+    p {
+      margin-bottom: 0;
+    }
+    .cardCta {
+      margin-top: clamp(15px, 5vw, 20px);
+    }
+  }
+  &.cardLarge {
+    padding: clamp(30px, 5vw, 60px) clamp(25px, 5vw, 50px);
+    h3 {
+      margin-bottom: 30px;
+      max-width: 100%;
+    }
+    p {
+      margin-bottom: 0;
+      max-width: 100%;
+    }
+    .cardCta {
+      max-width: 100%;
+      margin-top: clamp(25px, 5vw, 40px);
+    }
+  }
+  &.cardSmall {
+    padding: clamp(30px, 5vw, 40px) clamp(25px, 5vw, 40px);
+    h3 {
+      font-size: max(25px, min(5vw, 30px));
+      line-height: 1.1;
+      margin-bottom: 30px;
+      max-width: 100%;
+    }
+    p {
+      margin-bottom: 0;
+      max-width: 100%;
+    }
+    .cardCta {
+      max-width: 100%;
+      margin-top: clamp(25px, 5vw, 40px);
+    }
+  }
+  &.cardBold {
+    h3 {
+      font-weight: 700;
+    }
+  }
+  &.activeCard {
+    background-color: var(--secondary-color);
+    color: white;
+    .cardCta {
+      a {
+        svg circle {
+          fill: var(--white);
+        }
+        svg mask {
+          fill: var(--white);
+        }
+        svg path {
+          fill: var(--secondary-color);
+        }
+      }
+    }
+  }
+  &.itemsCenter {
+    text-align: center;
+    p {
+      text-align: center !important;
+    }
+  }
+  &.itemsleft {
+    text-align: left;
+    p {
+      text-align: left;
+      margin-left: 0;
+    }
+    h3,
+    .cardCta {
+      margin-left: 0 !important;
+    }
+  }
 }

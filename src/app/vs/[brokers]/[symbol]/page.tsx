@@ -146,24 +146,23 @@ export default async function VsSymbolPage({ params }: Props) {
             apNetCost={apNetCost}
             savingPct={savingPct}
           />
-        </div>
-      </section>
-
-      {/* Section 3 — Trader Type Verdicts */}
-      <section className="compact-section">
-        <div className="ap_container_small">
-          <h2 className="leading-[1.2]">Who Gets the Better Deal?</h2>
-          <VsSymbolVerdicts
-            brokerName={mappedBrokerName}
-            symbol={symbol}
-            savingPct={savingPct}
-            savingPer100Lots={savingPer100Lots}
-          />
+          <div className={`${styles.aboutSection} mt-10`}>
+            This comparison uses <b>{mappedBrokerName}&apos;s</b> pricing for{" "}
+            <b>{sym}</b>, verified by{" "}
+            <a
+              href="https://www.forexbenchmark.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <u>Forexbenchmark.com</u>
+            </a>
+            , which represents their lowest all-in cost offering.
+          </div>
         </div>
       </section>
 
       {/* Section 4 — About Broker */}
-      <section className="compact-section">
+      {/* <section className="compact-section">
         <div className="ap_container_small">
           <h2 className="leading-[1.2]">About This Comparison</h2>
           <div className={styles.aboutSection}>
@@ -178,6 +177,21 @@ export default async function VsSymbolPage({ params }: Props) {
             </a>
             , which represents their lowest all-in cost offering.
           </div>
+        </div>
+      </section> */}
+
+      {/* Section 3 — Trader Type Verdicts */}
+      <section className="compact-section">
+        <div className="ap_container_small">
+          <h2 className="leading-[1.2] max-md:text-center">
+            Who Gets the Better Deal?
+          </h2>
+          <VsSymbolVerdicts
+            brokerName={mappedBrokerName}
+            symbol={symbol}
+            savingPct={savingPct}
+            savingPer100Lots={savingPer100Lots}
+          />
         </div>
       </section>
 
@@ -224,8 +238,7 @@ export default async function VsSymbolPage({ params }: Props) {
                 href={`/vs/${nextBrokerSlug}/${symbol.toLowerCase()}`}
                 className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
               >
-                Afterprime vs{" "}
-                {getBrokerDisplayName(nextBrokerSlug)} {sym} →
+                Afterprime vs {getBrokerDisplayName(nextBrokerSlug)} {sym} →
               </Link>
             )}
             <Link

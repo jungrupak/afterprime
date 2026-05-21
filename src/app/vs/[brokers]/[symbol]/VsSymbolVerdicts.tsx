@@ -19,20 +19,20 @@ export default function VsSymbolVerdicts({
 
   return (
     <div className={styles.verdictGrid}>
-      <div className={styles.verdictBlock}>
+      <div className={`${styles.cardItem} ${styles.itemsCenter}`}>
         <div className={styles.verdictEyebrow}>Scalpers / High Frequency</div>
-        <div className={styles.verdictHeading}>Afterprime wins on cost</div>
-        <p className={styles.verdictText}>
+        <h3>Afterprime wins on cost</h3>
+        <p className={`opacity-65`}>
           At {savingPct.toFixed(1)}% lower cost per lot, Afterprime is
           materially cheaper for scalpers trading {sym} at volume. On 500
           lots/month the cost difference is ${saving500Lots}.
         </p>
       </div>
 
-      <div className={styles.verdictBlock}>
+      <div className={`${styles.cardItem} ${styles.itemsCenter}`}>
         <div className={styles.verdictEyebrow}>Swing Traders</div>
-        <div className={styles.verdictHeading}>Overnight cost matters too</div>
-        <p className={styles.verdictText}>
+        <h3>Overnight cost matters too</h3>
+        <p className={`opacity-65`}>
           For traders holding positions overnight, swap rates are the secondary
           cost factor. Check{" "}
           <Link
@@ -45,12 +45,12 @@ export default function VsSymbolVerdicts({
         </p>
       </div>
 
-      <div className={styles.verdictBlock}>
+      <div className={`${styles.cardItem} ${styles.itemsCenter}`}>
         <div className={styles.verdictEyebrow}>Algo / EA Traders</div>
-        <div className={styles.verdictHeading}>Sub-50ms, zero commission</div>
-        <p className={styles.verdictText}>
-          Sub-50ms execution and zero commission make Afterprime well-suited
-          for systematic strategies where spread consistency and cost certainty
+        <h3>Sub-50ms, zero commission</h3>
+        <p className={`opacity-65`}>
+          Sub-50ms execution and zero commission make Afterprime well-suited for
+          systematic strategies where spread consistency and cost certainty
           matter more than {brokerName}&apos;s platform-specific features.
         </p>
       </div>
