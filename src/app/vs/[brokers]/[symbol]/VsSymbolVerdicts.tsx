@@ -49,9 +49,8 @@ export default function VsSymbolVerdicts({
         <div className={styles.verdictEyebrow}>Algo / EA Traders</div>
         <h3>Sub-50ms, zero commission</h3>
         <p className={`opacity-65`}>
-          Sub-50ms execution and zero commission make Afterprime well-suited for
-          systematic strategies where spread consistency and cost certainty
-          matter more than {brokerName}&apos;s platform-specific features.
+          Sub-50ms execution and zero commissions make Afterprime a stronger
+          choice for automated trading than {brokerName}.
         </p>
       </div>
     </div>
