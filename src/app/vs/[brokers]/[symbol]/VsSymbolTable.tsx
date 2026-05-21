@@ -24,6 +24,7 @@ export default function VsSymbolTable({
   savingPct,
 }: VsSymbolTableProps) {
   const sym = symbol.toUpperCase();
+  const savingPerlot = compCostPerLot - apCostPerLot;
 
   return (
     <div id="comparison-table" style={{ scrollMarginTop: "80px" }}>
@@ -59,7 +60,7 @@ export default function VsSymbolTable({
             <tr>
               <td>Flow Rewards</td>
               <td className={styles.afterprimeCol}>
-                −${rebate.toFixed(2)}/lot
+                {rebate > 0 ? <>−${rebate.toFixed(2)}/lot</> : <>N/A</>}
               </td>
               <td>None</td>
             </tr>
@@ -70,27 +71,36 @@ export default function VsSymbolTable({
               </td>
               <td>${compCostPerLot.toFixed(2)}/lot</td>
             </tr>
-            <tr>
-              <td>Saving vs Afterprime</td>
-              <td>—</td>
-              <td className={styles.savingHighlight}>
-                {savingPct.toFixed(1)}% more expensive
-              </td>
-            </tr>
+            {savingPerlot > 0 && (
+              <>
+                <tr>
+                  <td>Saving vs Afterprime</td>
+                  <td>—</td>
+                  <td className={styles.savingHighlight}>
+                    {savingPct.toFixed(1)}% more expensive
+                  </td>
+                </tr>
+              </>
+            )}
           </tbody>
         </table>
       </div>
       <p className={styles.tableNote}>
-        Flow Rewards rebate of ${rebate.toFixed(2)}/lot is a structural edge
-        paid back to active traders. Current month rate shown. Source:{" "}
+        {rebate > 0 && (
+          <>
+            Flow Rewards rebate of ${rebate.toFixed(2)}/lot is a structural edge
+            paid back to active traders.
+          </>
+        )}
+        Current month rate shown. Source:{" "}
         <a
           href="https://www.forexbenchmark.com"
           target="_blank"
           rel="noopener noreferrer"
         >
           <u>Forexbenchmark.com</u>
-        </a>{" "}
-        — Previous 7 Days Range. Incl. Commissions + Spreads.
+        </a>
+        . Previous 7 Days Range. Incl. Commissions + Spreads.
       </p>
     </div>
   );

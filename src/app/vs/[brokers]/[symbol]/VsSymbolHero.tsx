@@ -21,6 +21,8 @@ export default function VsSymbolHero({
 }: VsSymbolHeroProps) {
   const sym = symbol.toUpperCase();
 
+  const savingPerlot = compCostPerLot - apCostPerLot;
+
   return (
     <section className={`${styles.innerBannerSection}`}>
       <div className="ap_container_small flex max-md:flex-col gap-10 items-center h-full w-full">
@@ -35,12 +37,14 @@ export default function VsSymbolHero({
           >
             {brokerName} costs <strong>${compCostPerLot.toFixed(2)}/lot</strong>{" "}
             on {sym}. Afterprime costs{" "}
-            <strong>${apCostPerLot.toFixed(2)}/lot</strong> —{" "}
-            {savingPct.toFixed(1)}% lower, zero commission.
+            <strong>${apCostPerLot.toFixed(2)}/lot</strong>.{" "}
+            {savingPerlot > 0 && (
+              <>{savingPct.toFixed(1)}% lower, zero commission.</>
+            )}
           </p>
           <div className="mt-8 md:mt-12">
             <Link
-              href={`/trade/${sym}`}
+              href={`/trade/${sym.toLowerCase()}`}
               className={`${btnStyle.ap_button} ${btnStyle.primary} ${btnStyle.regular}`}
             >
               Start Trading {sym}
@@ -79,17 +83,23 @@ export default function VsSymbolHero({
               </div>
             </div>
 
-            <div className={`${styles.cardItem} py-4!`}>
-              <div className={styles.statPillLabel}>You save per 100 lots</div>
-              <div
-                className={`${styles.statPillValue} ${styles.statPillSaving}`}
-              >
-                ${savingPer100Lots.toFixed(0)}{" "}
-                <span className={`text-[14px] ${styles.statPillLabel}`}>
-                  @Afterprime
-                </span>
-              </div>
-            </div>
+            {savingPerlot > 0 && (
+              <>
+                <div className={`${styles.cardItem} py-4!`}>
+                  <div className={styles.statPillLabel}>
+                    You save per 100 lots
+                  </div>
+                  <div
+                    className={`${styles.statPillValue} ${styles.statPillSaving}`}
+                  >
+                    ${savingPer100Lots.toFixed(0)}{" "}
+                    <span className={`text-[14px] ${styles.statPillLabel}`}>
+                      @Afterprime
+                    </span>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
