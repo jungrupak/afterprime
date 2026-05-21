@@ -45,5 +45,5 @@ export default async function CompareWithMajors({
     );
   }
 
-  return <CompareWithMajorsClient data={data} />;
+  return <CompareWithMajorsClient data={data} broker={broker} />;
 }

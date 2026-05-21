@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "./CostComparison.module.scss";
+import Link from "next/link";
 
 interface Brokers {
   broker: string;
@@ -29,7 +30,9 @@ export type CompareMajorsData = {
 
 export default function CompareWithMajorsClient({
   data,
+  broker,
 }: {
+  broker: string;
   data: CompareMajorsData;
 }) {
   const [rowIndex, setRowIndex] = useState<number | null>(0);
@@ -41,7 +44,7 @@ export default function CompareWithMajorsClient({
         day: "numeric",
         month: "long",
         year: "numeric",
-      })
+      }),
     );
   }, []);
 
@@ -84,11 +87,13 @@ export default function CompareWithMajorsClient({
                 brokerItem.broker !== "IC Markets (cTrader)",
             );
 
-            const competitorBrokerCostPerLot = competitorBroker?.costPerLot ?? 0;
+            const competitorBrokerCostPerLot =
+              competitorBroker?.costPerLot ?? 0;
             const competitorBrokerName = competitorBroker?.broker ?? "";
             const afterprimeCostPerLot =
-              item?.brokers?.find((brokerItem) => brokerItem.broker === "Afterprime")
-                ?.costPerLot ?? 0;
+              item?.brokers?.find(
+                (brokerItem) => brokerItem.broker === "Afterprime",
+              )?.costPerLot ?? 0;
 
             return (
               <div
@@ -100,7 +105,13 @@ export default function CompareWithMajorsClient({
                     data-label="Pairs"
                     className="flex gap-5 max-md:justify-between"
                   >
-                    {symbol}
+                    <Link
+                      href={`/vs/${broker}/${symbol.toLowerCase()}`}
+                      className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                    >
+                      {symbol}
+                    </Link>
+
                     <div
                       className={styles.monthlyVloumeBtn}
                       onClick={() =>
@@ -157,13 +168,17 @@ export default function CompareWithMajorsClient({
                             <tr key={volume}>
                               <td>{volume} lots</td>
                               <td>
-                                ${(competitorBrokerCostPerLot * volume).toFixed(2)}
+                                $
+                                {(competitorBrokerCostPerLot * volume).toFixed(
+                                  2,
+                                )}
                               </td>
                               <td>
                                 $
-                                {((afterprimeCostPerLot - rebate) * volume).toFixed(
-                                  2,
-                                )}
+                                {(
+                                  (afterprimeCostPerLot - rebate) *
+                                  volume
+                                ).toFixed(2)}
                               </td>
                               <td>
                                 $
