@@ -149,6 +149,7 @@ const nextConfig: NextConfig = {
         { source: '/trading-calculator', destination: '/calculators/trading-calculator', permanent: true },
         { source: '/traderevolution', destination: '/', permanent: true },
         { source: '/forex/xaueur', destination: '/forex', permanent: true },
+        { source: '/position-size-calculator', destination: '/calculators/position-size-calculator', permanent: true },
       ];
   },
 };
