@@ -187,7 +187,7 @@ export default function DataVisual(props: SectionProps) {
     });
 
     picks.forEach((bk, idx) => {
-      if (!bk || bk === "—DIVIDER—") return;
+      if (!bk || bk === "-DIVIDER-") return;
       if (seriesDefs.some((s) => s.label === bk)) return;
       const cost = COSTS[bk];
       if (typeof cost !== "number") return;
@@ -459,7 +459,7 @@ function BrokerSelect({
       >
         {allowNone && <option value="">None</option>}
         {options.map((o, i) =>
-          o === "—DIVIDER—" ? (
+          o === "-DIVIDER-" ? (
             <option key={`div-${i}`} disabled className="divider">
               ────────
             </option>

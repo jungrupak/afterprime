@@ -411,7 +411,10 @@ export default async function ChildPage({ params }: Props) {
         items={[
           { name: "Home", href: "/" },
           { name: "Broker Comparisons", href: "/vs" },
-          { name: `Afterprime vs ${brokers.charAt(0).toUpperCase() + brokers.slice(1)}`, href: `/vs/${brokers}` },
+          {
+            name: `Afterprime vs ${brokers.charAt(0).toUpperCase() + brokers.slice(1)}`,
+            href: `/vs/${brokers}`,
+          },
         ]}
       />
       {/* FAQs Ends */}
