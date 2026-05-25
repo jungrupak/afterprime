@@ -115,6 +115,10 @@ function alternativeAccessNote(data: InstrumentData): string {
   return "Orders placed while the market is closed are queued and filled at the next available open price";
 }
 
+function clean(text: string | undefined | null): string {
+  return text?.replace(/\uFFFD/g, "-") ?? "";
+}
+
 export const revalidate = 1800;
 
 type Props = { params: Promise<{ symbol: string }> };
@@ -407,7 +411,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
             </h2>
             <p className="paragraph opacity-85">
               {data.description} typically sees its highest liquidity and
-              tightest spreads during {data.peakLiquiditySession}
+              tightest spreads during {clean(data.peakLiquiditySession)}
               {data.sessionOverlapStart && data.sessionOverlapEnd
                 ? ` (${data.sessionOverlapStart}–${data.sessionOverlapEnd})`
                 : ""}
@@ -417,7 +421,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
               Lower-volume periods, particularly {lowVolumePeriod(data)}, may
               see wider spreads and thinner order books. For traders on{" "}
               {executionStyle(data)} strategies, timing entries around the{" "}
-              {data.peakLiquiditySession} open tends to offer the most
+              {clean(data.peakLiquiditySession)} open tends to offer the most
               favourable conditions.
             </p>
           </div>
