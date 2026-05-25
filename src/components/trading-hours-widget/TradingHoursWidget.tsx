@@ -38,23 +38,22 @@ function jsUtcDayToApi(jsDay: number): number {
   return jsDay === 0 ? 7 : jsDay;
 }
 
-function parseUtcTimeString(timeStr: string | undefined): number | null {
+// MT4/MT5 server time is GMT+3; all session data uses this offset
+const SERVER_OFFSET_MINUTES = 3 * 60;
+
+function parseServerTimeString(timeStr: string | undefined): number | null {
   if (!timeStr) return null;
   const match = timeStr.match(/(\d+):(\d+)/);
   if (!match) return null;
   return parseInt(match[1]) * 60 + parseInt(match[2]);
 }
 
-function utcMinutesToLocalTime(utcMinutes: number, timezone: string): string {
+function serverMinutesToLocalTime(serverMinutes: number, timezone: string): string {
   const now = new Date();
+  // Convert GMT+3 server minutes → UTC by subtracting offset, then format in target tz
   const d = new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      Math.floor(utcMinutes / 60),
-      utcMinutes % 60,
-    ),
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0, 0) +
+    (serverMinutes - SERVER_OFFSET_MINUTES) * 60 * 1000,
   );
   return d.toLocaleTimeString("en-US", {
     hour: "2-digit",
@@ -64,13 +63,21 @@ function utcMinutesToLocalTime(utcMinutes: number, timezone: string): string {
   });
 }
 
-function utcStringToLocalTime(
-  utcStr: string | undefined,
-  timezone: string,
-): string {
-  const mins = parseUtcTimeString(utcStr);
+// For already-UTC string fields (sessionAsiaOpen, dailyBreakStartUtc, etc.)
+function utcStringToLocalTime(utcStr: string | undefined, timezone: string): string {
+  const mins = parseServerTimeString(utcStr);
   if (mins === null) return "--:--";
-  return utcMinutesToLocalTime(mins, timezone);
+  const now = new Date();
+  const d = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0, 0) +
+    mins * 60 * 1000,
+  );
+  return d.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: timezone,
+    hour12: false,
+  });
 }
 
 function formatCountdown(totalSeconds: number): string {
@@ -98,20 +105,20 @@ function computeMarketStatus(
   breakEndMinutes: number | null,
 ): MarketStatus {
   const now = new Date();
-  const apiDay = jsUtcDayToApi(now.getUTCDay());
-  const currentUtcMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
+  // Session data is in GMT+3 (MT4 server time) — shift current time to match
+  const serverNow = new Date(now.getTime() + SERVER_OFFSET_MINUTES * 60 * 1000);
+  const apiDay = jsUtcDayToApi(serverNow.getUTCDay());
+  const currentMinutes = serverNow.getUTCHours() * 60 + serverNow.getUTCMinutes();
 
-  function minutesToAbsDate(utcMinutes: number, daysOffset = 0): Date {
+  // Convert GMT+3 server minutes to an absolute JS Date (UTC internally)
+  function minutesToAbsDate(serverMinutes: number, daysOffset = 0): Date {
     return new Date(
       Date.UTC(
-        now.getUTCFullYear(),
-        now.getUTCMonth(),
-        now.getUTCDate() + daysOffset,
-        Math.floor(utcMinutes / 60),
-        utcMinutes % 60,
-        0,
-        0,
-      ),
+        serverNow.getUTCFullYear(),
+        serverNow.getUTCMonth(),
+        serverNow.getUTCDate() + daysOffset,
+        0, 0, 0, 0,
+      ) + (serverMinutes - SERVER_OFFSET_MINUTES) * 60 * 1000,
     );
   }
 
@@ -123,7 +130,7 @@ function computeMarketStatus(
     (s) => s.dayOfWeek === apiDay,
   );
   const currentSession = todaySessions.find(
-    (s) => currentUtcMinutes >= s.open && currentUtcMinutes < s.close,
+    (s) => currentMinutes >= s.open && currentMinutes < s.close,
   );
 
   if (currentSession) {
@@ -132,8 +139,8 @@ function computeMarketStatus(
       hasDailyBreak &&
       breakStartMinutes !== null &&
       breakEndMinutes !== null &&
-      currentUtcMinutes >= breakStartMinutes &&
-      currentUtcMinutes < breakEndMinutes
+      currentMinutes >= breakStartMinutes &&
+      currentMinutes < breakEndMinutes
     ) {
       let breakEndDate = minutesToAbsDate(breakEndMinutes);
       if (breakEndDate <= now)
@@ -149,7 +156,7 @@ function computeMarketStatus(
     const closeAtMinutes =
       hasDailyBreak &&
       breakStartMinutes !== null &&
-      currentUtcMinutes < breakStartMinutes
+      currentMinutes < breakStartMinutes
         ? breakStartMinutes
         : currentSession.close;
 
@@ -168,7 +175,7 @@ function computeMarketStatus(
 
   // Find next open — up to 7 days ahead
   for (let daysAhead = 0; daysAhead <= 7; daysAhead++) {
-    const checkDate = new Date(now);
+    const checkDate = new Date(serverNow);
     checkDate.setUTCDate(checkDate.getUTCDate() + daysAhead);
     const checkApiDay = jsUtcDayToApi(checkDate.getUTCDay());
     const sessions = (sessionsTrades ?? [])
@@ -226,8 +233,8 @@ export default function TradingHoursWidget({
   closeDay,
   closeUtc,
 }: Props) {
-  const breakStartMinutes = parseUtcTimeString(dailyBreakStartUtc);
-  const breakEndMinutes = parseUtcTimeString(dailyBreakEndUtc);
+  const breakStartMinutes = parseServerTimeString(dailyBreakStartUtc);
+  const breakEndMinutes = parseServerTimeString(dailyBreakEndUtc);
 
   const [timezone, setTimezone] = useState("UTC");
   const [now, setNow] = useState<Date | null>(null);
@@ -302,7 +309,9 @@ export default function TradingHoursWidget({
         ? "Daily Break"
         : "Market Closed";
 
-  const todayApiDay = now ? jsUtcDayToApi(now.getUTCDay()) : -1;
+  const todayApiDay = now
+    ? jsUtcDayToApi(new Date(now.getTime() + SERVER_OFFSET_MINUTES * 60 * 1000).getUTCDay())
+    : -1;
   const sessionMap = new Map(
     (sessionsTrades ?? []).map((s) => [s.dayOfWeek, s]),
   );
@@ -426,7 +435,7 @@ export default function TradingHoursWidget({
                   className={`${styles.dayTimeRange} ${isToday ? styles.today : ""}`}
                 >
                   {session
-                    ? `${utcMinutesToLocalTime(session.open, timezone)} – ${utcMinutesToLocalTime(session.close, timezone)}`
+                    ? `${serverMinutesToLocalTime(session.open, timezone)} – ${serverMinutesToLocalTime(session.close, timezone)}`
                     : "Closed"}
                 </div>
               </div>
