@@ -145,7 +145,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: mappedUrl,
         lastModified: parseDate(page.modified),
         priority: 0.8,
-        changeFrequency: "weekly",
+        changeFrequency: "daily",
       });
 
       return routes;
