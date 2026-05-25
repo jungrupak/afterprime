@@ -7,6 +7,24 @@ type WPPageExtended = WPPage & {
   modified?: string;
 };
 
+const INSTRUMENTS_API = "https://scoreboard.argamon.com:8443/api/instruments/";
+
+// Matches BROKER_SLUG_MAP keys in vs/[brokers]/[symbol]/page.tsx — keep in sync
+const VS_BROKER_SLUGS = [
+  "tickmill",
+  "fxcm",
+  "ic-markets",
+  "pepperstone",
+  "fxopen",
+  "dukascopy",
+  "darwinex",
+  "global-prime",
+  "markets-dot-com",
+  "swissquote",
+  "top-10-avg",
+  "industry-avg",
+] as const;
+
 const SITEMAP_PAGE_FIELDS = ["slug", "link", "modified"].join(",");
 const WEBTRADER_PAGES = [
   "webtrader-mt4",
@@ -58,6 +76,21 @@ function mapWordPressUrlToSiteUrl(pageUrl: string, siteBaseUrl: string) {
     return parsedPageUrl.toString().replace(/\/$/, "");
   } catch {
     return null;
+  }
+}
+
+async function fetchAllInstrumentSymbols(): Promise<Array<{ symbol: string; path: string }>> {
+  try {
+    const res = await fetch(INSTRUMENTS_API, {
+      next: { revalidate: 1800 },
+    });
+    if (!res.ok) return [];
+    const data: Array<{ symbol: string; path: string }> = await res.json();
+    return data
+      .filter((item) => !item.symbol.toLowerCase().includes(".agg"))
+      .map((item) => ({ symbol: item.symbol.toLowerCase(), path: item.path ?? "" }));
+  } catch {
+    return [];
   }
 }
 
@@ -119,7 +152,15 @@ async function fetchPublishedPages(): Promise<WPPageExtended[]> {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://afterprime.com";
-  const pages = await fetchPublishedPages();
+  const [pages, instruments] = await Promise.all([
+    fetchPublishedPages(),
+    fetchAllInstrumentSymbols(),
+  ]);
+
+  const symbols = instruments.map((i) => i.symbol);
+  const forexSymbols = instruments
+    .filter((i) => i.path.split("\\")[0] === "Forex")
+    .map((i) => i.symbol);
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -160,5 +201,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "weekly",
   }));
 
-  return [...staticRoutes, ...dynamicRoutes, ...webtraderRoutes];
+  const swapRoutes: MetadataRoute.Sitemap = symbols.map((symbol) => ({
+    url: `${baseUrl}/swaps/${symbol}`,
+    lastModified: new Date(),
+    priority: 0.7,
+    changeFrequency: "daily",
+  }));
+
+  const vsSymbolRoutes: MetadataRoute.Sitemap = VS_BROKER_SLUGS.flatMap((broker) =>
+    forexSymbols.map((symbol) => ({
+      url: `${baseUrl}/vs/${broker}/${symbol}`,
+      lastModified: new Date(),
+      priority: 0.75,
+      changeFrequency: "daily" as const,
+    })),
+  );
+
+  return [...staticRoutes, ...dynamicRoutes, ...webtraderRoutes, ...swapRoutes, ...vsSymbolRoutes];
 }
