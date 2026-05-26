@@ -217,5 +217,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  return [...staticRoutes, ...dynamicRoutes, ...webtraderRoutes, ...swapRoutes, ...vsSymbolRoutes];
+  const thSymbolRoutes: MetadataRoute.Sitemap = symbols.map((symbol) => ({
+    url: `${baseUrl}/trading-hours/${symbol}`,
+    lastModified: new Date(),
+    priority: 0.7,
+    changeFrequency: "daily",
+  }));
+
+  return [...staticRoutes, ...dynamicRoutes, ...webtraderRoutes, ...swapRoutes, ...vsSymbolRoutes, ...thSymbolRoutes];
 }
