@@ -90,7 +90,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         {
           url:
             pageAiseo?.["og:image"] ??
-            "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
+            "/img/og-images/default-og-afterprime-home.jpg",
           width: 1200,
           height: 630,
           alt:
@@ -110,7 +110,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
       images: [
         pageAiseo?.["twitter:image"] ??
-          "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
+          "/img/og-images/default-og-afterprime-home.jpg",
       ],
       creator: pageAiseo?.["twitter:creator"] ?? "@afterprime_com",
       site: pageAiseo?.["twitter:site"] ?? "@afterprime_com",
