@@ -38,7 +38,7 @@ export async function CustomMetadata(slug: string) {
         {
           url:
             seoData?.["og:image:secure_url"] ??
-            "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
+            "/img/og-images/default-og-afterprime-home.jpg",
           width: 1200,
           height: 630,
           alt:
@@ -58,7 +58,7 @@ export async function CustomMetadata(slug: string) {
 
       images: [
         seoData?.["og:image:secure_url"] ??
-          "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
+          "/img/og-images/default-og-afterprime-home.jpg",
       ],
       creator: seoData?.["twitter:creator"] ?? "@afterprime_com",
       site: seoData?.["twitter:site"] ?? "@afterprime_com",
