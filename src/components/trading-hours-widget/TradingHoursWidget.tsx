@@ -233,8 +233,11 @@ export default function TradingHoursWidget({
   closeDay,
   closeUtc,
 }: Props) {
-  const breakStartMinutes = parseServerTimeString(dailyBreakStartUtc);
-  const breakEndMinutes = parseServerTimeString(dailyBreakEndUtc);
+  const parsedBreakStart = parseServerTimeString(dailyBreakStartUtc);
+  const parsedBreakEnd = parseServerTimeString(dailyBreakEndUtc);
+  // dailyBreakStartUtc / dailyBreakEndUtc are in UTC, but session data is in server time (GMT+3)
+  const breakStartMinutes = parsedBreakStart !== null ? parsedBreakStart + SERVER_OFFSET_MINUTES : null;
+  const breakEndMinutes = parsedBreakEnd !== null ? parsedBreakEnd + SERVER_OFFSET_MINUTES : null;
 
   const [timezone, setTimezone] = useState("UTC");
   const [now, setNow] = useState<Date | null>(null);
