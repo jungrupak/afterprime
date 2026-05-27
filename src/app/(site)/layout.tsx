@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "Afterprime",
     images: [
       {
-        url: "https://cdn.afterprime.com/images/og_image_afterprime.jpg",
+        url: "/img/og-images/default-og-afterprime-home.jpg",
         width: 1200,
         height: 630,
         alt: "Afterprime",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Afterprime – Trade Smarter",
     description:
       "Afterprime offers multi-asset trading with institutional-grade pricing and execution.",
-    images: ["https://cdn.afterprime.com/images/og_image_afterprime.jpg"],
+    images: ["/img/og-images/default-og-afterprime-home.jpg"],
   },
   alternates: {
     canonical: "https://afterprime.com",
