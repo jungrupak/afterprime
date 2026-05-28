@@ -148,7 +148,12 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
                                 />
                               </div>
                               {item.symbol === "XAUUSD" ? (
-                                <a href="/trade/xauusd" className={`underline decoration-dotted decoration-2 underline-offset-4`}>{item.symbol}</a>
+                                <a
+                                  href="/trade/xauusd"
+                                  className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                                >
+                                  {item.symbol}
+                                </a>
                               ) : (
                                 item.symbol
                               )}
@@ -164,7 +169,12 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
                                 />
                               </div>
                               {item.symbol === "XAUUSD" ? (
-                                <a href="/trade/xauusd" className={`underline decoration-dotted decoration-2 underline-offset-4`}>{item.symbol}</a>
+                                <a
+                                  href="/trade/xauusd"
+                                  className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                                >
+                                  {item.symbol}
+                                </a>
                               ) : (
                                 item.symbol
                               )}

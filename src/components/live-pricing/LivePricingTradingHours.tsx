@@ -145,7 +145,16 @@ export function LivePricingTradingHours({
                                 />
                               </div>
 
-                              {item.symbol}
+                              {item.symbol === "XAUUSD" ? (
+                                <a
+                                  href="/trade/xauusd"
+                                  className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                                >
+                                  {item.symbol}
+                                </a>
+                              ) : (
+                                item.symbol
+                              )}
                             </div>
                           ) : (
                             <div className={`${styles.instrumentIcons}`}>
@@ -158,7 +167,16 @@ export function LivePricingTradingHours({
                                 />
                               </div>
 
-                              {item.symbol}
+                              {item.symbol === "XAUUSD" ? (
+                                <a
+                                  href="/trade/xauusd"
+                                  className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                                >
+                                  {item.symbol}
+                                </a>
+                              ) : (
+                                item.symbol
+                              )}
                             </div>
                           )}
                         </td>
