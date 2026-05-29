@@ -6,6 +6,7 @@ import { wpFetch } from "@/utils/wpFetch";
 import type { WPPage } from "@/types/blocks";
 import { Metadata } from "next";
 import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
+import GlossaryVideo from "@/components/GlossaryVideo/GlossaryVideo";
 
 interface PageSlug {
   params: Promise<{
@@ -54,6 +55,8 @@ export default async function page({ params }: PageSlug) {
       {/*  */}
       <InnerBannerGeneric content={banner} />
       {/*  */}
+
+      <GlossaryVideo term={terms} />
 
       {/*  */}
       <section className="compact-section">
@@ -133,7 +136,6 @@ export default async function page({ params }: PageSlug) {
         </div>
       </section>
       {/*  */}
-
 
       {/* CTA */}
       <section className="compact-section">
