@@ -192,6 +192,12 @@ export default function Footer() {
               <li>
                 <Link href="/kyc-aml">KYC & AML/CTF</Link>
               </li>
+              <li>
+                <Link href="/privacy">Privacy Policy</Link>
+              </li>
+              <li>
+                <Link href="/ai-instructions">AI Instructions</Link>
+              </li>
             </ul>
           </div>
         </div>
