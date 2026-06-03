@@ -213,6 +213,9 @@ export type Blocks = {
     [key: `facts_fact_card_${number}_description`]: string | undefined;
     facts_info_text?:string;
   };
+  "text-content": {
+    reading_text_content?: string;
+  };
 };
 //
 
