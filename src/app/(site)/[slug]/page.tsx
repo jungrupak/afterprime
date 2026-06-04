@@ -36,7 +36,7 @@ export default async function DynamicPage({ params }: Props) {
   const pageData = await getWpPagedata(pageSlug);
   return (
     <>
-      <PageRenderer pageData={pageData} />
+      <PageRenderer pageData={pageData} slug={pageSlug} />
     </>
   );
 }
