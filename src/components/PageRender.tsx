@@ -6,11 +6,9 @@ import USPBlock from "@/components/blocks/USPblock/USPblock";
 import { repeatorValueNormalize } from "@/components/blocks/section-featured-cards/repeaterValueNormalize";
 import SectionFeaturedCards from "@/components/blocks/section-featured-cards/SectionFeaturedCards";
 
-const EXCLUDE_BOTTOM_CTA_SLUGS = ["cookies", "terms", "privacy-policy"];
+type Props = { pageData: WPPage };
 
-type Props = { pageData: WPPage; slug?: string };
-
-export default function PageRenderer({ pageData, slug }: Props) {
+export default function PageRenderer({ pageData }: Props) {
   if (!pageData) return <p>Page not found</p>;
 
   return (
@@ -39,8 +37,7 @@ export default function PageRenderer({ pageData, slug }: Props) {
       {pageData.acf &&
         Object.entries(pageData.acf).map(([key, value], idx) => {
           if (!value) return null;
-          if (key === "bottom_cta" && slug && EXCLUDE_BOTTOM_CTA_SLUGS.includes(slug)) return null;
-          const FieldComp = acfFieldRegistry[key as keyof typeof pageData.acf];
+const FieldComp = acfFieldRegistry[key as keyof typeof pageData.acf];
           if (!FieldComp) return null;
           return (
             <FieldComp
