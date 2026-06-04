@@ -1,6 +1,7 @@
 import TypeformButton from "@/components/instrument-lps/typeform-btn/typeForm";
 import styles from "./style.module.scss";
 import { getGlobalOptionFields } from "@/lib/getGlobalBlockData";
+
 export async function BottomCta() {
   const fieldsData = await getGlobalOptionFields("global_cta_fields"); //pass custom field group name to get exact field datas
 
