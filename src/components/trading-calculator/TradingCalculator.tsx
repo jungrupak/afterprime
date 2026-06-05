@@ -195,6 +195,7 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
   const selectedCurRate = parseFloat(trade.exchangeRate);
   const activeCurrency = trade.accountCurrency;
   const activeInstrument = trade.selectedInstrument;
+  const activeInstrumentGroup = trade.instrumentGroup;
   const activeLeverage = parseInt(trimLeverage(trade.leverage));
   const activeLotsize = parseFloat(trade.lotSize) || 0;
   const activeBidPrice = parseFloat(price.bidPrice) || 0.0;
@@ -270,13 +271,20 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
     // Calculations in USD
     const marginLongUsd = (contractForLot * activeAskPrice) / activeLeverage;
     const marginShortUsd = (contractForLot * activeBidPrice) / activeLeverage;
-    const point = pointSize; //* tickBookDepth;
+    const point = pointSize;
+
+    // For Forex 5-decimal pairs (point=0.00001), 1 pip = 10 points.
+    // All other asset classes: pip == point.
+    const pipMultiplier = activeInstrumentGroup === "Forex" ? 10 : 1;
+    const pip = point * pipMultiplier;
 
     const spreadPrice = activeAskPrice - activeBidPrice;
-    const spreadPips = spreadPrice / point;
+    const spreadPips = spreadPrice / pip;
 
+    // pointValueUsd stays per-point (used by swap calculations which are in points)
     const pointValueUsd = contractForLot * point;
-    const spreadCostUsd = spreadPips * pointValueUsd;
+    // spreadCost calculated directly to avoid pip/point confusion
+    const spreadCostUsd = spreadPrice * contractForLot;
 
     const swapLongValueUsd = swapLong * pointValueUsd;
     const swapShortValueUsd = swapShort * pointValueUsd;
