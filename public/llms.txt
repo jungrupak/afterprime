@@ -1,101 +1,519 @@
-# Afterprime
+# afterprime.com llms.txt
 
-## Sitemaps
+> Afterprime is a forex and CFD broker providing institutional-grade trading
+> conditions to retail and professional traders. The site includes a
+> comprehensive forex/CFD glossary, broker comparison tools, trading hours data,
+> swap rate pages, market analysis, calculators, and platform documentation.
 
-- [XML Sitemap](https://afterprime.com/sitemap.xml): Contains all public & indexable URLs for this website.
+## Key pages
 
-## Trading Instrument Pages
+- [Homepage](https://afterprime.com/) -- Overview of Afterprime broker services, account types, and featured content. (priority: 1.0)
+- [AI Instructions](https://afterprime.com/ai-instructions) -- AI-specific usage instructions for interacting with Afterprime content. (priority: 0.8)
+- [Glossary Index](https://afterprime.com/glossary/) -- Full A-Z glossary of forex and CFD trading terms. (priority: 0.8)
+- [Forex Trading](https://afterprime.com/forex/) -- Overview of forex trading services and supported currency pairs. (priority: 0.8)
+- [Markets - Metals](https://afterprime.com/markets/metals/) -- Precious metals trading overview (XAU/USD, XAG/USD, etc.). (priority: 0.8)
+- [Why We Exist](https://afterprime.com/why-we-exist) -- Mission and founding story. (priority: 0.8)
+- [Our Story](https://afterprime.com/our-story) -- Company background and timeline. (priority: 0.8)
+- [How to Qualify](https://afterprime.com/how-to-qualify) -- Eligibility requirements for Afterprime accounts. (priority: 0.8)
+- [Get Paid to Trade](https://afterprime.com/get-paid-to-trade) -- Cashback and loyalty rewards program details. (priority: 0.8)
+- [Future of Trading](https://afterprime.com/future-of-trading) -- Thought leadership on the evolution of retail trading. (priority: 0.8)
+- [Lowest Cost Verified](https://afterprime.com/lowest-cost-verified) -- Evidence-based cost comparison claims. (priority: 0.8)
+- [Aligned Execution](https://afterprime.com/aligned-execution) -- Execution quality and conflict-of-interest disclosure. (priority: 0.8)
+- [Trade Execution](https://afterprime.com/trade-execution) -- Order execution policy and infrastructure. (priority: 0.8)
+- [Margins and Leverages](https://afterprime.com/margins-and-leverages) -- Margin requirements and leverage ratios by asset class. (priority: 0.8)
+- [Swaps](https://afterprime.com/swaps/) -- Overview of overnight financing charges. (priority: 0.8)
+- [Deposit & Withdrawal](https://afterprime.com/deposit-withdrawal) -- Funding methods, fees, and processing times. (priority: 0.8)
+- [KYC/AML](https://afterprime.com/kyc-aml) -- Know Your Customer and Anti-Money Laundering policies. (priority: 0.8)
+- [License and Regulations](https://afterprime.com/license-and-regulations) -- Regulatory status and licensing information. (priority: 0.8)
+- [Legal Documents](https://afterprime.com/legal-documents) -- Terms of service, PDS, and legal agreements. (priority: 0.8)
+- [Privacy Policy](https://afterprime.com/privacy/) -- Data handling and privacy practices. (priority: 0.8)
+- [Cookie Policy](https://afterprime.com/cookies/) -- Cookie usage and consent information. (priority: 0.8)
+- [Terms](https://afterprime.com/terms/) -- General terms and conditions. (priority: 0.8)
+- [Contact Us](https://afterprime.com/contact-us/) -- Customer support contact information. (priority: 0.8)
+- [What Traders Say](https://afterprime.com/what-traders-say/) -- Trader testimonials and reviews. (priority: 0.8)
+- [Our Discord](https://afterprime.com/our-discord/) -- Community Discord server link. (priority: 0.8)
+- [Trade](https://afterprime.com/trade/) -- Live trading account registration gateway. (priority: 0.8)
+- [WebTrader MT4](https://afterprime.com/webtrader-mt4/) -- Browser-based MT4 platform access. (priority: 0.9)
+- [WebTrader MT4 Demo](https://afterprime.com/webtrader-mt4-demo/) -- MT4 demo account registration. (priority: 0.9)
+- [WebTrader MT5](https://afterprime.com/webtrader-mt5/) -- Browser-based MT5 platform access. (priority: 0.9)
 
-Trade pages follow a consistent structure and live under:
-https://afterprime.com/trade/{symbol}
+## Glossary (108 terms)
 
-- [Home Page](https://afterprime.com) - Ranked #1 lowest total trading cost - verified by ForexBenchmark
-- [USDZAR](https://afterprime.com/trade/usdzar) - Trade USDZAR on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDTHB](https://afterprime.com/trade/usdthb) - Trade USDTHB on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDSGD](https://afterprime.com/trade/usdsgd) - Trade USDSGD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDSEK](https://afterprime.com/trade/usdsek) - Trade USDSEK on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDPLN](https://afterprime.com/trade/usdpln) - Trade USDPLN on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDNOK](https://afterprime.com/trade/usdnok) - Trade USDNOK on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDMXN](https://afterprime.com/trade/usdmxn) - Trade USDMXN on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDJPY](https://afterprime.com/trade/usdjpy) - Trade USDJPY on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDHUF](https://afterprime.com/trade/usdhuf) - Trade USDHUF on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDHKD](https://afterprime.com/trade/usdhkd) - Trade USDHKD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDCZK](https://afterprime.com/trade/usdczk) - Trade USDCZK on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDCNH](https://afterprime.com/trade/usdcnh) - Trade USDCNH on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDCHF](https://afterprime.com/trade/usdchf) - Trade USDCHF on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURCAD](https://afterprime.com/trade/eurcad) - Trade EURCAD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [USDCAD](https://afterprime.com/trade/usdcad) - Trade USDCAD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [SGDJPY](https://afterprime.com/trade/sgdjpy) - Trade SGDJPY on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [SEKJPY](https://afterprime.com/trade/sekjpy) - Trade SEKJPY on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [NZDUSD](https://afterprime.com/trade/nzdusd) - Trade NZDUSD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [NZDSGD](https://afterprime.com/trade/nzdsgd) - Trade NZDSGD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [NZDJPY](https://afterprime.com/trade/nzdjpy) - Trade NZDJPY on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [NZDCHF](https://afterprime.com/trade/nzdchf) - Trade NZDCHF on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [NZDCAD](https://afterprime.com/trade/nzdcad) - Trade NZDCAD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [NOKSEK](https://afterprime.com/trade/noksek) - Trade NOKSEK on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [NOKJPY](https://afterprime.com/trade/nokjpy) - Trade NOKJPY on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [GBPUSD](https://afterprime.com/trade/gbpusd) - Trade GBPUSD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [GBPSGD](https://afterprime.com/trade/gbpsgd) - Trade GBPSGD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [GBPSEK](https://afterprime.com/trade/gbpsek) - Trade GBPSEK on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [GBPPLN](https://afterprime.com/trade/gbppln) - Trade GBPPLN on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [GBPNZD](https://afterprime.com/trade/gbpnzd) - Trade GBPNZD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [GBPNOK](https://afterprime.com/trade/gbpnok) - Trade GBPNOK on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [GBPJPY](https://afterprime.com/trade/gbpjpy) - Trade GBPJPY on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [GBPCHF](https://afterprime.com/trade/gbpchf) - Trade GBPCHF on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [GBPCAD](https://afterprime.com/trade/gbpcad) - Trade GBPCAD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [GBPAUD](https://afterprime.com/trade/gbpaud) - Trade GBPAUD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURZAR](https://afterprime.com/trade/eurzar) - Trade EURZAR on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURSEK](https://afterprime.com/trade/eursek) - Trade EURSEK on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURPLN](https://afterprime.com/trade/eurpln) - Trade EURPLN on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURNZD](https://afterprime.com/trade/eurnzd) - Trade EURNZD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURNOK](https://afterprime.com/trade/eurnok) - Trade EURNOK on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURJPY](https://afterprime.com/trade/eurjpy) - Trade EURJPY on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURHUF](https://afterprime.com/trade/eurhuf) - Trade EURHUF on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURHKD](https://afterprime.com/trade/eurhkd) - Trade EURHKD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURGBP](https://afterprime.com/trade/eurgbp) - Trade EURGBP on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURCHF](https://afterprime.com/trade/eurchf) - Trade EURCHF on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURAUD](https://afterprime.com/trade/euraud) - Trade EURAUD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [CHFSGD](https://afterprime.com/trade/chfsgd) - Trade CHFSGD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [CHFJPY](https://afterprime.com/trade/chfjpy) - Trade CHFJPY on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [CADJPY](https://afterprime.com/trade/cadjpy) - Trade CADJPY on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [CADCHF](https://afterprime.com/trade/cadchf) - Trade CADCHF on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [AUDUSD](https://afterprime.com/trade/audusd) - Trade AUDUSD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [AUDSGD](https://afterprime.com/trade/audsgd) - Trade AUDSGD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [AUDNZD](https://afterprime.com/trade/audnzd) - Trade AUDNZD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [AUDJPY](https://afterprime.com/trade/audjpy) - Trade AUDJPY on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [AUDCHF](https://afterprime.com/trade/audchf) - Trade AUDCHF on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [AUDCAD](https://afterprime.com/trade/audcad) - Trade AUDCAD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [EURUSD](https://afterprime.com/trade/eurusd) - Trade EURUSD on Afterprime with verified low trading costs, transparent execution, and institutional liquidity. Compare brokers all-in costs.
-- [Lowest Cost Verified](https://afterprime.com/lowest-cost-verified) - Verified by ForexBenchmark: AfterPrime offers the world's lowest total forex trading costs, 43% lower than second-best.
-- [Trade](https://afterprime.com/trade)
-- [Forex](https://afterprime.com/forex) - Experience forex trading with 43% lower costs than competitors. AfterPrime combines Flow Rewards cashback with ultra-fast execution and transparent pricing.
-- [Trading Hours](https://afterprime.com/trading-hours) - Complete trading hours for all markets. Trade 24/5 on major, minor, and exotic pairs with AfterPrime. View session times for indices, commodities, and crypto.
-- [Aligned Execution](https://afterprime.com/aligned-execution) - Lightning-fast execution for serious traders. Sub-1ms speeds, zero slippage, lowest total costs verified by ForexBenchmark.
-- [Why We Exist](https://afterprime.com/why-we-exist) - Built for traders tired of hidden costs. AfterPrime delivers ForexBenchmark-verified lowest pricing and Flow Rewards cashback. Fair trading starts here.
-- [What Traders Say](https://afterprime.com/what-traders-say) - Verified reviews from traders using AfterPrime. Learn why pros switched to the broker with sub-1ms execution, Flow Rewards, and the lowest total trading costs.
-- [Trading Calculator](https://afterprime.com/calculators/trading-calculator) - Free forex trading calculator. Calculate pip values, position size, margin requirements, and profit/loss instantly. Essential tool for traders at AfterPrime.
-- [Trade Execution](https://afterprime.com/trade-execution) - Sub-1ms execution speeds built for serious traders. AfterPrime delivers zero requotes, minimal slippage, and the lowest costs verified by ForexBenchmark.
-- [Terms](https://afterprime.com/terms) - AfterPrime terms and conditions: understand your rights and obligations as a trader. Complete terms of service, trading rules, and client agreement details.
-- [Swaps](https://afterprime.com/swaps) - AfterPrime delivers competitive overnight financing with the lowest total costs - verified by Forexbenchmark.
-- [Privacy](https://afterprime.com/privacy) - AfterPrime privacy policy: learn how we collect, use, and protect your personal data. Our commitment to trader privacy, data security, and GDPR compliance.
-- [WebTrader](https://afterprime.com/platforms/webtrader) - Trade forex from any browser, any device. Sub-1ms execution, ForexBenchmark-verified lowest costs, and Flow Rewards. No software needed.
-- [Metatrader 5](https://afterprime.com/platforms/mt5) - Trade on MetaTrader 5 with AfterPrime's ultra-fast execution and lowest costs. MT5 platform with advanced charting, algo trading, and Flow Rewards integration.
-- [MetaTrader 4](https://afterprime.com/platforms/mt4) - Trade on MT4 with the world's lowest total costs. AfterPrime offers sub-millisecond execution, full EA support, custom indicators, and Flow Rewards.
-- [FIX API](https://afterprime.com/platforms/fix-api) - FIX API for institutional and algo traders. Sub-1ms execution, direct market access, and the lowest total costs verified by ForexBenchmark. Enterprise-grade.
-- [Our Story](https://afterprime.com/our-story) - Discover how AfterPrime became the world's lowest-cost forex broker. Built by traders for traders with Flow Rewards and ForexBenchmark-verified pricing.
-- [Our Discord](https://afterprime.com/our-discord) - Join 5,000+ traders on AfterPrime's Discord. Get live support, trading strategies, market analysis, and connect with pro traders. Active 24/7 community.
-- [Contact Us](https://afterprime.com/contact-us) - Contact AfterPrime support 24/7. Get help with your trading account, platforms, deposits, or questions. Live chat, email, and Discord community available now.
-- [Cookies Policy](https://afterprime.com/cookies) - AfterPrime cookie policy: learn how we use cookies to improve your browsing experience, remember preferences, and analyze site usage.
-- [Deposits & Withdrawals](https://afterprime.com/deposit-withdrawal) - Fast deposits and withdrawals at AfterPrime. Multiple payment methods, instant processing, and secure funding for your forex trading account. See all options.
-- [Future of Trading](https://afterprime.com/future-of-trading) - AfterPrime's pay-to-trade model rewards every transaction. Combine Flow Rewards cashback with ForexBenchmark-verified lowest costs.
-- [Get Paid To Trade](https://afterprime.com/get-paid-to-trade) - Get paid to trade forex with AfterPrime's Flow Rewards. Earn money back on every trade plus enjoy the lowest total costs verified by ForexBenchmark.
-- [How to Qualify](https://afterprime.com/how-to-qualify) - AfterPrime is invite-only for serious traders. Discover qualification requirements to access ForexBenchmark-verified lowest costs and Flow Rewards. Apply now.
-- [KYC & AML/CTF](https://afterprime.com/kyc-aml) - Understand AfterPrime's KYC and AML procedures. Learn about identity verification requirements, document submission, and our commitment to secure trading.
-- [Legal Documents](https://afterprime.com/legal-documents) - Access AfterPrime's legal documents including terms of service, privacy policy, risk disclosure, and client agreements. Transparent policies for all traders.
-- [Licenses And Regulations](https://afterprime.com/license-and-regulations) - AfterPrime is a licensed and regulated broker. Learn about our regulatory compliance, client fund protection, and commitment to safe trading practices.
-- [Margins & Leverages](https://afterprime.com/margins-and-leverages) - Flexible leverage up to 1:400 with transparent margin requirements. AfterPrime combines ForexBenchmark-verified lowest costs with professional margin policies.
-- [Commodities](https://afterprime.com/commodities) - Trade commodities CFDs with ForexBenchmark-verified lowest costs. Access gold, silver, crude oil, natural gas, and more. Earn Flow Rewards on every trade.
-- [Metals](https://afterprime.com/metals) - Trade precious metals with institutional pricing. Access gold, silver and more. Earn Flow Rewards on every trade.
-- [Crypto](https://afterprime.com/crypto) - Trade Bitcoin, Ethereum, and cryptocurrency CFDs with AfterPrime's lowest costs and Flow Rewards. 24/7 crypto trading with sub-1ms execution.
-- [Indices](https://afterprime.com/indices) - Trade global stock indices with AfterPrime's lowest costs and Flow Rewards. Access S&P 500, NASDAQ, DAX, FTSE, and more. Ultra-fast execution.
-- [Live Spreads](https://afterprime.com/live-spreads) - View spreads in real-time. AfterPrime offers the lowest total trading costs verified by ForexBenchmark. Compare our spreads.
+Forex and CFD trading term definitions, each at /glossary/{term}.
+
+- [Account Balance](https://afterprime.com/glossary/account-balance)
+- [All-In Cost](https://afterprime.com/glossary/all-in-cost)
+- [AML](https://afterprime.com/glossary/aml)
+- [Arbitrage](https://afterprime.com/glossary/arbitrage)
+- [Ask Price](https://afterprime.com/glossary/ask-price)
+- [Average True Range](https://afterprime.com/glossary/average-true-range)
+- [Base Currency](https://afterprime.com/glossary/base-currency)
+- [Bid Price](https://afterprime.com/glossary/bid-price)
+- [Breakout](https://afterprime.com/glossary/breakout)
+- [Buy Limit](https://afterprime.com/glossary/buy-limit)
+- [Buy Stop](https://afterprime.com/glossary/buy-stop)
+- [Candlestick](https://afterprime.com/glossary/candlestick)
+- [Carry Trade](https://afterprime.com/glossary/carry-trade)
+- [CFD (Contract for Difference)](https://afterprime.com/glossary/cfd-contract-for-difference)
+- [Commission](https://afterprime.com/glossary/commission)
+- [Commodity CFD](https://afterprime.com/glossary/commodity-cfd)
+- [Consolidation](https://afterprime.com/glossary/consolidation)
+- [Contract Size](https://afterprime.com/glossary/contract-size)
+- [Correlation](https://afterprime.com/glossary/correlation)
+- [Crypto CFD](https://afterprime.com/glossary/crypto-cfd)
+- [Currency Pair](https://afterprime.com/glossary/currency-pair)
+- [Day Trading](https://afterprime.com/glossary/day-trading)
+- [Demo Account](https://afterprime.com/glossary/demo-account)
+- [Depth of Market](https://afterprime.com/glossary/depth-of-market)
+- [Drawdown](https://afterprime.com/glossary/drawdown)
+- [Eligible Counterparty](https://afterprime.com/glossary/eligible-counterparty)
+- [Equity](https://afterprime.com/glossary/equity)
+- [Equity CFD](https://afterprime.com/glossary/equity-cfd)
+- [Exotic Currency Pair](https://afterprime.com/glossary/exotic-currency-pair)
+- [Expectancy](https://afterprime.com/glossary/expectancy)
+- [Exponential Moving Average](https://afterprime.com/glossary/exponential-moving-average)
+- [Fill or Kill](https://afterprime.com/glossary/fill-or-kill)
+- [Fixed Spread](https://afterprime.com/glossary/fixed-spread)
+- [Forex Trading](https://afterprime.com/glossary/forex-trading)
+- [Free Margin](https://afterprime.com/glossary/free-margin)
+- [Glossary Forex](https://afterprime.com/glossary/glossary-forex)
+- [Guaranteed Stop](https://afterprime.com/glossary/guaranteed-stop)
+- [Hedging](https://afterprime.com/glossary/hedging)
+- [Immediate or Cancel](https://afterprime.com/glossary/immediate-or-cancel)
+- [Index CFD](https://afterprime.com/glossary/index-cfd)
+- [Initial Margin](https://afterprime.com/glossary/initial-margin)
+- [Instant Execution](https://afterprime.com/glossary/instant-execution)
+- [Institutional Client](https://afterprime.com/glossary/institutional-client)
+- [KYC](https://afterprime.com/glossary/kyc)
+- [Leverage](https://afterprime.com/glossary/leverage)
+- [Limit Order](https://afterprime.com/glossary/limit-order)
+- [Live Account](https://afterprime.com/glossary/live-account)
+- [Long Position](https://afterprime.com/glossary/long-position)
+- [MACD](https://afterprime.com/glossary/macd)
+- [Maintenance Margin](https://afterprime.com/glossary/maintenance-margin)
+- [Major Currency Pair](https://afterprime.com/glossary/major-currency-pair)
+- [Margin](https://afterprime.com/glossary/margin)
+- [Margin Call](https://afterprime.com/glossary/margin-call)
+- [Margin Level](https://afterprime.com/glossary/margin-level)
+- [Market Execution](https://afterprime.com/glossary/market-execution)
+- [Market Order](https://afterprime.com/glossary/market-order)
+- [Maximum Drawdown](https://afterprime.com/glossary/maximum-drawdown)
+- [Mean Reversion](https://afterprime.com/glossary/mean-reversion)
+- [Mid Price](https://afterprime.com/glossary/mid-price)
+- [Minor Currency Pair](https://afterprime.com/glossary/minor-currency-pair)
+- [Moving Average](https://afterprime.com/glossary/moving-average)
+- [Negative Balance Protection](https://afterprime.com/glossary/negative-balance-protection)
+- [Negative Slippage](https://afterprime.com/glossary/negative-slippage)
+- [Netting](https://afterprime.com/glossary/netting)
+- [Notional Exposure](https://afterprime.com/glossary/notional-exposure)
+- [One Cancels the Other](https://afterprime.com/glossary/one-cancels-the-other)
+- [Overnight Financing](https://afterprime.com/glossary/overnight-financing)
+- [Partial Fill](https://afterprime.com/glossary/partial-fill)
+- [Position Size](https://afterprime.com/glossary/position-size)
+- [Position Trading](https://afterprime.com/glossary/position-trading)
+- [Positive Slippage](https://afterprime.com/glossary/positive-slippage)
+- [Professional Client](https://afterprime.com/glossary/professional-client)
+- [Pullback](https://afterprime.com/glossary/pullback)
+- [Quote Currency](https://afterprime.com/glossary/quote-currency)
+- [Realised PnL](https://afterprime.com/glossary/realised-pnl)
+- [Relative Strength Index](https://afterprime.com/glossary/relative-strength-index)
+- [Requote](https://afterprime.com/glossary/requote)
+- [Resistance Level](https://afterprime.com/glossary/resistance-level)
+- [Retail Client](https://afterprime.com/glossary/retail-client)
+- [Risk Per Trade](https://afterprime.com/glossary/risk-per-trade)
+- [Risk-Reward Ratio](https://afterprime.com/glossary/risk-reward-ratio)
+- [Rollover](https://afterprime.com/glossary/rollover)
+- [Scalping](https://afterprime.com/glossary/scalping)
+- [Segregated Account](https://afterprime.com/glossary/segregated-account)
+- [Sell Limit](https://afterprime.com/glossary/sell-limit)
+- [Sell Stop](https://afterprime.com/glossary/sell-stop)
+- [Sharpe Ratio](https://afterprime.com/glossary/sharpe-ratio)
+- [Short Position](https://afterprime.com/glossary/short-position)
+- [Slippage](https://afterprime.com/glossary/slippage)
+- [Spot Forex](https://afterprime.com/glossary/spot-forex)
+- [Spread](https://afterprime.com/glossary/spread)
+- [Stop Loss](https://afterprime.com/glossary/stop-loss)
+- [Stop Out Level](https://afterprime.com/glossary/stop-out-level)
+- [Support Level](https://afterprime.com/glossary/support-level)
+- [Swap](https://afterprime.com/glossary/swap)
+- [Swap-Free Account](https://afterprime.com/glossary/swap-free-account)
+- [Swing Trading](https://afterprime.com/glossary/swing-trading)
+- [Take Profit](https://afterprime.com/glossary/take-profit)
+- [Tick Size](https://afterprime.com/glossary/tick-size)
+- [Tick Value](https://afterprime.com/glossary/tick-value)
+- [Trailing Stop](https://afterprime.com/glossary/trailing-stop)
+- [Trend Following](https://afterprime.com/glossary/trend-following)
+- [Trendline](https://afterprime.com/glossary/trendline)
+- [Triple Swap Wednesday](https://afterprime.com/glossary/triple-swap-wednesday)
+- [Unrealised PnL](https://afterprime.com/glossary/unrealised-pnl)
+- [Used Margin](https://afterprime.com/glossary/used-margin)
+- [Variable Spread](https://afterprime.com/glossary/variable-spread)
+- [Win Rate](https://afterprime.com/glossary/win-rate)
+
+## Forex currency pair pages (59 pairs)
+
+Each at /forex/{pair} -- live pricing, spread data, and pair-specific details.
+
+- [AUD/CAD](https://afterprime.com/forex/audcad)
+- [AUD/CHF](https://afterprime.com/forex/audchf)
+- [AUD/JPY](https://afterprime.com/forex/audjpy)
+- [AUD/NZD](https://afterprime.com/forex/audnzd)
+- [AUD/SGD](https://afterprime.com/forex/audsgd)
+- [AUD/USD](https://afterprime.com/forex/audusd)
+- [CAD/CHF](https://afterprime.com/forex/cadchf)
+- [CAD/JPY](https://afterprime.com/forex/cadjpy)
+- [CHF/JPY](https://afterprime.com/forex/chfjpy)
+- [CHF/SGD](https://afterprime.com/forex/chfsgd)
+- [EUR/AUD](https://afterprime.com/forex/euraud)
+- [EUR/CAD](https://afterprime.com/forex/eurcad)
+- [EUR/CHF](https://afterprime.com/forex/eurchf)
+- [EUR/GBP](https://afterprime.com/forex/eurgbp)
+- [EUR/HKD](https://afterprime.com/forex/eurhkd)
+- [EUR/HUF](https://afterprime.com/forex/eurhuf)
+- [EUR/JPY](https://afterprime.com/forex/eurjpy)
+- [EUR/MXN](https://afterprime.com/forex/eurmxn)
+- [EUR/NOK](https://afterprime.com/forex/eurnok)
+- [EUR/NZD](https://afterprime.com/forex/eurnzd)
+- [EUR/PLN](https://afterprime.com/forex/eurpln)
+- [EUR/SEK](https://afterprime.com/forex/eursek)
+- [EUR/SGD](https://afterprime.com/forex/eursgd)
+- [EUR/USD](https://afterprime.com/forex/eurusd)
+- [EUR/ZAR](https://afterprime.com/forex/eurzar)
+- [GBP/AUD](https://afterprime.com/forex/gbpaud)
+- [GBP/CAD](https://afterprime.com/forex/gbpcad)
+- [GBP/CHF](https://afterprime.com/forex/gbpchf)
+- [GBP/JPY](https://afterprime.com/forex/gbpjpy)
+- [GBP/NOK](https://afterprime.com/forex/gbpnok)
+- [GBP/NZD](https://afterprime.com/forex/gbpnzd)
+- [GBP/PLN](https://afterprime.com/forex/gbppln)
+- [GBP/SEK](https://afterprime.com/forex/gbpsek)
+- [GBP/SGD](https://afterprime.com/forex/gbpsgd)
+- [GBP/USD](https://afterprime.com/forex/gbpusd)
+- [NOK/JPY](https://afterprime.com/forex/nokjpy)
+- [NOK/SEK](https://afterprime.com/forex/noksek)
+- [NZD/CAD](https://afterprime.com/forex/nzdcad)
+- [NZD/CHF](https://afterprime.com/forex/nzdchf)
+- [NZD/JPY](https://afterprime.com/forex/nzdjpy)
+- [NZD/SGD](https://afterprime.com/forex/nzdsgd)
+- [NZD/USD](https://afterprime.com/forex/nzdusd)
+- [SEK/JPY](https://afterprime.com/forex/sekjpy)
+- [SGD/JPY](https://afterprime.com/forex/sgdjpy)
+- [USD/CAD](https://afterprime.com/forex/usdcad)
+- [USD/CHF](https://afterprime.com/forex/usdchf)
+- [USD/CNH](https://afterprime.com/forex/usdcnh)
+- [USD/CZK](https://afterprime.com/forex/usdczk)
+- [USD/HKD](https://afterprime.com/forex/usdhkd)
+- [USD/HUF](https://afterprime.com/forex/usdhuf)
+- [USD/JPY](https://afterprime.com/forex/usdjpy)
+- [USD/MXN](https://afterprime.com/forex/usdmxn)
+- [USD/NOK](https://afterprime.com/forex/usdnok)
+- [USD/PLN](https://afterprime.com/forex/usdpln)
+- [USD/SEK](https://afterprime.com/forex/usdsek)
+- [USD/SGD](https://afterprime.com/forex/usdsgd)
+- [USD/THB](https://afterprime.com/forex/usdthb)
+- [USD/ZAR](https://afterprime.com/forex/usdzar)
+
+## Trade pages (59 instruments)
+
+Each at /trade/{pair} -- live trading interface and instrument-specific details.
+
+- [XAU/USD](https://afterprime.com/trade/xauusd)
+- Plus 58 additional currency pair and instrument trade pages.
+
+## Trading hours (112 instruments)
+
+Each at /trading-hours/{pair} -- session times, market open/close, and holiday schedules.
+
+### Major forex pairs
+- [AUD/CAD](https://afterprime.com/trading-hours/audcad)
+- [AUD/CHF](https://afterprime.com/trading-hours/audchf)
+- [AUD/JPY](https://afterprime.com/trading-hours/audjpy)
+- [AUD/NZD](https://afterprime.com/trading-hours/audnzd)
+- [AUD/SGD](https://afterprime.com/trading-hours/audsgd)
+- [AUD/USD](https://afterprime.com/trading-hours/audusd)
+- [CAD/CHF](https://afterprime.com/trading-hours/cadchf)
+- [CAD/JPY](https://afterprime.com/trading-hours/cadjpy)
+- [CHF/JPY](https://afterprime.com/trading-hours/chfjpy)
+- [CHF/SGD](https://afterprime.com/trading-hours/chfsgd)
+- [EUR/AUD](https://afterprime.com/trading-hours/euraud)
+- [EUR/CAD](https://afterprime.com/trading-hours/eurcad)
+- [EUR/CHF](https://afterprime.com/trading-hours/eurchf)
+- [EUR/GBP](https://afterprime.com/trading-hours/eurgbp)
+- [EUR/HKD](https://afterprime.com/trading-hours/eurhkd)
+- [EUR/HUF](https://afterprime.com/trading-hours/eurhuf)
+- [EUR/JPY](https://afterprime.com/trading-hours/eurjpy)
+- [EUR/MXN](https://afterprime.com/trading-hours/eurmxn)
+- [EUR/NOK](https://afterprime.com/trading-hours/eurnok)
+- [EUR/NZD](https://afterprime.com/trading-hours/eurnzd)
+- [EUR/PLN](https://afterprime.com/trading-hours/eurpln)
+- [EUR/SEK](https://afterprime.com/trading-hours/eursek)
+- [EUR/SGD](https://afterprime.com/trading-hours/eursgd)
+- [EUR/USD](https://afterprime.com/trading-hours/eurusd)
+- [EUR/ZAR](https://afterprime.com/trading-hours/eurzar)
+- [GBP/AUD](https://afterprime.com/trading-hours/gbpaud)
+- [GBP/CAD](https://afterprime.com/trading-hours/gbpcad)
+- [GBP/CHF](https://afterprime.com/trading-hours/gbpchf)
+- [GBP/JPY](https://afterprime.com/trading-hours/gbpjpy)
+- [GBP/NOK](https://afterprime.com/trading-hours/gbpnok)
+- [GBP/NZD](https://afterprime.com/trading-hours/gbpnzd)
+- [GBP/PLN](https://afterprime.com/trading-hours/gbppln)
+- [GBP/SEK](https://afterprime.com/trading-hours/gbpsek)
+- [GBP/SGD](https://afterprime.com/trading-hours/gbpsgd)
+- [GBP/USD](https://afterprime.com/trading-hours/gbpusd)
+- [NOK/JPY](https://afterprime.com/trading-hours/nokjpy)
+- [NOK/SEK](https://afterprime.com/trading-hours/noksek)
+- [NZD/CAD](https://afterprime.com/trading-hours/nzdcad)
+- [NZD/CHF](https://afterprime.com/trading-hours/nzdchf)
+- [NZD/JPY](https://afterprime.com/trading-hours/nzdjpy)
+- [NZD/SGD](https://afterprime.com/trading-hours/nzdsgd)
+- [NZD/USD](https://afterprime.com/trading-hours/nzdusd)
+- [SEK/JPY](https://afterprime.com/trading-hours/sekjpy)
+- [SGD/JPY](https://afterprime.com/trading-hours/sgdjpy)
+- [USD/CAD](https://afterprime.com/trading-hours/usdcad)
+- [USD/CHF](https://afterprime.com/trading-hours/usdchf)
+- [USD/CNH](https://afterprime.com/trading-hours/usdcnh)
+- [USD/CZK](https://afterprime.com/trading-hours/usdczk)
+- [USD/HKD](https://afterprime.com/trading-hours/usdhkd)
+- [USD/HUF](https://afterprime.com/trading-hours/usdhuf)
+- [USD/JPY](https://afterprime.com/trading-hours/usdjpy)
+- [USD/MXN](https://afterprime.com/trading-hours/usdmxn)
+- [USD/NOK](https://afterprime.com/trading-hours/usdnok)
+- [USD/PLN](https://afterprime.com/trading-hours/usdpln)
+- [USD/SEK](https://afterprime.com/trading-hours/usdsek)
+- [USD/SGD](https://afterprime.com/trading-hours/usdsgd)
+- [USD/THB](https://afterprime.com/trading-hours/usdthb)
+- [USD/ZAR](https://afterprime.com/trading-hours/usdzar)
+
+### Metals
+- [XAG/AUD](https://afterprime.com/trading-hours/xagaud)
+- [XAG/EUR](https://afterprime.com/trading-hours/xageur)
+- [XAG/USD](https://afterprime.com/trading-hours/xagusd)
+- [XAU/AUD](https://afterprime.com/trading-hours/xauaud)
+- [XAU/EUR](https://afterprime.com/trading-hours/xaueur)
+- [XAU/USD](https://afterprime.com/trading-hours/xauusd)
+- [XPD/USD](https://afterprime.com/trading-hours/xpdusd)
+
+### Cryptocurrencies
+- [ADA/USD](https://afterprime.com/trading-hours/adausd)
+- [ATOM/USD](https://afterprime.com/trading-hours/atomusd)
+- [AVAX/USD](https://afterprime.com/trading-hours/avaxusd)
+- [BAT/USD](https://afterprime.com/trading-hours/batusd)
+- [BCH/USD](https://afterprime.com/trading-hours/bchusd)
+- [BNB/USD](https://afterprime.com/trading-hours/bnbusd)
+- [BTC/USD](https://afterprime.com/trading-hours/btcusd)
+- [COMP/USD](https://afterprime.com/trading-hours/compusd)
+- [CRV/USD](https://afterprime.com/trading-hours/crvusd)
+- [DOGE/USD](https://afterprime.com/trading-hours/dogeusd)
+- [DOT/USD](https://afterprime.com/trading-hours/dotusd)
+- [ETH/USD](https://afterprime.com/trading-hours/ethusd)
+- [LINK/USD](https://afterprime.com/trading-hours/linkusd)
+- [LTC/USD](https://afterprime.com/trading-hours/ltcusd)
+- [SOL/USD](https://afterprime.com/trading-hours/solusd)
+- [UNI/USD](https://afterprime.com/trading-hours/uniusd)
+- [XLM/USD](https://afterprime.com/trading-hours/xlmusd)
+- [XRP/USD](https://afterprime.com/trading-hours/xrpusd)
+- [XTZ/USD](https://afterprime.com/trading-hours/xtzusd)
+
+### Energies & Commodities
+- [XBR/USD (Brent Crude)](https://afterprime.com/trading-hours/xbrusd)
+- [XNG/USD (Natural Gas)](https://afterprime.com/trading-hours/xngusd)
+- [XTI/USD (WTI Crude)](https://afterprime.com/trading-hours/xtiusd)
+- [COFARA (Coffee Arabica)](https://afterprime.com/trading-hours/cofara)
+- [CORN](https://afterprime.com/trading-hours/corn)
+- [COTTON](https://afterprime.com/trading-hours/cotton)
+- [SOYBEAN](https://afterprime.com/trading-hours/soybean)
+- [SUGARRAW](https://afterprime.com/trading-hours/sugarraw)
+- [USCOCOA](https://afterprime.com/trading-hours/uscocoa)
+- [WHEAT](https://afterprime.com/trading-hours/wheat)
+- [XCU/USD (Copper)](https://afterprime.com/trading-hours/xcuusd)
+- [XPT/USD (Platinum)](https://afterprime.com/trading-hours/xptusd)
+
+### Indices
+- [AUS200 (ASX 200)](https://afterprime.com/trading-hours/aus200)
+- [ES35 (IBEX 35)](https://afterprime.com/trading-hours/es35)
+- [EUSTX50 (Euro Stoxx 50)](https://afterprime.com/trading-hours/eustx50)
+- [FRA40 (CAC 40)](https://afterprime.com/trading-hours/fra40)
+- [GER30 (DAX)](https://afterprime.com/trading-hours/ger30)
+- [IT40 (FTSE MIB)](https://afterprime.com/trading-hours/it40)
+- [NAS100 (Nasdaq 100)](https://afterprime.com/trading-hours/nas100)
+- [UK100 (FTSE 100)](https://afterprime.com/trading-hours/uk100)
+- [US30 (Dow Jones)](https://afterprime.com/trading-hours/us30)
+- [DXY (US Dollar Index)](https://afterprime.com/trading-hours/dxy)
+- [HK50 (Hang Seng)](https://afterprime.com/trading-hours/hk50)
+- [JPN225 (Nikkei 225)](https://afterprime.com/trading-hours/jpn225)
+- [US2000 (Russell 2000)](https://afterprime.com/trading-hours/us2000)
+- [US500 (S&P 500)](https://afterprime.com/trading-hours/us500)
+- [VIX](https://afterprime.com/trading-hours/vix)
+
+## Swap rates (112 instruments)
+
+Each at /swaps/{pair} -- overnight and triple swap rates for long and short positions.
+
+### Major forex pairs
+- [AUD/CAD](https://afterprime.com/swaps/audcad)
+- [AUD/CHF](https://afterprime.com/swaps/audchf)
+- [AUD/JPY](https://afterprime.com/swaps/audjpy)
+- [AUD/NZD](https://afterprime.com/swaps/audnzd)
+- [AUD/SGD](https://afterprime.com/swaps/audsgd)
+- [AUD/USD](https://afterprime.com/swaps/audusd)
+- [CAD/CHF](https://afterprime.com/swaps/cadchf)
+- [CAD/JPY](https://afterprime.com/swaps/cadjpy)
+- [CHF/JPY](https://afterprime.com/swaps/chfjpy)
+- [CHF/SGD](https://afterprime.com/swaps/chfsgd)
+- [EUR/AUD](https://afterprime.com/swaps/euraud)
+- [EUR/CAD](https://afterprime.com/swaps/eurcad)
+- [EUR/CHF](https://afterprime.com/swaps/eurchf)
+- [EUR/GBP](https://afterprime.com/swaps/eurgbp)
+- [EUR/HKD](https://afterprime.com/swaps/eurhkd)
+- [EUR/HUF](https://afterprime.com/swaps/eurhuf)
+- [EUR/JPY](https://afterprime.com/swaps/eurjpy)
+- [EUR/MXN](https://afterprime.com/swaps/eurmxn)
+- [EUR/NOK](https://afterprime.com/swaps/eurnok)
+- [EUR/NZD](https://afterprime.com/swaps/eurnzd)
+- [EUR/PLN](https://afterprime.com/swaps/eurpln)
+- [EUR/SEK](https://afterprime.com/swaps/eursek)
+- [EUR/SGD](https://afterprime.com/swaps/eursgd)
+- [EUR/USD](https://afterprime.com/swaps/eurusd)
+- [EUR/ZAR](https://afterprime.com/swaps/eurzar)
+- [GBP/AUD](https://afterprime.com/swaps/gbpaud)
+- [GBP/CAD](https://afterprime.com/swaps/gbpcad)
+- [GBP/CHF](https://afterprime.com/swaps/gbpchf)
+- [GBP/JPY](https://afterprime.com/swaps/gbpjpy)
+- [GBP/NOK](https://afterprime.com/swaps/gbpnok)
+- [GBP/NZD](https://afterprime.com/swaps/gbpnzd)
+- [GBP/PLN](https://afterprime.com/swaps/gbppln)
+- [GBP/SEK](https://afterprime.com/swaps/gbpsek)
+- [GBP/SGD](https://afterprime.com/swaps/gbpsgd)
+- [GBP/USD](https://afterprime.com/swaps/gbpusd)
+- [NOK/JPY](https://afterprime.com/swaps/nokjpy)
+- [NOK/SEK](https://afterprime.com/swaps/noksek)
+- [NZD/CAD](https://afterprime.com/swaps/nzdcad)
+- [NZD/CHF](https://afterprime.com/swaps/nzdchf)
+- [NZD/JPY](https://afterprime.com/swaps/nzdjpy)
+- [NZD/SGD](https://afterprime.com/swaps/nzdsgd)
+- [NZD/USD](https://afterprime.com/swaps/nzdusd)
+- [SEK/JPY](https://afterprime.com/swaps/sekjpy)
+- [SGD/JPY](https://afterprime.com/swaps/sgdjpy)
+- [USD/CAD](https://afterprime.com/swaps/usdcad)
+- [USD/CHF](https://afterprime.com/swaps/usdchf)
+- [USD/CNH](https://afterprime.com/swaps/usdcnh)
+- [USD/CZK](https://afterprime.com/swaps/usdczk)
+- [USD/HKD](https://afterprime.com/swaps/usdhkd)
+- [USD/HUF](https://afterprime.com/swaps/usdhuf)
+- [USD/JPY](https://afterprime.com/swaps/usdjpy)
+- [USD/MXN](https://afterprime.com/swaps/usdmxn)
+- [USD/NOK](https://afterprime.com/swaps/usdnok)
+- [USD/PLN](https://afterprime.com/swaps/usdpln)
+- [USD/SEK](https://afterprime.com/swaps/usdsek)
+- [USD/SGD](https://afterprime.com/swaps/usdsgd)
+- [USD/THB](https://afterprime.com/swaps/usdthb)
+- [USD/ZAR](https://afterprime.com/swaps/usdzar)
+
+### Metals
+- [XAG/AUD](https://afterprime.com/swaps/xagaud)
+- [XAG/EUR](https://afterprime.com/swaps/xageur)
+- [XAG/USD](https://afterprime.com/swaps/xagusd)
+- [XAU/AUD](https://afterprime.com/swaps/xauaud)
+- [XAU/EUR](https://afterprime.com/swaps/xaueur)
+- [XAU/USD](https://afterprime.com/swaps/xauusd)
+- [XPD/USD](https://afterprime.com/swaps/xpdusd)
+
+### Cryptocurrencies
+- [ADA/USD](https://afterprime.com/swaps/adausd)
+- [ATOM/USD](https://afterprime.com/swaps/atomusd)
+- [AVAX/USD](https://afterprime.com/swaps/avaxusd)
+- [BAT/USD](https://afterprime.com/swaps/batusd)
+- [BCH/USD](https://afterprime.com/swaps/bchusd)
+- [BNB/USD](https://afterprime.com/swaps/bnbusd)
+- [BTC/USD](https://afterprime.com/swaps/btcusd)
+- [COMP/USD](https://afterprime.com/swaps/compusd)
+- [CRV/USD](https://afterprime.com/swaps/crvusd)
+- [DOGE/USD](https://afterprime.com/swaps/dogeusd)
+- [DOT/USD](https://afterprime.com/swaps/dotusd)
+- [ETH/USD](https://afterprime.com/swaps/ethusd)
+- [LINK/USD](https://afterprime.com/swaps/linkusd)
+- [LTC/USD](https://afterprime.com/swaps/ltcusd)
+- [SOL/USD](https://afterprime.com/swaps/solusd)
+- [UNI/USD](https://afterprime.com/swaps/uniusd)
+- [XLM/USD](https://afterprime.com/swaps/xlmusd)
+- [XRP/USD](https://afterprime.com/swaps/xrpusd)
+- [XTZ/USD](https://afterprime.com/swaps/xtzusd)
+
+### Energies & Commodities
+- [XBR/USD (Brent Crude)](https://afterprime.com/swaps/xbrusd)
+- [XNG/USD (Natural Gas)](https://afterprime.com/swaps/xngusd)
+- [XTI/USD (WTI Crude)](https://afterprime.com/swaps/xtiusd)
+- [COFARA (Coffee Arabica)](https://afterprime.com/swaps/cofara)
+- [CORN](https://afterprime.com/swaps/corn)
+- [COTTON](https://afterprime.com/swaps/cotton)
+- [SOYBEAN](https://afterprime.com/swaps/soybean)
+- [SUGARRAW](https://afterprime.com/swaps/sugarraw)
+- [USCOCOA](https://afterprime.com/swaps/uscocoa)
+- [WHEAT](https://afterprime.com/swaps/wheat)
+- [XCU/USD (Copper)](https://afterprime.com/swaps/xcuusd)
+- [XPT/USD (Platinum)](https://afterprime.com/swaps/xptusd)
+- [XAU/USD.PREM (Gold Premium)](https://afterprime.com/swaps/xauusd.prem)
+
+### Indices
+- [AUS200 (ASX 200)](https://afterprime.com/swaps/aus200)
+- [ES35 (IBEX 35)](https://afterprime.com/swaps/es35)
+- [EUSTX50 (Euro Stoxx 50)](https://afterprime.com/swaps/eustx50)
+- [FRA40 (CAC 40)](https://afterprime.com/swaps/fra40)
+- [GER30 (DAX)](https://afterprime.com/swaps/ger30)
+- [IT40 (FTSE MIB)](https://afterprime.com/swaps/it40)
+- [NAS100 (Nasdaq 100)](https://afterprime.com/swaps/nas100)
+- [UK100 (FTSE 100)](https://afterprime.com/swaps/uk100)
+- [US30 (Dow Jones)](https://afterprime.com/swaps/us30)
+- [DXY (US Dollar Index)](https://afterprime.com/swaps/dxy)
+- [HK50 (Hang Seng)](https://afterprime.com/swaps/hk50)
+- [JPN225 (Nikkei 225)](https://afterprime.com/swaps/jpn225)
+- [US2000 (Russell 2000)](https://afterprime.com/swaps/us2000)
+- [US500 (S&P 500)](https://afterprime.com/swaps/us500)
+- [VIX](https://afterprime.com/swaps/vix)
+
+## Broker comparison pages (708 pages)
+
+Three comparison categories:
+
+### vs Industry Average
+- [Overview](https://afterprime.com/vs/industry-avg) -- Afterprime spread comparison vs industry average across all instruments.
+- Per-instrument pages at /vs/industry-avg/{pair} (59 instruments).
+
+### vs Top 10 Average
+- [Overview](https://afterprime.com/vs/top-10-avg) -- Afterprime spread comparison vs top-10 broker average.
+- Per-instrument pages at /vs/top-10-avg/{pair} (59 instruments).
+
+### vs Specific Brokers
+- [Global Prime](https://afterprime.com/vs/global-prime)
+- [Pepperstone](https://afterprime.com/vs/pepperstone)
+- [Markets.com](https://afterprime.com/vs/markets-dot-com)
+- Per-instrument pages at /vs/{broker}/{pair} (59 instruments x 3 brokers = 177 pages).
+
+## Calculators (11 tools)
+
+Each at /calculators/{tool} -- interactive trading calculators.
+
+- [Compound Growth Calculator](https://afterprime.com/calculators/compound-growth-calculator)
+- [Cost Savings Calculator](https://afterprime.com/calculators/cost-savings-calculator)
+- [Currency Converter](https://afterprime.com/calculators/currency-converter)
+- [Drawdown Calculator](https://afterprime.com/calculators/drawdown-calculator)
+- [Margin Calculator](https://afterprime.com/calculators/margin-calculator)
+- [Pip Value Calculator](https://afterprime.com/calculators/pip-value-calculator)
+- [Position Size Calculator](https://afterprime.com/calculators/position-size-calculator)
+- [Profit-Loss Calculator](https://afterprime.com/calculators/profit-loss-calculator)
+- [Swap Calculator](https://afterprime.com/calculators/swap-calculator)
+- [Trading Calculator](https://afterprime.com/calculators/trading-calculator)
+- [Calculators Index](https://afterprime.com/calculators/)
+
+## Trading platforms
+
+- [MetaTrader 4 (MT4)](https://afterprime.com/platforms/mt4/)
+- [MetaTrader 5 (MT5)](https://afterprime.com/platforms/mt5/)
+- [TradeRevolution](https://afterprime.com/platforms/traderevolution/)
+- [WebTrader](https://afterprime.com/platforms/webtrader/)
+- [FIX API](https://afterprime.com/platforms/fix-api/)
+
+## Markets
+
+- [Metals Overview](https://afterprime.com/markets/metals/)
+- [XAU/USD Market](https://afterprime.com/markets/metals/xauusd)
