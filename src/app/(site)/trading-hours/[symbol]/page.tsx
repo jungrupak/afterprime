@@ -119,6 +119,10 @@ function clean(text: string | undefined | null): string {
   return text?.replace(/\uFFFD/g, "-") ?? "";
 }
 
+function displaySym(sym: string): string {
+  return sym.replace(/\.(prem|agg)$/i, "");
+}
+
 export const revalidate = 1800;
 
 type Props = { params: Promise<{ symbol: string }> };
@@ -129,7 +133,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!data) return { title: "Trading Hours | Afterprime" };
 
   return {
-    title: `${data.symbol} Trading Hours: Open & Close Times | Afterprime`,
+    title: `${displaySym(data.symbol)} Trading Hours: Open & Close Times | Afterprime`,
     description: `${data.description} trading hours at Afterprime - session open/close times, pre-market, extended hours, and weekend status.`,
     alternates: {
       canonical: `https://afterprime.com/trading-hours/${symbol}`,
@@ -164,35 +168,37 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
       ? "24 hours a day, 5 days a week"
       : `${data.openDay} to ${data.closeDay}`;
 
+  const sym = displaySym(data.symbol);
+
   const subline =
     data.openDay && data.openUtc && data.closeDay && data.closeUtc
-      ? `${data.symbol} trades ${data.openDay} ${data.openUtc} to ${data.closeDay} ${data.closeUtc}, ${schedule}.`
+      ? `${sym} trades ${data.openDay} ${data.openUtc} to ${data.closeDay} ${data.closeUtc}, ${schedule}.`
       : `${data.description}, ${schedule}.`;
 
   const faqItems = [
     {
-      question: `When does ${data.symbol} open?`,
-      answer: `${data.symbol} opens ${data.openDay} at ${data.openUtc}.`,
+      question: `When does ${sym} open?`,
+      answer: `${sym} opens ${data.openDay} at ${data.openUtc}.`,
     },
     {
-      question: `When does ${data.symbol} close?`,
-      answer: `${data.symbol} closes ${data.closeDay} at ${data.closeUtc}.`,
+      question: `When does ${sym} close?`,
+      answer: `${sym} closes ${data.closeDay} at ${data.closeUtc}.`,
     },
     data.swap3Day
       ? {
-          question: `What is the triple swap day for ${data.symbol}?`,
-          answer: `The triple swap is charged on ${data.swap3Day} for ${data.symbol} positions held overnight.`,
+          question: `What is the triple swap day for ${sym}?`,
+          answer: `The triple swap is charged on ${data.swap3Day} for ${sym} positions held overnight.`,
         }
       : null,
     data.hasDailyBreak
       ? {
-          question: `Does ${data.symbol} have a daily break?`,
-          answer: `Yes. ${data.symbol} has a short daily break from ${data.dailyBreakStartUtc} to ${data.dailyBreakEndUtc}.`,
+          question: `Does ${sym} have a daily break?`,
+          answer: `Yes. ${sym} has a short daily break from ${data.dailyBreakStartUtc} to ${data.dailyBreakEndUtc}.`,
         }
       : null,
   ].filter(Boolean) as { question: string; answer: string }[];
 
-  const instrumentHref = getInstrumentHref(data.symbol, data.category);
+  const instrumentHref = getInstrumentHref(sym, data.category);
 
   return (
     <>
@@ -209,7 +215,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
                 Market hours
               </Link>
               <span aria-hidden="true">›</span>
-              <span>{data.symbol}</span>
+              <span>{sym}</span>
             </nav>
             <h1 className="h1-size max-w-[1200px]">
               <span className="font-[600]">
@@ -234,7 +240,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
             hasDailyBreak={data.hasDailyBreak}
             dailyBreakStartUtc={data.dailyBreakStartUtc}
             dailyBreakEndUtc={data.dailyBreakEndUtc}
-            symbol={data.symbol}
+            symbol={sym}
             sessionAsiaOpen={data.sessionAsiaOpen}
             sessionLondonOpen={data.sessionLondonOpen}
             sessionNyOpen={data.sessionNyOpen}
@@ -346,11 +352,11 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
           {/* ── 7. Internal link row ─────────────────────────────── */}
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
             <Link
-              href={`/swaps/${data.symbol.toLowerCase()}`}
+              href={`/swaps/${sym.toLowerCase()}`}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              {data.symbol} swap rates →
+              {sym} swap rates →
             </Link>
             {data.category === "Forex" && (
               <>
@@ -359,7 +365,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
                   className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >
-                  {data.symbol} specifications →
+                  {sym} specifications →
                 </Link>
               </>
             )}
@@ -452,7 +458,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
       {/* ── 6. FAQ block ─────────────────────────────────────── */}
       <FaqCalc
-        faqSubject={`${data.symbol} Trading Hours: FAQs`}
+        faqSubject={`${sym} Trading Hours: FAQs`}
         data={faqItems}
       />
 
@@ -462,7 +468,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
         items={[
           { name: "Home", href: "/" },
           { name: "Trading Hours", href: "/trading-hours" },
-          { name: data.symbol, href: `/trading-hours/${symbol}` },
+          { name: sym, href: `/trading-hours/${symbol}` },
         ]}
       />
     </>

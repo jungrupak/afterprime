@@ -87,7 +87,10 @@ async function fetchAllInstrumentSymbols(): Promise<Array<{ symbol: string; path
     if (!res.ok) return [];
     const data: Array<{ symbol: string; path: string }> = await res.json();
     return data
-      .filter((item) => !item.symbol.toLowerCase().includes(".agg"))
+      .filter((item) => {
+        const sym = item.symbol.toLowerCase();
+        return !sym.endsWith(".agg") && !sym.endsWith(".prem");
+      })
       .map((item) => ({ symbol: item.symbol.toLowerCase(), path: item.path ?? "" }));
   } catch {
     return [];
