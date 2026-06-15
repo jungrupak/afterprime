@@ -11,7 +11,7 @@ function InterstitialContent() {
 
   useEffect(() => {
     const oib = new URLSearchParams(window.location.search).get('oib') ?? '';
-    const url = `https://app.afterprime.com/live?oib=${oib}`;
+    const url = `https://app.afterprime.com/signin?oib=${oib}`;
     setExitUrl(url);
 
     const timer = setTimeout(() => {
@@ -28,7 +28,7 @@ function InterstitialContent() {
         {`
           const params = new URLSearchParams(window.location.search);
           var oib = params.get('oib') || "";
-          var exit = "https://app.afterprime.com/live?oib=" + oib;
+          var exit = "https://app.afterprime.com/signin?oib=" + oib;
 
           var _uf = _uf || {};
           _uf.domain = ".afterprime.com";
