@@ -1,24 +1,25 @@
 'use client';
 
-import { useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
 import Image from 'next/image';
 import Script from 'next/script';
 
 const REDIRECT_SECONDS = 5;
 
 function InterstitialContent() {
-  const searchParams = useSearchParams();
-  const oib = searchParams.get('oib') ?? '';
-  const exitUrl = `https://app.afterprime.com/live?oib=${oib}`;
+  const [exitUrl, setExitUrl] = useState('');
 
   useEffect(() => {
+    const oib = new URLSearchParams(window.location.search).get('oib') ?? '';
+    const url = `https://app.afterprime.com/live?oib=${oib}`;
+    setExitUrl(url);
+
     const timer = setTimeout(() => {
-      window.location.href = exitUrl;
+      window.location.href = url;
     }, REDIRECT_SECONDS * 1000);
 
     return () => clearTimeout(timer);
-  }, [exitUrl]);
+  }, []);
 
   return (
     <>
@@ -234,9 +235,5 @@ function InterstitialContent() {
 }
 
 export default function GoPage() {
-  return (
-    <Suspense>
-      <InterstitialContent />
-    </Suspense>
-  );
+  return <InterstitialContent />;
 }
