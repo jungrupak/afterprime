@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Script from 'next/script';
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Script from "next/script";
 
 const REDIRECT_SECONDS = 5;
 
 function InterstitialContent() {
-  const [exitUrl, setExitUrl] = useState('');
+  const [exitUrl, setExitUrl] = useState("");
 
   useEffect(() => {
-    const oib = new URLSearchParams(window.location.search).get('oib') ?? '';
-    const url = `https://app.afterprime.com/signin?oib=${oib}`;
+    const oib = new URLSearchParams(window.location.search).get("oib") ?? "";
+    const url = `https://app.afterprime.com/live?oib=${oib}`;
     setExitUrl(url);
 
     const timer = setTimeout(() => {
@@ -28,7 +28,7 @@ function InterstitialContent() {
         {`
           const params = new URLSearchParams(window.location.search);
           var oib = params.get('oib') || "";
-          var exit = "https://app.afterprime.com/signin?oib=" + oib;
+          var exit = "https://app.afterprime.com/live?oib=" + oib;
 
           var _uf = _uf || {};
           _uf.domain = ".afterprime.com";
@@ -208,7 +208,7 @@ function InterstitialContent() {
         {/* Spinner */}
         <div
           className="mt-8 w-10 h-10 rounded-full border-2 border-transparent animate-spin"
-          style={{ borderTopColor: '#263DEA' }}
+          style={{ borderTopColor: "#263DEA" }}
           aria-hidden="true"
         />
 
@@ -223,8 +223,11 @@ function InterstitialContent() {
             Please do not close this window.
           </p>
           <p className="mt-6 text-sm text-white/40">
-            Taking too long?{' '}
-            <a href={exitUrl} className="text-white underline underline-offset-2">
+            Taking too long?{" "}
+            <a
+              href={exitUrl}
+              className="text-white underline underline-offset-2"
+            >
               Click here to proceed manually.
             </a>
           </p>
