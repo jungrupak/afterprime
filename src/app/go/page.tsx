@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Script from "next/script";
 
-const REDIRECT_SECONDS = 30;
+const REDIRECT_SECONDS = 5;
 const DESTINATION_BASE = "https://app.afterprime.com/live";
 
 function InterstitialContent() {
