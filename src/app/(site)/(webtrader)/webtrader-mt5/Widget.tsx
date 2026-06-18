@@ -1,30 +1,52 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 export default function WebTraderMt5() {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const initialized = useRef(false);
 
   useEffect(() => {
+    if (initialized.current) return;
+    initialized.current = true;
+
+    const timeout = setTimeout(() => setError(true), 15000);
+
     const script = document.createElement("script");
     script.src = "https://metatraderweb.app/trade/widget.js";
     script.async = true;
     script.onload = () => {
-      if (window.MetaTraderWebTerminal) {
-        new window.MetaTraderWebTerminal("webterminal", {
-          version: 5,
-          servers: ["Afterprime-Live AP"],
-          server: "Afterprime-Live AP",
-          utmCampaign: "direct",
-          utmSource: "afterprime.com",
-          startMode: "login",
-          language: "en",
-          colorScheme: "white_on_black",
-        });
-        setLoading(false);
+      try {
+        if (window.MetaTraderWebTerminal) {
+          new window.MetaTraderWebTerminal("webterminal", {
+            version: 5,
+            servers: ["Afterprime-Live AP"],
+            server: "Afterprime-Live AP",
+            utmCampaign: "direct",
+            utmSource: "afterprime.com",
+            startMode: "login",
+            language: "en",
+            colorScheme: "white_on_black",
+          });
+          clearTimeout(timeout);
+          setLoading(false);
+        } else {
+          clearTimeout(timeout);
+          setError(true);
+        }
+      } catch {
+        clearTimeout(timeout);
+        setError(true);
       }
     };
+    script.onerror = () => {
+      clearTimeout(timeout);
+      setError(true);
+    };
     document.body.appendChild(script);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -36,21 +58,28 @@ export default function WebTraderMt5() {
             inset: 0,
             background: "#fff",
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             zIndex: 9999,
           }}
         >
-          <div
-            style={{
-              width: "60px",
-              height: "60px",
-              border: "6px solid #ddd",
-              borderTop: "6px solid #000",
-              borderRadius: "50%",
-              animation: "spin 1s linear infinite",
-            }}
-          />
+          {error ? (
+            <p style={{ color: "#000", fontSize: "16px" }}>
+              Widget is temporarily unavailable.. please try later
+            </p>
+          ) : (
+            <div
+              style={{
+                width: "60px",
+                height: "60px",
+                border: "6px solid #ddd",
+                borderTop: "6px solid #000",
+                borderRadius: "50%",
+                animation: "spin 1s linear infinite",
+              }}
+            />
+          )}
           <style>
             {`
               @keyframes spin {
@@ -62,8 +91,6 @@ export default function WebTraderMt5() {
         </div>
       )}
 
-      {/* iframe */}
-
       <div className="mt4PageHeader flex">
         <Image
           src="/img/logo-main.svg"
@@ -73,18 +100,17 @@ export default function WebTraderMt5() {
         />
       </div>
 
-      <iframe
-        src="https://mt5web.afterprime.io/terminal"
+      <div
+        id="webterminal"
         style={{
-          border: "none",
           width: "100%",
           height: "calc(100vh - 60px)",
           position: "fixed",
           bottom: "0",
-          backgroundColor: "white",
           zIndex: 9,
+          backgroundColor: "white",
         }}
-      />
+      ></div>
     </>
   );
 }
