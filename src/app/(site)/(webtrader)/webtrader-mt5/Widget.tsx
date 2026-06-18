@@ -4,14 +4,17 @@ import Image from "next/image";
 
 export default function WebTraderMt5() {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const initialized = useRef(false);
 
   useEffect(() => {
     if (initialized.current) return;
     initialized.current = true;
 
-    const timeout = setTimeout(() => setError(true), 15000);
+    const redirectFallback = "https://mt5web.afterprime.io/terminal";
+
+    const timeout = setTimeout(() => {
+      window.location.href = redirectFallback;
+    }, 15000);
 
     const script = document.createElement("script");
     script.src = "https://metatraderweb.app/trade/widget.js";
@@ -33,16 +36,16 @@ export default function WebTraderMt5() {
           setLoading(false);
         } else {
           clearTimeout(timeout);
-          setError(true);
+          window.location.href = redirectFallback;
         }
       } catch {
         clearTimeout(timeout);
-        setError(true);
+        window.location.href = redirectFallback;
       }
     };
     script.onerror = () => {
       clearTimeout(timeout);
-      setError(true);
+      window.location.href = redirectFallback;
     };
     document.body.appendChild(script);
 
@@ -64,22 +67,16 @@ export default function WebTraderMt5() {
             zIndex: 9999,
           }}
         >
-          {error ? (
-            <p style={{ color: "#000", fontSize: "16px" }}>
-              Widget is temporarily unavailable.. please try later
-            </p>
-          ) : (
-            <div
-              style={{
-                width: "60px",
-                height: "60px",
-                border: "6px solid #ddd",
-                borderTop: "6px solid #000",
-                borderRadius: "50%",
-                animation: "spin 1s linear infinite",
-              }}
-            />
-          )}
+          <div
+            style={{
+              width: "60px",
+              height: "60px",
+              border: "6px solid #ddd",
+              borderTop: "6px solid #000",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+            }}
+          />
           <style>
             {`
               @keyframes spin {
