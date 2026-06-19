@@ -1,4 +1,4 @@
-import WebTraderMt5 from "./Widget";
+import { redirect } from "next/navigation";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <WebTraderMt5 />;
+  redirect("https://mt5web.afterprime.io/terminal");
 }
