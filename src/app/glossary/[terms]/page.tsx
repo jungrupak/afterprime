@@ -19,14 +19,15 @@ export async function generateMetadata({
 }: PageSlug): Promise<Metadata> {
   const { terms } = await params;
   const pageData = await getGlossaryPageSlug(terms);
-  const pageTitle = pageData?.title?.rendered ?? "";
+  const pageTitle = pageData?.aioseo_head_json?.title ?? "";
+  const metaDescp = pageData?.aioseo_head_json?.description ?? "";
   // 🚫 If no page OR wrong parent → no metadata
   if (!pageData || pageData.parent !== 4100) {
     return {};
   }
   return {
-    title: `${pageTitle} | Forex Glossary | Afterprime`,
-    description: `Learn what ${pageTitle} means in forex trading. Clear, concise definitions for serious traders, part of the Afterprime forex glossary.`,
+    title: `${pageTitle}`,
+    description: `${metaDescp}`,
     alternates: {
       canonical: `https://afterprime.com/glossary/${terms}`,
     },
