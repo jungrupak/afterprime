@@ -16,12 +16,16 @@ const GeoInterstitial: React.FC<GeoInterstitialProps> = ({ isOpen }) => {
   useEffect(() => {
     if (!isOpen) return;
 
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     const raf = requestAnimationFrame(() => setVisible(true));
     const redirectTimer = setTimeout(() => {
       window.location.href = REDIRECT_URL;
     }, REDIRECT_DELAY_MS);
 
     return () => {
+      document.body.style.overflow = previousOverflow;
       cancelAnimationFrame(raf);
       clearTimeout(redirectTimer);
     };
@@ -36,8 +40,8 @@ const GeoInterstitial: React.FC<GeoInterstitialProps> = ({ isOpen }) => {
           <span className={styles.dot} />
           Verifying Region..
         </div>
-        <h2 className={styles.headline}>Invite Code Successfully waved!</h2>
-        <div className={styles.body}>
+        <div className={styles.headline}>Invite Code Successfully waved!</div>
+        <div className={`text-[14px] opacity-65`}>
           Redirecting you to the Afterprime Live trading platform.
         </div>
         <div className={styles.barTrack}>
