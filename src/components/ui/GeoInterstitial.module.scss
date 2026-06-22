@@ -1,0 +1,91 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 250ms ease-out;
+
+  &.visible {
+    opacity: 1;
+  }
+}
+
+.card {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 16px;
+  padding: 32px;
+  border-radius: 12px;
+  background: var(--body-bg);
+  border: 1px solid rgba(67, 59, 249, 0.4);
+  box-shadow: 0 0 32px rgba(67, 59, 249, 0.25);
+  transform: scale(0.96);
+  transition: transform 250ms ease-out;
+
+  .visible & {
+    transform: scale(1);
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--secondary-color);
+}
+
+.headline {
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.body {
+  margin-top: 8px;
+  font-size: 14px;
+  color: rgba(253, 253, 247, 0.6);
+}
+
+.barTrack {
+  margin-top: 24px;
+  height: 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  background: var(--secondary-color);
+}
+
+.visible .barFill {
+  animation: fillBar 3.5s ease-out forwards;
+}
+
+@keyframes fillBar {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
