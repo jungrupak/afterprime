@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import styles from "./GeoInterstitial.module.scss";
 
 interface GeoInterstitialProps {
@@ -9,9 +10,16 @@ interface GeoInterstitialProps {
 
 const REDIRECT_URL = "https://app.afterprime.com/live";
 const REDIRECT_DELAY_MS = 60000;
+const TICK_MS = 100;
 
 const GeoInterstitial: React.FC<GeoInterstitialProps> = ({ isOpen }) => {
   const [visible, setVisible] = useState(false);
+  const [percent, setPercent] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -19,36 +27,52 @@ const GeoInterstitial: React.FC<GeoInterstitialProps> = ({ isOpen }) => {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
+    const startTime = Date.now();
     const raf = requestAnimationFrame(() => setVisible(true));
-    const redirectTimer = setTimeout(() => {
-      window.location.href = REDIRECT_URL;
-    }, REDIRECT_DELAY_MS);
+
+    const tick = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min(100, Math.round((elapsed / REDIRECT_DELAY_MS) * 100));
+      setPercent(pct);
+
+      if (elapsed >= REDIRECT_DELAY_MS) {
+        clearInterval(tick);
+        window.location.href = REDIRECT_URL;
+      }
+    }, TICK_MS);
 
     return () => {
       document.body.style.overflow = previousOverflow;
       cancelAnimationFrame(raf);
-      clearTimeout(redirectTimer);
+      clearInterval(tick);
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
-  return (
+  return createPortal(
     <div className={`${styles.overlay} ${visible ? styles.visible : ""}`}>
       <div className={styles.card}>
         <div className={styles.label}>
           <span className={styles.dot} />
-          Verifying Region..
+          Node Allocation Secured
         </div>
-        <div className={styles.headline}>Invite Code Successfully waved!</div>
-        <div className={`text-[14px] opacity-65`}>
-          Redirecting you to the Afterprime Live trading platform.
+        <div className={styles.headline}>Invite Code Successfully Waived</div>
+        <p className={styles.body}>
+          An open slot has been detected in your node sector. Reserving
+          instant registration sequence now.
+        </p>
+        <div className={styles.actionLabel}>Action</div>
+        <div className={styles.actionRow}>
+          <span className={styles.actionPercent}>{percent}%</span>
+          <span className={styles.processingLabel}>Processing&hellip;</span>
         </div>
         <div className={styles.barTrack}>
-          <div className={styles.barFill} />
+          <div className={styles.barFill} style={{ width: `${percent}%` }} />
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };
 
