@@ -1,6 +1,7 @@
 "use client";
 import { useRouter, usePathname } from "next/navigation";
-import { MouseEvent } from "react";
+import { MouseEvent, useState } from "react";
+import { fetchGeoCountry, isTargetGeo } from "@/utils/geoCheck";
 
 // Properly extend window for Typeform
 declare global {
@@ -33,17 +34,25 @@ export function useButtonClickHandling({
 }: ClickProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const [showInterstitial, setShowInterstitial] = useState(false);
 
   // Properly typed click handler
-  const handleClick = (
+  const handleClick = async (
     e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>
-  ): void => {
+  ): Promise<void> => {
     // Run custom onclick if provided
     if (onclick) onclick();
 
     // Typeform drawer logic
     if (typeformId && typeof window !== "undefined" && window.typeformEmbed) {
       e.preventDefault(); // stop default navigation
+
+      const loc = await fetchGeoCountry();
+      if (isTargetGeo(loc)) {
+        setShowInterstitial(true);
+        return;
+      }
+
       window.typeformEmbed
         .makePopup(`https://form.typeform.com/to/${typeformId}`, {
           mode: "drawer-left",
@@ -66,5 +75,5 @@ export function useButtonClickHandling({
     }
   };
 
-  return handleClick;
+  return { handleClick, showInterstitial };
 }

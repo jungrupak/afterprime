@@ -4,6 +4,8 @@ import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "@/components/ui/ui.module.scss";
 import { createSlider, type SliderOptions } from "@typeform/embed";
 import "@typeform/embed/build/css/slider.css";
+import { fetchGeoCountry, isTargetGeo } from "@/utils/geoCheck";
+import GeoInterstitial from "@/components/ui/GeoInterstitial";
 
 type ButtonVarients =
   | "default"
@@ -32,14 +34,21 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
   varient = "default",
 }) => {
   const [formId, setFormId] = useState<string | null>(null);
+  const [showInterstitial, setShowInterstitial] = useState(false);
 
   useEffect(() => {
     const assignedForm = getSessionFormId();
     setFormId(assignedForm);
   }, []);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!formId) return;
+
+    const loc = await fetchGeoCountry();
+    if (isTargetGeo(loc)) {
+      setShowInterstitial(true);
+      return;
+    }
 
     const options: ExtendedSliderOptions = {
       autoOpen: false,
@@ -55,6 +64,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
   if (!formId) return null; // wait for client render
 
   return (
+    <>
     <button
       onClick={handleClick}
       className={`group ${styles.ap_button} ${
@@ -103,6 +113,8 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
       </svg>
       {buttonText}
     </button>
+    <GeoInterstitial isOpen={showInterstitial} />
+    </>
   );
 };
 
