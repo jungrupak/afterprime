@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import css from "./ui.module.scss";
 import { useButtonClickHandling } from "@/hooks/useBtnClickHandle";
+import GeoInterstitial from "./GeoInterstitial";
 
 type ButtonVarients =
   | "default"
@@ -34,8 +35,10 @@ export default function Button({
   href,
   linkTarget,
   className,
+  typeformId,
 }: ButtonProps) {
-  const btnClickHandle = useButtonClickHandling({ onclick, href });
+  const { handleClick: btnClickHandle, showInterstitial } =
+    useButtonClickHandling({ onclick, href, typeformId });
 
   const classNames = `${css.ap_button} ${className} ${
     size === "regular"
@@ -102,22 +105,28 @@ export default function Button({
 
     // internal links → keep Next.js Link + hook
     return (
-      <Link
-        href={href}
-        className={classNames}
-        onClick={btnClickHandle}
-        target={linkTarget}
-        rel="noopener noreferrer"
-      >
-        {content}
-      </Link>
+      <>
+        <Link
+          href={href}
+          className={classNames}
+          onClick={btnClickHandle}
+          target={linkTarget}
+          rel="noopener noreferrer"
+        >
+          {content}
+        </Link>
+        <GeoInterstitial isOpen={showInterstitial} />
+      </>
     );
   }
 
   // fallback → normal button
   return (
-    <button type="button" onClick={btnClickHandle} className={classNames}>
-      {content}
-    </button>
+    <>
+      <button type="button" onClick={btnClickHandle} className={classNames}>
+        {content}
+      </button>
+      <GeoInterstitial isOpen={showInterstitial} />
+    </>
   );
 }

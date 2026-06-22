@@ -5,13 +5,13 @@ import Image from "next/image";
 import Script from "next/script";
 
 const REDIRECT_SECONDS = 5;
+const DESTINATION_BASE = "https://app.afterprime.com/live";
 
 function InterstitialContent() {
   const [exitUrl, setExitUrl] = useState("");
 
   useEffect(() => {
-    const oib = new URLSearchParams(window.location.search).get("oib") ?? "";
-    const url = `https://app.afterprime.com/live?oib=${oib}`;
+    const url = `${DESTINATION_BASE}${window.location.search}`;
     setExitUrl(url);
 
     const timer = setTimeout(() => {
@@ -26,9 +26,7 @@ function InterstitialContent() {
       {/* Affiliate tracking — fires before redirect */}
       <Script id="affiliate" strategy="afterInteractive">
         {`
-          const params = new URLSearchParams(window.location.search);
-          var oib = params.get('oib') || "";
-          var exit = "https://app.afterprime.com/live?oib=" + oib;
+          var exit = "${DESTINATION_BASE}" + window.location.search;
 
           var _uf = _uf || {};
           _uf.domain = ".afterprime.com";
@@ -200,7 +198,7 @@ function InterstitialContent() {
         <Image
           src="/img/logo-main.svg"
           alt="Afterprime"
-          width={160}
+          width={200}
           height={48}
           priority
         />
@@ -208,28 +206,19 @@ function InterstitialContent() {
         {/* Spinner */}
         <div
           className="mt-8 w-10 h-10 rounded-full border-2 border-transparent animate-spin"
-          style={{ borderTopColor: "#263DEA" }}
+          style={{ borderTopColor: "var(--ap-electric-blue)" }}
           aria-hidden="true"
         />
 
         <div className="mt-8 max-w-sm">
-          <h1 className="text-2xl font-semibold text-white">
+          <h1 className="text-3xl font-semibold text-white">
             Securely redirecting you...
           </h1>
-          <p className="mt-3 text-sm text-white/60">
+          <p className="mt-3 text-lg text-white/60">
             We are taking you to the Afterprime signup page.
           </p>
-          <p className="mt-1 text-sm text-white/60">
+          <p className="mt-1 text-lg text-white/60">
             Please do not close this window.
-          </p>
-          <p className="mt-6 text-sm text-white/40">
-            Taking too long?{" "}
-            <a
-              href={exitUrl}
-              className="text-white underline underline-offset-2"
-            >
-              Click here to proceed manually.
-            </a>
           </p>
         </div>
       </main>

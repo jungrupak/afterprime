@@ -1,31 +1,53 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 
 export default function WebTraderMt4Widget() {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const initialized = useRef(false);
 
   useEffect(() => {
+    if (initialized.current) return;
+    initialized.current = true;
+
+    const timeout = setTimeout(() => setError(true), 15000);
+
     const script = document.createElement("script");
     script.src = "https://metatraderweb.app/trade/widget.js";
     script.async = true;
     script.onload = () => {
-      if (window.MetaTraderWebTerminal) {
-        new window.MetaTraderWebTerminal("webterminal", {
-          version: 4,
-          servers: ["Afterprime-Demo AP", "Afterprime-Live AP"],
-          server: "Afterprime-Live AP",
-          utmCampaign: "direct",
-          utmSource: "www.afterprime.com",
-          startMode: "login",
-          language: "en",
-          colorScheme: "black_on_white",
-        });
-        setLoading(false);
+      try {
+        if (window.MetaTraderWebTerminal) {
+          new window.MetaTraderWebTerminal("webterminal", {
+            version: 4,
+            servers: ["Afterprime-Demo AP", "Afterprime-Live AP"],
+            server: "Afterprime-Live AP",
+            utmCampaign: "direct",
+            utmSource: "www.afterprime.com",
+            startMode: "login",
+            language: "en",
+            colorScheme: "black_on_white",
+          });
+          clearTimeout(timeout);
+          setLoading(false);
+        } else {
+          clearTimeout(timeout);
+          setError(true);
+        }
+      } catch {
+        clearTimeout(timeout);
+        setError(true);
       }
     };
+    script.onerror = () => {
+      clearTimeout(timeout);
+      setError(true);
+    };
     document.body.appendChild(script);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -37,21 +59,28 @@ export default function WebTraderMt4Widget() {
             inset: 0,
             background: "#fff",
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             zIndex: 9999,
           }}
         >
-          <div
-            style={{
-              width: "60px",
-              height: "60px",
-              border: "6px solid #ddd",
-              borderTop: "6px solid #000",
-              borderRadius: "50%",
-              animation: "spin 1s linear infinite",
-            }}
-          />
+          {error ? (
+            <p style={{ color: "#000", fontSize: "16px" }}>
+              Widget is temporarily unavailable.. please try later
+            </p>
+          ) : (
+            <div
+              style={{
+                width: "60px",
+                height: "60px",
+                border: "6px solid #ddd",
+                borderTop: "6px solid #000",
+                borderRadius: "50%",
+                animation: "spin 1s linear infinite",
+              }}
+            />
+          )}
           <style>
             {`
               @keyframes spin {
