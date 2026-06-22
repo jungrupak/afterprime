@@ -1,6 +1,6 @@
 const TRACE_URL = "https://afterprime.com/cdn-cgi/trace";
 const CACHE_KEY = "ap_geo_loc";
-const TARGET_COUNTRIES = ["SG", "IT", "NP","AU"];
+const TARGET_COUNTRIES = ["SG", "IT"];
 
 export async function fetchGeoCountry(): Promise<string | null> {
   const cached = sessionStorage.getItem(CACHE_KEY);
