@@ -16,12 +16,12 @@
 
 .card {
   width: 100%;
-  max-width: 380px;
+  max-width: 390px;
   margin: 0 16px;
   padding: 32px;
   border-radius: 12px;
   background: var(--body-bg);
-  border: 1px solid rgba(124, 138, 255, 0.4);
+  border: 1px solid #3258ff;
   box-shadow: 0 0 32px rgba(67, 59, 249, 0.25);
   transform: scale(0.96);
   transition: transform 250ms ease-out;
@@ -35,26 +35,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   gap: 8px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 20px;
+  font-weight: 400;
   text-transform: uppercase;
-  color: #9aa6ff;
-}
-
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #9aa6ff;
+  //color: #3258ff;
 }
 
 .headline {
-  margin-top: 16px;
-  font-size: 20px;
+  margin-top: 5px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--white);
+  color: rgba(255, 255, 255, 0.68);
   text-align: center;
 }
 
@@ -81,9 +74,9 @@
 }
 
 .actionPercent {
-  font-size: 28px;
+  font-size: 16px;
   font-weight: 700;
-  color: #9aa6ff;
+  //color: #9aa6ff;
 }
 
 .processingLabel {
@@ -95,7 +88,7 @@
 }
 
 .barTrack {
-  margin-top: 12px;
+  margin-top: 5px;
   height: 6px;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.1);
@@ -105,6 +98,23 @@
 .barFill {
   height: 100%;
   border-radius: 4px;
-  background: #9aa6ff;
+  background: #3258ff;
   transition: width 120ms linear;
+}
+
+.alertWrap {
+  padding: 10px 15px 13px;
+  border: solid 1px rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 20px;
+}
+
+.progressWrapper {
+  margin-top: 15px;
+  padding: 2px 8px 8px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.04);
 }
