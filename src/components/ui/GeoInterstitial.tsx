@@ -8,7 +8,7 @@ interface GeoInterstitialProps {
 }
 
 const REDIRECT_URL = "https://app.afterprime.com/live";
-const REDIRECT_DELAY_MS = 3500;
+const REDIRECT_DELAY_MS = 60000;
 
 const GeoInterstitial: React.FC<GeoInterstitialProps> = ({ isOpen }) => {
   const [visible, setVisible] = useState(false);
@@ -34,12 +34,12 @@ const GeoInterstitial: React.FC<GeoInterstitialProps> = ({ isOpen }) => {
       <div className={styles.card}>
         <div className={styles.label}>
           <span className={styles.dot} />
-          Verifying Region
+          Verifying Region..
         </div>
-        <h2 className={styles.headline}>Region Verified</h2>
-        <p className={styles.body}>
-          Redirecting you to the Afterprime Live trading platform&hellip;
-        </p>
+        <h2 className={styles.headline}>Invite Code Successfully waved!</h2>
+        <div className={styles.body}>
+          Redirecting you to the Afterprime Live trading platform.
+        </div>
         <div className={styles.barTrack}>
           <div className={styles.barFill} />
         </div>
