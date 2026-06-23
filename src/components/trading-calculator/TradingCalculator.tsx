@@ -210,7 +210,6 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
       (acc, inst) => {
         acc[inst.symbol] = {
           pointSize: inst.point,
-          tickBookDepth: inst.tickBookDepth,
           contractSize: inst.contractSize,
           swapLong: inst.swapLong,
           swapShort: inst.swapShort,
@@ -224,7 +223,6 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
         {
           pointSize: number;
           contractSize: number;
-          tickBookDepth: number;
           swapLong: number;
           swapShort: number;
           volumeMin: number;
