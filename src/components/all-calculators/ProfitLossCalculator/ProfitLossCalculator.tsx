@@ -1,116 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import styles from "./ProfitLossCalculator.module.scss";
-
-// Pip positions (decimal places for pip calculation)
-const INSTRUMENT_CONFIG: {
-  [key: string]: {
-    pipDecimal: number;
-    pipSize: number;
-    pipValuePerLot: number;
-    pointValue?: number;
-    isIndex?: boolean;
-    quote: string;
-  };
-} = {
-  "EUR/USD": {
-    pipDecimal: 4,
-    pipSize: 0.0001,
-    pipValuePerLot: 10,
-    quote: "USD",
-  },
-  "GBP/USD": {
-    pipDecimal: 4,
-    pipSize: 0.0001,
-    pipValuePerLot: 10,
-    quote: "USD",
-  },
-  "AUD/USD": {
-    pipDecimal: 4,
-    pipSize: 0.0001,
-    pipValuePerLot: 10,
-    quote: "USD",
-  },
-  "NZD/USD": {
-    pipDecimal: 4,
-    pipSize: 0.0001,
-    pipValuePerLot: 10,
-    quote: "USD",
-  },
-  "USD/JPY": {
-    pipDecimal: 2,
-    pipSize: 0.01,
-    pipValuePerLot: 6.7,
-    quote: "JPY",
-  },
-  "USD/CHF": {
-    pipDecimal: 4,
-    pipSize: 0.0001,
-    pipValuePerLot: 10.6,
-    quote: "CHF",
-  },
-  "USD/CAD": {
-    pipDecimal: 4,
-    pipSize: 0.0001,
-    pipValuePerLot: 7.3,
-    quote: "CAD",
-  },
-  "EUR/GBP": {
-    pipDecimal: 4,
-    pipSize: 0.0001,
-    pipValuePerLot: 12.5,
-    quote: "GBP",
-  },
-  "EUR/JPY": {
-    pipDecimal: 2,
-    pipSize: 0.01,
-    pipValuePerLot: 6.7,
-    quote: "JPY",
-  },
-  "GBP/JPY": {
-    pipDecimal: 2,
-    pipSize: 0.01,
-    pipValuePerLot: 6.7,
-    quote: "JPY",
-  },
-  "XAU/USD": {
-    pipDecimal: 2,
-    pipSize: 0.01,
-    pipValuePerLot: 1,
-    pointValue: 100,
-    quote: "USD",
-  },
-  XAUUSD: {
-    pipDecimal: 2,
-    pipSize: 0.01,
-    pipValuePerLot: 1,
-    pointValue: 100,
-    quote: "USD",
-  },
-  US30: {
-    pipDecimal: 0,
-    pipSize: 1,
-    pipValuePerLot: 1,
-    isIndex: true,
-    quote: "USD",
-  },
-  SPX500: {
-    pipDecimal: 1,
-    pipSize: 0.1,
-    pipValuePerLot: 1,
-    isIndex: true,
-    quote: "USD",
-  },
-  NAS100: {
-    pipDecimal: 1,
-    pipSize: 0.1,
-    pipValuePerLot: 1,
-    isIndex: true,
-    quote: "USD",
-  },
-  USOIL: { pipDecimal: 2, pipSize: 0.01, pipValuePerLot: 10, quote: "USD" },
-};
+import { useInstrument } from "@/hooks/useInstruments";
 
 interface CalculationResult {
   potentialProfit: number;
@@ -129,8 +21,47 @@ interface ExchangeRates {
   [key: string]: number;
 }
 
+interface InstrumentMeta {
+  symbol: string;
+  label: string;
+  category: string;
+  group: string;
+  pipDecimal: number;
+  pipSize: number;
+  pipValuePerLot: number;
+  quote: string;
+  pipLabel: "pips" | "points";
+}
+
+const FOREX_SUBGROUPS = ["Majors", "Minors", "Exotics"];
+const INDICES_SUBGROUPS = ["IndicesMini", "IndicesFull"];
+
+const GROUP_DISPLAY_NAMES: { [key: string]: string } = {
+  Majors: "Major Pairs",
+  Minors: "Minor Pairs",
+  Exotics: "Exotic Pairs",
+  Metals: "Metals",
+  Crypto: "Crypto",
+  Energies: "Energies",
+  IndicesMini: "Indices",
+  IndicesFull: "Indices (Full Size)",
+  Commodities: "Commodities",
+};
+
+const GROUP_ORDER = [
+  "Majors",
+  "Minors",
+  "Exotics",
+  "Metals",
+  "Energies",
+  "Commodities",
+  "IndicesMini",
+  "IndicesFull",
+  "Crypto",
+];
+
 export default function ProfitLossCalculator() {
-  const [instrument, setInstrument] = useState("EUR/USD");
+  const [instrument, setInstrument] = useState("EURUSD");
   const [direction, setDirection] = useState<"buy" | "sell">("buy");
   const [entryPrice, setEntryPrice] = useState(1.085);
   const [stopLoss, setStopLoss] = useState(1.08);
@@ -142,6 +73,12 @@ export default function ProfitLossCalculator() {
   const [loading, setLoading] = useState(true);
 
   const [result, setResult] = useState<CalculationResult | null>(null);
+
+  const {
+    allIsntruments,
+    loading: instrumentsLoading,
+    error: instrumentsError,
+  } = useInstrument();
 
   // Fetch exchange rates
   useEffect(() => {
@@ -155,7 +92,6 @@ export default function ProfitLossCalculator() {
         setExchangeRates(data);
       } catch (error) {
         console.error("Failed to fetch exchange rates:", error);
-        // Set default rates as fallback
         setExchangeRates({
           USD: 1,
           EUR: 0.92,
@@ -171,10 +107,95 @@ export default function ProfitLossCalculator() {
     };
 
     fetchRates();
-    // Refresh rates every 5 minutes
     const interval = setInterval(fetchRates, 5 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
+
+  // Build per-symbol calc metadata from live instrument data, excluding
+  // aggregated/premium duplicate feeds (symbols containing ".")
+  const instrumentMap = useMemo(() => {
+    const map: { [symbol: string]: InstrumentMeta } = {};
+
+    allIsntruments.forEach((inst) => {
+      if (inst.symbol.includes(".")) return;
+
+      const pathParts = inst.path ? inst.path.split("\\") : [];
+      const subPath = pathParts.length > 1 ? pathParts[1] : "";
+
+      let group: string;
+      if (inst.category === "Forex" && FOREX_SUBGROUPS.includes(subPath)) {
+        group = subPath;
+      } else if (
+        inst.category === "Indices" &&
+        INDICES_SUBGROUPS.includes(subPath)
+      ) {
+        group = subPath;
+      } else {
+        group = inst.category;
+      }
+
+      const isForex = inst.category === "Forex";
+      const pipSize = inst.point * (isForex ? 10 : 1);
+      const pipValuePerLot = inst.contractSize * pipSize;
+      const pipLabel: "pips" | "points" =
+        inst.category === "Indices" ||
+        inst.category === "Commodities" ||
+        inst.category === "Energies"
+          ? "points"
+          : "pips";
+
+      const label =
+        inst.category === "Forex" || inst.category === "Metals"
+          ? `${inst.currencyBase}/${inst.currencyProfit}`
+          : inst.symbol;
+
+      map[inst.symbol] = {
+        symbol: inst.symbol,
+        label,
+        category: inst.category,
+        group,
+        pipDecimal: inst.digits,
+        pipSize,
+        pipValuePerLot,
+        quote: inst.currencyProfit,
+        pipLabel,
+      };
+    });
+
+    return map;
+  }, [allIsntruments]);
+
+  // Group + sort instruments for the dropdown, in a fixed display order
+  const groupedInstruments = useMemo(() => {
+    const groups: { [group: string]: InstrumentMeta[] } = {};
+
+    Object.values(instrumentMap).forEach((meta) => {
+      if (!groups[meta.group]) groups[meta.group] = [];
+      groups[meta.group].push(meta);
+    });
+
+    Object.values(groups).forEach((list) =>
+      list.sort((a, b) => a.symbol.localeCompare(b.symbol)),
+    );
+
+    return GROUP_ORDER.filter((group) => groups[group]?.length).map(
+      (group) => ({
+        group,
+        displayName: GROUP_DISPLAY_NAMES[group] || group,
+        instruments: groups[group],
+      }),
+    );
+  }, [instrumentMap]);
+
+  // If the default/current instrument isn't in the live map (e.g. API
+  // dropped it), fall back to the first available symbol once data loads.
+  useEffect(() => {
+    if (Object.keys(instrumentMap).length === 0) return;
+    if (!instrumentMap[instrument]) {
+      const firstSymbol = Object.keys(instrumentMap)[0];
+      if (firstSymbol) setInstrument(firstSymbol);
+    }
+  }, [instrumentMap, instrument]);
 
   const getExchangeRate = (
     fromCurrency: string,
@@ -193,8 +214,8 @@ export default function ProfitLossCalculator() {
   const calculate = () => {
     if (Object.keys(exchangeRates).length === 0) return;
 
-    const config =
-      INSTRUMENT_CONFIG[instrument] || INSTRUMENT_CONFIG["EUR/USD"];
+    const config = instrumentMap[instrument];
+    if (!config) return;
 
     // Convert position size to standard lots
     let standardLots = positionSize;
@@ -230,9 +251,6 @@ export default function ProfitLossCalculator() {
 
     // Calculate pip value per standard lot
     let pipValuePerLot = config.pipValuePerLot;
-    if (config.pointValue) {
-      pipValuePerLot = config.pointValue * config.pipSize;
-    }
 
     // Convert pip value from quote currency to account currency
     if (config.quote !== accountCurrency) {
@@ -286,9 +304,12 @@ export default function ProfitLossCalculator() {
     lotType,
     accountCurrency,
     exchangeRates,
+    instrumentMap,
   ]);
 
-  if (loading) {
+  const isLoading = loading || instrumentsLoading;
+
+  if (isLoading) {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
@@ -298,10 +319,22 @@ export default function ProfitLossCalculator() {
     );
   }
 
+  if (instrumentsError || Object.keys(instrumentMap).length === 0) {
+    return (
+      <div className={styles.calculator}>
+        <div className={styles.body}>
+          <p>Unable to load instruments, please refresh.</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!result) return null;
 
-  const config = INSTRUMENT_CONFIG[instrument] || INSTRUMENT_CONFIG["EUR/USD"];
-  const pipLabel = config.isIndex ? "points" : "pips";
+  const config = instrumentMap[instrument];
+  if (!config) return null;
+
+  const pipLabel = config.pipLabel;
   const totalRR = 1 + result.rrRatio;
   const riskWidth = (1 / totalRR) * 100;
   const rewardWidth = (result.rrRatio / totalRR) * 100;
@@ -328,29 +361,17 @@ export default function ProfitLossCalculator() {
                 value={instrument}
                 onChange={(e) => setInstrument(e.target.value)}
               >
-                <optgroup label="Major Pairs">
-                  <option value="EUR/USD">EUR/USD</option>
-                  <option value="GBP/USD">GBP/USD</option>
-                  <option value="USD/JPY">USD/JPY</option>
-                  <option value="USD/CHF">USD/CHF</option>
-                  <option value="USD/CAD">USD/CAD</option>
-                  <option value="AUD/USD">AUD/USD</option>
-                  <option value="NZD/USD">NZD/USD</option>
-                </optgroup>
-                <optgroup label="Crosses">
-                  <option value="EUR/GBP">EUR/GBP</option>
-                  <option value="EUR/JPY">EUR/JPY</option>
-                  <option value="GBP/JPY">GBP/JPY</option>
-                </optgroup>
-                <optgroup label="Commodities">
-                  <option value="XAU/USD">XAU/USD (Gold)</option>
-                  <option value="USOIL">USOIL (Crude Oil)</option>
-                </optgroup>
-                <optgroup label="Indices">
-                  <option value="US30">US30 (Dow Jones)</option>
-                  <option value="SPX500">SPX500 (S&P 500)</option>
-                  <option value="NAS100">NAS100 (Nasdaq)</option>
-                </optgroup>
+                {groupedInstruments.map(
+                  ({ group, displayName, instruments }) => (
+                    <optgroup key={group} label={displayName}>
+                      {instruments.map((inst) => (
+                        <option key={inst.symbol} value={inst.symbol}>
+                          {inst.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ),
+                )}
               </select>
             </div>
 
