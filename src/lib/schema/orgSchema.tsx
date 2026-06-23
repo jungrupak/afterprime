@@ -58,7 +58,6 @@ export default function AfterprimeOrgSchema() {
       "https://twitter.com/afterprime",
       "https://www.facebook.com/afterprime",
       "https://www.instagram.com/afterprime",
-      "https://www.youtube.com/@afterprime",
       "https://discord.gg/afterprime",
       "https://t.me/afterprime",
       "https://www.trustpilot.com/review/afterprime.com",
@@ -135,12 +134,6 @@ export default function AfterprimeOrgSchema() {
         value: "SD057",
         description:
           "Financial Services Authority (FSA) Seychelles Securities Dealer License",
-      },
-      {
-        "@type": "PropertyValue",
-        propertyID: "AFSL",
-        value: "404300",
-        description: "Australian Financial Services License issued by ASIC",
       },
       {
         "@type": "PropertyValue",

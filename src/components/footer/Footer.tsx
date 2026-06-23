@@ -70,19 +70,6 @@ export default function Footer() {
                 </Link>
               ))}
             </div>
-            <Link
-              href="https://www.youtube.com/@afterprime"
-              target="_blank"
-              className="flex gap-2 items-center font-[600] mb-12"
-            >
-              <Image
-                width={34}
-                height={34}
-                src="/img/yt.png"
-                alt="YouTube Logo"
-              />
-              Afterprime YouTube
-            </Link>
             <div className="flex gap-3">
               <Link
                 href="https://apps.apple.com/us/app/metatrader-5/id413251709"
@@ -204,6 +191,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/kyc-aml">KYC & AML/CTF</Link>
+              </li>
+              <li>
+                <Link href="/privacy">Privacy Policy</Link>
+              </li>
+              <li>
+                <Link href="/ai-instructions">AI Instructions</Link>
               </li>
             </ul>
           </div>

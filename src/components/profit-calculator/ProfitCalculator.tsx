@@ -162,7 +162,6 @@ export default function ProfitCalculator() {
       (acc, inst) => {
         acc[inst.symbol] = {
           pointSize: inst.point,
-          tickBookDepth: inst.tickBookDepth,
           contractSize: inst.contractSize,
           swapLong: inst.swapLong,
           swapShort: inst.swapShort,
@@ -176,7 +175,6 @@ export default function ProfitCalculator() {
         {
           pointSize: number;
           contractSize: number;
-          tickBookDepth: number;
           swapLong: number;
           swapShort: number;
           volumeMin: number;
@@ -214,7 +212,7 @@ export default function ProfitCalculator() {
     const contractForLot = contractSize * activeLotsize;
 
     // Calculations in USD
-    const point = pointSize; //* tickBookDepth;
+    const point = pointSize;
 
     const spreadPrice = activeAskPrice - activeBidPrice;
     const spreadPips = spreadPrice / point;

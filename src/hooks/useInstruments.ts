@@ -1,40 +1,46 @@
-
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 export interface InstrumentApi {
   symbol: string;
+  category: string;
+  path: string;
+  digits: number;
   point: number;
-  contractSize:number;
-  swapLong:number;
-  swapShort:number;
-  tickBookDepth:number;
+  contractSize: number;
+  currencyBase: string;
+  currencyProfit: string;
+  description: string;
+  swapLong: number;
+  swapShort: number;
   volumeMin: number;
   volumeStep: number;
-  }
+}
 
-export function useInstrument(){
+export function useInstrument() {
   const [allIsntruments, setAllInstruments] = useState<InstrumentApi[]>([]);
-    
-  useEffect(()=>{
-    const fetchInstruments = async () => {
-      try{
-        const res = await axios.get("https://scoreboard.argamon.com:8443/api/instruments/");
-        if(!res){
-          throw new Error ("Failed to Fetch")
-        }
-        const data = res.data;
-        setAllInstruments(data);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-      }catch (err: unknown) {
-        const message = err instanceof Error ? err.message : "Unknown error occurred";
+  useEffect(() => {
+    const fetchInstruments = async () => {
+      try {
+        const res = await axios.get(
+          "https://scoreboard.argamon.com:8443/api/instruments/",
+        );
+        setAllInstruments(res.data);
+      } catch (err: unknown) {
+        const message =
+          err instanceof Error ? err.message : "Unknown error occurred";
+        setError(message);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
 
     fetchInstruments();
   }, []);
 
-  return {allIsntruments}
-
+  return { allIsntruments, loading, error };
 }
