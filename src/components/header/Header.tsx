@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./style.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MegaMenuItems } from "@/utils/menu-item";
 import TypeformButton from "../ui/typeForm";
 import Navigation from "../nav/Nav";
@@ -13,6 +13,7 @@ export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const riskWarningRef = useRef<HTMLDivElement>(null);
 
   // ✅ MegaMenuItems should be plain array
   const MegaItems = MegaMenuItems;
@@ -27,8 +28,33 @@ export default function Header() {
     };
   }, []);
 
+  // Header sits right below the risk warning bar, whatever height it wraps
+  // to at the current viewport width (it can grow to 2-3 lines on mobile).
+  useEffect(() => {
+    const el = riskWarningRef.current;
+    if (!el) return;
+
+    const setOffset = () => {
+      document.documentElement.style.setProperty(
+        "--risk-warning-height",
+        `${Math.ceil(el.getBoundingClientRect().height)}px`,
+      );
+    };
+
+    setOffset();
+    const observer = new ResizeObserver(setOffset);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
+      <div ref={riskWarningRef} className={styles.riskWarning}>
+        CFDs are complex instruments and come with a high risk of losing
+        money rapidly due to leverage. Investors should consider whether
+        they understand how CFDs work before investing. Losses may exceed
+        deposits.
+      </div>
       <header
         className={`${styles.ap_header} ${isSticky ? styles.sticky : ""} ${
           activeIndex != null ? styles.headerActive : ""
