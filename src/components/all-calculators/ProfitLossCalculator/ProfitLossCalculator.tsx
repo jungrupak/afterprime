@@ -3,6 +3,13 @@
 import { useState, useEffect, useMemo } from "react";
 import styles from "./ProfitLossCalculator.module.scss";
 import { useInstrument } from "@/hooks/useInstruments";
+import { useExchangeRates } from "@/hooks/useExchangeRates";
+import {
+  buildInstrumentMap,
+  groupInstruments,
+  getExchangeRate as getExchangeRateShared,
+  currencySymbol as currencySymbolFor,
+} from "@/lib/instruments";
 
 interface CalculationResult {
   potentialProfit: number;
@@ -17,49 +24,6 @@ interface CalculationResult {
   standardLots: number;
 }
 
-interface ExchangeRates {
-  [key: string]: number;
-}
-
-interface InstrumentMeta {
-  symbol: string;
-  label: string;
-  category: string;
-  group: string;
-  pipDecimal: number;
-  pipSize: number;
-  pipValuePerLot: number;
-  quote: string;
-  pipLabel: "pips" | "points";
-}
-
-const FOREX_SUBGROUPS = ["Majors", "Minors", "Exotics"];
-const INDICES_SUBGROUPS = ["IndicesMini", "IndicesFull"];
-
-const GROUP_DISPLAY_NAMES: { [key: string]: string } = {
-  Majors: "Major Pairs",
-  Minors: "Minor Pairs",
-  Exotics: "Exotic Pairs",
-  Metals: "Metals",
-  Crypto: "Crypto",
-  Energies: "Energies",
-  IndicesMini: "Indices",
-  IndicesFull: "Indices (Full Size)",
-  Commodities: "Commodities",
-};
-
-const GROUP_ORDER = [
-  "Majors",
-  "Minors",
-  "Exotics",
-  "Metals",
-  "Energies",
-  "Commodities",
-  "IndicesMini",
-  "IndicesFull",
-  "Crypto",
-];
-
 export default function ProfitLossCalculator() {
   const [instrument, setInstrument] = useState("EURUSD");
   const [direction, setDirection] = useState<"buy" | "sell">("buy");
@@ -69,8 +33,6 @@ export default function ProfitLossCalculator() {
   const [positionSize, setPositionSize] = useState(1.0);
   const [lotType, setLotType] = useState("standard");
   const [accountCurrency, setAccountCurrency] = useState("USD");
-  const [exchangeRates, setExchangeRates] = useState<ExchangeRates>({});
-  const [loading, setLoading] = useState(true);
 
   const [result, setResult] = useState<CalculationResult | null>(null);
 
@@ -79,113 +41,19 @@ export default function ProfitLossCalculator() {
     loading: instrumentsLoading,
     error: instrumentsError,
   } = useInstrument();
+  const { rates: exchangeRates, loading } = useExchangeRates();
 
-  // Fetch exchange rates
-  useEffect(() => {
-    const fetchRates = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          "https://scoreboard.argamon.com:8443/api/rebates/exchange-rates?base_currency=USD",
-        );
-        const data = await response.json();
-        setExchangeRates(data);
-      } catch (error) {
-        console.error("Failed to fetch exchange rates:", error);
-        setExchangeRates({
-          USD: 1,
-          EUR: 0.92,
-          GBP: 0.79,
-          AUD: 1.52,
-          JPY: 149.5,
-          CHF: 0.88,
-          CAD: 1.36,
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRates();
-    const interval = setInterval(fetchRates, 5 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Build per-symbol calc metadata from live instrument data, excluding
-  // aggregated/premium duplicate feeds (symbols containing ".")
-  const instrumentMap = useMemo(() => {
-    const map: { [symbol: string]: InstrumentMeta } = {};
-
-    allIsntruments.forEach((inst) => {
-      if (inst.symbol.includes(".")) return;
-
-      const pathParts = inst.path ? inst.path.split("\\") : [];
-      const subPath = pathParts.length > 1 ? pathParts[1] : "";
-
-      let group: string;
-      if (inst.category === "Forex" && FOREX_SUBGROUPS.includes(subPath)) {
-        group = subPath;
-      } else if (
-        inst.category === "Indices" &&
-        INDICES_SUBGROUPS.includes(subPath)
-      ) {
-        group = subPath;
-      } else {
-        group = inst.category;
-      }
-
-      const isForex = inst.category === "Forex";
-      const pipSize = inst.point * (isForex ? 10 : 1);
-      const pipValuePerLot = inst.contractSize * pipSize;
-      const pipLabel: "pips" | "points" =
-        inst.category === "Indices" ||
-        inst.category === "Commodities" ||
-        inst.category === "Energies"
-          ? "points"
-          : "pips";
-
-      const label =
-        inst.category === "Forex" || inst.category === "Metals"
-          ? `${inst.currencyBase}/${inst.currencyProfit}`
-          : inst.symbol;
-
-      map[inst.symbol] = {
-        symbol: inst.symbol,
-        label,
-        category: inst.category,
-        group,
-        pipDecimal: inst.digits,
-        pipSize,
-        pipValuePerLot,
-        quote: inst.currencyProfit,
-        pipLabel,
-      };
-    });
-
-    return map;
-  }, [allIsntruments]);
+  // Build per-symbol calc metadata from live instrument data
+  const instrumentMap = useMemo(
+    () => buildInstrumentMap(allIsntruments),
+    [allIsntruments],
+  );
 
   // Group + sort instruments for the dropdown, in a fixed display order
-  const groupedInstruments = useMemo(() => {
-    const groups: { [group: string]: InstrumentMeta[] } = {};
-
-    Object.values(instrumentMap).forEach((meta) => {
-      if (!groups[meta.group]) groups[meta.group] = [];
-      groups[meta.group].push(meta);
-    });
-
-    Object.values(groups).forEach((list) =>
-      list.sort((a, b) => a.symbol.localeCompare(b.symbol)),
-    );
-
-    return GROUP_ORDER.filter((group) => groups[group]?.length).map(
-      (group) => ({
-        group,
-        displayName: GROUP_DISPLAY_NAMES[group] || group,
-        instruments: groups[group],
-      }),
-    );
-  }, [instrumentMap]);
+  const groupedInstruments = useMemo(
+    () => groupInstruments(instrumentMap),
+    [instrumentMap],
+  );
 
   // If the default/current instrument isn't in the live map (e.g. API
   // dropped it), fall back to the first available symbol once data loads.
@@ -196,20 +64,6 @@ export default function ProfitLossCalculator() {
       if (firstSymbol) setInstrument(firstSymbol);
     }
   }, [instrumentMap, instrument]);
-
-  const getExchangeRate = (
-    fromCurrency: string,
-    toCurrency: string,
-  ): number => {
-    if (fromCurrency === toCurrency) return 1;
-
-    // All rates are based on USD
-    const fromRate = exchangeRates[fromCurrency] || 1;
-    const toRate = exchangeRates[toCurrency] || 1;
-
-    // Convert: from -> USD -> to
-    return toRate / fromRate;
-  };
 
   const calculate = () => {
     if (Object.keys(exchangeRates).length === 0) return;
@@ -254,7 +108,11 @@ export default function ProfitLossCalculator() {
 
     // Convert pip value from quote currency to account currency
     if (config.quote !== accountCurrency) {
-      const conversionRate = getExchangeRate(config.quote, accountCurrency);
+      const conversionRate = getExchangeRateShared(
+        exchangeRates,
+        config.quote,
+        accountCurrency,
+      );
       pipValuePerLot = pipValuePerLot * conversionRate;
     }
 
@@ -339,15 +197,7 @@ export default function ProfitLossCalculator() {
   const riskWidth = (1 / totalRR) * 100;
   const rewardWidth = (result.rrRatio / totalRR) * 100;
 
-  // Get currency symbol
-  const currencySymbol =
-    accountCurrency === "EUR"
-      ? "€"
-      : accountCurrency === "GBP"
-        ? "£"
-        : accountCurrency === "AUD"
-          ? "A$"
-          : "$";
+  const currencySymbol = currencySymbolFor(accountCurrency);
 
   return (
     <div className={styles.calculator}>

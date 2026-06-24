@@ -1,28 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import styles from "./PositionSizeCalculator.module.scss";
-
-// Pip values per standard lot (100,000 units) in USD for major pairs
-const PIP_VALUES: { [key: string]: number } = {
-  "EUR/USD": 10.0,
-  "GBP/USD": 10.0,
-  "AUD/USD": 10.0,
-  "NZD/USD": 10.0,
-  "USD/JPY": 6.7,
-  "USD/CHF": 10.6,
-  "USD/CAD": 7.3,
-  "EUR/GBP": 12.5,
-  "EUR/JPY": 6.7,
-  "GBP/JPY": 6.7,
-  "XAU/USD": 10.0,
-  XAUUSD: 10.0,
-  US30: 1.0,
-  SPX500: 1.0,
-  NAS100: 1.0,
-  USOIL: 10.0,
-  CUSTOM: 10.0,
-};
+import { useInstrument } from "@/hooks/useInstruments";
+import { useExchangeRates } from "@/hooks/useExchangeRates";
+import {
+  buildInstrumentMap,
+  groupInstruments,
+  getExchangeRate,
+} from "@/lib/instruments";
 
 // Lot size definitions
 const LOT_SIZES = {
@@ -47,11 +33,18 @@ interface RiskIndicator {
 }
 
 export default function PositionSizeCalculator() {
+  const {
+    allIsntruments,
+    loading: instrumentsLoading,
+    error: instrumentsError,
+  } = useInstrument();
+  const { rates: exchangeRates, loading: loadingRates } = useExchangeRates();
+
   const [accountSize, setAccountSize] = useState(10000);
   const [riskPercent, setRiskPercent] = useState(2);
   const [stopLoss, setStopLoss] = useState(50);
   const [slUnit, setSlUnit] = useState("pips");
-  const [instrument, setInstrument] = useState("EUR/USD");
+  const [instrument, setInstrument] = useState("EURUSD");
   const [customPipValue, setCustomPipValue] = useState(10);
 
   const [result, setResult] = useState<CalculationResult | null>(null);
@@ -59,11 +52,37 @@ export default function PositionSizeCalculator() {
     null,
   );
 
+  const instrumentMap = useMemo(
+    () => buildInstrumentMap(allIsntruments),
+    [allIsntruments],
+  );
+  const groupedInstruments = useMemo(
+    () => groupInstruments(instrumentMap),
+    [instrumentMap],
+  );
+
+  // If the default/current instrument isn't in the live map (e.g. API
+  // dropped it), fall back to the first available symbol once data loads.
+  useEffect(() => {
+    if (instrument === "CUSTOM") return;
+    if (Object.keys(instrumentMap).length === 0) return;
+    if (!instrumentMap[instrument]) {
+      const firstSymbol = Object.keys(instrumentMap)[0];
+      if (firstSymbol) setInstrument(firstSymbol);
+    }
+  }, [instrumentMap, instrument]);
+
   const calculate = () => {
-    // Get pip value
-    let pipValue = PIP_VALUES[instrument] || 10;
-    if (instrument === "CUSTOM") {
-      pipValue = customPipValue;
+    // Get pip value, in USD (account currency for this calculator)
+    let pipValue = customPipValue;
+    if (instrument !== "CUSTOM") {
+      const config = instrumentMap[instrument];
+      if (!config) return;
+      pipValue = config.pipValuePerLot;
+      if (config.quote !== "USD") {
+        const conversionRate = getExchangeRate(exchangeRates, config.quote, "USD");
+        pipValue = pipValue * conversionRate;
+      }
     }
 
     // Calculate dollar risk
@@ -122,8 +141,40 @@ export default function PositionSizeCalculator() {
   };
 
   useEffect(() => {
+    if (loadingRates || instrumentsLoading) return;
     calculate();
-  }, [accountSize, riskPercent, stopLoss, slUnit, instrument, customPipValue]);
+  }, [
+    accountSize,
+    riskPercent,
+    stopLoss,
+    slUnit,
+    instrument,
+    customPipValue,
+    instrumentMap,
+    exchangeRates,
+    loadingRates,
+    instrumentsLoading,
+  ]);
+
+  if (loadingRates || instrumentsLoading) {
+    return (
+      <div className={styles.calculator}>
+        <div className={styles.body}>
+          <p>Loading instruments...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (instrumentsError || Object.keys(instrumentMap).length === 0) {
+    return (
+      <div className={styles.calculator}>
+        <div className={styles.body}>
+          <p>Unable to load instruments, please refresh.</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!result || !riskIndicator) return null;
 
@@ -210,29 +261,17 @@ export default function PositionSizeCalculator() {
               value={instrument}
               onChange={(e) => setInstrument(e.target.value)}
             >
-              <optgroup label="Major Pairs">
-                <option value="EUR/USD">EUR/USD</option>
-                <option value="GBP/USD">GBP/USD</option>
-                <option value="USD/JPY">USD/JPY</option>
-                <option value="USD/CHF">USD/CHF</option>
-                <option value="USD/CAD">USD/CAD</option>
-                <option value="AUD/USD">AUD/USD</option>
-                <option value="NZD/USD">NZD/USD</option>
-              </optgroup>
-              <optgroup label="Crosses">
-                <option value="EUR/GBP">EUR/GBP</option>
-                <option value="EUR/JPY">EUR/JPY</option>
-                <option value="GBP/JPY">GBP/JPY</option>
-              </optgroup>
-              <optgroup label="Commodities">
-                <option value="XAU/USD">XAU/USD (Gold)</option>
-                <option value="USOIL">USOIL (Crude Oil)</option>
-              </optgroup>
-              <optgroup label="Indices">
-                <option value="US30">US30 (Dow Jones)</option>
-                <option value="SPX500">SPX500 (S&P 500)</option>
-                <option value="NAS100">NAS100 (Nasdaq)</option>
-              </optgroup>
+              {groupedInstruments.map(
+                ({ group, displayName, instruments }) => (
+                  <optgroup key={group} label={displayName}>
+                    {instruments.map((inst) => (
+                      <option key={inst.symbol} value={inst.symbol}>
+                        {inst.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                ),
+              )}
             </select>
           </div>
 

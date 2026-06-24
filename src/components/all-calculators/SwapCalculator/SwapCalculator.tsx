@@ -1,25 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import styles from "./SwapCalculator.module.scss";
-import { useQuery } from "@tanstack/react-query";
+import { useInstrument } from "@/hooks/useInstruments";
+import { useExchangeRates } from "@/hooks/useExchangeRates";
+import {
+  buildInstrumentMap,
+  groupInstruments,
+  getExchangeRate,
+  currencySymbol as currencySymbolFor,
+} from "@/lib/instruments";
 
 /* =======================
    TYPES
 ======================= */
-
-type SwapRates = {
-  [key: string]: {
-    long: number;
-    short: number;
-  };
-};
-
-type InstrumentApiResponse = {
-  symbol: string;
-  swapLong: number;
-  swapShort: number;
-};
 
 interface CalculationResult {
   totalSwap: number;
@@ -31,50 +25,18 @@ interface CalculationResult {
 }
 
 /* =======================
-   CONSTANTS
-======================= */
-
-const PIP_VALUES: { [key: string]: number } = {
-  "EUR/USD": 10,
-  "GBP/USD": 10,
-  "USD/JPY": 6.7,
-  "USD/CHF": 10.6,
-  "USD/CAD": 7.3,
-  "AUD/USD": 10,
-  "NZD/USD": 10,
-  "EUR/GBP": 12.5,
-  "EUR/JPY": 6.7,
-  "GBP/JPY": 6.7,
-  "XAU/USD": 1,
-  USOIL: 10,
-  US30: 1,
-  SPX500: 1,
-  NAS100: 1,
-  BTCUSD: 1,
-  ETHUSD: 1,
-};
-
-/* =======================
-   HELPERS
-======================= */
-
-function formatSymbol(symbol: string): string {
-  // EURUSD → EUR/USD
-  if (symbol.length === 6 && /^[A-Z]{6}$/.test(symbol)) {
-    return `${symbol.slice(0, 3)}/${symbol.slice(3)}`;
-  }
-  return symbol;
-}
-
-/* =======================
    COMPONENT
 ======================= */
 
 export default function SwapCalculator() {
-  const [swapRates, setSwapRates] = useState<SwapRates>({});
-  const [loadingRates, setLoadingRates] = useState(true);
+  const {
+    allIsntruments,
+    loading: instrumentsLoading,
+    error: instrumentsError,
+  } = useInstrument();
+  const { rates: exchangeRates, loading: loadingRates } = useExchangeRates();
 
-  const [instrument, setInstrument] = useState("EUR/USD");
+  const [instrument, setInstrument] = useState("EURUSD");
   const [direction, setDirection] = useState<"long" | "short">("long");
   const [positionSize, setPositionSize] = useState(1.0);
   const [lotType, setLotType] = useState("standard");
@@ -83,53 +45,53 @@ export default function SwapCalculator() {
 
   const [result, setResult] = useState<CalculationResult | null>(null);
 
-  /* =======================
-     FETCH SWAP RATES
-  ======================= */
+  const instrumentMap = useMemo(
+    () => buildInstrumentMap(allIsntruments),
+    [allIsntruments],
+  );
+  const groupedInstruments = useMemo(
+    () => groupInstruments(instrumentMap),
+    [instrumentMap],
+  );
 
+  // If the default/current instrument isn't in the live map (e.g. API
+  // dropped it), fall back to the first available symbol once data loads.
   useEffect(() => {
-    const fetchSwapRates = async () => {
-      try {
-        const res = await fetch(
-          "https://scoreboard.argamon.com:8443/api/instruments/",
-        );
-        const data: InstrumentApiResponse[] = await res.json();
-
-        const mapped: SwapRates = {};
-        data.forEach((item) => {
-          const symbol = formatSymbol(item.symbol);
-          mapped[symbol] = {
-            long: item.swapLong,
-            short: item.swapShort,
-          };
-        });
-
-        setSwapRates(mapped);
-      } catch (err) {
-        console.error("Failed to load swap rates", err);
-      } finally {
-        setLoadingRates(false);
-      }
-    };
-
-    fetchSwapRates();
-  }, []);
+    if (Object.keys(instrumentMap).length === 0) return;
+    if (!instrumentMap[instrument]) {
+      const firstSymbol = Object.keys(instrumentMap)[0];
+      if (firstSymbol) setInstrument(firstSymbol);
+    }
+  }, [instrumentMap, instrument]);
 
   /* =======================
-     CALCULATION (UNCHANGED)
+     CALCULATION
   ======================= */
 
   const calculate = () => {
+    const config = instrumentMap[instrument];
+    if (!config) return;
+
     let standardLots = positionSize;
     if (lotType === "mini") standardLots = positionSize / 10;
     if (lotType === "micro") standardLots = positionSize / 100;
 
-    const rates = swapRates[instrument] || { long: 0, short: 0 };
-    const swapRate = direction === "long" ? rates.long : rates.short;
+    const swapRate = direction === "long" ? config.swapLong : config.swapShort;
 
-    const pipValue = PIP_VALUES[instrument] || 10;
+    // Swap points are quoted in the instrument's quote currency.
+    // dailySwap (quote currency) = swapPoints * point * contractSize
+    //                            = swapPoints * (pipSize / 10) * contractSize
+    //                            = swapPoints * pipValuePerLot / 10
+    let dailySwap = ((swapRate * config.pipValuePerLot) / 10) * standardLots;
 
-    const dailySwap = ((swapRate * pipValue) / 10) * standardLots;
+    if (config.quote !== accountCurrency) {
+      const conversionRate = getExchangeRate(
+        exchangeRates,
+        config.quote,
+        accountCurrency,
+      );
+      dailySwap = dailySwap * conversionRate;
+    }
 
     const weeks = Math.floor(daysHeld / 7);
     const totalSwapDays = daysHeld + weeks * 2;
@@ -139,7 +101,7 @@ export default function SwapCalculator() {
     const monthlySwap = dailySwap * 30;
 
     const annualSwap = dailySwap * 365;
-    const positionValue = standardLots * 100000;
+    const positionValue = standardLots * config.contractSize;
     const annualRate =
       positionValue > 0 ? (annualSwap / positionValue) * 100 : 0;
 
@@ -156,7 +118,7 @@ export default function SwapCalculator() {
   };
 
   useEffect(() => {
-    if (!loadingRates) {
+    if (!loadingRates && !instrumentsLoading) {
       calculate();
     }
   }, [
@@ -167,22 +129,40 @@ export default function SwapCalculator() {
     daysHeld,
     accountCurrency,
     loadingRates,
+    instrumentsLoading,
+    instrumentMap,
+    exchangeRates,
   ]);
+
+  const currencySymbol = currencySymbolFor(accountCurrency);
 
   const formatSwap = (value: number): string => {
     const isPositive = value > 0;
-    return (isPositive ? "+" : "-") + "$" + Math.abs(value).toFixed(2);
+    return (isPositive ? "+" : "-") + currencySymbol + Math.abs(value).toFixed(2);
   };
 
   const handleQuickDays = (days: number) => {
     setDaysHeld(days);
   };
 
-  if (loadingRates || !result) {
+  if (loadingRates || instrumentsLoading || !result) {
     return <p>Loading calculator..</p>;
   }
 
-  const rates = swapRates[instrument] || { long: 0, short: 0 };
+  if (instrumentsError || Object.keys(instrumentMap).length === 0) {
+    return (
+      <div className={styles.calculator}>
+        <div className={styles.body}>
+          <p>Unable to load instruments, please refresh.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const config = instrumentMap[instrument];
+  if (!config) return null;
+
+  const rates = { long: config.swapLong, short: config.swapShort };
 
   return (
     <div className={styles.calculator}>
@@ -195,33 +175,17 @@ export default function SwapCalculator() {
               value={instrument}
               onChange={(e) => setInstrument(e.target.value)}
             >
-              <optgroup label="Major Pairs">
-                <option value="EUR/USD">EUR/USD</option>
-                <option value="GBP/USD">GBP/USD</option>
-                <option value="USD/JPY">USD/JPY</option>
-                <option value="USD/CHF">USD/CHF</option>
-                <option value="USD/CAD">USD/CAD</option>
-                <option value="AUD/USD">AUD/USD</option>
-                <option value="NZD/USD">NZD/USD</option>
-              </optgroup>
-              <optgroup label="Crosses">
-                <option value="EUR/GBP">EUR/GBP</option>
-                <option value="EUR/JPY">EUR/JPY</option>
-                <option value="GBP/JPY">GBP/JPY</option>
-              </optgroup>
-              <optgroup label="Commodities">
-                <option value="XAU/USD">XAU/USD (Gold)</option>
-                <option value="USOIL">USOIL (Crude Oil)</option>
-              </optgroup>
-              <optgroup label="Indices">
-                <option value="US30">US30 (Dow Jones)</option>
-                <option value="SPX500">SPX500 (S&P 500)</option>
-                <option value="NAS100">NAS100 (Nasdaq)</option>
-              </optgroup>
-              <optgroup label="Crypto">
-                <option value="BTCUSD">BTCUSD (Bitcoin)</option>
-                <option value="ETHUSD">ETHUSD (Ethereum)</option>
-              </optgroup>
+              {groupedInstruments.map(
+                ({ group, displayName, instruments }) => (
+                  <optgroup key={group} label={displayName}>
+                    {instruments.map((inst) => (
+                      <option key={inst.symbol} value={inst.symbol}>
+                        {inst.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                ),
+              )}
             </select>
           </div>
 
