@@ -274,6 +274,7 @@ export default function MarginCalculator() {
     accountCurrency,
     exchangeRates,
     marketPrices,
+    instrumentMap,
   ]);
 
   if (
