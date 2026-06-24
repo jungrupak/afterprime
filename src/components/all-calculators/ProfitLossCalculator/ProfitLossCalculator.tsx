@@ -85,9 +85,7 @@ export default function ProfitLossCalculator() {
     const fetchRates = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          "https://scoreboard.argamon.com:8443/api/rebates/exchange-rates?base_currency=USD",
-        );
+        const response = await fetch("/api/exchange-rates");
         const data = await response.json();
         setExchangeRates(data);
       } catch (error) {
