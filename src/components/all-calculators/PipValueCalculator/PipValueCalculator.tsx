@@ -1,33 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import styles from "./PipValueCalculator.module.scss";
-
-const INSTRUMENTS: {
-  [key: string]: {
-    pipSize: number;
-    pipValueStd: number;
-    quote: string;
-    contract?: number;
-    type?: string;
-  };
-} = {
-  "EUR/USD": { pipSize: 0.0001, pipValueStd: 10, quote: "USD" },
-  "GBP/USD": { pipSize: 0.0001, pipValueStd: 10, quote: "USD" },
-  "AUD/USD": { pipSize: 0.0001, pipValueStd: 10, quote: "USD" },
-  "NZD/USD": { pipSize: 0.0001, pipValueStd: 10, quote: "USD" },
-  "USD/JPY": { pipSize: 0.01, pipValueStd: 6.7, quote: "JPY" },
-  "USD/CHF": { pipSize: 0.0001, pipValueStd: 11.3, quote: "CHF" },
-  "USD/CAD": { pipSize: 0.0001, pipValueStd: 7.3, quote: "CAD" },
-  "EUR/GBP": { pipSize: 0.0001, pipValueStd: 12.65, quote: "GBP" },
-  "EUR/JPY": { pipSize: 0.01, pipValueStd: 6.7, quote: "JPY" },
-  "GBP/JPY": { pipSize: 0.01, pipValueStd: 6.7, quote: "JPY" },
-  "XAU/USD": { pipSize: 0.01, pipValueStd: 1.0, quote: "USD", contract: 100 },
-  USOIL: { pipSize: 0.01, pipValueStd: 10.0, quote: "USD", contract: 1000 },
-  US30: { pipSize: 1, pipValueStd: 1.0, quote: "USD", type: "index" },
-  SPX500: { pipSize: 0.1, pipValueStd: 0.1, quote: "USD", type: "index" },
-  NAS100: { pipSize: 0.1, pipValueStd: 0.1, quote: "USD", type: "index" },
-};
+import { useInstrument } from "@/hooks/useInstruments";
+import { useExchangeRates } from "@/hooks/useExchangeRates";
+import {
+  buildInstrumentMap,
+  groupInstruments,
+  getExchangeRate,
+  currencySymbol as currencySymbolFor,
+} from "@/lib/instruments";
 
 interface CalculationResult {
   pipValue: number;
@@ -38,74 +20,55 @@ interface CalculationResult {
   currencySymbol: string;
 }
 
-interface ExchangeRates {
-  [key: string]: number;
-}
-
 export default function PipValueCalculator() {
-  const [instrument, setInstrument] = useState("EUR/USD");
+  const {
+    allIsntruments,
+    loading: instrumentsLoading,
+    error: instrumentsError,
+  } = useInstrument();
+  const { rates: exchangeRates, loading } = useExchangeRates();
+
+  const [instrument, setInstrument] = useState("EURUSD");
   const [size, setSize] = useState(1);
   const [lotType, setLotType] = useState("standard");
   const [currency, setCurrency] = useState("USD");
-  const [exchangeRates, setExchangeRates] = useState<ExchangeRates>({});
-  const [loading, setLoading] = useState(true);
 
   const [result, setResult] = useState<CalculationResult | null>(null);
 
-  // Fetch exchange rates
+  const instrumentMap = useMemo(
+    () => buildInstrumentMap(allIsntruments),
+    [allIsntruments],
+  );
+  const groupedInstruments = useMemo(
+    () => groupInstruments(instrumentMap),
+    [instrumentMap],
+  );
+
+  // If the default/current instrument isn't in the live map (e.g. API
+  // dropped it), fall back to the first available symbol once data loads.
   useEffect(() => {
-    const fetchRates = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch("/api/exchange-rates");
-        const data = await response.json();
-        setExchangeRates(data);
-      } catch (error) {
-        console.error("Failed to fetch exchange rates:", error);
-        // Set default rates as fallback
-        setExchangeRates({
-          USD: 1,
-          EUR: 0.92,
-          GBP: 0.79,
-          AUD: 1.52,
-          JPY: 149.5,
-          CHF: 0.88,
-          CAD: 1.36,
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRates();
-    // Refresh rates every 5 minutes
-    const interval = setInterval(fetchRates, 5 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const getExchangeRate = (
-    fromCurrency: string,
-    toCurrency: string,
-  ): number => {
-    if (fromCurrency === toCurrency) return 1;
-
-    // All rates are based on USD
-    const fromRate = exchangeRates[fromCurrency] || 1;
-    const toRate = exchangeRates[toCurrency] || 1;
-
-    // Convert: from -> USD -> to
-    return toRate / fromRate;
-  };
+    if (Object.keys(instrumentMap).length === 0) return;
+    if (!instrumentMap[instrument]) {
+      const firstSymbol = Object.keys(instrumentMap)[0];
+      if (firstSymbol) setInstrument(firstSymbol);
+    }
+  }, [instrumentMap, instrument]);
 
   const calculate = () => {
     if (Object.keys(exchangeRates).length === 0) return;
 
-    const config = INSTRUMENTS[instrument];
-    let stdPipValue = config.pipValueStd;
+    const config = instrumentMap[instrument];
+    if (!config) return;
+
+    let stdPipValue = config.pipValuePerLot;
 
     // Convert pip value from quote currency to account currency
     if (config.quote !== currency) {
-      const conversionRate = getExchangeRate(config.quote, currency);
+      const conversionRate = getExchangeRate(
+        exchangeRates,
+        config.quote,
+        currency,
+      );
       stdPipValue = stdPipValue * conversionRate;
     }
 
@@ -115,14 +78,6 @@ export default function PipValueCalculator() {
     if (lotType === "micro") lots = size / 100;
 
     const pipValue = stdPipValue * lots;
-    const currencySymbol =
-      currency === "EUR"
-        ? "€"
-        : currency === "GBP"
-          ? "£"
-          : currency === "AUD"
-            ? "A$"
-            : "$";
 
     setResult({
       pipValue,
@@ -130,19 +85,29 @@ export default function PipValueCalculator() {
       miniPipValue: stdPipValue / 10,
       microPipValue: stdPipValue / 100,
       pipSize: config.pipSize,
-      currencySymbol,
+      currencySymbol: currencySymbolFor(currency),
     });
   };
 
   useEffect(() => {
     calculate();
-  }, [instrument, size, lotType, currency, exchangeRates]);
+  }, [instrument, size, lotType, currency, exchangeRates, instrumentMap]);
 
-  if (loading) {
+  if (loading || instrumentsLoading) {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
           <p>Loading exchange rates...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (instrumentsError || Object.keys(instrumentMap).length === 0) {
+    return (
+      <div className={styles.calculator}>
+        <div className={styles.body}>
+          <p>Unable to load instruments, please refresh.</p>
         </div>
       </div>
     );
@@ -184,11 +149,17 @@ export default function PipValueCalculator() {
               value={instrument}
               onChange={(e) => setInstrument(e.target.value)}
             >
-              {Object.keys(INSTRUMENTS).map((inst) => (
-                <option key={inst} value={inst}>
-                  {inst}
-                </option>
-              ))}
+              {groupedInstruments.map(
+                ({ group, displayName, instruments }) => (
+                  <optgroup key={group} label={displayName}>
+                    {instruments.map((inst) => (
+                      <option key={inst.symbol} value={inst.symbol}>
+                        {inst.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                ),
+              )}
             </select>
           </div>
 

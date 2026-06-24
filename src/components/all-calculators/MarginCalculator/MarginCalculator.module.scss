@@ -59,11 +59,19 @@
     padding: 12px;
     font-size: 14px;
     color: #fff;
+    color-scheme: dark;
     cursor: pointer;
     outline: none;
 
     option {
       background: #2d2d3a;
+      color: #fff;
+    }
+
+    optgroup {
+      background: #2d2d3a;
+      color: #fff;
+      font-weight: 600;
     }
 
     &:focus {

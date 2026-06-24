@@ -1,120 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import styles from "./MarginCalculator.module.scss";
-
-// Default contract sizes for instruments
-const INSTRUMENTS: {
-  [key: string]: {
-    contractSize: number;
-    marginCurrency: string;
-    isGold?: boolean;
-    symbol: string; // Symbol name in the price feed
-    defaultPrice: number; // Fallback price
-  };
-} = {
-  "EUR/USD": {
-    contractSize: 100000,
-    marginCurrency: "EUR",
-    symbol: "EURUSD",
-    defaultPrice: 1.085,
-  },
-  "GBP/USD": {
-    contractSize: 100000,
-    marginCurrency: "GBP",
-    symbol: "GBPUSD",
-    defaultPrice: 1.265,
-  },
-  "USD/JPY": {
-    contractSize: 100000,
-    marginCurrency: "USD",
-    symbol: "USDJPY",
-    defaultPrice: 149.5,
-  },
-  "USD/CHF": {
-    contractSize: 100000,
-    marginCurrency: "USD",
-    symbol: "USDCHF",
-    defaultPrice: 0.885,
-  },
-  "USD/CAD": {
-    contractSize: 100000,
-    marginCurrency: "USD",
-    symbol: "USDCAD",
-    defaultPrice: 1.365,
-  },
-  "AUD/USD": {
-    contractSize: 100000,
-    marginCurrency: "AUD",
-    symbol: "AUDUSD",
-    defaultPrice: 0.655,
-  },
-  "NZD/USD": {
-    contractSize: 100000,
-    marginCurrency: "NZD",
-    symbol: "NZDUSD",
-    defaultPrice: 0.61,
-  },
-  "EUR/GBP": {
-    contractSize: 100000,
-    marginCurrency: "EUR",
-    symbol: "EURGBP",
-    defaultPrice: 0.858,
-  },
-  "EUR/JPY": {
-    contractSize: 100000,
-    marginCurrency: "EUR",
-    symbol: "EURJPY",
-    defaultPrice: 162.2,
-  },
-  "GBP/JPY": {
-    contractSize: 100000,
-    marginCurrency: "GBP",
-    symbol: "GBPJPY",
-    defaultPrice: 189.1,
-  },
-  "XAU/USD": {
-    contractSize: 100,
-    marginCurrency: "XAU",
-    isGold: true,
-    symbol: "XAUUSD",
-    defaultPrice: 2350.0,
-  },
-  USOIL: {
-    contractSize: 1000,
-    marginCurrency: "USD",
-    symbol: "USOIL",
-    defaultPrice: 78.5,
-  },
-  US30: {
-    contractSize: 1,
-    marginCurrency: "USD",
-    symbol: "US30",
-    defaultPrice: 39500,
-  },
-  SPX500: {
-    contractSize: 1,
-    marginCurrency: "USD",
-    symbol: "SPX500",
-    defaultPrice: 5200,
-  },
-  NAS100: {
-    contractSize: 1,
-    marginCurrency: "USD",
-    symbol: "NAS100",
-    defaultPrice: 18200,
-  },
-};
+import { useInstrument } from "@/hooks/useInstruments";
+import { useExchangeRates } from "@/hooks/useExchangeRates";
+import {
+  buildInstrumentMap,
+  groupInstruments,
+  getExchangeRate,
+  currencySymbol as currencySymbolFor,
+} from "@/lib/instruments";
 
 interface CalculationResult {
   marginRequired: number;
-  notionalValueUSD: number;
+  notionalValue: number;
   freeMargin: number;
   marginLevel: number;
   effectiveLeverage: number;
   marginUsedPercent: number;
   currencySymbol: string;
-  notionalInAccountCurrency: number;
 }
 
 interface RiskAssessment {
@@ -128,10 +32,6 @@ interface MarginCallLevels {
   move50: string;
 }
 
-interface ExchangeRates {
-  [key: string]: number;
-}
-
 interface MarketPrice {
   symbol: string;
   bestBid: number;
@@ -142,18 +42,23 @@ interface MarketPrice {
 }
 
 export default function MarginCalculator() {
-  const [instrument, setInstrument] = useState("EUR/USD");
+  const {
+    allIsntruments,
+    loading: instrumentsLoading,
+    error: instrumentsError,
+  } = useInstrument();
+  const { rates: exchangeRates, loading: loadingRates } = useExchangeRates();
+
+  const [instrument, setInstrument] = useState("EURUSD");
   const [price, setPrice] = useState(0);
   const [tradeSize, setTradeSize] = useState(1.0);
   const [lotType, setLotType] = useState("standard");
   const [leverage, setLeverage] = useState(100);
   const [accountBalance, setAccountBalance] = useState(10000);
   const [accountCurrency, setAccountCurrency] = useState("USD");
-  const [exchangeRates, setExchangeRates] = useState<ExchangeRates>({});
   const [marketPrices, setMarketPrices] = useState<{
     [key: string]: MarketPrice;
   }>({});
-  const [loadingRates, setLoadingRates] = useState(true);
   const [loadingPrices, setLoadingPrices] = useState(true);
 
   const [result, setResult] = useState<CalculationResult | null>(null);
@@ -165,33 +70,24 @@ export default function MarginCalculator() {
     move50: "—",
   });
 
-  // Fetch exchange rates on mount only
-  useEffect(() => {
-    const fetchRates = async () => {
-      try {
-        setLoadingRates(true);
-        const response = await fetch("/api/exchange-rates");
-        const data = await response.json();
-        setExchangeRates(data);
-      } catch (error) {
-        console.error("Failed to fetch exchange rates:", error);
-        // Set default rates as fallback
-        setExchangeRates({
-          USD: 1,
-          EUR: 0.92,
-          GBP: 0.79,
-          AUD: 1.52,
-          JPY: 149.5,
-          CHF: 0.88,
-          CAD: 1.36,
-        });
-      } finally {
-        setLoadingRates(false);
-      }
-    };
+  const instrumentMap = useMemo(
+    () => buildInstrumentMap(allIsntruments),
+    [allIsntruments],
+  );
+  const groupedInstruments = useMemo(
+    () => groupInstruments(instrumentMap),
+    [instrumentMap],
+  );
 
-    fetchRates();
-  }, []);
+  // If the default/current instrument isn't in the live map (e.g. API
+  // dropped it), fall back to the first available symbol once data loads.
+  useEffect(() => {
+    if (Object.keys(instrumentMap).length === 0) return;
+    if (!instrumentMap[instrument]) {
+      const firstSymbol = Object.keys(instrumentMap)[0];
+      if (firstSymbol) setInstrument(firstSymbol);
+    }
+  }, [instrumentMap, instrument]);
 
   // Fetch market prices on mount
   useEffect(() => {
@@ -222,34 +118,11 @@ export default function MarginCalculator() {
 
   // Update price whenever instrument changes OR when market prices are loaded
   useEffect(() => {
-    const instrumentData = INSTRUMENTS[instrument];
-    if (!instrumentData) return;
-
-    // Try to get price from API using bestBid
-    const marketData = marketPrices[instrumentData.symbol];
-
+    const marketData = marketPrices[instrument];
     if (marketData && marketData.bestBid && marketData.bestBid > 0) {
-      // Use API price (bestBid)
       setPrice(marketData.bestBid);
-    } else {
-      // Use default price as fallback
-      setPrice(instrumentData.defaultPrice);
     }
   }, [instrument, marketPrices]);
-
-  const getExchangeRate = (
-    fromCurrency: string,
-    toCurrency: string,
-  ): number => {
-    if (fromCurrency === toCurrency) return 1;
-
-    // All rates are based on USD
-    const fromRate = exchangeRates[fromCurrency] || 1;
-    const toRate = exchangeRates[toCurrency] || 1;
-
-    // Convert: from -> USD -> to
-    return toRate / fromRate;
-  };
 
   const handleRefreshPrice = async () => {
     try {
@@ -268,8 +141,7 @@ export default function MarginCalculator() {
       setMarketPrices(pricesMap);
 
       // Update current instrument price
-      const instrumentData = INSTRUMENTS[instrument];
-      const marketData = pricesMap[instrumentData.symbol];
+      const marketData = pricesMap[instrument];
       if (marketData && marketData.bestBid > 0) {
         setPrice(marketData.bestBid);
       }
@@ -283,48 +155,27 @@ export default function MarginCalculator() {
   const calculate = () => {
     if (Object.keys(exchangeRates).length === 0 || price <= 0) return;
 
-    const instrumentData = INSTRUMENTS[instrument] || INSTRUMENTS["EUR/USD"];
+    const config = instrumentMap[instrument];
+    if (!config) return;
 
     // Convert trade size to standard lots
     let standardLots = tradeSize;
     if (lotType === "mini") standardLots = tradeSize / 10;
     if (lotType === "micro") standardLots = tradeSize / 100;
 
-    // Calculate notional value in base currency
-    let notionalValueBase = instrumentData.contractSize * standardLots * price;
+    // Notional value in the instrument's quote currency
+    // (Contract Size x Lots = base-currency units; x Price converts to quote currency)
+    const notionalValueQuote = config.contractSize * standardLots * price;
 
-    // Convert margin currency to USD using exchange rates
-    let notionalValueUSD = notionalValueBase;
-    if (instrumentData.marginCurrency !== "USD") {
-      // For XAU (Gold), use the current gold price
-      if (instrumentData.marginCurrency === "XAU") {
-        const goldPrice =
-          marketPrices["XAUUSD"]?.bestBid || instrumentData.defaultPrice;
-        notionalValueUSD = notionalValueBase * goldPrice;
-      } else {
-        const rate = getExchangeRate(instrumentData.marginCurrency, "USD");
-        notionalValueUSD = notionalValueBase * rate;
-      }
+    // Convert notional + margin to account currency
+    let notionalValue = notionalValueQuote;
+    if (config.quote !== accountCurrency) {
+      const rate = getExchangeRate(exchangeRates, config.quote, accountCurrency);
+      notionalValue = notionalValueQuote * rate;
     }
+    const currencySymbol = currencySymbolFor(accountCurrency);
 
-    // Calculate margin required in USD
-    const marginRequiredUSD = notionalValueUSD / leverage;
-
-    // Convert to account currency
-    let marginRequired = marginRequiredUSD;
-    let currencySymbol = "$";
-    if (accountCurrency !== "USD") {
-      const rate = getExchangeRate("USD", accountCurrency);
-      marginRequired = marginRequiredUSD * rate;
-      currencySymbol =
-        accountCurrency === "EUR"
-          ? "€"
-          : accountCurrency === "GBP"
-            ? "£"
-            : accountCurrency === "AUD"
-              ? "A$"
-              : "$";
-    }
+    const marginRequired = notionalValue / leverage;
 
     // Calculate free margin
     const freeMargin = accountBalance - marginRequired;
@@ -334,13 +185,8 @@ export default function MarginCalculator() {
       marginRequired > 0 ? (accountBalance / marginRequired) * 100 : 0;
 
     // Calculate effective leverage
-    let notionalInAccountCurrency = notionalValueUSD;
-    if (accountCurrency !== "USD") {
-      const rate = getExchangeRate("USD", accountCurrency);
-      notionalInAccountCurrency = notionalValueUSD * rate;
-    }
     const effectiveLeverage =
-      accountBalance > 0 ? notionalInAccountCurrency / accountBalance : 0;
+      accountBalance > 0 ? notionalValue / accountBalance : 0;
 
     // Calculate margin used percent
     const marginUsedPercent =
@@ -348,20 +194,19 @@ export default function MarginCalculator() {
 
     setResult({
       marginRequired,
-      notionalValueUSD,
+      notionalValue,
       freeMargin,
       marginLevel,
       effectiveLeverage,
       marginUsedPercent,
       currencySymbol,
-      notionalInAccountCurrency,
     });
 
     // Update risk assessment
     updateRiskAssessment(effectiveLeverage, marginLevel, marginUsedPercent);
 
-    // Calculate margin call levels
-    calculateMarginCallLevels(standardLots, instrumentData, notionalValueUSD);
+    // Calculate margin call levels (in account currency, matching accountBalance)
+    calculateMarginCallLevels(notionalValue);
   };
 
   const updateRiskAssessment = (
@@ -394,11 +239,7 @@ export default function MarginCalculator() {
     setRiskAssessment({ level, message, fillPosition });
   };
 
-  const calculateMarginCallLevels = (
-    lots: number,
-    instrumentData: any,
-    notionalValue: number,
-  ) => {
+  const calculateMarginCallLevels = (notionalValue: number) => {
     const usedMargin = notionalValue / leverage;
 
     const loss100 = accountBalance - usedMargin;
@@ -435,11 +276,25 @@ export default function MarginCalculator() {
     marketPrices,
   ]);
 
-  if (loadingRates || (loadingPrices && price === 0)) {
+  if (
+    loadingRates ||
+    instrumentsLoading ||
+    (loadingPrices && price === 0)
+  ) {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
           <p>Loading market data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (instrumentsError || Object.keys(instrumentMap).length === 0) {
+    return (
+      <div className={styles.calculator}>
+        <div className={styles.body}>
+          <p>Unable to load instruments, please refresh.</p>
         </div>
       </div>
     );
@@ -458,29 +313,17 @@ export default function MarginCalculator() {
               value={instrument}
               onChange={(e) => setInstrument(e.target.value)}
             >
-              <optgroup label="Major Pairs">
-                <option value="EUR/USD">EUR/USD</option>
-                <option value="GBP/USD">GBP/USD</option>
-                <option value="USD/JPY">USD/JPY</option>
-                <option value="USD/CHF">USD/CHF</option>
-                <option value="USD/CAD">USD/CAD</option>
-                <option value="AUD/USD">AUD/USD</option>
-                <option value="NZD/USD">NZD/USD</option>
-              </optgroup>
-              <optgroup label="Crosses">
-                <option value="EUR/GBP">EUR/GBP</option>
-                <option value="EUR/JPY">EUR/JPY</option>
-                <option value="GBP/JPY">GBP/JPY</option>
-              </optgroup>
-              <optgroup label="Commodities">
-                <option value="XAU/USD">XAU/USD (Gold)</option>
-                <option value="USOIL">USOIL (Crude Oil)</option>
-              </optgroup>
-              <optgroup label="Indices">
-                <option value="US30">US30 (Dow Jones)</option>
-                <option value="SPX500">SPX500 (S&P 500)</option>
-                <option value="NAS100">NAS100 (Nasdaq)</option>
-              </optgroup>
+              {groupedInstruments.map(
+                ({ group, displayName, instruments }) => (
+                  <optgroup key={group} label={displayName}>
+                    {instruments.map((inst) => (
+                      <option key={inst.symbol} value={inst.symbol}>
+                        {inst.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                ),
+              )}
             </select>
           </div>
 
@@ -612,8 +455,8 @@ export default function MarginCalculator() {
             <div className={styles.resultCard}>
               <span className={styles.cardLabel}>Notional Value</span>
               <span className={styles.cardValue}>
-                $
-                {result.notionalValueUSD.toLocaleString("en-US", {
+                {result.currencySymbol}
+                {result.notionalValue.toLocaleString("en-US", {
                   maximumFractionDigits: 0,
                 })}
               </span>

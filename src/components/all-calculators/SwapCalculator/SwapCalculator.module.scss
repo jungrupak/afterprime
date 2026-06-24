@@ -59,6 +59,7 @@
     padding: 12px;
     font-size: 14px;
     color: #fff;
+    color-scheme: dark;
     cursor: pointer;
     outline: none;
 
@@ -69,6 +70,13 @@
 
     option {
       background: #1a1a2e;
+      color: #fff;
+    }
+
+    optgroup {
+      background: #1a1a2e;
+      color: #fff;
+      font-weight: 600;
     }
   }
 }
