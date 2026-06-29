@@ -193,33 +193,37 @@ export default async function ChildPage({ params }: Props) {
 
   function renderBrokerVideoPlayer(brokerName: string) {
     const videoKey = getBrokerVideoUrl(brokerName);
-    if (!videoKey) return <div>Video not found for broker: {brokerName}</div>;
+    if (!videoKey) return null;
 
     return (
-      <div
-        style={{
-          width: "100%",
-          background: "#000",
-          aspectRatio: "16/9",
-          maxHeight: "500px",
-          borderRadius: "8px",
-          overflow: "hidden",
-        }}
-      >
-        <video
-          controls
-          muted
-          autoPlay
-          loop
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        >
-          <source
-            src={`https://motion.afterprime.com/${encodeURIComponent(videoKey)}`}
-            type="video/mp4"
-          />
-          Your browser does not support video playback.
-        </video>
-      </div>
+      <section className={`compact-section`}>
+        <div className="ap_container_small">
+          <div
+            style={{
+              width: "100%",
+              background: "#000",
+              aspectRatio: "16/9",
+              maxHeight: "500px",
+              borderRadius: "8px",
+              overflow: "hidden",
+            }}
+          >
+            <video
+              controls
+              muted
+              autoPlay
+              loop
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            >
+              <source
+                src={`https://motion.afterprime.com/${encodeURIComponent(videoKey)}`}
+                type="video/mp4"
+              />
+              Your browser does not support video playback.
+            </video>
+          </div>
+        </div>
+      </section>
     );
   }
 
@@ -267,11 +271,9 @@ export default async function ChildPage({ params }: Props) {
       </section>
       {/* Inner Banner Ends */}
 
-      <section className={`compact-section`}>
-        <div className="ap_container_small">
-          {renderBrokerVideoPlayer(brokers)}
-        </div>
-      </section>
+      {/* Broker Video */}
+      {renderBrokerVideoPlayer(brokers)}
+      {/* Ends */}
 
       {/* Calculator Embed */}
       <section
