@@ -36,10 +36,10 @@ const BROKER_SLUG_MAP = {
   "doo-prime": "Doo Prime (.uk)",
   "go-markets": "GO Markets (cTrader)",
   skilling: "Skilling",
-  "admiral-markets": "Admiral Markets",
+  "admiral-markets": "Admiral Markets UK (Prime)",
   octafx: "OctaFX",
-  rakuten: "Rakuten",
-  fxchoice: "FXChoice",
+  rakuten: "Rakuten Australia",
+  fxchoice: "FXChoice (Pro)",
   "top-10-avg": "Top 10 Avg",
   "industry-avg": "Industry Avg",
 } as const;
