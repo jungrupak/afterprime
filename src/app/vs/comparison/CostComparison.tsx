@@ -33,7 +33,7 @@ const brokerSlugMap = {
   "Global Prime": "global-prime",
   "Markets.com": "markets-dot-com",
   Swissquote: "swissquote",
-  "FusionMarkets": "fusion-markets",
+  FusionMarkets: "fusion-markets",
   "Vantage FX (RAW ECN)": "vantage-fx",
   "BlackBull Markets (cTrader)": "blackbull-markets",
   FXPIG: "fxpig",
@@ -42,7 +42,7 @@ const brokerSlugMap = {
   "GO Markets (cTrader)": "go-markets",
   "Skilling (cTrader)": "skilling",
   "Admiral Markets UK (Prime)": "admiral-markets",
-   Octafx: "octafx",
+  OctaFX: "OctaFX",
   "Rakuten Australia": "rakuten",
   "FXChoice (Pro)": "fxchoice",
   "Top 10 Avg": "top-10-avg",
@@ -109,7 +109,7 @@ export default function CostComparison() {
     "GO Markets (cTrader)",
     "Skilling (cTrader)",
     "Admiral Markets UK (Prime)",
-    "Octafx",
+    "OctaFX",
     "Rakuten Australia",
     "FXChoice (Pro)",
     "Industry Avg",
@@ -131,7 +131,8 @@ export default function CostComparison() {
           Detailed Broker Comparisons
         </h2>
         <p className={`paragraph mb-[clamp(25px_,5vw_,50px)]`}>
-          Select a broker below to view detailed cost breakdowns and savings calculations at your trading volume.
+          Select a broker below to view detailed cost breakdowns and savings
+          calculations at your trading volume.
         </p>
         <div className={`${styles.costCompareTable}`}>
           <div
