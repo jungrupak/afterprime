@@ -42,7 +42,7 @@ const brokerSlugMap = {
   "GO Markets (cTrader)": "go-markets",
   "Skilling (cTrader)": "skilling",
   "Admiral Markets UK (Prime)": "admiral-markets",
-  Octafx: "octafx",
+   Octafx: "octafx",
   "Rakuten Australia": "rakuten",
   "FXChoice (Pro)": "fxchoice",
   "Top 10 Avg": "top-10-avg",
