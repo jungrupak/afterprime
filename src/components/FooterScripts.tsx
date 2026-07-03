@@ -46,7 +46,7 @@ export default function FooterScripts() {
               this._cookieExpiryDays = options.cookieExpiryDays || 30;
               this._additionalParams = options.additionalParams || [];
               this._additionalInitialParams = options.additionalInitialParams || [];
-              this._utmParams = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid","rdclid","tnid","click_id"];
+              this._utmParams = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid","rdclid","tnid","click_id","group"];
               this.writeInitialReferrer();
               this.writeLastReferrer();
               this.writeVisitorId();
