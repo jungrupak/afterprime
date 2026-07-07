@@ -8,8 +8,10 @@ import TypeformButton from "../ui/typeForm";
 import Navigation from "../nav/Nav";
 import MobileNav from "../mobileNav/MobileNav";
 import Button from "../ui/Button";
+import { useBypassInvitation, BYPASS_SIGNUP_URL } from "@/hooks/useBypassInvitation";
 
 export default function Header() {
+  const bypassInvitation = useBypassInvitation();
   const [isSticky, setIsSticky] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -105,7 +107,11 @@ export default function Header() {
                 varient="primary"
                 size="small"
                 isArrowVisible={true}
-                href="https://app.afterprime.com/live"
+                href={
+                  bypassInvitation
+                    ? BYPASS_SIGNUP_URL
+                    : "https://app.afterprime.com/live"
+                }
               >
                 Signup
               </Button>

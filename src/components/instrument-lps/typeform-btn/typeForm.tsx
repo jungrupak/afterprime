@@ -6,6 +6,10 @@ import { createSlider, type SliderOptions } from "@typeform/embed";
 import "@typeform/embed/build/css/slider.css";
 import { fetchGeoCountry, isTargetGeo } from "@/utils/geoCheck";
 import GeoInterstitial from "@/components/ui/GeoInterstitial";
+import {
+  useBypassInvitation,
+  BYPASS_SIGNUP_URL,
+} from "@/hooks/useBypassInvitation";
 
 type ButtonVarients =
   | "default"
@@ -35,6 +39,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
 }) => {
   const [formId, setFormId] = useState<string | null>(null);
   const [showInterstitial, setShowInterstitial] = useState(false);
+  const bypassInvitation = useBypassInvitation();
 
   useEffect(() => {
     const assignedForm = getSessionFormId();
@@ -42,6 +47,11 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
   }, []);
 
   const handleClick = async () => {
+    if (bypassInvitation) {
+      window.open(BYPASS_SIGNUP_URL, "_blank", "noopener,noreferrer");
+      return;
+    }
+
     if (!formId) return;
 
     const loc = await fetchGeoCountry();
@@ -61,7 +71,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
     slider.open();
   };
 
-  if (!formId) return null; // wait for client render
+  if (!formId || bypassInvitation === null) return null; // wait for client render
 
   return (
     <>
@@ -111,7 +121,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
           className="group-hover:stroke-[#000000]"
         />
       </svg>
-      {buttonText}
+      {bypassInvitation ? "Signup Now" : buttonText}
     </button>
     <GeoInterstitial isOpen={showInterstitial} />
     </>

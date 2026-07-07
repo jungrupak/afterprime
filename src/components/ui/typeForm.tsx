@@ -8,9 +8,10 @@ import "@typeform/embed/build/css/slider.css";
 import { getStoredUTMs } from "@/utils/persistUTM";
 import { fetchGeoCountry, isTargetGeo } from "@/utils/geoCheck";
 import GeoInterstitial from "./GeoInterstitial";
-import { getGlobalOptionFields } from "@/lib/getGlobalBlockData";
-
-const SIGNUP_URL = "https://app.afterprime.com/live";
+import {
+  useBypassInvitation,
+  BYPASS_SIGNUP_URL,
+} from "@/hooks/useBypassInvitation";
 
 interface ExtendedSliderOptions extends SliderOptions {
   autoOpen?: boolean;
@@ -29,22 +30,16 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
 }) => {
   const [formId, setFormId] = useState<string | null>(null);
   const [showInterstitial, setShowInterstitial] = useState(false);
-  const [bypassInvitation, setBypassInvitation] = useState<boolean | null>(
-    null,
-  );
+  const bypassInvitation = useBypassInvitation();
 
   useEffect(() => {
     const assignedForm = getSessionFormId();
     setFormId(assignedForm);
-
-    getGlobalOptionFields("bypass_invitation").then((fieldsData) => {
-      setBypassInvitation(fieldsData === true);
-    });
   }, []);
 
   const handleClick = async () => {
     if (bypassInvitation) {
-      window.open(SIGNUP_URL, "_blank", "noopener,noreferrer");
+      window.open(BYPASS_SIGNUP_URL, "_blank", "noopener,noreferrer");
       return;
     }
 

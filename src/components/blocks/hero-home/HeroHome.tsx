@@ -1,6 +1,7 @@
 import styles from "./style.module.scss";
 import Btn from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
+import SignupNowLink from "@/components/ui/SignupNowLink";
 import type { Blocks } from "@/types/blocks";
 import HeroUsp from "@/components/hero-usp/HeroUsp";
 
@@ -50,9 +51,7 @@ export function HeroHome(props: HeroHomeProps) {
                     {hero_banner_home_banner_btn_text ?? "Button"}
                   </Btn>
                 )}
-                <a href="https://app.afterprime.com/live">
-                  Have a code? <u>Signup Now</u>
-                </a>
+                <SignupNowLink />
               </div>
             </div>
           </div>
