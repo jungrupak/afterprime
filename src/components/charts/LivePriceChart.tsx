@@ -56,12 +56,12 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
       <div className="p-5 pb-0">
         <div className="flex justify-between items-start mb-1">
           <div>
-            <h3 className="text-[22px] mb-2 font-semibold text-white/90 tracking-tight">
+            <h2 className="text-[22px] mb-2 font-semibold text-white/90 tracking-tight">
               {symbol.toUpperCase()}{" "}
               <span className="text-[18px] text-white/30 font-medium">
                 Live Price
               </span>
-            </h3>
+            </h2>
             <div className={`flex`}>
               <div className="flex flex-wrap gap-2">
                 <Link

@@ -405,12 +405,12 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
       <div className="grid grid-cols-6 gap-8 md:gap-20">
         {/* Caclulator room */}
         <div className="col-span-6 md:col-span-6 lg:col-span-3">
-          <h4 className="text-[18px] font-[600]">
+          <h3 className="text-[18px] font-[600]">
             Trade Settings :{" "}
             <span className="opacity-65 font-[300]">
               Plan your margin, spread cost, and swaps
             </span>
-          </h4>
+          </h3>
           {/* Display Exchange Rates */}
 
           <div
@@ -595,12 +595,12 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
 
         {/* Result room */}
         <div className="col-span-6 md:col-span-6 lg:col-span-3 !z-0">
-          <h4 className="text-[18px] font-[600]">
+          <h3 className="text-[18px] font-[600]">
             Results :{" "}
             <span className="opacity-65 font-[300]">
               based on your selected parameters
             </span>
-          </h4>
+          </h3>
           <div className="grid grid-cols-12 gap-5 mt-10">
             {/*  */}
             <div className="col-span-6 md:col-span-4 order-1 md:order-1">
