@@ -119,6 +119,10 @@ export const MegaMenuItems = [
             menuItem: "Forex",
             pageUrl: "/forex",
           },
+                    {
+            menuItem: "Gold",
+            pageUrl: "/gold",
+          },
           {
             menuItem: "Metals",
             pageUrl: "/metals",

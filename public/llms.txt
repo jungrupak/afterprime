@@ -11,7 +11,7 @@
 - [AI Instructions](https://afterprime.com/ai-instructions) -- AI-specific usage instructions for interacting with Afterprime content. (priority: 0.8)
 - [Glossary Index](https://afterprime.com/glossary/) -- Full A-Z glossary of forex and CFD trading terms. (priority: 0.8)
 - [Forex Trading](https://afterprime.com/forex/) -- Overview of forex trading services and supported currency pairs. (priority: 0.8)
-- [Markets - Metals](https://afterprime.com/markets/metals/) -- Precious metals trading overview (XAU/USD, XAG/USD, etc.). (priority: 0.8)
+- [Markets - Metals](https://afterprime.com/metals/) -- Precious metals trading overview (XAU/USD, XAG/USD, etc.). (priority: 0.8)
 - [Why We Exist](https://afterprime.com/why-we-exist) -- Mission and founding story. (priority: 0.8)
 - [Our Story](https://afterprime.com/our-story) -- Company background and timeline. (priority: 0.8)
 - [How to Qualify](https://afterprime.com/how-to-qualify) -- Eligibility requirements for Afterprime accounts. (priority: 0.8)
@@ -507,13 +507,12 @@ Each at /calculators/{tool} -- interactive trading calculators.
 
 ## Trading platforms
 
-- [MetaTrader 4 (MT4)](https://afterprime.com/platforms/mt4/)
-- [MetaTrader 5 (MT5)](https://afterprime.com/platforms/mt5/)
-- [TradeRevolution](https://afterprime.com/platforms/traderevolution/)
-- [WebTrader](https://afterprime.com/platforms/webtrader/)
-- [FIX API](https://afterprime.com/platforms/fix-api/)
+- [MetaTrader 4 (MT4)](https://afterprime.com/mt4/)
+- [MetaTrader 5 (MT5)](https://afterprime.com/mt5/)
+- [WebTrader](https://afterprime.com/webtrader/)
+- [FIX API](https://afterprime.com/fix-api/)
 
 ## Markets
 
-- [Metals Overview](https://afterprime.com/markets/metals/)
-- [XAU/USD Market](https://afterprime.com/markets/metals/xauusd)
+- [Metals Overview](https://afterprime.com/metals/)
+- [XAU/USD Market](https://afterprime.com//metals/xauusd)
