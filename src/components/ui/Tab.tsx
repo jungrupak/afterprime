@@ -29,15 +29,14 @@ export default function Tab({ children }: TabProps) {
       {/* Tab Nav */}
       <div className={`${styles.apTabNavWrapper}`}>
         {childArray.map((child, index) => (
-          <span
+          <button
             key={index}
-            className={`${styles.tabNavItem} ${
-              itemIndex === index ? styles.active : ""
-            }`}
+            type="button"
+            className={itemIndex === index ? styles.active : ""}
             onClick={() => setItemIndex(index)}
           >
             {child.props.tabNav}
-          </span>
+          </button>
         ))}
       </div>
       {/* Ends */}
