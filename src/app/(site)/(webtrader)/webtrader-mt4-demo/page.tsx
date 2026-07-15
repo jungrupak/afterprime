@@ -11,5 +11,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <WebTraderMt4Demo />;
+  return (
+    <div className="relative" style={{ zIndex: 99 }}>
+      <WebTraderMt4Demo />
+    </div>
+  );
 }
