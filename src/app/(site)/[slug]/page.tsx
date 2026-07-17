@@ -12,17 +12,22 @@ type Props = { params: Promise<{ slug: string }> };
 
 // ✅ Pre-generate slugs for better performance
 export async function generateStaticParams() {
-  const pages = await wpFetch<WPPage[]>(`/pages?_fields=id,slug,parent`);
-  if (!Array.isArray(pages)) return [];
+  const perPage = 100;
+  let page = 1;
+  const allPages: WPPage[] = [];
 
-  const parents = pages.filter((p) => p.parent === 0);
-  const parentMap = Object.fromEntries(parents.map((p) => [p.id, p.slug]));
+  while (true) {
+    const batch = await wpFetch<WPPage[]>(
+      `/pages?_fields=id,slug&per_page=${perPage}&page=${page}`
+    );
+    if (!Array.isArray(batch) || batch.length === 0) break;
 
-  return pages
-    .filter((p) => p.parent !== 0 && parentMap[p.parent])
-    .map((p) => ({
-      slug: p.slug,
-    }));
+    allPages.push(...batch);
+    if (batch.length < perPage) break;
+    page++;
+  }
+
+  return allPages.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
