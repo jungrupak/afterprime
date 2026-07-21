@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "@/components/ui/ui.module.scss";
 import { createSlider, type SliderOptions } from "@typeform/embed";
@@ -37,14 +37,9 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
   size = "Regular",
   varient = "default",
 }) => {
-  const [formId, setFormId] = useState<string | null>(null);
+  const formId = getSessionFormId();
   const [showInterstitial, setShowInterstitial] = useState(false);
   const bypassInvitation = useBypassInvitation();
-
-  useEffect(() => {
-    const assignedForm = getSessionFormId();
-    setFormId(assignedForm);
-  }, []);
 
   const handleClick = async () => {
     if (bypassInvitation) {
@@ -71,7 +66,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
     slider.open();
   };
 
-  if (!formId || bypassInvitation === null) return null; // wait for client render
+  if (!formId) return null; // wait for client render
 
   return (
     <>
