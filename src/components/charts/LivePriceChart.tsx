@@ -3,7 +3,7 @@
 import { useMemo, useRef } from "react";
 import { useLivePrices } from "@/hooks/useLivePrices";
 import PriceChart from "./PriceChart";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 
 interface LivePriceChartProps {
   symbol: string;

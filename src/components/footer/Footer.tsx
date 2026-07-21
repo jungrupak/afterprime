@@ -1,5 +1,5 @@
 import styles from "./style.module.scss";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import Image from "next/image";
 
 export default function Footer() {

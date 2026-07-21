@@ -1,4 +1,4 @@
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import styles from "./CardList.module.scss";
 import Image from "next/image";
 

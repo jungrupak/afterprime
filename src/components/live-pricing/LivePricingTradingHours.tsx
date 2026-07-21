@@ -3,7 +3,7 @@ import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
 import { useState } from "react";
 import styles from "./style.module.scss";
 import Image from "next/image";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import { Loader } from "../Loading/Loading";
 import { Disconnected } from "../disconnected/Disconnected";
 import { Retrying } from "../retrying/Retry";

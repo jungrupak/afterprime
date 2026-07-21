@@ -3,7 +3,7 @@ import styles from "./FundingCards.module.scss";
 import Image from "next/image";
 import { DepositCardData, WithdrawCardData } from "@/utils/FundingCardJson";
 import Button from "@/components/ui/Button";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 
 type FundingCardsProps = Blocks["funding-card-lists"];
 

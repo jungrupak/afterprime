@@ -1,4 +1,4 @@
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import styles from "./Page.module.scss";
 import btnStyle from "@/components/ui/ui.module.scss";
 

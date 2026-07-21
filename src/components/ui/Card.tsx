@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ui.module.scss";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 
 type CardProps = {
   alignItems?: "center" | "left" | "right";
