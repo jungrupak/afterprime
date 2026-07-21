@@ -16,7 +16,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import ResultSendToEmail from "./ResultSendToEmail";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 
 ChartJS.register(
   CategoryScale,

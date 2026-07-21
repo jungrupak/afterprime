@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import css from "./ui.module.scss";
 import { useButtonClickHandling } from "@/hooks/useBtnClickHandle";
 import GeoInterstitial from "./GeoInterstitial";

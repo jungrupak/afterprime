@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "./CostComparison.module.scss";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 
 interface Brokers {
   broker: string;

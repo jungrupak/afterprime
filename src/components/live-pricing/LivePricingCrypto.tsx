@@ -1,6 +1,6 @@
 "use client";
 import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import { Loader } from "../Loading/Loading";

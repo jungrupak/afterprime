@@ -1,5 +1,5 @@
 "use client";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import Image from "next/image";
 import styles from "./style.module.scss";
 import { useEffect, useRef, useState } from "react";
@@ -8,11 +8,7 @@ import TypeformButton from "../ui/typeForm";
 import Navigation from "../nav/Nav";
 import MobileNav from "../mobileNav/MobileNav";
 import Button from "../ui/Button";
-import LanguageSwitcher from "../language-switcher/LanguageSwitcher";
-import {
-  useBypassInvitation,
-  BYPASS_SIGNUP_URL,
-} from "@/hooks/useBypassInvitation";
+import { useBypassInvitation, BYPASS_SIGNUP_URL } from "@/hooks/useBypassInvitation";
 
 export default function Header() {
   const bypassInvitation = useBypassInvitation();
@@ -56,9 +52,10 @@ export default function Header() {
   return (
     <>
       <div ref={riskWarningRef} className={styles.riskWarning}>
-        CFDs are complex instruments and come with a high risk of losing money
-        rapidly due to leverage. Investors should consider whether they
-        understand how CFDs work before investing. Losses may exceed deposits.
+        CFDs are complex instruments and come with a high risk of losing
+        money rapidly due to leverage. Investors should consider whether
+        they understand how CFDs work before investing. Losses may exceed
+        deposits.
       </div>
       <header
         className={`${styles.ap_header} ${isSticky ? styles.sticky : ""} ${
@@ -97,7 +94,6 @@ export default function Header() {
           {/* Right Side (Desktop) */}
           <div className={`${styles.ap_header_right} max-[1204px]:hidden`}>
             <div className="flex items-center gap-4">
-              <LanguageSwitcher />
               <Button
                 linkTarget="_blank"
                 size="small"

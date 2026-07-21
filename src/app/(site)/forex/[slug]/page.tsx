@@ -11,7 +11,7 @@ import Author from "@/components/AuthorForInstrumentPage/Author";
 import { BottomCta } from "@/components/acfFieldGroups/bottom-cta/BottomCta";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 import type { WPPage } from "@/types/blocks";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import LivePriceChart from "@/components/charts/LivePriceChart";
 
 export const revalidate = 60;

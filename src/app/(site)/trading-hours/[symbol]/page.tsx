@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import {
   getTradingHoursData,
   getAllInstrumentSymbols,

@@ -1,6 +1,6 @@
 "use client";
 import styles from "./Nav.module.scss";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import Image from "next/image";
 import DropdownIcon from "../ui/DropdownIcon";
 import { useEffect, useState } from "react";

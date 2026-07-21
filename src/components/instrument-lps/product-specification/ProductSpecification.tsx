@@ -2,7 +2,7 @@
 import { AP_FX_PAIRS } from "@/data/ap-fx-pairs-specs";
 import { getRelatedPairs } from "@/lib/getRelatedPairs";
 import styles from "./ProductSpecification.module.scss";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import SpecificationTable from "./SpecificationTable";
 
 interface Specification {

@@ -1,13 +1,12 @@
 "use client";
 import styles from "./MobileNav.module.scss";
 import Image from "next/image";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 import TypeformButton from "../ui/typeForm";
 import RightArrow from "../ui/RightArrow";
 import LeftArrow from "../ui/LeftArrow";
 import { useState } from "react";
 import Button from "../ui/Button";
-import LanguageSwitcher from "../language-switcher/LanguageSwitcher";
 
 interface CategoryItem {
   menuItem?: string;
@@ -42,18 +41,10 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
   return (
     <div className={`${styles.mobMenuWrapper} ${customClass}`}>
       <div className={`${styles.menuHeader} flex justify-between`}>
-        <Image
-          src="/img/logo-text.svg"
-          height={34}
-          width={135}
-          alt="Afterprime Logo"
-        />
-        <div className="flex items-center gap-3">
-          <LanguageSwitcher />
-          <span className={`${styles.closeNav}`} onClick={onClick}>
-            +
-          </span>
-        </div>
+        <Image src="/img/logo-text.svg" height={34} width={135} alt="Afterprime Logo" />
+        <span className={`${styles.closeNav}`} onClick={onClick}>
+          +
+        </span>
       </div>
       {/* menus */}
       <div className={`${styles.menuItems}`}>

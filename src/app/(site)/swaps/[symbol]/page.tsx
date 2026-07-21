@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { useTodayDate } from "@/hooks/useTodayDate";
 import SwapCalculatorInline from "./SwapCalculatorInline";
 import Accordion from "@/utils/accordion/Accordion";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 
 //####
 type PageProps = {

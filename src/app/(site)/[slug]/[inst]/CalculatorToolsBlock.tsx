@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 const calCardData = [
   {
     name: "Position Size & Risk Calculator",

@@ -1,5 +1,5 @@
 import styles from "./Page.module.scss";
-import Link from "@/components/ui/Link";
+import Link from "next/link";
 
 interface VsSymbolVerdictsProps {
   brokerName: string;
