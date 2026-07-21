@@ -2,10 +2,10 @@
 
 import styles from "./ui.module.scss";
 
-import { createSlider, type SliderOptions } from "@typeform/embed";
-import "@typeform/embed/build/css/slider.css";
+import { createPopup, type PopupOptions } from "@typeform/embed";
+import "@typeform/embed/build/css/popup.css";
 
-interface ExtendedSliderOptions extends SliderOptions {
+interface ExtendedSliderOptions extends PopupOptions {
   autoOpen?: boolean;
   hideHeaders?: boolean;
   hideFooter?: boolean;
@@ -27,10 +27,10 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
       autoOpen: false,
       hideHeaders: true,
       hideFooter: true,
-      position: "right", // 👈 this makes it slide in from right
+      fullScreen: true,
     };
 
-    const slider = createSlider(formId, options);
+    const slider = createPopup(formId, options);
     slider.open();
   };
 

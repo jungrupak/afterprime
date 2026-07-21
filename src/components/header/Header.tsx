@@ -8,7 +8,10 @@ import TypeformButton from "../ui/typeForm";
 import Navigation from "../nav/Nav";
 import MobileNav from "../mobileNav/MobileNav";
 import Button from "../ui/Button";
-import { useBypassInvitation, BYPASS_SIGNUP_URL } from "@/hooks/useBypassInvitation";
+import {
+  useBypassInvitation,
+  BYPASS_SIGNUP_URL,
+} from "@/hooks/useBypassInvitation";
 
 export default function Header() {
   const bypassInvitation = useBypassInvitation();
@@ -52,10 +55,9 @@ export default function Header() {
   return (
     <>
       <div ref={riskWarningRef} className={styles.riskWarning}>
-        CFDs are complex instruments and come with a high risk of losing
-        money rapidly due to leverage. Investors should consider whether
-        they understand how CFDs work before investing. Losses may exceed
-        deposits.
+        CFDs are complex instruments and come with a high risk of losing money
+        rapidly due to leverage. Investors should consider whether they
+        understand how CFDs work before investing. Losses may exceed deposits.
       </div>
       <header
         className={`${styles.ap_header} ${isSticky ? styles.sticky : ""} ${
@@ -96,7 +98,6 @@ export default function Header() {
             <div className="flex items-center gap-4">
               <Button
                 linkTarget="_blank"
-                varient="washed"
                 size="small"
                 href="https://app.afterprime.com/login"
               >
@@ -104,7 +105,7 @@ export default function Header() {
               </Button>
               <Button
                 linkTarget="_blank"
-                varient="primary"
+                varient="secondary"
                 size="small"
                 isArrowVisible={true}
                 href={

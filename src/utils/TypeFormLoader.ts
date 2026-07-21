@@ -12,7 +12,7 @@ export default function TypeformLoader() {
         script.async = true;
         document.body.appendChild(script);
       }
-    }, 4000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 

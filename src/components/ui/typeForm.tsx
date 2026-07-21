@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "./ui.module.scss";
-import { createSlider, type SliderOptions } from "@typeform/embed";
-import "@typeform/embed/build/css/slider.css";
+import { createPopup, type PopupOptions } from "@typeform/embed";
+import "@typeform/embed/build/css/popup.css";
 import { getStoredUTMs } from "@/utils/persistUTM";
 import { fetchGeoCountry, isTargetGeo } from "@/utils/geoCheck";
 import GeoInterstitial from "./GeoInterstitial";
@@ -13,7 +13,7 @@ import {
   BYPASS_SIGNUP_URL,
 } from "@/hooks/useBypassInvitation";
 
-interface ExtendedSliderOptions extends SliderOptions {
+interface ExtendedSliderOptions extends PopupOptions {
   autoOpen?: boolean;
   hideHeaders?: boolean;
   hideFooter?: boolean;
@@ -56,10 +56,10 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
       autoOpen: false,
       hideHeaders: true,
       hideFooter: true,
-      position: "right",
+      fullScreen: true,
     };
 
-    const slider = createSlider(url, options);
+    const slider = createPopup(url, options);
     slider.open();
   };
 

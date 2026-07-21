@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "@/components/ui/ui.module.scss";
-import { createSlider, type SliderOptions } from "@typeform/embed";
-import "@typeform/embed/build/css/slider.css";
+import { createPopup, type PopupOptions } from "@typeform/embed";
+import "@typeform/embed/build/css/popup.css";
 import { fetchGeoCountry, isTargetGeo } from "@/utils/geoCheck";
 import GeoInterstitial from "@/components/ui/GeoInterstitial";
 import {
@@ -20,7 +20,7 @@ type ButtonVarients =
   | "ghost"
   | "washed";
 
-interface ExtendedSliderOptions extends SliderOptions {
+interface ExtendedSliderOptions extends PopupOptions {
   autoOpen?: boolean;
   hideHeaders?: boolean;
   hideFooter?: boolean;
@@ -59,10 +59,10 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
       autoOpen: false,
       hideHeaders: true,
       hideFooter: true,
-      position: "right",
+      fullScreen: true,
     };
 
-    const slider = createSlider(formId, options);
+    const slider = createPopup(formId, options);
     slider.open();
   };
 
