@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import styles from "./PlatformCards.module.scss";
 export function SectionCardsBigStatic() {
 

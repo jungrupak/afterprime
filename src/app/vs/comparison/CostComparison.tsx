@@ -1,6 +1,6 @@
 "use client";
 import styles from "./CostComparison.module.scss";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { useQuery } from "@tanstack/react-query";
 
 /* ----------------------------- */

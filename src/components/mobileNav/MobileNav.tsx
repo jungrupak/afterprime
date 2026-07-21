@@ -1,7 +1,7 @@
 "use client";
 import styles from "./MobileNav.module.scss";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import TypeformButton from "../ui/typeForm";
 import RightArrow from "../ui/RightArrow";
 import LeftArrow from "../ui/LeftArrow";

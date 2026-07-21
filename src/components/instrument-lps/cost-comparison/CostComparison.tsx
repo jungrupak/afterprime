@@ -1,5 +1,5 @@
 import styles from "./CostComparison.module.scss";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 
 //##

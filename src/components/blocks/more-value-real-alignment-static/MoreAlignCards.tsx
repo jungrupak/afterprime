@@ -1,5 +1,5 @@
 import styles from "./MoreAlignCard.module.scss";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { Blocks } from "@/types/blocks";
 
 type SectionProps = Blocks["section-more-value-real-alignment-static"];

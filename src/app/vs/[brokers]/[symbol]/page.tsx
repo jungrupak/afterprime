@@ -7,7 +7,7 @@ import VsSymbolTable from "./VsSymbolTable";
 import VsSymbolVerdicts from "./VsSymbolVerdicts";
 import Accordion from "@/utils/accordion/Accordion";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
 
 export const revalidate = 60;

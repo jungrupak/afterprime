@@ -1,7 +1,7 @@
 import Tab, { TabItem } from "@/components/ui/Tab";
 import style from "./style.module.scss";
 import { Blocks } from "@/types/blocks";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 
 type SectionPropsHead = Blocks["rebate-table"];
 

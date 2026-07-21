@@ -1,7 +1,7 @@
 "use client";
 import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
 import { useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import { Loader } from "../Loading/Loading";
