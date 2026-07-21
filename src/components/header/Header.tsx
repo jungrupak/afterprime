@@ -8,6 +8,7 @@ import TypeformButton from "../ui/typeForm";
 import Navigation from "../nav/Nav";
 import MobileNav from "../mobileNav/MobileNav";
 import Button from "../ui/Button";
+import LanguageSwitcher from "../language-switcher/LanguageSwitcher";
 import {
   useBypassInvitation,
   BYPASS_SIGNUP_URL,
@@ -96,6 +97,7 @@ export default function Header() {
           {/* Right Side (Desktop) */}
           <div className={`${styles.ap_header_right} max-[1204px]:hidden`}>
             <div className="flex items-center gap-4">
+              <LanguageSwitcher />
               <Button
                 linkTarget="_blank"
                 size="small"

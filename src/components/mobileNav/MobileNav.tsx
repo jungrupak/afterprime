@@ -7,6 +7,7 @@ import RightArrow from "../ui/RightArrow";
 import LeftArrow from "../ui/LeftArrow";
 import { useState } from "react";
 import Button from "../ui/Button";
+import LanguageSwitcher from "../language-switcher/LanguageSwitcher";
 
 interface CategoryItem {
   menuItem?: string;
@@ -47,9 +48,12 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
           width={135}
           alt="Afterprime Logo"
         />
-        <span className={`${styles.closeNav}`} onClick={onClick}>
-          +
-        </span>
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher />
+          <span className={`${styles.closeNav}`} onClick={onClick}>
+            +
+          </span>
+        </div>
       </div>
       {/* menus */}
       <div className={`${styles.menuItems}`}>

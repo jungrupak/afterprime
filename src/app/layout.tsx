@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" translate="no">
       <head>
         <meta name="facebook-domain-verification" content="00t7hvmnqg2hu47jgje79ofbgdiowc" />
         <link rel="alternate" hrefLang="en" href="https://afterprime.com" />
@@ -40,7 +40,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <Script src="https://cdn.weglot.com/weglot.min.js" strategy="beforeInteractive" />
         <Script id="weglot-init" strategy="beforeInteractive">
-          {`Weglot.initialize({ api_key: "${process.env.NEXT_PUBLIC_WEGLOT_API_KEY}" });`}
+          {`Weglot.initialize({ api_key: "${process.env.NEXT_PUBLIC_WEGLOT_API_KEY}", hide_switcher: true });`}
         </Script>
         <script src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js" async></script>
         <Script id="wonderpush-init" strategy="afterInteractive">
