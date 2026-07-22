@@ -9,6 +9,10 @@ import {
   groupInstruments,
   getExchangeRate,
 } from "@/lib/instruments";
+import {
+  positionSizeCalculatorContent as positionSizeCalculatorContentDefault,
+  type PositionSizeCalculatorContent,
+} from "./PositionSizeCalculatorContent";
 
 // Lot size definitions
 const LOT_SIZES = {
@@ -32,7 +36,13 @@ interface RiskIndicator {
   message: string;
 }
 
-export default function PositionSizeCalculator() {
+interface PositionSizeCalculatorProps {
+  content?: PositionSizeCalculatorContent;
+}
+
+export default function PositionSizeCalculator({
+  content = positionSizeCalculatorContentDefault,
+}: PositionSizeCalculatorProps = {}) {
   const {
     allIsntruments,
     loading: instrumentsLoading,
@@ -122,19 +132,19 @@ export default function PositionSizeCalculator() {
 
     if (risk <= 1) {
       color = "linear-gradient(90deg, #00ff88, #00ff88)";
-      message = "Risk level: Very Conservative (Low risk, slower growth)";
+      message = content.riskMessages.veryConservative;
     } else if (risk <= 2) {
       color = "linear-gradient(90deg, #00ff88, #00d9ff)";
-      message = "Risk level: Conservative (Recommended for most traders)";
+      message = content.riskMessages.conservative;
     } else if (risk <= 3) {
       color = "linear-gradient(90deg, #00d9ff, #ffcc00)";
-      message = "Risk level: Moderate (Suitable for experienced traders)";
+      message = content.riskMessages.moderate;
     } else if (risk <= 5) {
       color = "linear-gradient(90deg, #ffcc00, #ff8800)";
-      message = "Risk level: Aggressive (Higher drawdown potential)";
+      message = content.riskMessages.aggressive;
     } else {
       color = "linear-gradient(90deg, #ff8800, #ff4444)";
-      message = "Risk level: Very Aggressive (High risk of significant losses)";
+      message = content.riskMessages.veryAggressive;
     }
 
     setRiskIndicator({ fillWidth, color, message });
@@ -160,7 +170,7 @@ export default function PositionSizeCalculator() {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
-          <p>Loading instruments...</p>
+          <p>{content.loading}</p>
         </div>
       </div>
     );
@@ -170,7 +180,7 @@ export default function PositionSizeCalculator() {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
-          <p>Unable to load instruments, please refresh.</p>
+          <p>{content.error}</p>
         </div>
       </div>
     );
@@ -183,7 +193,9 @@ export default function PositionSizeCalculator() {
       <div className={styles.body}>
         <div className={styles.inputs}>
           <div className={styles.inputGroup}>
-            <label htmlFor="psc-account-size">Account Size</label>
+            <label htmlFor="psc-account-size">
+              {content.labels.accountSize}
+            </label>
             <div className={styles.inputWrapper}>
               <span className={styles.currencySymbol}>$</span>
               <input
@@ -200,7 +212,9 @@ export default function PositionSizeCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="psc-risk-percent">Risk Per Trade (%)</label>
+            <label htmlFor="psc-risk-percent">
+              {content.labels.riskPerTrade}
+            </label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -226,14 +240,20 @@ export default function PositionSizeCalculator() {
                 onChange={(e) => setRiskPercent(parseFloat(e.target.value))}
               />
               <div className={styles.riskLabels}>
-                <span className={styles.riskLow}>Conservative</span>
-                <span className={styles.riskHigh}>Aggressive</span>
+                <span className={styles.riskLow}>
+                  {content.riskSlider.low}
+                </span>
+                <span className={styles.riskHigh}>
+                  {content.riskSlider.high}
+                </span>
               </div>
             </div>
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="psc-stop-loss">Stop-Loss Distance</label>
+            <label htmlFor="psc-stop-loss">
+              {content.labels.stopLossDistance}
+            </label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -248,14 +268,14 @@ export default function PositionSizeCalculator() {
                 value={slUnit}
                 onChange={(e) => setSlUnit(e.target.value)}
               >
-                <option value="pips">Pips</option>
-                <option value="points">Points</option>
+                <option value="pips">{content.slUnit.pips}</option>
+                <option value="points">{content.slUnit.points}</option>
               </select>
             </div>
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="psc-instrument">Instrument</label>
+            <label htmlFor="psc-instrument">{content.labels.instrument}</label>
             <select
               id="psc-instrument"
               value={instrument}
@@ -278,7 +298,7 @@ export default function PositionSizeCalculator() {
           {instrument === "CUSTOM" && (
             <div className={`${styles.inputGroup} ${styles.customPip}`}>
               <label htmlFor="psc-custom-pip-value">
-                Pip Value (per standard lot)
+                {content.labels.customPipValue}
               </label>
               <div className={styles.inputWrapper}>
                 <span className={styles.currencySymbol}>$</span>
@@ -300,17 +320,21 @@ export default function PositionSizeCalculator() {
         <div className={styles.results}>
           <div className={`${styles.resultCard} ${styles.resultPrimary}`}>
             <span className={styles.resultLabel}>
-              Recommended Position Size
+              {content.results.recommendedPositionSize}
             </span>
             <span className={styles.resultValue}>
               {result.positionLots.toFixed(2)}
             </span>
-            <span className={styles.resultUnit}>Standard Lots</span>
+            <span className={styles.resultUnit}>
+              {content.results.standardLots}
+            </span>
           </div>
 
           <div className={styles.resultGrid}>
             <div className={styles.resultCard}>
-              <span className={styles.resultLabel}>Dollar Risk</span>
+              <span className={styles.resultLabel}>
+                {content.results.dollarRisk}
+              </span>
               <span className={styles.resultValue}>
                 $
                 {result.dollarRisk.toLocaleString("en-US", {
@@ -320,19 +344,25 @@ export default function PositionSizeCalculator() {
               </span>
             </div>
             <div className={styles.resultCard}>
-              <span className={styles.resultLabel}>Units</span>
+              <span className={styles.resultLabel}>
+                {content.results.units}
+              </span>
               <span className={styles.resultValue}>
                 {Math.round(result.units).toLocaleString("en-US")}
               </span>
             </div>
             <div className={styles.resultCard}>
-              <span className={styles.resultLabel}>Mini Lots</span>
+              <span className={styles.resultLabel}>
+                {content.results.miniLots}
+              </span>
               <span className={styles.resultValue}>
                 {result.miniLots.toFixed(2)}
               </span>
             </div>
             <div className={styles.resultCard}>
-              <span className={styles.resultLabel}>Micro Lots</span>
+              <span className={styles.resultLabel}>
+                {content.results.microLots}
+              </span>
               <span className={styles.resultValue}>
                 {result.microLots.toFixed(2)}
               </span>
@@ -356,17 +386,19 @@ export default function PositionSizeCalculator() {
 
       <div className={styles.formula}>
         <details>
-          <summary>View Formula</summary>
+          <summary>{content.formula.summary}</summary>
           <div className={styles.formulaContent}>
             <p>
-              <strong>Position Size (lots)</strong> = (Account Size × Risk %) ÷
-              (Stop-Loss × Pip Value)
+              <strong>{content.formula.positionSizeLabel}</strong>{" "}
+              {content.formula.positionSizeFormula}
             </p>
             <p>
-              <strong>Dollar Risk</strong> = Account Size × Risk %
+              <strong>{content.formula.dollarRiskLabel}</strong>{" "}
+              {content.formula.dollarRiskFormula}
             </p>
             <p>
-              <strong>Units</strong> = Position Size × 100,000
+              <strong>{content.formula.unitsLabel}</strong>{" "}
+              {content.formula.unitsFormula}
             </p>
           </div>
         </details>

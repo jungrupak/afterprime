@@ -2,6 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import styles from "./CompountGrowthCalculator.module.scss";
+import {
+  compoundGrowthCalculatorContent,
+  type CompoundGrowthCalculatorContent,
+} from "./CompoundGrowthCalculatorContent";
 
 interface BalanceHistory {
   balanceHistory: number[];
@@ -14,7 +18,11 @@ interface BalanceHistory {
   tradesToDouble: string;
 }
 
-export default function CompoundGrowthCalculator() {
+export default function CompoundGrowthCalculator({
+  content = compoundGrowthCalculatorContent,
+}: {
+  content?: CompoundGrowthCalculatorContent;
+}) {
   const [startingBalance, setStartingBalance] = useState(10000);
   const [winRate, setWinRate] = useState(50);
   const [riskReward, setRiskReward] = useState(2);
@@ -63,18 +71,27 @@ export default function CompoundGrowthCalculator() {
       if (periodType === "month") {
         tradesToDouble =
           periods < 12
-            ? `${periods.toFixed(1)} months`
-            : `${(periods / 12).toFixed(1)} years`;
+            ? content.monthsTemplate.replace("{n}", periods.toFixed(1))
+            : content.yearsTemplate.replace(
+                "{n}",
+                (periods / 12).toFixed(1),
+              );
       } else if (periodType === "week") {
         tradesToDouble =
           periods < 52
-            ? `${periods.toFixed(1)} weeks`
-            : `${(periods / 52).toFixed(1)} years`;
+            ? content.weeksTemplate.replace("{n}", periods.toFixed(1))
+            : content.yearsTemplate.replace(
+                "{n}",
+                (periods / 52).toFixed(1),
+              );
       } else {
         tradesToDouble =
           periods < 365
-            ? `${periods.toFixed(0)} days`
-            : `${(periods / 365).toFixed(1)} years`;
+            ? content.daysTemplate.replace("{n}", periods.toFixed(0))
+            : content.yearsTemplate.replace(
+                "{n}",
+                (periods / 365).toFixed(1),
+              );
       }
     }
 
@@ -181,7 +198,7 @@ export default function CompoundGrowthCalculator() {
     ctx.textAlign = "center";
     ctx.fillText("0", padding, canvas.height - 10);
     ctx.fillText(
-      numTrades + " trades",
+      content.canvasTradesTemplate.replace("{n}", String(numTrades)),
       canvas.width - padding,
       canvas.height - 10,
     );
@@ -189,15 +206,15 @@ export default function CompoundGrowthCalculator() {
 
   const getEdgeMessage = (expectancyR: number) => {
     if (expectancyR > 0.2) {
-      return "Strong positive edge. This system should grow your account over time.";
+      return content.edgeStrongPositive;
     } else if (expectancyR > 0) {
-      return "Positive edge detected. Consistent execution should yield profits.";
+      return content.edgePositive;
     } else if (expectancyR === 0) {
-      return "Break-even edge. You need to improve win rate or R:R to profit.";
+      return content.edgeBreakEven;
     } else if (expectancyR > -0.2) {
-      return "Slight negative edge. This system will slowly lose money over time.";
+      return content.edgeSlightNegative;
     } else {
-      return "Significant negative edge. This system will lose money. Improve parameters.";
+      return content.edgeSignificantNegative;
     }
   };
 
@@ -219,18 +236,18 @@ export default function CompoundGrowthCalculator() {
         if (periodType === "month") {
           timeToTarget =
             periods < 12
-              ? `${periods.toFixed(1)}mo`
-              : `${(periods / 12).toFixed(1)}yr`;
+              ? content.moTemplate.replace("{n}", periods.toFixed(1))
+              : content.yrTemplate.replace("{n}", (periods / 12).toFixed(1));
         } else if (periodType === "week") {
           timeToTarget =
             periods < 52
-              ? `${periods.toFixed(1)}wk`
-              : `${(periods / 52).toFixed(1)}yr`;
+              ? content.wkTemplate.replace("{n}", periods.toFixed(1))
+              : content.yrTemplate.replace("{n}", (periods / 52).toFixed(1));
         } else {
           timeToTarget =
             periods < 365
-              ? `${periods.toFixed(0)}d`
-              : `${(periods / 365).toFixed(1)}yr`;
+              ? content.dTemplate.replace("{n}", periods.toFixed(0))
+              : content.yrTemplate.replace("{n}", (periods / 365).toFixed(1));
         }
       }
 
@@ -251,7 +268,9 @@ export default function CompoundGrowthCalculator() {
       <div className={styles.body}>
         <div className={styles.inputs}>
           <div className={styles.inputGroup}>
-            <label htmlFor="cgc-starting-balance">Starting Balance</label>
+            <label htmlFor="cgc-starting-balance">
+              {content.startingBalanceLabel}
+            </label>
             <div className={styles.inputWrapper}>
               <span className={styles.currencySymbol}>$</span>
               <input
@@ -268,7 +287,7 @@ export default function CompoundGrowthCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="cgc-win-rate">Win Rate (%)</label>
+            <label htmlFor="cgc-win-rate">{content.winRateLabel}</label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -293,9 +312,9 @@ export default function CompoundGrowthCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="cgc-risk-reward">Risk : Reward Ratio</label>
+            <label htmlFor="cgc-risk-reward">{content.riskRewardLabel}</label>
             <div className={styles.rrInputs}>
-              <span className={styles.rrLabel}>1 :</span>
+              <span className={styles.rrLabel}>{content.rrPrefix}</span>
               <input
                 type="number"
                 id="cgc-risk-reward"
@@ -319,7 +338,9 @@ export default function CompoundGrowthCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="cgc-risk-per-trade">Risk Per Trade (%)</label>
+            <label htmlFor="cgc-risk-per-trade">
+              {content.riskPerTradeLabel}
+            </label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -337,7 +358,7 @@ export default function CompoundGrowthCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="cgc-num-trades">Number of Trades</label>
+            <label htmlFor="cgc-num-trades">{content.numTradesLabel}</label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -352,7 +373,9 @@ export default function CompoundGrowthCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="cgc-trades-per-period">Trades Per</label>
+            <label htmlFor="cgc-trades-per-period">
+              {content.tradesPerLabel}
+            </label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -370,9 +393,9 @@ export default function CompoundGrowthCalculator() {
                 value={periodType}
                 onChange={(e) => setPeriodType(e.target.value)}
               >
-                <option value="month">/ Month</option>
-                <option value="week">/ Week</option>
-                <option value="day">/ Day</option>
+                <option value="month">{content.periodMonthOption}</option>
+                <option value="week">{content.periodWeekOption}</option>
+                <option value="day">{content.periodDayOption}</option>
               </select>
             </div>
           </div>
@@ -381,7 +404,9 @@ export default function CompoundGrowthCalculator() {
         <div className={styles.results}>
           <div className={styles.resultRow}>
             <div className={`${styles.resultCard} ${styles.resultPrimary}`}>
-              <span className={styles.resultLabel}>Expected Final Balance</span>
+              <span className={styles.resultLabel}>
+                {content.expectedFinalBalanceLabel}
+              </span>
               <span className={styles.resultValue}>
                 $
                 {results.finalBalance.toLocaleString("en-US", {
@@ -399,36 +424,45 @@ export default function CompoundGrowthCalculator() {
 
           <div className={styles.statsGrid}>
             <div className={styles.statCard}>
-              <span className={styles.statLabel}>Expectancy</span>
+              <span className={styles.statLabel}>{content.expectancyLabel}</span>
               <span className={styles.statValue}>
                 ${results.expectancyDollars.toFixed(2)}
               </span>
-              <span className={styles.statNote}>per trade (avg)</span>
+              <span className={styles.statNote}>{content.expectancyNote}</span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statLabel}>Profit Factor</span>
+              <span className={styles.statLabel}>
+                {content.profitFactorLabel}
+              </span>
               <span className={styles.statValue}>
                 {results.profitFactor.toFixed(2)}
               </span>
-              <span className={styles.statNote}>gross profit / loss</span>
-            </div>
-            <div className={styles.statCard}>
-              <span className={styles.statLabel}>Expected Wins</span>
-              <span className={styles.statValue}>{results.expectedWins}</span>
               <span className={styles.statNote}>
-                of <span>{numTrades}</span> trades
+                {content.profitFactorNote}
               </span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statLabel}>Time to Goal</span>
+              <span className={styles.statLabel}>
+                {content.expectedWinsLabel}
+              </span>
+              <span className={styles.statValue}>{results.expectedWins}</span>
+              <span className={styles.statNote}>
+                {content.expectedWinsOfWord} <span>{numTrades}</span>{" "}
+                {content.expectedWinsTradesWord}
+              </span>
+            </div>
+            <div className={styles.statCard}>
+              <span className={styles.statLabel}>{content.timeToGoalLabel}</span>
               <span className={styles.statValue}>{results.tradesToDouble}</span>
-              <span className={styles.statNote}>to double account</span>
+              <span className={styles.statNote}>{content.timeToGoalNote}</span>
             </div>
           </div>
 
           <div className={styles.edgeIndicator}>
             <div className={styles.edgeHeader}>
-              <span className={styles.edgeLabel}>Trading Edge</span>
+              <span className={styles.edgeLabel}>
+                {content.tradingEdgeLabel}
+              </span>
               <span
                 className={`${styles.edgeValue} ${edgePercent < 0 ? styles.negative : ""}`}
               >
@@ -451,14 +485,18 @@ export default function CompoundGrowthCalculator() {
           </div>
 
           <div className={styles.chartSection}>
-            <h3 className={styles.sectionTitle}>Growth Projection</h3>
+            <h3 className={styles.sectionTitle}>
+              {content.growthProjectionTitle}
+            </h3>
             <div className={styles.chartContainer}>
               <canvas ref={canvasRef} id="cgc-growth-chart"></canvas>
             </div>
           </div>
 
           <div className={styles.milestones}>
-            <h3 className={styles.sectionTitle}>Account Milestones</h3>
+            <h3 className={styles.sectionTitle}>
+              {content.accountMilestonesTitle}
+            </h3>
             <div className={styles.milestoneGrid}>
               {getMilestones().map((milestone, idx) => (
                 <div key={idx} className={styles.milestone}>
@@ -466,7 +504,9 @@ export default function CompoundGrowthCalculator() {
                     ${milestone.targetBalance.toLocaleString()}
                   </span>
                   <span className={styles.milestoneTrades}>
-                    {milestone.tradesToTarget} trades ({milestone.timeToTarget})
+                    {content.milestoneTradesTemplate
+                      .replace("{trades}", milestone.tradesToTarget)
+                      .replace("{time}", milestone.timeToTarget)}
                   </span>
                 </div>
               ))}

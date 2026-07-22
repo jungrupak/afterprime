@@ -6,14 +6,21 @@ import Image from "next/image";
 import { Loader } from "../Loading/Loading";
 import { Retrying } from "../retrying/Retry";
 import { Disconnected } from "../disconnected/Disconnected";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
+import type { LivePricingCryptoContent } from "./livePricingCryptoContent";
+import { livePricingCryptoContent } from "./livePricingCryptoContent";
 
 interface LivePricingCryptoProps {
   initialPrices?: PricesObjects[];
+  content?: LivePricingCryptoContent;
 }
 
 export function LivePricingCrypto({
   initialPrices = [],
+  content: c = livePricingCryptoContent,
 }: LivePricingCryptoProps) {
+  const locale = useLocale();
   const { categories, status } = useLivePrices(initialPrices);
 
   const pricingCatLists = [categories.crypto];
@@ -23,13 +30,14 @@ export function LivePricingCrypto({
     <div>
       <div className="w-full text-center px-6">
         <h2 className="h2-size mb-6">
-          Lowest <span>Crypto Costs.</span>
+          {c.headingBefore}
+          <span>{c.headingHighlight}</span>
+          {c.headingAfter}
         </h2>
-        <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Stop losing your margin to exchange fees. Trade on Crypto CFDs. We
-          offer raw spreads with zero commissions - plus, earn up to $3/lot back
-          via Flow Rewards™ on Bitcoin.
-        </p>
+        <p
+          className="paragraph mb-20 max-md:mb-10 opacity-90"
+          dangerouslySetInnerHTML={{ __html: c.description }}
+        />
       </div>
 
       {status === "connecting" && !hasInitialTableData && <Loader />}
@@ -41,11 +49,11 @@ export function LivePricingCrypto({
               <table className="">
                 <thead>
                   <tr className="">
-                    <th className="px-4 py-2">Symbol</th>
-                    <th className="px-4 py-2">Bid</th>
-                    <th className="px-4 py-2">Ask</th>
-                    <th className="px-4 py-2">Spread</th>
-                    <th className="px-4 py-2">Market Hours</th>
+                    <th className="px-4 py-2">{c.tableHeaders.symbol}</th>
+                    <th className="px-4 py-2">{c.tableHeaders.bid}</th>
+                    <th className="px-4 py-2">{c.tableHeaders.ask}</th>
+                    <th className="px-4 py-2">{c.tableHeaders.spread}</th>
+                    <th className="px-4 py-2">{c.tableHeaders.marketHours}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -79,10 +87,10 @@ export function LivePricingCrypto({
                           className={`flex md:justify-end text-[16px] items-center`}
                         >
                           <Link
-                            href={"/trading-hours/" + item.symbol.toLowerCase()}
+                            href={localizeHref("/trading-hours/" + item.symbol.toLowerCase(), locale)}
                           >
                             <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
-                              Trading Hours
+                              {c.tableHeaders.tradingHoursLink}
                             </span>
                           </Link>
                         </div>
@@ -98,33 +106,6 @@ export function LivePricingCrypto({
 
       {status === "disconnected" && !hasInitialTableData && <Retrying />}
       {status === "error" && !hasInitialTableData && <Disconnected />}
-
-      {/* <div className="text-center mt-10 text-[20px]">
-        At 100 lots/month, that’s $480 saved vs{" "}
-        <span
-          className={`${styles.indAverageCompareOpen} inline-flex ml-1 mr-2 items-center gap-1`}
-        >
-          {" "}
-          Industry Average{" "}
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 12 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <mask id="path-1-inside-1_733_115" fill="white">
-              <path d="M5.98633 0L11.9727 5.98633L5.98633 11.9727L2.62032e-07 5.98633L5.98633 0Z" />
-            </mask>
-            <path
-              d="M5.98633 11.9727L4.92567 13.0333L5.98633 14.094L7.04699 13.0333L5.98633 11.9727ZM11.9727 5.98633L10.912 4.92567L4.92567 10.912L5.98633 11.9727L7.04699 13.0333L13.0333 7.04699L11.9727 5.98633ZM5.98633 11.9727L7.04699 10.912L1.06066 4.92567L2.62032e-07 5.98633L-1.06066 7.04699L4.92567 13.0333L5.98633 11.9727Z"
-              fill="var(--secondary-color)"
-              mask="url(#path-1-inside-1_733_115)"
-            />
-          </svg>{" "}
-        </span>
-        plus $220 back in your pocket on flow.
-      </div> */}
     </div>
   );
 }

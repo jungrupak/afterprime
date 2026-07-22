@@ -10,6 +10,10 @@ import {
   getExchangeRate,
   currencySymbol as currencySymbolFor,
 } from "@/lib/instruments";
+import {
+  pipValueCalculatorContent,
+  type PipValueCalculatorContent,
+} from "./PipValueCalculatorContent";
 
 interface CalculationResult {
   pipValue: number;
@@ -20,7 +24,13 @@ interface CalculationResult {
   currencySymbol: string;
 }
 
-export default function PipValueCalculator() {
+interface PipValueCalculatorProps {
+  content?: PipValueCalculatorContent;
+}
+
+export default function PipValueCalculator({
+  content = pipValueCalculatorContent,
+}: PipValueCalculatorProps) {
   const {
     allIsntruments,
     loading: instrumentsLoading,
@@ -97,7 +107,7 @@ export default function PipValueCalculator() {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
-          <p>Loading exchange rates...</p>
+          <p>{content.loadingRates}</p>
         </div>
       </div>
     );
@@ -107,13 +117,16 @@ export default function PipValueCalculator() {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
-          <p>Unable to load instruments, please refresh.</p>
+          <p>{content.instrumentsError}</p>
         </div>
       </div>
     );
   }
 
   if (!result) return null;
+
+  const [pipMovementNotePre, pipMovementNotePost] =
+    content.pipMovementNote.split("{pipSize}");
 
   const pipMovements = [
     {
@@ -143,7 +156,7 @@ export default function PipValueCalculator() {
       <div className={styles.body}>
         <div className={styles.inputs}>
           <div className={styles.group}>
-            <label>Instrument</label>
+            <label>{content.instrumentLabel}</label>
             <select
               id="pvc-instrument"
               value={instrument}
@@ -164,7 +177,7 @@ export default function PipValueCalculator() {
           </div>
 
           <div className={styles.group}>
-            <label>Position Size</label>
+            <label>{content.positionSizeLabel}</label>
             <div className={styles.inputRow}>
               <input
                 type="number"
@@ -179,15 +192,15 @@ export default function PipValueCalculator() {
                 value={lotType}
                 onChange={(e) => setLotType(e.target.value)}
               >
-                <option value="standard">Standard Lots</option>
-                <option value="mini">Mini Lots</option>
-                <option value="micro">Micro Lots</option>
+                <option value="standard">{content.unitStandardLots}</option>
+                <option value="mini">{content.unitMiniLots}</option>
+                <option value="micro">{content.unitMicroLots}</option>
               </select>
             </div>
           </div>
 
           <div className={styles.group}>
-            <label>Account Currency</label>
+            <label>{content.accountCurrencyLabel}</label>
             <select
               id="pvc-currency"
               value={currency}
@@ -203,36 +216,40 @@ export default function PipValueCalculator() {
 
         <div className={styles.results}>
           <div className={styles.mainResult}>
-            <span className={styles.label}>Pip Value</span>
+            <span className={styles.label}>{content.pipValueLabel}</span>
             <span className={styles.value}>
               {result.currencySymbol}
               {result.pipValue.toFixed(2)}
             </span>
             <span className={styles.note}>
-              per <span>{result.pipSize}</span> movement
+              {pipMovementNotePre}
+              <span>{result.pipSize}</span>
+              {pipMovementNotePost}
             </span>
           </div>
 
           <div className={styles.lotGrid}>
             <div className={styles.lotCard}>
-              <span className={styles.lotName}>Standard Lot</span>
-              <span className={styles.lotUnits}>100,000 units</span>
+              <span className={styles.lotName}>{content.standardLotName}</span>
+              <span className={styles.lotUnits}>
+                {content.standardLotUnits}
+              </span>
               <span className={styles.lotValue}>
                 {result.currencySymbol}
                 {result.stdPipValue.toFixed(2)}
               </span>
             </div>
             <div className={styles.lotCard}>
-              <span className={styles.lotName}>Mini Lot</span>
-              <span className={styles.lotUnits}>10,000 units</span>
+              <span className={styles.lotName}>{content.miniLotName}</span>
+              <span className={styles.lotUnits}>{content.miniLotUnits}</span>
               <span className={styles.lotValue}>
                 {result.currencySymbol}
                 {result.miniPipValue.toFixed(2)}
               </span>
             </div>
             <div className={styles.lotCard}>
-              <span className={styles.lotName}>Micro Lot</span>
-              <span className={styles.lotUnits}>1,000 units</span>
+              <span className={styles.lotName}>{content.microLotName}</span>
+              <span className={styles.lotUnits}>{content.microLotUnits}</span>
               <span className={styles.lotValue}>
                 {result.currencySymbol}
                 {result.microPipValue.toFixed(2)}
@@ -242,13 +259,13 @@ export default function PipValueCalculator() {
         </div>
 
         <div className={styles.pipTable}>
-          <h3>Pip Movement Impact</h3>
+          <h3>{content.pipMovementImpactTitle}</h3>
           <table>
             <thead>
               <tr>
-                <th>Pips</th>
-                <th>Your Position</th>
-                <th>Standard Lot</th>
+                <th>{content.tableHeaderPips}</th>
+                <th>{content.tableHeaderYourPosition}</th>
+                <th>{content.tableHeaderStandardLot}</th>
               </tr>
             </thead>
             <tbody>

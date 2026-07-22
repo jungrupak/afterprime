@@ -3,7 +3,6 @@ import type { WPPage } from "@/types/blocks";
 import { Metadata } from "next";
 import styles from "./Page.module.scss";
 import { notFound } from "next/navigation";
-import { getPageDataBySlug } from "@/data/getPageDataBySlug";
 import CostComparisonWithSelected from "./compare-ap-with-selected/CostComparison";
 import CompareWithMajors from "./compare-with-majors/CostComparison";
 import Button from "@/components/ui/Button";
@@ -14,6 +13,10 @@ import FaqSchema from "@/lib/schema/faqSchema";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import { getSavingCompare } from "@/lib/getSavingCompare";
 import CostSavingCalculatorBrokers from "../cost-calculator/CostSavingCalculator";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
+import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 // ISR
 export const revalidate = 60;
@@ -24,8 +27,28 @@ type Props = {
   }>;
 };
 
+type VsBrokerJson = {
+  title?: { rendered?: string };
+  aioseo_head_json?: Record<string, string>;
+  acf?: {
+    cta_block?: {
+      title?: string;
+      paragraph?: string;
+      button_url?: string;
+    };
+    hero_banner_home?: {
+      banner_heading?: string;
+      banner_paragraph?: string;
+    };
+    reading_text_content?: string;
+    faq_section?: {
+      q_and_a?: { question?: string; answer?: string }[];
+    };
+  };
+};
+
 //
-// 🔹 Metadata
+// Metadata
 //
 
 const brokerSlugMap = {
@@ -57,12 +80,12 @@ const brokerSlugMap = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { brokers } = await params;
-  const renderPage = await getPageDataBySlug(brokers);
+  const locale = await getRequestLocale();
+  const renderPage = await getTranslatedPage<VsBrokerJson>(brokers, locale);
   const pageTitle = renderPage?.title?.rendered;
   const pageAiseo = renderPage?.aioseo_head_json;
   const year = new Date().getFullYear();
 
-  // ## get brokers data
   const savingCompares = await getSavingCompare();
   const mappedBrokerName = brokerSlugMap[brokers as keyof typeof brokerSlugMap];
   const currentPageBroker = savingCompares?.brokers?.find(
@@ -73,31 +96,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   );
   const brokerSavingPcnt = currentPageBroker?.savingPercentage.toFixed(1) ?? 0;
 
-  // ## Ends
+  const canonicalPath = `/vs/${brokers}`;
+  const canonicalUrl = `https://afterprime.com${localizeHref(canonicalPath, locale)}`;
 
   return {
-    title: `Afterprime vs ${pageTitle} Comparison ${year}
-`,
-    description: `Save ${brokerSavingPcnt}% vs ${pageTitle} trading costs. Verified average cost all pairs $${findAfterprime?.costPerLot}/lot vs ${pageTitle}’s $${currentPageBroker?.costPerLot}. Compare brokers.`,
+    title: `Afterprime vs ${pageTitle} Comparison ${year}`,
+    description: `Save ${brokerSavingPcnt}% vs ${pageTitle} trading costs. Verified average cost all pairs $${findAfterprime?.costPerLot}/lot vs ${pageTitle}'s $${currentPageBroker?.costPerLot}. Compare brokers.`,
     alternates: {
-      canonical: `https://afterprime.com/vs/${brokers}`,
+      canonical: canonicalUrl,
+      languages: buildHreflangMap(brokers, canonicalPath),
     },
 
     authors: [{ name: "Afterprime", url: "https://afterprime.com" }],
-
     creator: "Afterprime",
     publisher: "Afterprime",
 
     openGraph: {
       title: pageAiseo?.["og:title"] ?? "Afterprime",
-
       description:
         pageAiseo?.["og:description"] ??
         "Forex broker with lowest costs, A-Book forex broker, Get paid to trade",
-
-      url: `https://afterprime.com/vs/${brokers}`,
+      url: canonicalUrl,
       siteName: pageAiseo?.["og:site_name"] ?? "afterprime.com",
-      type: pageAiseo?.["og:type"] ?? "website",
+      type: (pageAiseo?.["og:type"] as "website" | "article") ?? "website",
+      locale: toOgLocale(locale),
       images: [
         {
           url:
@@ -114,12 +136,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
 
     twitter: {
-      card: pageAiseo?.["twitter:card"] ?? "summary_large_image",
+      card: (pageAiseo?.["twitter:card"] as "summary" | "summary_large_image") ?? "summary_large_image",
       title: pageAiseo?.["twitter:title"] ?? "Afterprime",
       description:
         pageAiseo?.["twitter:description"] ??
         "Forex broker with Flow Rewards program, Forex broker with institutional-grade execution",
-
       images: [
         pageAiseo?.["twitter:image"] ??
           "/img/og-images/default-og-afterprime-home.jpg",
@@ -148,12 +169,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 //
-// 🔹 Page Component
+// Page Component
 //
 export default async function ChildPage({ params }: Props) {
   const { brokers } = await params;
   if (!brokers) return;
-  const pageData = await getPageDataBySlug(brokers);
+  const locale = await getRequestLocale();
+  const pageData = await getTranslatedPage<VsBrokerJson>(brokers, locale);
   if (!pageData) {
     notFound();
   }
@@ -162,7 +184,7 @@ export default async function ChildPage({ params }: Props) {
   const heroBanner = pageData?.acf?.hero_banner_home;
   const content = pageData?.acf?.reading_text_content;
   const faqData = pageData?.acf?.faq_section?.q_and_a;
-  //videos
+
   const BROKER_VIDEO_URLS = [
     { broker: "ic-markets", url: "ic-markets-raw-web-bumperad.mp4" },
     { broker: "fxopen", url: "fxopen-ticktrader-web-bumperad.mp4" },
@@ -182,7 +204,7 @@ export default async function ChildPage({ params }: Props) {
   function getBrokerVideoUrl(brokerName: string) {
     if (!brokerName) return null;
     const search = brokerName.toLowerCase().trim();
-    const normalized = search.replace(/[-.]/g, ""); // removes dots and dashes
+    const normalized = search.replace(/[-.]/g, "");
     const match = BROKER_VIDEO_URLS.find(
       (b) =>
         search.includes(b.broker) ||
@@ -269,13 +291,9 @@ export default async function ChildPage({ params }: Props) {
           </div>
         </div>
       </section>
-      {/* Inner Banner Ends */}
 
-      {/* Broker Video */}
       {renderBrokerVideoPlayer(brokers)}
-      {/* Ends */}
 
-      {/* Calculator Embed */}
       <section
         id="costCalculator"
         className={`compact-section`}
@@ -286,30 +304,23 @@ export default async function ChildPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Calculator Embed Ends */}
-
-      {/* Trading Cost Breakdown */}
       <section className={`compact-section`}>
         <div className="ap_container_small">
           <h2 className={`leading-[1.2]`}>Total Trading Cost Breakdown</h2>
           <CostComparisonWithSelected selectedBrokerSlug={brokers} />
         </div>
       </section>
-      {/* Trading Cost Breakdown Ends */}
 
-      {/* Trading Cost Breakdown */}
       <section className={`compact-section`}>
         <div className="ap_container_small">
           <h2 className={`leading-[1.2]`}>Trading Cost by Forex Major</h2>
           <CompareWithMajors broker={brokers} />
         </div>
       </section>
-      {/* Trading Cost Breakdown Ends */}
 
       {/* Dynamic Content Area */}
       <section className={`compact-section`}>
         <div className="ap_container_small">
-          {/*  */}
           <div className={`${styles.pageEditorContent}`}>
             <h2 className={`mt-0!`}>Spreads - The Invisible Variable</h2>
 
@@ -344,7 +355,7 @@ export default async function ChildPage({ params }: Props) {
 
             <p>
               Traders often make the mistake of looking at commission in
-              isolation. A low commission is meaningless if it’s paired with
+              isolation. A low commission is meaningless if it's paired with
               wide spreads or poor execution (slippage).
             </p>
 
@@ -412,14 +423,12 @@ export default async function ChildPage({ params }: Props) {
             </ul>
 
             <div dangerouslySetInnerHTML={{ __html: content ?? "" }} />
-            {/* ## */}
           </div>
         </div>
       </section>
-      {/* Dynamic Content Area Ends */}
 
       {/* FAQs */}
-      <FaqCalc faqSubject="FAQ." data={faqData} />
+      <FaqCalc faqSubject="FAQ." data={faqData ?? []} />
       <FaqSchema pageSlug={brokers} />
       <BreadcrumbSchema
         items={[
@@ -431,7 +440,6 @@ export default async function ChildPage({ params }: Props) {
           },
         ]}
       />
-      {/* FAQs Ends */}
 
       {/* CTA */}
       <section className={`compact-section`}>
@@ -456,13 +464,12 @@ export default async function ChildPage({ params }: Props) {
           </div>
         </div>
       </section>
-      {/* CTA Ends */}
     </>
   );
 }
 
 //
-// 🔹 Pre-build all static params for ISR
+// Pre-build all static params for ISR
 export async function generateStaticParams() {
   const pages = await wpFetch<WPPage[]>(`/pages?_fields=id,slug,parent`);
   if (!Array.isArray(pages)) return [];

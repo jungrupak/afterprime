@@ -1,11 +1,17 @@
 import styles from "./MoreAlignCard.module.scss";
 import Link from "next/link";
 import { Blocks } from "@/types/blocks";
+import { moreAlignContent } from "./moreAlignContent";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 type SectionProps = Blocks["section-more-value-real-alignment-static"];
 
-export function MoreValueRealAlignmentStatic(props: SectionProps) {
+export async function MoreValueRealAlignmentStatic(props: SectionProps) {
   const { more_value_alignment_ } = props;
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("more-align-cards", locale, moreAlignContent);
 
   return (
     <section
@@ -15,25 +21,22 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
           <div>
             <h2 className="h2-size mb-6 text-center md:text-left">
-              A Cost Structure Built <br />
-              <span>Around Your Profitability</span>.
+              {t.heading1} <br />
+              <span>{t.heading2}</span>.
             </h2>
           </div>
         </div>
         {/* Cards */}
         <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
           <div className={`${styles.cardItem} ${styles.cardSmall}`}>
-            <h3>Save on Every Trade.</h3>
-            <p>
-              Lowest total trading costs, executed by Tier-1 liquidity via prime
-              brokers.
-            </p>
+            <h3>{t.card1.title}</h3>
+            <p>{t.card1.description}</p>
             <div className={`${styles.cardCta}`}>
               <Link
                 className="card_href_link hover:underline"
-                href="/lowest-cost-verified"
+                href={localizeHref("/lowest-cost-verified", locale)}
               >
-                How Our Pricing Works
+                {t.card1.cta}
                 <svg
                   width="20"
                   height="21"
@@ -59,17 +62,14 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
           <div
             className={`${styles.cardItem} ${styles.cardSmall} ${styles.activeCard}`}
           >
-            <h3>Get Paid on Volume.</h3>
-            <p>
-              Earn up to $3/per lot on eligible flow. Volume compounds cost
-              savings.
-            </p>
+            <h3>{t.card2.title}</h3>
+            <p>{t.card2.description}</p>
             <div className={`${styles.cardCta}`}>
               <Link
                 className="card_href_link hover:underline"
-                href="/get-paid-to-trade"
+                href={localizeHref("/get-paid-to-trade", locale)}
               >
-                Flow Rewards Explained
+                {t.card2.cta}
                 <svg
                   width="20"
                   height="21"
@@ -93,16 +93,14 @@ export function MoreValueRealAlignmentStatic(props: SectionProps) {
             </div>
           </div>
           <div className={`${styles.cardItem} ${styles.cardSmall}`}>
-            <h3>Built Without Conflicts.</h3>
-            <p>
-              We profit from trading volume, not client losses. No B-book. Ever.
-            </p>
+            <h3>{t.card3.title}</h3>
+            <p>{t.card3.description}</p>
             <div className={`${styles.cardCta}`}>
               <Link
                 className="card_href_link hover:underline"
-                href="/aligned-execution"
+                href={localizeHref("/aligned-execution", locale)}
               >
-                See How It Works
+                {t.card3.cta}
                 <svg
                   width="20"
                   height="21"

@@ -5,10 +5,12 @@ import Lists from "@/components/ui/Lists";
 import { Blocks } from "@/types/blocks";
 import Image from "next/image";
 import TypeformButton from "@/components/ui/typeForm";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
 type PropData = Blocks["block-multipurpose"];
 
-export function MultipurposeBlock({
+export async function MultipurposeBlock({
   multipurpose_block_is_boxed,
   multipurpose_block_content_vertical_alignment,
   multipurpose_block_section_heading,
@@ -29,6 +31,13 @@ export function MultipurposeBlock({
   //function to get list data
 
   ////////
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("block-multipurpose", locale, {
+    getInviteCodeCta: "Get Invite Code",
+    buttonLabelFallback: "Button Label",
+    signupNowText: "Signup Now",
+  });
+
   const isBoxed = Number(multipurpose_block_is_boxed || 0);
   const vrAlign = String(multipurpose_block_content_vertical_alignment || "");
   const heading = String(multipurpose_block_section_heading || "");
@@ -107,7 +116,11 @@ export function MultipurposeBlock({
               <div className="mt-12 btn-group">
                 {multipurpose_block_is_type_form_cta === "1" ? (
                   <>
-                    <TypeformButton buttonText="Get Invite Code" size="Large" />
+                    <TypeformButton
+                      buttonText={t.getInviteCodeCta}
+                      signupNowText={t.signupNowText}
+                      size="Large"
+                    />
                   </>
                 ) : (
                   <>
@@ -117,7 +130,7 @@ export function MultipurposeBlock({
                       isArrowVisible={true}
                       size="large"
                     >
-                      {ctaText ?? "Button Label"}
+                      {ctaText || t.buttonLabelFallback}
                     </Button>
                   </>
                 )}

@@ -1,8 +1,12 @@
+"use client";
 import React from "react";
 import { useLivePrices } from "@/hooks/useLivePrices";
 import styles from "../style.module.scss";
 import Image from "next/image";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 export function Popular() {
+  const locale = useLocale();
   const { categories, status } = useLivePrices();
   const itemCategory = categories.popular;
   return (
@@ -42,7 +46,7 @@ export function Popular() {
                           alt={`${item.symbol} ${item.group}`}
                         />
                       </div>
-                      <a href={"/forex/" + item.symbol.toLowerCase()}>
+                      <a href={localizeHref("/forex/" + item.symbol.toLowerCase(), locale)}>
                         {item.symbol}
                       </a>
                     </div>
@@ -59,7 +63,7 @@ export function Popular() {
                         />
                       </div>
                       {item.symbol === "XAUUSD" ? (
-                        <a href="/trade/xauusd" className={`underline decoration-dotted decoration-2 underline-offset-4`}>{item.symbol}</a>
+                        <a href={localizeHref("/trade/xauusd", locale)} className={`underline decoration-dotted decoration-2 underline-offset-4`}>{item.symbol}</a>
                       ) : (
                         item.symbol
                       )}
@@ -75,7 +79,7 @@ export function Popular() {
                         />
                       </div>
                       {item.symbol === "XAUUSD" ? (
-                        <a href="/trade/xauusd" className={`underline decoration-dotted decoration-2 underline-offset-4`}>{item.symbol}</a>
+                        <a href={localizeHref("/trade/xauusd", locale)} className={`underline decoration-dotted decoration-2 underline-offset-4`}>{item.symbol}</a>
                       ) : (
                         item.symbol
                       )}

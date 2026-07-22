@@ -2,7 +2,15 @@
 
 import { useState, useEffect } from "react";
 import styles from "./CurrencyConverter.module.scss";
+import {
+  currencyConverterContent,
+  type CurrencyConverterContent,
+} from "./CurrencyConverterContent";
 
+// NOTE: `name` here is intentionally left untranslated — it's a fallback
+// only. The translatable display name lives in `content.currencyNames`,
+// keyed by these same currency CODES. The codes themselves (USD, EUR, ...)
+// are identifiers used for API lookups and must never be translated.
 const CURRENCY_INFO: {
   [key: string]: {
     name: string;
@@ -40,7 +48,13 @@ interface ExchangeRates {
   [key: string]: number;
 }
 
-export default function CurrencyConverter() {
+interface CurrencyConverterProps {
+  content?: CurrencyConverterContent;
+}
+
+export default function CurrencyConverter({
+  content = currencyConverterContent,
+}: CurrencyConverterProps) {
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
   const [amount, setAmount] = useState(1000);
@@ -150,7 +164,7 @@ export default function CurrencyConverter() {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
-          <p>Loading exchange rates...</p>
+          <p>{content.loadingExchangeRates}</p>
         </div>
       </div>
     );
@@ -163,14 +177,14 @@ export default function CurrencyConverter() {
       <div className={styles.body}>
         <div className={styles.converter}>
           <div className={styles.inputSection}>
-            <label>From</label>
+            <label>{content.from}</label>
             <select
               value={fromCurrency}
               onChange={(e) => setFromCurrency(e.target.value)}
             >
               {Object.entries(CURRENCY_INFO).map(([code, info]) => (
                 <option key={code} value={code}>
-                  {info.flag} {code} - {info.name}
+                  {info.flag} {code} - {content.currencyNames[code]}
                 </option>
               ))}
             </select>
@@ -193,14 +207,14 @@ export default function CurrencyConverter() {
           </button>
 
           <div className={styles.inputSection}>
-            <label>To</label>
+            <label>{content.to}</label>
             <select
               value={toCurrency}
               onChange={(e) => setToCurrency(e.target.value)}
             >
               {Object.entries(CURRENCY_INFO).map(([code, info]) => (
                 <option key={code} value={code}>
-                  {info.flag} {code} - {info.name}
+                  {info.flag} {code} - {content.currencyNames[code]}
                 </option>
               ))}
             </select>
@@ -220,20 +234,20 @@ export default function CurrencyConverter() {
 
         <div className={styles.rates}>
           <div className={styles.rate}>
-            <span className={styles.rateLabel}>Rate:</span>{" "}
+            <span className={styles.rateLabel}>{content.rateLabel}</span>{" "}
             <span>
               1 {fromCurrency} = {result.rate.toFixed(4)} {toCurrency}
             </span>
           </div>
           <div className={styles.rate}>
-            <span className={styles.rateLabel}>Inverse:</span>{" "}
+            <span className={styles.rateLabel}>{content.inverseLabel}</span>{" "}
             <span>
               1 {toCurrency} = {result.inverseRate.toFixed(4)} {fromCurrency}
             </span>
           </div>
           {lastUpdated && (
             <div className={styles.rate}>
-              <span className={styles.rateLabel}>Updated:</span>{" "}
+              <span className={styles.rateLabel}>{content.updatedLabel}</span>{" "}
               <span>
                 {lastUpdated.toLocaleTimeString()}
                 <button
@@ -256,7 +270,7 @@ export default function CurrencyConverter() {
         </div>
 
         <div className={styles.quick}>
-          <span>Quick:</span>
+          <span>{content.quickLabel}</span>
           <button onClick={() => handleQuickAmount(100)}>100</button>
           <button onClick={() => handleQuickAmount(500)}>500</button>
           <button onClick={() => handleQuickAmount(1000)}>1K</button>
@@ -265,7 +279,7 @@ export default function CurrencyConverter() {
       </div>
 
       <p className={styles.disclaimer}>
-        ⚠️ Rates are indicative only. For demonstration purposes.
+        ⚠️ {content.disclaimer}
       </p>
     </div>
   );

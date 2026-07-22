@@ -1,6 +1,8 @@
 import styles from "./CostComparison.module.scss";
 import Link from "next/link";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 //##
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
@@ -10,6 +12,7 @@ export default async function CostComparison({
 }: {
   instrument: string;
 }) {
+  const locale = await getRequestLocale();
   const asFiniteNumber = (value: unknown, fallback = 0) =>
     typeof value === "number" && Number.isFinite(value) ? value : fallback;
 
@@ -279,7 +282,7 @@ export default async function CostComparison({
                       </span>
                     ) : (
                       <Link
-                        href={`/vs/${brokerSlugMap[broker.broker] ?? ""}`}
+                        href={localizeHref(`/vs/${brokerSlugMap[broker.broker] ?? ""}`, locale)}
                         scroll={true}
                         className="underline hover:no-underline text-[14px] max-md:text-[16px] block"
                       >
@@ -403,7 +406,7 @@ export default async function CostComparison({
             Afterprime net cost figures include Flow Rewards™, applicable to
             eligible client accounts on qualifying instruments. Flow Rewards™
             rates may vary. See{" "}
-            <Link href="/get-paid-to-trade">
+            <Link href={localizeHref("/get-paid-to-trade", locale)}>
               <u>Flow Rewards</u>
             </Link>{" "}
             for full eligibility criteria. Flow Rewards™ eligibility and rates

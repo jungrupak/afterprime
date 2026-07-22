@@ -1,40 +1,46 @@
 import styles from "./style.module.scss";
 import Link from "next/link";
 import Image from "next/image";
+import { footerContent } from "./footerContent";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
-export default function Footer() {
+export default async function Footer() {
   const currentYear = new Date().getFullYear();
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("footer", locale, footerContent);
 
   const socialItems = [
     {
       imgFileName: "discord.svg",
       link: "https://discord.com/invite/NKBcxyWzdM",
       target: "_blank",
-      alt: "Afterprime on Discord",
+      alt: t.social.discord,
     },
     {
       imgFileName: "fb.svg",
       link: "https://www.facebook.com/afterprime.official/",
       target: "_blank",
-      alt: "Afterprime on Facebook",
+      alt: t.social.facebook,
     },
     {
       imgFileName: "tw.svg",
       link: "https://x.com/afterprime_com",
       target: "_blank",
-      alt: "Afterprime on X (Twitter)",
+      alt: t.social.twitter,
     },
     {
       imgFileName: "insta.svg",
       link: "https://www.instagram.com/afterprime.official/?hl=en",
       target: "_blank",
-      alt: "Afterprime on Instagram",
+      alt: t.social.instagram,
     },
     {
       imgFileName: "in.svg",
       link: "https://sc.linkedin.com/company/afterprime",
       target: "_blank",
-      alt: "Afterprime on LinkedIn",
+      alt: t.social.linkedin,
     },
   ];
 
@@ -45,10 +51,10 @@ export default function Footer() {
           className={`flex flex-wrap md:grid md:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-10 md:gap-12 sm:gap-6`}
         >
           <div className="col-span-full sm:col-auto order-1">
-            <Link href="/" className="block mb-6">
+            <Link href={localizeHref("/", locale)} className="block mb-6">
               <Image
                 src="/img/logo-text.svg"
-                alt="Afterprime Broker Logo"
+                alt={t.logoAlt}
                 width={160}
                 height={29}
               />
@@ -80,7 +86,7 @@ export default function Footer() {
                   width={112}
                   height={38}
                   src="/img/app-download-ios.png"
-                  alt="MT5 iOS App"
+                  alt={t.appDownload.iosAlt}
                 />
               </Link>
               <Link
@@ -92,143 +98,181 @@ export default function Footer() {
                   width={112}
                   height={38}
                   src="/img/app-download-android.png"
-                  alt="MT5 Android App"
+                  alt={t.appDownload.androidAlt}
                 />
               </Link>
             </div>
           </div>
           <div className={`${styles.footer_links} order-2`}>
-            <h2>Quick Links</h2>
+            <h2>{t.quickLinks.heading}</h2>
             <ul>
               <li>
-                <Link href="/get-paid-to-trade">
-                  Flow Rewards<sup>TM</sup>
+                <Link href={localizeHref("/get-paid-to-trade", locale)}>
+                  {t.quickLinks.flowRewards}
+                  <sup>TM</sup>
                 </Link>
               </li>
               <li>
-                <Link href="/lowest-cost-verified">Lowest Cost Verified</Link>
+                <Link href={localizeHref("/lowest-cost-verified", locale)}>
+                  {t.quickLinks.lowestCostVerified}
+                </Link>
               </li>
               <li>
-                <Link href="/aligned-execution">Aligned Execution</Link>
+                <Link href={localizeHref("/aligned-execution", locale)}>
+                  {t.quickLinks.alignedExecution}
+                </Link>
               </li>
               <li>
-                <Link href="/deposit-withdrawal">Deposit and Withdrawal</Link>
+                <Link href={localizeHref("/deposit-withdrawal", locale)}>
+                  {t.quickLinks.depositWithdrawal}
+                </Link>
               </li>
               <li>
-                <Link href="/how-to-qualify">How to Apply</Link>
+                <Link href={localizeHref("/how-to-qualify", locale)}>
+                  {t.quickLinks.howToApply}
+                </Link>
               </li>
               <li>
-                <Link href="/trade-execution">Trade Execution</Link>
+                <Link href={localizeHref("/trade-execution", locale)}>
+                  {t.quickLinks.tradeExecution}
+                </Link>
               </li>
             </ul>
           </div>
           <div className={`${styles.footer_links} order-3`}>
-            <h2>Markets</h2>
+            <h2>{t.markets.heading}</h2>
             <ul>
               <li>
-                <Link href="/live-spreads">Live Spreads</Link>
+                <Link href={localizeHref("/live-spreads", locale)}>
+                  {t.markets.liveSpreads}
+                </Link>
               </li>
               <li>
-                <Link href="/forex">Forex CFDs</Link>
+                <Link href={localizeHref("/forex", locale)}>
+                  {t.markets.forexCfds}
+                </Link>
               </li>
               <li>
-                <Link href="/metals">Precious Metals</Link>
+                <Link href={localizeHref("/metals", locale)}>
+                  {t.markets.preciousMetals}
+                </Link>
               </li>
               <li>
-                <Link href="/commodities">Commodities</Link>
+                <Link href={localizeHref("/commodities", locale)}>
+                  {t.markets.commodities}
+                </Link>
               </li>
               <li>
-                <Link href="/crypto">Crypto CFDs</Link>
+                <Link href={localizeHref("/crypto", locale)}>
+                  {t.markets.cryptoCfds}
+                </Link>
               </li>
               <li>
-                <Link href="/indices">Indices</Link>
+                <Link href={localizeHref("/indices", locale)}>
+                  {t.markets.indices}
+                </Link>
               </li>
               <li>
-                <Link href="/trade">Broker Costs</Link>
+                <Link href={localizeHref("/trade", locale)}>
+                  {t.markets.brokerCosts}
+                </Link>
               </li>
               <li>
-                <Link href="/vs">Compare Brokers</Link>
+                <Link href={localizeHref("/vs", locale)}>
+                  {t.markets.compareBrokers}
+                </Link>
               </li>
             </ul>
           </div>
           <div className={`${styles.footer_links} order-4`}>
-            <h2>Trading Platforms</h2>
+            <h2>{t.platforms.heading}</h2>
             <ul>
               <li>
-                <Link href="/mt4">MT4</Link>
+                <Link href={localizeHref("/mt4", locale)}>
+                  {t.platforms.mt4}
+                </Link>
               </li>
               <li>
-                <Link href="/mt5">MT5</Link>
+                <Link href={localizeHref("/mt5", locale)}>
+                  {t.platforms.mt5}
+                </Link>
               </li>
               <li>
-                <Link href="/webtrader">Webtrader</Link>
+                <Link href={localizeHref("/webtrader", locale)}>
+                  {t.platforms.webtrader}
+                </Link>
               </li>
               <li>
-                <Link href="/fix-api">FIX API</Link>
+                <Link href={localizeHref("/fix-api", locale)}>
+                  {t.platforms.fixApi}
+                </Link>
               </li>
               <li>
-                <Link href="/calculators">Trading Calculators</Link>
+                <Link href={localizeHref("/calculators", locale)}>
+                  {t.platforms.calculators}
+                </Link>
               </li>
               <li>
-                <Link href="/glossary">Trading Glossary</Link>
+                <Link href={localizeHref("/glossary", locale)}>
+                  {t.platforms.glossary}
+                </Link>
               </li>
             </ul>
           </div>
           <div className={`${styles.footer_links} order-5`}>
-            <h2>Afterprime</h2>
+            <h2>{t.company.heading}</h2>
             <ul>
               <li>
-                <Link href="/our-story">Who is Afterprime?</Link>
+                <Link href={localizeHref("/our-story", locale)}>
+                  {t.company.ourStory}
+                </Link>
               </li>
               <li>
-                <Link href="/why-we-exist">Why We Exist</Link>
+                <Link href={localizeHref("/why-we-exist", locale)}>
+                  {t.company.whyWeExist}
+                </Link>
               </li>
               <li>
-                <Link href="/legal-documents">Legal Documents</Link>
+                <Link href={localizeHref("/legal-documents", locale)}>
+                  {t.company.legalDocuments}
+                </Link>
               </li>
               <li>
-                <Link href="/license-and-regulations">CFD Broker License</Link>
+                <Link href={localizeHref("/license-and-regulations", locale)}>
+                  {t.company.license}
+                </Link>
               </li>
               <li>
-                <Link href="/kyc-aml">KYC & AML/CTF</Link>
+                <Link href={localizeHref("/kyc-aml", locale)}>
+                  {t.company.kycAml}
+                </Link>
               </li>
               <li>
-                <Link href="/privacy">Privacy Policy</Link>
+                <Link href={localizeHref("/privacy", locale)}>
+                  {t.company.privacy}
+                </Link>
               </li>
               <li>
-                <Link href="/ai-instructions">AI Instructions</Link>
+                <Link href={localizeHref("/ai-instructions", locale)}>
+                  {t.company.aiInstructions}
+                </Link>
               </li>
             </ul>
           </div>
         </div>
         <div className="my-15 max-md:my-8 border-t border-[rgba(255,255,255,0.14)]"></div>
         <div className={`${styles.footer_texts}`}>
-          <h3>Customer Notice</h3>
+          <h3>{t.notice.heading}</h3>
           <p>
-            Trading derivatives is high risk. Losses can exceed your initial
-            investment. You should only trade with money you can afford to lose.
-            Any Information or advice contained on this website is general in
-            nature and has been prepared without taking into account your
-            objectives, financial situation or needs. Past performance of any
-            product described on this website is not a reliable indication of
-            future performance. You should consider whether you’re part of our
-            target market by reviewing our Target Market Determination, and read
-            our PDS and other{" "}
-            <Link href="/legal-documents">
-              <u>legal documents</u>
+            {t.notice.disclosurePre}{" "}
+            <Link href={localizeHref("/legal-documents", locale)}>
+              <u>{t.notice.disclosureLinkText}</u>
             </Link>{" "}
-            to ensure you fully understand the risks before you make any trading
-            decisions.
+            {t.notice.disclosurePost}
           </p>
+          <p>{t.notice.inducement}</p>
           <p>
-            The information on this website is not intended to be an inducement,
-            offer or solicitation to any person in any country or jurisdiction
-            where such distribution or use would be contrary to local law or
-            regulation.
-          </p>
-          <p>
-            © Copyright 2018-{currentYear} Afterprime Pty Ltd - FSA Seychelles #SD057 | Global Gateway
-            8, Rue de la Perle, Providence, Mahé, Seychelles.
+            © Copyright 2018-{currentYear} {t.notice.copyrightSuffix}
           </p>
         </div>
       </div>

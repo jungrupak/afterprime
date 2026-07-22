@@ -42,8 +42,14 @@ export function toOgLocale(locale: string): string {
 
 // docs/multilangual-architecture/09-SEO-Strategy.md §9.3 — every locale
 // variant plus "x-default" (the unprefixed English URL) as the fallback.
-export function buildHreflangMap(slug: string): Record<string, string> {
-  const path = canonicalPathFor(slug);
+// `pathOverride` lets callers specify the canonical path directly when it
+// doesn't follow the slug→path convention (e.g. slug "vs" → path "/vs",
+// but slug "home-page" → path "/").
+export function buildHreflangMap(
+  slug: string,
+  pathOverride?: string,
+): Record<string, string> {
+  const path = pathOverride ?? canonicalPathFor(slug);
   const map: Record<string, string> = {};
   for (const locale of SUPPORTED_LOCALES) {
     map[locale] = absoluteUrl(path, locale);
@@ -60,12 +66,26 @@ export async function getTranslatedHomeMetadata(
   slug: string,
   locale: string
 ): Promise<Metadata> {
+  return getTranslatedMetadata(slug, locale);
+}
+
+// Generalized locale-aware metadata for any WP page. Pulls aioseo_head_json
+// from the translated page, so title/description/OG/Twitter copy is
+// translated through the same pipeline as body content. Accepts an optional
+// `pathOverride` for pages where the canonical URL path differs from the
+// default slug convention (e.g. /vs/brokers instead of /slug).
+export async function getTranslatedMetadata(
+  slug: string,
+  locale: string,
+  pathOverride?: string,
+): Promise<Metadata> {
   const pageData = await getTranslatedPage<{ aioseo_head_json?: SeoJson }>(
     slug,
-    locale
+    locale,
   );
   const seoData = pageData?.aioseo_head_json;
-  const canonicalUrl = absoluteUrl(canonicalPathFor(slug), locale);
+  const path = pathOverride ?? canonicalPathFor(slug);
+  const canonicalUrl = absoluteUrl(path, locale);
 
   return {
     title: seoData?.title || "Afterprime",
@@ -108,7 +128,7 @@ export async function getTranslatedHomeMetadata(
     },
     alternates: {
       canonical: canonicalUrl,
-      languages: buildHreflangMap(slug),
+      languages: buildHreflangMap(slug, pathOverride),
     },
     robots: {
       index: true,

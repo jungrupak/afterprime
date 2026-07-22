@@ -1,8 +1,11 @@
 import styles from "./style.module.scss";
 import Link from "next/link";
 import Image from "next/image";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
-export default function Footer() {
+export default async function Footer() {
+  const locale = await getRequestLocale();
   const socialItems = [
     {
       imgFileName: "discord.svg",
@@ -46,7 +49,7 @@ export default function Footer() {
             future performance. You should consider whether you’re part of our
             target market by reviewing our Target Market Determination, and read
             our{" "}
-            <a href="/legal-documents" rel="noopener">
+            <a href={localizeHref("/legal-documents", locale)} rel="noopener">
               <u>PDS and other legal documents</u>
             </a>{" "}
             to ensure you fully understand the risks before you make any trading

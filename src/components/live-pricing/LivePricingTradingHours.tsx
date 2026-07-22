@@ -7,15 +7,22 @@ import Link from "next/link";
 import { Loader } from "../Loading/Loading";
 import { Disconnected } from "../disconnected/Disconnected";
 import { Retrying } from "../retrying/Retry";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
+import type { LivePricingTradingHoursContent } from "./livePricingTradingHoursContent";
+import { livePricingTradingHoursContent } from "./livePricingTradingHoursContent";
 
-interface LivePricingAllProps {
+interface LivePricingTradingHoursProps {
   initialPrices?: PricesObjects[];
+  content?: LivePricingTradingHoursContent;
 }
 
 export function LivePricingTradingHours({
   initialPrices = [],
-}: LivePricingAllProps) {
+  content: c = livePricingTradingHoursContent,
+}: LivePricingTradingHoursProps) {
   const { categories, status } = useLivePrices(initialPrices);
+  const locale = useLocale();
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
 
@@ -46,11 +53,14 @@ export function LivePricingTradingHours({
     <div>
       <div className="w-full text-center px-6">
         <h2 className="h2-size mb-6">
-          Beyond Zero-Commission, <span>Get Paid to Trade.</span>
+          {c.headingBefore}
+          <span>{c.headingHighlight}</span>
+          {c.headingAfter}
         </h2>
-        <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Get updated on Instruments Trading Hours.
-        </p>
+        <p
+          className="paragraph mb-20 max-md:mb-10 opacity-90"
+          dangerouslySetInnerHTML={{ __html: c.description }}
+        />
       </div>
 
       {status === "connecting" && !hasInitialTableData && <Loader />}
@@ -79,25 +89,24 @@ export function LivePricingTradingHours({
               >
                 <table className="">
                   <caption className={`hidden`}>
-                    Beyond Zero-Commission, Get Paid to Trade. Popular
-                    Instruments, Forex, Crypto, Commodities, Metals, Indices
+                    {c.caption}
                   </caption>
                   <thead>
                     <tr className="">
                       <th scope="col" className="px-4 py-2">
-                        Symbol
+                        {c.tableHeaders.symbol}
                       </th>
                       <th scope="col" className="px-4 py-2">
-                        Bid Price
+                        {c.tableHeaders.bid}
                       </th>
                       <th scope="col" className="px-4 py-2">
-                        Ask Price
+                        {c.tableHeaders.ask}
                       </th>
                       <th scope="col" className="px-4 py-2">
-                        Spread (Pips)
+                        {c.tableHeaders.spread}
                       </th>
                       <th scope="col" className="px-4 py-2">
-                        Market Hours
+                        {c.tableHeaders.marketHours}
                       </th>
                     </tr>
                   </thead>
@@ -126,7 +135,7 @@ export function LivePricingTradingHours({
                                 />
                               </div>
                               <a
-                                href={"/forex/" + item.symbol.toLowerCase()}
+                                href={localizeHref("/forex/" + item.symbol.toLowerCase(), locale)}
                                 className={`underline decoration-dotted decoration-2 underline-offset-4`}
                               >
                                 {item.symbol}
@@ -147,7 +156,7 @@ export function LivePricingTradingHours({
 
                               {item.symbol === "XAUUSD" ? (
                                 <a
-                                  href="/trade/xauusd"
+                                  href={localizeHref("/trade/xauusd", locale)}
                                   className={`underline decoration-dotted decoration-2 underline-offset-4`}
                                 >
                                   {item.symbol}
@@ -169,7 +178,7 @@ export function LivePricingTradingHours({
 
                               {item.symbol === "XAUUSD" ? (
                                 <a
-                                  href="/trade/xauusd"
+                                  href={localizeHref("/trade/xauusd", locale)}
                                   className={`underline decoration-dotted decoration-2 underline-offset-4`}
                                 >
                                   {item.symbol}
@@ -194,12 +203,12 @@ export function LivePricingTradingHours({
                             className={`flex md:justify-end text-[16px] items-center`}
                           >
                             <Link
-                              href={
-                                "/trading-hours/" + item.symbol.toLowerCase()
-                              }
+                              href={localizeHref(
+                                "/trading-hours/" + item.symbol.toLowerCase(), locale
+                              )}
                             >
                               <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
-                                Trading Hours
+                                {c.tableHeaders.tradingHoursLink}
                               </span>
                             </Link>
                           </div>
@@ -212,11 +221,11 @@ export function LivePricingTradingHours({
             )}
           </div>
           <p className="opacity-80 mt-5">
-            Ready to compare?{" "}
-            <Link href="/calculators/cost-savings-calculator">
-              <u>Calculate your trading costs</u>
-            </Link>{" "}
-            across your typical trading volume to see the total savings.
+            {c.readyToCompare.split(c.readyToCompareLinkText)[0]}
+            <Link href={localizeHref("/calculators/cost-savings-calculator", locale)}>
+              <u>{c.readyToCompareLinkText}</u>
+            </Link>
+            {c.readyToCompare.split(c.readyToCompareLinkText)[1]}
           </p>
         </div>
       )}

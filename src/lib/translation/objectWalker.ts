@@ -54,6 +54,16 @@ const DENYLIST_FIELD_NAMES = new Set([
   "guid",
   "featured_media",
   "card",
+  // Control/enum values compared with strict === in component code to pick
+  // what to render (e.g. image_alignment: "left", card_size: "Small",
+  // vertical_alignment: "Top") — translating these breaks the comparison
+  // silently, the block just renders wrong/empty with no error anywhere.
+  "alignment",
+  "size",
+  // Raw JSON-LD strings (schema_block.faqs, page_schema) — translating
+  // mangles the JSON text itself, not just a value inside it.
+  "schema",
+  "faqs",
 ]);
 
 const DENYLIST_FIELD_SUFFIXES = [
@@ -80,8 +90,21 @@ const NUMERIC_PATTERN = /^-?\d+(\.\d+)?$/;
 function isDenylistedField(fieldName: string): boolean {
   const normalized = fieldName.toLowerCase().replace(/:/g, "_");
   if (DENYLIST_FIELD_NAMES.has(normalized)) return true;
-  const lastSegment = normalized.split("_").pop() ?? normalized;
-  if (DENYLIST_FIELD_NAMES.has(lastSegment)) return true;
+
+  // Trailing/double underscores (e.g. ACF's
+  // "live_pricing_table_select_live_feed_") leave an empty string at the
+  // end of a naive split — filter it so the real last segment is checked.
+  const tokens = normalized.split("_").filter(Boolean);
+  const lastSegment = tokens[tokens.length - 1];
+  if (lastSegment && DENYLIST_FIELD_NAMES.has(lastSegment)) return true;
+
+  // ACF "select"-type control fields hold enum values (e.g. "ALL Markets",
+  // "Deposit Methods") that code compares with strict `===` to decide what
+  // to render — translating them breaks that dispatch with no visible
+  // error, the block just silently stops rendering. Never translate any
+  // field with "select" as a name segment, wherever it appears.
+  if (tokens.includes("select")) return true;
+
   return DENYLIST_FIELD_SUFFIXES.some((suffix) => normalized.endsWith(suffix));
 }
 

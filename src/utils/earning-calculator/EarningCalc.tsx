@@ -3,12 +3,17 @@
 import { useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import { RebateDataType } from "@/lib/rebates";
+import { earningCalcContent, type EarningCalcContent } from "./earningCalcContent";
 
 interface Props {
   initialRebates: RebateDataType[];
+  content?: EarningCalcContent;
 }
 
-export function EarningCalc({ initialRebates }: Props) {
+export function EarningCalc({
+  initialRebates,
+  content = earningCalcContent,
+}: Props) {
   const [rebates] = useState<RebateDataType[]>(initialRebates);
   const [selectedSymbol, setSelectedSymbol] = useState<string>("");
   const [lotTradedValue, setLotTradedValue] = useState<number | "">(100);
@@ -42,7 +47,7 @@ export function EarningCalc({ initialRebates }: Props) {
       return;
     }
     if (isNaN(num) || num <= 0) {
-      setError("Invalid input, supports only positive numbers");
+      setError(content.invalidInput);
       return;
     }
     setError("");
@@ -59,16 +64,16 @@ export function EarningCalc({ initialRebates }: Props) {
   return (
     <>
       <h3 className="text-[20px] font-[700] opacity-80">
-        Calculate Flow Earnings :
+        {content.heading}
       </h3>
 
       <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-8 items-start">
         {/* LOT TRADED */}
         <div>
-          <label>Lots Traded per month:</label>
+          <label>{content.lotsLabel}</label>
           <input
             type="text"
-            placeholder="Lot Traded / month"
+            placeholder={content.lotsPlaceholder}
             className={`${styles.customInput} w-full mt-5`}
             value={lotTradedValue}
             onChange={handleOnChangeTradeLot}
@@ -80,7 +85,7 @@ export function EarningCalc({ initialRebates }: Props) {
 
         {/* SYMBOL */}
         <div>
-          <label>Symbol Traded:</label>
+          <label>{content.symbolLabel}</label>
           <select
             className={`${styles.customSelect} block mt-5 w-full`}
             value={selectedSymbol}
@@ -97,7 +102,7 @@ export function EarningCalc({ initialRebates }: Props) {
 
       {/* RESULT */}
       <div className="mt-8 text-[18px] font-[600] max-md:text-center">
-        Over 5 years, your Flow Earnings:{" "}
+        {content.resultPrefix}{" "}
         <span
           className="inline-block md:ml-15 text-[24px] font-[700]"
           style={{ color: "var(--secondary-color)" }}
@@ -109,10 +114,9 @@ export function EarningCalc({ initialRebates }: Props) {
       <div className="bg-white py-5 px-10 note_box text-center mt-10">
         Afterprime&apos;s{" "}
         <a href="/trade-execution">
-          <u>transparent execution model</u>
+          <u>{content.disclaimerLinkText}</u>
         </a>{" "}
-        captures up to $3 per lot traded, compounding into thousands in
-        additional earnings.
+        {content.disclaimerSuffix}
       </div>
     </>
   );

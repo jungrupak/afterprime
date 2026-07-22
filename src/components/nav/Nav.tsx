@@ -5,6 +5,8 @@ import Image from "next/image";
 import DropdownIcon from "../ui/DropdownIcon";
 import { useEffect, useState } from "react";
 import Button from "../ui/Button";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 interface CategoryItem {
   menuItem?: string;
@@ -33,6 +35,7 @@ interface MenuItems {
 export default function Navigation({ menus }: MenuItems) {
   const [megaMenu, setMegaMenu] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const locale = useLocale();
 
   return (
     <div>
@@ -102,7 +105,7 @@ export default function Navigation({ menus }: MenuItems) {
                         }}
                         style={{ position: "relative" }}
                       >
-                        <Link href={menuItem.pageUrl || "/"}>
+                        <Link href={localizeHref(menuItem.pageUrl || "/", locale)}>
                           {menuItem.menuItem}
                         </Link>
                         {menuItem.menuItem === "Trading Calculator" && (

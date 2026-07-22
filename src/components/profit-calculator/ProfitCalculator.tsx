@@ -10,6 +10,10 @@ import { getUSDRates } from "@/lib/getUsdRate";
 import ProgressLoader from "../ui/ProgressLoader";
 import SuggestionInput from "../ui/suggestionInput/SuggestionInput";
 import ToggleBtn from "../ui/toggle-btn/ToggleBtn";
+import {
+  tradingProfitCalculatorContent,
+  type TradingProfitCalculatorContent,
+} from "@/components/trading-calculator/tradingProfitCalculatorContent";
 
 interface Price {
   bidPrice: string;
@@ -31,7 +35,13 @@ interface Results {
   profit: number;
 }
 
-export default function ProfitCalculator() {
+interface Props {
+  content?: TradingProfitCalculatorContent;
+}
+
+export default function ProfitCalculator({
+  content = tradingProfitCalculatorContent,
+}: Props = {}) {
   //#### loader
   const [loading, setLoading] = useState(true);
 
@@ -339,8 +349,10 @@ export default function ProfitCalculator() {
         {/* Caclulator room */}
         <div className="col-span-6 md:col-span-6 lg:col-span-3">
           <h4 className="text-[18px] font-[600]">
-            Trade Settings :{" "}
-            <span className="opacity-65 font-[300]">Estimate your profit</span>
+            {content.tradeSettingsHeading}{" "}
+            <span className="opacity-65 font-[300]">
+              {content.tradeSettingsSubtitleProfit}
+            </span>
           </h4>
           {/* Display Exchange Rates */}
 
@@ -348,7 +360,9 @@ export default function ProfitCalculator() {
             className={`${styles.inputWrapper} grid grid-cols-8 gap-5 mt-10`}
           >
             <div className="md:col-span-2 col-span-4 !z-4">
-              <span className="opacity-60 mb-3 block">Account Currency</span>
+              <span className="opacity-60 mb-3 block">
+                {content.accountCurrencyLabel}
+              </span>
               <Dropdown
                 label={trade.accountCurrency}
                 options={accountCurrencies}
@@ -359,7 +373,9 @@ export default function ProfitCalculator() {
               />
             </div>
             <div className="md:col-span-3 col-span-4 !z-2">
-              <span className="opacity-60 mb-3 block">Instrument</span>
+              <span className="opacity-60 mb-3 block">
+                {content.instrumentLabel}
+              </span>
               <SuggestionInput
                 label={trade.selectedInstrument}
                 options={symbolArray}
@@ -378,7 +394,13 @@ export default function ProfitCalculator() {
               />
             </div>
             <div className="md:col-span-3 col-span-4 !z-2">
-              <span className="opacity-60 mb-3 block">Position</span>
+              <span className="opacity-60 mb-3 block">
+                {content.positionLabel}
+              </span>
+              {/* NOTE: optionA/optionB are stable internal comparison keys
+                  (used in position === "Buy" branching below) and are never
+                  rendered as visible text — ToggleBtn hardcodes its own
+                  "BUY"/"SELL" display labels. Left untranslated on purpose. */}
               <ToggleBtn
                 activeValue={position}
                 optionA="Buy"
@@ -390,9 +412,12 @@ export default function ProfitCalculator() {
             </div>
             <div className="md:col-span-2 col-span-4">
               <span className="opacity-60 mb-3 block">
-                Lot Size{" "}
+                {content.lotSizeLabel}{" "}
                 <span className="text-[10px]">
-                  Min Lot: {result.minLotSize}
+                  {content.minLotLabel.replace(
+                    "{value}",
+                    String(result.minLotSize),
+                  )}
                 </span>
               </span>
               <Input
@@ -415,16 +440,14 @@ export default function ProfitCalculator() {
                   } else {
                     setError((prev) => ({
                       ...prev,
-                      inputErrorLot:
-                        "Please enter a lot size greater than or equal to the minimum allowed.",
+                      inputErrorLot: content.lotSizeMinError,
                     }));
                   }
 
                   if (Number(value) < result.minLotStep) {
                     setError((prev) => ({
                       ...prev,
-                      inputErrorLot:
-                        "Please enter a lot size greater than or equal to the minimum allowed.",
+                      inputErrorLot: content.lotSizeMinError,
                     }));
                   } else {
                     setError((prev) => ({
@@ -437,7 +460,9 @@ export default function ProfitCalculator() {
               />
             </div>
             <div className="col-span-4 md:col-span-3">
-              <span className="opacity-60 mb-3 block">Open Price</span>
+              <span className="opacity-60 mb-3 block">
+                {content.openPriceLabel}
+              </span>
               <Input
                 type="number"
                 value={price.bidPrice}
@@ -447,7 +472,7 @@ export default function ProfitCalculator() {
                   if (!isValidTradeInput) {
                     setError((prev) => ({
                       ...prev,
-                      inputErrorBid: "Value cannot be negative",
+                      inputErrorBid: content.negativeValueError,
                     }));
                   } else {
                     setError((prev) => ({ ...prev, inputErrorBid: "" })); //clear error msg state
@@ -457,7 +482,9 @@ export default function ProfitCalculator() {
               />
             </div>
             <div className="col-span-4 md:col-span-3">
-              <span className="opacity-60 mb-3 block">Close Price</span>
+              <span className="opacity-60 mb-3 block">
+                {content.closePriceLabel}
+              </span>
               <Input
                 type="number"
                 value={price.askPrice}
@@ -467,7 +494,7 @@ export default function ProfitCalculator() {
                   if (!isValidTradeInput) {
                     setError((prev) => ({
                       ...prev,
-                      inputErrorAsk: "Value cannot be negative",
+                      inputErrorAsk: content.negativeValueError,
                     }));
                   } else {
                     setError((prev) => ({ ...prev, inputErrorAsk: "" })); //clear error msg state
@@ -495,7 +522,7 @@ export default function ProfitCalculator() {
                   }
                 }}
               >
-                Calculate
+                {content.calculateButton}
               </Button>
 
               {/* This is for test preview of what data have been grabbed so far */}
@@ -520,9 +547,9 @@ export default function ProfitCalculator() {
         {/* Result room */}
         <div className="col-span-6 md:col-span-6 lg:col-span-3 !z-0">
           <h4 className="text-[18px] font-[600]">
-            Results :{" "}
+            {content.resultsHeading}{" "}
             <span className="opacity-65 font-[300]">
-              based on your selected parameters
+              {content.resultsSubtitle}
             </span>
           </h4>
           <div className="grid grid-cols-12 gap-5 mt-10">
@@ -533,7 +560,7 @@ export default function ProfitCalculator() {
                   result.profit < 0 ? styles.isLoss : ""
                 } text-center`}
               >
-                <span>Profit</span>
+                <span>{content.profitLabel}</span>
                 <div className="flex items-center gap-1 justify-center">
                   <div className={`text-[30px]`}>
                     {" "}

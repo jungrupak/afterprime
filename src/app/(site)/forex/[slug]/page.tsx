@@ -13,6 +13,12 @@ import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 import type { WPPage } from "@/types/blocks";
 import Link from "next/link";
 import LivePriceChart from "@/components/charts/LivePriceChart";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { calculatorToolsBlockContent } from "@/app/(site)/[slug]/[inst]/CalculatorToolsBlockContent";
+import { costSavingCalculatorContent } from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
+import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 export const revalidate = 60;
 
@@ -56,6 +62,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const locale = await getRequestLocale();
 
   const allBrokers = await getBrokerCompareData(slug);
   const getAfterprime = allBrokers?.brokers.find(
@@ -65,17 +72,38 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const apRebate = allBrokers?.rebate?.rebate_usd_per_lot ?? 0;
   const netCostPerLot = afterprimeCostPerLot - apRebate;
 
+  const canonicalPath = `/forex/${slug.toLowerCase()}`;
+  const canonicalUrl = `https://afterprime.com${localizeHref(canonicalPath, locale)}`;
+
   return {
     title: `${slug.toUpperCase()} Spreads & Lowest Verified Trading Costs | Afterprime`,
     description: `Trade ${slug.toUpperCase()} at ${netCostPerLot}/lot RT. Sub 50ms execution with $0 commission. Compare live ${slug.toUpperCase()} spreads.`,
     alternates: {
-      canonical: `https://afterprime.com/forex/${slug.toLowerCase()}`,
+      canonical: canonicalUrl,
+      languages: buildHreflangMap(slug, canonicalPath),
+    },
+    openGraph: {
+      locale: toOgLocale(locale),
+      url: canonicalUrl,
     },
   };
 }
 
 export default async function ForexSlugPage({ params }: Props) {
   const { slug } = await params;
+  const locale = await getRequestLocale();
+  const [calculatorToolsT, costSavingT] = await Promise.all([
+    getTranslatedStatic(
+      "calculator-tools-block",
+      locale,
+      calculatorToolsBlockContent,
+    ),
+    getTranslatedStatic(
+      "cost-saving-calculator",
+      locale,
+      costSavingCalculatorContent,
+    ),
+  ]);
 
   const data = await getForexPageData(slug);
 
@@ -129,7 +157,10 @@ export default async function ForexSlugPage({ params }: Props) {
             <div className={`${styles.pageEditorContent}`}>
               {pageBuilder.map((section, index) =>
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                renderSection(section as any, index),
+                renderSection(section as any, index, slug, {
+                  calculatorToolsContent: calculatorToolsT,
+                  costSavingContent: costSavingT,
+                }),
               )}
             </div>
           </div>

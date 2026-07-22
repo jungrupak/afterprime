@@ -1,6 +1,9 @@
 import Tab, { TabItem } from "@/components/ui/Tab";
 import { Blocks } from "@/types/blocks";
 import style from "./SwapTable.module.scss";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
+import { DEFAULT_LOCALE } from "@/config/locales";
 
 type SwapTableProps = Blocks["swap-table-section"];
 
@@ -88,7 +91,7 @@ async function getSwapData(): Promise<{
   }
 }
 
-function renderTable(rows: InstrumentDataType[]) {
+function renderTable(rows: InstrumentDataType[], locale: string = DEFAULT_LOCALE) {
   if (rows.length === 0) {
     return <p>No swap data available for this category.</p>;
   }
@@ -112,8 +115,8 @@ function renderTable(rows: InstrumentDataType[]) {
                   href={
                     row.path?.startsWith("Forex") ||
                     row.symbol?.toLowerCase() === "xauusd"
-                      ? `/trade/${row.symbol?.toLowerCase()}`
-                      : `/swaps/${row.symbol?.toLowerCase()}`
+                      ? localizeHref(`/trade/${row.symbol?.toLowerCase()}`, locale)
+                      : localizeHref(`/swaps/${row.symbol?.toLowerCase()}`, locale)
                   }
                   className={`underline decoration-dotted decoration-2 underline-offset-4`}
                 >
@@ -123,7 +126,7 @@ function renderTable(rows: InstrumentDataType[]) {
               <td className="px-4 py-2">{row.swapLong ?? "-"}</td>
               <td className="px-4 py-2">{row.swapShort ?? "-"}</td>
               <td>
-                <a href={`/trading-hours/${row.symbol?.toLowerCase()}`}>
+                <a href={localizeHref(`/trading-hours/${row.symbol?.toLowerCase()}`, locale)}>
                   <span className="text-[14px] block underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
                     Trading Hours
                   </span>
@@ -139,6 +142,7 @@ function renderTable(rows: InstrumentDataType[]) {
 
 export async function SwapDataTabs(_: SwapTableProps) {
   const { data, error } = await getSwapData();
+  const locale = await getRequestLocale();
 
   return (
     <section className="compact-section">
@@ -149,7 +153,7 @@ export async function SwapDataTabs(_: SwapTableProps) {
           <Tab>
             {tabNames.map((category) => (
               <TabItem key={category} tabNav={category}>
-                {renderTable(filterByCategory(data, category))}
+                {renderTable(filterByCategory(data, category), locale)}
               </TabItem>
             ))}
           </Tab>

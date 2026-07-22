@@ -3,6 +3,10 @@ import React, { useState } from "react";
 import styles from "./CostSavingCalculator.module.scss";
 import Input from "@/components/ui/inputfield/Input";
 import Button from "@/components/ui/Button";
+import {
+  costSavingCalculatorContent,
+  type CostSavingCalculatorContent,
+} from "./costSavingCalculatorContent";
 
 //GET COOKIES HELPER-----------------
 function getCookie(name: string) {
@@ -16,6 +20,7 @@ interface Props {
   activeBroker: string;
   lotsPerMonth: number;
   savingPerMonth: string;
+  content?: CostSavingCalculatorContent;
 }
 
 type SendState = "idle" | "error" | "sending" | "success";
@@ -24,6 +29,7 @@ export default function ResultSendToEmail({
   activeBroker,
   lotsPerMonth,
   savingPerMonth,
+  content = costSavingCalculatorContent,
 }: Props) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<SendState>("idle");
@@ -36,18 +42,18 @@ export default function ResultSendToEmail({
 
     if (!trimmedEmail) {
       setStatus("error");
-      setStatusMessage("Email address is required.");
+      setStatusMessage(content.resultSendToEmail.validationRequired);
       return;
     }
 
     if (!emailPattern.test(trimmedEmail)) {
       setStatus("error");
-      setStatusMessage("Please enter a valid email address.");
+      setStatusMessage(content.resultSendToEmail.validationInvalid);
       return;
     }
 
     setStatus("sending");
-    setStatusMessage("Sending your cost saving data...");
+    setStatusMessage(content.resultSendToEmail.sendingMessage);
 
     try {
       const calculatorData = {
@@ -78,13 +84,11 @@ export default function ResultSendToEmail({
 
       await response.json();
       setStatus("success");
-      setStatusMessage("Your cost saving data has been sent successfully.");
+      setStatusMessage(content.resultSendToEmail.successMessage);
     } catch (error) {
       console.error("❌ Error sending calculator data:", error);
       setStatus("error");
-      setStatusMessage(
-        "We couldn’t send the data right now. Please try again.",
-      );
+      setStatusMessage(content.resultSendToEmail.errorMessage);
     }
   }
 
@@ -93,10 +97,11 @@ export default function ResultSendToEmail({
       className={`${styles.resultSendinEmail} p-[25px] md:p-[30px_40px_40px_40px]`}
     >
       <div className={styles.resultSendinEmailContent}>
-        <h3 className={`text-[20px] font-bold mb-2`}>Save This Report</h3>
+        <h3 className={`text-[20px] font-bold mb-2`}>
+          {content.resultSendToEmail.heading}
+        </h3>
         <p className={`text-[16px] mb-5 opacity-65`}>
-          Get your cost comparison emailed. No signup required - just your
-          savings data and next steps.
+          {content.resultSendToEmail.description}
         </p>
         <div
           className={`${styles.resultSendinEmailForm} flex flex-col md:flex-row gap-4`}
@@ -104,7 +109,7 @@ export default function ResultSendToEmail({
           <Input
             type="email"
             value={email}
-            placeholder="example@email.com"
+            placeholder={content.resultSendToEmail.emailPlaceholder}
             wrapperClassName={styles.resultSendinEmailInputWrap}
             className={styles.resultSendinEmailInput}
             onchange={(value) => {
@@ -121,7 +126,7 @@ export default function ResultSendToEmail({
             size="small"
             onclick={sendCalculatorData}
           >
-            Send My Savings Report
+            {content.resultSendToEmail.submitButton}
           </Button>
         </div>
         {status !== "idle" && (

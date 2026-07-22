@@ -2,6 +2,9 @@
 import styles from "./UspHome.module.scss";
 import { Blocks } from "@/types/blocks";
 import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
+import { uspUnderHomeContent } from "./uspUnderHomeContent";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
 type USPBlockProps = Blocks["usp-under-home-hero"];
 
@@ -26,16 +29,22 @@ async function fetchComparisonData(): Promise<ComparisonData | null> {
 export async function UspUnderHome(props: USPBlockProps) {
   const { usp_under_home_static_info_text } = props;
   const data = await fetchComparisonData();
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic(
+    "usp-under-home",
+    locale,
+    uspUnderHomeContent,
+  );
 
   return (
     <section className={`${styles.section_usp}`}>
       <div className="ap_container_small">
         <div className={`${styles.usp_items_wrapper} items-center`}>
           <div>
-            <h3>#1</h3>
+            <h3>{t.rank}</h3>
             <p>
-              Verified All-In
-              <br /> Costs Globally
+              {t.verifiedLine1}
+              <br /> {t.verifiedLine2}
             </p>
           </div>
           <div>
@@ -43,8 +52,8 @@ export async function UspUnderHome(props: USPBlockProps) {
               {data ? `${data.secondBestVsAfterprimePct.toFixed(1)}%` : "—"}
             </h3>
             <p>
-              Saving vs
-              <br /> 2nd best
+              {t.savingVsBest}
+              <br /> {t.bestLine2}
             </p>
           </div>
           <div>
@@ -52,7 +61,7 @@ export async function UspUnderHome(props: USPBlockProps) {
               {data ? `${data.industryVsAfterprimeAvgPct.toFixed(1)}%` : "—"}
             </h3>
             <p>
-              Saving vs <br /> Industry Avg.
+              {t.savingVsIndustry} <br /> {t.industryLine2}
             </p>
           </div>
           <div className="max-md:flex items-center flex-col">

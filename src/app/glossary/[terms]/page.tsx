@@ -1,4 +1,3 @@
-import { getGlossaryPageSlug } from "@/lib/getGlossaryPageData";
 import { notFound } from "next/navigation";
 import styles from "../Page.module.scss";
 import InnerBannerGeneric from "@/components/InnerBannerGeneric/InnerBannerGeneric";
@@ -7,6 +6,11 @@ import type { WPPage } from "@/types/blocks";
 import { Metadata } from "next";
 import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
 import GlossaryVideo from "@/components/GlossaryVideo/GlossaryVideo";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
+import { getTranslatedMetadata } from "@/lib/seo/metadata";
+
+const GLOSSARY_PARENT_ID = 4100;
 
 interface PageSlug {
   params: Promise<{
@@ -14,55 +18,58 @@ interface PageSlug {
   }>;
 }
 
+type GlossaryTermJson = {
+  parent?: number;
+  title?: { rendered?: string };
+  content?: { rendered?: string };
+  acf?: {
+    inner_banner?: { hero_paragraph?: string };
+  };
+};
+
 export async function generateMetadata({
   params,
 }: PageSlug): Promise<Metadata> {
   const { terms } = await params;
-  const pageData = await getGlossaryPageSlug(terms);
-  const pageTitle = pageData?.aioseo_head_json?.title ?? "";
-  const metaDescp = pageData?.aioseo_head_json?.description ?? "";
-  // 🚫 If no page OR wrong parent → no metadata
-  if (!pageData || pageData.parent !== 4100) {
-    return {};
-  }
-  return {
-    title: `${pageTitle}`,
-    description: `${metaDescp}`,
-    alternates: {
-      canonical: `https://afterprime.com/glossary/${terms}`,
-    },
-  };
+  const locale = await getRequestLocale();
+
+  // Guard: confirm this slug actually belongs to the glossary section.
+  const guard = await wpFetch<WPPage[]>(
+    `/pages?slug=${terms}&parent=${GLOSSARY_PARENT_ID}&_fields=id`,
+  );
+  if (!guard?.length) return {};
+
+  return getTranslatedMetadata(terms, locale, `/glossary/${terms}`);
 }
 
 export default async function page({ params }: PageSlug) {
   const { terms } = await params;
-  const pageData = await getGlossaryPageSlug(terms);
-  // 🚫 If no page OR wrong parent → page not found
-  if (!pageData || pageData.parent !== 4100) {
-    return notFound();
-  }
+  const locale = await getRequestLocale();
 
-  //Banner Content
+  // Guard: confirm this slug actually belongs to the glossary section.
+  const guard = await wpFetch<WPPage[]>(
+    `/pages?slug=${terms}&parent=${GLOSSARY_PARENT_ID}&_fields=id`,
+  );
+  if (!guard?.length) return notFound();
+
+  const pageData = await getTranslatedPage<GlossaryTermJson>(terms, locale);
+  if (!pageData) return notFound();
+
   const banner = {
     heading: pageData?.title?.rendered ?? "",
     paragraph: pageData?.acf?.inner_banner?.hero_paragraph ?? "",
   };
 
-  //Reading Content
   const contents = pageData?.content?.rendered ?? "";
 
   return (
     <main>
-      {/*  */}
       <InnerBannerGeneric content={banner} />
-      {/*  */}
 
       <GlossaryVideo term={terms} />
 
-      {/*  */}
       <section className="compact-section">
         <div className="ap_container_small">
-          {/* Cards */}
           <div className={`${styles.pageEditorContent}`}>
             <div dangerouslySetInnerHTML={{ __html: contents ?? "" }} />
           </div>
@@ -133,19 +140,14 @@ export default async function page({ params }: PageSlug) {
               </li>
             </ul>
           </div>
-          {/* Cards Ends */}
         </div>
       </section>
-      {/*  */}
 
-      {/* CTA */}
       <section className="compact-section">
         <div className="ap_container_small">
           <CtaBlock />
         </div>
       </section>
-
-      {/* CTA ends */}
     </main>
   );
 }

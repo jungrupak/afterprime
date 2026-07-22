@@ -2,6 +2,10 @@
 
 import { useState, useEffect } from "react";
 import styles from "./DrawdownCalculator.module.scss";
+import {
+  drawdonCalculatorContent,
+  type DrawdonCalculatorContent,
+} from "./DrawdonCalculatorContent";
 
 interface DrawdownResults {
   riskOfRuin: number;
@@ -13,7 +17,11 @@ interface DrawdownResults {
   expectancyR: number;
 }
 
-export default function DrawdownCalculator() {
+export default function DrawdownCalculator({
+  content = drawdonCalculatorContent,
+}: {
+  content?: DrawdonCalculatorContent;
+}) {
   const [accountSize, setAccountSize] = useState(10000);
   const [riskPerTrade, setRiskPerTrade] = useState(2);
   const [winRate, setWinRate] = useState(50);
@@ -137,7 +145,7 @@ export default function DrawdownCalculator() {
       const accountValue = accountSize * (1 - dd);
       const gainToRecover = 1 / (1 - dd) - 1;
 
-      let tradesToRecover: string | number = "∞";
+      let tradesToRecover: string | number = content.infinitySymbol;
       if (results.expectancyR > 0) {
         const avgGainPerTrade = results.expectancyR * riskPercent;
         const n = Math.log(1 + gainToRecover) / Math.log(1 + avgGainPerTrade);
@@ -168,47 +176,38 @@ export default function DrawdownCalculator() {
     if (results.expectancyR <= 0) {
       level = "danger";
       icon = "⚠️";
-      title = "Negative Expectancy - High Risk";
-      message =
-        "Your current parameters result in negative expectancy. This means you will lose money over time regardless of risk management.";
-      tips = [
-        "Improve win rate or risk:reward ratio",
-        "Review and refine your trading strategy",
-        "Do not trade live until expectancy is positive",
-      ];
+      title = content.dangerZeroTitle;
+      message = content.dangerZeroMessage;
+      tips = content.dangerZeroTips;
     } else if (results.riskOfRuin > 0.2) {
       level = "danger";
       icon = "⚠️";
-      title = "High Risk of Ruin";
-      message = `There's a ${(results.riskOfRuin * 100).toFixed(0)}% chance of hitting your maximum drawdown limit. This is unacceptably high for long-term survival.`;
-      tips = [
-        "Reduce risk per trade",
-        "Increase maximum acceptable drawdown (if emotionally possible)",
-        "Aim for risk of ruin below 5%",
-      ];
+      title = content.dangerHighRuinTitle;
+      message = content.dangerHighRuinMessageTemplate.replace(
+        "{percent}",
+        (results.riskOfRuin * 100).toFixed(0),
+      );
+      tips = content.dangerHighRuinTips;
     } else if (
       results.riskOfRuin > 0.05 ||
       results.expectedMaxDD > maxDDLimitDecimal * 0.8
     ) {
       level = "caution";
       icon = "⚡";
-      title = "Moderate Risk - Use Caution";
-      message = `Your risk of ruin is ${(results.riskOfRuin * 100).toFixed(1)}% and expected max drawdown is ${(results.expectedMaxDD * 100).toFixed(0)}%. This is manageable but leaves limited margin for error.`;
-      tips = [
-        "Consider reducing risk per trade slightly",
-        "Ensure you can emotionally handle the expected drawdowns",
-        "Have a plan for what to do during losing streaks",
-      ];
+      title = content.cautionTitle;
+      message = content.cautionMessageTemplate
+        .replace("{ruin}", (results.riskOfRuin * 100).toFixed(1))
+        .replace("{maxdd}", (results.expectedMaxDD * 100).toFixed(0));
+      tips = content.cautionTips;
     } else {
       level = "safe";
       icon = "✓";
-      title = "Conservative Risk Profile";
-      message = `Your risk of ruin is very low at ${(results.riskOfRuin * 100).toFixed(2)}%. With positive expectancy and controlled position sizing, your account should survive typical variance.`;
-      tips = [
-        "Maintain discipline during losing streaks",
-        "Don't increase risk during winning streaks",
-        "Review strategy periodically to ensure edge persists",
-      ];
+      title = content.safeTitle;
+      message = content.safeMessageTemplate.replace(
+        "{ruin}",
+        (results.riskOfRuin * 100).toFixed(2),
+      );
+      tips = content.safeTips;
     }
 
     return { level, icon, title, message, tips };
@@ -224,7 +223,9 @@ export default function DrawdownCalculator() {
       <div className={styles.body}>
         <div className={styles.inputs}>
           <div className={styles.inputGroup}>
-            <label htmlFor="ddc-account-size">Account Size</label>
+            <label htmlFor="ddc-account-size">
+              {content.accountSizeLabel}
+            </label>
             <div className={styles.inputWrapper}>
               <span className={styles.currencySymbol}>$</span>
               <input
@@ -241,7 +242,9 @@ export default function DrawdownCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="ddc-risk-per-trade">Risk Per Trade (%)</label>
+            <label htmlFor="ddc-risk-per-trade">
+              {content.riskPerTradeLabel}
+            </label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -269,7 +272,7 @@ export default function DrawdownCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="ddc-win-rate">Win Rate (%)</label>
+            <label htmlFor="ddc-win-rate">{content.winRateLabel}</label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -285,9 +288,9 @@ export default function DrawdownCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="ddc-risk-reward">Risk : Reward Ratio</label>
+            <label htmlFor="ddc-risk-reward">{content.riskRewardLabel}</label>
             <div className={styles.rrInputs}>
-              <span className={styles.rrLabel}>1 :</span>
+              <span className={styles.rrLabel}>{content.rrPrefix}</span>
               <input
                 type="number"
                 id="ddc-risk-reward"
@@ -302,7 +305,7 @@ export default function DrawdownCalculator() {
 
           <div className={styles.inputGroup}>
             <label htmlFor="ddc-max-drawdown-limit">
-              Max Acceptable Drawdown (%)
+              {content.maxDrawdownLimitLabel}
             </label>
             <div className={styles.inputWrapper}>
               <input
@@ -321,7 +324,7 @@ export default function DrawdownCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="ddc-num-trades">Trades to Analyze</label>
+            <label htmlFor="ddc-num-trades">{content.numTradesLabel}</label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -341,12 +344,14 @@ export default function DrawdownCalculator() {
             <div className={`${styles.resultCard} ${styles.riskCard}`}>
               <span className={styles.resultIcon}>⚠️</span>
               <div className={styles.resultContent}>
-                <span className={styles.resultLabel}>Risk of Ruin</span>
+                <span className={styles.resultLabel}>
+                  {content.riskOfRuinLabel}
+                </span>
                 <span className={styles.resultValue}>
                   {(results.riskOfRuin * 100).toFixed(1)}%
                 </span>
                 <span className={styles.resultNote}>
-                  Chance of hitting max drawdown
+                  {content.riskOfRuinNote}
                 </span>
               </div>
             </div>
@@ -355,25 +360,29 @@ export default function DrawdownCalculator() {
               <span className={styles.resultIcon}>📉</span>
               <div className={styles.resultContent}>
                 <span className={styles.resultLabel}>
-                  Expected Max Drawdown
+                  {content.expectedMaxDrawdownLabel}
                 </span>
                 <span className={styles.resultValue}>
                   -{(results.expectedMaxDD * 100).toFixed(1)}%
                 </span>
                 <span className={styles.resultNote}>
-                  Most likely worst drawdown
+                  {content.expectedMaxDrawdownNote}
                 </span>
               </div>
             </div>
           </div>
 
           <div className={styles.losingStreak}>
-            <h3 className={styles.sectionTitle}>Losing Streak Analysis</h3>
+            <h3 className={styles.sectionTitle}>
+              {content.losingStreakTitle}
+            </h3>
             <div className={styles.streakGrid}>
               {[5, 7, 10, 15].map((n) => (
                 <div key={n} className={styles.streakItem}>
                   <span className={styles.streakNum}>{n}</span>
-                  <span className={styles.streakLabel}>losses in a row</span>
+                  <span className={styles.streakLabel}>
+                    {content.streakLossesInARow}
+                  </span>
                   <span className={styles.streakProb}>
                     {(results.streakProbs[n] * 100).toFixed(1)}%
                   </span>
@@ -386,10 +395,8 @@ export default function DrawdownCalculator() {
           </div>
 
           <div className={styles.varSection}>
-            <h3 className={styles.sectionTitle}>Value at Risk (VaR)</h3>
-            <p className={styles.varDescription}>
-              Maximum expected loss at given confidence levels
-            </p>
+            <h3 className={styles.sectionTitle}>{content.varTitle}</h3>
+            <p className={styles.varDescription}>{content.varDescription}</p>
             <div className={styles.varGrid}>
               <div className={styles.varItem}>
                 <span className={styles.varConf}>95%</span>
@@ -415,14 +422,14 @@ export default function DrawdownCalculator() {
       </div>
       {/*  */}
       <div className={`${styles.recovery} mt-5 md:mt-8`}>
-        <h3 className={styles.sectionTitle}>Recovery Requirements</h3>
+        <h3 className={styles.sectionTitle}>{content.recoveryTitle}</h3>
         <table className={styles.recoveryTable}>
           <thead>
             <tr>
-              <th>Drawdown</th>
-              <th>Account Value</th>
-              <th>Gain to Recover</th>
-              <th>Trades to Recover*</th>
+              <th>{content.recoveryDrawdownHeader}</th>
+              <th>{content.recoveryAccountValueHeader}</th>
+              <th>{content.recoveryGainToRecoverHeader}</th>
+              <th>{content.recoveryTradesToRecoverHeader}</th>
             </tr>
           </thead>
           <tbody>
@@ -441,7 +448,7 @@ export default function DrawdownCalculator() {
             ))}
           </tbody>
         </table>
-        <p className={styles.recoveryNote}>*Based on your current expectancy</p>
+        <p className={styles.recoveryNote}>{content.recoveryNote}</p>
       </div>
 
       {assessment && (
@@ -463,22 +470,23 @@ export default function DrawdownCalculator() {
       {/*  */}
       <div className={styles.formula}>
         <details>
-          <summary>View Formulas</summary>
+          <summary>{content.viewFormulasSummary}</summary>
           <div className={styles.formulaContent}>
             <p>
-              <strong>Risk of Ruin</strong> ≈ ((1 - Edge) / (1 + Edge))^(Capital
-              Units)
+              <strong>{content.formulaRiskOfRuinLabel}</strong>{" "}
+              {content.formulaRiskOfRuinText}
             </p>
             <p>
-              <strong>Drawdown from N losses</strong> = 1 - (1 - Risk%)^N
+              <strong>{content.formulaDrawdownLabel}</strong>{" "}
+              {content.formulaDrawdownText}
             </p>
             <p>
-              <strong>Probability of N consecutive losses</strong> = (Loss
-              Rate)^N × Adjustment
+              <strong>{content.formulaStreakLabel}</strong>{" "}
+              {content.formulaStreakText}
             </p>
             <p>
-              <strong>Recovery Gain Required</strong> = (1 / (1 - Drawdown%)) -
-              1
+              <strong>{content.formulaRecoveryLabel}</strong>{" "}
+              {content.formulaRecoveryText}
             </p>
           </div>
         </details>

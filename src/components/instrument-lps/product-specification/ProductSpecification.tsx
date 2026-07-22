@@ -4,6 +4,8 @@ import { getRelatedPairs } from "@/lib/getRelatedPairs";
 import styles from "./ProductSpecification.module.scss";
 import Link from "next/link";
 import SpecificationTable from "./SpecificationTable";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 interface Specification {
   instrument?: string;
@@ -12,6 +14,7 @@ interface Specification {
 export default function ProductSpecification({ instrument }: Specification) {
   //##
   if (!instrument) return;
+  const locale = useLocale();
 
   // ####
   const specData = [...AP_FX_PAIRS]; //spreading this since we gonna have other pairs type in future like crypto, indices etc..
@@ -45,13 +48,13 @@ export default function ProductSpecification({ instrument }: Specification) {
           <p className={`opacity-80`}>
             Afterprime's trading environment gives you complete cost
             transparency. Every {instrument} quote displays{" "}
-            <Link href={"/live-spreads"} className={`underline`}>
+            <Link href={localizeHref("/live-spreads", locale)} className={`underline`}>
               real-time spread pricing
             </Link>
             , no hidden markups, no commission surprises. Use the integrated
             calculator to{" "}
             <Link
-              href={"/calculators/cost-savings-calculator"}
+              href={localizeHref("/calculators/cost-savings-calculator", locale)}
               className={`underline`}
             >
               calculate trading costs
@@ -61,12 +64,12 @@ export default function ProductSpecification({ instrument }: Specification) {
             <sup>TM</sup> on every lot, the savings accelerate. {instrument}'s
             deep liquidity and our structural cost advantage make it the natural
             choice for both scalpers and position traders. You can{" "}
-            <Link href={"/metals"} className={`underline`}>
+            <Link href={localizeHref("/metals", locale)} className={`underline`}>
               explore all metals
             </Link>{" "}
             with institutional-grade execution or alternatively the{" "}
             <Link
-              href={"/calculators/position-size-calculator"}
+              href={localizeHref("/calculators/position-size-calculator", locale)}
               className={`underline`}
             >
               position sizing for this instrument
@@ -76,7 +79,7 @@ export default function ProductSpecification({ instrument }: Specification) {
 
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
             <Link
-              href={`/trading-hours/${instrument.toLowerCase()}`}
+              href={localizeHref(`/trading-hours/${instrument.toLowerCase()}`, locale)}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
@@ -92,13 +95,13 @@ export default function ProductSpecification({ instrument }: Specification) {
           <p className={`opacity-80`}>
             Afterprime's trading environment gives you complete cost
             transparency. Every {instrument} quote displays{" "}
-            <Link href={"/live-spreads"} className={`underline`}>
+            <Link href={localizeHref("/live-spreads", locale)} className={`underline`}>
               real-time spread pricing
             </Link>
             , no hidden markups, no commission surprises. Use the integrated
             calculator to{" "}
             <Link
-              href={"/calculators/cost-savings-calculator"}
+              href={localizeHref("/calculators/cost-savings-calculator", locale)}
               className={`underline`}
             >
               calculate trading costs
@@ -108,12 +111,12 @@ export default function ProductSpecification({ instrument }: Specification) {
             <sup>TM</sup> on every lot, the savings accelerate. {instrument}'s
             deep liquidity and our structural cost advantage make it the natural
             choice for both scalpers and position traders. You can{" "}
-            <Link href={"/trade"} className={`underline`}>
+            <Link href={localizeHref("/trade", locale)} className={`underline`}>
               explore all forex pairs
             </Link>{" "}
             with institutional-grade execution or alternatively the{" "}
             <Link
-              href={"/calculators/position-size-calculator"}
+              href={localizeHref("/calculators/position-size-calculator", locale)}
               className={`underline`}
             >
               position sizing for this pair
@@ -124,7 +127,7 @@ export default function ProductSpecification({ instrument }: Specification) {
             {relatedPairs.map((pair) => (
               <Link
                 key={pair.Symbol}
-                href={`/trade/${pair.Symbol.toLowerCase()}`}
+                href={localizeHref(`/trade/${pair.Symbol.toLowerCase()}`, locale)}
                 className={`underline hover:no-underline`}
               >
                 <div className={``}>{pair.Symbol}</div>
@@ -134,7 +137,7 @@ export default function ProductSpecification({ instrument }: Specification) {
 
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
             <Link
-              href={`/forex/${instrument.toLowerCase()}`}
+              href={localizeHref(`/forex/${instrument.toLowerCase()}`, locale)}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
@@ -142,7 +145,7 @@ export default function ProductSpecification({ instrument }: Specification) {
             </Link>
 
             <Link
-              href={`/trading-hours/${instrument.toLowerCase()}`}
+              href={localizeHref(`/trading-hours/${instrument.toLowerCase()}`, locale)}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >

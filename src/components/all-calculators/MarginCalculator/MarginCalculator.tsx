@@ -10,6 +10,10 @@ import {
   getExchangeRate,
   currencySymbol as currencySymbolFor,
 } from "@/lib/instruments";
+import {
+  marginCalculatorContent,
+  type MarginCalculatorContent,
+} from "./MarginCalculatorContent";
 
 interface CalculationResult {
   marginRequired: number;
@@ -41,7 +45,13 @@ interface MarketPrice {
   group: string;
 }
 
-export default function MarginCalculator() {
+interface MarginCalculatorProps {
+  content?: MarginCalculatorContent;
+}
+
+export default function MarginCalculator({
+  content = marginCalculatorContent,
+}: MarginCalculatorProps) {
   const {
     allIsntruments,
     loading: instrumentsLoading,
@@ -220,19 +230,30 @@ export default function MarginCalculator() {
 
     if (effectiveLeverage <= 5 && marginUsedPercent < 20) {
       level = "low-risk";
-      message = `Your effective leverage of 1:${effectiveLeverage.toFixed(1)} is conservative. You're using ${marginUsedPercent.toFixed(1)}% of your account as margin, leaving substantial buffer for price movement.`;
+      message = content.riskLowMessage
+        .replace("{leverage}", effectiveLeverage.toFixed(1))
+        .replace("{marginUsed}", marginUsedPercent.toFixed(1));
       fillPosition = 10;
     } else if (effectiveLeverage <= 10 && marginUsedPercent < 40) {
       level = "moderate-risk";
-      message = `Your effective leverage of 1:${effectiveLeverage.toFixed(1)} is moderate. Using ${marginUsedPercent.toFixed(1)}% of account as margin. A ${(100 / effectiveLeverage).toFixed(1)}% move against you would lose your entire account.`;
+      message = content.riskModerateMessage
+        .replace("{leverage}", effectiveLeverage.toFixed(1))
+        .replace("{marginUsed}", marginUsedPercent.toFixed(1))
+        .replace("{move}", (100 / effectiveLeverage).toFixed(1));
       fillPosition = 35;
     } else if (effectiveLeverage <= 20 || marginUsedPercent < 60) {
       level = "high-risk";
-      message = `Warning: Effective leverage of 1:${effectiveLeverage.toFixed(1)} is high. Using ${marginUsedPercent.toFixed(1)}% margin. Only ${(100 / effectiveLeverage).toFixed(1)}% adverse move would wipe your account. Consider reducing position size.`;
+      message = content.riskHighMessage
+        .replace("{leverage}", effectiveLeverage.toFixed(1))
+        .replace("{marginUsed}", marginUsedPercent.toFixed(1))
+        .replace("{move}", (100 / effectiveLeverage).toFixed(1));
       fillPosition = 65;
     } else {
       level = "extreme-risk";
-      message = `Extreme Risk: With 1:${effectiveLeverage.toFixed(1)} effective leverage and ${marginUsedPercent.toFixed(1)}% margin used, you're highly exposed to margin call. A mere ${(100 / effectiveLeverage).toFixed(1)}% move could liquidate your position.`;
+      message = content.riskExtremeMessage
+        .replace("{leverage}", effectiveLeverage.toFixed(1))
+        .replace("{marginUsed}", marginUsedPercent.toFixed(1))
+        .replace("{move}", (100 / effectiveLeverage).toFixed(1));
       fillPosition = 90;
     }
 
@@ -253,12 +274,18 @@ export default function MarginCalculator() {
     setMarginCallLevels({
       move100:
         move100Percent > 0
-          ? `${move100Percent.toFixed(2)}% move`
-          : "Already below",
+          ? content.mcMovePercent.replace(
+              "{percent}",
+              move100Percent.toFixed(2),
+            )
+          : content.mcAlreadyBelow,
       move50:
         move50Percent > 0
-          ? `${move50Percent.toFixed(2)}% move`
-          : "Already below",
+          ? content.mcMovePercent.replace(
+              "{percent}",
+              move50Percent.toFixed(2),
+            )
+          : content.mcAlreadyBelow,
     });
   };
 
@@ -285,7 +312,7 @@ export default function MarginCalculator() {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
-          <p>Loading market data...</p>
+          <p>{content.loadingMarketData}</p>
         </div>
       </div>
     );
@@ -295,7 +322,7 @@ export default function MarginCalculator() {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
-          <p>Unable to load instruments, please refresh.</p>
+          <p>{content.unableToLoadInstruments}</p>
         </div>
       </div>
     );
@@ -308,7 +335,7 @@ export default function MarginCalculator() {
       <div className={styles.body}>
         <div className={styles.inputs}>
           <div className={styles.inputGroup}>
-            <label htmlFor="mgc-instrument">Instrument</label>
+            <label htmlFor="mgc-instrument">{content.instrumentLabel}</label>
             <select
               id="mgc-instrument"
               value={instrument}
@@ -330,7 +357,7 @@ export default function MarginCalculator() {
 
           <div className={styles.inputGroup}>
             <label htmlFor="mgc-price">
-              Current Price {loadingPrices && "(Updating...)"}
+              {content.currentPriceLabel} {loadingPrices && content.updatingLabel}
             </label>
             <div className={styles.inputWrapper}>
               <input
@@ -357,7 +384,7 @@ export default function MarginCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="mgc-trade-size">Trade Size</label>
+            <label htmlFor="mgc-trade-size">{content.tradeSizeLabel}</label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -372,15 +399,15 @@ export default function MarginCalculator() {
                 value={lotType}
                 onChange={(e) => setLotType(e.target.value)}
               >
-                <option value="standard">Standard Lots</option>
-                <option value="mini">Mini Lots</option>
-                <option value="micro">Micro Lots</option>
+                <option value="standard">{content.unitStandardLots}</option>
+                <option value="mini">{content.unitMiniLots}</option>
+                <option value="micro">{content.unitMicroLots}</option>
               </select>
             </div>
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="mgc-leverage">Leverage</label>
+            <label htmlFor="mgc-leverage">{content.leverageLabel}</label>
             <select
               id="mgc-leverage"
               value={leverage}
@@ -397,7 +424,9 @@ export default function MarginCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="mgc-account-balance">Account Balance</label>
+            <label htmlFor="mgc-account-balance">
+              {content.accountBalanceLabel}
+            </label>
             <div className={styles.inputWrapper}>
               <span className={styles.currencySymbol}>
                 {accountCurrency === "EUR"
@@ -422,7 +451,9 @@ export default function MarginCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="mgc-account-currency">Account Currency</label>
+            <label htmlFor="mgc-account-currency">
+              {content.accountCurrencyLabel}
+            </label>
             <select
               id="mgc-account-currency"
               value={accountCurrency}
@@ -438,7 +469,9 @@ export default function MarginCalculator() {
 
         <div className={styles.results}>
           <div className={styles.resultPrimary}>
-            <span className={styles.resultLabel}>Margin Required</span>
+            <span className={styles.resultLabel}>
+              {content.resultMarginRequiredLabel}
+            </span>
             <span className={styles.resultValue}>
               {result.currencySymbol}
               {result.marginRequired.toLocaleString("en-US", {
@@ -447,24 +480,32 @@ export default function MarginCalculator() {
               })}
             </span>
             <span className={styles.resultNote}>
-              of {result.currencySymbol}
-              {accountBalance.toLocaleString("en-US")} account balance
+              {content.resultOfAccountBalance.replace(
+                "{amount}",
+                `${result.currencySymbol}${accountBalance.toLocaleString("en-US")}`,
+              )}
             </span>
           </div>
 
           <div className={styles.resultGrid}>
             <div className={styles.resultCard}>
-              <span className={styles.cardLabel}>Notional Value</span>
+              <span className={styles.cardLabel}>
+                {content.resultNotionalValueLabel}
+              </span>
               <span className={styles.cardValue}>
                 {result.currencySymbol}
                 {result.notionalValue.toLocaleString("en-US", {
                   maximumFractionDigits: 0,
                 })}
               </span>
-              <span className={styles.cardNote}>Total position size</span>
+              <span className={styles.cardNote}>
+                {content.resultNotionalValueNote}
+              </span>
             </div>
             <div className={styles.resultCard}>
-              <span className={styles.cardLabel}>Free Margin</span>
+              <span className={styles.cardLabel}>
+                {content.resultFreeMarginLabel}
+              </span>
               <span className={styles.cardValue}>
                 {result.currencySymbol}
                 {result.freeMargin.toLocaleString("en-US", {
@@ -472,21 +513,31 @@ export default function MarginCalculator() {
                   maximumFractionDigits: 2,
                 })}
               </span>
-              <span className={styles.cardNote}>Available for new trades</span>
+              <span className={styles.cardNote}>
+                {content.resultFreeMarginNote}
+              </span>
             </div>
             <div className={styles.resultCard}>
-              <span className={styles.cardLabel}>Margin Level</span>
+              <span className={styles.cardLabel}>
+                {content.resultMarginLevelLabel}
+              </span>
               <span className={styles.cardValue}>
                 {result.marginLevel.toFixed(0)}%
               </span>
-              <span className={styles.cardNote}>Equity / Used Margin</span>
+              <span className={styles.cardNote}>
+                {content.resultMarginLevelNote}
+              </span>
             </div>
             <div className={styles.resultCard}>
-              <span className={styles.cardLabel}>Effective Leverage</span>
+              <span className={styles.cardLabel}>
+                {content.resultEffectiveLeverageLabel}
+              </span>
               <span className={styles.cardValue}>
                 1:{result.effectiveLeverage.toFixed(1)}
               </span>
-              <span className={styles.cardNote}>Position / Account</span>
+              <span className={styles.cardNote}>
+                {content.resultEffectiveLeverageNote}
+              </span>
             </div>
           </div>
 
@@ -496,7 +547,7 @@ export default function MarginCalculator() {
             <div className={styles.warningHeader}>
               <span className={styles.warningIcon}>⚠️</span>
               <span className={styles.warningTitle}>
-                Leverage Risk Assessment
+                {content.warningTitle}
               </span>
             </div>
             <div className={styles.warningContent}>
@@ -511,10 +562,10 @@ export default function MarginCalculator() {
                   ></div>
                 </div>
                 <div className={styles.riskLabels}>
-                  <span>Low</span>
-                  <span>Moderate</span>
-                  <span>High</span>
-                  <span>Extreme</span>
+                  <span>{content.riskLabelLow}</span>
+                  <span>{content.riskLabelModerate}</span>
+                  <span>{content.riskLabelHigh}</span>
+                  <span>{content.riskLabelExtreme}</span>
                 </div>
               </div>
             </div>
@@ -523,50 +574,51 @@ export default function MarginCalculator() {
           <div className={styles.marginCall}>
             <div className={styles.mcHeader}>
               <span className={styles.mcLabel}>
-                Margin Call / Stop-Out Levels
+                {content.marginCallTitle}
               </span>
             </div>
             <div className={styles.mcGrid}>
               <div className={styles.mcItem}>
                 <span className={styles.mcLevel}>100%</span>
-                <span className={styles.mcDesc}>Margin Call Level</span>
+                <span className={styles.mcDesc}>
+                  {content.marginCallLevelDesc}
+                </span>
                 <span className={styles.mcValue}>
                   {marginCallLevels.move100}
                 </span>
               </div>
               <div className={styles.mcItem}>
                 <span className={styles.mcLevel}>50%</span>
-                <span className={styles.mcDesc}>Stop-Out Level</span>
+                <span className={styles.mcDesc}>{content.stopOutLevelDesc}</span>
                 <span className={styles.mcValue}>
                   {marginCallLevels.move50}
                 </span>
               </div>
             </div>
-            <p className={styles.mcNote}>
-              Price movement against position that triggers these levels
-              (approximate)
-            </p>
+            <p className={styles.mcNote}>{content.mcNote}</p>
           </div>
         </div>
       </div>
 
       <div className={styles.formula}>
         <details>
-          <summary>View Formulas</summary>
+          <summary>{content.viewFormulasSummary}</summary>
           <div className={styles.formulaContent}>
             <p>
-              <strong>Margin Required</strong> = (Notional Value ÷ Leverage)
-              converted to account currency
+              <strong>{content.formulaMarginRequiredLabel}</strong>{" "}
+              {content.formulaMarginRequiredText}
             </p>
             <p>
-              <strong>Notional Value</strong> = Contract Size × Lots × Price
+              <strong>{content.formulaNotionalValueLabel}</strong>{" "}
+              {content.formulaNotionalValueText}
             </p>
             <p>
-              <strong>Margin Level %</strong> = (Equity ÷ Used Margin) × 100
+              <strong>{content.formulaMarginLevelLabel}</strong>{" "}
+              {content.formulaMarginLevelText}
             </p>
             <p>
-              <strong>Effective Leverage</strong> = Notional Value ÷ Account
-              Balance
+              <strong>{content.formulaEffectiveLeverageLabel}</strong>{" "}
+              {content.formulaEffectiveLeverageText}
             </p>
           </div>
         </details>

@@ -13,6 +13,10 @@ import TradingGlossary from "@/components/TradingGlossary/TradingGlossary";
 import Author from "@/components/AuthorForInstrumentPage/Author";
 import { BottomCta } from "@/components/acfFieldGroups/bottom-cta/BottomCta";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { calculatorToolsBlockContent } from "./CalculatorToolsBlockContent";
+import { costSavingCalculatorContent } from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
 
 // ISR
 export const revalidate = 60;
@@ -52,6 +56,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 //
 export default async function ChildPage({ params }: Props) {
   const { slug, inst } = await params;
+  const locale = await getRequestLocale();
+  const [calculatorToolsT, costSavingT] = await Promise.all([
+    getTranslatedStatic(
+      "calculator-tools-block",
+      locale,
+      calculatorToolsBlockContent,
+    ),
+    getTranslatedStatic(
+      "cost-saving-calculator",
+      locale,
+      costSavingCalculatorContent,
+    ),
+  ]);
 
   const parentRes = await wpFetch<WPPage[]>(`/pages?slug=${slug}&_fields=id`); //this asks domain/forex as [slug] page id.
   const getParentId = parentRes?.[0];
@@ -126,7 +143,17 @@ export default async function ChildPage({ params }: Props) {
         <section className={`compact-section`}>
           <div className="ap_container_small">
             <div className={`${styles.pageEditorContent}`}>
-              {pageBuilder.map(renderSection)}
+              {pageBuilder.map(
+                (
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  section: any,
+                  index: number,
+                ) =>
+                  renderSection(section, index, slug, {
+                    calculatorToolsContent: calculatorToolsT,
+                    costSavingContent: costSavingT,
+                  }),
+              )}
             </div>
           </div>
         </section>

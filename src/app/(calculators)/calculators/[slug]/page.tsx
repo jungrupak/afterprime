@@ -15,25 +15,42 @@ import { CustomMetadata } from "@/utils/CustomMetadata";
 import Script from "next/script";
 import FaqSchema from "@/lib/schema/faqSchema";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { positionSizeCalculatorContent } from "@/components/all-calculators/PositionSizeCalculator/PositionSizeCalculatorContent";
+import { marginCalculatorContent } from "@/components/all-calculators/MarginCalculator/MarginCalculatorContent";
+import { profitLossCalculatorContent } from "@/components/all-calculators/ProfitLossCalculator/ProfitLossCalculatorContent";
+import { pipValueCalculatorContent } from "@/components/all-calculators/PipValueCalculator/PipValueCalculatorContent";
+import { swapCalculatorContent } from "@/components/all-calculators/SwapCalculator/SwapCalculatorContent";
+import { currencyConverterContent } from "@/components/all-calculators/CurrencyConverter/CurrencyConverterContent";
+import { compoundGrowthCalculatorContent } from "@/components/all-calculators/CompoundGrowthCalculator/CompoundGrowthCalculatorContent";
+import { drawdonCalculatorContent } from "@/components/all-calculators/DradownCalculator/DrawdonCalculatorContent";
+import { costSavingCalculatorContent } from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
+import { getCalculatorsContent } from "@/components/all-calculators/TradingCalculator/GetCalculatorsContent";
+import { tradingProfitCalculatorContent } from "@/components/trading-calculator/tradingProfitCalculatorContent";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
 }
 
-//## Function to get data source here
-async function pageDataSource(slug: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_WP_BASE_URL;
-  try {
-    const res = await fetch(`${baseUrl}/wp-json/wp/v2/pages?slug=${slug}`);
-    if (!res.ok) return {};
-    const pageData = await res.json();
-    if (!pageData || !pageData.length) return;
-    return pageData?.[0];
-  } catch (err) {
-    console.error("Faild to load data:", err);
-  }
-}
-//##
+type CalculatorAcfFields = {
+  intro_paragraph?: string;
+  page_content?: string;
+  select_calculator?: string;
+  page_schema?: string;
+};
+
+type CalculatorPageJson = {
+  title?: { rendered?: string };
+  acf?: {
+    calculator_page_fields?: CalculatorAcfFields;
+    faq_section?: {
+      ssection_title?: string;
+      q_and_a?: { question?: string; answer?: string }[];
+    };
+  };
+};
 
 export async function generateStaticParams() {
   const baseUrl = process.env.NEXT_PUBLIC_WP_BASE_URL;
@@ -67,15 +84,21 @@ export async function generateMetadata({ params }: PageSlug) {
 
 export default async function Page({ params }: PageSlug) {
   const { slug } = await params;
-  const pageData = await pageDataSource(slug);
+  const locale = await getRequestLocale();
+  const pageData = await getTranslatedPage<CalculatorPageJson>(slug, locale);
   if (!pageData) {
     notFound();
   }
 
+  const breadcrumbT = await getTranslatedStatic("calculator-breadcrumb", locale, {
+    home: "Home",
+    calculators: "Calculators",
+  });
+
   const acfFields = pageData?.acf;
   const calculatorPageFields = acfFields?.calculator_page_fields;
 
-  const pageTitle = pageData?.title.rendered;
+  const pageTitle = pageData?.title?.rendered;
   const heroParagraph = calculatorPageFields?.intro_paragraph;
   const sectionTitle = acfFields?.faq_section?.ssection_title;
   const faqData = acfFields?.faq_section?.q_and_a;
@@ -83,6 +106,100 @@ export default async function Page({ params }: PageSlug) {
   const selectCalculator = calculatorPageFields?.select_calculator;
 
   const pageSchema = calculatorPageFields?.page_schema;
+
+  // Only translate the one calculator content object that will actually
+  // render for this page, rather than paying for all 10 Weglot lookups.
+  let positionSizeT = positionSizeCalculatorContent;
+  let marginT = marginCalculatorContent;
+  let profitLossT = profitLossCalculatorContent;
+  let pipValueT = pipValueCalculatorContent;
+  let swapT = swapCalculatorContent;
+  let currencyConverterT = currencyConverterContent;
+  let compoundGrowthT = compoundGrowthCalculatorContent;
+  let drawdownT = drawdonCalculatorContent;
+  let costSavingT = costSavingCalculatorContent;
+  let getCalculatorsT = getCalculatorsContent;
+  let tradingProfitT = tradingProfitCalculatorContent;
+
+  switch (selectCalculator) {
+    case "Position Size Calculator":
+      positionSizeT = await getTranslatedStatic(
+        "position-size-calculator",
+        locale,
+        positionSizeCalculatorContent,
+      );
+      break;
+    case "Margin Calculator":
+      marginT = await getTranslatedStatic(
+        "margin-calculator",
+        locale,
+        marginCalculatorContent,
+      );
+      break;
+    case "Profit Loss Calculator":
+      profitLossT = await getTranslatedStatic(
+        "profit-loss-calculator",
+        locale,
+        profitLossCalculatorContent,
+      );
+      break;
+    case "Pip Value Calculator":
+      pipValueT = await getTranslatedStatic(
+        "pip-value-calculator",
+        locale,
+        pipValueCalculatorContent,
+      );
+      break;
+    case "Swap Calculator":
+      swapT = await getTranslatedStatic(
+        "swap-calculator",
+        locale,
+        swapCalculatorContent,
+      );
+      break;
+    case "Currency Convertor":
+      currencyConverterT = await getTranslatedStatic(
+        "currency-converter",
+        locale,
+        currencyConverterContent,
+      );
+      break;
+    case "Compound Growth Calculator":
+      compoundGrowthT = await getTranslatedStatic(
+        "compound-growth-calculator",
+        locale,
+        compoundGrowthCalculatorContent,
+      );
+      break;
+    case "Drawdown Calculator":
+      drawdownT = await getTranslatedStatic(
+        "drawdown-calculator",
+        locale,
+        drawdonCalculatorContent,
+      );
+      break;
+    case "Savings Calculator":
+      costSavingT = await getTranslatedStatic(
+        "cost-saving-calculator",
+        locale,
+        costSavingCalculatorContent,
+      );
+      break;
+    case "Trading Calculator":
+      [getCalculatorsT, tradingProfitT] = await Promise.all([
+        getTranslatedStatic(
+          "get-calculators-shell",
+          locale,
+          getCalculatorsContent,
+        ),
+        getTranslatedStatic(
+          "trading-profit-calculator",
+          locale,
+          tradingProfitCalculatorContent,
+        ),
+      ]);
+      break;
+  }
 
   return (
     <>
@@ -110,24 +227,37 @@ export default async function Page({ params }: PageSlug) {
       <section className={`compact-section`}>
         <div className="ap_container_small flex items-center h-full">
           {selectCalculator === "Compound Growth Calculator" && (
-            <CompoundGrowthCalculator />
+            <CompoundGrowthCalculator content={compoundGrowthT} />
           )}
-          {selectCalculator === "Drawdown Calculator" && <DrawdownCalculator />}
-          {selectCalculator === "Currency Convertor" && <CurrencyConverter />}
-          {selectCalculator === "Margin Calculator" && <MarginCalculator />}
+          {selectCalculator === "Drawdown Calculator" && (
+            <DrawdownCalculator content={drawdownT} />
+          )}
+          {selectCalculator === "Currency Convertor" && (
+            <CurrencyConverter content={currencyConverterT} />
+          )}
+          {selectCalculator === "Margin Calculator" && (
+            <MarginCalculator content={marginT} />
+          )}
           {selectCalculator === "Position Size Calculator" && (
-            <PositionSizeCalculator />
+            <PositionSizeCalculator content={positionSizeT} />
           )}
           {selectCalculator === "Profit Loss Calculator" && (
-            <ProfitLossCalculator />
+            <ProfitLossCalculator content={profitLossT} />
           )}
           {selectCalculator === "Pip Value Calculator" && (
-            <PipValueCalculator />
+            <PipValueCalculator content={pipValueT} />
           )}
-          {selectCalculator === "Swap Calculator" && <SwapCalculator />}
-          {selectCalculator === "Trading Calculator" && <TradingCalculator />}
+          {selectCalculator === "Swap Calculator" && (
+            <SwapCalculator content={swapT} />
+          )}
+          {selectCalculator === "Trading Calculator" && (
+            <TradingCalculator
+              content={getCalculatorsT}
+              formContent={tradingProfitT}
+            />
+          )}
           {selectCalculator === "Savings Calculator" && (
-            <DollarSavingsCalculator />
+            <DollarSavingsCalculator content={costSavingT} />
           )}
         </div>
       </section>
@@ -151,8 +281,8 @@ export default async function Page({ params }: PageSlug) {
       <FaqSchema pageSlug={slug} />
       <BreadcrumbSchema
         items={[
-          { name: "Home", href: "/" },
-          { name: "Calculators", href: "/calculators" },
+          { name: breadcrumbT.home, href: "/" },
+          { name: breadcrumbT.calculators, href: "/calculators" },
           { name: pageTitle ?? slug, href: `/calculators/${slug}` },
         ]}
       />

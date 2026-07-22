@@ -7,6 +7,8 @@ import RightArrow from "../ui/RightArrow";
 import LeftArrow from "../ui/LeftArrow";
 import { useState } from "react";
 import Button from "../ui/Button";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 interface CategoryItem {
   menuItem?: string;
@@ -32,16 +34,31 @@ interface MenuItems {
   menus?: Menu[];
   customClass?: string;
   onClick?: () => void;
+  loginLabel?: string;
+  signupLabel?: string;
+  signupNowLabel?: string;
+  backLabel?: string;
+  logoAlt?: string;
 }
 
-export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
+export default function MobileNav({
+  menus,
+  customClass,
+  onClick,
+  loginLabel = "Login",
+  signupLabel = "Signup",
+  signupNowLabel = "Signup Now",
+  backLabel = "back",
+  logoAlt = "Afterprime Logo",
+}: MenuItems) {
   const [submenu, setSubMenu] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const locale = useLocale();
 
   return (
     <div className={`${styles.mobMenuWrapper} ${customClass}`}>
       <div className={`${styles.menuHeader} flex justify-between`}>
-        <Image src="/img/logo-text.svg" height={34} width={135} alt="Afterprime Logo" />
+        <Image src="/img/logo-text.svg" height={34} width={135} alt={logoAlt} />
         <span className={`${styles.closeNav}`} onClick={onClick}>
           +
         </span>
@@ -70,9 +87,13 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Login
+          {loginLabel}
         </Link>
-        <TypeformButton buttonText="Signup" size="small" />
+        <TypeformButton
+          buttonText={signupLabel}
+          signupNowText={signupNowLabel}
+          size="small"
+        />
       </div>
 
       {/* ## */}
@@ -90,7 +111,7 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
           }}
         >
           <LeftArrow />
-          back
+          {backLabel}
         </span>
 
         <div
@@ -110,7 +131,7 @@ export default function MobileNav({ menus, customClass, onClick }: MenuItems) {
                     }}
                     style={{ position: "relative" }}
                   >
-                    <Link href={label.pageUrl || "/"}>{label.menuItem}</Link>
+                    <Link href={localizeHref(label.pageUrl || "/", locale)}>{label.menuItem}</Link>
                     {label.menuItem === "Trading Calculator" && (
                       <span className="absolute top-2 right-0 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
                         NEW

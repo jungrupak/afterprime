@@ -1,49 +1,58 @@
 "use client";
 
 import Link from "next/link";
+import {
+  calculatorToolsBlockContent,
+  type CalculatorToolsBlockContent,
+} from "./CalculatorToolsBlockContent";
+
+// nameKey indexes into content.calculatorNames at render time — the display
+// name lives in CalculatorToolsBlockContent.ts so it can be translated;
+// pageUrl is never touched by the translation pipeline.
 const calCardData = [
   {
-    name: "Position Size & Risk Calculator",
+    nameKey: "positionSize",
     pageUrl: "/calculators/position-size-calculator",
   },
   {
-    name: "Trading Cost Calculator",
+    nameKey: "tradingCost",
     pageUrl: "/calculators/cost-savings-calculator",
   },
   {
-    name: "Margin & Leverage Calculator",
+    nameKey: "marginLeverage",
     pageUrl: "/calculators/margin-calculator",
   },
   {
-    name: "Swap / Overnight Cost Calculator",
+    nameKey: "swapOvernight",
     pageUrl: "/calculators/swap-calculator",
   },
   {
-    name: "Pip / Lot Value Calculator",
+    nameKey: "pipLotValue",
     pageUrl: "/calculators/pip-value-calculator",
   },
-];
+] as const;
 
 interface CalculatorToolsBlockProps {
   instrumentSlug?: string;
+  content?: CalculatorToolsBlockContent;
 }
 
 export default function CalculatorToolsBlock({
   instrumentSlug,
+  content = calculatorToolsBlockContent,
 }: CalculatorToolsBlockProps) {
   return (
     <>
-      <h2>Run the Numbers Yourself</h2>
+      <h2>{content.heading}</h2>
       <p>
-        Use Afterprime’s professional{" "}
+        {content.descriptionPrefix}{" "}
         <a href="/calculators">
-          <u>trading calculators</u>
+          <u>{content.calculatorsLinkText}</u>
         </a>{" "}
-        to model position sizing, margin requirements, swap impact, and true
-        trading cost for {instrumentSlug}.
+        {content.description.replace("{instrument}", instrumentSlug ?? "")}
       </p>
       <p>
-        <strong>Available Calculators</strong>
+        <strong>{content.availableCalculators}</strong>
       </p>
       <div className={`grid md:grid-cols-5 gap-5`}>
         {calCardData.map((item, index) => (
@@ -53,11 +62,11 @@ export default function CalculatorToolsBlock({
             target="_blank"
             className={`flex justify-center items-center leading-[1.4] text-center text-[18px] font-semibold py-[clamp(30px,5vw,40px)] px-[clamp(25px,5vw,40px)] bg-[rgba(255_,255_,255_,.08)] hover:bg-[rgba(255_,255_,255_,.12)]`}
           >
-            {item.name}
+            {content.calculatorNames[item.nameKey]}
           </Link>
         ))}
         <div className={`text-[16px] col-span-full opacity-65`}>
-          Calculators default to Afterprime trading specifications.
+          {content.footnote}
         </div>
       </div>
     </>

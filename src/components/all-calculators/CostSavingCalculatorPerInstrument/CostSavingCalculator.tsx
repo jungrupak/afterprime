@@ -15,6 +15,12 @@ import {
   TooltipItem,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import {
+  costSavingCalculatorContent,
+  type CostSavingCalculatorContent,
+} from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 ChartJS.register(
   CategoryScale,
@@ -76,8 +82,10 @@ const BENCHMARK_BROKERS = ["Second Best", "Top 10 Avg", "Industry Avg"];
 
 export default function CostSavingsCalculatorInstrument({
   instrument,
+  content = costSavingCalculatorContent,
 }: {
   instrument: string;
+  content?: CostSavingCalculatorContent;
 }) {
   const [data, setData] = useState<ApiResponse>();
   const [lots, setLots] = useState<number>(250);
@@ -86,6 +94,7 @@ export default function CostSavingsCalculatorInstrument({
   const [brokerList, setBrokerList] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const locale = useLocale();
 
   // Fetch cost data from API
   useEffect(() => {
@@ -126,7 +135,7 @@ export default function CostSavingsCalculatorInstrument({
         console.error("Error fetching cost data:", err);
         const errorMessage =
           err instanceof Error ? err.message : "Unknown error occurred";
-        setError(`Unable to load broker data: ${errorMessage}`);
+        setError(`${content.errorPrefix}${errorMessage}`);
         setBrokersData([]);
         setBrokerList([]);
       } finally {
@@ -337,7 +346,7 @@ export default function CostSavingsCalculatorInstrument({
       <div className={styles.container}>
         <div className={styles.loadingState}>
           <div className={styles.spinner}></div>
-          <p>Loading data...</p>
+          <p>{content.loading}</p>
         </div>
       </div>
     );
@@ -353,7 +362,7 @@ export default function CostSavingsCalculatorInstrument({
             className={styles.retryBtn}
             type="button"
           >
-            Retry
+            {content.retry}
           </button>
         </div>
       </div>
@@ -367,11 +376,45 @@ export default function CostSavingsCalculatorInstrument({
 
   if (data?.rebate === null) return null;
 
+  const lotWord: string =
+    lots === 1 ? content.perInstrument.lotSingular : content.perInstrument.lotPlural;
+  const instrumentUpper: string = instrument.toUpperCase();
+
+  const calcTitleText: string = content.perInstrument.calcTitleTemplate.replace(
+    "{instrument}",
+    instrumentUpper,
+  );
+  const flowRewardsHeadingText: string =
+    content.perInstrument.flowRewardsHeadingTemplate.replace(
+      "{instrument}",
+      data?.instrument_name ?? instrumentUpper,
+    );
+  const headlineText: string = content.perInstrument.headlineTemplate
+    .replace("{instrument}", instrumentUpper)
+    .replace("{lots}", String(lots))
+    .replace("{lotWord}", lotWord)
+    .replace("{moSave}", moSave.toFixed(2))
+    .replace("{broker}", selectedBroker);
+  const sublineText: string = content.sublineTemplate.replace(
+    "{totSaveAnnual}",
+    (totSave * 12).toFixed(2),
+  );
+  const chartSubtitleText: string = content.perInstrument.chartSubtitleTemplate
+    .replace("{instrument}", instrumentUpper)
+    .replace("{lots}", String(lots))
+    .replace("{lotWord}", lotWord);
+  const footnoteSuffixText: string =
+    content.perInstrument.footnoteSuffixTemplate.replace(
+      "{instrument}",
+      instrumentUpper,
+    );
+
   return (
     <>
       <div className="w-full mb-6">
         <h2 className="text-5xl font-light">
-          {data?.instrument_name} Flow Rewards<sup>TM</sup>
+          {flowRewardsHeadingText}
+          <sup>TM</sup>
         </h2>
       </div>
 
@@ -381,14 +424,12 @@ export default function CostSavingsCalculatorInstrument({
         {/* Left: Calculator */}
         <div className={styles.calculator}>
           <div className={styles.calcHeader}>
-            <div className={styles.calcTitle}>
-              {instrument.toUpperCase()} Savings Calculator
-            </div>
-            <span className={styles.badge}>ForexBenchmark verified</span>
+            <div className={styles.calcTitle}>{calcTitleText}</div>
+            <span className={styles.badge}>{content.badge}</span>
           </div>
 
           <div className={styles.inputGroup}>
-            <div className={styles.label}>Lots per month (1–1000)</div>
+            <div className={styles.label}>{content.lotsPerMonthLabel}</div>
             <div className={styles.sliderRow}>
               <input
                 type="range"
@@ -398,7 +439,7 @@ export default function CostSavingsCalculatorInstrument({
                 value={lots}
                 onChange={handleLotsChange}
                 className={styles.slider}
-                aria-label="Lots per month"
+                aria-label={content.lotsPerMonthAriaLabel}
               />
               <input
                 type="number"
@@ -408,19 +449,19 @@ export default function CostSavingsCalculatorInstrument({
                 value={lots}
                 onChange={handleLotsNumberChange}
                 className={styles.numberInput}
-                aria-label="Lots per month (number input)"
+                aria-label={content.lotsPerMonthNumberAriaLabel}
               />
             </div>
           </div>
 
           <div className={styles.inputGroup}>
-            <div className={styles.label}>Compare your savings vs broker</div>
+            <div className={styles.label}>{content.compareLabel}</div>
             <div className={styles.brokerRow}>
               <button
                 onClick={() => cycleBroker(-1)}
                 className={styles.iconBtn}
-                title="Previous broker"
-                aria-label="Previous broker"
+                title={content.previousBroker}
+                aria-label={content.previousBroker}
                 disabled={brokerList.length === 0}
                 type="button"
               >
@@ -430,20 +471,20 @@ export default function CostSavingsCalculatorInstrument({
                 value={selectedBroker}
                 onChange={handleBrokerChange}
                 className={styles.select}
-                aria-label="Select broker for comparison"
+                aria-label={content.selectBrokerAriaLabel}
               >
                 {brokerList.length === 0 ? (
                   <option value="Industry Avg">Industry Avg</option>
                 ) : (
                   <>
-                    <optgroup label="Benchmarks">
+                    <optgroup label={content.benchmarksGroupLabel}>
                       {benchmarkBrokers.map((name: string) => (
                         <option key={name} value={name}>
                           {name}
                         </option>
                       ))}
                     </optgroup>
-                    <optgroup label="Brokers">
+                    <optgroup label={content.brokersGroupLabel}>
                       {regularBrokers.map((name: string) => (
                         <option key={name} value={name}>
                           {name}
@@ -456,8 +497,8 @@ export default function CostSavingsCalculatorInstrument({
               <button
                 onClick={() => cycleBroker(1)}
                 className={styles.iconBtn}
-                title="Next broker"
-                aria-label="Next broker"
+                title={content.nextBroker}
+                aria-label={content.nextBroker}
                 disabled={brokerList.length === 0}
                 type="button"
               >
@@ -467,26 +508,20 @@ export default function CostSavingsCalculatorInstrument({
           </div>
 
           <div className={styles.results}>
-            <div className={styles.headline}>
-              {instrument.toUpperCase()} {lots} {lots === 1 ? "lot" : "lots"}
-              /month saves ${moSave.toFixed(2)} monthly vs {selectedBroker}.
-            </div>
-            <div className={styles.subline}>
-              ${(totSave * 12).toFixed(2)} annually. Graph shows monthly total
-              cost.
-            </div>
+            <div className={styles.headline}>{headlineText}</div>
+            <div className={styles.subline}>{sublineText}</div>
           </div>
 
           <div className={styles.statsGrid}>
             <div className={styles.statCard}>
               <div className={styles.statLabel}>
-                Savings per month vs broker
+                {content.statLabelMonthly}
               </div>
               <div className={styles.statValue}>${moSave.toFixed(2)}</div>
             </div>
             <div className={styles.statCard}>
               <div className={styles.statLabel}>
-                Total savings over 12 months
+                {content.statLabelAnnual}
               </div>
               <div className={styles.statValue}>
                 ${(totSave * 12).toFixed(2)}
@@ -499,18 +534,15 @@ export default function CostSavingsCalculatorInstrument({
         <div className={styles.chartSection}>
           <div className={styles.chartHeader}>
             <div>
-              <div className={styles.chartTitle}>Monthly Total Cost</div>
-              <div className={styles.chartSubtitle}>
-                Bars show total cost trading {instrument.toUpperCase()} {lots}{" "}
-                {lots === 1 ? "lot" : "lots"}/per month.
-              </div>
+              <div className={styles.chartTitle}>{content.chartTitle}</div>
+              <div className={styles.chartSubtitle}>{chartSubtitleText}</div>
             </div>
             <button
               onClick={handleReset}
               className={styles.resetBtn}
               type="button"
             >
-              Reset
+              {content.reset}
             </button>
           </div>
 
@@ -523,27 +555,22 @@ export default function CostSavingsCalculatorInstrument({
           </div>
 
           <div className={styles.chartFootnote}>
-            Source:{" "}
+            {content.sourcePrefix}
             <a href="https://www.forexbenchmark.com" target="_blank">
-              <u>ForexBenchmark</u>
+              <u>{content.sourceLinkText}</u>
             </a>{" "}
-            - Previous 7 Days Range | {instrument.toUpperCase()} Pair | Incl.
-            Commissions + Spreads
+            {footnoteSuffixText}
           </div>
         </div>
 
         <div className="text-[14px] opacity-60 col-span-full">
           <p className="risk-warning-all">
-            Afterprime net cost figures include Flow Rewards™, applicable to
-            eligible client accounts on qualifying instruments. Flow Rewards™
-            rates may vary. See <a href="/get-paid-to-trade">Flow Rewards</a>{" "}
-            for full eligibility criteria.
+            {content.legal.part1}
+            <a href={localizeHref("/get-paid-to-trade", locale)}>{content.legal.linkText}</a>
+            {content.legal.part2}
             <br />
             <br />
-            Cost comparisons are based on third-party data and are for
-            informational purposes only. Trading involves significant risk of
-            loss. Individual trading costs will vary based on account type,
-            instrument, and market conditions.
+            {content.legal.part3}
           </p>
         </div>
       </div>

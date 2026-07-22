@@ -1,4 +1,5 @@
 import type { TranslationProvider } from "../engine";
+import { getWeglotCode } from "@/config/locales";
 
 // Concrete TranslationProvider implementation for the Weglot Translation
 // API. Verified wire format (confirmed against Weglot's own docs/llms-full.txt
@@ -36,6 +37,8 @@ export class WeglotProvider implements TranslationProvider {
       throw new Error("WEGLOT_API_KEY is not set");
     }
 
+    const weglotTarget = getWeglotCode(targetLocale);
+
     const chunks = chunkArray(strings, WEGLOT_MAX_BATCH_SIZE);
     const results: string[] = [];
 
@@ -45,7 +48,7 @@ export class WeglotProvider implements TranslationProvider {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           l_from: this.sourceLocale,
-          l_to: targetLocale,
+          l_to: weglotTarget,
           request_url: "https://afterprime.com/",
           words: chunk.map((w) => ({ w, t: 1 })),
         }),

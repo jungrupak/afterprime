@@ -5,6 +5,11 @@ import { useTodayDate } from "@/hooks/useTodayDate";
 import SwapCalculatorInline from "./SwapCalculatorInline";
 import Accordion from "@/utils/accordion/Accordion";
 import Link from "next/link";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { swapCalculatorInlineContent } from "./SwapCalculatorInlineContent";
+import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 //####
 type PageProps = {
@@ -14,14 +19,15 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps) {
   const { symbol } = await params;
+  const locale = await getRequestLocale();
   const instrymentData = await getSwapsData(symbol);
   if (!instrymentData) {
     return notFound();
   }
-  const canonicalUrl = `https://afterprime.com/swaps/${symbol}`;
+  const canonicalPath = `/swaps/${symbol}`;
+  const canonicalUrl = `https://afterprime.com${localizeHref(canonicalPath, locale)}`;
   return {
-    title: `${instrymentData.description} Swap Rate - Long & Short Overnight Fee
-`,
+    title: `${instrymentData.description} Swap Rate - Long & Short Overnight Fee`,
 
     description: `${instrymentData.symbol} swap rates at Afterprime:
               Long ${instrymentData.swapLong} ${instrymentData.currencyProfit}
@@ -29,6 +35,11 @@ export async function generateMetadata({ params }: PageProps) {
               per standard lot.`,
     alternates: {
       canonical: canonicalUrl,
+      languages: buildHreflangMap(symbol, canonicalPath),
+    },
+    openGraph: {
+      locale: toOgLocale(locale),
+      url: canonicalUrl,
     },
     robots: {
       index: true,
@@ -41,10 +52,16 @@ export async function generateMetadata({ params }: PageProps) {
 //####
 export default async function Page({ params }: PageProps) {
   const { symbol } = await params;
+  const locale = await getRequestLocale();
   const instrymentData = await getSwapsData(symbol);
   if (!instrymentData) {
     return notFound();
   }
+  const swapCalculatorInlineT = await getTranslatedStatic(
+    "swap-calculator-inline",
+    locale,
+    swapCalculatorInlineContent,
+  );
   const symbolName = instrymentData.symbol ?? undefined;
   const assetClass = instrymentData.path ?? undefined;
   const symbolCategory = assetClass.split("\\")[0];
@@ -184,6 +201,7 @@ export default async function Page({ params }: PageProps) {
             currencyProfit={currencyProfit}
             swapLong={swapLong}
             swapShort={swapShort}
+            content={swapCalculatorInlineT}
           />
 
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">

@@ -89,7 +89,7 @@ src/
 │   ├── layout.tsx
 │   └── globals.css
 ├── components/
-│   ├── ui/                  # Atomic: Button, Input, Badge, Card
+│   ├── ui/                  # Atomic: Button, Input, Badge, Card, LanguageSelector
 │   ├── charts/              # Chart.js / Recharts wrappers
 │   ├── sections/            # Page-level sections
 │   └── layout/              # Header, Footer, Sidebar, Nav
@@ -164,6 +164,50 @@ Used in: forex calculators, P&L dashboards, trading analytics
 - CF Pages: set via Cloudflare dashboard
 - Never hardcode secrets; never commit `.env` files
 - Use `NEXT_PUBLIC_` prefix only for truly public vars
+
+---
+
+## 🌐 Multilingual / i18n
+
+### Supported Locales
+
+| URL prefix | Language | Weglot code | Native name |
+|---|---|---|---|
+| `/` (no prefix) | English | en | English |
+| `/es` | Spanish | es | Español |
+| `/de` | German | de | Deutsch |
+| `/id` | Indonesian | id | Bahasa Indonesia |
+| `/zh` | Traditional Chinese | zh-TW | 繁體中文 |
+| `/cn` | Simplified Chinese | zh | 简体中文 |
+| `/tr` | Turkish | tr | Türkçe |
+| `/ar` | Arabic | ar | العربية |
+| `/ms` | Malay | ms | Bahasa Melayu |
+
+### Architecture
+
+- **Config:** `src/config/locales.ts` — single source of truth (`SUPPORTED_LOCALES`, `LOCALE_CONFIG`, `getWeglotCode()`)
+- **Middleware:** `src/proxy.ts` — strips locale prefix, sets `x-locale` header (rewrites, not redirects)
+- **Locale reading:** `src/lib/locale/getRequestLocale.ts` — reads `x-locale` header in Server Components
+- **Translation engine:** `src/lib/translation/` — walk → extract → Weglot translate → rehydrate → cache
+- **Content entry:** `getTranslatedPage(slug, locale)` for WP content, `getTranslatedStatic(key, locale, content)` for hardcoded UI strings
+- **Language selector:** `src/components/ui/LanguageSelector.tsx` — dropdown in header, globe + region code trigger
+- **English redirect:** `/en/*` → `/*` via 301 in `next.config.ts` (English always at root `/`)
+
+### URL prefix ≠ Weglot code
+
+Some locales have URL prefixes that differ from Weglot's language codes (e.g. `/zh` → `zh-TW`, `/cn` → `zh`). The `LOCALE_CONFIG` in `locales.ts` bridges this gap. Always use `getWeglotCode(locale)` when calling Weglot — never pass the URL prefix directly.
+
+### Adding a new locale
+
+1. Add to `SUPPORTED_LOCALES` array in `src/config/locales.ts`
+2. Add entry to `LOCALE_CONFIG` with Weglot code, label, native name, region code
+3. Remove any redirect rule for that prefix in `next.config.ts` if it exists
+4. Confirm Weglot supports the target language pair
+5. Done — no route files, components, or pipeline code change
+
+### Hardcoded UI strings in Client Components
+
+Client components (`"use client"`) can't call the translation pipeline. Extract strings to a colocated `*Content.ts` file, translate in the parent Server Component via `getTranslatedStatic()`, and pass as a `content` prop. Default to English in the client component so it works without the server wrapper.
 
 ---
 

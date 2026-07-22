@@ -4,10 +4,12 @@ import TypeformButton from "@/components/ui/typeForm";
 import SignupNowLink from "@/components/ui/SignupNowLink";
 import type { Blocks } from "@/types/blocks";
 import HeroUsp from "@/components/hero-usp/HeroUsp";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
 type HeroHomeProps = Blocks["hero-banner-home"];
 
-export function HeroHome(props: HeroHomeProps) {
+export async function HeroHome(props: HeroHomeProps) {
   const {
     hero_banner_home_banner_heading,
     hero_banner_home_banner_paragraph,
@@ -17,6 +19,15 @@ export function HeroHome(props: HeroHomeProps) {
     hero_banner_home_data_source_note,
   } = props;
 
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("hero-home", locale, {
+    headingFallback: "Afterprime Hero Banner Text",
+    buttonFallback: "Button",
+    getInviteCodeCta: "Get Invite Code",
+    signupNowPreText: "Have a code?",
+    signupNowLinkText: "Signup Now",
+  });
+
   return (
     <>
       <div className={`${styles.hero_home} h-screen max-md:h-[100%] relative`}>
@@ -25,7 +36,7 @@ export function HeroHome(props: HeroHomeProps) {
             <h1
               className={`${styles.heroHeading} h1-size flex lg:mb-[20px]! gap-20 justify-center text-center font-bold`}
             >
-              {hero_banner_home_banner_heading ?? "Afterprime Hero Banner Text"}
+              {hero_banner_home_banner_heading ?? t.headingFallback}
             </h1>
           </div>
           <div className={`${styles.heroBannerPara} max-md:px-5`}>
@@ -40,7 +51,11 @@ export function HeroHome(props: HeroHomeProps) {
             <div className="flex max-md:flex-col gap-4 items-center justify-center">
               <div className="flex max-md:flex-col items-center gap-5 mb-5 lg:mb-25 2xl:mb-5">
                 {hero_banner_home_is_type_form_cta === "1" ? (
-                  <TypeformButton buttonText="Get Invite Code" size="Regular" />
+                  <TypeformButton
+                    buttonText={t.getInviteCodeCta}
+                    signupNowText={t.signupNowLinkText}
+                    size="Regular"
+                  />
                 ) : (
                   <Btn
                     size="regular"
@@ -48,10 +63,13 @@ export function HeroHome(props: HeroHomeProps) {
                     isArrowVisible={true}
                     href={hero_banner_home_banner_btn_url ?? "#"}
                   >
-                    {hero_banner_home_banner_btn_text ?? "Button"}
+                    {hero_banner_home_banner_btn_text ?? t.buttonFallback}
                   </Btn>
                 )}
-                <SignupNowLink />
+                <SignupNowLink
+                  preText={t.signupNowPreText}
+                  linkText={t.signupNowLinkText}
+                />
               </div>
             </div>
           </div>

@@ -5,12 +5,18 @@ import FooterScripts from "@/components/FooterScripts";
 import HeadScripts from "@/components/HeaderScripts";
 import AfterprimeOrgSchema from "@/lib/schema/orgSchema";
 import ReactQueryProvider from "../providers/ReactQueryProvider";
+import { headerContent } from "@/components/header/headerContent";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
-export default function PagesLayout({
+export default async function PagesLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getRequestLocale();
+  const headerT = await getTranslatedStatic("header", locale, headerContent);
+
   return (
     <>
       <ReactQueryProvider>
@@ -19,7 +25,7 @@ export default function PagesLayout({
         <AfterprimeOrgSchema />
         {/* Head Scripts Ends */}
         <TypeformLoader />
-        <Header />
+        <Header content={headerT} />
         {children}
         {/* <BottomCards /> */}
         <Footer />

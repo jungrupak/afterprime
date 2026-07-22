@@ -2,125 +2,55 @@ import styles from "./Page.module.scss";
 import Lists from "@/utils/lists/Lists";
 import Card from "@/components/ui/Card";
 import Image from "next/image";
-import { getCalcPageData } from "@/data/getCalculatorPageData";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import { calculatorSchema } from "@/lib/schema/calculatorsPageSchema";
 import { CustomMetadata } from "@/utils/CustomMetadata";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { calculatorsPageContent } from "./pageContent";
 
 export async function generateMetadata() {
   const seoData = await CustomMetadata("calculators");
   return seoData;
 }
 
+type CalculatorsLandingJson = {
+  acf?: {
+    faq_section?: {
+      ssection_title?: string;
+      q_and_a?: { question?: string; answer?: string }[];
+    };
+  };
+};
+
 //Export Dynamic Page Title Tags Ends####
 
 //####
 export default async function Page() {
-  const pageData = await getCalcPageData("calculators");
+  const locale = await getRequestLocale();
+  const pageData = await getTranslatedPage<CalculatorsLandingJson>(
+    "calculators",
+    locale,
+  );
+  const t = await getTranslatedStatic(
+    "calculators-landing",
+    locale,
+    calculatorsPageContent,
+  );
+
   if (!pageData) {
-    return <div>Page content unavailable</div>;
+    return <div>{t.unavailable}</div>;
   }
   const faqSection = pageData?.acf?.faq_section;
 
   const sectionTitle = faqSection?.ssection_title;
   const faqData = faqSection?.q_and_a;
 
-  const cards = [
-    {
-      title: "Forex Trading Cost Savings Calculator",
-      paragraph:
-        "This tool lets you compare your monthly trading costs against top brokers and industry averages using verified spread and commission data. Compare your estimated savings per month and over 12 months.\n\nPrimary Use: This tool is built for traders who want clarity on pricing.",
-      button_url: "/calculators/cost-savings-calculator",
-    },
-    {
-      title: "Position Size Calculator",
-      paragraph:
-        "Calculate the optimal lot size for any trade based on your account balance, risk percentage, and stop-loss distance.\n\nPrimary Use: Determine how many lots to trade while staying within your risk limits",
-      button_url: "/calculators/position-size-calculator",
-    },
-    {
-      title: "Profit/Loss Calculator",
-      paragraph:
-        "See your potential profit and loss before entering a trade. Enter entry, stop-loss, and take-profit levels with position size.\n\nPrimary Use: Know exactly what you stand to gain or lose before committing capital. ",
-      button_url: "/calculators/profit-loss-calculator",
-    },
-    {
-      title: "Margin & Leverage Calculator",
-      paragraph:
-        "Calculate margin requirements and understand your leverage exposure. See how much capital is tied up and risk of margin call.\n\nPrimary Use: Ensure you have sufficient margin and understand your effective leverage ",
-      button_url: "/calculators/margin-calculator",
-    },
-    {
-      title: "Pip Value Calculator",
-      paragraph:
-        "Find the exact value of a pip for any instrument and position size. Supports forex pairs, commodities, and indices.\n\nPrimary Use: Know the dollar value of price movements before sizing positions.",
-      button_url: "/calculators/pip-value-calculator",
-    },
-    {
-      title: "Compound Growth Calculator",
-      paragraph:
-        "Project your account growth over time based on win rate, risk-reward ratio, and position sizing with compound returns.\n\nPrimary Use: Set realistic expectations and understand the power of consistent trading.",
-      button_url: "/calculators/compound-growth-calculator",
-    },
-    {
-      title: "Drawdown & Risk of Ruin Calculator",
-      paragraph:
-        "Calculate maximum expected drawdown, probability of losing streaks, and risk of ruin for your trading strategy.\n\nPrimary Use: Understand worst-case scenarios and ensure your strategy survives variance.",
-      button_url: "/calculators/drawdown-calculator/",
-    },
-    {
-      title: "Currency Converter",
-      paragraph:
-        "Convert between major currencies, crypto, and precious metals. Useful when your account currency differs from trading instruments.\n\nPrimary Use: Quick currency conversions for international trading and profit calculation.",
-      button_url: "/calculators/currency-converter/",
-    },
-    {
-      title: "Swap/Overnight Cost Calculator",
-      paragraph:
-        "Calculate the cost or credit of holding positions overnight. Estimate financing charges for swing trades and longer holds.\n\nPrimary Use: Factor overnight costs into multi-day trading strategies.",
-      button_url: "/calculators/swap-calculator/",
-    },
-    {
-      title: "Trading Calculator",
-      paragraph:
-        "This trading calculator helps you estimate outcomes before you open a position.\n\nPrimary Use: Make more grounded choices with data you can trust.",
-      button_url: "/calculators/trading-calculator",
-    },
-    {
-      title: "Compare Broker Costs",
-      paragraph:
-        "Compare broker costs with verified data. We track the all-in price: spread + commission + swap, across 10+ brokers, updated daily. Run the numbers before you open an account.\n\nPrimary Use: Compare Trading Costs",
-      button_url: "/vs",
-    },
-  ];
-
-  const listItems = [
-    `<b>Risk Management</b><br/>
-The difference between professional and amateur traders often comes down to risk management. Calculators help you determine exact position sizes, potential losses, and whether a trade fits your risk parameters.
-`,
-    `<b>Remove Emotion</b></br>
-When you calculate position size and potential loss before entering, you've already accepted the risk. This removes the emotional decision-making that causes many traders to move stops or overtrade.
-`,
-    `<b>Consistency</b></br>
-Using the same calculation process for every trade creates consistency. Whether the market is trending or ranging, your risk remains controlled.
-`,
-    `<b>Efficiency</b></br>
-Mental math under pressure leads to errors. Let calculators handle the numbers so you can focus on analysis and execution.
-`,
-  ];
-
-  const listBeforeTrade = [
-    `Use the <b>Pip Value Calculator</b> to understand movement value`,
-    `Use the <b>Position Size Calculator</b> to determine lot size`,
-    `Use the <b>Profit/Loss Calculator</b> to preview outcomes`,
-    `Use the <b>Margin Calculator</b> to ensure sufficient capital
-`,
-  ];
-  const listStrategyPlanning = [
-    `Use the <b>Compound Growth Calculator</b> to set realistic goals`,
-    `Use the <b>Drawdown Calculator</b> to stress-test your approach`,
-    `Use the <b>Swap Calculator</b> for overnight hold strategies`,
-  ];
+  const cards = t.cards;
+  const listItems = t.listItems;
+  const listBeforeTrade = t.listBeforeTrade;
+  const listStrategyPlanning = t.listStrategyPlanning;
 
   return (
     <>
@@ -131,16 +61,17 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
         <div className="ap_container_small flex items-center h-full">
           <div className="apBannerContent md:max-w-[800px]">
             <h1 className="h1-size mt-10 lg:mt-15 ">
-              <span className="font-[600]">Trading Calculators</span>
+              <span className="font-[600]">{t.heroTitle}</span>
             </h1>
             <div
               className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
               style={{ fontWeight: "300" }}
             >
-              Free tools to help you trade smarter. Calculate position sizes,
-              potential profits, margin requirements, and more - before you
-              click the button. Professional traders don't guess these numbers;
-              neither should you. <a href="/vs"><u>Compare broker costs</u></a> with verified data before you open an account.
+              {t.heroParagraphPre}{" "}
+              <a href="/vs">
+                <u>{t.heroCompareLinkText}</u>
+              </a>{" "}
+              {t.heroParagraphPost}
             </div>
           </div>
         </div>
@@ -182,12 +113,12 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
                 src={"/a-lone-trader-on-a-subway-ghost-in-the-studio.webp"}
                 width={600}
                 height={700}
-                alt="A lone Trader on a Subway"
+                alt={t.imageAlt}
                 className="aspect-auto"
               />
             </div>
             <div className="col-span-2 md:col-span-1 contetPart order-1">
-              <h2>Why Use Trading Calculators?</h2>
+              <h2>{t.whyUseHeading}</h2>
               <Lists bulletStyle="arrow_blue" items={listItems} />
             </div>
           </div>
@@ -204,19 +135,19 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
           <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 md:gap-15">
             <div>
               <h3 className={`text-[clamp(20px_,5vw_,34px)] font-semibold]`}>
-                Before the Trade
+                {t.beforeTheTradeHeading}
               </h3>
               <Lists bulletStyle="arrow" items={listBeforeTrade} />
             </div>
             <div>
               <h3 className={`text-[clamp(20px_,5vw_,34px)] font-semibold]`}>
-                For Strategy Planning
+                {t.strategyPlanningHeading}
               </h3>
               <Lists bulletStyle="arrow" items={listStrategyPlanning} />
             </div>
             <div>
               <h3 className={`text-[clamp(20px_,5vw_,34px)] font-semibold]`}>
-                For Account Management
+                {t.accountManagementHeading}
               </h3>
               <Lists bulletStyle="arrow" items={listBeforeTrade} />
             </div>
@@ -225,7 +156,7 @@ Mental math under pressure leads to errors. Let calculators handle the numbers s
       </section>
       {/* When to use calculator */}
 
-      <FaqCalc faqSubject={sectionTitle} data={faqData} />
+      <FaqCalc faqSubject={sectionTitle} data={faqData ?? []} />
 
       {/* //render data comparison schema */}
       {calculatorSchema && (

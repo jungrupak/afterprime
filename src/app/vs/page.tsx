@@ -1,16 +1,17 @@
 import InnerBanner from "@/components/blocks/inner-banner/InnerBanner";
 import styles from "./Page.module.scss";
-import { getPageDataBySlug } from "@/data/getPageDataBySlug";
 import { notFound } from "next/navigation";
 import CostComparison from "./comparison/CostComparison";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import Button from "@/components/ui/Button";
 import ImpactCards from "./impact-cards/ImpactCards";
-import { CustomMetadata } from "@/utils/CustomMetadata";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
+import { getTranslatedMetadata } from "@/lib/seo/metadata";
 
 export async function generateMetadata() {
-  const seoData = await CustomMetadata("vs");
-  return seoData;
+  const locale = await getRequestLocale();
+  return getTranslatedMetadata("vs", locale);
 }
 
 /* ----------------------------- */
@@ -21,7 +22,27 @@ type CostApiResponse = {
   secondBestVsAfterprimePct: number;
   top10VsAfterprimeAvgPct: number;
   industryVsAfterprimeAvgPct: number;
-  lastUpdated?: string; // optional if API provides it
+  lastUpdated?: string;
+};
+
+type VsPageJson = {
+  acf?: {
+    field_group?: {
+      hero_banner_title?: string;
+      hero_banner_paragraph?: string;
+      intro_paragraph?: string;
+      page_content?: string;
+    };
+    cta_block?: {
+      title?: string;
+      paragraph?: string;
+      button_url?: string;
+      button_text?: string;
+    };
+    faq_section?: {
+      q_and_a?: { question?: string; answer?: string }[];
+    };
+  };
 };
 
 /* ----------------------------- */
@@ -50,11 +71,10 @@ const fetchCostData = async (): Promise<CostApiResponse | null> => {
     }
 
     const data = (await res.json()) as CostApiResponse;
-
     return data;
   } catch (error) {
     console.error("Failed to fetch cost data:", error);
-    return null; // fail gracefully
+    return null;
   }
 };
 
@@ -63,9 +83,10 @@ const fetchCostData = async (): Promise<CostApiResponse | null> => {
 /* ----------------------------- */
 
 export default async function Page() {
-  // Parallel fetching (performance optimized)
+  const locale = await getRequestLocale();
+
   const [pageData, apiResponse] = await Promise.all([
-    getPageDataBySlug("vs"),
+    getTranslatedPage<VsPageJson>("vs", locale),
     fetchCostData(),
   ]);
 
@@ -86,7 +107,6 @@ export default async function Page() {
 
   const ctaBlockFields = pageData?.acf?.cta_block;
 
-  //FAQ Data
   const FAQ_DATA = pageData?.acf?.faq_section?.q_and_a;
 
   const lastUpdated =
@@ -99,12 +119,10 @@ export default async function Page() {
 
   return (
     <>
-      {/* Inner Banner */}
       <InnerBanner
         inner_banner_title={bannerHeading}
         inner_banner_paragraph={bannerSubheading}
       />
-      {/* Intro Block */}
       <section
         className={`${styles.sectionIntroBlockGeneric} py-[clamp(40px_,10vw_,60px)]! compact-section`}
       >
@@ -146,15 +164,11 @@ export default async function Page() {
           </div>
         </div>
       </section>
-      {/* Intro Block ends */}
-      {/* Comparison Directory */}
       <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
         <div className="ap_container_small">
           <CostComparison />
         </div>
       </section>
-      {/* Comparison Directory Ends */}
-      {/* Contents */}
       {pageContent && (
         <section className={`compact-section`}>
           <div className="ap_container_small">
@@ -165,13 +179,9 @@ export default async function Page() {
           </div>
         </section>
       )}
-      {/* Contents */}
 
-      {/* Impact Cards */}
       <ImpactCards />
-      {/* Impact Cards Ends */}
 
-      {/* CTA */}
       <section className={`compact-section`}>
         <div className="ap_container_small">
           <div
@@ -200,11 +210,8 @@ export default async function Page() {
           </div>
         </div>
       </section>
-      {/* CTA Ends */}
 
-      {/* FAQ Block */}
-      <FaqCalc faqSubject="FAQ" data={FAQ_DATA} />
-      {/* FAQ Block Ends */}
+      <FaqCalc faqSubject="FAQ" data={FAQ_DATA ?? []} />
     </>
   );
 }

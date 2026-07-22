@@ -1,5 +1,8 @@
 import GoogleReviewBadge from "../ui/GoogleReviewBadge";
 import styles from "./HeroUsp.module.scss";
+import { heroUspContent } from "./heroUspContent";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
 const DynamicData = async () => {
   try {
@@ -22,6 +25,9 @@ export default async function HeroUsp({ text }: { text: string }) {
   const top10Saving = Math.round(top10VsAfterprimeAvgPct ?? 0);
   const averageVsInds = Math.round(industryVsAfterprimeAvgPct ?? 0);
 
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("hero-usp", locale, heroUspContent);
+
   return (
     <>
       <div
@@ -31,25 +37,25 @@ export default async function HeroUsp({ text }: { text: string }) {
           className={`${styles.HeroUps} ap_container_small py-8 md:pt-6 md:pb-15 flex-col flex-wrap flex md:flex-row items-center justify-center gap-y-5 gap-x-5 lg:gap-x-12 px-5 mx:px-0`}
         >
           <div className={`${styles.upsItem}`}>
-            <div className={`${styles.value}`}>#1</div>
+            <div className={`${styles.value}`}>{t.rank}</div>
             <div className={`${styles.descp}`}>
-              Lowest All-in Costs Worldwide.
+              {t.lowestCostLine1}
               <br />
-              Independently Benchmarked.
+              {t.lowestCostLine2}
             </div>
           </div>
           <div className={`${styles.upsItem}`}>
             <div className={`${styles.value}`}>{top10Saving}%</div>
             <div className={`${styles.descp}`}>
-              Lower Cost vs <br />
-              Top 10 Average
+              {t.vsTop10Line1} <br />
+              {t.vsTop10Line2}
             </div>
           </div>
           <div className={`${styles.upsItem}`}>
             <div className={`${styles.value}`}>{averageVsInds}%</div>
             <div className={`${styles.descp}`}>
-              Lower Cost vs <br />
-              Industry Average
+              {t.vsIndustryLine1} <br />
+              {t.vsIndustryLine2}
             </div>
           </div>
           <div className={`hero-usp-badge`}>
@@ -60,7 +66,7 @@ export default async function HeroUsp({ text }: { text: string }) {
             //style={{ opacity: note ? "0.55" : "0" }}
           >
             {text}. {""}
-            (Afterprime Ltd is a licensed CFD Broker - FSA #SD057)
+            {t.licenseNote}
           </p>
         </div>
       </div>

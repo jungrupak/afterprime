@@ -7,13 +7,22 @@ import Link from "next/link";
 import { Loader } from "../Loading/Loading";
 import { Disconnected } from "../disconnected/Disconnected";
 import { Retrying } from "../retrying/Retry";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
+import type { LivePricingContent } from "./livePricingContent";
+import { livePricingContent } from "./livePricingContent";
 
 interface LivePricingAllProps {
   initialPrices?: PricesObjects[];
+  content?: LivePricingContent;
 }
 
-export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
+export function LivePricingAll({
+  initialPrices = [],
+  content: c = livePricingContent,
+}: LivePricingAllProps) {
   const { categories, status } = useLivePrices(initialPrices);
+  const locale = useLocale();
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
 
@@ -46,14 +55,14 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
     <div>
       <div className="w-full text-center px-6">
         <h2 className="h2-size mb-6">
-          Beyond Zero-Commission, <span>Get Paid to Trade.</span>
+          {c.headingBefore}
+          <span>{c.headingHighlight}</span>
+          {c.headingAfter}
         </h2>
-        <p className="paragraph mb-20 max-md:mb-10 opacity-90">
-          Most brokers hide their profit in the spread. We do the opposite. We
-          combine the industry’s tightest raw spreads with Flow Rewards
-          <sup>TM</sup> paying you up to $3/lot back on your volume. We don't
-          just lower your costs; we turn your execution into a revenue stream.
-        </p>
+        <p
+          className="paragraph mb-20 max-md:mb-10 opacity-90"
+          dangerouslySetInnerHTML={{ __html: c.description }}
+        />
       </div>
 
       {status === "connecting" && !hasInitialTableData && <Loader />}
@@ -81,26 +90,23 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
                 className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}
               >
                 <table className="">
-                  <caption className={`hidden`}>
-                    Beyond Zero-Commission, Get Paid to Trade. Popular
-                    Instruments, Forex, Crypto, Commodities, Metals, Indices
-                  </caption>
+                  <caption className={`hidden`}>{c.caption}</caption>
                   <thead>
                     <tr className="">
                       <th scope="col" className="px-4 py-2">
-                        Symbol
+                        {c.tableHeaders.symbol}
                       </th>
                       <th scope="col" className="px-4 py-2">
-                        Bid Price
+                        {c.tableHeaders.bid}
                       </th>
                       <th scope="col" className="px-4 py-2">
-                        Ask Price
+                        {c.tableHeaders.ask}
                       </th>
                       <th scope="col" className="px-4 py-2">
-                        Spread (Pips)
+                        {c.tableHeaders.spread}
                       </th>
                       <th scope="col" className="px-4 py-2">
-                        Market Hours
+                        {c.tableHeaders.marketHours}
                       </th>
                     </tr>
                   </thead>
@@ -129,7 +135,7 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
                                 />
                               </div>
                               <a
-                                href={"/forex/" + item.symbol.toLowerCase()}
+                                href={localizeHref("/forex/" + item.symbol.toLowerCase(), locale)}
                                 className={`underline decoration-dotted decoration-2 underline-offset-4`}
                               >
                                 {item.symbol}
@@ -149,7 +155,7 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
                               </div>
                               {item.symbol === "XAUUSD" ? (
                                 <a
-                                  href="/trade/xauusd"
+                                  href={localizeHref("/trade/xauusd", locale)}
                                   className={`underline decoration-dotted decoration-2 underline-offset-4`}
                                 >
                                   {item.symbol}
@@ -170,7 +176,7 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
                               </div>
                               {item.symbol === "XAUUSD" ? (
                                 <a
-                                  href="/trade/xauusd"
+                                  href={localizeHref("/trade/xauusd", locale)}
                                   className={`underline decoration-dotted decoration-2 underline-offset-4`}
                                 >
                                   {item.symbol}
@@ -195,12 +201,12 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
                             className={`flex md:justify-end text-[16px] items-center`}
                           >
                             <Link
-                              href={
-                                "/trading-hours/" + item.symbol.toLowerCase()
-                              }
+                              href={localizeHref(
+                                "/trading-hours/" + item.symbol.toLowerCase(), locale
+                              )}
                             >
                               <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
-                                Trading Hours
+                                {c.tableHeaders.tradingHoursLink}
                               </span>
                             </Link>
                           </div>
@@ -213,11 +219,11 @@ export function LivePricingAll({ initialPrices = [] }: LivePricingAllProps) {
             )}
           </div>
           <p className="opacity-80 mt-5">
-            Ready to compare?{" "}
-            <Link href="/calculators/cost-savings-calculator">
-              <u>Calculate your trading costs</u>
-            </Link>{" "}
-            across your typical trading volume to see the total savings.
+            {c.readyToCompare.split(c.readyToCompareLinkText)[0]}
+            <Link href={localizeHref("/calculators/cost-savings-calculator", locale)}>
+              <u>{c.readyToCompareLinkText}</u>
+            </Link>
+            {c.readyToCompare.split(c.readyToCompareLinkText)[1]}
           </p>
         </div>
       )}

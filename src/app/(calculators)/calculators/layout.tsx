@@ -6,6 +6,9 @@ import FooterScripts from "@/components/FooterScripts";
 import HeadScripts from "@/components/HeaderScripts";
 import AfterprimeOrgSchema from "@/lib/schema/orgSchema";
 import ReactQueryProvider from "@/app/providers/ReactQueryProvider";
+import { headerContent } from "@/components/header/headerContent";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://afterprime.com"),
@@ -52,11 +55,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagesLayout({
+export default async function PagesLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getRequestLocale();
+  const headerT = await getTranslatedStatic("header", locale, headerContent);
+
   return (
     <main className={`compact-section-ui`}>
       <ReactQueryProvider>
@@ -65,7 +71,7 @@ export default function PagesLayout({
         <AfterprimeOrgSchema />
         {/* Head Scripts Ends */}
         <TypeformLoader />
-        <Header />
+        <Header content={headerT} />
         {children}
         <Footer />
         {/* Footer Scripts */}

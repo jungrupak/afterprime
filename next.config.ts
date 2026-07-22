@@ -69,19 +69,16 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
-        { source: '/id/:path*', destination: '/', permanent: true },
+        { source: '/en/:path*', destination: '/:path*', permanent: true },
+        { source: '/en', destination: '/', permanent: true },
+        { source: '/en/', destination: '/', permanent: true },
         { source: '/pt/:path*', destination: '/', permanent: true },
         { source: '/vi/:path*', destination: '/', permanent: true },
         { source: '/sd/:path*', destination: '/', permanent: true },
-        { source: '/ar/:path*', destination: '/', permanent: true },
-        { source: '/de/:path*', destination: '/', permanent: true },
         { source: '/stocks/:path*', destination: '/', permanent: true },
-        { source: '/id/', destination: '/', permanent: true },
         { source: '/pt/', destination: '/', permanent: true },
         { source: '/vi/', destination: '/', permanent: true },
         { source: '/sd/', destination: '/', permanent: true },
-        { source: '/ar/', destination: '/', permanent: true },
-        { source: '/de/', destination: '/', permanent: true },
         { source: '/stocks', destination: '/', permanent: true },
         { source: '/home', destination: '/', permanent: true },
         { source: '/home-page', destination: '/', permanent: true },

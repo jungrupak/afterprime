@@ -2,6 +2,9 @@ import Tab, { TabItem } from "@/components/ui/Tab";
 import style from "./style.module.scss";
 import { Blocks } from "@/types/blocks";
 import Link from "next/link";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
+import { DEFAULT_LOCALE } from "@/config/locales";
 
 type SectionPropsHead = Blocks["rebate-table"];
 
@@ -113,15 +116,15 @@ async function getRebates(): Promise<{
   }
 }
 
-function renderSymbolCell(row: RebateRow, linkSymbols?: boolean) {
+function renderSymbolCell(row: RebateRow, linkSymbols?: boolean, locale: string = DEFAULT_LOCALE) {
   if (!linkSymbols) {
     return row.symbol;
   }
 
-  return <Link href={`/trade/${row.symbol.toLowerCase()}`}>{row.symbol}</Link>;
+  return <Link href={localizeHref(`/trade/${row.symbol.toLowerCase()}`, locale)}>{row.symbol}</Link>;
 }
 
-function renderTable(rows: RebateRow[], linkSymbols?: boolean) {
+function renderTable(rows: RebateRow[], linkSymbols?: boolean, locale: string = DEFAULT_LOCALE) {
   return (
     <div className="genericTable overflow-x-auto">
       <table>
@@ -162,7 +165,7 @@ function renderTable(rows: RebateRow[], linkSymbols?: boolean) {
         <tbody>
           {rows.map((row) => (
             <tr key={`${row.product}-${row.symbol}`}>
-              <td>{renderSymbolCell(row, linkSymbols)}</td>
+              <td>{renderSymbolCell(row, linkSymbols, locale)}</td>
               <td
                 style={{
                   backgroundColor: "rgb(67, 59, 249)",
@@ -188,7 +191,7 @@ function renderTable(rows: RebateRow[], linkSymbols?: boolean) {
       <p className={`mt-5`}>
         <Link
           style={{ textDecoration: "underline" }}
-          href={`/calculators/cost-savings-calculator`}
+          href={localizeHref(`/calculators/cost-savings-calculator`, locale)}
         >
           Calculate your savings
         </Link>{" "}
@@ -204,6 +207,7 @@ export async function TableDataRewardFlow({
 }: SectionPropsHead) {
   const { categories, error } = await getRebates();
   const placeholderText = "Flow Rewards: Expanding soon";
+  const locale = await getRequestLocale();
 
   return (
     <section className="compact-section">
@@ -221,7 +225,7 @@ export async function TableDataRewardFlow({
               {error ? (
                 <p className="text-red-500">{error}</p>
               ) : rows.length > 0 ? (
-                renderTable(rows, linkSymbols)
+                renderTable(rows, linkSymbols, locale)
               ) : (
                 <p>{placeholderText}</p>
               )}

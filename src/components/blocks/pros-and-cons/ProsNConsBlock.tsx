@@ -15,8 +15,8 @@ export function ProsNConsBlock({
   pros_and_cons_pros_title_pros_or_advantages,
   pros_and_cons_cons_title_cons_or_disadvantages,
   pros_and_cons,
-  pros_and_cons_pros_title_title,
-  pros_and_cons_cons_title_title,
+  pros_and_cons_pros_title_title = "Designed For:",
+  pros_and_cons_cons_title_title = "Not Designed For:",
   pros_and_cons_is_boxed,
   ...restProps
 }: ProsNConsProps) {
@@ -112,14 +112,14 @@ export function ProsNConsBlock({
           <div>
             {/* Pros */}
             <div className="mb-16">
-              <h3 className="font-bold text-[18px] mb-8">Designed For:</h3>
+              <h3 className="font-bold text-[18px] mb-8">{pros_and_cons_pros_title_title}</h3>
               <Lists listItems={ProstLists} bulletVarient="arrow-blue" />
             </div>
             {/* Ends */}
 
             {/* Cons */}
             <div>
-              <h3 className="font-bold text-[18px] mb-8">Not Designed For:</h3>
+              <h3 className="font-bold text-[18px] mb-8">{pros_and_cons_cons_title_title}</h3>
               <Lists listItems={ConsLists} bulletVarient="arrow-red" />
             </div>
             {/* Cons Ends */}

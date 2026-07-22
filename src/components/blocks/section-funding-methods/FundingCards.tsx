@@ -1,9 +1,11 @@
 import type { Blocks } from "@/types/blocks";
 import styles from "./FundingCards.module.scss";
 import Image from "next/image";
-import { DepositCardData, WithdrawCardData } from "@/utils/FundingCardJson";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
+import { fundingCardsContent } from "./fundingCardsContent";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
 type FundingCardsProps = Blocks["funding-card-lists"];
 
@@ -17,7 +19,7 @@ type FundingCard = FundingCardsProps & {
   }[];
 };
 
-export function SectionFundingCards({
+export async function SectionFundingCards({
   funding_cards_section_section_title,
   funding_cards_section_section_paragraph,
   funding_cards_section_select_method_type,
@@ -30,8 +32,14 @@ export function SectionFundingCards({
   const sectionParagraph = funding_cards_section_section_paragraph ?? "";
   const selectCategory = funding_cards_section_select_method_type ?? "";
 
-  const cards = DepositCardData();
-  const wthDrawCards = WithdrawCardData();
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic(
+    "funding-cards",
+    locale,
+    fundingCardsContent,
+  );
+  const cards = t.depositCards;
+  const wthDrawCards = t.withdrawCards;
 
   /////
   return (
@@ -66,7 +74,9 @@ export function SectionFundingCards({
                 <div className="mt-5 text-[28px] font-[700]">
                   {card.method_name}
                 </div>
-                <div className="db mt-5 opacity-68">Accepted Currencies:</div>
+                <div className="db mt-5 opacity-68">
+                  {t.labels.acceptedCurrencies}
+                </div>
                 <div
                   className={`flex gap-1 items-center mt-4 justify-center flex-wrap`}
                 >
@@ -76,15 +86,19 @@ export function SectionFundingCards({
                     </div>
                   ))}
                 </div>
-                <div className="db mt-8 opacity-68">Processing Time:</div>
-                <p className="mb-4">{card.processing_time} - Zero Fee</p>
+                <div className="db mt-8 opacity-68">
+                  {t.labels.processingTime}
+                </div>
+                <p className="mb-4">
+                  {card.processing_time} {t.labels.zeroFee}
+                </p>
                 <div className="mt-auto">
                   <Link
                     className="ap_button primaryGhost small"
                     href="https://app.afterprime.com/live"
                     target="_blank"
                   >
-                    Deposit Now
+                    {t.labels.depositNow}
                   </Link>
                 </div>
               </div>
@@ -106,7 +120,9 @@ export function SectionFundingCards({
                 <div className="mt-5 text-[28px] font-[700]">
                   {card.method_name}
                 </div>
-                <div className="db mt-5 opacity-68">Accepted Currencies:</div>
+                <div className="db mt-5 opacity-68">
+                  {t.labels.acceptedCurrencies}
+                </div>
                 <div
                   className={`flex gap-1 items-center mt-4 justify-center flex-wrap`}
                 >
@@ -116,15 +132,19 @@ export function SectionFundingCards({
                     </div>
                   ))}
                 </div>
-                <div className="db mt-8 opacity-68">Processing Time:</div>
-                <p className="mb-4">{card.processing_time} - Zero Fee</p>
+                <div className="db mt-8 opacity-68">
+                  {t.labels.processingTime}
+                </div>
+                <p className="mb-4">
+                  {card.processing_time} {t.labels.zeroFee}
+                </p>
                 <div className="mt-auto">
                   <Link
                     className="ap_button primaryGhost small"
                     href="https://app.afterprime.com/live"
                     target="_blank"
                   >
-                    Withdrawal
+                    {t.labels.withdrawal}
                   </Link>
                 </div>
               </div>

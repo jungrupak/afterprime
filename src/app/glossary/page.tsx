@@ -1,42 +1,46 @@
 import InnerBannerGeneric from "@/components/InnerBannerGeneric/InnerBannerGeneric";
-import { getPageDataBySlug } from "@/data/getPageDataBySlug";
 import styles from "./Page.module.scss";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import FaqSchema from "@/lib/schema/faqSchema";
 import { Metadata } from "next";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
+import { getTranslatedMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Forex Trading Glossary | Afterprime",
-  description:
-    "Master forex trading terminology with Afterprime's complete glossary. Definitions for spreads, leverage, pips, margin, and more — built for serious traders.",
-  alternates: {
-    canonical: "https://afterprime.com/glossary",
-  },
+type GlossaryIndexJson = {
+  acf?: {
+    inner_banner?: { hero_title?: string; hero_paragraph?: string };
+    reading_text_content?: string;
+    faq_section?: {
+      ssection_title?: string;
+      q_and_a?: { question?: string; answer?: string }[];
+    };
+  };
 };
 
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return getTranslatedMetadata("glossary", locale);
+}
+
 export default async function page() {
-  const pageData = await getPageDataBySlug("glossary");
+  const locale = await getRequestLocale();
+  const pageData = await getTranslatedPage<GlossaryIndexJson>("glossary", locale);
   if (!pageData) return null;
-  //Banner Content
+
   const Banner_CONTENT = {
-    heading: pageData?.acf?.inner_banner?.hero_title,
-    paragraph: pageData?.acf?.inner_banner?.hero_paragraph,
+    heading: pageData?.acf?.inner_banner?.hero_title ?? "",
+    paragraph: pageData?.acf?.inner_banner?.hero_paragraph ?? "",
   };
 
-  //Content
   const contents = pageData?.acf?.reading_text_content;
-
-  //FAQ Data
   const faqDataTitle = pageData?.acf?.faq_section?.ssection_title;
   const faqData = pageData?.acf?.faq_section?.q_and_a;
 
   return (
     <main>
-      {/* Banner Section */}
       <InnerBannerGeneric content={Banner_CONTENT} />
-      {/* Banner Section Ends */}
 
-      {/* How to use Cards */}
       <section
         className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection} compact-section`}
       >
@@ -48,7 +52,6 @@ export default async function page() {
               </h2>
             </div>
           </div>
-          {/* Cards */}
           <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-left mt-5 md:mt-10">
             <div className={`${styles.cardItem} ${styles.cardLarge}`}>
               <h3 className={`ml-0!`}>
@@ -92,16 +95,11 @@ export default async function page() {
               </p>
             </div>
           </div>
-          {/* Cards Ends */}
         </div>
       </section>
-      {/* How to use Cards ends */}
 
-      {/* ## */}
-      {/* INtro sectio */}
       <section className="compact-section">
         <div className="ap_container_small">
-          {/* Cards */}
           <div
             className="ap_cards_wrapper grid flex flex-col md:grid-cols-[repeat(auto-fit_,minmax(600px,1fr))] text-left! gap-6"
             style={{ whiteSpace: "pre-line" }}
@@ -114,16 +112,11 @@ export default async function page() {
               </div>
             </div>
           </div>
-          {/* Cards Ends */}
         </div>
       </section>
-      {/* INtro sectio Ends */}
-      {/* ## Ends */}
 
-      {/* FAQ  */}
-      <FaqCalc faqSubject={faqDataTitle} data={faqData} />
+      <FaqCalc faqSubject={faqDataTitle} data={faqData ?? []} />
       <FaqSchema pageSlug="glossary" />
-      {/* FAQ Ends */}
     </main>
   );
 }

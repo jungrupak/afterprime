@@ -21,11 +21,13 @@ interface ExtendedSliderOptions extends PopupOptions {
 
 interface TypeformButtonProps {
   buttonText?: string;
+  signupNowText?: string;
   size?: "Large" | "Regular" | "small" | "x-small";
 }
 
 const TypeformButton: React.FC<TypeformButtonProps> = ({
   buttonText = "Get Invite Code",
+  signupNowText = "Signup Now",
   size = "Regular",
 }) => {
   const formId = getSessionFormId();
@@ -81,7 +83,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
                   : ""
         } ${styles.primary}`}
       >
-        {bypassInvitation ? "Signup Now" : buttonText}
+        {bypassInvitation ? signupNowText : buttonText}
         <svg
           width="11"
           height="17"

@@ -10,6 +10,10 @@ import {
   getExchangeRate,
   currencySymbol as currencySymbolFor,
 } from "@/lib/instruments";
+import {
+  swapCalculatorContent,
+  type SwapCalculatorContent,
+} from "./SwapCalculatorContent";
 
 /* =======================
    TYPES
@@ -28,7 +32,13 @@ interface CalculationResult {
    COMPONENT
 ======================= */
 
-export default function SwapCalculator() {
+interface SwapCalculatorProps {
+  content?: SwapCalculatorContent;
+}
+
+export default function SwapCalculator({
+  content = swapCalculatorContent,
+}: SwapCalculatorProps) {
   const {
     allIsntruments,
     loading: instrumentsLoading,
@@ -146,14 +156,14 @@ export default function SwapCalculator() {
   };
 
   if (loadingRates || instrumentsLoading || !result) {
-    return <p>Loading calculator..</p>;
+    return <p>{content.loadingCalculator}</p>;
   }
 
   if (instrumentsError || Object.keys(instrumentMap).length === 0) {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
-          <p>Unable to load instruments, please refresh.</p>
+          <p>{content.instrumentsError}</p>
         </div>
       </div>
     );
@@ -164,12 +174,16 @@ export default function SwapCalculator() {
 
   const rates = { long: config.swapLong, short: config.swapShort };
 
+  const swapPeriodText = content.swapPeriodTemplate
+    .replace("{days}", String(daysHeld))
+    .replace("{plural}", daysHeld > 1 ? "s" : "");
+
   return (
     <div className={styles.calculator}>
       <div className={styles.body}>
         <div className={styles.inputs}>
           <div className={styles.inputGroup}>
-            <label htmlFor="swc-instrument">Instrument</label>
+            <label htmlFor="swc-instrument">{content.instrumentLabel}</label>
             <select
               id="swc-instrument"
               value={instrument}
@@ -190,7 +204,9 @@ export default function SwapCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="swc-direction">Position Direction</label>
+            <label htmlFor="swc-direction">
+              {content.positionDirectionLabel}
+            </label>
             <div className={styles.directionToggle}>
               <button
                 type="button"
@@ -198,7 +214,7 @@ export default function SwapCalculator() {
                 data-direction="long"
                 onClick={() => setDirection("long")}
               >
-                <span className={styles.dirIcon}>↑</span> Long (Buy)
+                <span className={styles.dirIcon}>↑</span> {content.directionLong}
               </button>
               <button
                 type="button"
@@ -206,13 +222,15 @@ export default function SwapCalculator() {
                 data-direction="short"
                 onClick={() => setDirection("short")}
               >
-                <span className={styles.dirIcon}>↓</span> Short (Sell)
+                <span className={styles.dirIcon}>↓</span> {content.directionShort}
               </button>
             </div>
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="swc-position-size">Position Size</label>
+            <label htmlFor="swc-position-size">
+              {content.positionSizeLabel}
+            </label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -229,15 +247,15 @@ export default function SwapCalculator() {
                 value={lotType}
                 onChange={(e) => setLotType(e.target.value)}
               >
-                <option value="standard">Standard Lots</option>
-                <option value="mini">Mini Lots</option>
-                <option value="micro">Micro Lots</option>
+                <option value="standard">{content.unitStandardLots}</option>
+                <option value="mini">{content.unitMiniLots}</option>
+                <option value="micro">{content.unitMicroLots}</option>
               </select>
             </div>
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="swc-days-held">Days Held</label>
+            <label htmlFor="swc-days-held">{content.daysHeldLabel}</label>
             <div className={styles.inputWrapper}>
               <input
                 type="number"
@@ -248,7 +266,7 @@ export default function SwapCalculator() {
                 max="365"
                 step="1"
               />
-              <span className={styles.suffix}>nights</span>
+              <span className={styles.suffix}>{content.nightsSuffix}</span>
             </div>
             <div className={styles.quickDays}>
               {[1, 5, 7, 30, 90].map((days) => (
@@ -264,7 +282,9 @@ export default function SwapCalculator() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="swc-account-currency">Account Currency</label>
+            <label htmlFor="swc-account-currency">
+              {content.accountCurrencyLabel}
+            </label>
             <select
               id="swc-account-currency"
               value={accountCurrency}
@@ -283,55 +303,65 @@ export default function SwapCalculator() {
             className={`${styles.resultPrimary} ${result.isCredit ? styles.credit : ""}`}
           >
             <span className={styles.resultType}>
-              {result.isCredit ? "Swap Credit" : "Swap Cost"}
+              {result.isCredit ? content.swapCredit : content.swapCost}
             </span>
             <span className={styles.resultValue}>
               {result.isCredit ? "+" : "-"}$
               {Math.abs(result.totalSwap).toFixed(2)}
             </span>
-            <span className={styles.resultPeriod}>
-              for {daysHeld} night{daysHeld > 1 ? "s" : ""}
-            </span>
+            <span className={styles.resultPeriod}>{swapPeriodText}</span>
           </div>
 
           <div className={styles.statsGrid}>
             <div className={styles.statCard}>
-              <span className={styles.statLabel}>Daily Swap</span>
+              <span className={styles.statLabel}>
+                {content.dailySwapLabel}
+              </span>
               <span className={styles.statValue}>
                 {formatSwap(result.dailySwap)}
               </span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statLabel}>Weekly Swap</span>
+              <span className={styles.statLabel}>
+                {content.weeklySwapLabel}
+              </span>
               <span className={styles.statValue}>
                 {formatSwap(result.weeklySwap)}
               </span>
-              <span className={styles.statNote}>includes triple Wednesday</span>
+              <span className={styles.statNote}>
+                {content.weeklySwapNote}
+              </span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statLabel}>Monthly Swap</span>
+              <span className={styles.statLabel}>
+                {content.monthlySwapLabel}
+              </span>
               <span className={styles.statValue}>
                 {formatSwap(result.monthlySwap)}
               </span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statLabel}>Annual Rate</span>
+              <span className={styles.statLabel}>
+                {content.annualRateLabel}
+              </span>
               <span className={styles.statValue}>
                 {result.annualRate >= 0 ? "+" : ""}
                 {result.annualRate.toFixed(2)}%
               </span>
-              <span className={styles.statNote}>of position value</span>
+              <span className={styles.statNote}>{content.annualRateNote}</span>
             </div>
           </div>
 
           <div className={styles.ratesSection}>
-            <h3 className={styles.sectionTitle}>Current Swap Rates</h3>
-            <p className={styles.ratesNote}>
-              Points per standard lot per night (indicative)
-            </p>
+            <h3 className={styles.sectionTitle}>
+              {content.currentSwapRatesTitle}
+            </h3>
+            <p className={styles.ratesNote}>{content.ratesNote}</p>
             <div className={styles.ratesRow}>
               <div className={`${styles.rateItem} ${styles.rateLong}`}>
-                <span className={styles.rateLabel}>Long Swap</span>
+                <span className={styles.rateLabel}>
+                  {content.longSwapLabel}
+                </span>
                 <span
                   className={styles.rateValue}
                   style={{ color: rates.long >= 0 ? "#22c55e" : "#ef4444" }}
@@ -341,7 +371,9 @@ export default function SwapCalculator() {
                 </span>
               </div>
               <div className={`${styles.rateItem} ${styles.rateShort}`}>
-                <span className={styles.rateLabel}>Short Swap</span>
+                <span className={styles.rateLabel}>
+                  {content.shortSwapLabel}
+                </span>
                 <span
                   className={styles.rateValue}
                   style={{ color: rates.short >= 0 ? "#22c55e" : "#ef4444" }}
@@ -355,47 +387,36 @@ export default function SwapCalculator() {
         </div>
       </div>
       <div className={`${styles.infoSection} mt-5`}>
-        <h3 className={styles.sectionTitle}>Understanding Swaps</h3>
+        <h3 className={styles.sectionTitle}>
+          {content.understandingSwapsTitle}
+        </h3>
         <div className={styles.infoGrid}>
           <div className={styles.infoItem}>
             <span className={styles.infoIcon}>📅</span>
             <div className={styles.infoContent}>
-              <strong>Triple Wednesday</strong>
-              <p>
-                Swaps are charged 3x on Wednesday to account for weekend
-                settlement.
-              </p>
+              <strong>{content.tripleWednesdayTitle}</strong>
+              <p>{content.tripleWednesdayText}</p>
             </div>
           </div>
           <div className={styles.infoItem}>
             <span className={styles.infoIcon}>⏰</span>
             <div className={styles.infoContent}>
-              <strong>Rollover Time</strong>
-              <p>
-                Swaps are typically charged at 5 PM New York time (server
-                rollover).
-              </p>
+              <strong>{content.rolloverTimeTitle}</strong>
+              <p>{content.rolloverTimeText}</p>
             </div>
           </div>
           <div className={styles.infoItem}>
             <span className={styles.infoIcon}>💱</span>
             <div className={styles.infoContent}>
-              <strong>Interest Rate Differential</strong>
-              <p>
-                Swaps reflect the difference between the two currencies&apos;
-                interest rates.
-              </p>
+              <strong>{content.interestRateDifferentialTitle}</strong>
+              <p>{content.interestRateDifferentialText}</p>
             </div>
           </div>
         </div>
       </div>
 
       <div className={`${styles.disclaimer} mt-5`}>
-        <p>
-          ⚠️ Swap rates are indicative and vary by broker. Actual rates depend
-          on your broker&apos;s liquidity providers and may change daily. Always
-          verify with your broker before holding positions overnight.
-        </p>
+        <p>⚠️ {content.disclaimerText}</p>
       </div>
     </div>
   );

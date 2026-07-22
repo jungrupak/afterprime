@@ -10,6 +10,9 @@ import { BottomCta } from "@/components/acfFieldGroups/bottom-cta/BottomCta";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import type { InstrumentData } from "@/types/instruments";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 function tradingDaysText(data: InstrumentData): string {
   if (data.is24_7) return "24 hours a day, 7 days a week";
@@ -129,14 +132,23 @@ type Props = { params: Promise<{ symbol: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { symbol } = await params;
+  const locale = await getRequestLocale();
   const data = await getTradingHoursData(symbol);
   if (!data) return { title: "Trading Hours | Afterprime" };
+
+  const canonicalPath = `/trading-hours/${symbol}`;
+  const canonicalUrl = `https://afterprime.com${localizeHref(canonicalPath, locale)}`;
 
   return {
     title: `${displaySym(data.symbol)} Trading Hours: Open & Close Times | Afterprime`,
     description: `${data.description} trading hours at Afterprime - session open/close times, pre-market, extended hours, and weekend status.`,
     alternates: {
-      canonical: `https://afterprime.com/trading-hours/${symbol}`,
+      canonical: canonicalUrl,
+      languages: buildHreflangMap(symbol, canonicalPath),
+    },
+    openGraph: {
+      locale: toOgLocale(locale),
+      url: canonicalUrl,
     },
   };
 }

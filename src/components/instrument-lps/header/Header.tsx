@@ -4,10 +4,13 @@ import Image from "next/image";
 import styles from "./style.module.scss";
 import { useEffect, useState } from "react";
 import TypeformButton from "../typeform-btn/typeForm";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const locale = useLocale();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +34,7 @@ export default function Header() {
         >
           {/* Logo */}
           <div className={`${styles.ap_logo}`}>
-            <Link href="/">
+            <Link href={localizeHref("/", locale)}>
               <Image
                 src="/img/logo-main.svg"
                 alt="Afterprime Logo"

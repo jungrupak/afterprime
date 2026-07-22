@@ -9,6 +9,10 @@ import { useInstrument } from "@/hooks/useInstruments";
 import { getUSDRates } from "@/lib/getUsdRate";
 import ProgressLoader from "../ui/ProgressLoader";
 import SuggestionInput from "../ui/suggestionInput/SuggestionInput";
+import {
+  tradingProfitCalculatorContent,
+  type TradingProfitCalculatorContent,
+} from "./tradingProfitCalculatorContent";
 
 interface Price {
   bidPrice: string;
@@ -33,9 +37,13 @@ interface Results {
 
 interface Props {
   selectedInstrument?: string;
+  content?: TradingProfitCalculatorContent;
 }
 
-export default function TradingCalculator({ selectedInstrument }: Props) {
+export default function TradingCalculator({
+  selectedInstrument,
+  content = tradingProfitCalculatorContent,
+}: Props) {
   //#### loader
   const [loading, setLoading] = useState(true);
 
@@ -406,9 +414,9 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
         {/* Caclulator room */}
         <div className="col-span-6 md:col-span-6 lg:col-span-3">
           <h3 className="text-[18px] font-[600]">
-            Trade Settings :{" "}
+            {content.tradeSettingsHeading}{" "}
             <span className="opacity-65 font-[300]">
-              Plan your margin, spread cost, and swaps
+              {content.tradeSettingsSubtitleTrading}
             </span>
           </h3>
           {/* Display Exchange Rates */}
@@ -417,7 +425,9 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
             className={`${styles.inputWrapper} grid grid-cols-8 gap-5 mt-10`}
           >
             <div className="md:col-span-2 col-span-4 !z-4">
-              <span className="opacity-60 mb-3 block">Account Currency</span>
+              <span className="opacity-60 mb-3 block">
+                {content.accountCurrencyLabel}
+              </span>
               <Dropdown
                 label={trade.accountCurrency}
                 options={accountCurrencies}
@@ -428,7 +438,9 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
               />
             </div>
             <div className="md:col-span-3 col-span-4 !z-2">
-              <span className="opacity-60 mb-3 block">Instrument</span>
+              <span className="opacity-60 mb-3 block">
+                {content.instrumentLabel}
+              </span>
               <SuggestionInput
                 label={trade.selectedInstrument}
                 options={symbolArray}
@@ -447,7 +459,9 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
               />
             </div>
             <div className="md:col-span-3 col-span-4 !z-2">
-              <span className="opacity-60 mb-3 block">Leverage</span>
+              <span className="opacity-60 mb-3 block">
+                {content.leverageLabel}
+              </span>
               <Dropdown
                 //isDisabled={true}
                 label={trade.leverage}
@@ -459,9 +473,12 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
             </div>
             <div className="md:col-span-2 col-span-4">
               <span className="opacity-60 mb-3 block">
-                Lot Size{" "}
+                {content.lotSizeLabel}{" "}
                 <span className="text-[10px]">
-                  Min Lot: {result.minLotSize}
+                  {content.minLotLabel.replace(
+                    "{value}",
+                    String(result.minLotSize),
+                  )}
                 </span>
               </span>
               <Input
@@ -484,16 +501,14 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
                   } else {
                     setError((prev) => ({
                       ...prev,
-                      inputErrorLot:
-                        "Please enter a lot size greater than or equal to the minimum allowed.",
+                      inputErrorLot: content.lotSizeMinError,
                     }));
                   }
 
                   if (Number(value) < result.minLotStep) {
                     setError((prev) => ({
                       ...prev,
-                      inputErrorLot:
-                        "Please enter a lot size greater than or equal to the minimum allowed.",
+                      inputErrorLot: content.lotSizeMinError,
                     }));
                   } else {
                     setError((prev) => ({
@@ -506,7 +521,9 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
               />
             </div>
             <div className="col-span-4 md:col-span-3">
-              <span className="opacity-60 mb-3 block">Bid Price</span>
+              <span className="opacity-60 mb-3 block">
+                {content.bidPriceLabel}
+              </span>
               <Input
                 type="number"
                 value={price.bidPrice}
@@ -516,7 +533,7 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
                   if (Number(value) < 0) {
                     setError((prev) => ({
                       ...prev,
-                      inputErrorBid: "Value cannot be negative",
+                      inputErrorBid: content.negativeValueError,
                     }));
                   } else {
                     setError((prev) => ({ ...prev, inputErrorBid: "" })); //clear error msg state
@@ -526,7 +543,9 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
               />
             </div>
             <div className="col-span-4 md:col-span-3">
-              <span className="opacity-60 mb-3 block">Ask Price</span>
+              <span className="opacity-60 mb-3 block">
+                {content.askPriceLabel}
+              </span>
               <Input
                 type="number"
                 value={price.askPrice}
@@ -536,7 +555,7 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
                   if (value < price.bidPrice) {
                     setError((prev) => ({
                       ...prev,
-                      inputErrorAsk: "Value cannot be less than bidPrice",
+                      inputErrorAsk: content.askLessThanBidError,
                     }));
                   } else {
                     setError((prev) => ({ ...prev, inputErrorAsk: "" })); //clear error msg state
@@ -565,7 +584,7 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
                   }
                 }}
               >
-                Calculate
+                {content.calculateButton}
               </Button>
 
               {/* This is for test preview of what data have been grabbed so far */}
@@ -596,16 +615,16 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
         {/* Result room */}
         <div className="col-span-6 md:col-span-6 lg:col-span-3 !z-0">
           <h3 className="text-[18px] font-[600]">
-            Results :{" "}
+            {content.resultsHeading}{" "}
             <span className="opacity-65 font-[300]">
-              based on your selected parameters
+              {content.resultsSubtitle}
             </span>
           </h3>
           <div className="grid grid-cols-12 gap-5 mt-10">
             {/*  */}
             <div className="col-span-6 md:col-span-4 order-1 md:order-1">
               <div className={`${styles.resultCard}`}>
-                <span>Margin Long</span>
+                <span>{content.marginLongLabel}</span>
                 <div className="flex items-center gap-1">
                   {loading ? <ProgressLoader /> : result.marginLong}{" "}
                   <span className="text-[14px] opacity-65">
@@ -618,7 +637,7 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
             {/*  */}
             <div className="col-span-6 md:col-span-4 order-2 md:order-2">
               <div className={`${styles.resultCard}`}>
-                <span>Margin Short</span>
+                <span>{content.marginShortLabel}</span>
                 <div className="flex items-center gap-1">
                   {loading ? <ProgressLoader /> : result.marginShort}{" "}
                   <span className="text-[14px] opacity-65">
@@ -631,7 +650,7 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
             {/*  */}
             <div className="col-span-6 md:col-span-4 order-3 md:order-3">
               <div className={`${styles.resultCard}`}>
-                <span>Contract Size</span>
+                <span>{content.contractSizeLabel}</span>
                 <div className="flex items-center gap-1">
                   {loading ? <ProgressLoader /> : result.contract}
                 </div>
@@ -641,14 +660,17 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
             {/*  */}
             <div className="col-span-12 md:col-span-6 order-5 md:order-4">
               <div className={`${styles.resultCard}`}>
-                <span>Spreads</span>
+                <span>{content.spreadsLabel}</span>
                 <div className="flex items-center gap-1">
                   {loading ? (
                     <ProgressLoader />
                   ) : (
                     formatNumber(result.spread, 1)
                   )}{" "}
-                  <span className="text-[14px] opacity-65">pips</span> /{" "}
+                  <span className="text-[14px] opacity-65">
+                    {content.pipsUnit}
+                  </span>{" "}
+                  /{" "}
                   {loading ? (
                     <ProgressLoader />
                   ) : (
@@ -664,7 +686,7 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
             {/*  */}
             <div className="col-span-6 md:col-span-6 order-4 md:order-5">
               <div className={`${styles.resultCard}`}>
-                <span>Point Value</span>
+                <span>{content.pointValueLabel}</span>
                 <div className="flex items-center gap-1">
                   {loading ? (
                     <ProgressLoader />
@@ -681,11 +703,13 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
             {/*  */}
             <div className="col-span-12 md:col-span-6 order-6 md:order-6">
               <div className={`${styles.resultCard}`}>
-                <span>Swap long</span>
+                <span>{content.swapLongLabel}</span>
                 <div className="flex items-center gap-1">
                   {loading ? <ProgressLoader /> : result.swapLongPips}
-                  <span className="text-[14px] opacity-65">pips</span> /
-                  {loading ? <ProgressLoader /> : result.swapLongValue}
+                  <span className="text-[14px] opacity-65">
+                    {content.pipsUnit}
+                  </span>{" "}
+                  /{loading ? <ProgressLoader /> : result.swapLongValue}
                   <span className="text-[14px] opacity-65">
                     {activeCurrency}
                   </span>
@@ -696,10 +720,13 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
             {/*  */}
             <div className="col-span-12 md:col-span-6 order-7 md:order-7">
               <div className={`${styles.resultCard}`}>
-                <span>Swap Short</span>
+                <span>{content.swapShortLabel}</span>
                 <div className="flex items-center gap-1">
                   {loading ? <ProgressLoader /> : result.swapShortPips}
-                  <span className="text-[14px] opacity-65">pips</span> /{" "}
+                  <span className="text-[14px] opacity-65">
+                    {content.pipsUnit}
+                  </span>{" "}
+                  /{" "}
                   {loading ? <ProgressLoader /> : result.swapShortValue}
                   <span className="text-[14px] opacity-65">
                     {activeCurrency}
@@ -710,8 +737,11 @@ export default function TradingCalculator({ selectedInstrument }: Props) {
 
             {/*  */}
             <div className="col-span-12 text-[14px] order-8 md:order-8 opacity-50">
-              Note: Triple swaps are applied on <b>Wednesday</b> for FX and
-              metals, and on <b>Friday</b> for all other instruments.
+              {content.tripleSwapNotePrefix}
+              <b>{content.tripleSwapWednesday}</b>
+              {content.tripleSwapMid}
+              <b>{content.tripleSwapFriday}</b>
+              {content.tripleSwapSuffix}
             </div>
           </div>
         </div>

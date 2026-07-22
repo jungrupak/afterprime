@@ -3,22 +3,25 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./style.module.scss";
 import { useEffect, useRef, useState } from "react";
-import { MegaMenuItems } from "@/utils/menu-item";
+import type { HeaderContent } from "./headerContent";
 import TypeformButton from "../ui/typeForm";
 import Navigation from "../nav/Nav";
 import MobileNav from "../mobileNav/MobileNav";
 import Button from "../ui/Button";
+import LanguageSelector from "../ui/LanguageSelector";
 import { useBypassInvitation, BYPASS_SIGNUP_URL } from "@/hooks/useBypassInvitation";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
-export default function Header() {
+export default function Header({ content }: { content: HeaderContent }) {
+  const { riskWarning, logoAlt, login, signup, signupNow, back, menuItems } =
+    content;
   const bypassInvitation = useBypassInvitation();
+  const locale = useLocale();
   const [isSticky, setIsSticky] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [mobileMenu, setMobileMenu] = useState(false);
   const riskWarningRef = useRef<HTMLDivElement>(null);
-
-  // ✅ MegaMenuItems should be plain array
-  const MegaItems = MegaMenuItems;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,10 +55,7 @@ export default function Header() {
   return (
     <>
       <div ref={riskWarningRef} className={styles.riskWarning}>
-        CFDs are complex instruments and come with a high risk of losing
-        money rapidly due to leverage. Investors should consider whether
-        they understand how CFDs work before investing. Losses may exceed
-        deposits.
+        {riskWarning}
       </div>
       <header
         className={`${styles.ap_header} ${isSticky ? styles.sticky : ""} ${
@@ -67,10 +67,10 @@ export default function Header() {
         >
           {/* Logo */}
           <div className={`${styles.ap_logo}`}>
-            <Link href="/">
+            <Link href={localizeHref("/", locale)}>
               <Image
                 src="/img/logo-main.svg"
-                alt="Afterprime Logo"
+                alt={logoAlt}
                 width={202}
                 height={30}
               />
@@ -80,11 +80,16 @@ export default function Header() {
           {/* Nav */}
 
           <div className="max-[1204px]:hidden">
-            <Navigation menus={MegaMenuItems} />
+            <Navigation menus={menuItems} />
           </div>
 
           <MobileNav
-            menus={MegaMenuItems}
+            menus={menuItems}
+            loginLabel={login}
+            signupLabel={signup}
+            signupNowLabel={signupNow}
+            backLabel={back}
+            logoAlt={logoAlt}
             customClass={`${
               mobileMenu ? styles.activeMenu : styles.notActiveMenu
             }`}
@@ -94,12 +99,13 @@ export default function Header() {
           {/* Right Side (Desktop) */}
           <div className={`${styles.ap_header_right} max-[1204px]:hidden`}>
             <div className="flex items-center gap-4">
+              <LanguageSelector />
               <Button
                 linkTarget="_blank"
                 size="small"
                 href="https://app.afterprime.com/login"
               >
-                Login
+                {login}
               </Button>
               <Button
                 linkTarget="_blank"
@@ -112,23 +118,15 @@ export default function Header() {
                     : "https://app.afterprime.com/live"
                 }
               >
-                Signup
+                {signup}
               </Button>
             </div>
           </div>
 
           {/* Mobile Menu Icon */}
           <div className="hidden max-[1204px]:block ml-auto">
-            <div className="flex gap-5">
-              <span className="">
-                <Link
-                  href="https://app.afterprime.com/login"
-                  className="xSmall ap_button ghost"
-                  target="_blank"
-                >
-                  Login
-                </Link>
-              </span>
+            <div className="flex gap-5 items-center">
+              <LanguageSelector />
               <div
                 className={`${styles.mobileMenuIcon} `}
                 onClick={() => setMobileMenu((prev) => !prev)}

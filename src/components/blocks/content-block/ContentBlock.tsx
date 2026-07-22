@@ -2,6 +2,8 @@ import styles from "./style.module.scss";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
 interface BlockContent {
   content_block_with_image_heading?: string;
@@ -17,7 +19,7 @@ interface BlockContent {
   content_block_with_image_is_type_form_cta?: string | undefined;
 }
 
-export default function ContentBlock({
+export default async function ContentBlock({
   content_block_with_image_heading,
   content_block_with_image_content,
   content_block_with_image_enable_cta_button,
@@ -27,6 +29,12 @@ export default function ContentBlock({
   content_block_with_image_block_image_add_image,
   content_block_with_image_is_type_form_cta,
 }: BlockContent) {
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("content-block", locale, {
+    getInviteCodeCta: "Get Invite Code",
+    signupNowText: "Signup Now",
+  });
+
   const contents = String(content_block_with_image_content || "");
   const htmlContent = contents
     .split(/\r?\n\r?\n/)
@@ -76,7 +84,11 @@ export default function ContentBlock({
                 }}
               />
               {content_block_with_image_is_type_form_cta === "1" && (
-                <TypeformButton buttonText="Get Invite Code" size="Large" />
+                <TypeformButton
+                  buttonText={t.getInviteCodeCta}
+                  signupNowText={t.signupNowText}
+                  size="Large"
+                />
               )}
 
               {content_block_with_image_enable_cta_button === "1" && (

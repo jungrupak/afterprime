@@ -2,14 +2,22 @@
 
 import { useBypassInvitation } from "@/hooks/useBypassInvitation";
 
-export default function SignupNowLink() {
+interface SignupNowLinkProps {
+  preText?: string;
+  linkText?: string;
+}
+
+export default function SignupNowLink({
+  preText = "Have a code?",
+  linkText = "Signup Now",
+}: SignupNowLinkProps) {
   const bypassInvitation = useBypassInvitation();
 
   if (bypassInvitation) return null;
 
   return (
     <a href="https://app.afterprime.com/live">
-      Have a code? <u>Signup Now</u>
+      {preText} <u>{linkText}</u>
     </a>
   );
 }

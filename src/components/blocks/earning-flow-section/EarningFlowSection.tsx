@@ -6,6 +6,9 @@ import BoxedBlock from "@/components/boxed-block/BoxedBlock";
 import { EarningCalc } from "@/utils/earning-calculator/EarningCalc";
 import { normalizeRebatesPayload, type RebateDataType } from "@/lib/rebates";
 import type { Blocks } from "@/types/blocks";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { earningCalcContent } from "@/utils/earning-calculator/earningCalcContent";
 
 type EarningFlowBlock = Blocks["earning-flow-block"];
 
@@ -29,6 +32,16 @@ export async function EarningFlowSection(block: EarningFlowBlock) {
       return (numA || 0) - (numB || 0);
     })
     .map(([_, value]) => (value !== undefined ? String(value) : ""));
+
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("earning-flow-fallback", locale, {
+    buttonFallback: "Button",
+  });
+  const earningCalcT = await getTranslatedStatic(
+    "earning-calc",
+    locale,
+    earningCalcContent,
+  );
 
   let initialRebates: RebateDataType[] = [];
   try {
@@ -66,14 +79,17 @@ export async function EarningFlowSection(block: EarningFlowBlock) {
                   varient="primary-ghost"
                   isArrowVisible={true}
                 >
-                  {earning_flow_button_text || "Button"}
+                  {earning_flow_button_text || t.buttonFallback}
                 </Btn>
               </div>
             )}
           </div>
           {/* Right */}
           <div>
-            <EarningCalc initialRebates={initialRebates} />
+            <EarningCalc
+              initialRebates={initialRebates}
+              content={earningCalcT}
+            />
           </div>
         </BoxedBlock>
       </div>

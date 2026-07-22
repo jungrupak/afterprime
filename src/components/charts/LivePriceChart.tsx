@@ -4,6 +4,8 @@ import { useMemo, useRef } from "react";
 import { useLivePrices } from "@/hooks/useLivePrices";
 import PriceChart from "./PriceChart";
 import Link from "next/link";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 interface LivePriceChartProps {
   symbol: string;
@@ -12,6 +14,7 @@ interface LivePriceChartProps {
 export default function LivePriceChart({ symbol }: LivePriceChartProps) {
   const { prices } = useLivePrices();
   const prevValueRef = useRef<number | null>(null);
+  const locale = useLocale();
 
   const liveData = useMemo(() => {
     const instrumentKey = symbol.toUpperCase();
@@ -65,7 +68,7 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
             <div className={`flex`}>
               <div className="flex flex-wrap gap-2">
                 <Link
-                  href={`/swaps/${symbol.toLowerCase()}`}
+                  href={localizeHref(`/swaps/${symbol.toLowerCase()}`, locale)}
                   className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >
@@ -73,7 +76,7 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
                 </Link>
 
                 <Link
-                  href={`/trading-hours/${symbol.toLowerCase()}`}
+                  href={localizeHref(`/trading-hours/${symbol.toLowerCase()}`, locale)}
                   className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >

@@ -1,12 +1,17 @@
 import styles from "./style.module.scss";
 import Image from "next/image";
 import { Blocks } from "@/types/blocks";
+import { founderCardContent } from "./founderCardContent";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
 type FounderCardProps = Blocks["founder-messages"];
 
-export default function FoundersCard(props: FounderCardProps) {
+export default async function FoundersCard(props: FounderCardProps) {
   const { founder_message_cart_title, founder_message_card_paragraph } = props;
   const founderImg = "/img/founder-image.jpg";
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("founder-card", locale, founderCardContent);
 
   return (
     <section className="compact-section">
@@ -20,7 +25,7 @@ export default function FoundersCard(props: FounderCardProps) {
               width={600}
               height={600}
               src={founderImg}
-              alt="Founders Image"
+              alt={t.imageAlt}
             />
           </div>
           <div className={styles.founder_story}>
@@ -28,7 +33,7 @@ export default function FoundersCard(props: FounderCardProps) {
             <h2 className={styles.heading}>{founder_message_cart_title}</h2>
             <p className={styles.paragraph}>{founder_message_card_paragraph}</p>
             <span className={styles.founder_info}>
-              <strong>&bull; Jeremy & Elan,</strong> Co-Founders of Afterprime
+              <strong>&bull; Jeremy & Elan,</strong> {t.coFoundersLabel}
             </span>
           </div>
         </div>

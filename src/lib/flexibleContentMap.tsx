@@ -3,8 +3,10 @@ import SpecificationTable from "@/components/instrument-lps/product-specificatio
 // import CostBreakdown from "@/components/instrument-lps/cost-brakdown/CostBreakdown";
 import CostBreakdownTable from "@/components/instrument-lps/cost-brakdown/CostBreakdownTable";
 import CalculatorToolsBlock from "@/app/(site)/[slug]/[inst]/CalculatorToolsBlock";
+import type { CalculatorToolsBlockContent } from "@/app/(site)/[slug]/[inst]/CalculatorToolsBlockContent";
 import CostComparison from "@/components/instrument-lps/cost-comparison/CostComparison";
 import CostSavingsCalculatorInstrument from "@/components/all-calculators/CostSavingCalculatorPerInstrument/CostSavingCalculator";
+import type { CostSavingCalculatorContent } from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
 
 interface ComparisonTable {
   acf_fc_layout: "comparison_table";
@@ -44,10 +46,16 @@ type PageBuilderSection =
   | CostBreakdownBlock
   | CalculatorTools;
 
+interface RenderSectionOptions {
+  calculatorToolsContent?: CalculatorToolsBlockContent;
+  costSavingContent?: CostSavingCalculatorContent;
+}
+
 export function renderSection(
   section: PageBuilderSection,
   index: number,
   slug?: string,
+  options?: RenderSectionOptions,
 ): React.ReactNode {
   switch (section.acf_fc_layout) {
     case "comparison_table":
@@ -68,6 +76,7 @@ export function renderSection(
         >
           <CostSavingsCalculatorInstrument
             instrument={section.instrument?.toLowerCase() ?? ""}
+            content={options?.costSavingContent}
           />
         </div>
       );
@@ -99,7 +108,10 @@ export function renderSection(
     case "calculator_tools":
       return (
         <div key={index} id="calculator-tools">
-          <CalculatorToolsBlock instrumentSlug={section.instrument ?? ""} />
+          <CalculatorToolsBlock
+            instrumentSlug={section.instrument ?? ""}
+            content={options?.calculatorToolsContent}
+          />
         </div>
       );
 

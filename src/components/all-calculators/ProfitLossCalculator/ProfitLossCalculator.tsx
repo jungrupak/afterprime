@@ -10,6 +10,10 @@ import {
   getExchangeRate as getExchangeRateShared,
   currencySymbol as currencySymbolFor,
 } from "@/lib/instruments";
+import {
+  profitLossCalculatorContent,
+  type ProfitLossCalculatorContent,
+} from "./ProfitLossCalculatorContent";
 
 interface CalculationResult {
   potentialProfit: number;
@@ -24,7 +28,11 @@ interface CalculationResult {
   standardLots: number;
 }
 
-export default function ProfitLossCalculator() {
+export default function ProfitLossCalculator({
+  content = profitLossCalculatorContent,
+}: {
+  content?: ProfitLossCalculatorContent;
+}) {
   const [instrument, setInstrument] = useState("EURUSD");
   const [direction, setDirection] = useState<"buy" | "sell">("buy");
   const [entryPrice, setEntryPrice] = useState(1.085);
@@ -171,7 +179,7 @@ export default function ProfitLossCalculator() {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
-          <p>Loading exchange rates...</p>
+          <p>{content.loadingExchangeRates}</p>
         </div>
       </div>
     );
@@ -181,7 +189,7 @@ export default function ProfitLossCalculator() {
     return (
       <div className={styles.calculator}>
         <div className={styles.body}>
-          <p>Unable to load instruments, please refresh.</p>
+          <p>{content.unableToLoadInstruments}</p>
         </div>
       </div>
     );
@@ -205,7 +213,7 @@ export default function ProfitLossCalculator() {
         <div className={styles.inputs}>
           <div className={styles.inputRow}>
             <div className={styles.inputGroup}>
-              <label htmlFor="plc-instrument">Instrument</label>
+              <label htmlFor="plc-instrument">{content.instrumentLabel}</label>
               <select
                 id="plc-instrument"
                 value={instrument}
@@ -226,7 +234,7 @@ export default function ProfitLossCalculator() {
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="plc-direction">Direction</label>
+              <label htmlFor="plc-direction">{content.directionLabel}</label>
               <div className={styles.directionToggle}>
                 <button
                   type="button"
@@ -234,7 +242,8 @@ export default function ProfitLossCalculator() {
                   data-direction="buy"
                   onClick={() => setDirection("buy")}
                 >
-                  <span className={styles.directionIcon}>↑</span> Buy/Long
+                  <span className={styles.directionIcon}>↑</span>{" "}
+                  {content.directionBuyLong}
                 </button>
                 <button
                   type="button"
@@ -242,7 +251,8 @@ export default function ProfitLossCalculator() {
                   data-direction="sell"
                   onClick={() => setDirection("sell")}
                 >
-                  <span className={styles.directionIcon}>↓</span> Sell/Short
+                  <span className={styles.directionIcon}>↓</span>{" "}
+                  {content.directionSellShort}
                 </button>
               </div>
             </div>
@@ -250,7 +260,7 @@ export default function ProfitLossCalculator() {
 
           <div className={`${styles.inputRow} ${styles.prices}`}>
             <div className={styles.inputGroup}>
-              <label htmlFor="plc-entry-price">Entry Price</label>
+              <label htmlFor="plc-entry-price">{content.entryPriceLabel}</label>
               <div className={styles.inputWrapper}>
                 <input
                   type="number"
@@ -265,7 +275,7 @@ export default function ProfitLossCalculator() {
             </div>
 
             <div className={`${styles.inputGroup} ${styles.slGroup}`}>
-              <label htmlFor="plc-stop-loss">Stop-Loss Price</label>
+              <label htmlFor="plc-stop-loss">{content.stopLossPriceLabel}</label>
               <div className={`${styles.inputWrapper} ${styles.slWrapper}`}>
                 <input
                   type="number"
@@ -278,7 +288,7 @@ export default function ProfitLossCalculator() {
             </div>
 
             <div className={`${styles.inputGroup} ${styles.tpGroup}`}>
-              <label htmlFor="plc-take-profit">Take-Profit Price</label>
+              <label htmlFor="plc-take-profit">{content.takeProfitPriceLabel}</label>
               <div className={`${styles.inputWrapper} ${styles.tpWrapper}`}>
                 <input
                   type="number"
@@ -295,7 +305,9 @@ export default function ProfitLossCalculator() {
 
           <div className={styles.inputRow}>
             <div className={styles.inputGroup}>
-              <label htmlFor="plc-position-size">Position Size</label>
+              <label htmlFor="plc-position-size">
+                {content.positionSizeLabel}
+              </label>
               <div className={styles.inputWrapper}>
                 <input
                   type="number"
@@ -312,16 +324,18 @@ export default function ProfitLossCalculator() {
                   value={lotType}
                   onChange={(e) => setLotType(e.target.value)}
                 >
-                  <option value="standard">Standard Lots</option>
-                  <option value="mini">Mini Lots</option>
-                  <option value="micro">Micro Lots</option>
-                  <option value="units">Units</option>
+                  <option value="standard">{content.unitStandardLots}</option>
+                  <option value="mini">{content.unitMiniLots}</option>
+                  <option value="micro">{content.unitMicroLots}</option>
+                  <option value="units">{content.unitUnits}</option>
                 </select>
               </div>
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="plc-account-currency">Account Currency</label>
+              <label htmlFor="plc-account-currency">
+                {content.accountCurrencyLabel}
+              </label>
               <select
                 id="plc-account-currency"
                 value={accountCurrency}
@@ -341,7 +355,9 @@ export default function ProfitLossCalculator() {
             <div className={`${styles.resultCard} ${styles.profitCard}`}>
               <span className={styles.resultIcon}>▲</span>
               <div className={styles.resultContent}>
-                <span className={styles.resultLabel}>Potential Profit</span>
+                <span className={styles.resultLabel}>
+                  {content.resultPotentialProfitLabel}
+                </span>
                 <span className={styles.resultValue}>
                   {currencySymbol}
                   {result.potentialProfit.toLocaleString("en-US", {
@@ -358,7 +374,9 @@ export default function ProfitLossCalculator() {
             <div className={`${styles.resultCard} ${styles.lossCard}`}>
               <span className={styles.resultIcon}>▼</span>
               <div className={styles.resultContent}>
-                <span className={styles.resultLabel}>Potential Loss</span>
+                <span className={styles.resultLabel}>
+                  {content.resultPotentialLossLabel}
+                </span>
                 <span className={styles.resultValue}>
                   -{currencySymbol}
                   {result.potentialLoss.toLocaleString("en-US", {
@@ -375,9 +393,12 @@ export default function ProfitLossCalculator() {
 
           <div className={styles.rrSection}>
             <div className={styles.rrHeader}>
-              <span className={styles.rrLabel}>Risk : Reward Ratio</span>
+              <span className={styles.rrLabel}>{content.rrRatioLabel}</span>
               <span className={styles.rrValue}>
-                1 : {result.rrRatio.toFixed(2)}
+                {content.rrRatioValue.replace(
+                  "{value}",
+                  result.rrRatio.toFixed(2),
+                )}
               </span>
             </div>
             <div className={styles.rrBar}>
@@ -391,14 +412,16 @@ export default function ProfitLossCalculator() {
               ></div>
             </div>
             <div className={styles.rrLabels}>
-              <span className={styles.rrRiskLabel}>Risk</span>
-              <span className={styles.rrRewardLabel}>Reward</span>
+              <span className={styles.rrRiskLabel}>{content.rrRiskLabel}</span>
+              <span className={styles.rrRewardLabel}>
+                {content.rrRewardLabel}
+              </span>
             </div>
           </div>
 
           <div className={styles.breakeven}>
             <span className={styles.breakevenLabel}>
-              Win Rate Needed to Break Even:
+              {content.breakevenLabel}
             </span>
             <span className={styles.breakevenValue}>
               {result.breakEven.toFixed(1)}%
@@ -407,26 +430,34 @@ export default function ProfitLossCalculator() {
 
           <div className={styles.resultGrid}>
             <div className={styles.resultItem}>
-              <span className={styles.itemLabel}>Entry Price</span>
+              <span className={styles.itemLabel}>
+                {content.resultItemEntryPriceLabel}
+              </span>
               <span className={styles.itemValue}>
                 {entryPrice.toFixed(config.pipDecimal + 1)}
               </span>
             </div>
             <div className={styles.resultItem}>
-              <span className={styles.itemLabel}>Position (Units)</span>
+              <span className={styles.itemLabel}>
+                {content.resultItemPositionUnitsLabel}
+              </span>
               <span className={styles.itemValue}>
                 {Math.round(result.units).toLocaleString("en-US")}
               </span>
             </div>
             <div className={styles.resultItem}>
-              <span className={styles.itemLabel}>Pip Value</span>
+              <span className={styles.itemLabel}>
+                {content.resultItemPipValueLabel}
+              </span>
               <span className={styles.itemValue}>
                 {currencySymbol}
                 {result.pipValue.toFixed(2)}
               </span>
             </div>
             <div className={styles.resultItem}>
-              <span className={styles.itemLabel}>Notional Value</span>
+              <span className={styles.itemLabel}>
+                {content.resultItemNotionalValueLabel}
+              </span>
               <span className={styles.itemValue}>
                 {currencySymbol}
                 {result.notionalValue.toLocaleString("en-US", {
@@ -440,21 +471,23 @@ export default function ProfitLossCalculator() {
 
       <div className={styles.formula}>
         <details>
-          <summary>View Formulas</summary>
+          <summary>{content.viewFormulasSummary}</summary>
           <div className={styles.formulaContent}>
             <p>
-              <strong>Profit/Loss</strong> = Pips × Pip Value × Position Size
-              (in standard lots)
+              <strong>{content.formulaProfitLossLabel}</strong>{" "}
+              {content.formulaProfitLossText}
             </p>
             <p>
-              <strong>Pips</strong> = |Entry Price - Exit Price| ÷ Pip Size
+              <strong>{content.formulaPipsLabel}</strong>{" "}
+              {content.formulaPipsText}
             </p>
             <p>
-              <strong>Risk:Reward</strong> = (TP - Entry) ÷ (Entry - SL) for
-              long positions
+              <strong>{content.formulaRiskRewardLabel}</strong>{" "}
+              {content.formulaRiskRewardText}
             </p>
             <p>
-              <strong>Break-Even Win Rate</strong> = 1 ÷ (1 + R:R ratio)
+              <strong>{content.formulaBreakEvenLabel}</strong>{" "}
+              {content.formulaBreakEvenText}
             </p>
           </div>
         </details>

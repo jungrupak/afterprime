@@ -16,6 +16,10 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import ResultSendToEmail from "@/components/all-calculators/CostSavingCalculator/ResultSendToEmail";
+import {
+  costSavingCalculatorContent,
+  type CostSavingCalculatorContent,
+} from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
 
 ChartJS.register(
   CategoryScale,
@@ -62,8 +66,10 @@ const BENCHMARK_BROKERS = ["Top 10 Avg", "Industry Avg", "Second Best"];
 
 export default function CostSavingCalculatorBrokers({
   currentBroker,
+  content = costSavingCalculatorContent,
 }: {
   currentBroker?: string;
+  content?: CostSavingCalculatorContent;
 }) {
   //Broker Slug Mapping
   const brokerSlugMapping = {
@@ -128,7 +134,7 @@ export default function CostSavingCalculatorBrokers({
         console.error("Error fetching cost data:", err);
         const errorMessage =
           err instanceof Error ? err.message : "Unknown error occurred";
-        setError(`Unable to load broker data: ${errorMessage}`);
+        setError(`${content.errorPrefix}${errorMessage}`);
         setBrokersData([]);
         setBrokerList([]);
       } finally {
@@ -335,7 +341,7 @@ export default function CostSavingCalculatorBrokers({
       <div className={styles.container}>
         <div className={styles.loadingState}>
           <div className={styles.spinner}></div>
-          <p>Loading data...</p>
+          <p>{content.loading}</p>
         </div>
       </div>
     );
@@ -351,7 +357,7 @@ export default function CostSavingCalculatorBrokers({
             className={styles.retryBtn}
             type="button"
           >
-            Retry
+            {content.retry}
           </button>
         </div>
       </div>
@@ -363,6 +369,15 @@ export default function CostSavingCalculatorBrokers({
     (name: string) => !benchmarkBrokers.includes(name),
   );
 
+  const headlineText: string = content.main.headlineTemplate
+    .replace("{lots}", String(lots))
+    .replace("{moSave}", moSave.toFixed(2))
+    .replace("{broker}", selectedBroker);
+  const sublineText: string = content.sublineTemplate.replace(
+    "{totSaveAnnual}",
+    (totSave * 12).toFixed(2),
+  );
+
   return (
     <div
       className={`max-md:flex max-md:flex-col lg:grid lg:grid-cols-[350px_1fr] w-full gap-5`}
@@ -370,12 +385,12 @@ export default function CostSavingCalculatorBrokers({
       {/* Left: Calculator */}
       <div className={styles.calculator}>
         <div className={styles.calcHeader}>
-          <div className={styles.calcTitle}>Your Savings Calculator</div>
-          <span className={styles.badge}>ForexBenchmark verified</span>
+          <div className={styles.calcTitle}>{content.main.calcTitle}</div>
+          <span className={styles.badge}>{content.badge}</span>
         </div>
 
         <div className={styles.inputGroup}>
-          <div className={styles.label}>Lots per month (1–1000)</div>
+          <div className={styles.label}>{content.lotsPerMonthLabel}</div>
           <div className={styles.sliderRow}>
             <input
               type="range"
@@ -385,7 +400,7 @@ export default function CostSavingCalculatorBrokers({
               value={lots}
               onChange={handleLotsChange}
               className={styles.slider}
-              aria-label="Lots per month"
+              aria-label={content.lotsPerMonthAriaLabel}
             />
             <input
               type="number"
@@ -395,19 +410,19 @@ export default function CostSavingCalculatorBrokers({
               value={lots}
               onChange={handleLotsNumberChange}
               className={styles.numberInput}
-              aria-label="Lots per month (number input)"
+              aria-label={content.lotsPerMonthNumberAriaLabel}
             />
           </div>
         </div>
 
         <div className={styles.inputGroup}>
-          <div className={styles.label}>Compare your savings vs broker</div>
+          <div className={styles.label}>{content.compareLabel}</div>
           <div className={styles.brokerRow}>
             <button
               onClick={() => cycleBroker(-1)}
               className={styles.iconBtn}
-              title="Previous broker"
-              aria-label="Previous broker"
+              title={content.previousBroker}
+              aria-label={content.previousBroker}
               disabled={brokerList.length === 0}
               type="button"
             >
@@ -417,20 +432,20 @@ export default function CostSavingCalculatorBrokers({
               value={selectedBroker}
               onChange={handleBrokerChange}
               className={styles.select}
-              aria-label="Select broker for comparison"
+              aria-label={content.selectBrokerAriaLabel}
             >
               {brokerList.length === 0 ? (
                 <option value={currentBroker}>{currentBroker}</option>
               ) : (
                 <>
-                  <optgroup label="Benchmarks">
+                  <optgroup label={content.benchmarksGroupLabel}>
                     {benchmarkBrokers.map((name: string) => (
                       <option key={name} value={name}>
                         {name}
                       </option>
                     ))}
                   </optgroup>
-                  <optgroup label="Brokers">
+                  <optgroup label={content.brokersGroupLabel}>
                     {regularBrokers.map((name: string) => (
                       <option key={name} value={name}>
                         {name}
@@ -443,8 +458,8 @@ export default function CostSavingCalculatorBrokers({
             <button
               onClick={() => cycleBroker(1)}
               className={styles.iconBtn}
-              title="Next broker"
-              aria-label="Next broker"
+              title={content.nextBroker}
+              aria-label={content.nextBroker}
               disabled={brokerList.length === 0}
               type="button"
             >
@@ -454,23 +469,17 @@ export default function CostSavingCalculatorBrokers({
         </div>
 
         <div className={styles.results}>
-          <div className={styles.headline}>
-            Trading {lots} lots / month saves ${moSave.toFixed(2)} monthly vs{" "}
-            {selectedBroker}.
-          </div>
-          <div className={styles.subline}>
-            ${(totSave * 12).toFixed(2)} annually. Graph shows monthly total
-            cost.
-          </div>
+          <div className={styles.headline}>{headlineText}</div>
+          <div className={styles.subline}>{sublineText}</div>
         </div>
 
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
-            <div className={styles.statLabel}>Savings per month vs broker</div>
+            <div className={styles.statLabel}>{content.statLabelMonthly}</div>
             <div className={styles.statValue}>${moSave.toFixed(2)}</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statLabel}>Total savings over 12 months</div>
+            <div className={styles.statLabel}>{content.statLabelAnnual}</div>
             <div className={styles.statValue}>${(totSave * 12).toFixed(2)}</div>
           </div>
         </div>
@@ -479,9 +488,9 @@ export default function CostSavingCalculatorBrokers({
       <div className={styles.chartSection}>
         <div className={styles.chartHeader}>
           <div>
-            <div className={styles.chartTitle}>Monthly Total Cost</div>
+            <div className={styles.chartTitle}>{content.chartTitle}</div>
             <div className={styles.chartSubtitle}>
-              Bars show total trading cost for your selected lots per month.
+              {content.main.chartSubtitle}
             </div>
           </div>
           <button
@@ -489,7 +498,7 @@ export default function CostSavingCalculatorBrokers({
             className={styles.resetBtn}
             type="button"
           >
-            Reset
+            {content.reset}
           </button>
         </div>
         <div className={styles.chartWrap}>
@@ -500,11 +509,11 @@ export default function CostSavingCalculatorBrokers({
           />
         </div>
         <div className={styles.chartFootnote}>
-          Source:{" "}
+          {content.sourcePrefix}
           <a href="https://www.forexbenchmark.com" target="_blank">
-            <u>ForexBenchmark</u>
+            <u>{content.sourceLinkText}</u>
           </a>{" "}
-          - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads
+          {content.main.footnoteSuffix}
           {/* Day session 04:00–22:00. Past averages don&apos;t guarantee future
             outcomes. */}
         </div>
@@ -515,21 +524,18 @@ export default function CostSavingCalculatorBrokers({
           activeBroker={selectedBroker}
           lotsPerMonth={lots}
           savingPerMonth={moSave.toFixed(2)}
+          content={content}
         />
       </div>
       {/* ## */}
       <div className="text-[14px] col-span-full opacity-60">
         <p className="risk-warning-all">
-          Afterprime net cost figures include Flow Rewards™, applicable to
-          eligible client accounts on qualifying instruments. Flow Rewards™
-          rates may vary. See <a href="/get-paid-to-trade">Flow Rewards</a> for
-          full eligibility criteria.
+          {content.legal.part1}
+          <a href="/get-paid-to-trade">{content.legal.linkText}</a>
+          {content.legal.part2}
           <br />
           <br />
-          Cost comparisons are based on third-party data and are for
-          informational purposes only. Trading involves significant risk of
-          loss. Individual trading costs will vary based on account type,
-          instrument, and market conditions.
+          {content.legal.part3}
         </p>
       </div>
     </div>
