@@ -95,6 +95,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
   const customFieldFaqRaw = page.acf?.faq_section?.q_and_a;
   const faqTranslated = await getTranslatedStatic("trade-faq", locale, {
     sectionTitle: "FAQ",
+    applyButtonText: "Apply for Invite code",
     items: (customFieldFaqRaw || []).map((item: { question?: string; answer?: string }) => ({
       question: item?.question || "",
       answer: item?.answer || "",
@@ -123,7 +124,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
 
   return (
     <>
-      <LPBanner instrument={page.slug} />
+      <LPBanner instrument={page.slug} applyButtonText={faqTranslated.applyButtonText} />
 
       <section className="compact-section pt-[0.5px]!">
         <div className="ap_container_small">

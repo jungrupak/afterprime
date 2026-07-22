@@ -28,12 +28,14 @@ interface ExtendedSliderOptions extends PopupOptions {
 
 interface TypeformButtonProps {
   buttonText?: string;
+  signupNowText?: string;
   size?: "Large" | "Regular" | "small" | "x-small";
   varient?: ButtonVarients;
 }
 
 const TypeformButton: React.FC<TypeformButtonProps> = ({
   buttonText = "Get Invite Code",
+  signupNowText = "Signup Now",
   size = "Regular",
   varient = "default",
 }) => {
@@ -116,7 +118,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
           className="group-hover:stroke-[#000000]"
         />
       </svg>
-      {bypassInvitation ? "Signup Now" : buttonText}
+      {bypassInvitation ? signupNowText : buttonText}
     </button>
     <GeoInterstitial isOpen={showInterstitial} />
     </>

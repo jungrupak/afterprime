@@ -1,6 +1,8 @@
 import styles from "./style.module.scss";
 import Button from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 
 interface InnerBannerProps {
   inner_banner_title?: string;
@@ -10,13 +12,18 @@ interface InnerBannerProps {
   inner_banner_is_type_form_cta?: string | undefined;
 }
 
-export default function InnerBanner({
+export default async function InnerBanner({
   inner_banner_title,
   inner_banner_paragraph,
   inner_banner_button_label,
   inner_banner_button_url,
   inner_banner_is_type_form_cta,
 }: InnerBannerProps) {
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("inner-banner", locale, {
+    getInviteCodeCta: "Get Invite Code",
+  });
+
   const shouldShowCTA =
     inner_banner_is_type_form_cta === "1" ||
     (inner_banner_button_url && inner_banner_button_label);
@@ -41,7 +48,7 @@ export default function InnerBanner({
             {shouldShowCTA &&
               (inner_banner_is_type_form_cta === "1" ? (
                 <div className={`mt-8 md:mt-15`}>
-                  <TypeformButton buttonText="Get Invite Code" size="Large" />
+                  <TypeformButton buttonText={t.getInviteCodeCta} size="Large" />
                 </div>
               ) : (
                 <div className={`mt-8 md:mt-15`}>
