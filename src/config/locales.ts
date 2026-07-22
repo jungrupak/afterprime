@@ -1,6 +1,6 @@
 // Adding a language later = one entry here (plus confirming Weglot supports
 // the pair) — no route files, components, or pipeline code change.
-export const SUPPORTED_LOCALES = ["en", "es", "de"] as const;
+export const SUPPORTED_LOCALES = ["en", "es", "de", "id", "zh","cn", "tr","ar","ms"] as const;
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 
 export const DEFAULT_LOCALE: SupportedLocale = "en";
