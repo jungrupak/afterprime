@@ -71,7 +71,6 @@ const nextConfig: NextConfig = {
     return [
         { source: '/id/:path*', destination: '/', permanent: true },
         { source: '/pt/:path*', destination: '/', permanent: true },
-        { source: '/es/:path*', destination: '/', permanent: true },
         { source: '/vi/:path*', destination: '/', permanent: true },
         { source: '/sd/:path*', destination: '/', permanent: true },
         { source: '/ar/:path*', destination: '/', permanent: true },
@@ -79,7 +78,6 @@ const nextConfig: NextConfig = {
         { source: '/stocks/:path*', destination: '/', permanent: true },
         { source: '/id/', destination: '/', permanent: true },
         { source: '/pt/', destination: '/', permanent: true },
-        { source: '/es/', destination: '/', permanent: true },
         { source: '/vi/', destination: '/', permanent: true },
         { source: '/sd/', destination: '/', permanent: true },
         { source: '/ar/', destination: '/', permanent: true },
