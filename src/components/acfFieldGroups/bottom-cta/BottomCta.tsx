@@ -13,6 +13,7 @@ export async function BottomCta() {
     paragraph: String(fieldsData?.paragraph || ""),
     small_text: String(fieldsData?.small_text || ""),
     buttonText: "Apply for Invite code",
+    signupNowText: "Signup Now",
   });
 
   return (
@@ -27,7 +28,7 @@ export async function BottomCta() {
               className={`${styles.paragraph} mb-8 md:mb-10 opacity-80`}
               dangerouslySetInnerHTML={{ __html: t.paragraph }}
             />
-            <TypeformButton buttonText={t.buttonText} size="Regular" />
+            <TypeformButton buttonText={t.buttonText} signupNowText={t.signupNowText} size="Regular" />
             <div className={`text-[clamp(14px_,4vw_,16px)] mt-5 opacity-65`}>
               {t.small_text}
             </div>

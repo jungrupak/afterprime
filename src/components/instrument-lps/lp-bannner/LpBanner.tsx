@@ -8,12 +8,13 @@ import { useState, useEffect } from "react";
 
 interface BannerTitle {
   instrument?: string;
+  applyButtonText?: string;
 }
 
 const CACHE_TTL = 2 * 60 * 1000;
 
 // ── XAUUSD Banner ────────────────────────────────────────────
-function LPBannerXAUUSD() {
+function LPBannerXAUUSD({ applyButtonText }: BannerTitle) {
   return (
     <section className={`${styles.lpBanner} lp-banner max-md:mt-10 md:pb-0! md:h-[100vh]`}>
       <div className={`ap_container_small grid grid-cols-2 gap-8 md:gap-20 relative z-1 flex items-center h-full`}>
@@ -31,7 +32,7 @@ function LPBannerXAUUSD() {
           </div>
           <div className={`mt-8 md:mt-15`}>
             <TypeformButton
-              buttonText="Apply for Invite code"
+              buttonText={applyButtonText || "Apply for Invite code"}
               size="Large"
               varient="primary"
             />
@@ -52,7 +53,7 @@ function LPBannerXAUUSD() {
 }
 
 // ── Default Banner (all other instruments) ───────────────────
-function LPBannerDefault({ instrument }: BannerTitle) {
+function LPBannerDefault({ instrument, applyButtonText }: BannerTitle) {
   const [dynamicContent, setDynamicContent] = useState({
     contentDefault: true,
     contentDataZero: false,
@@ -166,7 +167,7 @@ function LPBannerDefault({ instrument }: BannerTitle) {
 
           <div className={`mt-8 md:mt-15`}>
             <TypeformButton
-              buttonText="Apply for Invite code"
+              buttonText={applyButtonText || "Apply for Invite code"}
               size="Large"
               varient="primary"
             />
@@ -188,7 +189,7 @@ function LPBannerDefault({ instrument }: BannerTitle) {
 }
 
 // ── Entry point ───────────────────────────────────────────────
-export default function LPBanner({ instrument }: BannerTitle) {
-  if (instrument?.toUpperCase() === "XAUUSD") return <LPBannerXAUUSD />;
-  return <LPBannerDefault instrument={instrument} />;
+export default function LPBanner({ instrument, applyButtonText }: BannerTitle) {
+  if (instrument?.toUpperCase() === "XAUUSD") return <LPBannerXAUUSD applyButtonText={applyButtonText} />;
+  return <LPBannerDefault instrument={instrument} applyButtonText={applyButtonText} />;
 }

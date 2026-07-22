@@ -15,6 +15,7 @@ import { getSavingCompare } from "@/lib/getSavingCompare";
 import CostSavingCalculatorBrokers from "../cost-calculator/CostSavingCalculator";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
 import { localizeHref } from "@/lib/locale/localizeHref";
 
@@ -175,7 +176,12 @@ export default async function ChildPage({ params }: Props) {
   const { brokers } = await params;
   if (!brokers) return;
   const locale = await getRequestLocale();
-  const pageData = await getTranslatedPage<VsBrokerJson>(brokers, locale);
+  const [pageData, vsT] = await Promise.all([
+    getTranslatedPage<VsBrokerJson>(brokers, locale),
+    getTranslatedStatic("vs-broker-cta", locale, {
+      getInviteCodeCta: "Get Invite Code",
+    }),
+  ]);
   if (!pageData) {
     notFound();
   }
@@ -459,7 +465,7 @@ export default async function ChildPage({ params }: Props) {
                   __html: ctaBlockFields?.paragraph || "",
                 }}
               />
-              <TypeformButton buttonText="Get Invite Code" size="Regular" />
+              <TypeformButton buttonText={vsT.getInviteCodeCta} size="Regular" />
             </div>
           </div>
         </div>

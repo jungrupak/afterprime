@@ -7,7 +7,11 @@ import TypeformButton from "../typeform-btn/typeForm";
 import { useLocale } from "@/lib/locale/useLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
 
-export default function Header() {
+interface HeaderProps {
+  applyNowText?: string;
+}
+
+export default function Header({ applyNowText = "Apply Now" }: HeaderProps) {
   const [isSticky, setIsSticky] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const locale = useLocale();
@@ -50,7 +54,7 @@ export default function Header() {
           <div className={`${styles.ap_header_right} max-[1204px]:hidden`}>
             <div className="flex items-center gap-4">
               <TypeformButton
-                buttonText="Apply Now"
+                buttonText={applyNowText}
                 size="small"
                 varient="ghost"
               />
