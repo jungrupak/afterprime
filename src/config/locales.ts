@@ -1,26 +1,6 @@
-// ---------------------------------------------------------------------------
-// Locale configuration — single source of truth for the entire i18n layer.
-//
-// Adding a language = one entry in SUPPORTED_LOCALES + one entry in LOCALE_CONFIG.
-// No route files, components, or pipeline code change.
-//
-// URL prefix ≠ Weglot language code in some cases (e.g. /zh → zh-TW, /cn → zh).
-// LOCALE_CONFIG.weglotCode bridges that gap — used by WeglotProvider and
-// hreflang generators.
-// ---------------------------------------------------------------------------
-
-export const SUPPORTED_LOCALES = [
-  "en",
-  "es",
-  "de",
-  "id",
-  "zh",
-  "cn",
-  "tr",
-  "ar",
-  "ms",
-] as const;
-
+// Adding a language later = one entry here (plus confirming Weglot supports
+// the pair) — no route files, components, or pipeline code change.
+export const SUPPORTED_LOCALES = ["en", "es", "de"] as const;
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 
 export const DEFAULT_LOCALE: SupportedLocale = "en";
