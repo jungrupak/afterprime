@@ -1,0 +1,126 @@
+// Recursively walks an arbitrary WP/ACF JSON tree (Flexible Content blocks,
+// repeaters, aioseo_head_json, nested objects/arrays at any depth) and pulls
+// out every translatable string into a flat array, leaving behind a
+// "walked tree" of the same shape that records where each string came from.
+// rehydrate.ts (the mirror image of this file) uses that tree plus a
+// translated string array to rebuild the original shape exactly.
+
+export type WalkedNode =
+  | { type: "string-ref"; index: number }
+  | { type: "leaf"; value: unknown }
+  | { type: "object"; entries: Record<string, WalkedNode> }
+  | { type: "array"; items: WalkedNode[] };
+
+export interface WalkResult {
+  strings: string[];
+  tree: WalkedNode;
+}
+
+// Field names whose values are identifiers/URLs/technical data, never
+// prose — matched against the last path segment. aioseo_head_json uses
+// colon-namespaced keys (og:image, twitter:site), normalized before matching.
+const DENYLIST_FIELD_NAMES = new Set([
+  "id",
+  "ids",
+  "date",
+  "date_gmt",
+  "modified",
+  "modified_gmt",
+  "slug",
+  "status",
+  "type",
+  "link",
+  "url",
+  "href",
+  "email",
+  "telephone",
+  "phone",
+  "key",
+  "name",
+  "layout",
+  "acf_fc_layout",
+  "format",
+  "color",
+  "icon",
+  "src",
+  "image",
+  "target",
+  "rel",
+  "class",
+  "classname",
+  "template",
+  "parent",
+  "menu_order",
+  "guid",
+  "featured_media",
+  "card",
+]);
+
+const DENYLIST_FIELD_SUFFIXES = [
+  "_id",
+  "_url",
+  "_link",
+  "_href",
+  "_image",
+  "_icon",
+  "_src",
+  "_slug",
+  "_class",
+  "_type",
+  "_key",
+  "_color",
+];
+
+const URL_PATTERN = /^(https?:)?\/\//i;
+const RELATIVE_PATH_PATTERN = /^\/[a-zA-Z0-9/_\-.#?=&]*$/;
+const HEX_COLOR_PATTERN = /^#([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const NUMERIC_PATTERN = /^-?\d+(\.\d+)?$/;
+
+function isDenylistedField(fieldName: string): boolean {
+  const normalized = fieldName.toLowerCase().replace(/:/g, "_");
+  if (DENYLIST_FIELD_NAMES.has(normalized)) return true;
+  const lastSegment = normalized.split("_").pop() ?? normalized;
+  if (DENYLIST_FIELD_NAMES.has(lastSegment)) return true;
+  return DENYLIST_FIELD_SUFFIXES.some((suffix) => normalized.endsWith(suffix));
+}
+
+export function isTranslatable(value: string, fieldName?: string): boolean {
+  if (fieldName && isDenylistedField(fieldName)) return false;
+  if (value.trim().length <= 1) return false;
+  if (URL_PATTERN.test(value)) return false;
+  if (RELATIVE_PATH_PATTERN.test(value)) return false;
+  if (HEX_COLOR_PATTERN.test(value)) return false;
+  if (EMAIL_PATTERN.test(value)) return false;
+  if (NUMERIC_PATTERN.test(value)) return false;
+  if (value.startsWith("acf/")) return false; // ACF block type identifiers
+  return true;
+}
+
+export function walkAndExtract(input: unknown): WalkResult {
+  const strings: string[] = [];
+
+  function visit(node: unknown, fieldName?: string): WalkedNode {
+    if (Array.isArray(node)) {
+      return { type: "array", items: node.map((item) => visit(item, fieldName)) };
+    }
+
+    if (node !== null && typeof node === "object") {
+      const entries: Record<string, WalkedNode> = {};
+      for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
+        entries[key] = visit(value, key);
+      }
+      return { type: "object", entries };
+    }
+
+    if (typeof node === "string" && isTranslatable(node, fieldName)) {
+      strings.push(node);
+      return { type: "string-ref", index: strings.length - 1 };
+    }
+
+    return { type: "leaf", value: node };
+  }
+
+  const tree = visit(input);
+  return { strings, tree };
+}
