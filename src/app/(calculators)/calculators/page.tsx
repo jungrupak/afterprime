@@ -9,6 +9,7 @@ import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { calculatorsPageContent } from "./pageContent";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 export async function generateMetadata() {
   const seoData = await CustomMetadata("calculators");
@@ -68,7 +69,7 @@ export default async function Page() {
               style={{ fontWeight: "300" }}
             >
               {t.heroParagraphPre}{" "}
-              <a href="/vs">
+              <a href={localizeHref("/vs", locale)}>
                 <u>{t.heroCompareLinkText}</u>
               </a>{" "}
               {t.heroParagraphPost}
@@ -93,7 +94,7 @@ export default async function Page() {
                   title={card.title}
                   paragraph={card.paragraph}
                   cardCtaLabel={card.title}
-                  cardCtaLink={card.button_url}
+                  cardCtaLink={localizeHref(card.button_url, locale)}
                   cardSize={"large"} //compact|large|regular|small|
                   alignItems="left"
                 />

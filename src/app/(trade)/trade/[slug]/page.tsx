@@ -12,6 +12,8 @@ import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import { metaDataHelper } from "./metaDataHelper";
 import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
 import LivePriceChart from "@/components/charts/LivePriceChart";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -78,6 +80,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function TradeSlugPage({ params }: PageProps) {
   const { slug } = await params;
+  const locale = await getRequestLocale();
   const page = await getTradePageData({ params });
 
   if (!page) {
@@ -88,7 +91,35 @@ export default async function TradeSlugPage({ params }: PageProps) {
     page.acf?.instrument_page_fields?.what_is_flow_rewards_section;
   const rationalData =
     page.acf?.instrument_page_fields?.execution_quality_rational;
-  const customFieldFaqBlock = page.acf?.faq_section?.q_and_a;
+
+  const customFieldFaqRaw = page.acf?.faq_section?.q_and_a;
+  const faqTranslated = await getTranslatedStatic("trade-faq", locale, {
+    sectionTitle: "FAQ",
+    items: (customFieldFaqRaw || []).map((item: { question?: string; answer?: string }) => ({
+      question: item?.question || "",
+      answer: item?.answer || "",
+    })),
+    fixedFaqs: [
+      {
+        question: `How are Flow Rewards calculated?`,
+        answer: `Flow Rewards are paid per traded lot (round turn) using instrument specific rates published on the Afterprime website.`,
+      },
+      {
+        question: `Is ${page.slug?.toUpperCase()} eligible for Flow Rewards?`,
+        answer: page.slug?.toUpperCase() === "XAUUSD"
+          ? `Yes.`
+          : `Yes. ${page.slug?.toUpperCase()} does qualify for Flow Rewards.`,
+      },
+      {
+        question: `How does Afterprime make money?`,
+        answer: `Afterprime earns from institutional liquidity relationships and volume based arrangements, not from client losses.`,
+      },
+      {
+        question: `How does account approval work?`,
+        answer: `Applications are reviewed and approved selectively based on trading profile and activity.`,
+      },
+    ],
+  });
 
   return (
     <>
@@ -117,8 +148,9 @@ export default async function TradeSlugPage({ params }: PageProps) {
           <ProductSpecification instrument={page.slug.toUpperCase()} />
 
           <Faq
-            data={customFieldFaqBlock}
-            faqSubject="FAQ"
+            data={faqTranslated.items}
+            fixedFaqs={faqTranslated.fixedFaqs}
+            faqSubject={faqTranslated.sectionTitle}
             instrument={page.slug}
           />
 

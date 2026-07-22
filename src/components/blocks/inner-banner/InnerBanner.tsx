@@ -26,12 +26,12 @@ export default function InnerBanner({
         className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
         <div className="ap_container_small flex items-center h-full">
-          <div className={`apBannerContent`}>
-            <h1 className="h1-size mt-10 lg:mt-15 max-w-[800px]">
+          <div className={`apBannerContent w-full`}>
+            <h1 className="h1-size mt-10 lg:mt-15">
               <span className="font-[600]">{inner_banner_title}</span>
             </h1>
             <div
-              className="paragraph max-w-[600px] lg:mt-8 opacity-80"
+              className="paragraph lg:mt-8 opacity-80"
               style={{ fontWeight: "300" }}
               dangerouslySetInnerHTML={{
                 __html: inner_banner_paragraph || "&nbsp;",

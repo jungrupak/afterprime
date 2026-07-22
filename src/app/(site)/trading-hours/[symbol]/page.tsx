@@ -11,6 +11,7 @@ import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import type { InstrumentData } from "@/types/instruments";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
 import { localizeHref } from "@/lib/locale/localizeHref";
 
@@ -171,6 +172,7 @@ function getInstrumentHref(symbol: string, category: string): string {
 
 export default async function TradingHoursSymbolPage({ params }: Props) {
   const { symbol } = await params;
+  const locale = await getRequestLocale();
   const data = await getTradingHoursData(symbol);
   if (!data) notFound();
 
@@ -187,7 +189,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
       ? `${sym} trades ${data.openDay} ${data.openUtc} to ${data.closeDay} ${data.closeUtc}, ${schedule}.`
       : `${data.description}, ${schedule}.`;
 
-  const faqItems = [
+  const faqItemsRaw = [
     {
       question: `When does ${sym} open?`,
       answer: `${sym} opens ${data.openDay} at ${data.openUtc}.`,
@@ -209,6 +211,11 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
         }
       : null,
   ].filter(Boolean) as { question: string; answer: string }[];
+
+  const faqTranslated = await getTranslatedStatic("trading-hours-faq", locale, {
+    sectionTitle: `${sym} Trading Hours: FAQs`,
+    items: faqItemsRaw,
+  });
 
   const instrumentHref = getInstrumentHref(sym, data.category);
 
@@ -470,8 +477,8 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
       {/* ── 6. FAQ block ─────────────────────────────────────── */}
       <FaqCalc
-        faqSubject={`${sym} Trading Hours: FAQs`}
-        data={faqItems}
+        faqSubject={faqTranslated.sectionTitle}
+        data={faqTranslated.items}
       />
 
       <BottomCta />

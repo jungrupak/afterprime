@@ -36,10 +36,13 @@ export default async function ContentBlock({
   });
 
   const contents = String(content_block_with_image_content || "");
-  const htmlContent = contents
-    .split(/\r?\n\r?\n/)
-    .map((para?: string) => `<p>${para}</p>`)
-    .join("");
+  const isHtml = /<[a-z][\s\S]*>/i.test(contents);
+  const htmlContent = isHtml
+    ? contents
+    : contents
+        .split(/\r?\n\r?\n/)
+        .map((para?: string) => `<p>${para}</p>`)
+        .join("");
 
   return (
     <>

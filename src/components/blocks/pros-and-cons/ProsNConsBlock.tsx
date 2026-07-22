@@ -23,10 +23,13 @@ export function ProsNConsBlock({
   const isBoxed = Number(pros_and_cons_is_boxed || 0);
   const heading = String(pros_and_cons_section_title || "");
   const contents = String(pros_and_cons_section_paragraph || "");
-  const htmlContent = contents
-    .split(/\r?\n\r?\n/)
-    .map((para?: string) => `<p>${para}</p>`)
-    .join("");
+  const isHtml = /<[a-z][\s\S]*>/i.test(contents);
+  const htmlContent = isHtml
+    ? contents
+    : contents
+        .split(/\r?\n\r?\n/)
+        .map((para?: string) => `<p>${para}</p>`)
+        .join("");
 
   const ctaText = String(pros_and_cons_section_cta_label || "");
 

@@ -112,8 +112,15 @@ export default async function ForexSlugPage({ params }: Props) {
   const getFields = data?.acf?.instrument_single_page_fields;
   const pageSchema = getFields?.page_schema;
   const pageBuilder = data?.acf?.instrument_single_page_fields?.page_builder;
-  const faqData = data?.acf?.faq_section?.q_and_a;
-  const faqSectionTitle = data?.acf?.faq_section?.ssection_title;
+  const faqDataRaw = data?.acf?.faq_section?.q_and_a;
+  const faqSectionTitleRaw = data?.acf?.faq_section?.ssection_title;
+  const faqTranslated = await getTranslatedStatic("forex-faq", locale, {
+    sectionTitle: faqSectionTitleRaw || "",
+    items: (faqDataRaw ?? []).map((item: { question?: string; answer?: string }) => ({
+      question: item?.question || "",
+      answer: item?.answer || "",
+    })),
+  });
   const glossaryData =
     data?.acf?.instrument_single_page_fields?.glossary_content_block;
 
@@ -205,7 +212,7 @@ export default async function ForexSlugPage({ params }: Props) {
         </div>
       </section>
 
-      <FaqCalc faqSubject={faqSectionTitle} data={faqData ?? []} />
+      <FaqCalc faqSubject={faqTranslated.sectionTitle} data={faqTranslated.items} />
       <FaqSchema pageSlug={slug} />
 
       <BottomCta />

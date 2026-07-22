@@ -21,10 +21,13 @@ export default function SectionFeaturedCards({
   cards = [],
 }: SectionFeaturedCardsProps) {
   const contents = String(section_card_repeator_section_paragraph || "");
-  const htmlContent = contents
-    .split(/\r?\n\r?\n/)
-    .map((para?: string) => `<p>${para}</p>`)
-    .join("");
+  const isHtml = /<[a-z][\s\S]*>/i.test(contents);
+  const htmlContent = isHtml
+    ? contents
+    : contents
+        .split(/\r?\n\r?\n/)
+        .map((para?: string) => `<p>${para}</p>`)
+        .join("");
 
   return (
     <section className={`${styles.sectionBlockWithCards} compact-section`}>

@@ -20,12 +20,16 @@ export default function Accordion({
 
   // Process all answers with the hook at top level
   if (!faqObjects) return null;
-  const processedAnswers = faqObjects.map((item) =>
-    (item.answer || "")
-      .split(/\n+/)
-      .map((line) => `<p>${line.trim()}</p>`)
-      .join(""),
-  );
+  const processedAnswers = faqObjects.map((item) => {
+    const raw = (item.answer || "");
+    const isHtml = /<[a-z][\s\S]*>/i.test(raw);
+    return isHtml
+      ? raw
+      : raw
+          .split(/\n+/)
+          .map((line) => `<p>${line.trim()}</p>`)
+          .join("");
+  });
   return (
     <div className={`${styles.accordion_wrapper}`}>
       {faqObjects.map((item, index) => (

@@ -14,10 +14,13 @@ export function ClientMoneySection({
 
   const heading = String(client_money_static_block_section_title || "");
   const contents = String(client_money_static_block_paragraph || "");
-  const htmlContent = contents
-    .split(/\r?\n\r?\n/)
-    .map((para?: string) => `<p>${para}</p>`)
-    .join("");
+  const isHtml = /<[a-z][\s\S]*>/i.test(contents);
+  const htmlContent = isHtml
+    ? contents
+    : contents
+        .split(/\r?\n\r?\n/)
+        .map((para?: string) => `<p>${para}</p>`)
+        .join("");
 
   ////////
   return (

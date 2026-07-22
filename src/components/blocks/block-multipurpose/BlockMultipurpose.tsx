@@ -36,24 +36,30 @@ export async function MultipurposeBlock({
     getInviteCodeCta: "Get Invite Code",
     buttonLabelFallback: "Button Label",
     signupNowText: "Signup Now",
+    rightTitle: multipurpose_block_text_content_block_title || "",
+    rightContent: multipurpose_block_text_content_block_content || "",
   });
 
   const isBoxed = Number(multipurpose_block_is_boxed || 0);
   const vrAlign = String(multipurpose_block_content_vertical_alignment || "");
   const heading = String(multipurpose_block_section_heading || "");
   const contents = String(multipurpose_block_section_content || "");
-  const htmlContent = contents
-    .split(/\r?\n\r?\n/)
-    .map((para?: string) => `<p>${para}</p>`)
-    .join("");
+  const isHtml = /<[a-z][\s\S]*>/i.test(contents);
+  const htmlContent = isHtml
+    ? contents
+    : contents
+        .split(/\r?\n\r?\n/)
+        .map((para?: string) => `<p>${para}</p>`)
+        .join("");
 
-  const contents_2 = String(
-    multipurpose_block_text_content_block_content || "",
-  );
-  const htmlContent2 = contents_2
-    .split(/\r?\n\r?\n/)
-    .map((para?: string) => `<p>${para}</p>`)
-    .join("");
+  const contents_2 = t.rightContent;
+  const isHtml2 = /<[a-z][\s\S]*>/i.test(contents_2);
+  const htmlContent2 = isHtml2
+    ? contents_2
+    : contents_2
+        .split(/\r?\n\r?\n/)
+        .map((para?: string) => `<p>${para}</p>`)
+        .join("");
 
   const ctaText = String(multipurpose_block_block_cta_label || "");
 
@@ -169,7 +175,7 @@ export async function MultipurposeBlock({
             {multipurpose_block_active_right_column_content_block === "1" && (
               <div className="max-md:text-center md:pr-25">
                 <h2 className="h2-size mb-6">
-                  {multipurpose_block_text_content_block_title}
+                  {t.rightTitle}
                 </h2>
                 <div
                   className="wysWygEditor"

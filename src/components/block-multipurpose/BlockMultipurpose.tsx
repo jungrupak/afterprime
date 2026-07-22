@@ -21,10 +21,13 @@ export function MultipurposeBlock({ data, isBoxed }: DataProps) {
   // ////////
   const heading = String(data.multipurpose_block_section_heading || "");
   const contents = String(data.multipurpose_block_section_content || "");
-  const htmlContent = contents
-    .split(/\r?\n\r?\n/)
-    .map((para?: string) => `<p>${para}</p>`)
-    .join("");
+  const isHtml = /<[a-z][\s\S]*>/i.test(contents);
+  const htmlContent = isHtml
+    ? contents
+    : contents
+        .split(/\r?\n\r?\n/)
+        .map((para?: string) => `<p>${para}</p>`)
+        .join("");
 
   ////////
   return (

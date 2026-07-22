@@ -13,6 +13,7 @@ interface FAQItem {
 type faqContents = {
   faqSubject?: string;
   data?: FAQItem[];
+  fixedFaqs?: FAQItem[];
   instrument: string;
   hasRebateValue?: boolean;
 };
@@ -24,6 +25,7 @@ export default function Faq({
   faqSubject,
   instrument,
   hasRebateValue,
+  fixedFaqs: fixedFaqsProp,
 }: faqContents) {
   // map nested faq_item into flat structure
   //if (!data) return null;
@@ -50,7 +52,7 @@ export default function Faq({
     }
   }, [data]);
 
-  const fixedFaqs = [
+  const defaultFixedFaqs = [
     {
       question: `How are Flow Rewards calculated?`,
       answer: `Flow Rewards are paid per traded lot (round turn) using instrument specific rates published on the Afterprime website.`,
@@ -77,6 +79,8 @@ export default function Faq({
       answer: `Applications are reviewed and approved selectively based on trading profile and activity.`,
     },
   ];
+
+  const fixedFaqs = fixedFaqsProp ?? defaultFixedFaqs;
 
   //FAQ Schema Data
   const instrumentToLowercase = instrument?.toLowerCase();

@@ -1,9 +1,19 @@
 import TypeformButton from "@/components/instrument-lps/typeform-btn/typeForm";
 import styles from "./style.module.scss";
 import { getGlobalOptionFields } from "@/lib/getGlobalBlockData";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 
 export async function BottomCta() {
-  const fieldsData = await getGlobalOptionFields("global_cta_fields"); //pass custom field group name to get exact field datas
+  const locale = await getRequestLocale();
+  const fieldsData = await getGlobalOptionFields("global_cta_fields");
+
+  const t = await getTranslatedStatic("bottom-cta-options", locale, {
+    headline: String(fieldsData?.headline || ""),
+    paragraph: String(fieldsData?.paragraph || ""),
+    small_text: String(fieldsData?.small_text || ""),
+    buttonText: "Apply for Invite code",
+  });
 
   return (
     <section className={`compact-section`}>
@@ -12,19 +22,14 @@ export async function BottomCta() {
           className={`${styles.bottomCta} flex flex-col justify-center items-center text-center`}
         >
           <div>
-            <h2 className={`md:mb-8! leading-[1]`}>{fieldsData?.headline}</h2>
+            <h2 className={`md:mb-8! leading-[1]`}>{t.headline}</h2>
             <p
               className={`${styles.paragraph} mb-8 md:mb-10 opacity-80`}
-              dangerouslySetInnerHTML={{ __html: fieldsData?.paragraph || "" }}
+              dangerouslySetInnerHTML={{ __html: t.paragraph }}
             />
-            {/* <p className={`paragraph mb-8 md:mb-10 opacity-80`}>
-              Built on transparency. Lowest total trading costs.
-              <br />
-              Execution you can measure. Rewards shared with you.
-            </p> */}
-            <TypeformButton buttonText="Apply for Invite code" size="Regular" />
+            <TypeformButton buttonText={t.buttonText} size="Regular" />
             <div className={`text-[clamp(14px_,4vw_,16px)] mt-5 opacity-65`}>
-              {fieldsData?.small_text}
+              {t.small_text}
             </div>
           </div>
         </div>
