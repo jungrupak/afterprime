@@ -67,6 +67,16 @@ const nextConfig: NextConfig = {
     ];
   },
 
+  async rewrites() {
+    return [
+      // Public filename /sitemap-{locale}.xml -> app/sitemap/[locale]/route.ts.
+      // Route folders can't mix a literal prefix with a dynamic segment
+      // (sitemap-[locale].xml isn't valid), so this rewrite bridges the gap.
+      // See docs/multilangual-architecture/13-Sitemap-Localization.md.
+      { source: "/sitemap-:locale.xml", destination: "/sitemap/:locale" },
+    ];
+  },
+
   async redirects() {
     return [
         { source: '/en/:path*', destination: '/:path*', permanent: true },

@@ -3,17 +3,17 @@
   //background-image: url("/img/hero-banner-home.jpg");
   background-size: cover;
   min-height: 600px;
-  padding: 0;
+  padding: 200px 0 120px;
   background-position: 10% center;
   //height: calc(100vh + 10vh);
-  height: 100vh;
+  height: auto;
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   gap: 30px;
   @media all and (max-width: 767px) {
-    padding-block: 120px 0;
+    padding-block: 130px 0 120px;
     max-height: none;
     height: auto;
     background-position: 55% center;

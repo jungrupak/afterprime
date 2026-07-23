@@ -1,7 +1,21 @@
-import type { MetadataRoute } from "next";
-import { WPPage } from "@/types/blocks";
+import type { WPPage } from "@/types/blocks";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type SupportedLocale } from "@/config/locales";
 
-export const revalidate = 86400;
+// Shared by app/sitemap.xml/route.ts (index) and app/sitemap/[locale]/route.ts
+// (per-locale urlset). Same route tree serves every locale via proxy.ts
+// (locale prefix -> x-locale header, no separate page tree per language) —
+// so a sitemap entry for one locale is just the English path with
+// /{locale} prepended (English itself gets no prefix). Route list itself
+// (WP pages, instrument symbols, vs/broker combos, etc.) is locale-agnostic.
+
+export const SITE_BASE_URL = "https://afterprime.com";
+
+export type SitemapEntry = {
+  url: string;
+  lastModified: Date;
+  changeFrequency: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
+  priority: number;
+};
 
 type WPPageExtended = WPPage & {
   modified?: string;
@@ -50,10 +64,6 @@ function getWordPressApiBase() {
   return `${normalizedBaseUrl}/wp-json/wp/v2`;
 }
 
-function normalizeBaseUrl(url: string) {
-  return url.endsWith("/") ? url.slice(0, -1) : url;
-}
-
 function parseDate(value?: string) {
   if (!value) {
     return new Date();
@@ -77,6 +87,21 @@ function mapWordPressUrlToSiteUrl(pageUrl: string, siteBaseUrl: string) {
   } catch {
     return null;
   }
+}
+
+// English (default locale) gets no prefix. Every other locale gets the same
+// path prepended with /{locale} — matches proxy.ts's rewrite scheme, so the
+// URL is guaranteed to resolve (see docs/multilangual-architecture/08-NextJS-Integration.md §8.2).
+function withLocale(absoluteUrl: string, locale: SupportedLocale): string {
+  if (locale === DEFAULT_LOCALE) {
+    return absoluteUrl;
+  }
+
+  const suffix = absoluteUrl.startsWith(SITE_BASE_URL)
+    ? absoluteUrl.slice(SITE_BASE_URL.length)
+    : absoluteUrl;
+
+  return `${SITE_BASE_URL}/${locale}${suffix}`;
 }
 
 async function fetchAllInstrumentSymbols(): Promise<Array<{ symbol: string; path: string }>> {
@@ -153,8 +178,11 @@ async function fetchPublishedPages(): Promise<WPPageExtended[]> {
   return allPages;
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://afterprime.com";
+export function isSitemapLocale(value: string): value is SupportedLocale {
+  return (SUPPORTED_LOCALES as readonly string[]).includes(value);
+}
+
+export async function buildSitemapEntries(locale: SupportedLocale): Promise<SitemapEntry[]> {
   const [pages, instruments] = await Promise.all([
     fetchPublishedPages(),
     fetchAllInstrumentSymbols(),
@@ -165,67 +193,71 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter((i) => i.path.split("\\")[0] === "Forex")
     .map((i) => i.symbol);
 
-  const staticRoutes: MetadataRoute.Sitemap = [
+  const staticRoutes: SitemapEntry[] = [
     {
-      url: baseUrl,
+      url: withLocale(SITE_BASE_URL, locale),
       lastModified: new Date(),
       priority: 1,
       changeFrequency: "daily",
     },
   ];
 
-  const dynamicRoutes: MetadataRoute.Sitemap = pages.reduce<MetadataRoute.Sitemap>(
-    (routes, page) => {
-      if (page.slug === "home-page" || !page.link) {
-        return routes;
-      }
-
-      const mappedUrl = mapWordPressUrlToSiteUrl(page.link, baseUrl);
-      if (!mappedUrl) {
-        return routes;
-      }
-
-      routes.push({
-        url: mappedUrl,
-        lastModified: parseDate(page.modified),
-        priority: 0.8,
-        changeFrequency: "daily",
-      });
-
+  const dynamicRoutes: SitemapEntry[] = pages.reduce<SitemapEntry[]>((routes, page) => {
+    if (page.slug === "home-page" || !page.link) {
       return routes;
-    },
-    [],
-  );
+    }
 
-  const webtraderRoutes: MetadataRoute.Sitemap = WEBTRADER_PAGES.map((slug) => ({
-    url: `${baseUrl}/${slug}`,
+    const mappedUrl = mapWordPressUrlToSiteUrl(page.link, SITE_BASE_URL);
+    if (!mappedUrl) {
+      return routes;
+    }
+
+    routes.push({
+      url: withLocale(mappedUrl, locale),
+      lastModified: parseDate(page.modified),
+      priority: 0.8,
+      changeFrequency: "daily",
+    });
+
+    return routes;
+  }, []);
+
+  const webtraderRoutes: SitemapEntry[] = WEBTRADER_PAGES.map((slug) => ({
+    url: withLocale(`${SITE_BASE_URL}/${slug}`, locale),
     lastModified: new Date(),
     priority: 0.9,
     changeFrequency: "weekly",
   }));
 
-  const swapRoutes: MetadataRoute.Sitemap = symbols.map((symbol) => ({
-    url: `${baseUrl}/swaps/${symbol}`,
+  const swapRoutes: SitemapEntry[] = symbols.map((symbol) => ({
+    url: withLocale(`${SITE_BASE_URL}/swaps/${symbol}`, locale),
     lastModified: new Date(),
     priority: 0.7,
     changeFrequency: "daily",
   }));
 
-  const vsSymbolRoutes: MetadataRoute.Sitemap = VS_BROKER_SLUGS.flatMap((broker) =>
+  const vsSymbolRoutes: SitemapEntry[] = VS_BROKER_SLUGS.flatMap((broker) =>
     forexSymbols.map((symbol) => ({
-      url: `${baseUrl}/vs/${broker}/${symbol}`,
+      url: withLocale(`${SITE_BASE_URL}/vs/${broker}/${symbol}`, locale),
       lastModified: new Date(),
       priority: 0.75,
       changeFrequency: "daily" as const,
     })),
   );
 
-  const thSymbolRoutes: MetadataRoute.Sitemap = symbols.map((symbol) => ({
-    url: `${baseUrl}/trading-hours/${symbol}`,
+  const thSymbolRoutes: SitemapEntry[] = symbols.map((symbol) => ({
+    url: withLocale(`${SITE_BASE_URL}/trading-hours/${symbol}`, locale),
     lastModified: new Date(),
     priority: 0.7,
     changeFrequency: "daily",
   }));
 
-  return [...staticRoutes, ...dynamicRoutes, ...webtraderRoutes, ...swapRoutes, ...vsSymbolRoutes, ...thSymbolRoutes];
+  return [
+    ...staticRoutes,
+    ...dynamicRoutes,
+    ...webtraderRoutes,
+    ...swapRoutes,
+    ...vsSymbolRoutes,
+    ...thSymbolRoutes,
+  ];
 }
