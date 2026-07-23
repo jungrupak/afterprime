@@ -36,15 +36,7 @@ export function LivePricingAll({
     //categories.stocks,
   ];
 
-  const tabNavs = [
-    "Popular",
-    "Forex",
-    "Crypto",
-    "Commodities",
-    "Metals",
-    "Indices",
-    //"Stocks",
-  ];
+  const tabNavs = c.tabLabels;
 
   const visibleRows = pricingCatLists[activeTabNav].filter(
     (item) => !["CA60", "SA40", "NOR25"].includes(item.symbol),

@@ -22,6 +22,14 @@ export const livePricingForexContent = {
     " across your typical trading volume to see the total savings or ",
   compareLinkText: "compare broker costs",
   readyToCompareSuffix: " across 10+ brokers.",
+  // Tab nav display labels — order matches pricingCatLists in
+  // LivePricingForex.tsx (index-based, not value-based). Spelled out as
+  // "X Pairs" rather than the bare FX-jargon word — Weglot's MT has no FX
+  // context for a lone word and mistranslates it literally (es: "Minors"
+  // -> "menores de edad" [underage children], "Exotics" -> "animales
+  // exóticos" [exotic animals]). Same issue fixed in
+  // src/app/(trade)/trade/TradePageContent.ts.
+  tabLabels: ["Major Pairs", "Minor Pairs", "Exotic Pairs"],
 };
 
 export type LivePricingForexContent = typeof livePricingForexContent;

@@ -69,7 +69,7 @@ export class TranslationEngine {
       return original;
     }
 
-    const result = rehydrate(tree, translated) as T;
+    const result = rehydrate(tree, translated, locale) as T;
     await this.options.cache.set(cacheKey, locale, version, result);
     return result;
   }

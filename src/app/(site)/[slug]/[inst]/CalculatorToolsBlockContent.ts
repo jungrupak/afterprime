@@ -3,10 +3,13 @@
 // once in a Server Component ancestor via
 // getTranslatedStatic("calculator-tools-block", locale, calculatorToolsBlockContent)
 // and passed down as the `content` prop. The description embeds a live
-// {instrument} value — interpolated with .replace() at render time in
-// CalculatorToolsBlock.tsx. calCardData's href/pageUrl values are untouched
-// here; only the display names below are wired into content.x in the
-// component.
+// {sym} value — interpolated with .replace() at render time in
+// CalculatorToolsBlock.tsx. Deliberately not `{instrument}`: Weglot's MT
+// recognizes "instrument" as a real word and translates it too (es:
+// "{instrument}" -> "{instrumento}"), silently breaking the placeholder
+// match — see 12-Weglot-Dashboard-Fixes.md. calCardData's href/pageUrl
+// values are untouched here; only the display names below are wired into
+// content.x in the component.
 export const calculatorToolsBlockContent = {
   calculatorNames: {
     positionSize: "Position Size & Risk Calculator",
@@ -20,7 +23,7 @@ export const calculatorToolsBlockContent = {
     "Use Afterprime’s professional",
   calculatorsLinkText: "trading calculators",
   description:
-    "to model position sizing, margin requirements, swap impact, and true trading cost for {instrument}.",
+    "to model position sizing, margin requirements, swap impact, and true trading cost for {sym}.",
   availableCalculators: "Available Calculators",
   footnote: "Calculators default to Afterprime trading specifications.",
 };

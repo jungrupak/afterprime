@@ -2,6 +2,9 @@ import Lists from "@/utils/lists/Lists";
 import styles from "./TradePage.module.scss";
 import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { tradePageContent } from "./TradePageContent";
 
 type FxPair = {
   symbol: string;
@@ -24,24 +27,9 @@ export async function generateMetadata() {
 
 //####
 export default async function TradePage() {
-  const listItems = [
-    `<b>Lowest total cost, not headline spreads</b><br/>
-Spreads alone are misleading. Afterprime publishes all-in net cost per lot so you can compare brokers on real economics.
-`,
-    `<b>Flow Rewards<sup>TM</sup> reduce realized cost</b></br>
-Flow Rewards<sup>TM</sup> are credited per traded lot and recorded separately in PnL. This offsets a consistent portion of spread cost and narrows the gap between modeled and realized execution.
-`,
-    `<b>Execution built for consistency</b></br>
-Low latency sensitivity, controlled slippage distribution, and stable fills during fast markets. Execution quality is treated as an engineering problem with financial consequences.`,
-  ];
-
-  const bottomLists = [
-    "Cost per lot (including commission)",
-    "All-In Cost (round turn)",
-    "Flow Rewards<sup>TM</sup> per lot",
-    "Net Cost per lot",
-    "Savings vs Afterprime",
-  ];
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("trade-page", locale, tradePageContent);
+  const { listItems, bottomLists, categoryLabels } = t;
 
   const STATIC_PAIRS: FxCategory[] = [
     {
@@ -125,18 +113,15 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
         <div className="ap_container_small flex items-center h-full">
           <div className="apBannerContent">
             <h1 className="h1-size mt-10 lg:mt-15 md:max-w-[800px]">
-              <span className="font-[600]">
-                Trade Forex With Verifiable Lowest All-In Costs
-              </span>
+              <span className="font-[600]">{t.heroHeading}</span>
             </h1>
             <div
               className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
               style={{ fontWeight: "300" }}
             >
-              Trade major, minor, and exotic FX pairs with transparent pricing,
-              zero commission, and Flow Rewards<sup>TM</sup> credited per lot.
-              Afterprime publishes real all-in costs so you can model execution
-              before deploying capital. No spread games. No hidden charges.
+              {t.heroParagraphBefore}
+              <sup>TM</sup>
+              {t.heroParagraphAfter}
             </div>
           </div>
         </div>
@@ -146,7 +131,7 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
       {/* INtro sectio */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <h2>Why Afterprime Forex Pricing Is Different</h2>
+          <h2>{t.pricingHeading}</h2>
           <Lists bulletStyle="arrow_blue" items={listItems} />
         </div>
       </section>
@@ -155,7 +140,7 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
       {/* FX Pairs sectio */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <h2>FX Pairs You Can Trade</h2>
+          <h2>{t.pairsHeading}</h2>
           <div>
             <div className={`${styles.instumentLists}`}>
               <div className="">
@@ -171,7 +156,7 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
                       className={`mb-8 ${styles.listParent}`}
                     >
                       <h4 className={`font-bold text-[28px] mb-2 md:mb-4`}>
-                        {categoryName.toUpperCase()}
+                        {categoryLabels[categoryName].toUpperCase()}
                       </h4>
 
                       <ul>
@@ -194,20 +179,15 @@ Low latency sensitivity, controlled slippage distribution, and stable fills duri
       {/* Bottom section */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <h2>How To Compare Forex Trading Costs</h2>
-          <p className={`paragraph`}>
-            Spreads show potential cost. All in cost shows actual cost.
-          </p>
-          <p className={`paragraph mt-4 md:mt-8`}>Afterprime publishes</p>
+          <h2>{t.compareHeading}</h2>
+          <p className={`paragraph`}>{t.compareIntro}</p>
+          <p className={`paragraph mt-4 md:mt-8`}>{t.publishesLabel}</p>
           <Lists
             customClass="mt-4 md:mt-8"
             bulletStyle="arrow_blue"
             items={bottomLists}
           />
-          <p className={`paragraph mt-4 md:mt-8`}>
-            These inputs allow traders to model costs across volume assumptions
-            before trading.
-          </p>
+          <p className={`paragraph mt-4 md:mt-8`}>{t.compareOutro}</p>
         </div>
       </section>
       {/* INtro sectio Ends */}

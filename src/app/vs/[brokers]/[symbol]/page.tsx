@@ -9,6 +9,9 @@ import Accordion from "@/utils/accordion/Accordion";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import Link from "next/link";
 import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { vsSymbolFaqContent } from "./VsSymbolFaqContent";
 
 export const revalidate = 60;
 
@@ -102,25 +105,49 @@ export default async function VsSymbolPage({ params }: Props) {
   const savingPct = comp.savingPercentage;
   const nextBrokerSlug = getNextBrokerSlug(brokers);
 
+  const locale = await getRequestLocale();
+  const faqT = await getTranslatedStatic(
+    "vs-symbol-faq",
+    locale,
+    vsSymbolFaqContent,
+  );
+
+  const apCostStr = `$${ap.costPerLot.toFixed(2)}`;
+  const compCostStr = `$${comp.costPerLot.toFixed(2)}`;
+
   const FAQ_DATA = [
     {
-      question: `Is Afterprime cheaper than ${mappedBrokerName} for ${sym}?`,
+      question: faqT.q1
+        .replace("{brokerName}", mappedBrokerName)
+        .replace("{symbol}", sym),
+      answer: (savingPerlot > 0 ? faqT.a1Cheaper : faqT.a1NotCheaper)
+        .replace(/{symbol}/g, sym)
+        .replace("{apCost}", apCostStr)
+        .replace("{brokerName}", mappedBrokerName)
+        .replace("{compCost}", compCostStr)
+        .replace("{savingPct}", savingPct.toFixed(1))
+        .replace("{saving100}", `$${savingPer100Lots.toFixed(0)}`),
+    },
+    {
+      question: faqT.q2
+        .replace("{brokerName}", mappedBrokerName)
+        .replace("{symbol}", sym),
+      answer: faqT.a2.replace(/{brokerName}/g, mappedBrokerName),
+    },
+    {
+      question: faqT.q3,
       answer:
-        savingPerlot > 0
-          ? `Yes. Based on current live data, Afterprime's all-in ${sym} cost is $${ap.costPerLot.toFixed(2)}/lot versus ${mappedBrokerName}'s $${comp.costPerLot.toFixed(2)}/lot, a ${savingPct.toFixed(1)}% difference. On 100 lots that's $${savingPer100Lots.toFixed(0)} in your favour.`
-          : `No. Based on current live data, Afterprime's all-in ${sym} cost is $${ap.costPerLot.toFixed(2)}/lot versus ${mappedBrokerName}'s $${comp.costPerLot.toFixed(2)}/lot`,
+        faqT.a3Prefix +
+        (rebate > 0
+          ? faqT.a3RebateAvailable
+              .replace("{symbol}", sym)
+              .replace("{rebate}", `$${rebate.toFixed(2)}`)
+              .replace("{apNetCost}", `$${apNetCost.toFixed(2)}`)
+          : faqT.a3RebateUnavailable.replace("{symbol}", sym)),
     },
     {
-      question: `Does ${mappedBrokerName} charge commission on ${sym}?`,
-      answer: `${mappedBrokerName}'s all-in cost includes spread and any applicable commission depending on account type. Afterprime charges $0 commission on all trades cost is entirely spread-based.`,
-    },
-    {
-      question: `What is Afterprime's Flow Rewards and how does it affect the comparison?`,
-      answer: `Flow Rewards is a structural rebate of up to $3/lot paid back to active traders. ${rebate > 0 ? `The current ${sym} rate is $${rebate.toFixed(2)}/lot, bringing Afterprime's net cost to $${apNetCost.toFixed(2)}/lot.` : `Flow Rewards is not available for ${sym}`}`,
-    },
-    {
-      question: `How often is this data updated?`,
-      answer: `Spread and cost data is sourced from Forexbenchmark.com's feed and reflects current market conditions. Data is refreshed approximately every 12 hours.`,
+      question: faqT.q4,
+      answer: faqT.a4,
     },
   ];
 

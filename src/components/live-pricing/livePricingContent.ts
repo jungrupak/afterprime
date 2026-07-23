@@ -35,6 +35,10 @@ export const livePricingContent = {
   readyToCompareLinkText: "Calculate your trading costs",
   caption:
     "Beyond Zero-Commission, Get Paid to Trade. Popular Instruments, Forex, Crypto, Commodities, Metals, Indices",
+  // Tab nav display labels — order matches pricingCatLists in
+  // LivePricingAll.tsx (index-based, not value-based, so translating these
+  // directly can't desync the table shown per tab).
+  tabLabels: ["Popular", "Forex", "Crypto", "Commodities", "Metals", "Indices"],
 };
 
 export type LivePricingContent = typeof livePricingContent;

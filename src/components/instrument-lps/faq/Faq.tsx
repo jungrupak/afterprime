@@ -13,7 +13,7 @@ interface FAQItem {
 type faqContents = {
   faqSubject?: string;
   data?: FAQItem[];
-  fixedFaqs?: FAQItem[];
+  fixedFaqs: FAQItem[];
   instrument: string;
   hasRebateValue?: boolean;
 };
@@ -25,7 +25,7 @@ export default function Faq({
   faqSubject,
   instrument,
   hasRebateValue,
-  fixedFaqs: fixedFaqsProp,
+  fixedFaqs,
 }: faqContents) {
   // map nested faq_item into flat structure
   //if (!data) return null;
@@ -51,36 +51,6 @@ export default function Faq({
       setIsRebate(true);
     }
   }, [data]);
-
-  const defaultFixedFaqs = [
-    {
-      question: `How are Flow Rewards calculated?`,
-      answer: `Flow Rewards are paid per traded lot (round turn) using instrument specific rates published on the Afterprime website.`,
-    },
-    ...(instrument.toUpperCase() === "XAUUSD"
-      ? [
-          {
-            question: `Is ${instrument.toUpperCase()} eligible for Flow Rewards?`,
-            answer: `Yes.`,
-          },
-        ]
-      : [
-          {
-            question: `Is ${instrument.toUpperCase()} eligible for Flow Rewards?`,
-            answer: `Yes. ${instrument.toUpperCase()} does qualify for Flow Rewards.`,
-          },
-        ]),
-    {
-      question: `How does Afterprime make money?`,
-      answer: `Afterprime earns from institutional liquidity relationships and volume based arrangements, not from client losses.`,
-    },
-    {
-      question: `How does account approval work?`,
-      answer: `Applications are reviewed and approved selectively based on trading profile and activity.`,
-    },
-  ];
-
-  const fixedFaqs = fixedFaqsProp ?? defaultFixedFaqs;
 
   //FAQ Schema Data
   const instrumentToLowercase = instrument?.toLowerCase();

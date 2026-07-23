@@ -2,6 +2,8 @@
 import { useState, useEffect, useCallback } from "react";
 import styles from "./TradingHoursWidget.module.scss";
 import type { SessionTrade } from "@/types/instruments";
+import type { TradingHoursWidgetContent } from "./tradingHoursWidgetContent";
+import { tradingHoursWidgetContent as defaultContent } from "./tradingHoursWidgetContent";
 
 const TIMEZONES = [
   { label: "UTC", value: "UTC" },
@@ -103,6 +105,7 @@ function computeMarketStatus(
   hasDailyBreak: boolean,
   breakStartMinutes: number | null,
   breakEndMinutes: number | null,
+  t: TradingHoursWidgetContent,
 ): MarketStatus {
   const now = new Date();
   // Session data is in GMT+3 (MT4 server time) — shift current time to match
@@ -147,7 +150,7 @@ function computeMarketStatus(
         breakEndDate = minutesToAbsDate(breakEndMinutes, 1);
       return {
         state: "break",
-        nextEventLabel: "Break ends in",
+        nextEventLabel: t.eventBreakEndsIn,
         nextEventSeconds: secsUntil(breakEndDate),
       };
     }
@@ -167,8 +170,8 @@ function computeMarketStatus(
       state: "open",
       nextEventLabel:
         hasDailyBreak && closeAtMinutes === breakStartMinutes
-          ? "Break in"
-          : "Closes in",
+          ? t.eventBreakIn
+          : t.eventClosesIn,
       nextEventSeconds: secsUntil(closeDate),
     };
   }
@@ -187,7 +190,7 @@ function computeMarketStatus(
       if (openDate > now) {
         return {
           state: "closed",
-          nextEventLabel: "Will open in",
+          nextEventLabel: t.eventWillOpenIn,
           nextEventSeconds: secsUntil(openDate),
         };
       }
@@ -196,7 +199,7 @@ function computeMarketStatus(
 
   return {
     state: "closed",
-    nextEventLabel: "Will open in",
+    nextEventLabel: t.eventWillOpenIn,
     nextEventSeconds: 0,
   };
 }
@@ -216,6 +219,8 @@ interface Props {
   openUtc?: string;
   closeDay?: string;
   closeUtc?: string;
+  content?: TradingHoursWidgetContent;
+  locale?: string;
 }
 
 export default function TradingHoursWidget({
@@ -232,7 +237,10 @@ export default function TradingHoursWidget({
   openUtc,
   closeDay,
   closeUtc,
+  content,
+  locale = "en",
 }: Props) {
+  const t = content ?? defaultContent;
   const parsedBreakStart = parseServerTimeString(dailyBreakStartUtc);
   const parsedBreakEnd = parseServerTimeString(dailyBreakEndUtc);
   // dailyBreakStartUtc / dailyBreakEndUtc are in UTC, but session data is in server time (GMT+3)
@@ -243,7 +251,7 @@ export default function TradingHoursWidget({
   const [now, setNow] = useState<Date | null>(null);
   const [status, setStatus] = useState<MarketStatus>({
     state: "closed",
-    nextEventLabel: "Will open in",
+    nextEventLabel: t.eventWillOpenIn,
     nextEventSeconds: 0,
   });
   const [countdown, setCountdown] = useState(0);
@@ -263,10 +271,11 @@ export default function TradingHoursWidget({
       hasDailyBreak,
       breakStartMinutes,
       breakEndMinutes,
+      t,
     );
     setStatus(s);
     setCountdown(s.nextEventSeconds);
-  }, [sessionsTrades, hasDailyBreak, breakStartMinutes, breakEndMinutes]);
+  }, [sessionsTrades, hasDailyBreak, breakStartMinutes, breakEndMinutes, t]);
 
   useEffect(() => {
     tick();
@@ -280,7 +289,7 @@ export default function TradingHoursWidget({
   };
 
   const dateStr = now
-    ? now.toLocaleDateString("en-GB", {
+    ? now.toLocaleDateString(locale, {
         weekday: "short",
         day: "2-digit",
         month: "short",
@@ -289,7 +298,7 @@ export default function TradingHoursWidget({
     : "";
 
   const timeStr = now
-    ? now.toLocaleTimeString("en-US", {
+    ? now.toLocaleTimeString(locale, {
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
@@ -307,10 +316,10 @@ export default function TradingHoursWidget({
 
   const pillLabel =
     status.state === "open"
-      ? "Open now"
+      ? t.statusOpen
       : status.state === "break"
-        ? "Daily Break"
-        : "Market Closed";
+        ? t.statusBreak
+        : t.statusClosed;
 
   const todayApiDay = now
     ? jsUtcDayToApi(new Date(now.getTime() + SERVER_OFFSET_MINUTES * 60 * 1000).getUTCDay())
@@ -321,22 +330,22 @@ export default function TradingHoursWidget({
 
   const sessionCards = [
     sessionAsiaOpen && {
-      label: "Asia open",
+      label: t.sessionAsiaOpen,
       time: utcStringToLocalTime(sessionAsiaOpen, timezone),
       peak: false,
     },
     sessionLondonOpen && {
-      label: "London open",
+      label: t.sessionLondonOpen,
       time: utcStringToLocalTime(sessionLondonOpen, timezone),
       peak: false,
     },
     sessionNyOpen && {
-      label: "New York open",
+      label: t.sessionNyOpen,
       time: utcStringToLocalTime(sessionNyOpen, timezone),
       peak: false,
     },
     sessionOverlapStart && {
-      label: "Peak liquidity",
+      label: t.sessionPeakLiquidity,
       time: `${utcStringToLocalTime(sessionOverlapStart, timezone)} – ${utcStringToLocalTime(sessionOverlapEnd, timezone)}`,
       peak: true,
     },
@@ -409,13 +418,13 @@ export default function TradingHoursWidget({
               <line x1="2" y1="12" x2="22" y2="12" />
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
             </svg>
-            Timezone
+            {t.timezoneLabel}
           </span>
           <select
             className={styles.tzSelect}
             value={timezone}
             onChange={(e) => handleTimezoneChange(e.target.value)}
-            aria-label="Select timezone"
+            aria-label={t.timezoneAriaLabel}
           >
             {TIMEZONES.map((tz) => (
               <option key={tz.value} value={tz.value}>
@@ -426,20 +435,20 @@ export default function TradingHoursWidget({
         </div>
 
         {/* Day columns */}
-        <p className={styles.dayColumnsLabel}>Trading Hours by Day</p>
+        <p className={styles.dayColumnsLabel}>{t.tradingHoursByDay}</p>
         <div className={styles.dayColumns}>
           {WEEKDAYS.map(({ label, apiDay }) => {
             const session = sessionMap.get(apiDay);
             const isToday = apiDay === todayApiDay;
             return (
               <div key={apiDay} className={styles.dayCol}>
-                <span className={styles.dayName}>{label}</span>
+                <span className={styles.dayName}>{t.weekdays[label]}</span>
                 <div
                   className={`${styles.dayTimeRange} ${isToday ? styles.today : ""}`}
                 >
                   {session
                     ? `${serverMinutesToLocalTime(session.open, timezone)} – ${serverMinutesToLocalTime(session.close, timezone)}`
-                    : "Closed"}
+                    : t.closed}
                 </div>
               </div>
             );
@@ -449,7 +458,7 @@ export default function TradingHoursWidget({
         {hasDailyBreak && dailyBreakStartUtc && dailyBreakEndUtc && (
           <div className={`${styles.breakInfoPill} mt-5 max-md:w-full`}>
             <span className={styles.dot} />
-            <b>Daily break</b> · {dailyBreakStartUtc} – {dailyBreakEndUtc}
+            <b>{t.dailyBreakLabel}</b> · {dailyBreakStartUtc} – {dailyBreakEndUtc}
           </div>
         )}
       </div>
@@ -457,7 +466,7 @@ export default function TradingHoursWidget({
       {/* Trading Sessions */}
       {sessionCards.length > 0 && (
         <div className={styles.sessionsSection}>
-          <p className={`paragraph mb-3 md:mb-5`}>Trading Sessions</p>
+          <p className={`paragraph mb-3 md:mb-5`}>{t.tradingSessions}</p>
           <div className={styles.sessionCards}>
             {sessionCards.map((card) => (
               <div

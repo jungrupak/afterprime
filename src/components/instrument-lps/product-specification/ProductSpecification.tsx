@@ -6,15 +6,27 @@ import Link from "next/link";
 import SpecificationTable from "./SpecificationTable";
 import { useLocale } from "@/lib/locale/useLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import {
+  productSpecificationContent,
+  type ProductSpecificationContent,
+} from "./productSpecificationContent";
+import type { SpecificationTableContent } from "./specificationTableContent";
 
 interface Specification {
   instrument?: string;
+  content?: ProductSpecificationContent;
+  specTableContent?: SpecificationTableContent;
 }
 
-export default function ProductSpecification({ instrument }: Specification) {
+export default function ProductSpecification({
+  instrument,
+  content: c = productSpecificationContent,
+  specTableContent,
+}: Specification) {
   //##
   if (!instrument) return;
   const locale = useLocale();
+  const sym = instrument.toUpperCase();
 
   // ####
   const specData = [...AP_FX_PAIRS]; //spreading this since we gonna have other pairs type in future like crypto, indices etc..
@@ -37,44 +49,40 @@ export default function ProductSpecification({ instrument }: Specification) {
         {instrument} Trading Specification
       </h2> */}
       <div className={`${styles.costBreakDownTable}`}>
-        <SpecificationTable instrument={instrument} />
+        <SpecificationTable instrument={instrument} content={specTableContent} />
       </div>
 
       {instrument === "XAUUSD" ? (
         <div className={`mt-15`}>
           <h3 className={`font-bold text-[clamp(18px,5vw,24px)] mb-2`}>
-            Trade connected metals
+            {c.metals.heading}
           </h3>
           <p className={`opacity-80`}>
-            Afterprime's trading environment gives you complete cost
-            transparency. Every {instrument} quote displays{" "}
+            {c.paragraphPart1.replace("{sym}", sym)}
             <Link href={localizeHref("/live-spreads", locale)} className={`underline`}>
-              real-time spread pricing
+              {c.realTimeSpreadLinkText}
             </Link>
-            , no hidden markups, no commission surprises. Use the integrated
-            calculator to{" "}
+            {c.paragraphPart2}
             <Link
               href={localizeHref("/calculators/cost-savings-calculator", locale)}
               className={`underline`}
             >
-              calculate trading costs
-            </Link>{" "}
-            for any position size before you trade. This clarity matters: when
-            spreads are genuinely lower and you're earning Flow Rewards
-            <sup>TM</sup> on every lot, the savings accelerate. {instrument}'s
-            deep liquidity and our structural cost advantage make it the natural
-            choice for both scalpers and position traders. You can{" "}
+              {c.calculateCostsLinkText}
+            </Link>
+            {c.paragraphPart3}
+            <sup>TM</sup>
+            {c.paragraphPart4.replace("{sym}", sym)}
             <Link href={localizeHref("/metals", locale)} className={`underline`}>
-              explore all metals
-            </Link>{" "}
-            with institutional-grade execution or alternatively the{" "}
+              {c.metals.exploreLinkText}
+            </Link>
+            {c.paragraphPart5}
             <Link
               href={localizeHref("/calculators/position-size-calculator", locale)}
               className={`underline`}
             >
-              position sizing for this instrument
+              {c.metals.positionSizingLinkText}
             </Link>
-            .
+            {c.paragraphSuffix}
           </p>
 
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
@@ -83,45 +91,41 @@ export default function ProductSpecification({ instrument }: Specification) {
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              {instrument.toUpperCase()} trading hours {""} →
+              {c.metals.tradingHoursCta.replace("{sym}", sym)} {""} →
             </Link>
           </div>
         </div>
       ) : (
         <div className={`mt-15`}>
           <h3 className={`font-bold text-[clamp(18px,5vw,24px)] mb-2`}>
-            Trade connected FX pairs
+            {c.forex.heading}
           </h3>
           <p className={`opacity-80`}>
-            Afterprime's trading environment gives you complete cost
-            transparency. Every {instrument} quote displays{" "}
+            {c.paragraphPart1.replace("{sym}", sym)}
             <Link href={localizeHref("/live-spreads", locale)} className={`underline`}>
-              real-time spread pricing
+              {c.realTimeSpreadLinkText}
             </Link>
-            , no hidden markups, no commission surprises. Use the integrated
-            calculator to{" "}
+            {c.paragraphPart2}
             <Link
               href={localizeHref("/calculators/cost-savings-calculator", locale)}
               className={`underline`}
             >
-              calculate trading costs
-            </Link>{" "}
-            for any position size before you trade. This clarity matters: when
-            spreads are genuinely lower and you're earning Flow Rewards
-            <sup>TM</sup> on every lot, the savings accelerate. {instrument}'s
-            deep liquidity and our structural cost advantage make it the natural
-            choice for both scalpers and position traders. You can{" "}
+              {c.calculateCostsLinkText}
+            </Link>
+            {c.paragraphPart3}
+            <sup>TM</sup>
+            {c.paragraphPart4.replace("{sym}", sym)}
             <Link href={localizeHref("/trade", locale)} className={`underline`}>
-              explore all forex pairs
-            </Link>{" "}
-            with institutional-grade execution or alternatively the{" "}
+              {c.forex.exploreLinkText}
+            </Link>
+            {c.paragraphPart5}
             <Link
               href={localizeHref("/calculators/position-size-calculator", locale)}
               className={`underline`}
             >
-              position sizing for this pair
+              {c.forex.positionSizingLinkText}
             </Link>
-            .
+            {c.paragraphSuffix}
           </p>
           <div className={`flex flex-wrap gap-2 mt-4`}>
             {relatedPairs.map((pair) => (
@@ -141,7 +145,7 @@ export default function ProductSpecification({ instrument }: Specification) {
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              {instrument.toUpperCase()} Specification {""} →
+              {c.forex.specificationCta.replace("{sym}", sym)} {""} →
             </Link>
 
             <Link
@@ -149,7 +153,7 @@ export default function ProductSpecification({ instrument }: Specification) {
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              {instrument.toUpperCase()} trading hours {""} →
+              {c.forex.tradingHoursCta.replace("{sym}", sym)} {""} →
             </Link>
           </div>
         </div>

@@ -35,14 +35,7 @@ export function LivePricingTradingHours({
     //categories.stocks,
   ];
 
-  const tabNavs = [
-    "Forex",
-    "Crypto",
-    "Commodities",
-    "Metals",
-    "Indices",
-    //"Stocks",
-  ];
+  const tabNavs = c.tabLabels;
 
   const visibleRows = pricingCatLists[activeTabNav].filter(
     (item) => !["CA60", "SA40", "NOR25", "XCUUSD"].includes(item.symbol),

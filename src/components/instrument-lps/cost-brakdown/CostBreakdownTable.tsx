@@ -2,15 +2,23 @@
 import styles from "./CostBreakdown.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
+import {
+  costBreakdownTableContent,
+  type CostBreakdownTableContent,
+} from "./costBreakdownTableContent";
 
 //##
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
 
 interface Breakdown {
   instrument?: string;
+  content?: CostBreakdownTableContent;
 }
 
-export default function CostBreakdownTable({ instrument }: Breakdown) {
+export default function CostBreakdownTable({
+  instrument,
+  content: c = costBreakdownTableContent,
+}: Breakdown) {
   if (!instrument) return null;
   const asFiniteNumber = (value: unknown, fallback = 0) =>
     typeof value === "number" && Number.isFinite(value) ? value : fallback;
@@ -51,24 +59,26 @@ export default function CostBreakdownTable({ instrument }: Breakdown) {
         <thead>
           <tr>
             <th>
-              Volume
+              {c.volumeLine1}
               <br />
-              (Lots)
+              {c.volumeLine2}
             </th>
             <th className="max-md:hidden">
-              Net Cost
+              {c.netCostLine1}
               <br />
-              (Lot Round Turn)
+              {c.netCostLine2}
             </th>
             <th>
-              Flow Rewards<sup>TM</sup>
+              {c.flowRewardsLine1}
+              <sup>TM</sup>
               <br />
-              (${rebatePerLot.toFixed(2)}/lot)
+              (${rebatePerLot.toFixed(2)}
+              {c.flowRewardsRateSuffix}
             </th>
             <th>
-              Saved
+              {c.savedLine1}
               <br />
-              (vs Industry Avg.)
+              {c.savedLine2}
             </th>
           </tr>
         </thead>

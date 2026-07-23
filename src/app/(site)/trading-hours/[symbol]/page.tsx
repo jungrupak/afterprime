@@ -14,113 +14,147 @@ import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import { getWeglotCode } from "@/config/locales";
+import {
+  tradingHoursPageContent,
+  type TradingHoursPageContent,
+} from "./tradingHoursPageContent";
+import {
+  tradingHoursWidgetContent,
+  type TradingHoursWidgetContent,
+} from "@/components/trading-hours-widget/tradingHoursWidgetContent";
 
-function tradingDaysText(data: InstrumentData): string {
-  if (data.is24_7) return "24 hours a day, 7 days a week";
-  if (data.openDay && data.openUtc && data.closeDay && data.closeUtc)
-    return `${data.openDay} ${data.openUtc} to ${data.closeDay} ${data.closeUtc}`;
-  if (data.is24_5) return "24 hours a day, Monday through Friday";
-  return "during scheduled market hours";
+// Display-only translation for a day-of-week value from the live feed —
+// falls back to the raw (English) value if not in the map.
+function translateDay(
+  day: string | undefined,
+  t: TradingHoursPageContent,
+): string {
+  if (!day) return "";
+  return t.dayNames[day] ?? day;
 }
 
-function exchangeRef(data: InstrumentData): string {
+function tradingDaysText(
+  data: InstrumentData,
+  t: TradingHoursPageContent,
+): string {
+  if (data.is24_7) return t.tradingDays.always;
+  if (data.openDay && data.openUtc && data.closeDay && data.closeUtc)
+    return `${translateDay(data.openDay, t)} ${data.openUtc} to ${translateDay(data.closeDay, t)} ${data.closeUtc}`;
+  if (data.is24_5) return t.tradingDays.fiveDay;
+  return t.tradingDays.scheduled;
+}
+
+function exchangeRef(data: InstrumentData, t: TradingHoursPageContent): string {
   switch (data.category.toLowerCase()) {
     case "forex":
-      return "the global FX interbank market";
+      return t.exchangeRef.forex;
     case "crypto":
-      return "the global crypto market";
+      return t.exchangeRef.crypto;
     case "metals":
-      return "COMEX/LBMA session times";
+      return t.exchangeRef.metals;
     case "commodities":
-      return "CME/NYMEX exchange session times";
+      return t.exchangeRef.commodities;
     default:
-      return "the underlying exchange";
+      return t.exchangeRef.default;
   }
 }
 
-function dstRegions(data: InstrumentData): string {
+function dstRegions(data: InstrumentData, t: TradingHoursPageContent): string {
   const cat = data.category.toLowerCase();
   if (["forex", "metals", "crypto"].includes(cat))
-    return "London, New York, and Sydney";
-  if (["indices", "stocks"].includes(cat)) return "the US and Europe";
-  if (cat === "commodities") return "the US";
-  return "major trading centres";
+    return t.dstRegions.fxMetalsCrypto;
+  if (["indices", "stocks"].includes(cat)) return t.dstRegions.indicesStocks;
+  if (cat === "commodities") return t.dstRegions.commodities;
+  return t.dstRegions.default;
 }
 
-function peakContext(data: InstrumentData): string {
-  if (data.sessionOverlapContext) return data.sessionOverlapContext;
+function peakContext(data: InstrumentData, t: TradingHoursPageContent, translatedOverlap: string): string {
+  if (translatedOverlap) return translatedOverlap;
   const sym = data.symbol.toUpperCase();
   const cat = data.category.toLowerCase();
-  if (sym === "XAUUSD")
-    return "Gold correlates strongly with USD moves, peaking when US and European traders are both active";
-  if (cat === "forex")
-    return "This 4-hour window accounts for the majority of daily forex volume";
+  if (sym === "XAUUSD") return t.peakContext.gold;
+  if (cat === "forex") return t.peakContext.forex;
   if (
     cat === "indices" &&
     ["US500", "NAS100", "US30"].some((s) => sym.includes(s))
   )
-    return "Volume spikes at the US open (9:30 AM ET) and in the final hour of trade";
-  if (cat === "indices")
-    return "Volume is highest when the home exchange regular session is active";
+    return t.peakContext.usIndices;
+  if (cat === "indices") return t.peakContext.indices;
   if (
     cat === "commodities" &&
     (sym.includes("XTIUSD") || sym.includes("XBRUSD"))
   )
-    return "Crude volume aligns with NYMEX pit hours and US inventory data releases (Wednesdays)";
-  if (cat === "commodities")
-    return "Liquidity peaks when the relevant commodity exchange pit session is active";
-  if (cat === "crypto")
-    return "Crypto CFDs mirror risk-on sentiment; largest moves typically occur during US trading hours";
-  return "Liquidity and spreads are tightest during this window";
+    return t.peakContext.crudeOil;
+  if (cat === "commodities") return t.peakContext.commodities;
+  if (cat === "crypto") return t.peakContext.crypto;
+  return t.peakContext.default;
 }
 
-function lowVolumePeriod(data: InstrumentData): string {
+function lowVolumePeriod(
+  data: InstrumentData,
+  t: TradingHoursPageContent,
+): string {
   if (data.lowVolumePeriod) return data.lowVolumePeriod;
   const sym = data.symbol.toUpperCase();
   const cat = data.category.toLowerCase();
-  if (["XAUUSD", "XAGUSD"].includes(sym)) return "post-NY close";
-  if (cat === "forex") return "the Asian session";
-  if (cat === "indices") return "pre-market hours";
-  if (cat === "commodities") return "the Asian session";
-  if (cat === "crypto") return "weekend hours";
-  return "off-peak hours";
+  if (["XAUUSD", "XAGUSD"].includes(sym)) return t.lowVolumePeriod.metals;
+  if (cat === "forex") return t.lowVolumePeriod.forex;
+  if (cat === "indices") return t.lowVolumePeriod.indices;
+  if (cat === "commodities") return t.lowVolumePeriod.commodities;
+  if (cat === "crypto") return t.lowVolumePeriod.crypto;
+  return t.lowVolumePeriod.default;
 }
 
-function executionStyle(data: InstrumentData): string {
+function executionStyle(
+  data: InstrumentData,
+  t: TradingHoursPageContent,
+): string {
   if (data.executionStyle) return data.executionStyle;
   const cat = data.category.toLowerCase();
-  if (cat === "forex") return "scalping and intraday";
-  if (cat === "indices") return "momentum and intraday";
+  if (cat === "forex") return t.executionStyle.forex;
+  if (cat === "indices") return t.executionStyle.indices;
   if (["commodities", "metals"].includes(cat))
-    return "trend-following and intraday";
-  if (cat === "crypto") return "momentum";
-  return "active";
+    return t.executionStyle.commoditiesMetals;
+  if (cat === "crypto") return t.executionStyle.crypto;
+  return t.executionStyle.default;
 }
 
-function outsideHoursStatement(data: InstrumentData): string {
+function outsideHoursStatement(
+  data: InstrumentData,
+  t: TradingHoursPageContent,
+): string {
   if (data.is24_7)
-    return `${data.description} is available to trade 24/7 at Afterprime, including weekends`;
+    return t.outsideHours.always.replace("{desc}", data.description);
   if (data.hasDailyBreak)
-    return `${data.description} has a short daily maintenance break but is otherwise available throughout the entire trading week`;
+    return t.outsideHours.dailyBreak.replace("{desc}", data.description);
   const cat = data.category.toLowerCase();
   if (["indices", "stocks"].includes(cat))
-    return `${data.description} cannot be traded outside the hours shown above. The market closes at the end of each regular session`;
+    return t.outsideHours.indicesStocksClosed.replace(
+      "{desc}",
+      data.description,
+    );
   if (data.is24_5)
-    return `${data.description} trades continuously 24 hours a day, five days a week. There is no intraday market close between ${data.openDay ?? "Sunday"} and ${data.closeDay ?? "Friday"}`;
-  return `${data.description} cannot be traded outside the hours shown above`;
+    return t.outsideHours.fiveDay
+      .replace("{desc}", data.description)
+      .replace("{openDay}", translateDay(data.openDay, t) || t.dayNames.Sunday)
+      .replace("{closeDay}", translateDay(data.closeDay, t) || t.dayNames.Friday);
+  return t.outsideHours.default.replace("{desc}", data.description);
 }
 
-function alternativeAccessNote(data: InstrumentData): string {
-  if (data.is24_7)
-    return "There is no gap risk from overnight closures for this instrument";
+function alternativeAccessNote(
+  data: InstrumentData,
+  t: TradingHoursPageContent,
+): string {
+  if (data.is24_7) return t.alternativeAccess.always;
   const cat = data.category.toLowerCase();
   if (["indices", "stocks"].includes(cat))
-    return "Orders placed while the market is closed are queued and executed at the next available open price";
-  return "Orders placed while the market is closed are queued and filled at the next available open price";
+    return t.alternativeAccess.indicesStocks;
+  return t.alternativeAccess.default;
 }
 
 function clean(text: string | undefined | null): string {
-  return text?.replace(/\uFFFD/g, "-") ?? "";
+  return text?.replace(/�/g, "-") ?? "";
 }
 
 function displaySym(sym: string): string {
@@ -135,14 +169,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { symbol } = await params;
   const locale = await getRequestLocale();
   const data = await getTradingHoursData(symbol);
-  if (!data) return { title: "Trading Hours | Afterprime" };
+
+  const t = await getTranslatedStatic(
+    "trading-hours-page",
+    locale,
+    tradingHoursPageContent,
+  );
+
+  const sym = data ? displaySym(data.symbol) : "";
+  if (!data) return { title: t.metadataFallbackTitle };
 
   const canonicalPath = `/trading-hours/${symbol}`;
   const canonicalUrl = `https://afterprime.com${localizeHref(canonicalPath, locale)}`;
 
   return {
-    title: `${displaySym(data.symbol)} Trading Hours: Open & Close Times | Afterprime`,
-    description: `${data.description} trading hours at Afterprime - session open/close times, pre-market, extended hours, and weekend status.`,
+    title: t.metadataTitle.replace("{sym}", sym),
+    description: t.metadataDescription.replace("{desc}", data.description),
     alternates: {
       canonical: canonicalUrl,
       languages: buildHreflangMap(symbol, canonicalPath),
@@ -176,44 +218,86 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
   const data = await getTradingHoursData(symbol);
   if (!data) notFound();
 
+  const t = await getTranslatedStatic(
+    "trading-hours-page",
+    locale,
+    tradingHoursPageContent,
+  );
+
+  const tw = await getTranslatedStatic(
+    "trading-hours-widget",
+    locale,
+    tradingHoursWidgetContent,
+  );
+
   const schedule = data.is24_7
-    ? "24 hours a day, 7 days a week"
+    ? t.scheduleAlways
     : data.is24_5
-      ? "24 hours a day, 5 days a week"
-      : `${data.openDay} to ${data.closeDay}`;
+      ? t.schedule24x5
+      : t.scheduleRange
+          .replace("{openDay}", translateDay(data.openDay, t))
+          .replace("{closeDay}", translateDay(data.closeDay, t));
 
   const sym = displaySym(data.symbol);
 
+  const dynamicT = await getTranslatedStatic(
+    `trading-hours-dynamic-${sym.toLowerCase()}`,
+    locale,
+    {
+      sessionOverlapContext: data.sessionOverlapContext ?? "",
+      dstNote: data.dstNote ?? "",
+    },
+  );
+
   const subline =
     data.openDay && data.openUtc && data.closeDay && data.closeUtc
-      ? `${sym} trades ${data.openDay} ${data.openUtc} to ${data.closeDay} ${data.closeUtc}, ${schedule}.`
-      : `${data.description}, ${schedule}.`;
+      ? t.sublineWithTimes
+          .replace("{sym}", sym)
+          .replace("{openDay}", translateDay(data.openDay, t))
+          .replace("{openUtc}", data.openUtc)
+          .replace("{closeDay}", translateDay(data.closeDay, t))
+          .replace("{closeUtc}", data.closeUtc)
+          .replace("{schedule}", schedule)
+      : t.sublineFallback
+          .replace("{desc}", data.description)
+          .replace("{schedule}", schedule);
 
   const faqItemsRaw = [
     {
-      question: `When does ${sym} open?`,
-      answer: `${sym} opens ${data.openDay} at ${data.openUtc}.`,
+      question: t.faq.q1.replace("{sym}", sym),
+      answer: t.faq.a1
+        .replace("{sym}", sym)
+        .replace("{openDay}", translateDay(data.openDay, t))
+        .replace("{openUtc}", data.openUtc ?? ""),
     },
     {
-      question: `When does ${sym} close?`,
-      answer: `${sym} closes ${data.closeDay} at ${data.closeUtc}.`,
+      question: t.faq.q2.replace("{sym}", sym),
+      answer: t.faq.a2
+        .replace("{sym}", sym)
+        .replace("{closeDay}", translateDay(data.closeDay, t))
+        .replace("{closeUtc}", data.closeUtc ?? ""),
     },
     data.swap3Day
       ? {
-          question: `What is the triple swap day for ${sym}?`,
-          answer: `The triple swap is charged on ${data.swap3Day} for ${sym} positions held overnight.`,
+          question: t.faq.q3.replace("{sym}", sym),
+          answer: t.faq.a3
+            .replace("{swap3Day}", data.swap3Day)
+            .replace("{sym}", sym),
         }
       : null,
     data.hasDailyBreak
       ? {
-          question: `Does ${sym} have a daily break?`,
-          answer: `Yes. ${sym} has a short daily break from ${data.dailyBreakStartUtc} to ${data.dailyBreakEndUtc}.`,
+          question: t.faq.q4.replace("{sym}", sym),
+          answer: t.faq.a4
+            .replace("{sym}", sym)
+            .replace("{start}", data.dailyBreakStartUtc ?? "")
+            .replace("{end}", data.dailyBreakEndUtc ?? ""),
         }
       : null,
   ].filter(Boolean) as { question: string; answer: string }[];
 
   const faqTranslated = await getTranslatedStatic("trading-hours-faq", locale, {
-    sectionTitle: `${sym} Trading Hours: FAQs`,
+    sectionTitle: t.faqSectionTitle.replace("{sym}", sym),
     items: faqItemsRaw,
   });
 
@@ -230,15 +314,15 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
               aria-label="Breadcrumb"
               className="flex items-center gap-2 text-sm opacity-55 mt-10 lg:mt-15 mb-4"
             >
-              <Link href="/trading-hours" className="hover:opacity-100!">
-                Market hours
+              <Link href={localizeHref("/trading-hours", locale)} className="hover:opacity-100!">
+                {t.breadcrumbMarketHours}
               </Link>
               <span aria-hidden="true">›</span>
               <span>{sym}</span>
             </nav>
             <h1 className="h1-size max-w-[1200px]">
               <span className="font-[600]">
-                {data.description} trading hours
+                {data.description} {t.h1Suffix}
               </span>
             </h1>
             <div
@@ -269,6 +353,8 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
             openUtc={data.openUtc}
             closeDay={data.closeDay}
             closeUtc={data.closeUtc}
+            content={tw}
+            locale={getWeglotCode(locale)}
           />
 
           {/* ── 4. Two info pills ─────────────────────────────────── */}
@@ -302,12 +388,12 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
                   </svg>
                   <div>
                     <p className=" mb-2 text-[clamp(14px_,5vw_,16px)] opacity-55 ">
-                      Triple swap day
+                      {t.tripleSwapDayLabel}
                     </p>
                     <p className="leading-snug  text-[clamp(16px_,5vw_,18px)]">
-                      Swap charges are applied at 3× on{" "}
-                      <strong>{data.swap3Day}</strong> to cover the weekend
-                      rollover.
+                      {t.tripleSwapText.split("{swap3Day}")[0]}
+                      <strong>{data.swap3Day}</strong>
+                      {t.tripleSwapText.split("{swap3Day}")[1]}
                     </p>
                   </div>
                 </div>
@@ -339,7 +425,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
                   </svg>
                   <div>
                     <p className="mb-2 text-[clamp(14px_,5vw_,16px)] opacity-55">
-                      Spread behaviour
+                      {t.spreadBehaviourLabel}
                     </p>
                     <p className="leading-snug text-[clamp(16px_,5vw_,18px)]">
                       {data.typicalSpreadNote}
@@ -363,38 +449,38 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
                 lineHeight: 1.65,
               }}
             >
-              <strong style={{ color: "#f59e0b" }}>DST note:</strong>{" "}
-              {data.dstNote}
+              <strong style={{ color: "#f59e0b" }}>{t.dstNotePrefix}</strong>{" "}
+              {dynamicT.dstNote}
             </div>
           )}
 
           {/* ── 7. Internal link row ─────────────────────────────── */}
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
             <Link
-              href={`/swaps/${sym.toLowerCase()}`}
+              href={localizeHref(`/swaps/${sym.toLowerCase()}`, locale)}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              {sym} swap rates →
+              {t.swapRatesLinkText.replace("{sym}", sym)} →
             </Link>
             {data.category === "Forex" && (
               <>
                 <Link
-                  href={instrumentHref}
+                  href={localizeHref(instrumentHref, locale)}
                   className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >
-                  {sym} specifications →
+                  {t.specificationsLinkText.replace("{sym}", sym)} →
                 </Link>
               </>
             )}
 
             <Link
-              href="/trading-hours"
+              href={localizeHref("/trading-hours", locale)}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              All trading hours →
+              {t.allTradingHoursLinkText} →
             </Link>
           </div>
         </div>
@@ -404,25 +490,31 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
       <section className="compact-section">
         <div className="ap_container_small">
           <h2 className="h2-size mb-6">
-            What are {data.description} trading hours?
+            {t.whatAreHoursHeading.replace("{desc}", data.description)}
           </h2>
           <p className="paragraph opacity-85">
-            {data.description} trades {tradingDaysText(data)}.
+            {t.tradesPrefix.replace("{desc}", data.description)}
+            {tradingDaysText(data, t)}
+            {t.tradesSuffix}
             {data.hasDailyBreak &&
             data.dailyBreakStartUtc &&
             data.dailyBreakEndUtc
-              ? ` There is a daily break from ${data.dailyBreakStartUtc} to ${data.dailyBreakEndUtc}.`
-              : ""}{" "}
-            Trading is{" "}
-            {data.weekendTrading || data.is24_7 ? "available" : "not available"}{" "}
-            on weekends.
+              ? t.dailyBreakInline
+                  .replace("{start}", data.dailyBreakStartUtc)
+                  .replace("{end}", data.dailyBreakEndUtc)
+              : ""}
+            {t.tradingIsLabel}
+            {data.weekendTrading || data.is24_7
+              ? t.weekendAvailable
+              : t.weekendNotAvailable}
+            {t.weekendSuffix}
           </p>
           <p className="paragraph opacity-85 mt-4">
-            At Afterprime, {data.description} is available as a CFD, meaning you
-            can go long or short within these hours without owning the
-            underlying asset. All times shown follow {exchangeRef(data)} and
-            adjust automatically for daylight saving changes in{" "}
-            {dstRegions(data)}.
+            {t.cfdParagraphPart1.replace("{desc}", data.description)}
+            {exchangeRef(data, t)}
+            {t.cfdParagraphPart2}
+            {dstRegions(data, t)}
+            {t.cfdParagraphPart3}
           </p>
         </div>
       </section>
@@ -432,22 +524,26 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
         <section className="compact-section">
           <div className="ap_container_small">
             <h2 className="h2-size mb-6">
-              Best time to trade {data.description}
+              {t.bestTimeHeading.replace("{desc}", data.description)}
             </h2>
             <p className="paragraph opacity-85">
-              {data.description} typically sees its highest liquidity and
-              tightest spreads during {clean(data.peakLiquiditySession)}
+              {t.bestTimeP1Prefix.replace("{desc}", data.description)}
+              {clean(data.peakLiquiditySession)}
               {data.sessionOverlapStart && data.sessionOverlapEnd
                 ? ` (${data.sessionOverlapStart}–${data.sessionOverlapEnd})`
                 : ""}
-              . {peakContext(data)}.
+              {t.bestTimeP1Suffix}
+              {peakContext(data, t, dynamicT.sessionOverlapContext)}
+              {t.bestTimeP1End}
             </p>
             <p className="paragraph opacity-85 mt-4">
-              Lower-volume periods, particularly {lowVolumePeriod(data)}, may
-              see wider spreads and thinner order books. For traders on{" "}
-              {executionStyle(data)} strategies, timing entries around the{" "}
-              {clean(data.peakLiquiditySession)} open tends to offer the most
-              favourable conditions.
+              {t.bestTimeP2Prefix}
+              {lowVolumePeriod(data, t)}
+              {t.bestTimeP2Middle}
+              {executionStyle(data, t)}
+              {t.bestTimeP2Middle2}
+              {clean(data.peakLiquiditySession)}
+              {t.bestTimeP2Suffix}
             </p>
           </div>
         </section>
@@ -457,19 +553,18 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
       <section className="compact-section">
         <div className="ap_container_small">
           <h2 className="h2-size mb-6">
-            Can you trade {data.description} outside market hours?
+            {t.outsideHeading.replace("{desc}", data.description)}
           </h2>
           <p className="paragraph opacity-85">
-            {outsideHoursStatement(data)}. {alternativeAccessNote(data)}.
+            {outsideHoursStatement(data, t)}. {alternativeAccessNote(data, t)}.
           </p>
           {data.swap3Day && (
             <p className="paragraph opacity-85 mt-4">
-              If you have a pending position when the market closes, it will be
-              held overnight and a swap rate will apply.
+              {t.pendingPositionText}
               {data.swapLong !== undefined && data.swapShort !== undefined
-                ? ` For ${data.description}, the current swap rates are ${data.swapLong} points long and ${data.swapShort} points short`
+                ? `${t.swapRatesInlinePrefix.replace("{desc}", data.description)}${data.swapLong}${t.swapRatesInlineMiddle}${data.swapShort}${t.swapRatesInlineSuffix}`
                 : ""}
-              {`, with a triple swap applied on ${data.swap3Day}`}.
+              {`${t.tripleSwapInlinePrefix}${data.swap3Day}${t.tripleSwapInlineSuffix}`}
             </p>
           )}
         </div>
@@ -485,8 +580,8 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
       <BreadcrumbSchema
         items={[
-          { name: "Home", href: "/" },
-          { name: "Trading Hours", href: "/trading-hours" },
+          { name: t.breadcrumbHome, href: "/" },
+          { name: t.breadcrumbTradingHours, href: "/trading-hours" },
           { name: sym, href: `/trading-hours/${symbol}` },
         ]}
       />

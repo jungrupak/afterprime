@@ -4,6 +4,7 @@ import Image from "next/image";
 import styles from "./style.module.scss";
 import { useEffect, useState } from "react";
 import TypeformButton from "../typeform-btn/typeForm";
+import LanguageSelector from "@/components/ui/LanguageSelector";
 import { useLocale } from "@/lib/locale/useLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
 
@@ -53,12 +54,19 @@ export default function Header({ applyNowText = "Apply Now" }: HeaderProps) {
           {/* Right Side (Desktop) */}
           <div className={`${styles.ap_header_right} max-[1204px]:hidden`}>
             <div className="flex items-center gap-4">
+              <LanguageSelector />
               <TypeformButton
                 buttonText={applyNowText}
                 size="small"
                 varient="ghost"
               />
             </div>
+          </div>
+
+          {/* Language Switcher (Mobile) — LP header has no mobile menu, so
+              this is the only mobile-visible piece of ap_header_right */}
+          <div className="hidden max-[1204px]:block">
+            <LanguageSelector />
           </div>
         </div>
       </header>

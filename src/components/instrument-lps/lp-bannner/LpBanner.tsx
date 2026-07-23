@@ -5,29 +5,37 @@ import { useQuery } from "@tanstack/react-query";
 import TypeformButton from "../typeform-btn/typeForm";
 import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 import { useState, useEffect } from "react";
+import {
+  lpBannerContent,
+  type LpBannerContent,
+} from "./lpBannerContent";
 
 interface BannerTitle {
   instrument?: string;
   applyButtonText?: string;
+  content?: LpBannerContent;
 }
 
 const CACHE_TTL = 2 * 60 * 1000;
 
 // ── XAUUSD Banner ────────────────────────────────────────────
-function LPBannerXAUUSD({ applyButtonText }: BannerTitle) {
+function LPBannerXAUUSD({
+  applyButtonText,
+  content: c = lpBannerContent,
+}: BannerTitle) {
   return (
     <section className={`${styles.lpBanner} lp-banner max-md:mt-10 md:pb-0! md:h-[100vh]`}>
       <div className={`ap_container_small grid grid-cols-2 gap-8 md:gap-20 relative z-1 flex items-center h-full`}>
         <div className={`${styles.bannerLeftItem} max-md:col-span-2`}>
           <h1 className={`max-md:mb-5`}>
-            Trade Gold (XAU/USD)<br />
-            <span>Institutional Access. Zero Commission.</span>
+            {c.xauusd.heading}<br />
+            <span>{c.xauusd.subheading}</span>
           </h1>
           <div className={`${styles.listUi} md:mt-12`}>
             <ul>
-              <li>Spot gold exposure with sub-50ms execution</li>
-              <li>Zero commission on every lot, every session</li>
-              <li>23-hour market access across all platforms</li>
+              <li>{c.xauusd.bullet1}</li>
+              <li>{c.xauusd.bullet2}</li>
+              <li>{c.xauusd.bullet3}</li>
             </ul>
           </div>
           <div className={`mt-8 md:mt-15`}>
@@ -39,8 +47,8 @@ function LPBannerXAUUSD({ applyButtonText }: BannerTitle) {
           </div>
           <div className={`flex flex-wrap gap-10 mt-5 max-md:justify-center max-md:text-center md:mt-10`}>
             <div className={`opacity-64 text-[14px] max-md:flex-[0_,0_,100%]`}>
-              Invite only access for approved trading profiles.
-              <br /> *Data Verified by ForexBenchmark
+              {c.inviteOnlyNote}
+              <br /> {c.dataVerifiedNote}
             </div>
             <div className={`max-md:flex-[0_,0_,100%]`}>
               <GoogleReviewBadge />
@@ -53,7 +61,11 @@ function LPBannerXAUUSD({ applyButtonText }: BannerTitle) {
 }
 
 // ── Default Banner (all other instruments) ───────────────────
-function LPBannerDefault({ instrument, applyButtonText }: BannerTitle) {
+function LPBannerDefault({
+  instrument,
+  applyButtonText,
+  content: c = lpBannerContent,
+}: BannerTitle) {
   const [dynamicContent, setDynamicContent] = useState({
     contentDefault: true,
     contentDataZero: false,
@@ -108,21 +120,24 @@ function LPBannerDefault({ instrument, applyButtonText }: BannerTitle) {
           {dynamicContent.contentDefault && (
             <>
               <h1 className={`max-md:mb-5`}>
-                Trade {instrument?.toUpperCase()} <br />
+                {c.tradeHeading.replace("{sym}", instrument?.toUpperCase() ?? "")}{" "}
+                <br />
                 <span>
-                  {industryVsApAvgPct.toFixed(2)}% Lower Cost vs Industry Avg
+                  {industryVsApAvgPct.toFixed(2)}
+                  {c.default.subtitleSuffix}
                 </span>
               </h1>
               <div className={`${styles.listUi} md:mt-12`}>
                 <ul>
                   <li>
-                    <b>${allInCostAfterprime.toFixed(2)}</b> Net Cost /lot
+                    <b>${allInCostAfterprime.toFixed(2)}</b>{" "}
+                    {c.default.netCostLabel}
                   </li>
                   <li>
-                    <b>${rebatePerLot.toFixed(2)}</b> /lot in Flow Rewards{" "}
+                    <b>${rebatePerLot.toFixed(2)}</b> {c.default.flowRewardsLabel}{" "}
                     <sup>TM</sup>
                   </li>
-                  <li>Savings Compound With Volume</li>
+                  <li>{c.default.bullet3}</li>
                 </ul>
               </div>
             </>
@@ -131,18 +146,19 @@ function LPBannerDefault({ instrument, applyButtonText }: BannerTitle) {
           {dynamicContent.contentDataZero && (
             <>
               <h1 className={`max-md:mb-5`}>
-                Trade {instrument?.toUpperCase()}
+                {c.tradeHeading.replace("{sym}", instrument?.toUpperCase() ?? "")}
                 <br />
-                <span>With Flow Rewards</span>
+                <span>{c.dataZero.subtitle}</span>
               </h1>
               <div className={`${styles.listUi} md:mt-12`}>
                 <ul>
                   <li>
-                    Get paid ${rebatePerLot.toFixed(2)} /lot with Flow Rewards
+                    {c.dataZero.getPaidPrefix}
+                    {rebatePerLot.toFixed(2)} {c.dataZero.getPaidLabel}
                     <sup>TM</sup>
                   </li>
-                  <li>Your rewards build with every trade</li>
-                  <li>More volume means lower effective costs</li>
+                  <li>{c.dataZero.bullet2}</li>
+                  <li>{c.dataZero.bullet3}</li>
                 </ul>
               </div>
             </>
@@ -151,15 +167,16 @@ function LPBannerDefault({ instrument, applyButtonText }: BannerTitle) {
           {dynamicContent.contentRebateNull && (
             <>
               <h1 className={`max-md:mb-5`}>
-                Trade {instrument?.toUpperCase()}
+                {c.tradeHeading.replace("{sym}", instrument?.toUpperCase() ?? "")}
               </h1>
               <div className={`${styles.listUi} md:mt-12`}>
                 <ul>
                   <li>
-                    Flow Rewards<sup>TM</sup> are currently $0.00 /lot
+                    {c.rebateNull.zeroRewardsPrefix}
+                    <sup>TM</sup> {c.rebateNull.zeroRewardsSuffix}
                   </li>
-                  <li>Trading costs are not reduced by rewards</li>
-                  <li>Pricing remains unchanged as volume increases</li>
+                  <li>{c.rebateNull.bullet2}</li>
+                  <li>{c.rebateNull.bullet3}</li>
                 </ul>
               </div>
             </>
@@ -175,8 +192,8 @@ function LPBannerDefault({ instrument, applyButtonText }: BannerTitle) {
 
           <div className={`flex flex-wrap gap-10 mt-5 max-md:justify-center max-md:text-center md:mt-10`}>
             <div className={`opacity-64 text-[14px] max-md:flex-[0_,0_,100%]`}>
-              Invite only access for approved trading profiles.
-              <br /> *Data Verified by ForexBenchmark
+              {c.inviteOnlyNote}
+              <br /> {c.dataVerifiedNote}
             </div>
             <div className={`max-md:flex-[0_,0_,100%]`}>
               <GoogleReviewBadge />
@@ -189,7 +206,14 @@ function LPBannerDefault({ instrument, applyButtonText }: BannerTitle) {
 }
 
 // ── Entry point ───────────────────────────────────────────────
-export default function LPBanner({ instrument, applyButtonText }: BannerTitle) {
-  if (instrument?.toUpperCase() === "XAUUSD") return <LPBannerXAUUSD applyButtonText={applyButtonText} />;
-  return <LPBannerDefault instrument={instrument} applyButtonText={applyButtonText} />;
+export default function LPBanner({ instrument, applyButtonText, content }: BannerTitle) {
+  if (instrument?.toUpperCase() === "XAUUSD")
+    return <LPBannerXAUUSD applyButtonText={applyButtonText} content={content} />;
+  return (
+    <LPBannerDefault
+      instrument={instrument}
+      applyButtonText={applyButtonText}
+      content={content}
+    />
+  );
 }

@@ -4,7 +4,23 @@ import { Blocks } from "@/types/blocks";
 import Link from "next/link";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { DEFAULT_LOCALE } from "@/config/locales";
+
+// tabNav here is a pure display label — category rows are matched against
+// `row.product` prefixes ("FOREX-MAJORS", etc.) independently below, so
+// translating the label can't desync the filtering. Still kept as a
+// separate lookup (rather than translating TableCategory.tabNav directly)
+// so the value used for React's `key` stays a stable English identifier.
+const tabNavLabels: Record<string, string> = {
+  "FX Majors": "FX Majors",
+  "FX Minors": "FX Minors",
+  "FX Exotics": "FX Exotics",
+  Commodities: "Commodities",
+  Metals: "Metals",
+  Indices: "Indices",
+  Crypto: "Crypto",
+};
 
 type SectionPropsHead = Blocks["rebate-table"];
 
@@ -208,6 +224,11 @@ export async function TableDataRewardFlow({
   const { categories, error } = await getRebates();
   const placeholderText = "Flow Rewards: Expanding soon";
   const locale = await getRequestLocale();
+  const tabLabelsT = await getTranslatedStatic(
+    "rebate-table-tabs",
+    locale,
+    tabNavLabels,
+  );
 
   return (
     <section className="compact-section">
@@ -221,7 +242,7 @@ export async function TableDataRewardFlow({
 
         <Tab>
           {categories.map(({ tabNav, rows, linkSymbols }) => (
-            <TabItem key={tabNav} tabNav={tabNav}>
+            <TabItem key={tabNav} tabNav={tabLabelsT[tabNav] ?? tabNav}>
               {error ? (
                 <p className="text-red-500">{error}</p>
               ) : rows.length > 0 ? (
