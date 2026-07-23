@@ -13,11 +13,13 @@ import FaqSchema from "@/lib/schema/faqSchema";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import { getSavingCompare } from "@/lib/getSavingCompare";
 import CostSavingCalculatorBrokers from "../cost-calculator/CostSavingCalculator";
+import { costSavingCalculatorContent } from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import { brokerPageContent, type BrokerPageContent } from "./brokerPageContent";
 
 // ISR
 export const revalidate = 60;
@@ -176,11 +178,13 @@ export default async function ChildPage({ params }: Props) {
   const { brokers } = await params;
   if (!brokers) return;
   const locale = await getRequestLocale();
-  const [pageData, vsT] = await Promise.all([
+  const [pageData, vsT, brokerT, calcT] = await Promise.all([
     getTranslatedPage<VsBrokerJson>(brokers, locale),
     getTranslatedStatic("vs-broker-cta", locale, {
       getInviteCodeCta: "Get Invite Code",
     }),
+    getTranslatedStatic("vs-broker-page", locale, brokerPageContent),
+    getTranslatedStatic("cost-saving-calculator", locale, costSavingCalculatorContent),
   ]);
   if (!pageData) {
     notFound();
@@ -279,7 +283,7 @@ export default async function ChildPage({ params }: Props) {
                 href={`#costCalculator`}
                 className={`${btnStyle.ap_button} ${btnStyle.primary} ${btnStyle.regular}`}
               >
-                Compare Your Cost
+                {brokerT.compareYourCost}
                 <svg
                   width="11"
                   height="17"
@@ -306,20 +310,20 @@ export default async function ChildPage({ params }: Props) {
         style={{ scrollMarginTop: "80px" }}
       >
         <div className="ap_container_small">
-          <CostSavingCalculatorBrokers currentBroker={brokers} />
+          <CostSavingCalculatorBrokers currentBroker={brokers} locale={locale} content={calcT} />
         </div>
       </section>
 
       <section className={`compact-section`}>
         <div className="ap_container_small">
-          <h2 className={`leading-[1.2]`}>Total Trading Cost Breakdown</h2>
+          <h2 className={`leading-[1.2]`}>{brokerT.totalTradingCostHeading}</h2>
           <CostComparisonWithSelected selectedBrokerSlug={brokers} />
         </div>
       </section>
 
       <section className={`compact-section`}>
         <div className="ap_container_small">
-          <h2 className={`leading-[1.2]`}>Trading Cost by Forex Major</h2>
+          <h2 className={`leading-[1.2]`}>{brokerT.tradingCostByMajorHeading}</h2>
           <CompareWithMajors broker={brokers} />
         </div>
       </section>
@@ -328,103 +332,74 @@ export default async function ChildPage({ params }: Props) {
       <section className={`compact-section`}>
         <div className="ap_container_small">
           <div className={`${styles.pageEditorContent}`}>
-            <h2 className={`mt-0!`}>Spreads - The Invisible Variable</h2>
+            <h2 className={`mt-0!`}>{brokerT.editorialSpreadHeading}</h2>
 
             <p>
-              The spread is the primary cost of entry for any trader, but it is
-              rarely static. Most brokers quote "typical" spreads that fluctuate
-              wildly during high volatility or low liquidity periods (like the
-              New York/London crossover or market open).
+              {brokerT.editorialSpreadIntro}
             </p>
 
             <ul>
               <li>
-                <b>The "Raw" Reality</b>
+                <b>{brokerT.editorialRawRealityTitle}</b>
                 <br />
-                Many brokers claim "$0.0 spreads," but the frequency of those
-                spreads actually being available to fill your order is the true
-                metric of quality.
+                {brokerT.editorialRawRealityDesc}
               </li>
               <li>
-                <b>The Afterprime Edge</b>
+                <b>{brokerT.editorialAfterprimeEdgeTitle}</b>
                 <br />
-                We focus on spread stability. By curating our flow, we reduce
-                the "noise" and "gapping" that often occurs with retail-heavy
-                brokers, ensuring that the price you see is the price you get,
-                under normal market conditions.
+                {brokerT.editorialAfterprimeEdgeDesc}
               </li>
             </ul>
 
             <h2 className={`mt-0!`}>
-              Cost Per Lot Impact - More Than Just Commission
+              {brokerT.editorialCostPerLotHeading}
             </h2>
 
             <p>
-              Traders often make the mistake of looking at commission in
-              isolation. A low commission is meaningless if it's paired with
-              wide spreads or poor execution (slippage).
+              {brokerT.editorialCostPerLotIntro}
             </p>
 
             <p>
-              <b>The Total Cost Per Lot formula is:</b> (Spread in Pips x Pip
-              Value) + Round Turn Commission = <b>Total Cost</b>
+              <b>{brokerT.editorialCostPerLotFormula}</b> {brokerT.editorialCostPerLotFormulaSuffix}
             </p>
 
             <ul>
               <li>
-                <b>The Slippage Factor</b>
+                <b>{brokerT.editorialSlippageTitle}</b>
                 <br />
-                If a broker has "cheap" costs but slips your entry by 0.2 pips,
-                that is an extra $2.00 per lot added to your cost that doesn't
-                show up on their pricing page. This is an industry-wide dynamic
-                and does not constitute a specific claim regarding {pageTitle}'s
-                execution quality.
+                {brokerT.editorialSlippageDesc.replace("{brokerName}", pageTitle)}
               </li>
 
               <li>
-                <b>Cumulative Friction</b>
+                <b>{brokerT.editorialCumulativeTitle}</b>
                 <br />
-                For a high-frequency trader or someone moving 1,000 lots a
-                month, a mere $2.00 difference in total cost per lot is the
-                difference between a $2,000 profit and a $2,000 loss.
+                {brokerT.editorialCumulativeDesc}
               </li>
             </ul>
 
-            <h2 className={`mt-0!`}>How it Affects Total Cost Calculation</h2>
+            <h2 className={`mt-0!`}>{brokerT.editorialHowAffectsHeading}</h2>
 
             <p>
-              When we calculate the comparison between Afterprime and other
-              brokers, we don't just look at a snapshot. We aggregate data
-              across different market sessions to provide a "Net Cost" profile.
+              {brokerT.editorialHowAffectsIntro}
             </p>
 
             <ul>
               <li>
-                <b>Volume Weighting</b>
+                <b>{brokerT.editorialVolumeWeightingTitle}</b>
                 <br />
-                We analyze how costs scale. As your volume increases, the impact
-                of "Flow Rewards<sup>TM</sup> becomes the deciding factor. While
-                other brokers keep your commission static regardless of your
-                contribution to the ecosystem, we believe in rewarding "clean"
-                flow.
+                {brokerT.editorialVolumeWeightingDesc}
               </li>
               <li>
                 <b>
-                  The Logic of "Flow Rewards<sup>TM</sup>"
+                  {brokerT.editorialFlowRewardsTitle}
                 </b>
                 <br />
-                Unlike traditional "cashback" models which are often just
-                rebates of marked-up spreads, Flow Rewards<sup>TM</sup> are a
-                direct reflection of the value your trading flow brings to our
-                liquidity providers.
+                {brokerT.editorialFlowRewardsDesc}
               </li>
               <li>
-                <b>Insight</b>
+                <b>{brokerT.editorialInsightTitle}</b>
                 <br />
-                By reducing the "toxic" flow (latency arbitrage, etc.) through
-                our invite-only model, our Liquidity Providers (LPs) can offer
-                us tighter pricing. We simply pass those savings directly back
-                to you.
+                {brokerT.editorialInsightDesc}
               </li>
             </ul>
 
@@ -438,11 +413,11 @@ export default async function ChildPage({ params }: Props) {
       <FaqSchema pageSlug={brokers} />
       <BreadcrumbSchema
         items={[
-          { name: "Home", href: "/" },
-          { name: "Broker Comparisons", href: "/vs" },
+          { name: brokerT.breadcrumbHome, href: localizeHref("/", locale) },
+          { name: brokerT.breadcrumbBrokerComparisons, href: localizeHref("/vs", locale) },
           {
             name: `Afterprime vs ${brokers.charAt(0).toUpperCase() + brokers.slice(1)}`,
-            href: `/vs/${brokers}`,
+            href: localizeHref(`/vs/${brokers}`, locale),
           },
         ]}
       />

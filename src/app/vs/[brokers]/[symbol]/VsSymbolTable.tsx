@@ -1,4 +1,8 @@
 import styles from "./Page.module.scss";
+import {
+  vsSymbolTableContent,
+  type VsSymbolTableContent,
+} from "./vsSymbolTableContent";
 
 interface VsSymbolTableProps {
   brokerName: string;
@@ -10,6 +14,7 @@ interface VsSymbolTableProps {
   rebate: number;
   apNetCost: number;
   savingPct: number;
+  content?: VsSymbolTableContent;
 }
 
 export default function VsSymbolTable({
@@ -22,6 +27,7 @@ export default function VsSymbolTable({
   rebate,
   apNetCost,
   savingPct,
+  content: t = vsSymbolTableContent,
 }: VsSymbolTableProps) {
   const sym = symbol.toUpperCase();
   const savingPerlot = compCostPerLot - apCostPerLot;
@@ -34,38 +40,38 @@ export default function VsSymbolTable({
         <table>
           <thead>
             <tr>
-              <th>Cost Component</th>
+              <th>{t.costComponent}</th>
               <th>Afterprime</th>
               <th>{brokerName}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>All-in spread (pip)</td>
+              <td>{t.allInSpread}</td>
               <td className={styles.afterprimeCol}>{apCost.toFixed(2)}</td>
               <td>{compCost.toFixed(2)}</td>
             </tr>
             <tr>
-              <td>Commission</td>
+              <td>{t.commission}</td>
               <td className={styles.afterprimeCol}>$0</td>
-              <td>Varies by account</td>
+              <td>{t.variesByAccount}</td>
             </tr>
             <tr>
-              <td>Net cost per lot</td>
+              <td>{t.netCostPerLot}</td>
               <td className={styles.afterprimeCol}>
                 ${apCostPerLot.toFixed(2)}
               </td>
               <td>${compCostPerLot.toFixed(2)}</td>
             </tr>
             <tr>
-              <td>Flow Rewards</td>
+              <td>{t.flowRewards}</td>
               <td className={styles.afterprimeCol}>
-                {rebate > 0 ? <>−${rebate.toFixed(2)}/lot</> : <>N/A</>}
+                {rebate > 0 ? <>−${rebate.toFixed(2)}/lot</> : <>{t.na}</>}
               </td>
-              <td>None</td>
+              <td>{t.none}</td>
             </tr>
             <tr>
-              <td>Net after Flow Rewards</td>
+              <td>{t.netAfterFlowRewards}</td>
               <td className={styles.afterprimeCol}>
                 ${apNetCost.toFixed(2)}/lot
               </td>
@@ -74,10 +80,10 @@ export default function VsSymbolTable({
             {savingPerlot > 0 && (
               <>
                 <tr>
-                  <td>Saving vs Afterprime</td>
+                  <td>{t.savingVsAfterprime}</td>
                   <td>—</td>
                   <td className={styles.savingHighlight}>
-                    {savingPct.toFixed(1)}% more expensive
+                    {savingPct.toFixed(1)}% {t.moreExpensive}
                   </td>
                 </tr>
               </>
@@ -88,11 +94,10 @@ export default function VsSymbolTable({
       <p className={styles.tableNote}>
         {rebate > 0 && (
           <>
-            Flow Rewards rebate of ${rebate.toFixed(2)}/lot is a structural edge
-            paid back to active traders.
+            {t.rebateNote.replace("${rebate}", `$${rebate.toFixed(2)}`)}
           </>
         )}
-        Current month rate shown. Source:{" "}
+        {t.sourceNotePrefix}{" "}
         <a
           href="https://www.forexbenchmark.com"
           target="_blank"
@@ -100,7 +105,7 @@ export default function VsSymbolTable({
         >
           <u>Forexbenchmark.com</u>
         </a>
-        . Previous 7 Days Range. Incl. Commissions + Spreads.
+        {t.sourceNoteSuffix}
       </p>
     </div>
   );

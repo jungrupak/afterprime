@@ -5,6 +5,10 @@ import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { DEFAULT_LOCALE } from "@/config/locales";
+import {
+  swapTableContent,
+  type SwapTableContent,
+} from "./swapTableContent";
 
 type SwapTableProps = Blocks["swap-table-section"];
 
@@ -108,9 +112,13 @@ async function getSwapData(): Promise<{
   }
 }
 
-function renderTable(rows: InstrumentDataType[], locale: string = DEFAULT_LOCALE) {
+function renderTable(
+  rows: InstrumentDataType[],
+  locale: string = DEFAULT_LOCALE,
+  t: SwapTableContent = swapTableContent,
+) {
   if (rows.length === 0) {
-    return <p>No swap data available for this category.</p>;
+    return <p>{t.noDataAvailable}</p>;
   }
 
   return (
@@ -118,10 +126,10 @@ function renderTable(rows: InstrumentDataType[], locale: string = DEFAULT_LOCALE
       <table className="min-w-full">
         <thead>
           <tr>
-            <th className="md:px-4 md:py-2 text-left">Instrument</th>
-            <th className="md:px-4 md:py-2 text-left">Long</th>
-            <th className="md:px-4 md:py-2 text-left">Short</th>
-            <th className="md:px-4 md:py-2 text-left">Market Hours</th>
+            <th className="md:px-4 md:py-2 text-left">{t.colInstrument}</th>
+            <th className="md:px-4 md:py-2 text-left">{t.colLong}</th>
+            <th className="md:px-4 md:py-2 text-left">{t.colShort}</th>
+            <th className="md:px-4 md:py-2 text-left">{t.colMarketHours}</th>
           </tr>
         </thead>
         <tbody>
@@ -132,8 +140,14 @@ function renderTable(rows: InstrumentDataType[], locale: string = DEFAULT_LOCALE
                   href={
                     row.path?.startsWith("Forex") ||
                     row.symbol?.toLowerCase() === "xauusd"
-                      ? localizeHref(`/trade/${row.symbol?.toLowerCase()}`, locale)
-                      : localizeHref(`/swaps/${row.symbol?.toLowerCase()}`, locale)
+                      ? localizeHref(
+                          `/trade/${row.symbol?.toLowerCase()}`,
+                          locale,
+                        )
+                      : localizeHref(
+                          `/swaps/${row.symbol?.toLowerCase()}`,
+                          locale,
+                        )
                   }
                   className={`underline decoration-dotted decoration-2 underline-offset-4`}
                 >
@@ -143,9 +157,14 @@ function renderTable(rows: InstrumentDataType[], locale: string = DEFAULT_LOCALE
               <td className="px-4 py-2">{row.swapLong ?? "-"}</td>
               <td className="px-4 py-2">{row.swapShort ?? "-"}</td>
               <td>
-                <a href={localizeHref(`/trading-hours/${row.symbol?.toLowerCase()}`, locale)}>
+                <a
+                  href={localizeHref(
+                    `/trading-hours/${row.symbol?.toLowerCase()}`,
+                    locale,
+                  )}
+                >
                   <span className="text-[14px] block underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
-                    Trading Hours
+                    {t.tradingHoursLink}
                   </span>
                 </a>
               </td>
@@ -165,6 +184,11 @@ export async function SwapDataTabs(_: SwapTableProps) {
     locale,
     tabNavLabels,
   );
+  const swapTableT = await getTranslatedStatic(
+    "swap-table",
+    locale,
+    swapTableContent,
+  );
 
   return (
     <section className="compact-section">
@@ -175,7 +199,7 @@ export async function SwapDataTabs(_: SwapTableProps) {
           <Tab>
             {tabNames.map((category) => (
               <TabItem key={category} tabNav={tabLabelsT[category]}>
-                {renderTable(filterByCategory(data, category), locale)}
+                {renderTable(filterByCategory(data, category), locale, swapTableT)}
               </TabItem>
             ))}
           </Tab>

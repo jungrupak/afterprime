@@ -1,9 +1,11 @@
 import Lists from "@/utils/lists/Lists";
 import styles from "./TradePage.module.scss";
 import { Metadata } from "next";
+import Link from "next/link";
 import { CustomMetadata } from "@/utils/CustomMetadata";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { localizeHref } from "@/lib/locale/localizeHref";
 import { tradePageContent } from "./TradePageContent";
 
 type FxPair = {
@@ -162,7 +164,7 @@ export default async function TradePage() {
                       <ul>
                         {pairs.map((pair) => (
                           <li key={pair.symbol}>
-                            <a href={pair.url}>{pair.symbol}</a>
+                            <Link href={localizeHref(pair.url, locale)}>{pair.symbol}</Link>
                           </li>
                         ))}
                       </ul>

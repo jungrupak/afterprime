@@ -9,6 +9,7 @@ import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { swapCalculatorInlineContent } from "./SwapCalculatorInlineContent";
 import { swapFaqContent } from "./SwapFaqContent";
+import { swapPageContent } from "./swapPageContent";
 import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
 import { localizeHref } from "@/lib/locale/localizeHref";
 
@@ -64,6 +65,11 @@ export default async function Page({ params }: PageProps) {
     swapCalculatorInlineContent,
   );
   const swapFaqT = await getTranslatedStatic("swap-faq", locale, swapFaqContent);
+  const swapPageT = await getTranslatedStatic(
+    "swap-page",
+    locale,
+    swapPageContent,
+  );
   const symbolName = instrymentData.symbol ?? undefined;
   const assetClass = instrymentData.path ?? undefined;
   const symbolCategory = assetClass.split("\\")[0];
@@ -129,25 +135,25 @@ export default async function Page({ params }: PageProps) {
           <div className="apBannerContent md:max-w-[800px]">
             <h1 className="h1-size mt-10 lg:mt-15 ">
               <span className="font-[600]">{symbolName.toUpperCase()}</span>{" "}
-              Swap Rate
+              {swapPageT.h1Suffix}
             </h1>
             <div
               className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
               style={{ fontWeight: "300" }}
             >
-              {instrymentData.description} swap rates at Afterprime
+              {instrymentData.description} {swapPageT.sublineSuffix}
               <br />
-              Long{" "}
+              {swapPageT.sublineLong}{" "}
               <span className={`font-semibold`}>
                 {swapLong} {currencyProfit}
               </span>
-              , Short{" "}
+              , {swapPageT.sublineShort}{" "}
               <span className={`font-semibold`}>
                 {swapShort} {currencyProfit}
               </span>{" "}
-              per standard lot. <br />
+              {swapPageT.sublinePerLot} <br />
               <br />
-              Calculate your overnight holding cost before you trade{" "}
+              {swapPageT.sublineCta}{" "}
               {symbolName.toUpperCase()}.
             </div>
           </div>
@@ -165,13 +171,13 @@ export default async function Page({ params }: PageProps) {
               <thead>
                 <tr>
                   <th aria-hidden="true"></th>
-                  <th>Long (Buy)</th>
-                  <th>Short (Sell)</th>
+                  <th>{swapPageT.colLongBuy}</th>
+                  <th>{swapPageT.colShortSell}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Swap Rate</td>
+                  <td>{swapPageT.rowSwapRate}</td>
                   <td>
                     <span className={styles.valueAccent}>{swapLong}</span>
                   </td>
@@ -180,7 +186,7 @@ export default async function Page({ params }: PageProps) {
                   </td>
                 </tr>
                 <tr>
-                  <td>Per Standard Lot</td>
+                  <td>{swapPageT.rowPerStandardLot}</td>
                   <td>
                     <span>{longPerLot}</span> {currencyProfit}
                   </td>
@@ -189,23 +195,22 @@ export default async function Page({ params }: PageProps) {
                   </td>
                 </tr>
                 <tr>
-                  <td>Triple Swap Day</td>
+                  <td>{swapPageT.rowTripleSwapDay}</td>
                   <td>
                     {["Forex", "Metals"].includes(symbolCategory)
-                      ? "Wednesday"
-                      : "Friday"}
+                      ? swapPageT.dayWednesday
+                      : swapPageT.dayFriday}
                   </td>
                   <td>
                     {["Forex", "Metals"].includes(symbolCategory)
-                      ? "Wednesday"
-                      : "Friday"}
+                      ? swapPageT.dayWednesday
+                      : swapPageT.dayFriday}
                   </td>
                 </tr>
               </tbody>
             </table>
             <span className={`block mt-4 opacity-65`}>
-              Last Updated: {todayDate}. Swap rates reflect Afterprime's raw
-              interbank cost structure with zero markup.
+              {swapPageT.lastUpdatedPrefix} {todayDate}. {swapPageT.lastUpdatedSuffix}
             </span>
           </div>
           <SwapCalculatorInline
@@ -218,25 +223,25 @@ export default async function Page({ params }: PageProps) {
 
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
             <Link
-              href={`/forex/${symbolName.toLowerCase()}`}
+              href={localizeHref(`/forex/${symbolName.toLowerCase()}`, locale)}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              {symbolName.toUpperCase()} Specification {""} →
+              {symbolName.toUpperCase()} {swapPageT.specificationsLinkText} {""} →
             </Link>
 
             <Link
-              href={`/trading-hours/${symbolName.toLowerCase()}`}
+              href={localizeHref(`/trading-hours/${symbolName.toLowerCase()}`, locale)}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              {symbolName.toUpperCase()} trading hours {""}→
+              {symbolName.toUpperCase()} {swapPageT.tradingHoursLinkText} {""}→
             </Link>
           </div>
 
           <div className={`${styles.faq_block} mb-0! mt-10 md:mt-20`}>
             <h2 className="text-[34px] font-[700] mb-10">
-              {symbolName.toUpperCase()} Swaps FAQs.
+              {symbolName.toUpperCase()} {swapPageT.faqHeading}
             </h2>
             <Accordion faqObjects={FAQ_DATA} />
           </div>

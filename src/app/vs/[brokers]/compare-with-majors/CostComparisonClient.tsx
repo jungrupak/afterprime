@@ -3,6 +3,11 @@
 import { useState, useEffect } from "react";
 import styles from "./CostComparison.module.scss";
 import Link from "next/link";
+import {
+  compareMajorsContent,
+  type CompareMajorsContent,
+} from "./compareMajorsContent";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 interface Brokers {
   broker: string;
@@ -31,27 +36,31 @@ export type CompareMajorsData = {
 export default function CompareWithMajorsClient({
   data,
   broker,
+  content: t = compareMajorsContent,
+  locale = "en",
 }: {
   broker: string;
   data: CompareMajorsData;
+  content?: CompareMajorsContent;
+  locale?: string;
 }) {
   const [rowIndex, setRowIndex] = useState<number | null>(0);
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
 
   useEffect(() => {
     setLastUpdated(
-      new Date().toLocaleDateString("en-GB", {
+      new Date().toLocaleDateString(locale === "en" ? "en-GB" : locale, {
         day: "numeric",
         month: "long",
         year: "numeric",
       }),
     );
-  }, []);
+  }, [locale]);
 
   const competitorName = String(data?.competitor_contains?.[0] ?? "");
   const competitorLabel = competitorName
     ? competitorName.toUpperCase()
-    : "Competitor";
+    : t.competitorLabel;
   const majors: [string, CostApiResponse][] = Object.entries(data?.items ?? {});
 
   const footerRebate = majors[0]?.[1]?.rebate?.rebate_usd_per_lot ?? null;
@@ -62,18 +71,18 @@ export default function CompareWithMajorsClient({
         <div
           className={`${styles.costCompareTableHead} grid grid-cols-8 gp-10 md:gap-0 max-md:hidden`}
         >
-          <div className="col-span-2 text-[#ffffff]!">FX Pair</div>
+          <div className="col-span-2 text-[#ffffff]!">{t.fxPair}</div>
           <div className="col-span-2 text-[#ffffff]!">
-            {competitorLabel} <br /> Net Cost/lot
+            {competitorLabel} <br /> {t.netCostLot}
           </div>
           <div className="col-span-2 bg-[var(--secondary-color)] text-white!">
-            Afterprime <br /> Net Cost/lot + Flow Rewards<sup>TM</sup>
+            {t.afterprimeNetCostLot}
           </div>
           <div className="col-span-2 text-[#ffffff]! text-right">
             <b>
-              Cost Savings
+              {t.costSavings}
               <br />
-              (vs Afterprime)
+              {t.vsAfterprime}
             </b>
           </div>
         </div>
@@ -102,11 +111,11 @@ export default function CompareWithMajorsClient({
               >
                 <div className="col-span-2 max-md:col-span-12 max-md:pb-2!">
                   <div
-                    data-label="Pairs"
+                    data-label={t.pairsLabel}
                     className="flex gap-5 max-md:justify-between"
                   >
                     <Link
-                      href={`/vs/${broker}/${symbol.toLowerCase()}`}
+                      href={localizeHref(`/vs/${broker}/${symbol.toLowerCase()}`, locale)}
                       className={`underline decoration-dotted decoration-2 underline-offset-4`}
                     >
                       {symbol}
@@ -118,7 +127,7 @@ export default function CompareWithMajorsClient({
                         setRowIndex((prev) => (prev === index ? null : index))
                       }
                     >
-                      {index === rowIndex ? "Hide" : "Show"} By Volume
+                      {index === rowIndex ? t.hide : t.show} {t.byVolume}
                     </div>
                   </div>
                 </div>
@@ -139,7 +148,7 @@ export default function CompareWithMajorsClient({
                 </div>
 
                 <div
-                  data-label="Cost Savings"
+                  data-label={t.costSavings}
                   className="col-span-2 max-md:col-span-2 text-right"
                 >
                   $
@@ -151,22 +160,22 @@ export default function CompareWithMajorsClient({
                 {rowIndex === index && (
                   <div className="p-0! col-span-8">
                     <h4 className="font-semibold text-[16px] px-[15px] py-[10px] bg-[rgba(255_,255_,255_,.04)]">
-                      Cost by Volume - {symbol}
+                      {t.costByVolume.replace("{symbol}", symbol)}
                     </h4>
                     <div className={styles.volumeTable}>
                       <table>
                         <thead>
                           <tr>
-                            <th>Volume</th>
+                            <th>{t.volume}</th>
                             <th>{competitorBrokerName}</th>
                             <th>Afterprime</th>
-                            <th>Saved</th>
+                            <th>{t.saved}</th>
                           </tr>
                         </thead>
                         <tbody>
                           {[50, 100, 250, 500, 1000].map((volume) => (
                             <tr key={volume}>
-                              <td>{volume} lots</td>
+                              <td>{volume} {t.lots}</td>
                               <td>
                                 $
                                 {(competitorBrokerCostPerLot * volume).toFixed(
@@ -202,25 +211,20 @@ export default function CompareWithMajorsClient({
       </div>
       <div className="text-[14px] opacity-60 mt-5">
         <p className="risk-warning-all">
-          Source:{" "}
+          {t.sourcePrefix}{" "}
           <a href="https://www.forexbenchmark.com" target="_blank">
-            <u>ForexBenchmark</u>
+            <u>{t.forexBenchmark}</u>
           </a>{" "}
-          - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads.
-          (Last Updated: {lastUpdated})<br />
+          {t.sourceSuffix}
+          {t.lastUpdatedPrefix} {lastUpdated}{t.lastUpdatedSuffix}<br />
           <br />
           {footerRebate !== null && (
             <>
-              Afterprime net cost figures include Flow Rewards™ at $
-              {footerRebate.toFixed(2)}/lot (round turn), applicable to eligible
-              client accounts on qualifying instruments. Flow Rewards™ rates may
-              vary. See <a href="/get-paid-to-trade">Flow Rewards</a> for full
-              eligibility criteria.
+              {t.flowRewardsNote.replace("${rebate}", `$${footerRebate.toFixed(2)}`)}{" "}
+              <a href={localizeHref("/get-paid-to-trade", locale)}>{t.flowRewardsLink}</a>{" "}
+              {t.flowRewardsNoteSuffix}
               <br />
-              Cost comparisons are based on third-party data and are for
-              informational purposes only. Trading involves significant risk of
-              loss. Individual trading costs will vary based on account type,
-              instrument, and market conditions.
+              {t.disclaimer}
             </>
           )}
         </p>

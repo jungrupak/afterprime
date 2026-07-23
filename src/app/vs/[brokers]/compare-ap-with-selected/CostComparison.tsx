@@ -1,5 +1,11 @@
 import styles from "./CostComparison.module.scss";
 import { getSavingCompare } from "@/lib/getSavingCompare";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import {
+  compareApSelectedContent,
+  type CompareApSelectedContent,
+} from "./compareApSelectedContent";
 
 /* ----------------------------- */
 /* Types                         */
@@ -59,6 +65,9 @@ export default async function CostComparisonWithSelected({
   const asFiniteNumber = (value: unknown, fallback = 0) =>
     typeof value === "number" && Number.isFinite(value) ? value : fallback;
 
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("vs-compare-ap-selected", locale, compareApSelectedContent);
+
   // ✅ safely map slug → broker display name
   const mappedBrokerName =
     brokerSlugMap[selectedBrokerSlug as keyof typeof brokerSlugMap];
@@ -83,7 +92,7 @@ export default async function CostComparisonWithSelected({
     brokersToPick.includes(item.broker),
   );
 
-  const lastUpdated = new Date().toLocaleDateString("en-GB", {
+  const lastUpdated = new Date().toLocaleDateString(locale === "en" ? "en-GB" : locale, {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -99,18 +108,18 @@ export default async function CostComparisonWithSelected({
         <div
           className={`${styles.costCompareTableHead} grid grid-cols-7 gp-10 md:gap-5 max-md:hidden`}
         >
-          <div className="col-span-2 text-[#ffffff]!">Broker</div>
-          <div className="col-span-2 text-[#ffffff]!">Pairs</div>
+          <div className="col-span-2 text-[#ffffff]!">{t.brokerLabel}</div>
+          <div className="col-span-2 text-[#ffffff]!">{t.pairsLabel}</div>
           <div className="col-span-2 text-[#ffffff]!">
-            Cost Per Lot
+            {t.costPerLotLabel}
             <br />
-            (Including Commission)
+            {t.costPerLotSub}
           </div>
           <div className="col-span-1 text-[#ffffff]! text-right">
             <b>
-              % Savings
+              {t.savingsLabel}
               <br />
-              (vs Afterprime)
+              {t.savingsSub}
             </b>
           </div>
         </div>
@@ -124,25 +133,25 @@ export default async function CostComparisonWithSelected({
               } grid grid-cols-7 md:gap-5`}
             >
               <div className="col-span-2 max-md:col-span-7 max-md:pb-2!">
-                <div data-label="Broker">{broker.broker}</div>
+                <div data-label={t.dataLabelBroker}>{broker.broker}</div>
               </div>
 
               <div
                 className="col-span-2 max-md:col-span-2 max-md:pb-2!"
-                data-label="Pairs"
+                data-label={t.dataLabelPairs}
               >
-                <div>All</div>
+                <div>{t.pairsAll}</div>
               </div>
 
               <div
-                data-label="Cost/Lot (Inc. Comm.)"
+                data-label={t.dataLabelCost}
                 className="col-span-2 max-md:col-span-3"
               >
                 ${asFiniteNumber(broker.costPerLot).toFixed(2)}
               </div>
 
               <div
-                data-label="Savings"
+                data-label={t.dataLabelSavings}
                 className="col-span-1 max-md:col-span-2 text-right"
               >
                 <b>{asFiniteNumber(broker.savingPercentage)}%</b>
@@ -153,17 +162,14 @@ export default async function CostComparisonWithSelected({
       </div>
       <div className="text-[14px] opacity-60 mt-5">
         <p className="risk-warning-all">
-          Source:{" "}
+          {t.sourcePrefix}{" "}
           <a href="https://www.forexbenchmark.com" target="_blank">
-            <u>ForexBenchmark</u>
+            <u>{t.sourceName}</u>
           </a>{" "}
-          - Previous 7 Days Range | All Pairs | Incl. Commissions + Spreads.
-          (Last Updated: {lastUpdated})<br />
+          {t.sourceNote}
+          {t.lastUpdatedPrefix} {lastUpdated}{t.lastUpdatedSuffix}<br />
           <br />
-          {selectedBrokerName} costs reflect spread including commission on
-          standard lot. Afterprime costs include zero commission with Flow
-          Rewards™ applied at standard eligible rates. Comparisons are on a
-          like-for-like account basis.
+          {t.costDescription.replace("{brokerName}", selectedBrokerName)}
         </p>
       </div>
     </div>

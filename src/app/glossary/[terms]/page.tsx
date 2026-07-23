@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import styles from "../Page.module.scss";
 import InnerBannerGeneric from "@/components/InnerBannerGeneric/InnerBannerGeneric";
 import { wpFetch } from "@/utils/wpFetch";
@@ -8,7 +9,10 @@ import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
 import GlossaryVideo from "@/components/GlossaryVideo/GlossaryVideo";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getTranslatedMetadata } from "@/lib/seo/metadata";
+import { localizeHref } from "@/lib/locale/localizeHref";
+import { glossaryTermContent } from "./glossaryTermContent";
 
 const GLOSSARY_PARENT_ID = 4100;
 
@@ -62,6 +66,12 @@ export default async function page({ params }: PageSlug) {
 
   const contents = pageData?.content?.rendered ?? "";
 
+  const glossaryTermT = await getTranslatedStatic(
+    `glossary-term-${terms}`,
+    locale,
+    glossaryTermContent,
+  );
+
   return (
     <main>
       <InnerBannerGeneric content={banner} />
@@ -74,68 +84,67 @@ export default async function page({ params }: PageSlug) {
             <div dangerouslySetInnerHTML={{ __html: contents ?? "" }} />
           </div>
           <div className={`mt-5 md:mt-15`}>
-            <h3 className={`text-[35px] mb-3 md:mb-5`}>Related Tools</h3>
+            <h3 className={`text-[35px] mb-3 md:mb-5`}>{glossaryTermT.relatedToolsHeading}</h3>
             <p className={`text-[18px] mb-3 md:mb-5`}>
-              Use these calculators to apply what you've learned:
+              {glossaryTermT.relatedToolsIntro}
             </p>
             <ul className="ulli mb-0!">
               <li>
-                <a
+                <Link
                   style={{ textDecoration: "underline", fontSize: 20 }}
-                  href="/calculators/pip-value-calculator"
+                  href={localizeHref("/calculators/pip-value-calculator", locale)}
                 >
-                  Pip Value Calculator
-                </a>
+                  {glossaryTermT.pipValueCalculator}
+                </Link>
                 <br />
                 <p className={`text-[16px] opacity-65`}>
-                  Calculate pip value for any pair
+                  {glossaryTermT.pipValueDescription}
                 </p>
               </li>
               <li>
-                <a
+                <Link
                   style={{ textDecoration: "underline", fontSize: 20 }}
-                  href="/calculators/position-size-calculator"
+                  href={localizeHref("/calculators/position-size-calculator", locale)}
                 >
-                  Position Size Calculator
-                </a>
+                  {glossaryTermT.positionSizeCalculator}
+                </Link>
                 <br />
                 <p className={`text-[16px] opacity-65`}>
-                  Size your position correctly
+                  {glossaryTermT.positionSizeDescription}
                 </p>
               </li>
               <li>
-                <a
+                <Link
                   style={{ textDecoration: "underline", fontSize: 20 }}
-                  href="/calculators/drawdown-calculator"
+                  href={localizeHref("/calculators/drawdown-calculator", locale)}
                 >
-                  Drawdown Calculator
-                </a>
+                  {glossaryTermT.drawdownCalculator}
+                </Link>
                 <br />
-                <p className={`text-[16px] opacity-65`}>Track your risk</p>
+                <p className={`text-[16px] opacity-65`}>{glossaryTermT.drawdownDescription}</p>
               </li>
               <li>
-                <a
+                <Link
                   style={{ textDecoration: "underline", fontSize: 20 }}
-                  href="/vs"
+                  href={localizeHref("/vs", locale)}
                 >
-                  Compare Costs
-                </a>
+                  {glossaryTermT.compareCosts}
+                </Link>
                 <br />
                 <p className={`text-[16px] opacity-65`}>
-                  Compare trading costs to current broker
+                  {glossaryTermT.compareCostsDescription}
                 </p>
               </li>
               <li>
-                <a
+                <Link
                   style={{ textDecoration: "underline", fontSize: 20 }}
-                  href="/live-spreads"
+                  href={localizeHref("/live-spreads", locale)}
                 >
-                  Live Spreads
-                </a>
+                  {glossaryTermT.liveSpreads}
+                </Link>
                 <br />
                 <p className={`text-[16px] opacity-65`}>
-                  Trade live institutional spreads verified the lowest all-in
-                  costs globally
+                  {glossaryTermT.liveSpreadsDescription}
                 </p>
               </li>
             </ul>

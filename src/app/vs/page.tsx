@@ -2,12 +2,15 @@ import InnerBanner from "@/components/blocks/inner-banner/InnerBanner";
 import styles from "./Page.module.scss";
 import { notFound } from "next/navigation";
 import CostComparison from "./comparison/CostComparison";
+import { vsCostComparisonContent } from "./comparison/vsCostComparisonContent";
 import FaqCalc from "@/components/faq-calculators/Faq";
 import Button from "@/components/ui/Button";
 import ImpactCards from "./impact-cards/ImpactCards";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getTranslatedMetadata } from "@/lib/seo/metadata";
+import { vsPageContent } from "./vsPageContent";
 
 export async function generateMetadata() {
   const locale = await getRequestLocale();
@@ -85,9 +88,11 @@ const fetchCostData = async (): Promise<CostApiResponse | null> => {
 export default async function Page() {
   const locale = await getRequestLocale();
 
-  const [pageData, apiResponse] = await Promise.all([
+  const [pageData, apiResponse, vsT, costCompT] = await Promise.all([
     getTranslatedPage<VsPageJson>("vs", locale),
     fetchCostData(),
+    getTranslatedStatic("vs-page", locale, vsPageContent),
+    getTranslatedStatic("vs-cost-comparison", locale, vsCostComparisonContent),
   ]);
 
   if (!pageData) {
@@ -111,7 +116,7 @@ export default async function Page() {
 
   const lastUpdated =
     apiResponse?.lastUpdated ??
-    new Date().toLocaleDateString("en-GB", {
+    new Date().toLocaleDateString(locale, {
       day: "numeric",
       month: "long",
       year: "numeric",
@@ -135,29 +140,29 @@ export default async function Page() {
             <div className="max-md:order-1 text-left">
               <div className={styles.listUi}>
                 <h3 className="text-[clamp(28px_,5vw_,34px)]! font-semibold! mb-5! md:mb-10!">
-                  Key advantages
+                  {vsT.keyAdvantagesHeading}
                 </h3>
 
                 <ul>
                   <li>
-                    {formatPercentage(vsTopTen)}% Lower Cost vs Top 10 Brokers
+                    {formatPercentage(vsTopTen)}
+                    {vsT.lowerCostVsTop10}
                   </li>
                   <li>
-                    {formatPercentage(vsIndustryAvg)}% Lower Cost vs Industry
-                    Avg.
+                    {formatPercentage(vsIndustryAvg)}
+                    {vsT.lowerCostVsIndustry}
                   </li>
                   <li>
-                    {formatPercentage(vsSecondBest)}% Lower Cost vs Next Best
-                    Broker
+                    {formatPercentage(vsSecondBest)}
+                    {vsT.lowerCostVsNextBest}
                   </li>
 
-                  <li>Zero commission on all instruments</li>
-                  <li>Flow Rewards up to $3/lot (round turn)</li>
+                  <li>{vsT.zeroCommission}</li>
+                  <li>{vsT.flowRewards}</li>
                 </ul>
 
                 <small className="mt-5 block opacity-65">
-                  All cost data from ForexBenchmark.com, 7-day rolling average.
-                  Last updated: {lastUpdated}
+                  {vsT.costDataSuffix} {lastUpdated}
                 </small>
               </div>
             </div>
@@ -166,7 +171,7 @@ export default async function Page() {
       </section>
       <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
         <div className="ap_container_small">
-          <CostComparison />
+          <CostComparison locale={locale} content={costCompT} />
         </div>
       </section>
       {pageContent && (
@@ -211,7 +216,7 @@ export default async function Page() {
         </div>
       </section>
 
-      <FaqCalc faqSubject="FAQ" data={FAQ_DATA ?? []} />
+      <FaqCalc faqSubject={vsT.faqLabel} data={FAQ_DATA ?? []} />
     </>
   );
 }
