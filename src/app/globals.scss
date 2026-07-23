@@ -68,6 +68,7 @@ body::-webkit-scrollbar {
     object-fit: cover;
     mix-blend-mode: color-dodge;
     opacity: 0.48;
+    pointer-events: none;
   }
 
   &:after {
