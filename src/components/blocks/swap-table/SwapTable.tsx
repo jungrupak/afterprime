@@ -3,6 +3,7 @@ import { Blocks } from "@/types/blocks";
 import style from "./SwapTable.module.scss";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { DEFAULT_LOCALE } from "@/config/locales";
 
 type SwapTableProps = Blocks["swap-table-section"];
@@ -16,6 +17,22 @@ const tabNames = [
   "Crypto",
   "Indices",
 ] as const;
+
+// tabNames doubles as the category key compared against the live feed's
+// `path` prefix in filterByCategory below — translating it directly would
+// silently break that dispatch. Tab (Client Component) only ever renders
+// whatever's passed as `tabNav`, so a separate translated display-label map
+// keeps the English keys intact for matching while the visible label
+// translates.
+const tabNavLabels = {
+  "FX Majors": "FX Majors",
+  "FX Minors": "FX Minors",
+  "FX Exotics": "FX Exotics",
+  Commodities: "Commodities",
+  Metals: "Metals",
+  Crypto: "Crypto",
+  Indices: "Indices",
+};
 
 interface InstrumentDataType {
   symbol?: string;
@@ -143,6 +160,11 @@ function renderTable(rows: InstrumentDataType[], locale: string = DEFAULT_LOCALE
 export async function SwapDataTabs(_: SwapTableProps) {
   const { data, error } = await getSwapData();
   const locale = await getRequestLocale();
+  const tabLabelsT = await getTranslatedStatic(
+    "swap-table-tabs",
+    locale,
+    tabNavLabels,
+  );
 
   return (
     <section className="compact-section">
@@ -152,7 +174,7 @@ export async function SwapDataTabs(_: SwapTableProps) {
         ) : (
           <Tab>
             {tabNames.map((category) => (
-              <TabItem key={category} tabNav={category}>
+              <TabItem key={category} tabNav={tabLabelsT[category]}>
                 {renderTable(filterByCategory(data, category), locale)}
               </TabItem>
             ))}

@@ -17,6 +17,9 @@ import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { calculatorToolsBlockContent } from "@/app/(site)/[slug]/[inst]/CalculatorToolsBlockContent";
 import { costSavingCalculatorContent } from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
+import { instrumentKeyBenifitsContent } from "@/components/instrument-key-benifits/instrumentKeyBenifitsContent";
+import { specificationTableContent } from "@/components/instrument-lps/product-specification/specificationTableContent";
+import { costBreakdownTableContent } from "@/components/instrument-lps/cost-brakdown/costBreakdownTableContent";
 import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
 import { localizeHref } from "@/lib/locale/localizeHref";
 
@@ -92,7 +95,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ForexSlugPage({ params }: Props) {
   const { slug } = await params;
   const locale = await getRequestLocale();
-  const [calculatorToolsT, costSavingT] = await Promise.all([
+  const [
+    calculatorToolsT,
+    costSavingT,
+    pageLabelsT,
+    instrumentKeyBenifitsT,
+    specificationTableT,
+    costBreakdownTableT,
+    rawData,
+  ] = await Promise.all([
     getTranslatedStatic(
       "calculator-tools-block",
       locale,
@@ -103,11 +114,38 @@ export default async function ForexSlugPage({ params }: Props) {
       locale,
       costSavingCalculatorContent,
     ),
+    getTranslatedStatic("forex-slug-page-labels", locale, {
+      tradingGlossarySuffix: "Trading Glossary",
+      tradeLinkPrefix: "Trade",
+      tradingHoursLinkSuffix: "trading hours",
+    }),
+    getTranslatedStatic(
+      "instrument-key-benefits",
+      locale,
+      instrumentKeyBenifitsContent,
+    ),
+    getTranslatedStatic(
+      "specification-table",
+      locale,
+      specificationTableContent,
+    ),
+    getTranslatedStatic(
+      "cost-breakdown-table",
+      locale,
+      costBreakdownTableContent,
+    ),
+    getForexPageData(slug),
   ]);
 
-  const data = await getForexPageData(slug);
+  if (!rawData) notFound();
 
-  if (!data) notFound();
+  // getForexPageData is a bespoke fetch (parent-scoped, _fields-limited) —
+  // it can't go through getTranslatedPage like every other page, so the
+  // page's entire WP content (title, hero paragraphs, page_builder) was
+  // never translated at all. Routed through getTranslatedStatic here
+  // instead, same as forex-faq below — same walk/translate/rehydrate
+  // pipeline, just fed already-fetched data instead of fetching by slug.
+  const data = await getTranslatedStatic("forex-page", locale, rawData);
 
   const getFields = data?.acf?.instrument_single_page_fields;
   const pageSchema = getFields?.page_schema;
@@ -116,10 +154,12 @@ export default async function ForexSlugPage({ params }: Props) {
   const faqSectionTitleRaw = data?.acf?.faq_section?.ssection_title;
   const faqTranslated = await getTranslatedStatic("forex-faq", locale, {
     sectionTitle: faqSectionTitleRaw || "",
-    items: (faqDataRaw ?? []).map((item: { question?: string; answer?: string }) => ({
-      question: item?.question || "",
-      answer: item?.answer || "",
-    })),
+    items: (faqDataRaw ?? []).map(
+      (item: { question?: string; answer?: string }) => ({
+        question: item?.question || "",
+        answer: item?.answer || "",
+      }),
+    ),
   });
   const glossaryData =
     data?.acf?.instrument_single_page_fields?.glossary_content_block;
@@ -148,7 +188,7 @@ export default async function ForexSlugPage({ params }: Props) {
               <p>{getFields?.hero_paragraph_two ?? ""}</p>
             </div>
             <div className={`max-md:order-1 text-left`}>
-              <InstrumentKeyBenifits instrument={slug} />
+              <InstrumentKeyBenifits instrument={slug} content={instrumentKeyBenifitsT} />
             </div>
           </div>
         </div>
@@ -167,6 +207,8 @@ export default async function ForexSlugPage({ params }: Props) {
                 renderSection(section as any, index, slug, {
                   calculatorToolsContent: calculatorToolsT,
                   costSavingContent: costSavingT,
+                  specificationTableContent: specificationTableT,
+                  costBreakdownTableContent: costBreakdownTableT,
                 }),
               )}
             </div>
@@ -179,7 +221,7 @@ export default async function ForexSlugPage({ params }: Props) {
           {glossaryData && (
             <>
               <h2 className={`mb-5! md:mb-8!`}>
-                {slug.toUpperCase()} Trading Glossary
+                {slug.toUpperCase()} {pageLabelsT.tradingGlossarySuffix}
               </h2>
               <TradingGlossary
                 glossaryBlockData={glossaryData}
@@ -193,26 +235,29 @@ export default async function ForexSlugPage({ params }: Props) {
 
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
             <Link
-              href={`/trade/${slug.toLowerCase()}`}
+              href={localizeHref(`/trade/${slug.toLowerCase()}`, locale)}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              Trade {slug.toUpperCase()}
+              {pageLabelsT.tradeLinkPrefix} {slug.toUpperCase()}
               {""} →
             </Link>
 
             <Link
-              href={`/trading-hours/${slug.toLowerCase()}`}
+              href={localizeHref(`/trading-hours/${slug.toLowerCase()}`, locale)}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              {slug.toUpperCase()} trading hours {""}→
+              {slug.toUpperCase()} {pageLabelsT.tradingHoursLinkSuffix} {""}→
             </Link>
           </div>
         </div>
       </section>
 
-      <FaqCalc faqSubject={faqTranslated.sectionTitle} data={faqTranslated.items} />
+      <FaqCalc
+        faqSubject={faqTranslated.sectionTitle}
+        data={faqTranslated.items}
+      />
       <FaqSchema pageSlug={slug} />
 
       <BottomCta />

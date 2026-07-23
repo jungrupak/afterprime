@@ -17,6 +17,9 @@ import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { calculatorToolsBlockContent } from "./CalculatorToolsBlockContent";
 import { costSavingCalculatorContent } from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
+import { instrumentKeyBenifitsContent } from "@/components/instrument-key-benifits/instrumentKeyBenifitsContent";
+import { specificationTableContent } from "@/components/instrument-lps/product-specification/specificationTableContent";
+import { costBreakdownTableContent } from "@/components/instrument-lps/cost-brakdown/costBreakdownTableContent";
 
 // ISR
 export const revalidate = 60;
@@ -57,7 +60,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ChildPage({ params }: Props) {
   const { slug, inst } = await params;
   const locale = await getRequestLocale();
-  const [calculatorToolsT, costSavingT] = await Promise.all([
+  const [
+    calculatorToolsT,
+    costSavingT,
+    instrumentKeyBenifitsT,
+    specificationTableT,
+    costBreakdownTableT,
+  ] = await Promise.all([
     getTranslatedStatic(
       "calculator-tools-block",
       locale,
@@ -67,6 +76,21 @@ export default async function ChildPage({ params }: Props) {
       "cost-saving-calculator",
       locale,
       costSavingCalculatorContent,
+    ),
+    getTranslatedStatic(
+      "instrument-key-benefits",
+      locale,
+      instrumentKeyBenifitsContent,
+    ),
+    getTranslatedStatic(
+      "specification-table",
+      locale,
+      specificationTableContent,
+    ),
+    getTranslatedStatic(
+      "cost-breakdown-table",
+      locale,
+      costBreakdownTableContent,
     ),
   ]);
 
@@ -138,7 +162,7 @@ export default async function ChildPage({ params }: Props) {
               <p>{getFields.hero_paragraph_two ?? ""}</p>
             </div>
             <div className={`max-md:order-1 text-left`}>
-              <InstrumentKeyBenifits instrument={inst} />
+              <InstrumentKeyBenifits instrument={inst} content={instrumentKeyBenifitsT} />
             </div>
           </div>
         </div>
@@ -159,6 +183,8 @@ export default async function ChildPage({ params }: Props) {
                   renderSection(section, index, slug, {
                     calculatorToolsContent: calculatorToolsT,
                     costSavingContent: costSavingT,
+                    specificationTableContent: specificationTableT,
+                    costBreakdownTableContent: costBreakdownTableT,
                   }),
               )}
             </div>

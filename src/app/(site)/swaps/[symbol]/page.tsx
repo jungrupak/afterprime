@@ -8,6 +8,7 @@ import Link from "next/link";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { swapCalculatorInlineContent } from "./SwapCalculatorInlineContent";
+import { swapFaqContent } from "./SwapFaqContent";
 import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
 import { localizeHref } from "@/lib/locale/localizeHref";
 
@@ -62,6 +63,7 @@ export default async function Page({ params }: PageProps) {
     locale,
     swapCalculatorInlineContent,
   );
+  const swapFaqT = await getTranslatedStatic("swap-faq", locale, swapFaqContent);
   const symbolName = instrymentData.symbol ?? undefined;
   const assetClass = instrymentData.path ?? undefined;
   const symbolCategory = assetClass.split("\\")[0];
@@ -72,24 +74,34 @@ export default async function Page({ params }: PageProps) {
   const longPerLot = swapLong * 1;
   const shortPerLot = swapShort * 1;
 
+  const symUpper = symbolName.toUpperCase();
+  const exampleCost = swapLong * 2 * 3;
+
   const FAQ_DATA = [
     {
-      question: `What is the swap rate for ${symbolName.toUpperCase()}?`,
-      answer: `Afterprime's current ${symbolName.toUpperCase()} swap rates are ${swapLong} (long) and ${swapShort} (short) per standard lot per night, denominated in ${currencyProfit}.
-`,
+      question: swapFaqT.q1.replace("{symbol}", symUpper),
+      answer: swapFaqT.a1
+        .replace(/{symbol}/g, symUpper)
+        .replace("{swapLong}", String(swapLong))
+        .replace("{swapShort}", String(swapShort))
+        .replace("{currencyProfit}", currencyProfit),
     },
     {
-      question: `When is the triple swap applied to ${symbolName.toUpperCase()}?`,
-      answer: `Triple swap is charged on [Wednesday/Friday] to account for the Saturday and Sunday settlement period.`,
+      question: swapFaqT.q2.replace("{symbol}", symUpper),
+      answer: swapFaqT.a2,
     },
     {
-      question: `How do I calculate my ${symbolName.toUpperCase()} overnight holding cost?`,
-      answer: `Multiply the swap rate by your lot size and nights held. Example: 2 lots long for 3 nights = ${swapLong * 2 * 3} ${currencyProfit}.
-`,
+      question: swapFaqT.q3.replace("{symbol}", symUpper),
+      answer: swapFaqT.a3
+        .replace("{exampleCost}", String(exampleCost))
+        .replace("{currencyProfit}", currencyProfit),
     },
     {
-      question: `Does ${symbolName.toUpperCase()} have a positive or negative swap?`,
-      answer: `The long swap on ${symbolName.toUpperCase()} is ${swapLong} ${currencyProfit} per lot per night — a cost on overnight buy positions.`,
+      question: swapFaqT.q4.replace("{symbol}", symUpper),
+      answer: swapFaqT.a4
+        .replace("{symbol}", symUpper)
+        .replace("{swapLong}", String(swapLong))
+        .replace("{currencyProfit}", currencyProfit),
     },
   ];
 

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { costComparisonContent } from "./CostComparisonContent";
 
 //##
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes feed cache
@@ -13,6 +15,12 @@ export default async function CostComparison({
   instrument: string;
 }) {
   const locale = await getRequestLocale();
+  const c = await getTranslatedStatic(
+    "cost-comparison",
+    locale,
+    costComparisonContent,
+  );
+  const sym = instrument.toUpperCase();
   const asFiniteNumber = (value: unknown, fallback = 0) =>
     typeof value === "number" && Number.isFinite(value) ? value : fallback;
 
@@ -216,7 +224,7 @@ export default async function CostComparison({
         <h2
           className={`text-[clamp(38px_,5vw_,50px)] text-center font-semibold max-md:leading-[1.2]`}
         >
-          Compare {instrument.toUpperCase()} Broker Costs
+          {c.heading.replace("{sym}", sym)}
         </h2>
         <div className={`${styles.costCompareTable}`}>
           <div
@@ -224,27 +232,28 @@ export default async function CostComparison({
           >
             <div className={`col-span-3 md:col-span-2`}></div>
             <div className={`col-span-1 md:block hidden`}>
-              Spread <br />
-              (Incl. Commission)
+              {c.tableHeaders.spreadLine1} <br />
+              {c.tableHeaders.spreadLine2}
             </div>
 
             <div className={`md:block hidden col-span-1`}>
-              All-In Cost <br />
-              (Lot Round Turn)
+              {c.tableHeaders.allInCostLine1} <br />
+              {c.tableHeaders.allInCostLine2}
             </div>
             <div className={`col-span-1 md:block hidden`}>
-              Flow Rewards<sup>TM</sup> <br />
-              (Lot Round Turn)
+              {c.tableHeaders.flowRewardsLine1}
+              <sup>TM</sup> <br />
+              {c.tableHeaders.flowRewardsLine2}
             </div>
             <div className={`max-md:col-span-2 col-span-1`}>
-              Net Cost
+              {c.tableHeaders.netCostLine1}
               <br />
-              (Lot Round Turn)
+              {c.tableHeaders.netCostLine2}
             </div>
             <div className={`max-md:col-span-2 col-span-1 text-[#ffffff]!`}>
               <b>
-                Savings <br />
-                (vs Afterprime)
+                {c.tableHeaders.savingsLine1} <br />
+                {c.tableHeaders.savingsLine2}
               </b>
             </div>
           </div>
@@ -275,14 +284,17 @@ export default async function CostComparison({
                     </div>
                   )}
 
-                  <div data-label={`Broker`} className={`col-span-3 relative`}>
+                  <div data-label={c.dataLabels.broker} className={`col-span-3 relative`}>
                     {broker.broker === "Afterprime" ? (
                       <span className="text-[14px] max-md:text-[16px] block">
                         <strong>Afterprime</strong>
                       </span>
                     ) : (
                       <Link
-                        href={localizeHref(`/vs/${brokerSlugMap[broker.broker] ?? ""}`, locale)}
+                        href={localizeHref(
+                          `/vs/${brokerSlugMap[broker.broker] ?? ""}`,
+                          locale,
+                        )}
                         scroll={true}
                         className="underline hover:no-underline text-[14px] max-md:text-[16px] block"
                       >
@@ -292,21 +304,21 @@ export default async function CostComparison({
                   </div>
                 </div>
                 <div
-                  data-label={`Spread (Incl. Commission)`}
+                  data-label={c.dataLabels.spread}
                   className={`col-span-1 md:block hidden`}
                 >
                   {asFiniteNumber(broker.cost).toFixed(2)}
                 </div>
 
                 <div
-                  data-label={`All-In-Cost (Lot Round Turn)`}
+                  data-label={c.dataLabels.allInCost}
                   className={`col-span-1 md:block hidden`}
                 >
                   ${asFiniteNumber(broker.costPerLot).toFixed(2)}
                 </div>
 
                 <div
-                  data-label={`Flow Rewards (Lot Round Turn)`}
+                  data-label={c.dataLabels.flowRewards}
                   className={` col-span-1 md:block hidden`}
                 >
                   {broker.broker === "Afterprime" && rebatePerLot !== null ? (
@@ -317,7 +329,7 @@ export default async function CostComparison({
                 </div>
 
                 <div
-                  data-label={`Net Cost (Lot Round Turn)`}
+                  data-label={c.dataLabels.netCost}
                   className={`max-md:col-span-2 col-span-1 `}
                 >
                   {(() => {
@@ -336,7 +348,7 @@ export default async function CostComparison({
                   })()}
                 </div>
                 <div
-                  data-label={`Savings (vs Afterprime)`}
+                  data-label={c.dataLabels.savings}
                   className={`max-md:col-span-2 col-span-1`}
                 >
                   <b>{asFiniteNumber(broker.savingPercentage)}%</b>
@@ -347,13 +359,15 @@ export default async function CostComparison({
         </div>
 
         <div className="text-center text-[14px] bg-[rgba(255,255,255,.12)] rounded-[5px] p-2 text-[rgba(255,255,255,.48)]">
-          Savings represent how much more each broker costs per trade compared
-          to Afterprime, after fees and rebates.
+          {c.savingsFootnote}
         </div>
 
         <div className="mt-4 text-center font-bold">
-          The Lowest {instrument.toUpperCase()} Cost Broker is{" "}
-          {lowestBrokerName} at ${lowestNetCostValue.toFixed(2)}/lot round turn.
+          {c.lowestCostPrefix.replace("{sym}", sym)}
+          {lowestBrokerName}
+          {c.lowestCostAtPrefix}
+          {lowestNetCostValue.toFixed(2)}
+          {c.lowestCostSuffix}
         </div>
 
         <div
@@ -382,58 +396,43 @@ export default async function CostComparison({
             />
           </svg>
           <div>
-            Ranked #1 Lowest Cost Broker on{" "}
+            {c.rankedPrefix}
             <Link
               className={`underline`}
               target={`_blank`}
               href={"https://www.forexbenchmark.com"}
             >
-              ForexBenchmark
+              {c.rankedLinkText}
             </Link>
-            . All prices quoted in US Dollars.
+            {c.rankedSuffix}
           </div>
         </div>
         <div className="text-[14px] opacity-60 mt-5">
           <p className="risk-warning-all">
-            Source:{" "}
+            {c.footnoteSourcePrefix}
             <a href="https://www.forexbenchmark.com" target="_blank">
-              <u>ForexBenchmark</u>
-            </a>{" "}
-            - Previous 7 Days Range | {instrument.toUpperCase()} Pair | Incl.
-            Commissions + Spreads.
+              <u>{c.footnoteSourceLinkText}</u>
+            </a>
+            {c.footnoteSourceMiddle.replace("{sym}", sym)}
             <br />
             <br />
-            Afterprime net cost figures include Flow Rewards™, applicable to
-            eligible client accounts on qualifying instruments. Flow Rewards™
-            rates may vary. See{" "}
+            {c.legalPart1}
             <Link href={localizeHref("/get-paid-to-trade", locale)}>
-              <u>Flow Rewards</u>
-            </Link>{" "}
-            for full eligibility criteria. Flow Rewards™ eligibility and rates
-            are subject to account approval. Savings modelled using
-            ForexBenchmark 7-day average spread data. Actual savings will vary
-            with live spread conditions and applicable Flow Rewards™ rate.
+              <u>{c.legalLinkText}</u>
+            </Link>
+            {c.legalPart2}
             <br />
             <br />
-            Ranked #1 lowest all-in net cost for {instrument.toUpperCase()}{" "}
-            among brokers tracked by ForexBenchmark.com. Rankings are subject to
-            change as market conditions and broker pricing fluctuate.
+            {c.legalRanked.replace("{sym}", sym)}
             <br />
             <br />
-            Savings represent the percentage by which each broker's all-in cost
-            per lot exceeds Afterprime's net cost after Flow Rewards™.
-            Competitor costs reflect their lowest-cost equivalent account type.
+            {c.legalSavingsExplain}
             <br />
             <br />
-            Execution quality metrics are based on internal order data under
-            normal market conditions. Performance may vary during periods of
-            high volatility or low liquidity.
+            {c.legalExecutionQuality}
             <br />
             <br />
-            Cost comparisons are based on third-party data and are for
-            informational purposes only. Trading involves significant risk of
-            loss. Individual trading costs will vary based on account type,
-            instrument, and market conditions.
+            {c.legalDisclaimer}
           </p>
         </div>
       </div>

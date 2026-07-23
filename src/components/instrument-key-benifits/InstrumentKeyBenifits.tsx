@@ -3,11 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import styles from "./InstrumentKeyBenifit.module.scss";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 import ReactQueryProvider from "@/app/providers/ReactQueryProvider";
+import {
+  instrumentKeyBenifitsContent,
+  type InstrumentKeyBenifitsContent as InstrumentKeyBenifitsContentType,
+} from "./instrumentKeyBenifitsContent";
 
 function InstrumentKeyBenifitsContent({
   instrument,
+  content: c = instrumentKeyBenifitsContent,
 }: {
   instrument: string;
+  content?: InstrumentKeyBenifitsContentType;
 }) {
   const { data } = useQuery({
     queryKey: ["instrument-rebates", instrument],
@@ -29,18 +35,18 @@ function InstrumentKeyBenifitsContent({
       <h3
         className={`text-[clamp(28px_,5vw_,34px)]! font-semibold! mb-5! md:mb-10!`}
       >
-        Key advantages for {instrument.toUpperCase()} traders
+        {c.heading.replace("{sym}", instrument.toUpperCase())}
       </h3>
       <ul>
         {rebate !== null && brokerAp ? (
           <>
             <li>
-              <b>{indVsAvgLowerCost?.toFixed(2)}%</b> lower cost vs Industry
-              average
+              <b>{indVsAvgLowerCost?.toFixed(2)}%</b>
+              {c.lowerCostSuffix}
             </li>
             <li>
               <b>
-                Save $
+                {c.saveLabel}
                 {(
                   ((indAvgCostPerLot ?? 0) -
                     (apCostPerLot ?? 0) -
@@ -48,19 +54,21 @@ function InstrumentKeyBenifitsContent({
                   100
                 ).toFixed(2)}
               </b>{" "}
-              per 100 lots vs Industry Average
+              {c.savePerLotsSuffix}
             </li>
-            <li>Zero commission structure</li>
-            <li>Sub-50ms institutional execution</li>
+            <li>{c.zeroCommission}</li>
+            <li>{c.subExecution}</li>
             <li>
-              Flow Rewards<sup>TM</sup> structural edge
+              {c.flowRewardsPrefix}
+              <sup>TM</sup>
+              {c.flowRewardsSuffix}
             </li>
           </>
         ) : (
           <>
-            <li>Zero commission structure</li>
-            <li>Sub-50ms institutional execution</li>
-            <li>Institutional spreads</li>
+            <li>{c.zeroCommission}</li>
+            <li>{c.subExecution}</li>
+            <li>{c.institutionalSpreads}</li>
           </>
         )}
       </ul>
@@ -70,12 +78,14 @@ function InstrumentKeyBenifitsContent({
 
 export default function InstrumentKeyBenifits({
   instrument,
+  content,
 }: {
   instrument: string;
+  content?: InstrumentKeyBenifitsContentType;
 }) {
   return (
     <ReactQueryProvider>
-      <InstrumentKeyBenifitsContent instrument={instrument} />
+      <InstrumentKeyBenifitsContent instrument={instrument} content={content} />
     </ReactQueryProvider>
   );
 }

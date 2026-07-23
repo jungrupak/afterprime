@@ -5,6 +5,8 @@ import {
   calculatorToolsBlockContent,
   type CalculatorToolsBlockContent,
 } from "./CalculatorToolsBlockContent";
+import { useLocale } from "@/lib/locale/useLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 // nameKey indexes into content.calculatorNames at render time — the display
 // name lives in CalculatorToolsBlockContent.ts so it can be translated;
@@ -41,15 +43,17 @@ export default function CalculatorToolsBlock({
   instrumentSlug,
   content = calculatorToolsBlockContent,
 }: CalculatorToolsBlockProps) {
+  const locale = useLocale();
+
   return (
     <>
       <h2>{content.heading}</h2>
       <p>
         {content.descriptionPrefix}{" "}
-        <a href="/calculators">
+        <a href={localizeHref("/calculators", locale)}>
           <u>{content.calculatorsLinkText}</u>
         </a>{" "}
-        {content.description.replace("{instrument}", instrumentSlug ?? "")}
+        {content.description.replace("{sym}", instrumentSlug ?? "")}
       </p>
       <p>
         <strong>{content.availableCalculators}</strong>
@@ -58,7 +62,7 @@ export default function CalculatorToolsBlock({
         {calCardData.map((item, index) => (
           <Link
             key={index}
-            href={item.pageUrl}
+            href={localizeHref(item.pageUrl, locale)}
             target="_blank"
             className={`flex justify-center items-center leading-[1.4] text-center text-[18px] font-semibold py-[clamp(30px,5vw,40px)] px-[clamp(25px,5vw,40px)] bg-[rgba(255_,255_,255_,.08)] hover:bg-[rgba(255_,255_,255_,.12)]`}
           >

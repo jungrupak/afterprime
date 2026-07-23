@@ -7,6 +7,8 @@ import type { CalculatorToolsBlockContent } from "@/app/(site)/[slug]/[inst]/Cal
 import CostComparison from "@/components/instrument-lps/cost-comparison/CostComparison";
 import CostSavingsCalculatorInstrument from "@/components/all-calculators/CostSavingCalculatorPerInstrument/CostSavingCalculator";
 import type { CostSavingCalculatorContent } from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
+import type { SpecificationTableContent } from "@/components/instrument-lps/product-specification/specificationTableContent";
+import type { CostBreakdownTableContent } from "@/components/instrument-lps/cost-brakdown/costBreakdownTableContent";
 
 interface ComparisonTable {
   acf_fc_layout: "comparison_table";
@@ -49,6 +51,8 @@ type PageBuilderSection =
 interface RenderSectionOptions {
   calculatorToolsContent?: CalculatorToolsBlockContent;
   costSavingContent?: CostSavingCalculatorContent;
+  specificationTableContent?: SpecificationTableContent;
+  costBreakdownTableContent?: CostBreakdownTableContent;
 }
 
 export function renderSection(
@@ -94,6 +98,7 @@ export function renderSection(
         <div id="product-specification" key={index}>
           <SpecificationTable
             instrument={section.instrument_name?.toUpperCase() ?? ""}
+            content={options?.specificationTableContent}
           />
         </div>
       );
@@ -101,7 +106,10 @@ export function renderSection(
     case "cost_breakdown":
       return (
         <div key={index} id="const-breakdown-table" className={`my-8 md:my-20`}>
-          <CostBreakdownTable instrument={section.instrument ?? ""} />
+          <CostBreakdownTable
+            instrument={section.instrument ?? ""}
+            content={options?.costBreakdownTableContent}
+          />
         </div>
       );
 

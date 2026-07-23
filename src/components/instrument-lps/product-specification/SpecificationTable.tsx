@@ -1,11 +1,20 @@
 "use client";
 import { AP_FX_PAIRS } from "@/data/ap-fx-pairs-specs";
 import { useState } from "react";
+import {
+  specificationTableContent,
+  type SpecificationTableContent,
+} from "./specificationTableContent";
+
 interface Specification {
   instrument?: string;
+  content?: SpecificationTableContent;
 }
 
-export default function SpecificationTable({ instrument }: Specification) {
+export default function SpecificationTable({
+  instrument,
+  content: c = specificationTableContent,
+}: Specification) {
   const [isCollapsible, setIsCollapsible] = useState(false);
   const INITIAL_ROWS = 10; // Number of rows to show initially
 
@@ -24,13 +33,13 @@ export default function SpecificationTable({ instrument }: Specification) {
 
   return (
     <div className={`table-wrapper mb-4 md:mb-10`}>
-      <h2>Afterprime Product Specification for {instrument}</h2>
+      <h2>{c.heading.replace("{sym}", instrument ?? "")}</h2>
       <table cellPadding={"0"} cellSpacing={"0"} border={0} className={`m-0!`}>
         <tbody>
           {selectedInstrument &&
             displayedEntries.map(([key, value]) => (
               <tr key={key}>
-                <td>{key}</td>
+                <td>{c.labels[key] ?? key}</td>
                 <td>{value}</td>
               </tr>
             ))}
@@ -42,7 +51,7 @@ export default function SpecificationTable({ instrument }: Specification) {
           onClick={() => setIsCollapsible(!isCollapsible)}
           className="expand-toggle mt-5 md:mt-8 rounded-[40px] bg-[#ffffff1c] hover:bg-[#ffffff30] p-[8px_20px]"
         >
-          {isCollapsible ? "Show Less" : `Show All`}
+          {isCollapsible ? c.showLess : c.showAll}
         </button>
       )}
     </div>

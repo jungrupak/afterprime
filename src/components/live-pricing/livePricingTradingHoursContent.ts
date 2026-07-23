@@ -18,6 +18,9 @@ export const livePricingTradingHoursContent = {
   readyToCompare:
     "Ready to compare? Calculate your trading costs across your typical trading volume to see the total savings.",
   readyToCompareLinkText: "Calculate your trading costs",
+  // Tab nav display labels — order matches pricingCatLists in
+  // LivePricingTradingHours.tsx (index-based, not value-based).
+  tabLabels: ["Forex", "Crypto", "Commodities", "Metals", "Indices"],
 };
 
 export type LivePricingTradingHoursContent =

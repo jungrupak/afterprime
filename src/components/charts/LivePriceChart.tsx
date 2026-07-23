@@ -6,12 +6,20 @@ import PriceChart from "./PriceChart";
 import Link from "next/link";
 import { useLocale } from "@/lib/locale/useLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import {
+  livePriceChartContent,
+  type LivePriceChartContent,
+} from "./livePriceChartContent";
 
 interface LivePriceChartProps {
   symbol: string;
+  content?: LivePriceChartContent;
 }
 
-export default function LivePriceChart({ symbol }: LivePriceChartProps) {
+export default function LivePriceChart({
+  symbol,
+  content: c = livePriceChartContent,
+}: LivePriceChartProps) {
   const { prices } = useLivePrices();
   const prevValueRef = useRef<number | null>(null);
   const locale = useLocale();
@@ -62,7 +70,7 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
             <h2 className="text-[22px] mb-2 font-semibold text-white/90 tracking-tight">
               {symbol.toUpperCase()}{" "}
               <span className="text-[18px] text-white/30 font-medium">
-                Live Price
+                {c.livePriceLabel}
               </span>
             </h2>
             <div className={`flex`}>
@@ -72,7 +80,7 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
                   className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >
-                  Swap Rate
+                  {c.swapRateLabel}
                 </Link>
 
                 <Link
@@ -80,7 +88,7 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
                   className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >
-                  Trading Hours
+                  {c.tradingHoursLabel}
                 </Link>
               </div>
             </div>
@@ -104,13 +112,13 @@ export default function LivePriceChart({ symbol }: LivePriceChartProps) {
               {liveData && (
                 <>
                   <span className="text-[16px] text-white/30">
-                    Ask:{" "}
+                    {c.askLabel}{" "}
                     <span className="text-white/60 font-medium">
                       {liveData.bestAsk.toFixed(5)}
                     </span>
                   </span>
                   <span className="text-[16px] text-white/30">
-                    Spread:{" "}
+                    {c.spreadLabel}{" "}
                     <span className="text-white/60 font-medium">
                       {liveData.spread}
                     </span>

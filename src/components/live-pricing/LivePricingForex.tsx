@@ -32,7 +32,7 @@ export function LivePricingForex({
     categories.forexExotic,
   ];
 
-  const tabNavs = ["Majors", "Minors", "Exotics"];
+  const tabNavs = c.tabLabels;
   const hasInitialTableData = pricingCatLists.some((items) => items.length > 0);
 
   return (
