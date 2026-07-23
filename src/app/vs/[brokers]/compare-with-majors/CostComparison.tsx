@@ -1,6 +1,9 @@
 import CompareWithMajorsClient, {
   CompareMajorsData,
 } from "./CostComparisonClient";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { compareMajorsContent } from "./compareMajorsContent";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
 async function getCompareWithMajorsData(
   broker: string,
@@ -29,10 +32,13 @@ export default async function CompareWithMajors({
 }: {
   broker: string;
 }) {
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("vs-compare-majors", locale, compareMajorsContent);
+
   if (!broker) {
     return (
       <p className="text-red text-[16px] opacity-65">
-        Broker did not find in Compare List..
+        {t.brokerNotFoundError}
       </p>
     );
   }
@@ -41,9 +47,9 @@ export default async function CompareWithMajors({
 
   if (!data) {
     return (
-      <p className="text-red text-[12px] text-center">Error while data..</p>
+      <p className="text-red text-[12px] text-center">{t.errorWhileData}</p>
     );
   }
 
-  return <CompareWithMajorsClient data={data} broker={broker} />;
+  return <CompareWithMajorsClient data={data} broker={broker} content={t} locale={locale} />;
 }

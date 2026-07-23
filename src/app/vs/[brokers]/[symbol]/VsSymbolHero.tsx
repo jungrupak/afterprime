@@ -1,6 +1,11 @@
 import Link from "next/link";
 import styles from "./Page.module.scss";
 import btnStyle from "@/components/ui/ui.module.scss";
+import {
+  vsSymbolHeroContent,
+  type VsSymbolHeroContent,
+} from "./vsSymbolHeroContent";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 interface VsSymbolHeroProps {
   brokerName: string;
@@ -9,6 +14,8 @@ interface VsSymbolHeroProps {
   compCostPerLot: number;
   savingPct: number;
   savingPer100Lots: number;
+  content?: VsSymbolHeroContent;
+  locale?: string;
 }
 
 export default function VsSymbolHero({
@@ -18,6 +25,8 @@ export default function VsSymbolHero({
   compCostPerLot,
   savingPct,
   savingPer100Lots,
+  content: t = vsSymbolHeroContent,
+  locale = "en",
 }: VsSymbolHeroProps) {
   const sym = symbol.toUpperCase();
 
@@ -28,26 +37,29 @@ export default function VsSymbolHero({
       <div className="ap_container_small flex max-md:flex-col gap-10 items-center h-full w-full">
         <div className="apBannerContent md:max-w-[860px]">
           <h1 className="h1-size mt-10 lg:mt-15">
-            <span className="font-[600]">Afterprime vs {brokerName}:</span>{" "}
+            <span className="font-[600]">
+              {t.heroPrefix} {brokerName}:
+            </span>{" "}
             {sym}
           </h1>
           <p
             className="paragraph lg:mt-8 opacity-80 max-w-[680px]"
             style={{ fontWeight: "300" }}
           >
-            {brokerName} costs <strong>${compCostPerLot.toFixed(2)}/lot</strong>{" "}
-            on {sym}. Afterprime costs{" "}
+            {brokerName} {t.costLabel}{" "}
+            <strong>${compCostPerLot.toFixed(2)}/lot</strong> {t.onLabel} {sym}.{" "}
+            {t.afterprimeCostsLabel}{" "}
             <strong>${apCostPerLot.toFixed(2)}/lot</strong>.{" "}
             {savingPerlot > 0 && (
-              <>{savingPct.toFixed(1)}% lower, zero commission.</>
+              <>{savingPct.toFixed(1)}{t.lowerZeroCommission}</>
             )}
           </p>
           <div className="mt-8 md:mt-12">
             <Link
-              href={`/trade/${sym.toLowerCase()}`}
+              href={localizeHref(`/trade/${sym.toLowerCase()}`, locale)}
               className={`${btnStyle.ap_button} ${btnStyle.primary} ${btnStyle.regular}`}
             >
-              Start Trading {sym}
+              {t.startTrading} {sym}
               <svg
                 width="11"
                 height="17"
@@ -87,14 +99,14 @@ export default function VsSymbolHero({
               <>
                 <div className={`${styles.cardItem} py-4!`}>
                   <div className={styles.statPillLabel}>
-                    You save per 100 lots
+                    {t.youSavePer100Lots}
                   </div>
                   <div
                     className={`${styles.statPillValue} ${styles.statPillSaving}`}
                   >
                     ${savingPer100Lots.toFixed(0)}{" "}
                     <span className={`text-[14px] ${styles.statPillLabel}`}>
-                      @Afterprime
+                      {t.afterprimeLabel}
                     </span>
                   </div>
                 </div>

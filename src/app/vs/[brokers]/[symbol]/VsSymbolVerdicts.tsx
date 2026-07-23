@@ -1,11 +1,18 @@
 import styles from "./Page.module.scss";
 import Link from "next/link";
+import {
+  vsSymbolVerdictsContent,
+  type VsSymbolVerdictsContent,
+} from "./vsSymbolVerdictsContent";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 interface VsSymbolVerdictsProps {
   brokerName: string;
   symbol: string;
   savingPct: number;
   savingPer100Lots: number;
+  content?: VsSymbolVerdictsContent;
+  locale?: string;
 }
 
 export default function VsSymbolVerdicts({
@@ -13,6 +20,8 @@ export default function VsSymbolVerdicts({
   symbol,
   savingPct,
   savingPer100Lots,
+  content: t = vsSymbolVerdictsContent,
+  locale = "en",
 }: VsSymbolVerdictsProps) {
   const sym = symbol.toUpperCase();
   const saving500Lots = (savingPer100Lots * 5).toFixed(0);
@@ -20,37 +29,36 @@ export default function VsSymbolVerdicts({
   return (
     <div className={styles.verdictGrid}>
       <div className={`${styles.cardItem} ${styles.itemsCenter}`}>
-        <div className={styles.verdictEyebrow}>Scalpers / High Frequency</div>
-        <h3>Afterprime wins on cost</h3>
+        <div className={styles.verdictEyebrow}>{t.scalpersLabel}</div>
+        <h3>{t.scalpersTitle}</h3>
         <p className={`opacity-65`}>
-          At {savingPct.toFixed(1)}% lower cost per lot, Afterprime is
-          materially cheaper for scalpers trading {sym} at volume. On 500
-          lots/month the cost difference is ${saving500Lots}.
+          {t.scalpersDesc
+            .replace("{savingPct}", savingPct.toFixed(1))
+            .replace("{sym}", sym)
+            .replace("{saving500Lots}", saving500Lots)}
         </p>
       </div>
 
       <div className={`${styles.cardItem} ${styles.itemsCenter}`}>
-        <div className={styles.verdictEyebrow}>Swing Traders</div>
-        <h3>Overnight cost matters too</h3>
+        <div className={styles.verdictEyebrow}>{t.swingLabel}</div>
+        <h3>{t.swingTitle}</h3>
         <p className={`opacity-65`}>
-          For traders holding positions overnight, swap rates are the secondary
-          cost factor. Check{" "}
+          {t.swingDescPrefix}{" "}
           <Link
-            href={`/swaps/${symbol.toLowerCase()}`}
+            href={localizeHref(`/swaps/${symbol.toLowerCase()}`, locale)}
             className="underline opacity-80"
           >
-            {sym} swap rates
+            {t.swingDescLinkText.replace("{sym}", sym)}
           </Link>{" "}
-          for a direct overnight cost comparison.
+          {t.swingDescSuffix}
         </p>
       </div>
 
       <div className={`${styles.cardItem} ${styles.itemsCenter}`}>
-        <div className={styles.verdictEyebrow}>Algo / EA Traders</div>
-        <h3>Sub-50ms, zero commission</h3>
+        <div className={styles.verdictEyebrow}>{t.algoLabel}</div>
+        <h3>{t.algoTitle}</h3>
         <p className={`opacity-65`}>
-          Sub-50ms execution and zero commissions make Afterprime a stronger
-          choice for automated trading than {brokerName}.
+          {t.algoDesc.replace("{brokerName}", brokerName)}
         </p>
       </div>
     </div>

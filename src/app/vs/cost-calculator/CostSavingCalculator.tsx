@@ -20,6 +20,7 @@ import {
   costSavingCalculatorContent,
   type CostSavingCalculatorContent,
 } from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 ChartJS.register(
   CategoryScale,
@@ -67,23 +68,37 @@ const BENCHMARK_BROKERS = ["Top 10 Avg", "Industry Avg", "Second Best"];
 export default function CostSavingCalculatorBrokers({
   currentBroker,
   content = costSavingCalculatorContent,
+  locale = "en",
 }: {
   currentBroker?: string;
   content?: CostSavingCalculatorContent;
+  locale?: string;
 }) {
   //Broker Slug Mapping
   const brokerSlugMapping = {
-    "ic-markets": "IC Markets (Raw)",
-    "global-prime": "Global Prime",
-    fxopen: "FXOpen (TickTrader)",
     tickmill: "Tickmill UK (Raw)",
     fxcm: "FXCM",
+    "ic-markets": "IC Markets (Raw)",
     pepperstone: "Pepperstone UK (.r)",
-    swissquote: "Swissquote",
-    darwinex: "Darwinex",
+    fxopen: "FXOpen (TickTrader)",
     dukascopy: "Dukascopy",
+    darwinex: "Darwinex",
+    "global-prime": "Global Prime",
     "markets-dot-com": "Markets.com",
-  };
+    swissquote: "Swissquote",
+    "fusion-markets": "FusionMarkets",
+    "vantage-fx": "Vantage FX (RAW ECN)",
+    "blackbull-markets": "BlackBull Markets (cTrader)",
+    fxpig: "FXPIG",
+    tradersway: "Tradersway (ECN)",
+    "doo-prime": "Doo Prime (.uk)",
+    "go-markets": "GO Markets (cTrader)",
+    skilling: "Skilling",
+    "admiral-markets": "Admiral Markets",
+    octafx: "OctaFX",
+    rakuten: "Rakuten Australia",
+    fxchoice: "FXChoice (Pro)",
+  } as const;
 
   const brokerName =
     (currentBroker &&
@@ -97,6 +112,12 @@ export default function CostSavingCalculatorBrokers({
   const [brokerList, setBrokerList] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (brokerName) {
+      setSelectedBroker(brokerName);
+    }
+  }, [brokerName]);
 
   // Fetch cost data from API
   useEffect(() => {
@@ -531,7 +552,7 @@ export default function CostSavingCalculatorBrokers({
       <div className="text-[14px] col-span-full opacity-60">
         <p className="risk-warning-all">
           {content.legal.part1}
-          <a href="/get-paid-to-trade">{content.legal.linkText}</a>
+          <a href={localizeHref("/get-paid-to-trade", locale)}>{content.legal.linkText}</a>
           {content.legal.part2}
           <br />
           <br />

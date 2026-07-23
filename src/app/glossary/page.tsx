@@ -5,7 +5,9 @@ import FaqSchema from "@/lib/schema/faqSchema";
 import { Metadata } from "next";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getTranslatedMetadata } from "@/lib/seo/metadata";
+import { glossaryPageContent } from "./glossaryPageContent";
 
 type GlossaryIndexJson = {
   acf?: {
@@ -37,6 +39,12 @@ export default async function page() {
   const faqDataTitle = pageData?.acf?.faq_section?.ssection_title;
   const faqData = pageData?.acf?.faq_section?.q_and_a;
 
+  const glossaryT = await getTranslatedStatic(
+    "glossary-page",
+    locale,
+    glossaryPageContent,
+  );
+
   return (
     <main>
       <InnerBannerGeneric content={Banner_CONTENT} />
@@ -48,7 +56,7 @@ export default async function page() {
           <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
             <div>
               <h2 className="h2-size mb-6 text-center md:text-left">
-                How to use this glossary
+                {glossaryT.howToUseHeading}
               </h2>
             </div>
           </div>
@@ -61,10 +69,10 @@ export default async function page() {
                   1.
                 </span>
               </h3>
-              <p className={`opacity-80 text-[18px]! mb-0!`}>
-                Use the <b>Category List</b> if you want to learn a group of
-                related concepts at once such as margin or leverage.
-              </p>
+              <p
+                className={`opacity-80 text-[18px]! mb-0!`}
+                dangerouslySetInnerHTML={{ __html: glossaryT.step1 }}
+              />
             </div>
 
             <div className={`${styles.cardItem} ${styles.cardLarge}`}>
@@ -75,10 +83,10 @@ export default async function page() {
                   2.
                 </span>
               </h3>
-              <p className={`opacity-80 text-[18px]! mb-0!`}>
-                Use the <b>A to Z</b> section if you already know the term name
-                and need a fast route to the full entry.
-              </p>
+              <p
+                className={`opacity-80 text-[18px]! mb-0!`}
+                dangerouslySetInnerHTML={{ __html: glossaryT.step2 }}
+              />
             </div>
 
             <div className={`${styles.cardItem} ${styles.cardLarge}`}>
@@ -89,10 +97,10 @@ export default async function page() {
                   3.
                 </span>
               </h3>
-              <p className={`opacity-80 text-[18px]! mb-0!`}>
-                On each term page read the first answer block for the quick
-                definition then scan the examples table.
-              </p>
+              <p
+                className={`opacity-80 text-[18px]! mb-0!`}
+                dangerouslySetInnerHTML={{ __html: glossaryT.step3 }}
+              />
             </div>
           </div>
         </div>

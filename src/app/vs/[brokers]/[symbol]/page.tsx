@@ -12,6 +12,11 @@ import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { vsSymbolFaqContent } from "./VsSymbolFaqContent";
+import { vsSymbolPageContent } from "./vsSymbolPageContent";
+import { vsSymbolHeroContent } from "./vsSymbolHeroContent";
+import { vsSymbolTableContent } from "./vsSymbolTableContent";
+import { vsSymbolVerdictsContent } from "./vsSymbolVerdictsContent";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 export const revalidate = 60;
 
@@ -62,6 +67,7 @@ function getNextBrokerSlug(currentSlug: string): string | null {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { brokers, symbol } = await params;
+  const locale = await getRequestLocale();
   const mappedBrokerName = getBrokerDisplayName(brokers);
   if (!mappedBrokerName) return {};
 
@@ -74,11 +80,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const sym = symbol.toUpperCase();
 
+  const canonicalPath = `/vs/${brokers}/${symbol.toLowerCase()}`;
+  const canonicalUrl = `https://afterprime.com${localizeHref(canonicalPath, locale)}`;
+
   return {
     title: `Afterprime vs ${mappedBrokerName} ${sym} - Cost Comparison`,
     description: `Trade ${sym} cheaper at Afterprime. ${mappedBrokerName} costs $${comp.costPerLot.toFixed(2)}/lot vs Afterprime at $${ap.costPerLot.toFixed(2)}/lot — ${comp.savingPercentage.toFixed(1)}% lower. Zero commission.`,
     alternates: {
-      canonical: `https://afterprime.com/vs/${brokers}/${symbol.toLowerCase()}`,
+      canonical: canonicalUrl,
     },
     robots: { index: true, follow: true },
   };
@@ -106,11 +115,13 @@ export default async function VsSymbolPage({ params }: Props) {
   const nextBrokerSlug = getNextBrokerSlug(brokers);
 
   const locale = await getRequestLocale();
-  const faqT = await getTranslatedStatic(
-    "vs-symbol-faq",
-    locale,
-    vsSymbolFaqContent,
-  );
+  const [faqT, t, heroT, tableT, verdictsT] = await Promise.all([
+    getTranslatedStatic("vs-symbol-faq", locale, vsSymbolFaqContent),
+    getTranslatedStatic("vs-symbol-page", locale, vsSymbolPageContent),
+    getTranslatedStatic("vs-symbol-hero", locale, vsSymbolHeroContent),
+    getTranslatedStatic("vs-symbol-table", locale, vsSymbolTableContent),
+    getTranslatedStatic("vs-symbol-verdicts", locale, vsSymbolVerdictsContent),
+  ]);
 
   const apCostStr = `$${ap.costPerLot.toFixed(2)}`;
   const compCostStr = `$${comp.costPerLot.toFixed(2)}`;
@@ -171,13 +182,17 @@ export default async function VsSymbolPage({ params }: Props) {
         compCostPerLot={comp.costPerLot}
         savingPct={savingPct}
         savingPer100Lots={savingPer100Lots}
+        locale={locale}
+        content={heroT}
       />
 
       {/* Section 2 — Comparison Table */}
       <section className="compact-section">
         <div className="ap_container_small">
           <h2 className="leading-[1.2]">
-            Afterprime vs {mappedBrokerName} {sym} Cost Comparison
+            {t.costComparisonHeading
+              .replace("{brokerName}", mappedBrokerName)
+              .replace("{sym}", sym)}
           </h2>
           <VsSymbolTable
             brokerName={mappedBrokerName}
@@ -189,18 +204,12 @@ export default async function VsSymbolPage({ params }: Props) {
             rebate={rebate}
             apNetCost={apNetCost}
             savingPct={savingPct}
+            content={tableT}
           />
           <div className={`${styles.aboutSection} mt-10`}>
-            This comparison uses <b>{mappedBrokerName}&apos;s</b> pricing for{" "}
-            <b>{sym}</b>, verified by{" "}
-            <a
-              href="https://www.forexbenchmark.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <u>Forexbenchmark.com</u>
-            </a>
-            , which represents their lowest all-in cost offering.
+            {t.comparisonNote
+              .replace("{brokerName}", mappedBrokerName)
+              .replace("{sym}", sym)}
           </div>
         </div>
       </section>
@@ -210,13 +219,15 @@ export default async function VsSymbolPage({ params }: Props) {
         <section className="compact-section">
           <div className="ap_container_small">
             <h2 className="leading-[1.2] max-md:text-center">
-              Who Gets the Better Deal?
+              {t.betterDealHeading}
             </h2>
             <VsSymbolVerdicts
               brokerName={mappedBrokerName}
               symbol={symbol}
               savingPct={savingPct}
               savingPer100Lots={savingPer100Lots}
+              locale={locale}
+              content={verdictsT}
             />
           </div>
         </section>
@@ -227,7 +238,9 @@ export default async function VsSymbolPage({ params }: Props) {
         <div className="ap_container_small">
           <div className={styles.faqBlock}>
             <h2 className="text-[34px] font-[700] mb-10">
-              Afterprime vs {mappedBrokerName} {sym} FAQs.
+              {t.faqHeading
+                .replace("{brokerName}", mappedBrokerName)
+                .replace("{sym}", sym)}
             </h2>
             <Accordion faqObjects={FAQ_DATA} />
           </div>
@@ -242,40 +255,42 @@ export default async function VsSymbolPage({ params }: Props) {
       <section className="compact-section">
         <div className="ap_container_small">
           <h2 className="text-[34px] font-[700] mb-10">
-            Learn more about trading {sym} at Afterprime
+            {t.learnMoreHeading.replace("{sym}", sym)}
           </h2>
           <div className={styles.relatedLinks}>
             <Link
-              href={`/forex/${symbol.toLowerCase()}`}
+              href={localizeHref(`/forex/${symbol.toLowerCase()}`, locale)}
               className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
-              {sym} Trading Conditions →
+              {t.tradingConditionsLink.replace("{sym}", sym)}
             </Link>
             <Link
-              href={`/swaps/${symbol.toLowerCase()}`}
+              href={localizeHref(`/swaps/${symbol.toLowerCase()}`, locale)}
               className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
-              {sym} Swap Rates →
+              {t.swapRatesLink.replace("{sym}", sym)}
             </Link>
             <Link
-              href={`/trading-hours/${symbol.toLowerCase()}`}
+              href={localizeHref(`/trading-hours/${symbol.toLowerCase()}`, locale)}
               className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
-              {sym} Market Hours →
+              {t.marketHoursLink.replace("{sym}", sym)}
             </Link>
             {nextBrokerSlug && (
               <Link
-                href={`/vs/${nextBrokerSlug}/${symbol.toLowerCase()}`}
+                href={localizeHref(`/vs/${nextBrokerSlug}/${symbol.toLowerCase()}`, locale)}
                 className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
               >
-                Afterprime vs {getBrokerDisplayName(nextBrokerSlug)} {sym} →
+                {t.nextBrokerLink
+                  .replace("{nextBroker}", getBrokerDisplayName(nextBrokerSlug) ?? nextBrokerSlug)
+                  .replace("{sym}", sym)}
               </Link>
             )}
             <Link
-              href={`/vs/${brokers}`}
+              href={localizeHref(`/vs/${brokers}`, locale)}
               className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
-              Afterprime vs {mappedBrokerName} — All Pairs →
+              {t.allPairsLink.replace("{brokerName}", mappedBrokerName)}
             </Link>
           </div>
         </div>
@@ -290,15 +305,15 @@ export default async function VsSymbolPage({ params }: Props) {
       {/* Schemas */}
       <BreadcrumbSchema
         items={[
-          { name: "Home", href: "/" },
-          { name: "Broker Comparisons", href: "/vs" },
+          { name: t.breadcrumbHome, href: localizeHref("/", locale) },
+          { name: t.breadcrumbBrokerComparisons, href: localizeHref("/vs", locale) },
           {
-            name: `Afterprime vs ${mappedBrokerName}`,
-            href: `/vs/${brokers}`,
+            name: t.breadcrumbVsBroker.replace("{brokerName}", mappedBrokerName),
+            href: localizeHref(`/vs/${brokers}`, locale),
           },
           {
-            name: `${sym} Comparison`,
-            href: `/vs/${brokers}/${symbol.toLowerCase()}`,
+            name: t.breadcrumbSymbolComparison.replace("{sym}", sym),
+            href: localizeHref(`/vs/${brokers}/${symbol.toLowerCase()}`, locale),
           },
         ]}
       />
