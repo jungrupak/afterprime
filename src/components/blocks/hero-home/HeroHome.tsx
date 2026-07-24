@@ -50,7 +50,7 @@ export async function HeroHome(props: HeroHomeProps) {
             />
 
             <div className="flex max-md:flex-col gap-4 items-center justify-center">
-              <div className="flex max-md:flex-col items-center gap-5 md:gap-10 mb-5 lg:mb-25 2xl:mb-5">
+              <div className="flex max-md:flex-col items-center gap-10 mb-5 lg:mb-25 2xl:mb-5">
                 <div className={`hero-usp-badge`}>
                   <GoogleReviewBadge />
                 </div>
