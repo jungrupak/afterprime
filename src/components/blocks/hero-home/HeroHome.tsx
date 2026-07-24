@@ -49,11 +49,8 @@ export async function HeroHome(props: HeroHomeProps) {
               }}
             />
 
-            <div className="flex max-md:flex-col gap-4 items-center justify-center">
-              <div className="flex max-md:flex-col items-center gap-10 mb-5 lg:mb-25 2xl:mb-5">
-                <div className={`hero-usp-badge`}>
-                  <GoogleReviewBadge />
-                </div>
+            <div className="flex flex-col gap-4 items-center justify-center">
+              <div className="flex max-md:flex-col items-center gap-10 mb-5 ">
                 {hero_banner_home_is_type_form_cta === "1" ? (
                   <TypeformButton
                     buttonText={t.getInviteCodeCta}
@@ -74,6 +71,9 @@ export async function HeroHome(props: HeroHomeProps) {
                   preText={t.signupNowPreText}
                   linkText={t.signupNowLinkText}
                 />
+              </div>
+              <div className={`hero-usp-badge mt-5 md:mt-8`}>
+                <GoogleReviewBadge />
               </div>
             </div>
           </div>
