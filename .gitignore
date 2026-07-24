@@ -21,6 +21,7 @@ docs/
 # extra
 .idea
 /.claude
+graphify-out/
 
 # production
 /build
