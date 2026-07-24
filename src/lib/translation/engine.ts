@@ -27,6 +27,41 @@ function hashContent(content: unknown): string {
   return hash.toString(36);
 }
 
+// Content strings often carry `{token}` placeholders (e.g. "Cost by Volume -
+// {symbol}") that calling components fill in later via .replace("{token}", value).
+// Sent as plain text, Weglot translates the word inside the braces too (e.g.
+// "{symbol}" -> "{símbolo}"), silently breaking every one of those .replace()
+// calls. Masking each token before translation and restoring the exact
+// original token after keeps every existing .replace() call site working
+// with zero changes to them.
+const PLACEHOLDER_PATTERN = /\{[a-zA-Z0-9_]+\}/g;
+
+function maskPlaceholders(strings: string[]): { masked: string[]; tokensPerString: string[][] } {
+  const tokensPerString: string[][] = [];
+  const masked = strings.map((s) => {
+    const tokens: string[] = [];
+    const result = s.replace(PLACEHOLDER_PATTERN, (match) => {
+      const marker = `@@${tokens.length}@@`;
+      tokens.push(match);
+      return marker;
+    });
+    tokensPerString.push(tokens);
+    return result;
+  });
+  return { masked, tokensPerString };
+}
+
+function unmaskPlaceholders(strings: string[], tokensPerString: string[][]): string[] {
+  return strings.map((s, i) => {
+    const tokens = tokensPerString[i];
+    if (!tokens.length) return s;
+    return tokens.reduce(
+      (result, token, idx) => result.replace(`@@${idx}@@`, token),
+      s,
+    );
+  });
+}
+
 // Orchestrates walk -> translate -> rehydrate -> cache for a single piece of
 // content, for a single non-default locale. Fails safe: any provider error,
 // or a mismatched translated-string count, falls back to the original
@@ -46,10 +81,11 @@ export class TranslationEngine {
     if (cached) return cached as T;
 
     const { strings, tree } = walkAndExtract(original);
+    const { masked, tokensPerString } = maskPlaceholders(strings);
 
-    let translated: string[];
+    let translatedMasked: string[];
     try {
-      translated = await this.options.provider.translateBatch(strings, locale);
+      translatedMasked = await this.options.provider.translateBatch(masked, locale);
     } catch (err) {
       console.error("Translation failed, falling back to original", {
         ...logContext,
@@ -59,16 +95,17 @@ export class TranslationEngine {
       return original;
     }
 
-    if (translated.length !== strings.length) {
+    if (translatedMasked.length !== strings.length) {
       console.error("Rehydration aborted: mismatched translated string count", {
         ...logContext,
         locale,
         expected: strings.length,
-        got: translated.length,
+        got: translatedMasked.length,
       });
       return original;
     }
 
+    const translated = unmaskPlaceholders(translatedMasked, tokensPerString);
     const result = rehydrate(tree, translated, locale) as T;
     await this.options.cache.set(cacheKey, locale, version, result);
     return result;
