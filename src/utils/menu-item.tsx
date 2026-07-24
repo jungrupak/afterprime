@@ -1,68 +1,5 @@
 export const MegaMenuItems = [
-  {
-    menu: "Our Approach",
-    menuInfos: {
-      title: "Our Approach",
-      description:
-        "Paragraph texts a short description of the menu context for this category.",
-      btnText: "Learn More",
-      btnLink: "#",
-    },
-    category: [
-      {
-        categoryName: "Why Traders Switch",
-        catMenuItems: [
-          {
-            menuItem: "Execution Integrity",
-            pageUrl: "/aligned-execution/",
-          },
-          {
-            menuItem: "Flow Rewards",
-            pageUrl: "/get-paid-to-trade",
-          },
-          {
-            menuItem: "Lowest Costs Verified",
-            pageUrl: "/lowest-cost-verified",
-          },
-          {
-            menuItem: "Trade Execution",
-            pageUrl: "/trade-execution",
-          },
-        ],
-      },
-      {
-        categoryName: "Who We Are",
-        catMenuItems: [
-          {
-            menuItem: "Our Story",
-            pageUrl: "/our-story",
-          },
-          {
-            menuItem: "Why We Exist",
-            pageUrl: "/why-we-exist",
-          },
-          {
-            menuItem: "Future of Trading",
-            pageUrl: "/future-of-trading",
-          },
-        ],
-      },
-      {
-        categoryName: "Trading Community",
-        catMenuItems: [
-          {
-            menuItem: "The Engine Room (Discord)",
-            pageUrl: "/our-discord",
-          },
-          {
-            menuItem: "What Traders Say",
-            pageUrl: "/what-traders-say",
-          },
-        ],
-      },
-    ],
-  },
-  {
+ {
     menu: "Trade",
     menuInfos: {
       title: "Trade",
@@ -113,7 +50,7 @@ export const MegaMenuItems = [
       },
 
       {
-        categoryName: "Trade Markets",
+        categoryName: "Markets",
         catMenuItems: [
           {
             menuItem: "Forex",
@@ -139,19 +76,11 @@ export const MegaMenuItems = [
             menuItem: "Indices",
             pageUrl: "/indices",
           },
-          {
-            menuItem: "Trading Calculators",
-            pageUrl: "/calculators",
-          },
         ],
       },
       {
         categoryName: "Trading Conditions",
         catMenuItems: [
-          {
-            menuItem: "Live Spreads",
-            pageUrl: "/live-spreads",
-          },
           {
             menuItem: "Trade Execution",
             pageUrl: "/trade-execution",
@@ -171,37 +100,115 @@ export const MegaMenuItems = [
         ],
       },
     ],
+  },  
+{
+    menu: "Pricing",
+    menuInfos: {
+      title: "Pricing",
+      description:
+        "Paragraph texts a short description of the menu context for this category.",
+      btnText: "Live Spread",
+      btnLink: "/live-spreads",
+    },
+    category: [
+      {
+        categoryName: "Verified Model",
+        catMenuItems: [
+          {
+            menuItem: "Lowest Trading Costs",
+            pageUrl: "/lowest-cost-verified",
+          },
+          {
+            menuItem: "Live Spreads",
+            pageUrl: "/live-spreads",
+          },
+          {
+            menuItem: "Trading Calculators",
+            pageUrl: "/calculators",
+          },
+        ],
+      },
+      {
+      categoryName: "Compare Our Pricing",
+      catMenuItems: [
+        {
+          menuItem: "Top 10 Avg. Brokers",
+          pageUrl: "/vs/top-10-avg",
+        },
+        {
+          menuItem: "Industry Avg. Brokers",
+          pageUrl: "/vs/industry-avg",
+        },
+        {
+          menuItem: "Compare Broker Costs",
+          pageUrl: "/vs",
+        },
+      ],
+    },
+    ],
   },
-  // {
-  //   menu: "Compare",
-  //   menuInfos: {
-  //     title: "Compare",
-  //     description: "Paragraph texts",
-  //     btnText: "Learn More",
-  //     btnLink: "#",
-  //   },
-  //   category: [
-  //     {
-  //       categoryName: "You Know That",
-  //       catMenuItems: [
-  //         {
-  //           menuItem: "Compare Brokers",
-  //           pageUrl: "#",
-  //         },
-  //         {
-  //           menuItem: "Saving & Earnings Calculator",
-  //           pageUrl: "#",
-  //         },
-  //         {
-  //           menuItem: "Our Proof",
-  //           pageUrl: "#",
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+   {
+    menu: "About",
+    menuInfos: {
+      title: "Our Approach",
+      description:
+        "Paragraph texts a short description of the menu context for this category.",
+      btnText: "Learn More",
+      btnLink: "#",
+    },
+    category: [
+      {
+        categoryName: "Our Edge",
+        catMenuItems: [
+          {
+            menuItem: "Execution Integrity",
+            pageUrl: "/aligned-execution/",
+          },
+          {
+            menuItem: "Flow Rewards",
+            pageUrl: "/get-paid-to-trade",
+          },
+          {
+            menuItem: "Lowest Costs Verified",
+            pageUrl: "/lowest-cost-verified",
+          }
+        ],
+      },
+      {
+        categoryName: "Company",
+        catMenuItems: [
+          {
+            menuItem: "Our Story",
+            pageUrl: "/our-story",
+          },
+          {
+            menuItem: "Why We Exist",
+            pageUrl: "/why-we-exist",
+          },
+          {
+            menuItem: "Future of Trading",
+            pageUrl: "/future-of-trading",
+          },
+        ],
+      },
+      {
+        categoryName: "Community & Reviews",
+        catMenuItems: [
+          {
+            menuItem: "The Engine Room (Discord)",
+            pageUrl: "/our-discord",
+          },
+          {
+            menuItem: "What Traders Say",
+            pageUrl: "/what-traders-say",
+          },
+        ],
+      },
+    ],
+  }, 
+
   {
-    menu: "Help",
+    menu: "Support",
     menuInfos: {
       title: "Help",
       description: "Paragraph texts",
