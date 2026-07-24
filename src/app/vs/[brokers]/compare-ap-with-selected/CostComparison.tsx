@@ -73,12 +73,15 @@ export default async function CostComparisonWithSelected({
     brokerSlugMap[selectedBrokerSlug as keyof typeof brokerSlugMap];
 
   const data = await getSavingCompare();
-  if (!data) {
-    throw new Error("Failed to fetch cost comparison data");
+  if (!data || !Array.isArray(data.brokers) || !data.brokers.length) {
+    return (
+      <p className="text-red text-[12px] text-center opacity-65">
+        {t.errorWhileData}
+      </p>
+    );
   }
 
-  const brokerList = Array.isArray(data.brokers) ? data.brokers : [];
-  if (!brokerList.length) return null;
+  const brokerList = data.brokers;
 
   // ✅ always include Afterprime
   const brokersToPick = ["Afterprime"];

@@ -6,6 +6,7 @@ export const compareApSelectedContent = {
   costPerLotSub: "(Including Commission)",
   savingsLabel: "% Savings",
   savingsSub: "(vs Afterprime)",
+  errorWhileData: "Unable to load cost comparison data right now.",
   dataLabelBroker: "Broker",
   dataLabelPairs: "Pairs",
   dataLabelCost: "Cost/Lot (Inc. Comm.)",
