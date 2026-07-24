@@ -2,6 +2,8 @@ import styles from "./SectionFeaturesCards.module.scss";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import { CardRepeaterType } from "@/types/blocks";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 export type SectionFeaturedCardsProps = {
   section_card_repeator_section_title?: string;
@@ -12,7 +14,7 @@ export type SectionFeaturedCardsProps = {
   cards?: CardRepeaterType[];
 };
 
-export default function SectionFeaturedCards({
+export default async function SectionFeaturedCards({
   section_card_repeator_section_title,
   section_card_repeator_section_paragraph,
   section_card_repeator_enable_cta,
@@ -20,6 +22,7 @@ export default function SectionFeaturedCards({
   section_card_repeator_cta_button_link,
   cards = [],
 }: SectionFeaturedCardsProps) {
+  const locale = await getRequestLocale();
   const contents = String(section_card_repeator_section_paragraph || "");
   const isHtml = /<[a-z][\s\S]*>/i.test(contents);
   const htmlContent = isHtml
@@ -52,7 +55,7 @@ export default function SectionFeaturedCards({
               <div className="mt-8 md:mt-14 lg:mt-20">
                 <Button
                   varient="primary-ghost"
-                  href={section_card_repeator_cta_button_link || ""}
+                  href={localizeHref(section_card_repeator_cta_button_link || "/", locale)}
                   isArrowVisible={true}
                   size="large"
                 >
@@ -71,7 +74,7 @@ export default function SectionFeaturedCards({
                 title={item.title}
                 paragraph={item.paragraph}
                 cardCtaLabel={item.button_label}
-                cardCtaLink={item.button_url}
+                cardCtaLink={item.button_url ? localizeHref(item.button_url, locale) : undefined}
                 active={false}
               />
             ))}

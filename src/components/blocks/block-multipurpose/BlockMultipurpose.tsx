@@ -7,6 +7,7 @@ import Image from "next/image";
 import TypeformButton from "@/components/ui/typeForm";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 type PropData = Blocks["block-multipurpose"];
 
@@ -132,7 +133,7 @@ export async function MultipurposeBlock({
                   <>
                     <Button
                       varient="primary-ghost"
-                      href={multipurpose_block_cta_url || "#"}
+                      href={localizeHref(multipurpose_block_cta_url || "/", locale)}
                       isArrowVisible={true}
                       size="large"
                     >

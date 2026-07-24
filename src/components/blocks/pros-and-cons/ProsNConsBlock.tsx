@@ -2,12 +2,14 @@ import React from "react";
 import Lists from "@/components/ui/Lists";
 import BoxedBlock from "@/components/boxed-block/BoxedBlock";
 import Button from "@/components/ui/Button";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 import type { Blocks } from "@/types/blocks";
 
 type ProsNConsProps = Blocks["block-pros-and-cons"];
 
 ////////
-export function ProsNConsBlock({
+export async function ProsNConsBlock({
   pros_and_cons_section_title,
   pros_and_cons_section_paragraph,
   pros_and_cons_section_cta_label,
@@ -20,6 +22,7 @@ export function ProsNConsBlock({
   pros_and_cons_is_boxed,
   ...restProps
 }: ProsNConsProps) {
+  const locale = await getRequestLocale();
   const isBoxed = Number(pros_and_cons_is_boxed || 0);
   const heading = String(pros_and_cons_section_title || "");
   const contents = String(pros_and_cons_section_paragraph || "");
@@ -100,7 +103,7 @@ export function ProsNConsBlock({
               <div className="mt-12">
                 <Button
                   varient="primary-ghost"
-                  href={pros_and_cons_cta_url || ""}
+                  href={localizeHref(pros_and_cons_cta_url || "", locale)}
                   isArrowVisible={true}
                   size="large"
                 >

@@ -4,6 +4,7 @@ import Button from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 interface BlockContent {
   content_block_with_image_heading?: string;
@@ -97,7 +98,7 @@ export default async function ContentBlock({
               {content_block_with_image_enable_cta_button === "1" && (
                 <Button
                   varient="primary-ghost"
-                  href={content_block_with_image_button_group_cta_link || ""}
+                  href={localizeHref(content_block_with_image_button_group_cta_link || "/", locale)}
                   isArrowVisible={true}
                   size="large"
                 >

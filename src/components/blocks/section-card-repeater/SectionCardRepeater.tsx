@@ -2,8 +2,10 @@ import Card from "@/components/ui/Card";
 import styles from "./SectionCardRepeater.module.scss";
 import type { SectionPropsToReceiveData } from "./normalizer";
 import { cardRepeatorNormalizer } from "./normalizer";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
-export function SectionCardsBig(props: SectionPropsToReceiveData) {
+export async function SectionCardsBig(props: SectionPropsToReceiveData) {
   const {
     section_card_repeator_section_title,
     section_card_repeator_section_paragraph,
@@ -11,6 +13,7 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
     cards,
   } = cardRepeatorNormalizer(props);
 
+  const locale = await getRequestLocale();
   const cardSize = section_card_list_big_card_size || "regular"; // Default to "regular" if undefined
 
   return (
@@ -45,7 +48,7 @@ export function SectionCardsBig(props: SectionPropsToReceiveData) {
               title={card.title}
               paragraph={card.paragraph}
               cardCtaLabel={card.button_label}
-              cardCtaLink={card.button_url}
+              cardCtaLink={card.button_url ? localizeHref(card.button_url, locale) : undefined}
               cardSize={
                 cardSize === "Small"
                   ? "small"

@@ -3,6 +3,7 @@ import Button from "@/components/ui/Button";
 import TypeformButton from "@/components/ui/typeForm";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 interface InnerBannerProps {
   inner_banner_title?: string;
@@ -53,7 +54,7 @@ export default async function InnerBanner({
               ) : (
                 <div className={`mt-8 md:mt-15`}>
                   <Button
-                    href={inner_banner_button_url}
+                    href={localizeHref(inner_banner_button_url || "/", locale)}
                     varient="primary"
                     size="regular"
                     isArrowVisible={true}

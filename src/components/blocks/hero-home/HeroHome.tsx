@@ -6,6 +6,7 @@ import type { Blocks } from "@/types/blocks";
 import HeroUsp from "@/components/hero-usp/HeroUsp";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 
 type HeroHomeProps = Blocks["hero-banner-home"];
@@ -62,7 +63,7 @@ export async function HeroHome(props: HeroHomeProps) {
                     size="regular"
                     varient="primary"
                     isArrowVisible={true}
-                    href={hero_banner_home_banner_btn_url ?? "#"}
+                    href={localizeHref(hero_banner_home_banner_btn_url || "/", locale)}
                   >
                     {hero_banner_home_banner_btn_text ?? t.buttonFallback}
                   </Btn>

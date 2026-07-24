@@ -8,11 +8,13 @@ import { earningCalcContent, type EarningCalcContent } from "./earningCalcConten
 interface Props {
   initialRebates: RebateDataType[];
   content?: EarningCalcContent;
+  disclaimerHref?: string;
 }
 
 export function EarningCalc({
   initialRebates,
   content = earningCalcContent,
+  disclaimerHref = "/trade-execution",
 }: Props) {
   const [rebates] = useState<RebateDataType[]>(initialRebates);
   const [selectedSymbol, setSelectedSymbol] = useState<string>("");
@@ -113,7 +115,7 @@ export function EarningCalc({
 
       <div className="bg-white py-5 px-10 note_box text-center mt-10">
         Afterprime&apos;s{" "}
-        <a href="/trade-execution">
+        <a href={disclaimerHref}>
           <u>{content.disclaimerLinkText}</u>
         </a>{" "}
         {content.disclaimerSuffix}

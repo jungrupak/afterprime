@@ -4,12 +4,15 @@ import {
   transformMoreValueAlignmentCards,
   RawMoreValueAlignmentBlock,
 } from "./transformer";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
 type SectionProps = RawMoreValueAlignmentBlock;
 
-export function MoreValueRealAlignment(props: SectionProps) {
+export async function MoreValueRealAlignment(props: SectionProps) {
   const { sectionTitle, subTitle, cards } =
     transformMoreValueAlignmentCards(props);
+  const locale = await getRequestLocale();
 
   return (
     <section
@@ -39,7 +42,7 @@ export function MoreValueRealAlignment(props: SectionProps) {
               title={card.title}
               paragraph={card.subTitle}
               cardCtaLabel={card.ctaLabel}
-              cardCtaLink={card.ctaLink}
+              cardCtaLink={card.ctaLink ? localizeHref(card.ctaLink, locale) : undefined}
               cardSize="small"
               active={index == 1 ? true : false}
             />

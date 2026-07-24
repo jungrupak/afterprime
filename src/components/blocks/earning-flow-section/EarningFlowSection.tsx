@@ -8,6 +8,7 @@ import { normalizeRebatesPayload, type RebateDataType } from "@/lib/rebates";
 import type { Blocks } from "@/types/blocks";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 import { earningCalcContent } from "@/utils/earning-calculator/earningCalcContent";
 
 type EarningFlowBlock = Blocks["earning-flow-block"];
@@ -74,7 +75,7 @@ export async function EarningFlowSection(block: EarningFlowBlock) {
             {earning_flow_is_cta_visible === "1" && (
               <div className="mt-16 text-center md:text-left">
                 <Btn
-                  href={earning_flow_button_link || ""}
+                  href={localizeHref(earning_flow_button_link || "/", locale)}
                   size="large"
                   varient="primary-ghost"
                   isArrowVisible={true}
@@ -89,6 +90,7 @@ export async function EarningFlowSection(block: EarningFlowBlock) {
             <EarningCalc
               initialRebates={initialRebates}
               content={earningCalcT}
+              disclaimerHref={localizeHref("/trade-execution", locale)}
             />
           </div>
         </BoxedBlock>
