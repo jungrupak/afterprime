@@ -65,12 +65,12 @@ export const MegaMenuItems = [
             pageUrl: "/metals",
           },
           {
-            menuItem: "Commodities",
-            pageUrl: "/commodities",
-          },
-          {
             menuItem: "Crypto",
             pageUrl: "/crypto",
+          },
+          {
+            menuItem: "Commodities",
+            pageUrl: "/commodities",
           },
           {
             menuItem: "Indices",
@@ -208,7 +208,7 @@ export const MegaMenuItems = [
   }, 
 
   {
-    menu: "Support",
+    menu: "Help",
     menuInfos: {
       title: "Help",
       description: "Paragraph texts",
