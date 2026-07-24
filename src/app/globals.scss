@@ -409,11 +409,11 @@ body::-webkit-scrollbar {
 .ap_container {
   @apply max-w-[1324px] mx-auto;
   &_medium {
-    @apply max-w-[1240px] mx-auto;
+    @apply max-w-[1284px] mx-auto;
   }
 
   &_small {
-    @apply max-w-[1170px] mx-auto;
+    @apply max-w-[1284px] mx-auto;
   }
 }
 
@@ -1125,4 +1125,8 @@ section {
   transform: none !important;
   animation: none !important;
   will-change: auto !important;
+}
+
+.es-badge-reviews-count {
+  display: none !important;
 }

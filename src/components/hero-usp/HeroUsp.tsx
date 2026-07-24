@@ -1,4 +1,3 @@
-import GoogleReviewBadge from "../ui/GoogleReviewBadge";
 import styles from "./HeroUsp.module.scss";
 import { heroUspContent } from "./heroUspContent";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
@@ -58,9 +57,7 @@ export default async function HeroUsp({ text }: { text: string }) {
               {t.vsIndustryLine2}
             </div>
           </div>
-          <div className={`hero-usp-badge`}>
-            <GoogleReviewBadge />
-          </div>
+
           <p
             className={`${styles.note} text-[14px] absolute bottom-5 opacity-55 max-md:static leading-[1.4]`}
             //style={{ opacity: note ? "0.55" : "0" }}

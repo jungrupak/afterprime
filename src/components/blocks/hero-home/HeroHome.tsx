@@ -6,6 +6,7 @@ import type { Blocks } from "@/types/blocks";
 import HeroUsp from "@/components/hero-usp/HeroUsp";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 
 type HeroHomeProps = Blocks["hero-banner-home"];
 
@@ -31,7 +32,7 @@ export async function HeroHome(props: HeroHomeProps) {
   return (
     <>
       <div className={`${styles.hero_home} h-screen max-md:h-[100%] relative`}>
-        <div className="flex flex-wrap flex-col justify-center items-center h-[100%] min-h-[400px] lg:min-h-[600px] relative z-2 md:pt-10 max-md:pb-5">
+        <div className="flex flex-wrap flex-col justify-center items-center h-[100%] min-h-[400px] lg:min-h-[580px] relative z-2 max-md:pb-5">
           <div className="w-full max-w-[1080] mx-auto max-md:px-5">
             <h1
               className={`${styles.heroHeading} h1-size flex lg:mb-[20px]! gap-20 justify-center text-center font-bold`}
@@ -49,7 +50,10 @@ export async function HeroHome(props: HeroHomeProps) {
             />
 
             <div className="flex max-md:flex-col gap-4 items-center justify-center">
-              <div className="flex max-md:flex-col items-center gap-5 mb-5 lg:mb-25 2xl:mb-5">
+              <div className="flex max-md:flex-col items-center gap-5 md:gap-10 mb-5 lg:mb-25 2xl:mb-5">
+                <div className={`hero-usp-badge`}>
+                  <GoogleReviewBadge />
+                </div>
                 {hero_banner_home_is_type_form_cta === "1" ? (
                   <TypeformButton
                     buttonText={t.getInviteCodeCta}
