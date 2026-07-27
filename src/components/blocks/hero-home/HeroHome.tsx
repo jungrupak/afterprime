@@ -23,12 +23,22 @@ export async function HeroHome(props: HeroHomeProps) {
 
   const locale = await getRequestLocale();
   const t = await getTranslatedStatic("hero-home", locale, {
+    // Fallback strings
     headingFallback: "Afterprime Hero Banner Text",
     buttonFallback: "Button",
     getInviteCodeCta: "Get Invite Code",
     signupNowPreText: "Have a code?",
     signupNowLinkText: "Signup Now",
+    // CMS content — translated here as safety net in case page-level
+    // translatePage fails. Weglot returns already-translated text unchanged.
+    heading: hero_banner_home_banner_heading || "",
+    btnText: hero_banner_home_banner_btn_text || "",
+    dataNote: hero_banner_home_data_source_note || "",
   });
+
+  // Use translated CMS content when available, fall back to translated defaults
+  const heading = t.heading || t.headingFallback;
+  const btnText = t.btnText || t.buttonFallback;
 
   return (
     <>
@@ -38,7 +48,7 @@ export async function HeroHome(props: HeroHomeProps) {
             <h1
               className={`${styles.heroHeading} h1-size flex lg:mb-[20px]! gap-20 justify-center text-center font-bold`}
             >
-              {hero_banner_home_banner_heading ?? t.headingFallback}
+              {heading}
             </h1>
           </div>
           <div className={`${styles.heroBannerPara} max-md:px-5`}>
@@ -65,7 +75,7 @@ export async function HeroHome(props: HeroHomeProps) {
                     isArrowVisible={true}
                     href={localizeHref(hero_banner_home_banner_btn_url || "/", locale)}
                   >
-                    {hero_banner_home_banner_btn_text ?? t.buttonFallback}
+                    {btnText}
                   </Btn>
                 )}
                 <SignupNowLink
@@ -80,7 +90,7 @@ export async function HeroHome(props: HeroHomeProps) {
           </div>
         </div>
         {/* ## */}
-        <HeroUsp text={hero_banner_home_data_source_note ?? ""} />
+        <HeroUsp text={t.dataNote} />
       </div>
     </>
   );

@@ -1,12 +1,15 @@
 import {fetchSeoFieldData} from "@/utils/fetchSeoFieldData";
+import { localizeHref } from "@/lib/locale/localizeHref";
+import { buildHreflangMap } from "@/lib/seo/metadata";
+import { DEFAULT_LOCALE } from "@/config/locales";
 
-export async function CustomMetadata(slug: string) {
+export async function CustomMetadata(slug: string, locale?: string) {
   const seoData = await fetchSeoFieldData(slug);
+  const resolvedLocale = locale ?? DEFAULT_LOCALE;
 
+  const canonicalPath = slug === "home-page" ? "/" : `/${slug}`;
   const canonicalUrl =
-    slug === "home-page"
-      ? "https://afterprime.com/"
-      : `https://afterprime.com/${slug}`;
+    `https://afterprime.com${localizeHref(canonicalPath, resolvedLocale)}`;
 
   return {
     title: seoData?.title || "Afterprime",
@@ -66,6 +69,7 @@ export async function CustomMetadata(slug: string) {
 
     alternates: {
       canonical: canonicalUrl,
+      languages: buildHreflangMap(slug, canonicalPath),
     },
 
     icons: {

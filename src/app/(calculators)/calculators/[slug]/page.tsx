@@ -17,6 +17,7 @@ import FaqSchema from "@/lib/schema/faqSchema";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
+import { localizeHref } from "@/lib/locale/localizeHref";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { positionSizeCalculatorContent } from "@/components/all-calculators/PositionSizeCalculator/PositionSizeCalculatorContent";
 import { marginCalculatorContent } from "@/components/all-calculators/MarginCalculator/MarginCalculatorContent";
@@ -77,7 +78,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageSlug) {
   const { slug } = await params;
-  const seoData = await CustomMetadata(slug);
+  const locale = await getRequestLocale();
+  const seoData = await CustomMetadata(slug, locale);
   return seoData;
 }
 //##
@@ -281,9 +283,9 @@ export default async function Page({ params }: PageSlug) {
       <FaqSchema pageSlug={slug} />
       <BreadcrumbSchema
         items={[
-          { name: breadcrumbT.home, href: "/" },
-          { name: breadcrumbT.calculators, href: "/calculators" },
-          { name: pageTitle ?? slug, href: `/calculators/${slug}` },
+          { name: breadcrumbT.home, href: localizeHref("/", locale) },
+          { name: breadcrumbT.calculators, href: localizeHref("/calculators", locale) },
+          { name: pageTitle ?? slug, href: localizeHref(`/calculators/${slug}`, locale) },
         ]}
       />
       {/* FAQ FROM CMS ENDS */}

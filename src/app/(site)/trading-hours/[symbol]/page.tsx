@@ -580,9 +580,9 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
       <BreadcrumbSchema
         items={[
-          { name: t.breadcrumbHome, href: "/" },
-          { name: t.breadcrumbTradingHours, href: "/trading-hours" },
-          { name: sym, href: `/trading-hours/${symbol}` },
+          { name: t.breadcrumbHome, href: localizeHref("/", locale) },
+          { name: t.breadcrumbTradingHours, href: localizeHref("/trading-hours", locale) },
+          { name: sym, href: localizeHref(`/trading-hours/${symbol}`, locale) },
         ]}
       />
     </>

@@ -14,6 +14,8 @@ import { CtaBlock } from "@/components/acfFieldGroups/cta-block/CtaBlock";
 import LivePriceChart from "@/components/charts/LivePriceChart";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { localizeHref } from "@/lib/locale/localizeHref";
+import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
 import { lpBannerContent } from "@/components/instrument-lps/lp-bannner/lpBannerContent";
 import { costBreakdownTableContent } from "@/components/instrument-lps/cost-brakdown/costBreakdownTableContent";
 import { specificationTableContent } from "@/components/instrument-lps/product-specification/specificationTableContent";
@@ -43,6 +45,7 @@ export async function generateStaticParams() {
 //Export Dynamic Page Title Tags####
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
+  const locale = await getRequestLocale();
   const instrumentUppercase = slug.toUpperCase();
   if (!params) return;
   const { rebate, industryVsApAvgPct, top10VsAfterprimeAvgPct } =
@@ -53,8 +56,8 @@ export async function generateMetadata({ params }: PageProps) {
     Math.abs(Number(top10VsAfterprimeAvgPct)),
   );
 
-  //for canonical ur
-  const canonicalUrl = `https://afterprime.com/trade/${slug.toLowerCase()}`;
+  const canonicalPath = `/trade/${slug.toLowerCase()}`;
+  const canonicalUrl = `https://afterprime.com${localizeHref(canonicalPath, locale)}`;
 
   if (rebate === 0) {
     return {
@@ -62,6 +65,11 @@ export async function generateMetadata({ params }: PageProps) {
       description: `Trade ${instrumentUppercase} with standard per lot pricing. Flow Rewards TM are not applied to ${instrumentUppercase}`,
       alternates: {
         canonical: canonicalUrl,
+        languages: buildHreflangMap(slug, canonicalPath),
+      },
+      openGraph: {
+        locale: toOgLocale(locale),
+        url: canonicalUrl,
       },
     };
   } else if (industryVsApAvgPct <= 0) {
@@ -70,6 +78,11 @@ export async function generateMetadata({ params }: PageProps) {
       description: `Trade ${instrumentUppercase} and earn ${rebate.toFixed(2)}/lot with Flow Rewards`,
       alternates: {
         canonical: canonicalUrl,
+        languages: buildHreflangMap(slug, canonicalPath),
+      },
+      openGraph: {
+        locale: toOgLocale(locale),
+        url: canonicalUrl,
       },
     };
   } else {
@@ -78,6 +91,11 @@ export async function generateMetadata({ params }: PageProps) {
       description: `Trade ${instrumentUppercase} on Afterprime with verified lowest trading costs. Compare brokers ${instrumentUppercase} cost.`,
       alternates: {
         canonical: canonicalUrl,
+        languages: buildHreflangMap(slug, canonicalPath),
+      },
+      openGraph: {
+        locale: toOgLocale(locale),
+        url: canonicalUrl,
       },
     };
   }
@@ -238,9 +256,9 @@ export default async function TradeSlugPage({ params }: PageProps) {
 
           <BreadcrumbSchema
             items={[
-              { name: "Home", href: "/" },
-              { name: "Trade", href: "/trade" },
-              { name: page.slug.toUpperCase(), href: `/trade/${page.slug}` },
+              { name: "Home", href: localizeHref("/", locale) },
+              { name: "Trade", href: localizeHref("/trade", locale) },
+              { name: page.slug.toUpperCase(), href: localizeHref(`/trade/${page.slug}`, locale) },
             ]}
           />
         </div>

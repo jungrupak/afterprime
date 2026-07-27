@@ -264,9 +264,9 @@ export default async function ForexSlugPage({ params }: Props) {
 
       <BreadcrumbSchema
         items={[
-          { name: "Home", href: "/" },
-          { name: "Forex", href: "/forex" },
-          { name: slug.toUpperCase(), href: `/forex/${slug}` },
+          { name: "Home", href: localizeHref("/", locale) },
+          { name: "Forex", href: localizeHref("/forex", locale) },
+          { name: slug.toUpperCase(), href: localizeHref(`/forex/${slug}`, locale) },
         ]}
       />
 

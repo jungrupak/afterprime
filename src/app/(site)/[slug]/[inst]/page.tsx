@@ -15,6 +15,8 @@ import { BottomCta } from "@/components/acfFieldGroups/bottom-cta/BottomCta";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { localizeHref } from "@/lib/locale/localizeHref";
+import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
 import { calculatorToolsBlockContent } from "./CalculatorToolsBlockContent";
 import { costSavingCalculatorContent } from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
 import { instrumentKeyBenifitsContent } from "@/components/instrument-key-benifits/instrumentKeyBenifitsContent";
@@ -36,6 +38,7 @@ type Props = {
 //
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { inst } = await params;
+  const locale = await getRequestLocale();
 
   const allBrokers = await getBrokerCompareData(inst);
   const getAfterprime = allBrokers?.brokers.find(
@@ -45,11 +48,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const apRebate = allBrokers?.rebate?.rebate_usd_per_lot ?? 0;
   const netCostPerLot = afterprimeCostPerLot - apRebate;
 
+  const canonicalPath = `/forex/${inst.toLowerCase()}`;
+  const canonicalUrl = `https://afterprime.com${localizeHref(canonicalPath, locale)}`;
+
   return {
     title: `${inst.toUpperCase()} Spreads & Lowest Verified Trading Costs | Afterprime`,
     description: `Trade ${inst.toUpperCase()} at ${netCostPerLot}/lot RT. Sub 50ms execution with $0 commission. Compare live ${inst.toUpperCase()} spreads.`,
     alternates: {
-      canonical: `https://afterprime.com/forex/${inst}`,
+      canonical: canonicalUrl,
+      languages: buildHreflangMap(inst, canonicalPath),
+    },
+    openGraph: {
+      locale: toOgLocale(locale),
+      url: canonicalUrl,
     },
   };
 }
@@ -228,9 +239,9 @@ export default async function ChildPage({ params }: Props) {
 
       <BreadcrumbSchema
         items={[
-          { name: "Home", href: "/" },
-          { name: slug.charAt(0).toUpperCase() + slug.slice(1), href: `/${slug}` },
-          { name: inst.toUpperCase(), href: `/${slug}/${inst}` },
+          { name: "Home", href: localizeHref("/", locale) },
+          { name: slug.charAt(0).toUpperCase() + slug.slice(1), href: localizeHref(`/${slug}`, locale) },
+          { name: inst.toUpperCase(), href: localizeHref(`/${slug}/${inst}`, locale) },
         ]}
       />
 
