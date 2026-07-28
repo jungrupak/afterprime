@@ -7,6 +7,11 @@ export const livePricingMetalsContent = {
   description:
     "Raw spreads. Zero commissions. A-Book execution across all precious metals.",
   tableHeaders: { ...defaultTableHeaders },
+  marketStatus: {
+    open: "Open",
+    break: "Break",
+    closed: "Closed",
+  },
 };
 
 export type LivePricingMetalsContent = typeof livePricingMetalsContent;

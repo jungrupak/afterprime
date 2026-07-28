@@ -7,6 +7,11 @@ export const livePricingIndicesContent = {
   description:
     "Stop overpaying for your exposure. We combine raw spreads with zero commissions across our entire index suite - plus, earn up to $1/lot back via Flow Rewards™ on high-volume like the US500 and DXY.",
   tableHeaders: { ...defaultTableHeaders },
+  marketStatus: {
+    open: "Open",
+    break: "Break",
+    closed: "Closed",
+  },
 };
 
 export type LivePricingIndicesContent = typeof livePricingIndicesContent;

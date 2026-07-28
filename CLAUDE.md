@@ -111,6 +111,10 @@ src/
 - Export named + default where applicable
 - Colocate component styles with Tailwind; extract to `tokens.css` for brand tokens
 
+### Reusable Button Styles
+
+- **`.decent_ghost_btn`** — Ghost/outline button style (matches LanguageSelector trigger in header). Use for secondary actions like "Compare Trading Cost". Defined in `src/components/live-pricing/style.module.scss`. Properties: transparent bg, 1px border `rgba(255,255,255,0.1)`, `Graphik` 13px/500, `letter-spacing: 0.5px`, `white-space: nowrap`, hover: border brightens + subtle bg.
+
 ### Tailwind Usage
 
 - Extend `tailwind.config.ts` with Afterprime brand tokens

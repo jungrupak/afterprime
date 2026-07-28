@@ -10,9 +10,16 @@ export const livePricingTradingHoursContent = {
     bid: "Bid Price",
     ask: "Ask Price",
     spread: "Spread (Pips)",
+    marketStatus: "Status",
     marketHours: "Market Hours",
     tradingHoursLink: "Trading Hours",
   },
+  marketStatus: {
+    open: "Open",
+    break: "Break",
+    closed: "Closed",
+  },
+  compareTradingCost: "Compare Trading Cost",
   caption:
     "Beyond Zero-Commission, Get Paid to Trade. Popular Instruments, Forex, Crypto, Commodities, Metals, Indices",
   readyToCompare:

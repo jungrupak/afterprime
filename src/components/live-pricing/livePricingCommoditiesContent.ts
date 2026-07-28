@@ -7,6 +7,11 @@ export const livePricingCommoditiesContent = {
   description:
     "Raw spreads. Zero commissions. A-Book execution across all commodity instruments.",
   tableHeaders: { ...defaultTableHeaders },
+  marketStatus: {
+    open: "Open",
+    break: "Break",
+    closed: "Closed",
+  },
 };
 
 export type LivePricingCommoditiesContent =

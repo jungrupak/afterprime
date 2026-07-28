@@ -7,6 +7,12 @@ export const livePricingForexContent = {
   description:
     "Raw spreads. Zero commissions. A-Book execution across all precious metals. Plus Flow Rewards™. We pay you on your volume.",
   tableHeaders: { ...defaultTableHeaders },
+  marketStatus: {
+    open: "Open",
+    break: "Break",
+    closed: "Closed",
+  },
+  compareTradingCost: "Compare Trading Cost",
   cta1BeforeEurusd: "Explore detailed pricing for ",
   eurusdLinkText: "EUR/USD with zero commissions",
   cta1Comma1: ", ",

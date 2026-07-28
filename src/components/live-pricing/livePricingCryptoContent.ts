@@ -7,6 +7,11 @@ export const livePricingCryptoContent = {
   description:
     "Stop losing your margin to exchange fees. Trade on Crypto CFDs. We offer raw spreads with zero commissions - plus, earn up to $3/lot back via Flow Rewards™ on Bitcoin.",
   tableHeaders: { ...defaultTableHeaders },
+  marketStatus: {
+    open: "Open",
+    break: "Break",
+    closed: "Closed",
+  },
 };
 
 export type LivePricingCryptoContent = typeof livePricingCryptoContent;

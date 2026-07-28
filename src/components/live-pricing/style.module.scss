@@ -25,39 +25,67 @@
     width: 100%;
     margin-inline: auto;
     text-align: left;
-    border-collapse: separate;
-    border-spacing: 0 4px;
     thead {
-      position: sticky;
-      top: 0;
-      z-index: 4;
+      //position: sticky;
+      //top: 0;
+      //z-index: 4;
+      tr {
+        display: flex;
+        gap: 4px;
+      }
     }
     th {
-      //background-color: var(--body-bg);
       font-weight: 400;
       color: var(--primary-white-50);
       text-align: left;
       font-size: var(--font-size-note);
+      padding: 5px 15px 15px;
+      align-self: center;
+      min-width: 0;
+      &:nth-child(1) {
+        flex: 0 0 28%;
+      }
+      &:nth-child(n + 2):nth-child(-n + 5) {
+        flex: 0 0 180px;
+      }
+      &:last-child {
+        flex: 0 0 auto;
+        text-align: right;
+        margin-left: auto;
+      }
     }
     tbody {
-      max-height: 100vh;
-      overflow-y: auto;
       tr {
-        td {
-          font-size: 20px;
-          padding: 15px;
-          min-width: 180px;
-          transition: all 0.3s ease;
-          text-align: left;
-          &:first-child {
-            width: 40%;
-          }
-        }
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 0;
         background-color: rgba(var(--alphaWhite), 0.03);
-        border-radius: 8px;
+        border-radius: 6px;
         transition: background-color 0.3s ease;
+        margin-bottom: 10px;
+        border: solid 1px var(--primary-white-6);
         &:hover {
           background-color: rgba(var(--alphaWhite), 0.08);
+        }
+        td {
+          font-size: 20px;
+          padding: 10px 15px;
+          transition: all 0.3s ease;
+          text-align: left;
+          align-self: center;
+          min-width: 0;
+          &:nth-child(1) {
+            flex: 0 0 28%;
+          }
+          &:nth-child(n + 2):nth-child(-n + 5) {
+            flex: 0 0 180px;
+            text-align: left;
+          }
+          &:last-child {
+            flex: 0 0 auto;
+            text-align: right;
+          }
         }
       }
     }
@@ -71,6 +99,7 @@
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           margin-bottom: 10px;
+          gap: 0;
           td {
             border: none;
             padding: 8px 10px;
@@ -139,6 +168,9 @@
               &:before {
                 text-align: right;
               }
+              > div {
+                text-align: right;
+              }
             }
             // Status - hidden on mobile
             &:nth-child(5) {
@@ -168,6 +200,7 @@
   gap: 10px;
   margin-bottom: 10px;
   justify-content: flex-start;
+  align-items: center;
   border-top: solid 1px rgba(255, 255, 255, 0.06);
   border-bottom: solid 1px rgba(255, 255, 255, 0.06);
   padding: 10px 0;
@@ -191,6 +224,7 @@
   button {
     display: inline-flex;
     align-items: center;
+    white-space: nowrap;
     font-weight: 600;
     //background-color: rgba(var(--alphaWhite), 0.08);
     color: rgba(var(--alphaWhite), 0.48);
@@ -221,11 +255,41 @@
   }
 }
 
+// Decent Ghost Button — reusable ghost/outline button style
+// Matches LanguageSelector trigger in header
+.decent_ghost_btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 10px;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "Graphik", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  margin-left: auto;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.04);
+  }
+}
+
 .forexIcons {
   display: flex;
   align-items: center;
   gap: 15px;
   position: relative;
+  font-size: 16px;
+  font-weight: 700;
   @media all and (max-width: 767px) {
     color: var(--primary-white-50);
   }
@@ -261,6 +325,8 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  font-size: 16px;
+  font-weight: 700;
   @media all and (max-width: 767px) {
     color: var(--primary-white-50);
   }
@@ -287,17 +353,7 @@
 }
 
 .trading_hours_table {
-  @media all and (max-width: 767px) {
-    table tbody tr {
-      td:nth-child(1) {
-        flex: 1 !important;
-      }
-      td:nth-child(6) {
-        order: 1;
-        flex: 0 0 auto !important;
-      }
-    }
-  }
+  // Mobile grid is handled by .livepricing_table_wrapper above
 }
 
 .indAverageCompareOpen {

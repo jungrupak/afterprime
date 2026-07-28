@@ -38,6 +38,7 @@ export const livePricingContent = {
     break: "Break",
     closed: "Closed",
   },
+  compareTradingCost: "Compare Trading Cost",
   readyToCompare:
     "Ready to compare? Calculate your trading costs across your typical trading volume to see the total savings.",
   readyToCompareLinkText: "Calculate your trading costs",

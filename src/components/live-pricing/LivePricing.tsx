@@ -57,14 +57,15 @@ export function LivePricingAll({
 
   const tabNavs = c.tabLabels;
 
-  const tabIcons: Record<string, string> = {
-    Popular: "/img/icons/icon-popular.svg",
-    Forex: "/img/icons/icon-forex.svg",
-    Crypto: "/img/icons/icon-crypto.svg",
-    Commodities: "/img/icons/icon-commo.svg",
-    Metals: "/img/icons/icon-metals.svg",
-    Indices: "/img/icons/icon-indices.svg",
-  };
+  // Index-based — order must match pricingCatLists in this file
+  const tabIcons = [
+    "/img/icons/icon-popular.svg",
+    "/img/icons/icon-forex.svg",
+    "/img/icons/icon-crypto.svg",
+    "/img/icons/icon-commo.svg",
+    "/img/icons/icon-metals.svg",
+    "/img/icons/icon-indices.svg",
+  ];
 
   const visibleRows = pricingCatLists[activeTabNav].filter(
     (item) => !["CA60", "SA40", "NOR25"].includes(item.symbol),
@@ -107,9 +108,9 @@ export function LivePricingAll({
                   setActiveTabContentID(tabNavs[index]);
                 }}
               >
-                {tabIcons[nav] && (
+                {tabIcons[index] && (
                   <Image
-                    src={tabIcons[nav]}
+                    src={tabIcons[index]}
                     alt={nav}
                     width={14}
                     height={14}
@@ -119,6 +120,12 @@ export function LivePricingAll({
                 {nav}
               </button>
             ))}
+            <Link
+              href={localizeHref("/vs", locale)}
+              className={styles.decent_ghost_btn}
+            >
+              {c.compareTradingCost}
+            </Link>
           </div>
 
           <div className={`${styles.ap_tab_container}`}>
@@ -146,7 +153,6 @@ export function LivePricingAll({
                         {c.tableHeaders.marketStatus}
                       </th>
                       <th scope="col" className="px-4 py-2">
-                        {c.tableHeaders.marketHours}
                       </th>
                     </tr>
                   </thead>
@@ -258,18 +264,10 @@ export function LivePricingAll({
                               closed:
                                 "bg-[rgba(255,48,29,0.12)] text-[#FF301D]",
                             };
-                            const dotStyles = {
-                              open: "bg-[#22C55E]",
-                              break: "bg-[#F59E0B]",
-                              closed: "bg-[#FF301D]",
-                            };
                             return (
                               <span
-                                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium ${statusStyles[marketStatus.state]}`}
+                                className={`inline-flex items-center px-2.5 py-1 rounded-full text-[12px] font-medium ${statusStyles[marketStatus.state]}`}
                               >
-                                <span
-                                  className={`w-1.5 h-1.5 rounded-full ${dotStyles[marketStatus.state]}`}
-                                />
                                 {marketStatus.label}
                               </span>
                             );
