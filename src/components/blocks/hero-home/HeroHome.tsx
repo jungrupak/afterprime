@@ -61,7 +61,7 @@ export async function HeroHome(props: HeroHomeProps) {
             />
 
             <div className="flex flex-col gap-4 items-center justify-center">
-              <div className="flex max-md:flex-col items-center gap-10 mb-5 ">
+              <div className="flex max-md:flex-col items-center gap-10 mb-5 max-md:w-full">
                 {hero_banner_home_is_type_form_cta === "1" ? (
                   <TypeformButton
                     buttonText={t.getInviteCodeCta}
@@ -73,7 +73,10 @@ export async function HeroHome(props: HeroHomeProps) {
                     size="regular"
                     varient="primary"
                     isArrowVisible={true}
-                    href={localizeHref(hero_banner_home_banner_btn_url || "/", locale)}
+                    href={localizeHref(
+                      hero_banner_home_banner_btn_url || "/",
+                      locale,
+                    )}
                   >
                     {btnText}
                   </Btn>
@@ -83,7 +86,14 @@ export async function HeroHome(props: HeroHomeProps) {
                   linkText={t.signupNowLinkText}
                 />
               </div>
-              <div className={`hero-usp-badge mt-5 md:mt-8`}>
+              <div
+                className={`hero-usp-badge mt-0 md:mt-2 flex max-md:flex-col gap-2 h-[32px] overflow-hidden`}
+              >
+                <div
+                  className={`text-[18px] font-bold opacity-65 max-md:hidden`}
+                >
+                  Excellent on Google
+                </div>
                 <GoogleReviewBadge />
               </div>
             </div>

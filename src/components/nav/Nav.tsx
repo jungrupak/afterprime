@@ -40,7 +40,7 @@ export default function Navigation({ menus }: MenuItems) {
   return (
     <div>
       <nav>
-        <ul className="flex gap-12">
+        <ul className="flex gap-5">
           {menus?.map((menu, idx) => (
             <li
               key={idx}
@@ -54,7 +54,9 @@ export default function Navigation({ menus }: MenuItems) {
                 setOpenIndex(null);
               }}
             >
-              <span className="cursor-pointer flex items-center gap-4 max-lg:px-[10px]">
+              <span
+                className={`cursor-pointer flex items-center gap-3 max-lg:px-[10px] ${styles.navLink} ${openIndex === idx ? styles.navLinkActive : ""}`}
+              >
                 {menu.menu}
                 {menu?.category?.length ? <DropdownIcon /> : null}
               </span>
@@ -105,7 +107,9 @@ export default function Navigation({ menus }: MenuItems) {
                         }}
                         style={{ position: "relative" }}
                       >
-                        <Link href={localizeHref(menuItem.pageUrl || "/", locale)}>
+                        <Link
+                          href={localizeHref(menuItem.pageUrl || "/", locale)}
+                        >
                           {menuItem.menuItem}
                         </Link>
                         {menuItem.menuItem === "Trading Calculator" && (

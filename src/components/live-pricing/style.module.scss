@@ -82,6 +82,9 @@
           &:nth-child(n + 2):nth-child(-n + 5) {
             flex: 0 0 180px;
             text-align: right;
+            @media all and (max-width: 767px) {
+              text-align: left;
+            }
           }
           &:last-child {
             flex: 0 0 auto;

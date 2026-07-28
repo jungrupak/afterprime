@@ -2,7 +2,18 @@
   cursor: pointer;
   font-size: 18px;
   font-weight: 600;
-  padding: 15px 0;
+  padding: 8px 0;
+
+  .navLink {
+    padding: 6px 15px;
+    border-radius: 2px;
+    transition: background-color 0.2s ease;
+  }
+
+  &:hover .navLink,
+  .navLinkActive {
+    background-color: var(--primary-white-6);
+  }
 }
 .megaMenuWrapper {
   padding: 40px 0;
