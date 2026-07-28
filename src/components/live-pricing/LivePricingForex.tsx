@@ -73,7 +73,7 @@ export function LivePricingForex({
 
   return (
     <div>
-      <div className="w-full text-center px-6">
+      <div className="w-full text-left max-md:px-6">
         <h2 className="h2-size mb-6">
           {c.headingBefore}
           <span>{c.headingHighlight}</span>
@@ -130,7 +130,9 @@ export function LivePricingForex({
                       <th className="px-4 py-2">{c.tableHeaders.bid}</th>
                       <th className="px-4 py-2">{c.tableHeaders.ask}</th>
                       <th className="px-4 py-2">{c.tableHeaders.spread}</th>
-                      <th className="px-4 py-2">{c.tableHeaders.marketStatus}</th>
+                      <th className="px-4 py-2">
+                        {c.tableHeaders.marketStatus}
+                      </th>
                       <th className="px-4 py-2"></th>
                     </tr>
                   </thead>
@@ -159,7 +161,10 @@ export function LivePricingForex({
                                 />
                               </div>
                               <a
-                                href={localizeHref("/trade/" + item.symbol.toLowerCase(), locale)}
+                                href={localizeHref(
+                                  "/trade/" + item.symbol.toLowerCase(),
+                                  locale,
+                                )}
                                 className={`underline decoration-dotted decoration-2 underline-offset-4`}
                               >
                                 {item.symbol}
@@ -203,17 +208,17 @@ export function LivePricingForex({
                           {item.bestAsk}
                         </td>
                         <td className="px-4 py-2 " t-name="Spread">
-                          <div className="max-md:opacity-50">
-                            {item.spread}
-                          </div>
+                          <div className="max-md:opacity-50">{item.spread}</div>
                         </td>
                         <td className="px-4 py-2" t-name="Status">
                           {(() => {
                             const marketStatus = getStatus(item.symbol);
                             const statusStyles = {
                               open: "bg-[rgba(34,197,94,0.12)] text-[#22C55E]",
-                              break: "bg-[rgba(245,158,11,0.12)] text-[#F59E0B]",
-                              closed: "bg-[rgba(255,48,29,0.12)] text-[#FF301D]",
+                              break:
+                                "bg-[rgba(245,158,11,0.12)] text-[#F59E0B]",
+                              closed:
+                                "bg-[rgba(255,48,29,0.12)] text-[#FF301D]",
                             };
                             return (
                               <span
@@ -230,7 +235,8 @@ export function LivePricingForex({
                           >
                             <Link
                               href={localizeHref(
-                                "/trading-hours/" + item.symbol.toLowerCase(), locale
+                                "/trading-hours/" + item.symbol.toLowerCase(),
+                                locale,
                               )}
                             >
                               <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
@@ -268,7 +274,12 @@ export function LivePricingForex({
 
           <p className="opacity-80 mt-2">
             {c.readyToComparePrefix}
-            <Link href={localizeHref("/calculators/cost-savings-calculator", locale)}>
+            <Link
+              href={localizeHref(
+                "/calculators/cost-savings-calculator",
+                locale,
+              )}
+            >
               <u>{c.calculatorLinkText}</u>
             </Link>
             {c.readyToCompareMiddle}

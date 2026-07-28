@@ -56,7 +56,7 @@ export function LivePricingCrypto({
 
   return (
     <div>
-      <div className="w-full text-center px-6">
+      <div className="w-full text-left max-md:px-6">
         <h2 className="h2-size mb-6">
           {c.headingBefore}
           <span>{c.headingHighlight}</span>
@@ -73,7 +73,9 @@ export function LivePricingCrypto({
       {hasInitialTableData && (
         <div className={`${styles.ap_tab}`}>
           <div className={`${styles.ap_tab_container}`}>
-            <div className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}>
+            <div
+              className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}
+            >
               <table className="">
                 <thead>
                   <tr className="">
@@ -116,10 +118,8 @@ export function LivePricingCrypto({
                           const marketStatus = getStatus(item.symbol);
                           const statusStyles = {
                             open: "bg-[rgba(34,197,94,0.12)] text-[#22C55E]",
-                            break:
-                              "bg-[rgba(245,158,11,0.12)] text-[#F59E0B]",
-                            closed:
-                              "bg-[rgba(255,48,29,0.12)] text-[#FF301D]",
+                            break: "bg-[rgba(245,158,11,0.12)] text-[#F59E0B]",
+                            closed: "bg-[rgba(255,48,29,0.12)] text-[#FF301D]",
                           };
                           return (
                             <span
@@ -135,7 +135,10 @@ export function LivePricingCrypto({
                           className={`flex md:justify-end text-[16px] items-center`}
                         >
                           <Link
-                            href={localizeHref("/trading-hours/" + item.symbol.toLowerCase(), locale)}
+                            href={localizeHref(
+                              "/trading-hours/" + item.symbol.toLowerCase(),
+                              locale,
+                            )}
                           >
                             <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
                               {c.tableHeaders.tradingHoursLink}

@@ -59,7 +59,7 @@ export function LivePricingCommodities({
 
   return (
     <div>
-      <div className="w-full text-center px-6">
+      <div className="w-full text-left max-md:px-6">
         <h2 className="h2-size mb-6">
           {c.headingBefore}
           <span>{c.headingHighlight}</span>
@@ -87,74 +87,75 @@ export function LivePricingCommodities({
                       <th className="px-4 py-2">{c.tableHeaders.bid}</th>
                       <th className="px-4 py-2">{c.tableHeaders.ask}</th>
                       <th className="px-4 py-2">{c.tableHeaders.spread}</th>
-                      <th className="px-4 py-2">{c.tableHeaders.marketStatus}</th>
+                      <th className="px-4 py-2">
+                        {c.tableHeaders.marketStatus}
+                      </th>
                       <th className="px-4 py-2"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {pricingCatLists[activeTabNav]
-                      .map((item, index) => (
-                        <tr key={index} className="">
-                          <td className="px-4 py-2 " t-name="Symbol">
-                            <div className={`${styles.instrumentIcons}`}>
-                              <div className={`${styles.icon_wrap}`}>
-                                <Image
-                                  width={40}
-                                  height={40}
-                                  src={`https://cdn.afterprime.com/symbols/${item.symbol.toLocaleLowerCase()}.svg`}
-                                  alt={`${item.symbol} ${item.group}`}
-                                />
-                              </div>
+                    {pricingCatLists[activeTabNav].map((item, index) => (
+                      <tr key={index} className="">
+                        <td className="px-4 py-2 " t-name="Symbol">
+                          <div className={`${styles.instrumentIcons}`}>
+                            <div className={`${styles.icon_wrap}`}>
+                              <Image
+                                width={40}
+                                height={40}
+                                src={`https://cdn.afterprime.com/symbols/${item.symbol.toLocaleLowerCase()}.svg`}
+                                alt={`${item.symbol} ${item.group}`}
+                              />
+                            </div>
 
-                              {item.symbol}
-                            </div>
-                          </td>
-                          <td className="px-4 py-2 " t-name="Bid">
-                            {item.bestBid}
-                          </td>
-                          <td className="px-4 py-2 " t-name="Ask">
-                            {item.bestAsk}
-                          </td>
-                          <td className="px-4 py-2 " t-name="Spread">
-                            <div className="max-md:opacity-50">{item.spread}</div>
-                          </td>
-                          <td className="px-4 py-2" t-name="Status">
-                            {(() => {
-                              const marketStatus = getStatus(item.symbol);
-                              const statusStyles = {
-                                open: "bg-[rgba(34,197,94,0.12)] text-[#22C55E]",
-                                break:
-                                  "bg-[rgba(245,158,11,0.12)] text-[#F59E0B]",
-                                closed:
-                                  "bg-[rgba(255,48,29,0.12)] text-[#FF301D]",
-                              };
-                              return (
-                                <span
-                                  className={`inline-flex items-center px-2.5 py-1 rounded-full text-[12px] font-medium ${statusStyles[marketStatus.state]}`}
-                                >
-                                  {marketStatus.label}
-                                </span>
-                              );
-                            })()}
-                          </td>
-                          <td className="px-4 py-2 " t-name="Market Hours">
-                            <div
-                              className={`flex md:justify-end text-[16px] items-center`}
-                            >
-                              <Link
-                                href={localizeHref(
-                                  "/trading-hours/" + item.symbol.toLowerCase(),
-                                  locale,
-                                )}
+                            {item.symbol}
+                          </div>
+                        </td>
+                        <td className="px-4 py-2 " t-name="Bid">
+                          {item.bestBid}
+                        </td>
+                        <td className="px-4 py-2 " t-name="Ask">
+                          {item.bestAsk}
+                        </td>
+                        <td className="px-4 py-2 " t-name="Spread">
+                          <div className="max-md:opacity-50">{item.spread}</div>
+                        </td>
+                        <td className="px-4 py-2" t-name="Status">
+                          {(() => {
+                            const marketStatus = getStatus(item.symbol);
+                            const statusStyles = {
+                              open: "bg-[rgba(34,197,94,0.12)] text-[#22C55E]",
+                              break:
+                                "bg-[rgba(245,158,11,0.12)] text-[#F59E0B]",
+                              closed:
+                                "bg-[rgba(255,48,29,0.12)] text-[#FF301D]",
+                            };
+                            return (
+                              <span
+                                className={`inline-flex items-center px-2.5 py-1 rounded-full text-[12px] font-medium ${statusStyles[marketStatus.state]}`}
                               >
-                                <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
-                                  {c.tableHeaders.tradingHoursLink}
-                                </span>
-                              </Link>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                                {marketStatus.label}
+                              </span>
+                            );
+                          })()}
+                        </td>
+                        <td className="px-4 py-2 " t-name="Market Hours">
+                          <div
+                            className={`flex md:justify-end text-[16px] items-center`}
+                          >
+                            <Link
+                              href={localizeHref(
+                                "/trading-hours/" + item.symbol.toLowerCase(),
+                                locale,
+                              )}
+                            >
+                              <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
+                                {c.tableHeaders.tradingHoursLink}
+                              </span>
+                            </Link>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
