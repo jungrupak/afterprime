@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: PageProps) {
   const canonicalPath = `/swaps/${symbol}`;
   const canonicalUrl = `https://afterprime.com${localizeHref(canonicalPath, locale)}`;
   return {
-    title: `${instrymentData.description} Swap Rate - Long & Short Overnight Fee`,
+    title: `${instrymentData.description} Swap Rate: Long & Short Overnight Fee | Afterprime`,
 
     description: `${instrymentData.symbol} swap rates at Afterprime:
               Long ${instrymentData.swapLong} ${instrymentData.currencyProfit}
