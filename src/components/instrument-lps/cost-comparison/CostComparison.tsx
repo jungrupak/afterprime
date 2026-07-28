@@ -122,10 +122,11 @@ export default async function CostComparison({
           "@type": "Dataset",
           name: `${instrument.toUpperCase()} Cost Comparison`,
           description: `Instrument specific comparison of ${instrument.toUpperCase()} trading costs across major FX brokers.`,
+          license: "https://afterprime.com/license-and-regulations",
           creator: {
             "@type": "Organization",
             name: "Afterprime",
-            license: "https://afterprime.com/license-and-regulations",
+            url: "https://afterprime.com",
           },
           dateModified: new Date().toISOString().split("T")[0],
 
