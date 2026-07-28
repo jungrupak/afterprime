@@ -47,63 +47,37 @@ export default async function Footer() {
   return (
     <section className={`${styles.footer_section} compact-section`}>
       <div className="ap_container_small">
+        {/* Row 1: Logo + Social icons */}
         <div
-          className={`flex flex-wrap md:grid md:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-10 md:gap-12 sm:gap-6`}
+          className={`flex flex-col md:flex-row items-center md:justify-between gap-6 mb-10 md:mb-12 ${styles.footLogoRow}`}
         >
-          <div className="col-span-full sm:col-auto order-1">
-            <Link href={localizeHref("/", locale)} className="block mb-6">
-              <Image
-                src="/img/logo-text.svg"
-                alt={t.logoAlt}
-                width={160}
-                height={29}
-              />
-            </Link>
-            <div className="flex gap-3 mb-6">
-              {socialItems.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.link}
-                  target={item.target}
-                  className="mb-4"
-                >
-                  <Image
-                    src={`/img/${item.imgFileName}`}
-                    alt={item.alt}
-                    width={29}
-                    height={29}
-                  />
-                </Link>
-              ))}
-            </div>
-            <div className="flex gap-3">
-              <Link
-                href="https://apps.apple.com/us/app/metatrader-5/id413251709"
-                target="_blank"
-                className="block"
-              >
+          <Link href={localizeHref("/", locale)} className="block">
+            <Image
+              src="/img/logo-text.svg"
+              alt={t.logoAlt}
+              width={160}
+              height={29}
+            />
+          </Link>
+          <div className="flex gap-4">
+            {socialItems.map((item, index) => (
+              <Link key={index} href={item.link} target={item.target}>
                 <Image
-                  width={112}
-                  height={38}
-                  src="/img/app-download-ios.png"
-                  alt={t.appDownload.iosAlt}
+                  src={`/img/${item.imgFileName}`}
+                  alt={item.alt}
+                  width={29}
+                  height={29}
                 />
               </Link>
-              <Link
-                href="https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5"
-                target="_blank"
-                className="block"
-              >
-                <Image
-                  width={112}
-                  height={38}
-                  src="/img/app-download-android.png"
-                  alt={t.appDownload.androidAlt}
-                />
-              </Link>
-            </div>
+            ))}
           </div>
-          <div className={`${styles.footer_links} order-2`}>
+        </div>
+
+        {/* Row 2: Useful links */}
+        <div
+          className={`grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 md:gap-12 mb-10 md:mb-12`}
+        >
+          <div className={`${styles.footer_links}`}>
             <h2>{t.quickLinks.heading}</h2>
             <ul>
               <li>
@@ -139,7 +113,7 @@ export default async function Footer() {
               </li>
             </ul>
           </div>
-          <div className={`${styles.footer_links} order-3`}>
+          <div className={`${styles.footer_links}`}>
             <h2>{t.markets.heading}</h2>
             <ul>
               <li>
@@ -184,7 +158,7 @@ export default async function Footer() {
               </li>
             </ul>
           </div>
-          <div className={`${styles.footer_links} order-4`}>
+          <div className={`${styles.footer_links}`}>
             <h2>{t.platforms.heading}</h2>
             <ul>
               <li>
@@ -219,7 +193,7 @@ export default async function Footer() {
               </li>
             </ul>
           </div>
-          <div className={`${styles.footer_links} order-5`}>
+          <div className={`${styles.footer_links}`}>
             <h2>{t.company.heading}</h2>
             <ul>
               <li>
@@ -260,8 +234,8 @@ export default async function Footer() {
             </ul>
           </div>
         </div>
-        <div className="my-15 max-md:my-8 border-t border-[rgba(255,255,255,0.14)]"></div>
-        <div className={`${styles.footer_texts}`}>
+
+        <div className={`${styles.footer_texts} mb-8 md:mb-10`}>
           <h3>{t.notice.heading}</h3>
           <p>
             {t.notice.disclosurePre}{" "}
@@ -271,10 +245,64 @@ export default async function Footer() {
             {t.notice.disclosurePost}
           </p>
           <p>{t.notice.inducement}</p>
-          <p>
-            © Copyright 2018-{currentYear} {t.notice.copyrightSuffix}
-          </p>
         </div>
+
+        {/* Row 3: Method icons + App store icons */}
+        <div className="flex flex-col md:flex-row items-center gap-6 md:justify-between mb-10 md:mb-12">
+          <div className="flex flex-wrap items-center justify-center gap-[10px]">
+            {[
+              { src: "/img/method-icons/visa-card.png", alt: "Visa" },
+              { src: "/img/method-icons/master-card.png", alt: "Mastercard" },
+              { src: "/img/method-icons/btc.png", alt: "Bitcoin" },
+              { src: "/img/method-icons/neteller.png", alt: "Neteller" },
+              { src: "/img/method-icons/skrill.png", alt: "Skrill" },
+            ].map((item, index) => (
+              <Image
+                key={index}
+                src={item.src}
+                alt={item.alt}
+                width={60}
+                height={38}
+                style={{ height: '38px', width: 'auto' }}
+              />
+            ))}
+          </div>
+          <div className="flex gap-3">
+            <Link
+              href="https://apps.apple.com/us/app/metatrader-5/id413251709"
+              target="_blank"
+              className="block"
+            >
+              <Image
+                width={120}
+                height={38}
+                src="/img/app-download-ios.png"
+                alt={t.appDownload.iosAlt}
+                style={{ height: '38px', width: 'auto' }}
+              />
+            </Link>
+            <Link
+              href="https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5"
+              target="_blank"
+              className="block"
+            >
+              <Image
+                width={120}
+                height={38}
+                src="/img/app-download-android.png"
+                alt={t.appDownload.androidAlt}
+                style={{ height: '38px', width: 'auto' }}
+              />
+            </Link>
+          </div>
+        </div>
+
+        {/* Row 4: Divider + Copyright/Notice */}
+        <div className="border-t border-[rgba(255,255,255,0.14)] mb-8"></div>
+
+        <p className={`${styles.copyrightText}`}>
+          © Copyright 2018-{currentYear} {t.notice.copyrightSuffix}
+        </p>
       </div>
     </section>
   );
