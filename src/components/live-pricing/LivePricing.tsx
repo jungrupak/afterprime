@@ -1,6 +1,6 @@
 "use client";
 import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,10 +11,29 @@ import { useLocale } from "@/lib/locale/useLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
 import type { LivePricingContent } from "./livePricingContent";
 import { livePricingContent } from "./livePricingContent";
+import { useMarketStatus } from "@/hooks/useMarketStatus";
 
 interface LivePricingAllProps {
   initialPrices?: PricesObjects[];
   content?: LivePricingContent;
+}
+
+function TradeArrowIcon() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 22 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="inline-block shrink-0"
+    >
+      <path
+        d="M11 0.5C16.799 0.5 21.5 5.20101 21.5 11C21.5 16.799 16.799 21.5 11 21.5C5.20101 21.5 0.5 16.799 0.5 11C0.5 5.20101 5.20101 0.5 11 0.5ZM10.6074 8.35352L12.3945 10.1406H7V11.1406H12.3945L10.6074 12.9277L11.3145 13.6348L14.3086 10.6406L11.3145 7.64648L10.6074 8.35352Z"
+        stroke="#9999A1"
+      />
+    </svg>
+  );
 }
 
 export function LivePricingAll({
@@ -38,9 +57,26 @@ export function LivePricingAll({
 
   const tabNavs = c.tabLabels;
 
+  const tabIcons: Record<string, string> = {
+    Popular: "/img/icons/icon-popular.svg",
+    Forex: "/img/icons/icon-forex.svg",
+    Crypto: "/img/icons/icon-crypto.svg",
+    Commodities: "/img/icons/icon-commo.svg",
+    Metals: "/img/icons/icon-metals.svg",
+    Indices: "/img/icons/icon-indices.svg",
+  };
+
   const visibleRows = pricingCatLists[activeTabNav].filter(
     (item) => !["CA60", "SA40", "NOR25"].includes(item.symbol),
   );
+
+  // Get all visible symbols for market status lookup
+  const visibleSymbols = useMemo(
+    () => visibleRows.map((item) => item.symbol),
+    [visibleRows],
+  );
+
+  const { getStatus } = useMarketStatus(visibleSymbols, c.marketStatus);
   const hasInitialTableData = pricingCatLists.some((items) => items.length > 0);
 
   return (
@@ -71,6 +107,15 @@ export function LivePricingAll({
                   setActiveTabContentID(tabNavs[index]);
                 }}
               >
+                {tabIcons[nav] && (
+                  <Image
+                    src={tabIcons[nav]}
+                    alt={nav}
+                    width={14}
+                    height={14}
+                    className="inline-block mr-2"
+                  />
+                )}
                 {nav}
               </button>
             ))}
@@ -96,6 +141,9 @@ export function LivePricingAll({
                       </th>
                       <th scope="col" className="px-4 py-2">
                         {c.tableHeaders.spread}
+                      </th>
+                      <th scope="col" className="px-4 py-2">
+                        {c.tableHeaders.marketStatus}
                       </th>
                       <th scope="col" className="px-4 py-2">
                         {c.tableHeaders.marketHours}
@@ -135,6 +183,7 @@ export function LivePricingAll({
                               >
                                 {item.symbol}
                               </a>
+                              <TradeArrowIcon />
                             </div>
                           ) : item.group.startsWith("Stocks") ? (
                             <div className={`${styles.instrumentIcons}`}>
@@ -149,12 +198,15 @@ export function LivePricingAll({
                                 />
                               </div>
                               {item.symbol === "XAUUSD" ? (
-                                <a
-                                  href={localizeHref("/trade/xauusd", locale)}
-                                  className={`underline decoration-dotted decoration-2 underline-offset-4`}
-                                >
-                                  {item.symbol}
-                                </a>
+                                <>
+                                  <a
+                                    href={localizeHref("/trade/xauusd", locale)}
+                                    className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                                  >
+                                    {item.symbol}
+                                  </a>
+                                  <TradeArrowIcon />
+                                </>
                               ) : (
                                 item.symbol
                               )}
@@ -170,12 +222,15 @@ export function LivePricingAll({
                                 />
                               </div>
                               {item.symbol === "XAUUSD" ? (
-                                <a
-                                  href={localizeHref("/trade/xauusd", locale)}
-                                  className={`underline decoration-dotted decoration-2 underline-offset-4`}
-                                >
-                                  {item.symbol}
-                                </a>
+                                <>
+                                  <a
+                                    href={localizeHref("/trade/xauusd", locale)}
+                                    className={`underline decoration-dotted decoration-2 underline-offset-4`}
+                                  >
+                                    {item.symbol}
+                                  </a>
+                                  <TradeArrowIcon />
+                                </>
                               ) : (
                                 item.symbol
                               )}
@@ -189,7 +244,36 @@ export function LivePricingAll({
                           {item.bestAsk}
                         </td>
                         <td className="px-4 py-2 " t-name="Spread">
-                          {item.spread}
+                          <div className={`max-md:opacity-50`}>
+                            {item.spread}
+                          </div>
+                        </td>
+                        <td className="px-4 py-2" t-name="Status">
+                          {(() => {
+                            const marketStatus = getStatus(item.symbol);
+                            const statusStyles = {
+                              open: "bg-[rgba(34,197,94,0.12)] text-[#22C55E]",
+                              break:
+                                "bg-[rgba(245,158,11,0.12)] text-[#F59E0B]",
+                              closed:
+                                "bg-[rgba(255,48,29,0.12)] text-[#FF301D]",
+                            };
+                            const dotStyles = {
+                              open: "bg-[#22C55E]",
+                              break: "bg-[#F59E0B]",
+                              closed: "bg-[#FF301D]",
+                            };
+                            return (
+                              <span
+                                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium ${statusStyles[marketStatus.state]}`}
+                              >
+                                <span
+                                  className={`w-1.5 h-1.5 rounded-full ${dotStyles[marketStatus.state]}`}
+                                />
+                                {marketStatus.label}
+                              </span>
+                            );
+                          })()}
                         </td>
                         <td className="px-4 py-2 " t-name="Market Hours">
                           <div className={`flex text-[16px] items-center`}>

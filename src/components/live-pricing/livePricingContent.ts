@@ -3,6 +3,7 @@ export interface LivePricingTableHeaders {
   bid: string;
   ask: string;
   spread: string;
+  marketStatus: string;
   marketHours: string;
   tradingHoursLink: string;
 }
@@ -12,6 +13,7 @@ export const defaultTableHeaders: LivePricingTableHeaders = {
   bid: "Bid",
   ask: "Ask",
   spread: "Spread",
+  marketStatus: "Status",
   marketHours: "Market Hours",
   tradingHoursLink: "Trading Hours",
 };
@@ -27,8 +29,14 @@ export const livePricingContent = {
     bid: "Bid Price",
     ask: "Ask Price",
     spread: "Spread (Pips)",
+    marketStatus: "Status",
     marketHours: "Market Hours",
     tradingHoursLink: "Trading Hours",
+  },
+  marketStatus: {
+    open: "Open",
+    break: "Break",
+    closed: "Closed",
   },
   readyToCompare:
     "Ready to compare? Calculate your trading costs across your typical trading volume to see the total savings.",
