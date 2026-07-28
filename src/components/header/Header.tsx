@@ -9,7 +9,10 @@ import Navigation from "../nav/Nav";
 import MobileNav from "../mobileNav/MobileNav";
 import Button from "../ui/Button";
 import LanguageSelector from "../ui/LanguageSelector";
-import { useBypassInvitation, BYPASS_SIGNUP_URL } from "@/hooks/useBypassInvitation";
+import {
+  useBypassInvitation,
+  BYPASS_SIGNUP_URL,
+} from "@/hooks/useBypassInvitation";
 import { useLocale } from "@/lib/locale/useLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
 
@@ -63,7 +66,7 @@ export default function Header({ content }: { content: HeaderContent }) {
         }`}
       >
         <div
-          className={`${styles.ap_container} ap_container_small flex items-center py-5 max-lg:px-5 max-xl:px-5 max-lg:py-5 max-xl:gap-10 justify-between`}
+          className={`${styles.ap_container} ap_container_small flex items-center max-md:py-3 max-lg:px-5 max-xl:px-5 max-xl:gap-10 justify-between`}
         >
           {/* Logo */}
           <div className={`${styles.ap_logo}`}>

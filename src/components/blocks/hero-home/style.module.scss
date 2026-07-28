@@ -13,7 +13,7 @@
   flex-direction: column;
   gap: 30px;
   @media all and (max-width: 767px) {
-    padding-block: 130px 0 120px;
+    padding-block: 130px 120px;
     max-height: none;
     height: auto;
     background-position: 55% center;

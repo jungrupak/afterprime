@@ -23,16 +23,14 @@
   top: var(--risk-warning-height, 31px);
   left: 0;
   z-index: 11;
-  .ap_container {
-    transition: all 0.3s ease-in-out;
-  }
+  transition: all 0.3s ease-in-out;
   &.sticky {
-    background-color: rgba(12, 12, 13, 0.94);
+    background-color: var(--body-bg);
     //backdrop-filter: blur(10px);
     .ap_container {
       padding: 0;
       @media all and (max-width: 1279px) {
-        padding: 20px;
+        padding: 10px 20px;
       }
     }
   }
@@ -186,6 +184,7 @@
     height: 100vh;
     width: 100%;
     z-index: 4;
+    //transform: translateY(20px);
     padding-top: 0;
     .ap_container_medium {
       .flex {

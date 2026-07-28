@@ -37,13 +37,14 @@
     th {
       font-weight: 400;
       color: var(--primary-white-50);
-      text-align: left;
+      text-align: right;
       font-size: var(--font-size-note);
       padding: 5px 15px 15px;
       align-self: center;
       min-width: 0;
       &:nth-child(1) {
         flex: 0 0 28%;
+        text-align: left;
       }
       &:nth-child(n + 2):nth-child(-n + 5) {
         flex: 0 0 180px;
@@ -72,7 +73,7 @@
           font-size: 20px;
           padding: 10px 15px;
           transition: all 0.3s ease;
-          text-align: left;
+          text-align: right;
           align-self: center;
           min-width: 0;
           &:nth-child(1) {
@@ -80,7 +81,7 @@
           }
           &:nth-child(n + 2):nth-child(-n + 5) {
             flex: 0 0 180px;
-            text-align: left;
+            text-align: right;
           }
           &:last-child {
             flex: 0 0 auto;

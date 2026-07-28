@@ -53,7 +53,7 @@ export default async function Footer() {
         >
           <Link href={localizeHref("/", locale)} className="block">
             <Image
-              src="/img/logo-text.svg"
+              src="/img/logo-main.svg"
               alt={t.logoAlt}
               width={160}
               height={29}
@@ -235,7 +235,7 @@ export default async function Footer() {
           </div>
         </div>
 
-        <div className={`${styles.footer_texts} mb-8 md:mb-10`}>
+        <div className={`${styles.footer_texts} mb-4 md:mb-5`}>
           <h3>{t.notice.heading}</h3>
           <p>
             {t.notice.disclosurePre}{" "}
@@ -244,6 +244,9 @@ export default async function Footer() {
             </Link>{" "}
             {t.notice.disclosurePost}
           </p>
+        </div>
+        <div className={`${styles.footer_texts} mb-8 md:mb-10`}>
+          <h3>{t.notice.regHeading}</h3>
           <p>{t.notice.inducement}</p>
         </div>
 
@@ -263,7 +266,7 @@ export default async function Footer() {
                 alt={item.alt}
                 width={60}
                 height={38}
-                style={{ height: '38px', width: 'auto' }}
+                style={{ height: "38px", width: "auto" }}
               />
             ))}
           </div>
@@ -278,7 +281,7 @@ export default async function Footer() {
                 height={38}
                 src="/img/app-download-ios.png"
                 alt={t.appDownload.iosAlt}
-                style={{ height: '38px', width: 'auto' }}
+                style={{ height: "38px", width: "auto" }}
               />
             </Link>
             <Link
@@ -291,7 +294,7 @@ export default async function Footer() {
                 height={38}
                 src="/img/app-download-android.png"
                 alt={t.appDownload.androidAlt}
-                style={{ height: '38px', width: 'auto' }}
+                style={{ height: "38px", width: "auto" }}
               />
             </Link>
           </div>

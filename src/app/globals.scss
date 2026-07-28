@@ -118,6 +118,7 @@ body::-webkit-scrollbar {
     background-image: url("/img/ap-main-bg-static.jpg");
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 
     video {
       display: none;
@@ -134,6 +135,10 @@ body::-webkit-scrollbar {
     background-size: 100%;
     background-position: center top;
     z-index: 2;
+    background-repeat: no-repeat;
+    @media (max-width: 767px) {
+      background-size: 240%;
+    }
   }
 
   video {
