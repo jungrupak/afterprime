@@ -1,16 +1,73 @@
 @use "tailwindcss";
 
 :root {
-  --black: #0c0c0d;
+  --black: #090910;
   --white: rgb(253, 253, 247);
   --alphaWhite: 253, 253, 247;
   --alphaBlack: 12, 12, 13;
-  --body-bg: #0c0c0d;
+  --body-bg: #090910;
   --off-white: #fdfcf7;
-  --primary-color: #ff4520;
+  --primary-color: #ff301d;
   --secondary-color: #433bf9;
   --terciary-color: #d1ff51;
   --accent-color: #ffba08;
+
+  //--card-dark: rgb(18, 18, 29);
+  --card-dark: rgb(14, 14, 26);
+  //Card Colors####
+  --card-bg-regular: #0e0e19;
+  --card-bg-grdnt-top-fade: linear-gradient(
+    #0000 1.44%,
+    #0d0d1a 39.42%,
+    #131326 100%
+  );
+  --card-bg-grdnt-topbottom-fade: linear-gradient(
+    #0000 1.44%,
+    #19192f 39.42%,
+    transparent 100%
+  );
+  --card-bg-grdnt-bottom-fade: linear-gradient(
+    to top,
+    #0000 1.44%,
+    #0d0d1a 39.42%,
+    #131326 100%
+  );
+
+  //Ends####
+  --surface: #161621;
+  --electric-blue: #263dea;
+  --vermillion: #ff301d;
+  --primary-white: rgba(244, 244, 250);
+  --primary-white-80: rgba(244, 244, 250, 0.8);
+  --primary-white-60: rgba(244, 244, 250, 0.6);
+  --primary-white-40: rgba(244, 244, 250, 0.4);
+  --primary-white-20: rgba(244, 244, 250, 0.2);
+  --border-white: rgba(244, 244, 250, 0.1);
+  --border-blue: rgba(76, 93, 221, 0.1);
+  //Font Sizes
+  --body-font: 16px;
+  --hero-heading: 68px;
+  --section-title: 52px;
+  --block-content-title: 42px;
+  --block-content-texts: 18px;
+  --section-descp: 26px;
+  --card-heading: 22px;
+  --card-descp: 18px;
+  --font-size-note: 14px;
+  --font-size-tiny: 12px;
+
+  //line heights
+  --line-height-compact: 1;
+  --line-height-small: 1.2;
+  --line-height-medium: 1.5;
+  --line-height-default: 1.6;
+  --line-height-large: 1.7;
+  --line-height-xlarge: 1.75;
+
+  //BorderRadius
+  --radius-default: 2px;
+  --radius-lg: 4px;
+  --radius-xlg: 6px;
 }
 
 html {
@@ -48,6 +105,7 @@ body::-webkit-scrollbar {
   z-index: -1;
   pointer-events: none;
   background-color: var(--body-bg);
+  overflow: hidden;
 
   /* mobile: static bg image instead of video */
   @media (max-width: 767px) {
@@ -60,6 +118,18 @@ body::-webkit-scrollbar {
     }
   }
 
+  .top-glow-blue {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 50%;
+    background-image: url("/img/blue-glow-top.svg");
+    background-size: 100%;
+    background-position: center top;
+    z-index: 2;
+  }
+
   video {
     position: absolute;
     inset: 0;
@@ -67,8 +137,19 @@ body::-webkit-scrollbar {
     height: 100%;
     object-fit: cover;
     mix-blend-mode: color-dodge;
-    opacity: 0.48;
+    opacity: 0.34;
     pointer-events: none;
+    z-index: -1;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(to bottom, transparent, var(--body-bg));
+    z-index: 2;
   }
 
   &:after {

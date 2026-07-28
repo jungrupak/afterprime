@@ -35,9 +35,7 @@
       background-color: rgb(17, 17, 26);
       font-weight: 600;
       color: rgba(var(--alphaWhite), 0.68);
-      &:last-child {
-        text-align: right;
-      }
+      text-align: left;
     }
     tbody {
       max-height: 100vh;
@@ -49,11 +47,9 @@
           border-bottom: solid 1px rgba(var(--alphaWhite), 0.08);
           min-width: 180px;
           transition: all 0.3s ease;
+          text-align: left;
           &:first-child {
             width: 40%;
-          }
-          &:last-child {
-            text-align: right;
           }
         }
         &:hover {
@@ -107,7 +103,6 @@
             }
             &:nth-child(4) {
               order: 5;
-              text-align: right;
             }
             &:nth-child(5) {
               display: none;
@@ -127,9 +122,12 @@
 //Tab Styles
 .ap_tab_nav {
   display: flex;
-  gap: 5px;
+  gap: 10px;
   margin-bottom: 40px;
-  justify-content: center;
+  justify-content: flex-start;
+  border-top: solid 1px rgba(255, 255, 255, 0.06);
+  border-bottom: solid 1px rgba(255, 255, 255, 0.06);
+  padding: 10px 0;
 
   @media all and (max-width: 767px) {
     justify-content: flex-start;
@@ -149,15 +147,16 @@
   button {
     display: inline-block;
     font-weight: 600;
-    background-color: rgba(var(--alphaWhite), 0.08);
+    //background-color: rgba(var(--alphaWhite), 0.08);
     color: rgba(var(--alphaWhite), 0.48);
     font-size: 18px;
     padding: 10px 25px;
     transition: all 0.3s ease-in-out;
+    border-radius: 2px;
     cursor: pointer;
     &.active,
     &:hover {
-      background-color: rgba(var(--alphaWhite), 0.14);
+      background-color: rgba(var(--alphaWhite), 0.08);
       backdrop-filter: blur(10px);
       color: white;
     }
@@ -225,7 +224,6 @@
         flex: 0 0 40% !important;
         background-color: rgba(var(--alphaWhite), 0.14) !important;
         align-items: center;
-        justify-content: flex-end;
         min-width: 0 !important;
 
         &:before {

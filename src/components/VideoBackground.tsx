@@ -21,6 +21,7 @@ export default function VideoBackground() {
 
   return (
     <div className="home_banner_video">
+      <div className={`top-glow-blue`}></div>
       <video
         ref={videoRef}
         playsInline

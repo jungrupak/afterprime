@@ -45,8 +45,8 @@ export function LivePricingAll({
 
   return (
     <div>
-      <div className="w-full text-center px-6">
-        <h2 className="h2-size mb-6">
+      <div className="w-full">
+        <h2 className="h2-size mb-6 max-w-[600px]">
           {c.headingBefore}
           <span>{c.headingHighlight}</span>
           {c.headingAfter}
@@ -127,7 +127,10 @@ export function LivePricingAll({
                                 />
                               </div>
                               <a
-                                href={localizeHref("/forex/" + item.symbol.toLowerCase(), locale)}
+                                href={localizeHref(
+                                  "/forex/" + item.symbol.toLowerCase(),
+                                  locale,
+                                )}
                                 className={`underline decoration-dotted decoration-2 underline-offset-4`}
                               >
                                 {item.symbol}
@@ -189,12 +192,11 @@ export function LivePricingAll({
                           {item.spread}
                         </td>
                         <td className="px-4 py-2 " t-name="Market Hours">
-                          <div
-                            className={`flex md:justify-end text-[16px] items-center`}
-                          >
+                          <div className={`flex text-[16px] items-center`}>
                             <Link
                               href={localizeHref(
-                                "/trading-hours/" + item.symbol.toLowerCase(), locale
+                                "/trading-hours/" + item.symbol.toLowerCase(),
+                                locale,
                               )}
                             >
                               <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
@@ -212,7 +214,12 @@ export function LivePricingAll({
           </div>
           <p className="opacity-80 mt-5">
             {c.readyToCompare.split(c.readyToCompareLinkText)[0]}
-            <Link href={localizeHref("/calculators/cost-savings-calculator", locale)}>
+            <Link
+              href={localizeHref(
+                "/calculators/cost-savings-calculator",
+                locale,
+              )}
+            >
               <u>{c.readyToCompareLinkText}</u>
             </Link>
             {c.readyToCompare.split(c.readyToCompareLinkText)[1]}
