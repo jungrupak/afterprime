@@ -1,8 +1,8 @@
 .itemLevelParent {
   cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  padding: 20px 0;
+  padding: 15px 0;
 }
 .megaMenuWrapper {
   padding: 40px 0;
@@ -37,11 +37,12 @@
 
   .catName {
     margin-bottom: 20px;
-    opacity: 0.68;
+    color: var(--primary-white-40);
+    font-size: 14px;
   }
   ul {
     li {
-      margin-bottom: 18px;
+      margin-bottom: 15px;
       white-space: nowrap;
       &:last-child {
         margin-bottom: 0;

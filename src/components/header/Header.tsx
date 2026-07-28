@@ -74,7 +74,7 @@ export default function Header({ content }: { content: HeaderContent }) {
               <Image
                 src="/img/logo-main.svg"
                 alt={logoAlt}
-                width={202}
+                width={178}
                 height={30}
               />
             </Link>
@@ -105,6 +105,7 @@ export default function Header({ content }: { content: HeaderContent }) {
               <LanguageSelector />
               <Button
                 linkTarget="_blank"
+                varient="washed"
                 size="small"
                 href="https://app.afterprime.com/login"
               >
@@ -114,7 +115,7 @@ export default function Header({ content }: { content: HeaderContent }) {
                 linkTarget="_blank"
                 varient="secondary"
                 size="small"
-                isArrowVisible={true}
+                isArrowVisible={false}
                 href={
                   bypassInvitation
                     ? BYPASS_SIGNUP_URL

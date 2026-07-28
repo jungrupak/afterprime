@@ -8,9 +8,8 @@
   font-size: clamp(11px, 2vw, 15px);
   line-height: 1.2;
   color: rgba(255, 255, 255, 0.68);
-  background-color: #191b23;
-  //background-color: rgba(var(--body-bg), 0.68);
-  backdrop-filter: blur(10px);
+  background-color: rgba(var(--alphaBlack), 0.78);
+  backdrop-filter: blur(120px);
   text-align: center;
   @media all and (min-width: 767px) {
     font-weight: 600;
@@ -24,9 +23,12 @@
   left: 0;
   z-index: 11;
   transition: all 0.3s ease-in-out;
+  border-top: solid 1px var(--primary-white-8);
+  border-bottom: solid 1px var(--primary-white-8);
+
   &.sticky {
-    background-color: var(--body-bg);
-    //backdrop-filter: blur(10px);
+    background-color: rgba(var(--alphaBlack), 0.78);
+    backdrop-filter: blur(120px);
     .ap_container {
       padding: 0;
       @media all and (max-width: 1279px) {
