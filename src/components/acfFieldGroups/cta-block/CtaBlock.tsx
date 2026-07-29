@@ -22,14 +22,20 @@ export async function CtaBlock() {
         className={`${styles.bottomCta} flex flex-col justify-center items-center text-center`}
       >
         <div>
-          <h2 className={`text-[clamp(30px_,5vw_,50px)]! md:mb-8! leading-[1]`}>
+          <h2
+            className={`text-[clamp(30px_,5vw_,50px)]! md:mb-8! leading-[1] max-w-[600px] mx-[auto]`}
+          >
             {t.headline}
           </h2>
           <p
             className={`paragraph mb-8 md:mb-10 opacity-80`}
             dangerouslySetInnerHTML={{ __html: t.paragraph }}
           />
-          <TypeformButton buttonText={t.buttonText} signupNowText={t.signupNowText} size="Regular" />
+          <TypeformButton
+            buttonText={t.buttonText}
+            signupNowText={t.signupNowText}
+            size="Regular"
+          />
           <div className={`text-[clamp(14px_,4vw_,16px)] mt-5 opacity-65`}>
             {t.small_text}
           </div>
