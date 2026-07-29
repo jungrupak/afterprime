@@ -83,9 +83,10 @@ export function LivePricingAll({
   return (
     <div>
       <div className="w-full">
-        <h2 className="h2-size mb-6 max-w-[600px]">
+        <h2 className="h2-size mb-6">
           {c.headingBefore}
           <span>{c.headingHighlight}</span>
+
           {c.headingAfter}
         </h2>
         <p
@@ -152,8 +153,7 @@ export function LivePricingAll({
                       <th scope="col" className="px-4 py-2">
                         {c.tableHeaders.marketStatus}
                       </th>
-                      <th scope="col" className="px-4 py-2">
-                      </th>
+                      <th scope="col" className="px-4 py-2"></th>
                     </tr>
                   </thead>
                   <tbody>

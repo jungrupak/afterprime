@@ -2,13 +2,16 @@
 import styles from "./MobileNav.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import TypeformButton from "../ui/typeForm";
 import RightArrow from "../ui/RightArrow";
 import LeftArrow from "../ui/LeftArrow";
 import { useState } from "react";
 import Button from "../ui/Button";
 import { useLocale } from "@/lib/locale/useLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import {
+  useBypassInvitation,
+  BYPASS_SIGNUP_URL,
+} from "@/hooks/useBypassInvitation";
 
 interface CategoryItem {
   menuItem?: string;
@@ -54,6 +57,7 @@ export default function MobileNav({
   const [submenu, setSubMenu] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const locale = useLocale();
+  const bypassInvitation = useBypassInvitation();
 
   return (
     <div className={`${styles.mobMenuWrapper} ${customClass}`}>
@@ -89,11 +93,19 @@ export default function MobileNav({
         >
           {loginLabel}
         </Link>
-        <TypeformButton
-          buttonText={signupLabel}
-          signupNowText={signupNowLabel}
+        <Button
+          linkTarget="_blank"
+          varient="secondary"
           size="small"
-        />
+          isArrowVisible={false}
+          href={
+            bypassInvitation
+              ? BYPASS_SIGNUP_URL
+              : "https://app.afterprime.com/live"
+          }
+        >
+          {signupLabel}
+        </Button>
       </div>
 
       {/* ## */}

@@ -335,6 +335,13 @@
       ),
       linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent 50%);
   }
+
+  .cardMediaImageLarge {
+    width: min(86%, 315px);
+    @media all and (max-width: 767px) {
+      width: min(92%, 320px);
+    }
+  }
 }
 
 .cardMt4 {
