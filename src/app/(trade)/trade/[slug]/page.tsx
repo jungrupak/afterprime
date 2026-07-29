@@ -148,7 +148,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
     // `page` above) never gets run through Weglot a second time.
     getTranslatedStatic("trade-page-static-faq", locale, {
       sectionTitle: "FAQ",
-      applyButtonText: "Apply for Invite code",
+      applyButtonText: "Get Invite code",
       fixedFaqs: {
         q1: "How are Flow Rewards calculated?",
         a1: "Flow Rewards are paid per traded lot (round turn) using instrument specific rates published on the Afterprime website.",

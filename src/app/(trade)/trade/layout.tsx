@@ -14,7 +14,7 @@ export default async function TradeLayout({
 }) {
   const locale = await getRequestLocale();
   const t = await getTranslatedStatic("instrument-header", locale, {
-    applyNowText: "Apply Now",
+    applyNowText: "Get Invite Code",
   });
 
   return (

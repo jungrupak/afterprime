@@ -40,7 +40,7 @@ function LPBannerXAUUSD({
           </div>
           <div className={`mt-8 md:mt-15`}>
             <TypeformButton
-              buttonText={applyButtonText || "Apply for Invite code"}
+              buttonText={applyButtonText || "Get Invite code"}
               size="Large"
               varient="primary"
             />
@@ -184,7 +184,7 @@ function LPBannerDefault({
 
           <div className={`mt-8 md:mt-15`}>
             <TypeformButton
-              buttonText={applyButtonText || "Apply for Invite code"}
+              buttonText={applyButtonText || "Get Invite code"}
               size="Large"
               varient="primary"
             />

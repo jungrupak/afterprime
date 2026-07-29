@@ -12,7 +12,7 @@ export async function BottomCta() {
     headline: String(fieldsData?.headline || ""),
     paragraph: String(fieldsData?.paragraph || ""),
     small_text: String(fieldsData?.small_text || ""),
-    buttonText: "Apply for Invite code",
+    buttonText: "Get Invite code",
     signupNowText: "Signup Now",
   });
 
