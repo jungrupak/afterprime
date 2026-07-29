@@ -90,6 +90,11 @@
       linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 50%);
     pointer-events: none;
     z-index: -1;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover::before {
+    transform: scale(1.06);
   }
 
   h3 {
@@ -268,7 +273,7 @@
   z-index: 1;
   margin-top: auto;
   pointer-events: none;
-  min-height: 30px;
+  min-height: 220px;
 }
 
 .cardMediaImageLarge,
@@ -365,6 +370,12 @@
       ),
       linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent 50%);
   }
+  .cardMedia {
+    min-height: auto;
+  }
+  .cardContent {
+    padding-right: 100px;
+  }
 }
 
 .cardWebMobile {
@@ -382,6 +393,12 @@
         transparent 50%
       ),
       linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent 50%);
+  }
+  .cardMedia {
+    min-height: auto;
+  }
+  .cardContent {
+    padding-right: 100px;
   }
 }
 
