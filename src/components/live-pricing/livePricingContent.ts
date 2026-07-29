@@ -19,11 +19,11 @@ export const defaultTableHeaders: LivePricingTableHeaders = {
 };
 
 export const livePricingContent = {
-  headingBefore: "Beyond Zero-Commission, ",
+  headingBefore: "Real-Time Spreads. ",
   headingHighlight: "Get Paid to Trade.",
   headingAfter: "",
   description:
-    "Most brokers hide their profit in the spread. We do the opposite. We combine the industry's tightest raw spreads with Flow Rewards™ paying you up to $3/lot back on your volume. We don't just lower your costs; we turn your execution into a revenue stream.",
+    "Live bid/ask pricing across Forex, Crypto, Commodities, Metals, and Indices, no markup, no hidden spread.",
   tableHeaders: {
     symbol: "Symbol",
     bid: "Bid Price",
