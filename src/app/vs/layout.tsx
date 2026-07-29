@@ -17,7 +17,7 @@ export default async function PagesLayout({
 }>) {
   const locale = await getRequestLocale();
   const t = await getTranslatedStatic("vs-header", locale, {
-    applyNowText: "Apply Now",
+    applyNowText: "Get Invite Code",
   });
 
   return (
