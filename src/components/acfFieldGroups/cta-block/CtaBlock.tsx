@@ -24,9 +24,8 @@ export async function CtaBlock() {
         <div>
           <h2
             className={`text-[clamp(30px_,5vw_,50px)]! md:mb-8! leading-[1] max-w-[600px] mx-[auto]`}
-          >
-            {t.headline}
-          </h2>
+            dangerouslySetInnerHTML={{ __html: t.headline }}
+          />
           <p
             className={`paragraph mb-8 md:mb-10 opacity-80`}
             dangerouslySetInnerHTML={{ __html: t.paragraph }}

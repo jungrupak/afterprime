@@ -1,10 +1,12 @@
 import React from "react";
-import Lists from "@/components/ui/Lists";
 import BoxedBlock from "@/components/boxed-block/BoxedBlock";
 import Button from "@/components/ui/Button";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
 import type { Blocks } from "@/types/blocks";
+import BulletTickBlue from "@/components/ui/BulletTickBlue";
+import BulletGrey from "@/components/ui/BulletGrey";
+import styles from "./style.module.scss";
 
 type ProsNConsProps = Blocks["block-pros-and-cons"];
 
@@ -115,22 +117,36 @@ export async function ProsNConsBlock({
           {/* Left Ends */}
 
           {/* Right */}
-          <div>
+          <div className={styles.cardsWrapper}>
             {/* Pros */}
-            <div className="mb-16">
-              <h3 className="font-bold text-[18px] mb-8">
+            <div className={`${styles.card} ${styles.cardPros}`}>
+              <h3 className={styles.cardTitle}>
                 {pros_and_cons_pros_title_title}
               </h3>
-              <Lists listItems={ProstLists} bulletVarient="arrow-blue" />
+              <ul className={styles.cardList}>
+                {ProstLists.map((item, index) => (
+                  <li key={index}>
+                    <BulletTickBlue />
+                    <span className={styles.textPros}>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
             {/* Ends */}
 
             {/* Cons */}
-            <div>
-              <h3 className="font-bold text-[18px] mb-8">
+            <div className={`${styles.card} ${styles.cardCons}`}>
+              <h3 className={styles.cardTitle}>
                 {pros_and_cons_cons_title_title}
               </h3>
-              <Lists listItems={ConsLists} bulletVarient="arrow-red" />
+              <ul className={styles.cardList}>
+                {ConsLists.map((item, index) => (
+                  <li key={index}>
+                    <BulletGrey />
+                    <span className={styles.textCons}>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
             {/* Cons Ends */}
           </div>

@@ -23,7 +23,10 @@ export async function BottomCta() {
           className={`${styles.bottomCta} flex flex-col justify-center items-center text-center`}
         >
           <div>
-            <h2 className={`md:mb-8! leading-[1]`}>{t.headline}</h2>
+            <h2
+              className={`md:mb-8! leading-[1]`}
+              dangerouslySetInnerHTML={{ __html: t.headline }}
+            />
             <p
               className={`${styles.paragraph} mb-8 md:mb-10 opacity-80`}
               dangerouslySetInnerHTML={{ __html: t.paragraph }}
