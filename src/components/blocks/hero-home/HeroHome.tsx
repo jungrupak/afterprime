@@ -34,6 +34,7 @@ export async function HeroHome(props: HeroHomeProps) {
     heading: hero_banner_home_banner_heading || "",
     btnText: hero_banner_home_banner_btn_text || "",
     dataNote: hero_banner_home_data_source_note || "",
+    excellentOnGoogle: "Excellent on Google",
   });
 
   // Use translated CMS content when available, fall back to translated defaults
@@ -46,7 +47,7 @@ export async function HeroHome(props: HeroHomeProps) {
         <div className="flex flex-wrap flex-col justify-center items-center h-[100%] min-h-[400px] lg:min-h-[580px] relative z-2 max-md:pb-5">
           <div className="w-full max-w-[1080] mx-auto max-md:px-5">
             <h1
-              className={`${styles.heroHeading} h1-size flex lg:mb-[20px]! gap-20 justify-center text-center font-bold`}
+              className={`${styles.heroHeading} hero-h1 flex lg:mb-[20px]! gap-20 justify-center text-center font-bold`}
             >
               {heading}
             </h1>
@@ -56,7 +57,7 @@ export async function HeroHome(props: HeroHomeProps) {
               className=" max-w-[980px] text-[20px] md:text-[24px] lg:text-[32px]  mx-auto mb-12"
               style={{ fontWeight: "300" }}
               dangerouslySetInnerHTML={{
-                __html: hero_banner_home_banner_paragraph || "&nbsp;",
+                __html: hero_banner_home_banner_paragraph ?? "&nbsp;",
               }}
             />
 
@@ -92,7 +93,7 @@ export async function HeroHome(props: HeroHomeProps) {
                 <div
                   className={`text-[18px] font-bold opacity-65 max-md:hidden`}
                 >
-                  Excellent on Google
+                  {t.excellentOnGoogle}
                 </div>
                 <GoogleReviewBadge />
               </div>

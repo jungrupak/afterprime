@@ -48,7 +48,11 @@ export async function SectionCardsBig(props: SectionPropsToReceiveData) {
               title={card.title}
               paragraph={card.paragraph}
               cardCtaLabel={card.button_label}
-              cardCtaLink={card.button_url ? localizeHref(card.button_url, locale) : undefined}
+              cardCtaLink={
+                card.button_url
+                  ? localizeHref(card.button_url, locale)
+                  : undefined
+              }
               cardSize={
                 cardSize === "Small"
                   ? "small"
