@@ -61,7 +61,7 @@ export const footerContent = {
     disclosureLinkText: "legal documents",
     disclosurePost:
       "to ensure you fully understand the risks before you make any trading decisions.",
-      regHeading: "Regulations",
+      regHeading: "Disclaimer",
     inducement:
       "The information on this website is not intended to be an inducement, offer or solicitation to any person in any country or jurisdiction where such distribution or use would be contrary to local law or regulation.",
     copyrightSuffix:
