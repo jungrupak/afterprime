@@ -55,7 +55,7 @@ export async function SectionCardsBigStatic() {
           </div>
         </div>
         {/* Cards */}
-        <div className={`ap_cards_wrapper md:mt-18`}>
+        <div className={`ap_cards_wrapper md:mt-10`}>
           <div className={styles.cardsFeatureColumn}>
             <Link
               href={localizeHref("/mt5", locale)}
