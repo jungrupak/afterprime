@@ -102,7 +102,7 @@ export default function WebTraderMt4Widget() {
         <div className="ml-auto">
           <Button
             isArrowVisible={true}
-            size="x-small"
+            size="regular"
             href="/webtrader-mt4-demo"
           >
             MT4 Demo

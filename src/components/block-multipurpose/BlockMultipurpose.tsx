@@ -51,7 +51,7 @@ export function MultipurposeBlock({ data, isBoxed }: DataProps) {
                   varient="primary-ghost"
                   href="#"
                   isArrowVisible={true}
-                  size="large"
+                  size="regular"
                 >
                   Execution Model
                 </Btn>

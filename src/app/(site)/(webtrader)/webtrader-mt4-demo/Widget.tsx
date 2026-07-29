@@ -99,7 +99,7 @@ export default function WebTraderMt4Demo() {
           height={30}
         />
         <div className="ml-auto">
-          <Button isArrowVisible={true} size="x-small" href="/webtrader-mt4">
+          <Button isArrowVisible={true} size="regular" href="/webtrader-mt4">
             MT4 Live
           </Button>
         </div>

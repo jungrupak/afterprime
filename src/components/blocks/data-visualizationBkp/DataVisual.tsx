@@ -422,8 +422,8 @@ export default function DataVisual(props: SectionProps) {
             </KpiCard>
           </div>
           <Button
-            varient="secondary"
-            size="small"
+            varient="primary-ghost"
+            size="regular"
             onclick={reset}
             className="mt-10 max-md:w-full"
           >

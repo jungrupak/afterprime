@@ -91,16 +91,19 @@ export default async function ContentBlock({
                 <TypeformButton
                   buttonText={t.getInviteCodeCta}
                   signupNowText={t.signupNowText}
-                  size="Large"
+                  size="Regular"
                 />
               )}
 
               {content_block_with_image_enable_cta_button === "1" && (
                 <Button
                   varient="primary-ghost"
-                  href={localizeHref(content_block_with_image_button_group_cta_link || "/", locale)}
+                  href={localizeHref(
+                    content_block_with_image_button_group_cta_link || "/",
+                    locale,
+                  )}
                   isArrowVisible={true}
-                  size="large"
+                  size="regular"
                 >
                   {content_block_with_image_button_group_cta_label}
                 </Button>

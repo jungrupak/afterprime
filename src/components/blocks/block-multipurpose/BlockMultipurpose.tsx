@@ -126,7 +126,7 @@ export async function MultipurposeBlock({
                     <TypeformButton
                       buttonText={t.getInviteCodeCta}
                       signupNowText={t.signupNowText}
-                      size="Large"
+                      size="Regular"
                     />
                   </>
                 ) : (
@@ -135,7 +135,7 @@ export async function MultipurposeBlock({
                       varient="primary-ghost"
                       href={localizeHref(multipurpose_block_cta_url || "/", locale)}
                       isArrowVisible={true}
-                      size="large"
+                      size="regular"
                     >
                       {ctaText || t.buttonLabelFallback}
                     </Button>

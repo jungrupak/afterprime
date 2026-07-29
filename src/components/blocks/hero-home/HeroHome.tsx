@@ -68,11 +68,12 @@ export async function HeroHome(props: HeroHomeProps) {
                     buttonText={t.getInviteCodeCta}
                     signupNowText={t.signupNowLinkText}
                     size="Regular"
+                    varient="Primary"
                   />
                 ) : (
                   <Btn
                     size="regular"
-                    varient="primary"
+                    varient="primary-ghost"
                     isArrowVisible={true}
                     href={localizeHref(
                       hero_banner_home_banner_btn_url || "/",

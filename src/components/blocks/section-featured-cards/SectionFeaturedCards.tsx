@@ -57,7 +57,7 @@ export default async function SectionFeaturedCards({
                   varient="primary-ghost"
                   href={localizeHref(section_card_repeator_cta_button_link || "/", locale)}
                   isArrowVisible={true}
-                  size="large"
+                  size="regular"
                 >
                   {section_card_repeator_cta_button_label}
                 </Button>

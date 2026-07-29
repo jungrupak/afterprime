@@ -76,7 +76,7 @@ export async function EarningFlowSection(block: EarningFlowBlock) {
               <div className="mt-16 text-center md:text-left">
                 <Btn
                   href={localizeHref(earning_flow_button_link || "/", locale)}
-                  size="large"
+                  size="regular"
                   varient="primary-ghost"
                   isArrowVisible={true}
                 >

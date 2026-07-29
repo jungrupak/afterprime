@@ -37,7 +37,7 @@ export default function BlockWithLists({
                 <Button
                   varient="primary-ghost"
                   href={btnUrl || ""}
-                  size="large"
+                  size="regular"
                   isArrowVisible={true}
                 >
                   {btnText}

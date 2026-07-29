@@ -153,7 +153,7 @@ export default function CostAdvantage() {
           Adjust balance, months, lots, and monthly return. Broker costs are
           live from API.
         </p>
-        <Button varient="secondary" size="small" onclick={reset}>
+        <Button varient="secondary" size="regular" onclick={reset}>
           Reset
         </Button>
       </div>

@@ -86,7 +86,7 @@ export default function MobileNav({
       {/* Footer */}
       <div className={`${styles.mobileMenuFooter} text-center`}>
         <Link
-          className={`ap_button washed small`}
+          className={`ap_button washed regular`}
           href="https://app.afterprime.com/login"
           target="_blank"
           rel="noopener noreferrer"
@@ -96,7 +96,7 @@ export default function MobileNav({
         <Button
           linkTarget="_blank"
           varient="secondary"
-          size="small"
+          size="regular"
           isArrowVisible={false}
           href={
             bypassInvitation
@@ -143,7 +143,9 @@ export default function MobileNav({
                     }}
                     style={{ position: "relative" }}
                   >
-                    <Link href={localizeHref(label.pageUrl || "/", locale)}>{label.menuItem}</Link>
+                    <Link href={localizeHref(label.pageUrl || "/", locale)}>
+                      {label.menuItem}
+                    </Link>
                     {label.menuItem === "Trading Calculator" && (
                       <span className="absolute top-2 right-0 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
                         NEW

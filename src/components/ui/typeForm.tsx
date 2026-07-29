@@ -23,12 +23,14 @@ interface TypeformButtonProps {
   buttonText?: string;
   signupNowText?: string;
   size?: "Large" | "Regular" | "small" | "x-small";
+  varient?: "primary-ghost" | "Primary";
 }
 
 const TypeformButton: React.FC<TypeformButtonProps> = ({
   buttonText = "Get Invite Code",
   signupNowText = "Signup Now",
   size = "Regular",
+  varient = "primary-ghost",
 }) => {
   const formId = getSessionFormId();
   const [showInterstitial, setShowInterstitial] = useState(false);
@@ -81,7 +83,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
                 : size === "x-small"
                   ? styles.xSmall
                   : ""
-        } ${styles.primary}`}
+        } ${varient === "Primary" ? styles.primary : styles.primaryGhost}`}
       >
         {bypassInvitation ? signupNowText : buttonText}
         <svg

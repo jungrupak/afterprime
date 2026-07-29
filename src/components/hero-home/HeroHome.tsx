@@ -127,7 +127,7 @@ export function HeroHome({ data, title = [] }: heroContent) {
             </p>
 
             <Btn
-              size="large"
+              size="regular"
               varient="primary-ghost"
               isArrowVisible={true}
               href={String(data.hero_banner_home_banner_btn_url || "")}
