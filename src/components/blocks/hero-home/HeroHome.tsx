@@ -28,7 +28,7 @@ export async function HeroHome(props: HeroHomeProps) {
     buttonFallback: "Button",
     getInviteCodeCta: "Get Invite Code",
     signupNowPreText: "Have a code?",
-    signupNowLinkText: "Signup Now",
+    signupNowLinkText: "Apply Now",
     // CMS content — translated here as safety net in case page-level
     // translatePage fails. Weglot returns already-translated text unchanged.
     heading: hero_banner_home_banner_heading || "",

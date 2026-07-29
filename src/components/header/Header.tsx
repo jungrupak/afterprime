@@ -107,7 +107,7 @@ export default function Header({ content }: { content: HeaderContent }) {
                 linkTarget="_blank"
                 varient="washed"
                 size="small"
-                href="https://app.afterprime.com/login"
+                href="https://app.afterprime.com/signin"
               >
                 {login}
               </Button>
