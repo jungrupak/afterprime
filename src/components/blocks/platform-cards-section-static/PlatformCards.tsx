@@ -49,7 +49,7 @@ export async function SectionCardsBigStatic() {
           <div className="">
             <h2 className="h2-size mb-6 text-center md:text-left">
               {t.heading1}
-              <br />
+              {""}
               <span>{t.heading2}</span>
             </h2>
           </div>

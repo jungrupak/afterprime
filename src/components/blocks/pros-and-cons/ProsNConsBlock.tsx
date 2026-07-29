@@ -89,7 +89,7 @@ export async function ProsNConsBlock({
   //
 
   return (
-    <section className={`compact-section`}>
+    <section className={`compact-section pt-20! md:pt-25!`}>
       <div className="ap_container_small">
         <BoxedBlock isBoxed={false} vAlign="center">
           {/* Left */}
@@ -118,14 +118,18 @@ export async function ProsNConsBlock({
           <div>
             {/* Pros */}
             <div className="mb-16">
-              <h3 className="font-bold text-[18px] mb-8">{pros_and_cons_pros_title_title}</h3>
+              <h3 className="font-bold text-[18px] mb-8">
+                {pros_and_cons_pros_title_title}
+              </h3>
               <Lists listItems={ProstLists} bulletVarient="arrow-blue" />
             </div>
             {/* Ends */}
 
             {/* Cons */}
             <div>
-              <h3 className="font-bold text-[18px] mb-8">{pros_and_cons_cons_title_title}</h3>
+              <h3 className="font-bold text-[18px] mb-8">
+                {pros_and_cons_cons_title_title}
+              </h3>
               <Lists listItems={ConsLists} bulletVarient="arrow-red" />
             </div>
             {/* Cons Ends */}
