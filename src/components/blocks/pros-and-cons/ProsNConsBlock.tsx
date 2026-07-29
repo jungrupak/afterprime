@@ -104,10 +104,10 @@ export async function ProsNConsBlock({
               />
               <div className="mt-12">
                 <Button
-                  varient="primary-ghost"
+                  varient="decent-ghost"
+                  size="regular"
+                  isArrowVisible
                   href={localizeHref(pros_and_cons_cta_url || "", locale)}
-                  isArrowVisible={true}
-                  size="large"
                 >
                   {ctaText}
                 </Button>

@@ -12,7 +12,8 @@ type ButtonVarients =
   | "primary-ghost"
   | "secondary-ghost"
   | "ghost"
-  | "washed";
+  | "washed"
+  | "decent-ghost";
 
 type ButtonProps = {
   children?: React.ReactNode;
@@ -63,6 +64,8 @@ export default function Button({
       ? css.secondaryGhost
       : varient === "washed"
       ? css.washed
+      : varient === "decent-ghost"
+      ? css.decentGhost
       : ""
   }`;
 
