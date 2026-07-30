@@ -1,7 +1,7 @@
 .cardsWrapper {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: 5px;
 
   @media all and (max-width: 640px) {
     grid-template-columns: 1fr;
@@ -9,28 +9,29 @@
 }
 
 .card {
+  position: relative;
   border-radius: var(--radius-xlg);
   padding: 40px 40px;
-  //border: 1px solid rgba(var(--alphaWhite), 0.08);
   height: 100%;
-}
 
-.cardPros {
-  background: linear-gradient(
-    160deg,
-    rgba(29, 209, 121, 0.16) 0%,
-    rgba(14, 14, 26, 0.4) 55%
-  );
-  //border-color: rgba(29, 209, 121, 0.18);
-}
-
-.cardCons {
-  background: linear-gradient(
-    160deg,
-    rgba(255, 48, 29, 0.14) 0%,
-    rgba(14, 14, 26, 0.4) 55%
-  );
-  border-color: rgba(255, 48, 29, 0.16);
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 }
 
 .cardIcon {
