@@ -25,7 +25,9 @@ export default function Faq({ data, faqSubject }: faqContents) {
     <section className={`${styles.faq_section} compact-section`}>
       <div className="ap_container_small">
         <div className={`${styles.faq_block}`}>
-          <h2 className="text-[34px] font-[700] mb-10">{faqSubject}</h2>
+          <h2 className="text-[34px] font-[700] mb-5! md:mb-8!">
+            {faqSubject}
+          </h2>
           <Accordion faqObjects={faqObjects} />
         </div>
       </div>

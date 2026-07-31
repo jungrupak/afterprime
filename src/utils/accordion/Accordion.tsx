@@ -21,7 +21,7 @@ export default function Accordion({
   // Process all answers with the hook at top level
   if (!faqObjects) return null;
   const processedAnswers = faqObjects.map((item) => {
-    const raw = (item.answer || "");
+    const raw = item.answer || "";
     const isHtml = /<[a-z][\s\S]*>/i.test(raw);
     return isHtml
       ? raw
@@ -33,7 +33,7 @@ export default function Accordion({
   return (
     <div className={`${styles.accordion_wrapper}`}>
       {faqObjects.map((item, index) => (
-        <div key={index} className={`${styles.accordion_item} mb-8 last:mb-0`}>
+        <div key={index} className={`${styles.accordion_item} mb-2 last:mb-0`}>
           <h3
             onClick={() =>
               setIsOpenAnswer((prev) => (prev === index ? -1 : index))

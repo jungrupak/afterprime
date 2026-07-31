@@ -1,14 +1,8 @@
-import Tab, { TabItem } from "@/components/ui/Tab";
 import { Blocks } from "@/types/blocks";
-import style from "./SwapTable.module.scss";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
-import { localizeHref } from "@/lib/locale/localizeHref";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
-import { DEFAULT_LOCALE } from "@/config/locales";
-import {
-  swapTableContent,
-  type SwapTableContent,
-} from "./swapTableContent";
+import { swapTableContent } from "./swapTableContent";
+import { SwapTableTabs, type SwapTab } from "./SwapTableTabs";
 
 type SwapTableProps = Blocks["swap-table-section"];
 
@@ -21,6 +15,17 @@ const tabNames = [
   "Crypto",
   "Indices",
 ] as const;
+
+// Index-based — order must match tabNames above
+const tabIcons: Record<(typeof tabNames)[number], string> = {
+  "FX Majors": "/img/icons/icon-forex.svg",
+  "FX Minors": "/img/icons/icon-forex.svg",
+  "FX Exotics": "/img/icons/icon-forex.svg",
+  Commodities: "/img/icons/icon-commo.svg",
+  Metals: "/img/icons/icon-metals.svg",
+  Crypto: "/img/icons/icon-crypto.svg",
+  Indices: "/img/icons/icon-indices.svg",
+};
 
 // tabNames doubles as the category key compared against the live feed's
 // `path` prefix in filterByCategory below — translating it directly would
@@ -112,70 +117,6 @@ async function getSwapData(): Promise<{
   }
 }
 
-function renderTable(
-  rows: InstrumentDataType[],
-  locale: string = DEFAULT_LOCALE,
-  t: SwapTableContent = swapTableContent,
-) {
-  if (rows.length === 0) {
-    return <p>{t.noDataAvailable}</p>;
-  }
-
-  return (
-    <div className={`genericTable ${style.tableParent}`}>
-      <table className="min-w-full">
-        <thead>
-          <tr>
-            <th className="md:px-4 md:py-2 text-left">{t.colInstrument}</th>
-            <th className="md:px-4 md:py-2 text-left">{t.colLong}</th>
-            <th className="md:px-4 md:py-2 text-left">{t.colShort}</th>
-            <th className="md:px-4 md:py-2 text-left">{t.colMarketHours}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, index) => (
-            <tr key={row.symbol ?? `${row.path}-${index}`}>
-              <td className="px-4 py-2">
-                <a
-                  href={
-                    row.path?.startsWith("Forex") ||
-                    row.symbol?.toLowerCase() === "xauusd"
-                      ? localizeHref(
-                          `/trade/${row.symbol?.toLowerCase()}`,
-                          locale,
-                        )
-                      : localizeHref(
-                          `/swaps/${row.symbol?.toLowerCase()}`,
-                          locale,
-                        )
-                  }
-                  className={`underline decoration-dotted decoration-2 underline-offset-4`}
-                >
-                  {row.symbol ?? "-"}
-                </a>
-              </td>
-              <td className="px-4 py-2">{row.swapLong ?? "-"}</td>
-              <td className="px-4 py-2">{row.swapShort ?? "-"}</td>
-              <td>
-                <a
-                  href={localizeHref(
-                    `/trading-hours/${row.symbol?.toLowerCase()}`,
-                    locale,
-                  )}
-                >
-                  <span className="text-[14px] block underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
-                    {t.tradingHoursLink}
-                  </span>
-                </a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
 export async function SwapDataTabs(_: SwapTableProps) {
   const { data, error } = await getSwapData();
   const locale = await getRequestLocale();
@@ -190,19 +131,20 @@ export async function SwapDataTabs(_: SwapTableProps) {
     swapTableContent,
   );
 
+  const tabs: SwapTab[] = tabNames.map((category) => ({
+    key: category,
+    label: tabLabelsT[category],
+    icon: tabIcons[category],
+    rows: filterByCategory(data, category),
+  }));
+
   return (
-    <section className="compact-section">
+    <section className="section">
       <div className="ap_container_small">
         {error ? (
           <p>{error}</p>
         ) : (
-          <Tab>
-            {tabNames.map((category) => (
-              <TabItem key={category} tabNav={tabLabelsT[category]}>
-                {renderTable(filterByCategory(data, category), locale, swapTableT)}
-              </TabItem>
-            ))}
-          </Tab>
+          <SwapTableTabs tabs={tabs} locale={locale} content={swapTableT} />
         )}
       </div>
     </section>

@@ -6,11 +6,15 @@
 }
 
 .accordion_item {
+  background-color: var(--primary-white-4);
+  border-radius: var(--radius-lg);
+  padding: 20px 20px 20px clamp(25px, 5vw, 32px);
   h3 {
     cursor: pointer;
     display: flex;
     align-items: flex-start;
     gap: 15px;
+
     span {
       display: block;
       margin-left: auto;

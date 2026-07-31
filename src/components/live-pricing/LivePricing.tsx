@@ -274,7 +274,7 @@ export function LivePricingAll({
                           })()}
                         </td>
                         <td className="px-4 py-2 " t-name="Market Hours">
-                          <div className={`flex text-[16px] items-center`}>
+                          <div className={`flex md:justify-end text-[16px] items-center`}>
                             <Link
                               href={localizeHref(
                                 "/trading-hours/" + item.symbol.toLowerCase(),

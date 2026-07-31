@@ -6,6 +6,7 @@ import Link from "next/link";
 import { fundingCardsContent } from "./fundingCardsContent";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import TypeformButton from "@/components/ui/typeForm";
 
 type FundingCardsProps = Blocks["funding-card-lists"];
 
@@ -93,13 +94,7 @@ export async function SectionFundingCards({
                   {card.processing_time} {t.labels.zeroFee}
                 </p>
                 <div className="mt-auto">
-                  <Link
-                    className="ap_button primaryGhost small"
-                    href="https://app.afterprime.com/live"
-                    target="_blank"
-                  >
-                    {t.labels.depositNow}
-                  </Link>
+                  <TypeformButton size="small" />
                 </div>
               </div>
             ))}
@@ -138,7 +133,7 @@ export async function SectionFundingCards({
                 <p className="mb-4">
                   {card.processing_time} {t.labels.zeroFee}
                 </p>
-                <div className="mt-auto">
+                {/* <div className="mt-auto">
                   <Link
                     className="ap_button primaryGhost small"
                     href="https://app.afterprime.com/live"
@@ -146,7 +141,7 @@ export async function SectionFundingCards({
                   >
                     {t.labels.withdrawal}
                   </Link>
-                </div>
+                </div> */}
               </div>
             ))}
           </div>

@@ -64,7 +64,11 @@ export default async function Page({ params }: PageProps) {
     locale,
     swapCalculatorInlineContent,
   );
-  const swapFaqT = await getTranslatedStatic("swap-faq", locale, swapFaqContent);
+  const swapFaqT = await getTranslatedStatic(
+    "swap-faq",
+    locale,
+    swapFaqContent,
+  );
   const swapPageT = await getTranslatedStatic(
     "swap-page",
     locale,
@@ -153,8 +157,7 @@ export default async function Page({ params }: PageProps) {
               </span>{" "}
               {swapPageT.sublinePerLot} <br />
               <br />
-              {swapPageT.sublineCta}{" "}
-              {symbolName.toUpperCase()}.
+              {swapPageT.sublineCta} {symbolName.toUpperCase()}.
             </div>
           </div>
         </div>
@@ -210,7 +213,8 @@ export default async function Page({ params }: PageProps) {
               </tbody>
             </table>
             <span className={`block mt-4 opacity-65`}>
-              {swapPageT.lastUpdatedPrefix} {todayDate}. {swapPageT.lastUpdatedSuffix}
+              {swapPageT.lastUpdatedPrefix} {todayDate}.{" "}
+              {swapPageT.lastUpdatedSuffix}
             </span>
           </div>
           <SwapCalculatorInline
@@ -227,11 +231,15 @@ export default async function Page({ params }: PageProps) {
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              {symbolName.toUpperCase()} {swapPageT.specificationsLinkText} {""} →
+              {symbolName.toUpperCase()} {swapPageT.specificationsLinkText} {""}{" "}
+              →
             </Link>
 
             <Link
-              href={localizeHref(`/trading-hours/${symbolName.toLowerCase()}`, locale)}
+              href={localizeHref(
+                `/trading-hours/${symbolName.toLowerCase()}`,
+                locale,
+              )}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
@@ -240,7 +248,7 @@ export default async function Page({ params }: PageProps) {
           </div>
 
           <div className={`${styles.faq_block} mb-0! mt-10 md:mt-20`}>
-            <h2 className="text-[34px] font-[700] mb-10">
+            <h2 className="text-[34px] font-[700] mb-5! md:mb-8!">
               {symbolName.toUpperCase()} {swapPageT.faqHeading}
             </h2>
             <Accordion faqObjects={FAQ_DATA} />
