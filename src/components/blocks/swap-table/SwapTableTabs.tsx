@@ -45,11 +45,15 @@ function TradeArrowIcon() {
 
 function symbolHref(row: InstrumentDataType, locale: string): string {
   return row.path?.startsWith("Forex") || row.symbol?.toLowerCase() === "xauusd"
-    ? localizeHref(`/trade/${row.symbol?.toLowerCase()}`, locale)
+    ? localizeHref(`/swaps/${row.symbol?.toLowerCase()}`, locale)
     : localizeHref(`/swaps/${row.symbol?.toLowerCase()}`, locale);
 }
 
-export function SwapTableTabs({ tabs, locale, content: t }: SwapTableTabsProps) {
+export function SwapTableTabs({
+  tabs,
+  locale,
+  content: t,
+}: SwapTableTabsProps) {
   const [activeTabNav, setActiveTabNav] = useState(0);
   const rows = tabs[activeTabNav]?.rows ?? [];
 

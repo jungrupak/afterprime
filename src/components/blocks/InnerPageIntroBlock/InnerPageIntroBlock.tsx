@@ -11,9 +11,7 @@ export default function InnerPageIntroBlock({
   intro_block_description,
 }: Props) {
   return (
-    <section
-      className={`${styles.sectionIntroBlockGeneric} py-[clamp(40px_,10vw_,60px)]!`}
-    >
+    <section className={`${styles.sectionIntroBlockGeneric}`}>
       <div className="ap_container_small">
         <div className={`${styles.sectionIntroContents}`}>
           <div>
