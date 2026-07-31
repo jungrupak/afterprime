@@ -136,7 +136,7 @@ body::-webkit-scrollbar {
     background-position: center top;
     z-index: 2;
     background-repeat: no-repeat;
-    opacity: 0.4;
+    opacity: 0.35;
     @media (max-width: 767px) {
       background-size: 240%;
     }
@@ -169,10 +169,10 @@ body::-webkit-scrollbar {
     position: fixed;
     inset: -50%;
     background-image: url("/img/grain-noise.png");
-    opacity: 0.5;
+    opacity: 0.6;
     pointer-events: none;
     will-change: transform;
-    //mix-blend-mode: luminosity;
+    mix-blend-mode: luminosity;
 
     /* respect system reduced-motion preference */
     @media (prefers-reduced-motion: no-preference) {
@@ -320,31 +320,30 @@ body::-webkit-scrollbar {
 section {
   padding: 120px 0;
   position: relative;
-  background-color: rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(9px);
+  min-height: 200px;
   z-index: 3;
   overflow: hidden;
 
-  &:after {
-    content: "";
-    position: fixed;
-    inset: -50%;
-    background-image: url("/img/grain-noise.png");
-    opacity: 0.28;
-    pointer-events: none;
-    will-change: transform;
+  // &:after {
+  //   content: "";
+  //   position: fixed;
+  //   inset: -50%;
+  //   background-image: url("/img/grain-noise.png");
+  //   opacity: 0.28;
+  //   pointer-events: none;
+  //   will-change: transform;
 
-    /* disable grain on mobile — stops continuous paint + battery drain */
-    @media (max-width: 767px) {
-      display: none;
-    }
+  //   /* disable grain on mobile — stops continuous paint + battery drain */
+  //   @media (max-width: 767px) {
+  //     display: none;
+  //   }
 
-    /* respect system reduced-motion preference */
-    @media (prefers-reduced-motion: no-preference) {
-      animation: animateGrain 4s steps(18) infinite;
-    }
-  }
+  //   /* respect system reduced-motion preference */
+  //   @media (prefers-reduced-motion: no-preference) {
+  //     animation: animateGrain 4s steps(18) infinite;
+  //   }
+  // }
 
   h2 {
     margin-bottom: max(25px, min(5vw, 50px));

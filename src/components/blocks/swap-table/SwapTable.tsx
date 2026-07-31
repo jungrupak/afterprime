@@ -139,7 +139,7 @@ export async function SwapDataTabs(_: SwapTableProps) {
   }));
 
   return (
-    <section className="section">
+    <section>
       <div className="ap_container_small">
         {error ? (
           <p>{error}</p>
