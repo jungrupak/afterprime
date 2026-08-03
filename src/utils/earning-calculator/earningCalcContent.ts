@@ -4,8 +4,8 @@ export const earningCalcContent = {
   lotsPlaceholder: "Lot Traded / month",
   invalidInput: "Invalid input, supports only positive numbers",
   symbolLabel: "Symbol Traded:",
-  oneYearLabel: "in 1 year, your Flow Earnings are",
-  fiveYearLabel: "Over 5 years, your Flow Earnings are",
+  oneYearLabel: "1 yrs Flow Earnings are",
+  fiveYearLabel: "Over 5 yrs Flow Earnings are",
   disclaimerLinkText: "transparent execution model",
   disclaimerSuffix:
     "captures up to $3 per lot traded, compounding into thousands in additional earnings.",
