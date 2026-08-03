@@ -1,9 +1,9 @@
 .customSelect {
-  background-color: #222; /* dark background */
+  background-color: var(--primary-white-8); /* dark background */
   color: #fff; /* white text */
   border: 1px solid #444; /* subtle border */
   padding: 6px 10px;
-  border-radius: 4px;
+  border-radius: 2px !important;
   option {
     background-color: #222;
     color: #fff;
@@ -11,6 +11,13 @@
 }
 
 .customInput {
-  background-color: #222; /* dark background */
+  background-color: var(--primary-white-8); /* dark background */
   color: #fff; /* white text */
+  border-radius: 2px;
+}
+
+.resultCard {
+  background-color: var(--primary-white-8);
+  border-radius: 2px;
+  padding: 16px 12px;
 }

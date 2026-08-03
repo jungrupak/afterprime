@@ -3,7 +3,10 @@
 import { useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import { RebateDataType } from "@/lib/rebates";
-import { earningCalcContent, type EarningCalcContent } from "./earningCalcContent";
+import {
+  earningCalcContent,
+  type EarningCalcContent,
+} from "./earningCalcContent";
 
 interface Props {
   initialRebates: RebateDataType[];
@@ -20,7 +23,8 @@ export function EarningCalc({
   const [selectedSymbol, setSelectedSymbol] = useState<string>("");
   const [lotTradedValue, setLotTradedValue] = useState<number | "">(100);
   const [rebatePerLot, setRebatePerLot] = useState<number | null>(null);
-  const [result, setResult] = useState<number>(0);
+  const [oneYearResult, setOneYearResult] = useState<number>(0);
+  const [fiveYearResult, setFiveYearResult] = useState<number>(0);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
@@ -31,14 +35,11 @@ export function EarningCalc({
     setRebatePerLot(defaultSymbol.rebate_usd_per_lot);
   }, [rebates]);
 
-  const calculateEarning = () => {
+  useEffect(() => {
     const lot = lotTradedValue === "" ? 0 : lotTradedValue;
     const rebate = rebatePerLot ?? 0;
-    return rebate * lot * 60;
-  };
-
-  useEffect(() => {
-    setResult(calculateEarning());
+    setOneYearResult(rebate * lot * 12);
+    setFiveYearResult(rebate * lot * 60);
   }, [lotTradedValue, rebatePerLot, selectedSymbol]);
 
   const handleOnChangeTradeLot = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,11 +66,9 @@ export function EarningCalc({
 
   return (
     <>
-      <h3 className="text-[20px] font-[700] opacity-80">
-        {content.heading}
-      </h3>
+      <h3 className="text-[20px] font-[700] opacity-80">{content.heading}</h3>
 
-      <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-8 items-start">
+      <div className="mt-5 md:mt-10 grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-5 items-start">
         {/* LOT TRADED */}
         <div>
           <label>{content.lotsLabel}</label>
@@ -103,17 +102,18 @@ export function EarningCalc({
       </div>
 
       {/* RESULT */}
-      <div className="mt-8 text-[18px] font-[600] max-md:text-center">
-        {content.resultPrefix}{" "}
-        <span
-          className="inline-block md:ml-15 text-[24px] font-[700]"
-          style={{ color: "var(--secondary-color)" }}
-        >
-          ${result}
-        </span>
+      <div className="mt-5 grid grid-cols-2 gap-4">
+        <div className={`${styles.resultCard} text-center`}>
+          <p className="text-[13px] opacity-60">{content.oneYearLabel}:</p>
+          <p className="mt-2 text-[22px] font-[700]">${oneYearResult}</p>
+        </div>
+        <div className={`${styles.resultCard} text-center`}>
+          <p className="text-[13px] opacity-60">{content.fiveYearLabel}:</p>
+          <p className="mt-2 text-[22px] font-[700]">${fiveYearResult}</p>
+        </div>
       </div>
 
-      <div className="bg-white py-5 px-10 note_box text-center mt-10">
+      <div className="bg-[var(--primary-white-8)] py-5 px-10 note_box text-center mt-5 text-[var(--primary-white-60)]">
         Afterprime&apos;s{" "}
         <a href={disclaimerHref}>
           <u>{content.disclaimerLinkText}</u>

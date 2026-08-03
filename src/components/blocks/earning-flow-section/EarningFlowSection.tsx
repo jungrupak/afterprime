@@ -1,7 +1,7 @@
 // src/components/blocks/earning-flow-section/EarningFlowSection.tsx
 import styles from "./EarningFlow.module.scss";
-import Lists from "@/components/ui/Lists";
 import Btn from "@/components/ui/Button";
+import BulletGrey from "@/components/ui/BulletGrey";
 import BoxedBlock from "@/components/boxed-block/BoxedBlock";
 import { EarningCalc } from "@/utils/earning-calculator/EarningCalc";
 import { normalizeRebatesPayload, type RebateDataType } from "@/lib/rebates";
@@ -60,18 +60,23 @@ export async function EarningFlowSection(block: EarningFlowBlock) {
   return (
     <section className={`${styles.section_earning_flow} compact-section`}>
       <div className="ap_container_small">
-        <BoxedBlock isBoxed={false} vAlign="center">
+        <div className={`flex gap-8 md:gap-25 max-md:flex-col `}>
           {/* Left */}
           <div>
             <h2
-              className="h2-size mb-6 text-center md:text-left"
+              className="h2-size mb-6! md:mb-10! text-center md:text-left"
               dangerouslySetInnerHTML={{
                 __html: earning_flow_section_heading || "&nbsp;",
               }}
             />
-            <div className="mt-12">
-              <Lists bulletVarient="arrow-blue" listItems={listItems} />
-            </div>
+            <ul className={`${styles.flowList} mt-12`}>
+              {listItems.map((item, index) => (
+                <li key={index}>
+                  <BulletGrey />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
             {earning_flow_is_cta_visible === "1" && (
               <div className="mt-16 text-center md:text-left">
                 <Btn
@@ -93,7 +98,7 @@ export async function EarningFlowSection(block: EarningFlowBlock) {
               disclaimerHref={localizeHref("/trade-execution", locale)}
             />
           </div>
-        </BoxedBlock>
+        </div>
       </div>
     </section>
   );
