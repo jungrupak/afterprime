@@ -1,6 +1,7 @@
 import styles from "./SectionFeaturesCards.module.scss";
 import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
+import BulletBlue from "@/components/ui/BulletBlue";
+import GlobeVideoBg from "./GlobeVideoBg";
 import { CardRepeaterType } from "@/types/blocks";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
@@ -33,50 +34,54 @@ export default async function SectionFeaturedCards({
         .join("");
 
   return (
-    <section className={`${styles.sectionBlockWithCards} compact-section`}>
+    <section
+      className={`${styles.sectionBlockWithCards} compact-section relative overflow-hidden`}
+    >
+      <GlobeVideoBg />
       <div className="ap_container_small relative">
-        {/* <div className={`dotted_bg_in_container dotted-block`}></div> */}
         <div
-          className={`${styles.content_block} flex gap-15 max-md:gap-10 max-md:flex-col items-center max-[1265px]:flex-wrap`}
+          className={`${styles.content_block} relative z-10 min-[1260px]:max-w-[700px]`}
         >
-          <div
-            className={`contentTextBlockWrapper max-md:text-center min-[1260px]:max-w-[450px]`}
+          <h2
+            className="h2-size mb-6 max-md:text-center"
+            style={{ fontWeight: "600" }}
           >
-            <h2 className="h2-size mb-6" style={{ fontWeight: "600" }}>
-              {section_card_repeator_section_title}
-            </h2>
-            <div
-              className="paragraph"
-              dangerouslySetInnerHTML={{
-                __html: htmlContent ?? "&nbsp;",
-              }}
-            />
-            {section_card_repeator_enable_cta === "1" && (
-              <div className="mt-8 md:mt-14 lg:mt-20">
-                <Button
-                  varient="primary-ghost"
-                  href={localizeHref(section_card_repeator_cta_button_link || "/", locale)}
-                  isArrowVisible={true}
-                  size="regular"
-                >
-                  {section_card_repeator_cta_button_label}
-                </Button>
-              </div>
-            )}
-          </div>
-          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(270px,1fr))] gap-6 text-center w-full">
+            {section_card_repeator_section_title}
+          </h2>
+          <div
+            className="paragraph max-md:text-center"
+            dangerouslySetInnerHTML={{
+              __html: htmlContent ?? "&nbsp;",
+            }}
+          />
+          {section_card_repeator_enable_cta === "1" && (
+            <div className="mt-8 md:mt-14 lg:mt-20">
+              <Button
+                varient="primary-ghost"
+                href={localizeHref(
+                  section_card_repeator_cta_button_link || "/",
+                  locale,
+                )}
+                isArrowVisible={true}
+                size="regular"
+              >
+                {section_card_repeator_cta_button_label}
+              </Button>
+            </div>
+          )}
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10">
             {cards.map((item, index) => (
-              <Card
-                key={index}
-                borderEnable={false}
-                alignItems="center"
-                cardSize="small"
-                title={item.title}
-                paragraph={item.paragraph}
-                cardCtaLabel={item.button_label}
-                cardCtaLink={item.button_url ? localizeHref(item.button_url, locale) : undefined}
-                active={false}
-              />
+              <div key={index} className="flex gap-4 items-start text-left">
+                <BulletBlue />
+                <div>
+                  <h3 className="text-[clamp(20px_,5vw,25px)] font-[700]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-[clamp(16px_,5vw,20px)] opacity-60 leading-relaxed">
+                    {item.paragraph}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
         </div>

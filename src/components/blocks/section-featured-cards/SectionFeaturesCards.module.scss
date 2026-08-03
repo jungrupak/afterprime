@@ -2,8 +2,45 @@
   background-position: center;
   background-repeat: repeat-x;
   background-size: 100%;
+  background-color: var(--body-bg);
 }
 .contentBlockText {
   display: flex;
   flex-direction: column;
+}
+
+.globeBgWrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  mix-blend-mode: color-dodge;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to left,
+      transparent 40%,
+      var(--ap-black, #0a0a0a) 90%
+    );
+  }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.globeBgVideo {
+  position: absolute;
+  top: 0;
+  right: -30%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  opacity: 0.8;
 }

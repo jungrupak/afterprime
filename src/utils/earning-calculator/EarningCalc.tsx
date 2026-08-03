@@ -68,14 +68,14 @@ export function EarningCalc({
     <>
       <h3 className="text-[20px] font-[700] opacity-80">{content.heading}</h3>
 
-      <div className="mt-5 md:mt-10 grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-5 items-start">
+      <div className="mt-5 grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-4 items-start">
         {/* LOT TRADED */}
         <div>
           <label>{content.lotsLabel}</label>
           <input
             type="text"
             placeholder={content.lotsPlaceholder}
-            className={`${styles.customInput} w-full mt-5`}
+            className={`${styles.customInput} w-full mt-3`}
             value={lotTradedValue}
             onChange={handleOnChangeTradeLot}
           />
@@ -88,7 +88,7 @@ export function EarningCalc({
         <div>
           <label>{content.symbolLabel}</label>
           <select
-            className={`${styles.customSelect} block mt-5 w-full`}
+            className={`${styles.customSelect} block mt-3 w-full`}
             value={selectedSymbol}
             onChange={handleSymbolChange}
           >
