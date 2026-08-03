@@ -13,7 +13,7 @@ export const headerContent = {
     "CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. Investors should consider whether they understand how CFDs work before investing. Losses may exceed deposits.",
   logoAlt: "Afterprime Logo",
   login: "Login",
-  signup: "Apply with Invite Code",
+  signup: "Apply with Code",
   signupNow: "Signup Now",
   back: "back",
   menuItems: MegaMenuItems,
