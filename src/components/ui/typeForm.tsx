@@ -30,7 +30,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
   buttonText = "Get Invite Code",
   signupNowText = "Signup Now",
   size = "Regular",
-  varient = "primary-ghost",
+  varient = "Primary",
 }) => {
   const formId = getSessionFormId();
   const [showInterstitial, setShowInterstitial] = useState(false);
@@ -73,7 +73,7 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
     <>
       <button
         onClick={handleClick}
-        className={`${styles.ap_button} ${
+        className={`group ${styles.ap_button} ${
           size === "Large"
             ? styles.large
             : size === "Regular"
@@ -85,19 +85,25 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
                   : ""
         } ${varient === "Primary" ? styles.primary : styles.primaryGhost}`}
       >
-        {bypassInvitation ? signupNowText : buttonText}
         <svg
-          width="11"
-          height="17"
-          viewBox="0 0 11 17"
+          width="17"
+          height="18"
+          viewBox="0 0 17 18"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          style={{ fill: "none" }}
         >
           <path
-            d="M2.70063 0.707031L10.8916 8.70703L2.70063 16.707L0.891603 14.9402L7.27355 8.70703L0.891602 2.47388L2.70063 0.707031Z"
-            fill="#fff"
+            d="M4.33333 8.2V5C4.33333 3.93913 4.77232 2.92172 5.55372 2.17157C6.33512 1.42143 7.39493 1 8.5 1C9.60507 1 10.6649 1.42143 11.4463 2.17157C12.2277 2.92172 12.6667 3.93913 12.6667 5V8.2M2.66667 8.2H14.3333C15.2538 8.2 16 8.91634 16 9.8V15.4C16 16.2837 15.2538 17 14.3333 17H2.66667C1.74619 17 1 16.2837 1 15.4V9.8C1 8.91634 1.74619 8.2 2.66667 8.2Z"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ fill: "none" }}
+            className="group-hover:stroke-[#000000]"
           />
         </svg>
+        {bypassInvitation ? signupNowText : buttonText}
       </button>
       <GeoInterstitial isOpen={showInterstitial} />
     </>

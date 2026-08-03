@@ -51,7 +51,7 @@ export default async function InnerBanner({
                 <div className={`mt-8 md:mt-15`}>
                   <TypeformButton
                     buttonText={t.getInviteCodeCta}
-                    size="Large"
+                    size="Regular"
                     varient="Primary"
                   />
                 </div>
@@ -59,7 +59,7 @@ export default async function InnerBanner({
                 <div className={`mt-8 md:mt-15`}>
                   <Button
                     href={localizeHref(inner_banner_button_url || "/", locale)}
-                    varient="primary-ghost"
+                    varient="primary"
                     size="regular"
                     isArrowVisible={true}
                   >

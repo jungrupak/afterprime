@@ -82,6 +82,16 @@ export default function MobileNav({
             <RightArrow />
           </div>
         ))}
+        <div className={`${styles.menuCat} flex items-center justify-between`}>
+          <Link
+            href={`https://partners.afterprime.com/`}
+            target="_blank"
+            className=""
+          >
+            Partners
+          </Link>
+          <RightArrow />
+        </div>
       </div>
       {/* Footer */}
       <div className={`${styles.mobileMenuFooter} text-center`}>

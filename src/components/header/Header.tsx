@@ -102,6 +102,13 @@ export default function Header({ content }: { content: HeaderContent }) {
           {/* Right Side (Desktop) */}
           <div className={`${styles.ap_header_right} max-[1204px]:hidden`}>
             <div className="flex items-center gap-4">
+              <Link
+                href={`https://partners.afterprime.com/`}
+                target="_blank"
+                className="underline decoration-dotted decoration-2 decoration-white/35 underline-offset-8"
+              >
+                Partners
+              </Link>
               <LanguageSelector />
               <Button
                 linkTarget="_blank"

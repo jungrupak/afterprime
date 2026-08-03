@@ -269,6 +269,9 @@ body::-webkit-scrollbar {
 }
 
 .wysWygEditor {
+  font-size: max(20px, min(5vw, 26px));
+  font-weight: 300;
+  line-height: 1.5;
   p {
     color: #e1e1e1;
     margin-bottom: max(40px, min(5vw, 50px));
@@ -279,6 +282,9 @@ body::-webkit-scrollbar {
     &:last-child {
       margin-bottom: 0;
     }
+  }
+  .genericTable {
+    margin-top: max(40px, min(5vw, 50px));
   }
 
   ul {

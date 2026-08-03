@@ -57,8 +57,8 @@ export default function Header({ applyNowText = "Apply Now" }: HeaderProps) {
               <LanguageSelector />
               <TypeformButton
                 buttonText={applyNowText}
-                size="Regular"
-                varient="ghost"
+                size="small"
+                varient="primary"
               />
             </div>
           </div>

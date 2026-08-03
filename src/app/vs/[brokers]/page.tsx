@@ -139,7 +139,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
 
     twitter: {
-      card: (pageAiseo?.["twitter:card"] as "summary" | "summary_large_image") ?? "summary_large_image",
+      card:
+        (pageAiseo?.["twitter:card"] as "summary" | "summary_large_image") ??
+        "summary_large_image",
       title: pageAiseo?.["twitter:title"] ?? "Afterprime",
       description:
         pageAiseo?.["twitter:description"] ??
@@ -184,7 +186,11 @@ export default async function ChildPage({ params }: Props) {
       getInviteCodeCta: "Get Invite Code",
     }),
     getTranslatedStatic("vs-broker-page", locale, brokerPageContent),
-    getTranslatedStatic("cost-saving-calculator", locale, costSavingCalculatorContent),
+    getTranslatedStatic(
+      "cost-saving-calculator",
+      locale,
+      costSavingCalculatorContent,
+    ),
   ]);
   if (!pageData) {
     notFound();
@@ -310,7 +316,11 @@ export default async function ChildPage({ params }: Props) {
         style={{ scrollMarginTop: "80px" }}
       >
         <div className="ap_container_small">
-          <CostSavingCalculatorBrokers currentBroker={brokers} locale={locale} content={calcT} />
+          <CostSavingCalculatorBrokers
+            currentBroker={brokers}
+            locale={locale}
+            content={calcT}
+          />
         </div>
       </section>
 
@@ -323,7 +333,9 @@ export default async function ChildPage({ params }: Props) {
 
       <section className={`compact-section`}>
         <div className="ap_container_small">
-          <h2 className={`leading-[1.2]`}>{brokerT.tradingCostByMajorHeading}</h2>
+          <h2 className={`leading-[1.2]`}>
+            {brokerT.tradingCostByMajorHeading}
+          </h2>
           <CompareWithMajors broker={brokers} />
         </div>
       </section>
@@ -334,9 +346,7 @@ export default async function ChildPage({ params }: Props) {
           <div className={`${styles.pageEditorContent}`}>
             <h2 className={`mt-0!`}>{brokerT.editorialSpreadHeading}</h2>
 
-            <p>
-              {brokerT.editorialSpreadIntro}
-            </p>
+            <p>{brokerT.editorialSpreadIntro}</p>
 
             <ul>
               <li>
@@ -351,23 +361,23 @@ export default async function ChildPage({ params }: Props) {
               </li>
             </ul>
 
-            <h2 className={`mt-0!`}>
-              {brokerT.editorialCostPerLotHeading}
-            </h2>
+            <h2 className={`mt-0!`}>{brokerT.editorialCostPerLotHeading}</h2>
+
+            <p>{brokerT.editorialCostPerLotIntro}</p>
 
             <p>
-              {brokerT.editorialCostPerLotIntro}
-            </p>
-
-            <p>
-              <b>{brokerT.editorialCostPerLotFormula}</b> {brokerT.editorialCostPerLotFormulaSuffix}
+              <b>{brokerT.editorialCostPerLotFormula}</b>{" "}
+              {brokerT.editorialCostPerLotFormulaSuffix}
             </p>
 
             <ul>
               <li>
                 <b>{brokerT.editorialSlippageTitle}</b>
                 <br />
-                {brokerT.editorialSlippageDesc.replace("{brokerName}", pageTitle)}
+                {brokerT.editorialSlippageDesc.replace(
+                  "{brokerName}",
+                  pageTitle,
+                )}
               </li>
 
               <li>
@@ -379,9 +389,7 @@ export default async function ChildPage({ params }: Props) {
 
             <h2 className={`mt-0!`}>{brokerT.editorialHowAffectsHeading}</h2>
 
-            <p>
-              {brokerT.editorialHowAffectsIntro}
-            </p>
+            <p>{brokerT.editorialHowAffectsIntro}</p>
 
             <ul>
               <li>
@@ -390,9 +398,7 @@ export default async function ChildPage({ params }: Props) {
                 {brokerT.editorialVolumeWeightingDesc}
               </li>
               <li>
-                <b>
-                  {brokerT.editorialFlowRewardsTitle}
-                </b>
+                <b>{brokerT.editorialFlowRewardsTitle}</b>
                 <br />
                 {brokerT.editorialFlowRewardsDesc}
               </li>
@@ -414,7 +420,10 @@ export default async function ChildPage({ params }: Props) {
       <BreadcrumbSchema
         items={[
           { name: brokerT.breadcrumbHome, href: localizeHref("/", locale) },
-          { name: brokerT.breadcrumbBrokerComparisons, href: localizeHref("/vs", locale) },
+          {
+            name: brokerT.breadcrumbBrokerComparisons,
+            href: localizeHref("/vs", locale),
+          },
           {
             name: `Afterprime vs ${brokers.charAt(0).toUpperCase() + brokers.slice(1)}`,
             href: localizeHref(`/vs/${brokers}`, locale),
@@ -440,7 +449,11 @@ export default async function ChildPage({ params }: Props) {
                   __html: ctaBlockFields?.paragraph || "",
                 }}
               />
-              <TypeformButton buttonText={vsT.getInviteCodeCta} size="Regular" />
+              <TypeformButton
+                buttonText={vsT.getInviteCodeCta}
+                size="Regular"
+                varient="Primary"
+              />
             </div>
           </div>
         </div>

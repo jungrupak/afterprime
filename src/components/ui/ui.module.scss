@@ -106,6 +106,7 @@
       svg {
         path {
           fill: var(--white);
+          stroke: var(--white);
         }
       }
     }
@@ -157,7 +158,7 @@
 
   //Sizes
   &.large {
-    padding-inline: clamp(40px, 4vw, 60px);
+    padding-inline: clamp(30px, 4vw, 40px);
     line-height: 54px;
     font-size: 20px;
     gap: 20px;
@@ -167,7 +168,7 @@
     }
   }
   &.regular {
-    padding-inline: 40px;
+    padding-inline: 25px;
     line-height: 48px;
     font-size: 18px;
     gap: 15px;
