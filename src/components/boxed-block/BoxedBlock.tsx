@@ -16,18 +16,18 @@ export default function BoxedBlock({
     vAlign === "Top"
       ? "items-start"
       : vAlign === "Middle"
-      ? "items-center"
-      : vAlign === "Bottom"
-      ? "items-end"
-      : vAlign === "Stretched"
-      ? "stretched"
-      : "";
+        ? "items-center"
+        : vAlign === "Bottom"
+          ? "items-end"
+          : vAlign === "Stretched"
+            ? "stretched"
+            : "";
   return (
     <>
       <div
         className={`${className || ""}${
           isBoxed === true ? styles.styleBoxed : ""
-        } ${checkAlign} grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-10`}
+        } ${checkAlign} grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-10 md:gap-20`}
       >
         {children}
       </div>

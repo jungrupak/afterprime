@@ -1,3 +1,32 @@
+.isBoxed {
+  background-color: rgba(var(--alphaWhite), 0.04);
+  padding-block: clamp(45px, 5vw, 80px);
+  padding-inline: clamp(30px, 5vw, 80px);
+}
+
+.flowList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 30px;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--primary-white-80);
+  }
+}
+
 .section_earning_flow {
   input {
     border: none;
