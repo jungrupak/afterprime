@@ -4,7 +4,7 @@ export const earningCalcContent = {
   lotsPlaceholder: "Lot Traded / month",
   invalidInput: "Invalid input, supports only positive numbers",
   symbolLabel: "Symbol Traded:",
-  oneYearLabel: "1 yrs Flow Earnings are",
+  oneYearLabel: "1 yr Flow Earnings are",
   fiveYearLabel: "Over 5 yrs Flow Earnings are",
   disclaimerLinkText: "transparent execution model",
   disclaimerSuffix:
