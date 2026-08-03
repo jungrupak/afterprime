@@ -93,7 +93,7 @@ export async function ProsNConsBlock({
   return (
     <section className={`compact-section pt-20! md:pt-25!`}>
       <div className="ap_container_small">
-        <BoxedBlock isBoxed={false} vAlign="center">
+        <BoxedBlock isBoxed={false} vAlign="Middle">
           {/* Left */}
           <div>
             <div className="max-md:text-center xl:pr-25">
