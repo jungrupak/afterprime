@@ -205,8 +205,7 @@ export const MegaMenuItems = [
         ],
       },
     ],
-  }, 
-
+  },
   {
     menu: "Help",
     menuInfos: {
@@ -233,11 +232,11 @@ export const MegaMenuItems = [
         categoryName: "Compliance",
         catMenuItems: [
           {
-            menuItem: "Licenses & Regulations",
+            menuItem: "Licensing",
             pageUrl: "/license-and-regulations",
           },
           {
-            menuItem: "Legal Docs",
+            menuItem: "Legal Documents",
             pageUrl: "/legal-documents",
           },
           {
