@@ -96,7 +96,7 @@ export async function ProsNConsBlock({
         <BoxedBlock isBoxed={false} vAlign="Middle">
           {/* Left */}
           <div>
-            <div className="max-md:text-center xl:pr-25">
+            <div className="max-md:text-center xl:pr-25 xl:rtl:pr-0">
               <h2 className="h2-size mb-6">{heading}</h2>
               <div
                 className="paragraph"

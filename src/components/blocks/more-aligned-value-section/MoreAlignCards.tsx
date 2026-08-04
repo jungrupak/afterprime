@@ -22,7 +22,7 @@ export async function MoreValueRealAlignment(props: SectionProps) {
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
           <div className="">
             <h2
-              className="h2-size mb-6 text-center md:text-left"
+              className="h2-size mb-6 text-center md:text-start"
               dangerouslySetInnerHTML={{
                 __html: sectionTitle || "&nbsp;",
               }}

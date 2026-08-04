@@ -13,7 +13,7 @@
 .upsItem {
   display: flex;
   gap: 20px;
-  max-width: 300px;
+  max-width: 400px;
   @media all and (max-width: 767px) {
     display: block;
   }
@@ -30,6 +30,15 @@
     line-height: 1.4;
     @media all and (max-width: 767px) {
       text-align: center;
+      margin-top: 10px;
+    }
+
+    :global(html[dir="rtl"]) & {
+      text-align: right;
+      direction: rtl;
+      @media all and (max-width: 767px) {
+        text-align: center;
+      }
     }
   }
 }

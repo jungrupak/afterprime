@@ -2,6 +2,8 @@ import "./globals.scss";
 import { Blinker } from "next/font/google";
 import Script from "next/script";
 import VideoBackground from "@/components/VideoBackground";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { getHtmlAttrs } from "@/config/locales";
 
 const blinker = Blinker({
   subsets: ["latin"],
@@ -17,13 +19,16 @@ export function generateViewport() {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getRequestLocale();
+  const { lang, dir } = getHtmlAttrs(locale);
+
   return (
-    <html lang="en">
+    <html lang={lang} dir={dir}>
       <head>
         <meta name="facebook-domain-verification" content="00t7hvmnqg2hu47jgje79ofbgdiowc" />
         <link rel="preconnect" href="https://motion.afterprime.com" crossOrigin="" />

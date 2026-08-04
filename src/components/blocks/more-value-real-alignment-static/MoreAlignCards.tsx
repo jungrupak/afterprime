@@ -20,7 +20,7 @@ export async function MoreValueRealAlignmentStatic(props: SectionProps) {
       <div className="ap_container_small">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
           <div>
-            <h2 className="h2-size mb-6 text-center md:text-left">
+            <h2 className="h2-size mb-6 text-center md:text-start">
               {t.heading1} <br />
               <span>{t.heading2}</span>.
             </h2>

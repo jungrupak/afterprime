@@ -115,7 +115,7 @@ export function LivePricingAll({
                     alt={nav}
                     width={14}
                     height={14}
-                    className="inline-block mr-2"
+                    className="inline-block me-2"
                   />
                 )}
                 {nav}
