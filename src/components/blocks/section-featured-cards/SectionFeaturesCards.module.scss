@@ -2,7 +2,8 @@
   background-position: center;
   background-repeat: repeat-x;
   background-size: 100%;
-  background-color: var(--body-bg);
+  //backdrop-filter: blur(0);
+  //background-color: var(--body-bg);
 }
 .contentBlockText {
   display: flex;
@@ -15,19 +16,7 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-
-  mix-blend-mode: color-dodge;
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to left,
-      transparent 40%,
-      var(--ap-black, #0a0a0a) 90%
-    );
-  }
+  z-index: 0;
 
   @media (max-width: 767px) {
     display: none;
@@ -42,5 +31,13 @@
   height: 100%;
   object-fit: cover;
   object-position: right center;
-  opacity: 0.8;
+  opacity: 0.35;
+  mix-blend-mode: color-dodge;
+  mask-image: radial-gradient(85% 100% at 75% 50%, black 50%, transparent 100%);
+  -webkit-mask-image: radial-gradient(
+    85% 100% at 75% 50%,
+    black 50%,
+    transparent 100%
+  );
+  z-index: 1;
 }
