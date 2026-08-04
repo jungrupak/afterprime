@@ -60,7 +60,7 @@ export default function FooterScripts() {
         return null;
       }
 
-      getParameterByName(name){ let regex=new RegExp("[\\?&]"+name+"=([^&#]*)"); let results = regex.exec(window.location.search); return results? decodeURIComponent(results[1].replace(/\+/g,' ')):""; }
+      getParameterByName(name){ let regex=new RegExp("[\\\\?&]"+name+"=([^&#]*)"); let results = regex.exec(window.location.search); return results? decodeURIComponent(results[1].replace(/\\+/g,' ')):""; }
 
       writeCookie(name,value){ this.createCookie(name,value,this._cookieExpiryDays,null,this._domain,this._secure); }
       writeCookieOnce(name,value){ if(!this.readCookie(name)){ this.writeCookie(name,value); } }
