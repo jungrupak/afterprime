@@ -289,7 +289,7 @@ body::-webkit-scrollbar {
 
   ul {
     list-style: disc;
-    margin-left: 22px;
+    margin-inline-start: 22px;
     margin-bottom: max(40px, min(5vw, 50px));
 
     li {
@@ -454,7 +454,7 @@ section {
 //
 .ulli {
   list-style: disc;
-  margin-left: 22px;
+  margin-inline-start: 22px;
   margin-bottom: max(40px, min(5vw, 50px));
 
   li {
@@ -472,7 +472,7 @@ section {
 .genericTable {
   table {
     width: 100%;
-    text-align: left;
+    text-align: start;
 
     tr {
       th {
@@ -482,7 +482,7 @@ section {
         font-size: 16px;
 
         &:last-child {
-          text-align: right;
+          text-align: end;
         }
       }
 
@@ -494,7 +494,7 @@ section {
         transition: all 0.2s ease-in-out;
 
         &:last-child {
-          text-align: right;
+          text-align: end;
         }
       }
 
@@ -800,7 +800,7 @@ section {
   table-layout: auto;
   table tr th:last-child,
   table tr td:last-child {
-    text-align: right;
+    text-align: end;
   }
 }
 
@@ -936,12 +936,12 @@ section {
   transition:
     background 0.12s,
     color 0.12s,
-    padding-left 0.12s;
+    padding-inline-start 0.12s;
 }
 
 .table-of-contents a:hover {
   color: rgba(255, 255, 255, 0.8);
-  padding-left: 26px;
+  padding-inline-start: 26px;
 }
 
 /* Counter */

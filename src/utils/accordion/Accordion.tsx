@@ -51,9 +51,9 @@ export default function Accordion({
             } mt-6 max-md:mt-4`}
           >
             <div
-              className={`text-[18px] font-[400] mb-4 last:mb-0 opacity-80 ${
+              className={`text-[18px] font-[400] mb-4 last:mb-0 opacity-80 rtl:text-right rtl:[direction:ltr] ${
                 answerFluid === true ? "md:pr-[18vw]" : "md:pr-[60px]"
-              }`}
+              } md:rtl:pr-0`}
               dangerouslySetInnerHTML={{
                 __html: processedAnswers[index],
               }}

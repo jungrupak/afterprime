@@ -107,7 +107,7 @@ export async function MultipurposeBlock({
                 multipurpose_block_block_has_featured_image === "1" ||
                 multipurpose_block_has_feature_bullet_list === "1" ||
                 multipurpose_block_active_right_column_content_block === "1"
-                  ? "xl:pr-25"
+                  ? "xl:pe-25"
                   : ""
               } `}
             >
@@ -174,7 +174,7 @@ export async function MultipurposeBlock({
             )}
 
             {multipurpose_block_active_right_column_content_block === "1" && (
-              <div className="max-md:text-center md:pr-25">
+              <div className="max-md:text-center md:pe-25">
                 <h2 className="h2-size mb-6">
                   {t.rightTitle}
                 </h2>

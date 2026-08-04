@@ -64,7 +64,7 @@ export async function EarningFlowSection(block: EarningFlowBlock) {
           {/* Left */}
           <div>
             <h2
-              className="h2-size mb-6! md:mb-10! text-center md:text-left"
+              className="h2-size mb-6! md:mb-10! text-center md:text-start"
               dangerouslySetInnerHTML={{
                 __html: earning_flow_section_heading || "&nbsp;",
               }}
@@ -78,7 +78,7 @@ export async function EarningFlowSection(block: EarningFlowBlock) {
               ))}
             </ul>
             {earning_flow_is_cta_visible === "1" && (
-              <div className="mt-16 text-center md:text-left">
+              <div className="mt-16 text-center md:text-start">
                 <Btn
                   href={localizeHref(earning_flow_button_link || "/", locale)}
                   size="regular"

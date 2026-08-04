@@ -68,7 +68,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  text-align: left;
+  text-align: start;
   text-decoration: none;
   color: inherit;
   transition: transform 0.35s ease;
@@ -259,7 +259,7 @@
   position: relative;
   z-index: 2;
   height: 40px;
-  margin-left: 40px;
+  margin-inline-start: 40px;
   margin-top: 40px;
 
   @media all and (max-width: 767px) {
@@ -381,7 +381,7 @@
     min-height: auto;
   }
   .cardContent {
-    padding-right: 100px;
+    padding-inline-end: 100px;
   }
 }
 
@@ -405,7 +405,7 @@
     min-height: auto;
   }
   .cardContent {
-    padding-right: 100px;
+    padding-inline-end: 100px;
   }
 }
 

@@ -12,7 +12,7 @@ export default function GlobeVideoBg() {
     if (!video) return;
 
     const source = document.createElement("source");
-    source.src = "https://cfcdn.afterprime.com/globe-bgvid.mp4";
+    source.src = "https://cdn.afterprime.com/videos/globe-bgvid.mp4";
     source.type = "video/mp4";
     video.appendChild(source);
     video.load();
