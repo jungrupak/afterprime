@@ -113,18 +113,6 @@ body::-webkit-scrollbar {
   background-color: var(--body-bg);
   overflow: hidden;
 
-  /* mobile: static bg image instead of video */
-  // @media (max-width: 767px) {
-  //   background-image: url("/img/ap-main-bg-static.jpg");
-  //   background-size: cover;
-  //   background-position: center;
-  //   background-repeat: no-repeat;
-
-  //   video {
-  //     display: none;
-  //   }
-  // }
-
   .top-glow-blue {
     position: absolute;
     left: 0;
@@ -141,6 +129,18 @@ body::-webkit-scrollbar {
       background-size: 240%;
     }
   }
+
+  /* mobile: static bg image instead of video */
+  // @media (max-width: 767px) {
+  //   background-image: url("/img/ap-main-bg-static.jpg");
+  //   background-size: 100%;
+  //   background-position: center top;
+  //   background-repeat: no-repeat;
+
+  //   video {
+  //     display: none;
+  //   }
+  // }
 
   video {
     position: absolute;
