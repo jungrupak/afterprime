@@ -1,5 +1,6 @@
-import React from "react";
 import styles from "./SectionFacts.module.scss";
+import BulletBlue from "@/components/ui/BulletBlue";
+import FactsVideoBg from "./FactsVideoBg";
 import type { Blocks } from "@/types/blocks";
 
 type SectionFactsProps = Blocks["fact-cards"];
@@ -23,22 +24,39 @@ export function BlockFacts(block: SectionFactsProps) {
     });
 
   return (
-    <section className="compact-section">
-      <div className="ap_container_small text-center">
-        {block.facts_block_title && <h2>{block.facts_block_title}</h2>}
-        {cards.length > 0 && (
-          <div className={styles.factGrid}>
-            {cards.map((card, index) => (
-              <div key={index} className={styles.factCard}>
-                <h3>{card.title}</h3>
-                <p>{card.description}</p>
+    <section
+      className={`${styles.sectionFacts} compact-section relative overflow-hidden`}
+    >
+      <div className="ap_container_small relative z-10">
+        <div className={`${styles.factWrapper}`}>
+          <FactsVideoBg />
+          <div className={styles.factContent}>
+            {block.facts_block_title && (
+              <h2 className="h2-size mb-0" style={{ fontWeight: 600 }}>
+                {block.facts_block_title}
+              </h2>
+            )}
+            {block.facts_info_text && (
+              <p className={styles.infoText}>{block.facts_info_text}</p>
+            )}
+            {cards.length > 0 && (
+              <div className={`${styles.factGrid} mt-16`}>
+                {cards.map((card, index) => (
+                  <div
+                    key={index}
+                    className="flex gap-4 items-start text-left"
+                  >
+                    <BulletBlue />
+                    <div>
+                      <h3 className={styles.cardTitle}>{card.title}</h3>
+                      <p className={styles.cardDesc}>{card.description}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        )}
-        {block.facts_info_text && (
-          <p className={styles.infoText}>{block.facts_info_text}</p>
-        )}
+        </div>
       </div>
     </section>
   );
