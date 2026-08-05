@@ -119,6 +119,10 @@ body::-webkit-scrollbar {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    video {
+      display: none;
+    }
   }
 
   .top-glow-blue {
