@@ -37,7 +37,7 @@ function InterstitialContent({ content }: Props) {
     _uf.domain = ".afterprime.com";
     _uf.secure = true;
     _uf.sessionLength = 1;
-    _uf.additional_params_map = { clickid: "AFFILIATE" };
+    _uf.additional_params_map = { clickid: "AFFILIATE", group: "GROUP" };
 
     class UtmCookie {
       constructor(options = {}) {
@@ -47,7 +47,7 @@ function InterstitialContent({ content }: Props) {
         this._sessionLength = options.sessionLength || 1;
         this._cookieExpiryDays = options.cookieExpiryDays || 30;
         this._additionalParams = options.additionalParams || [];
-        this._utmParams = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid","rdclid","tnid","click_id","group"];
+        this._utmParams = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid","rdclid","tnid","click_id"];
 
         this.writeVisitorId();
         this.writeInitialLandingPageUrl();
@@ -137,10 +137,21 @@ function InterstitialContent({ content }: Props) {
           this.writeCookieOnce(p, value);
         });
 
-        this._additionalParams.forEach(p => {
-          let value = this.getParameterByName(p) || "direct";
-          this.writeCookieOnce(p, value);
-        });
+this._additionalParams.forEach(p => {
+  const urlValue = this.getParameterByName(p);
+  if (p === "group") {
+    // group must always reflect the latest touch — Typeform and app.afterprime.com
+    // read _gpfx_group directly for commission-group attribution, so it can never
+    // lock to the first value seen like the other additional params do.
+    if (urlValue) {
+      this.writeCookie(p, urlValue);
+    } else {
+      this.writeCookieOnce(p, "direct"); // seed a default only if group has never been set
+    }
+  } else {
+    this.writeCookieOnce(p, urlValue || "direct");
+  }
+});
 
         if (isGenuineTouch) {
           this.writeCookie("last_referrer", channel);
