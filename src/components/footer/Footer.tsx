@@ -259,6 +259,9 @@ export default async function Footer() {
               { src: "/img/method-icons/btc.png", alt: "Bitcoin" },
               { src: "/img/method-icons/neteller.png", alt: "Neteller" },
               { src: "/img/method-icons/skrill.png", alt: "Skrill" },
+              { src: "/img/method-icons/bank-wire.png", alt: "Bank Transfer" },
+              { src: "/img/method-icons/apple-pay.png", alt: "Apple Pay" },
+              { src: "/img/method-icons/google-pay.png", alt: "Google Pay" },
             ].map((item, index) => (
               <Image
                 key={index}
