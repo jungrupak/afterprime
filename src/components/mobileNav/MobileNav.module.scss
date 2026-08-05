@@ -3,6 +3,10 @@
   top: 0;
   left: 0;
   z-index: 20;
+  // resets the inherited `visibility: hidden` from the parent <header>
+  // (which is hidden while this menu is open — see Header.tsx) so the
+  // menu overlay itself stays visible.
+  visibility: visible;
   background-color: rgba(var(--alphaBlack), 0.98);
   backdrop-filter: blur(10px);
   color: rgba(var(--alphaWhite), 0.8);
@@ -93,6 +97,7 @@
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   width: 100%;
+  padding-bottom: 120px;
   scrollbar-width: none;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {

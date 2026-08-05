@@ -1,5 +1,6 @@
 // components/FooterScripts.tsx
 import Script from "next/script";
+import LiveChatMobileTrigger from "./LiveChatMobileTrigger";
 
 export default function FooterScripts() {
   return (
@@ -210,15 +211,19 @@ this._additionalParams.forEach(p => {
               setTimeout(function() { e.init(); }, 5000);
           })(window, document, [].slice);
 
-          // Mobile: keep widget collapsed to just the launcher icon,
-          // never auto-expanded (desktop keeps whatever LiveChat dashboard sets).
+          // Mobile: hide the native widget entirely (bubble + any greeting/
+          // eye-catcher LiveChat auto-shows — minimize alone doesn't
+          // suppress those). LiveChatMobileTrigger renders our own icon
+          // that calls show/maximize to open it. Desktop keeps whatever
+          // LiveChat dashboard sets.
           window.LiveChatWidget.on("ready", function() {
             if (window.matchMedia("(max-width: 767px)").matches) {
-              window.LiveChatWidget.call("minimize");
+              window.LiveChatWidget.call("hide");
             }
           });
         `}
       </Script>
+      <LiveChatMobileTrigger />
       <noscript>
         <a
           href="https://www.livechat.com/chat-with/2536351/"

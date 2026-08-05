@@ -41,6 +41,16 @@
     backdrop-filter: blur(10px);
   }
 }
+
+// Fully removes the risk-warning bar / header from paint while the mobile
+// menu overlay is open — z-index/backdrop-filter stacking alone isn't
+// reliable against iOS Safari's fixed-position repaint flicker during
+// scroll, so we hide them outright instead. visibility (not display) so
+// the ResizeObserver-based --risk-warning-height measurement stays live.
+.hiddenForMobileMenu {
+  visibility: hidden;
+}
+
 .ap_logo {
   display: block;
 }

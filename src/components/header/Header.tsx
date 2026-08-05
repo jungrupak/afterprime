@@ -77,13 +77,16 @@ export default function Header({ content }: { content: HeaderContent }) {
 
   return (
     <>
-      <div ref={riskWarningRef} className={styles.riskWarning}>
+      <div
+        ref={riskWarningRef}
+        className={`${styles.riskWarning} ${mobileMenu ? styles.hiddenForMobileMenu : ""}`}
+      >
         {riskWarning}
       </div>
       <header
         className={`${styles.ap_header} ${isSticky ? styles.sticky : ""} ${
           activeIndex != null ? styles.headerActive : ""
-        }`}
+        } ${mobileMenu ? styles.hiddenForMobileMenu : ""}`}
       >
         <div
           className={`${styles.ap_container} ap_container_small flex items-center max-md:py-3 max-lg:px-5 max-xl:px-5 max-xl:gap-10 justify-between`}
