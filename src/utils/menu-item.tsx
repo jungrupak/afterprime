@@ -10,46 +10,6 @@ export const MegaMenuItems = [
     },
     category: [
       {
-        categoryName: "Accounts",
-        catMenuItems: [
-          {
-            menuItem: "How to Apply",
-            pageUrl: "/how-to-qualify",
-          },
-          {
-            menuItem: "Deposit Options",
-            pageUrl: "/deposit-withdrawal",
-          },
-          {
-            menuItem: "Withdrawal Options",
-            pageUrl: "/deposit-withdrawal",
-          },
-        ],
-      },
-
-      {
-        categoryName: "Platforms",
-        catMenuItems: [
-          {
-            menuItem: "MetaTrader 5",
-            pageUrl: "/mt5",
-          },
-          {
-            menuItem: "MetaTrader 4",
-            pageUrl: "/mt4",
-          },
-          {
-            menuItem: "WebTrader",
-            pageUrl: "/webtrader",
-          },
-          {
-            menuItem: "FIX Api",
-            pageUrl: "/fix-api",
-          },
-        ],
-      },
-
-      {
         categoryName: "Markets",
         catMenuItems: [
           {
@@ -79,12 +39,46 @@ export const MegaMenuItems = [
         ],
       },
       {
-        categoryName: "Trading Conditions",
+        categoryName: "Platforms",
         catMenuItems: [
           {
-            menuItem: "Trade Execution",
-            pageUrl: "/trade-execution",
+            menuItem: "MetaTrader 5",
+            pageUrl: "/mt5",
           },
+          {
+            menuItem: "MetaTrader 4",
+            pageUrl: "/mt4",
+          },
+          {
+            menuItem: "WebTrader",
+            pageUrl: "/webtrader",
+          },
+          {
+            menuItem: "FIX Api",
+            pageUrl: "/fix-api",
+          },
+        ],
+      },          
+      {
+        categoryName: "Trading Account",
+        catMenuItems: [
+          {
+            menuItem: "How to Apply",
+            pageUrl: "/how-to-qualify",
+          },
+          {
+            menuItem: "Deposit Options",
+            pageUrl: "/deposit-withdrawal",
+          },
+          {
+            menuItem: "Withdrawal Options",
+            pageUrl: "/deposit-withdrawal",
+          },
+        ],
+      },
+       {
+        categoryName: "Trading Conditions",
+        catMenuItems: [
           {
             menuItem: "Margin & Leverage",
             pageUrl: "/margins-and-leverages",
@@ -94,11 +88,15 @@ export const MegaMenuItems = [
             pageUrl: "/swaps",
           },
           {
+            menuItem: "Trade Execution",
+            pageUrl: "/trade-execution",
+          },          
+          {
             menuItem: "Trading Hours",
             pageUrl: "/trading-hours",
           },
         ],
-      },
+      },       
     ],
   },  
 {
@@ -111,23 +109,6 @@ export const MegaMenuItems = [
       btnLink: "/live-spreads",
     },
     category: [
-      {
-        categoryName: "Verified Model",
-        catMenuItems: [
-          {
-            menuItem: "Lowest Trading Costs",
-            pageUrl: "/lowest-cost-verified",
-          },
-          {
-            menuItem: "Live Spreads",
-            pageUrl: "/live-spreads",
-          },
-          {
-            menuItem: "Trading Calculators",
-            pageUrl: "/calculators",
-          },
-        ],
-      },
       {
       categoryName: "Compare Our Pricing",
       catMenuItems: [
@@ -144,7 +125,20 @@ export const MegaMenuItems = [
           pageUrl: "/vs",
         },
       ],
-    },
+    },      
+      {
+        categoryName: "Verified Pricing Model",
+        catMenuItems: [
+          {
+            menuItem: "Lowest Trading Costs",
+            pageUrl: "/lowest-cost-verified",
+          },
+          {
+            menuItem: "Live Spreads",
+            pageUrl: "/live-spreads",
+          },
+        ],
+      },
     ],
   },
    {
@@ -161,6 +155,10 @@ export const MegaMenuItems = [
         categoryName: "Our Edge",
         catMenuItems: [
           {
+            menuItem: "Lowest Costs Verified",
+            pageUrl: "/lowest-cost-verified",
+          },
+          {
             menuItem: "Execution Integrity",
             pageUrl: "/aligned-execution/",
           },
@@ -168,10 +166,6 @@ export const MegaMenuItems = [
             menuItem: "Flow Rewards",
             pageUrl: "/get-paid-to-trade",
           },
-          {
-            menuItem: "Lowest Costs Verified",
-            pageUrl: "/lowest-cost-verified",
-          }
         ],
       },
       {
@@ -216,6 +210,32 @@ export const MegaMenuItems = [
     },
     category: [
       {
+        categoryName: "Trading Tools",
+        catMenuItems: [
+          {
+            menuItem: "Trading Calculators",
+            pageUrl: "/calculators",
+          },
+        ],
+      },      
+      {
+        categoryName: "Compliance",
+        catMenuItems: [
+          {
+            menuItem: "Legal Documents",
+            pageUrl: "/legal-documents",
+          },
+          {
+            menuItem: "KYC & AML/CTF",
+            pageUrl: "/kyc-aml",
+          },
+          {
+            menuItem: "Licensing",
+            pageUrl: "/license-and-regulations",
+          },
+        ],
+      },
+      {
         categoryName: "Need Support?",
         catMenuItems: [
           {
@@ -227,24 +247,7 @@ export const MegaMenuItems = [
             pageUrl: "/contact-us",
           },
         ],
-      },
-      {
-        categoryName: "Compliance",
-        catMenuItems: [
-          {
-            menuItem: "Licensing",
-            pageUrl: "/license-and-regulations",
-          },
-          {
-            menuItem: "Legal Documents",
-            pageUrl: "/legal-documents",
-          },
-          {
-            menuItem: "KYC & AML/CTF",
-            pageUrl: "/kyc-aml",
-          },
-        ],
-      },
+      },      
     ],
   },
 ];
