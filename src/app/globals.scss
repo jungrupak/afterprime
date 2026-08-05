@@ -119,10 +119,6 @@ body::-webkit-scrollbar {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
-    video {
-      display: none;
-    }
   }
 
   .top-glow-blue {
@@ -148,7 +144,7 @@ body::-webkit-scrollbar {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    mix-blend-mode: color-dodge;
+    mix-blend-mode: hard-light;
     opacity: 0.34;
     pointer-events: none;
     z-index: -1;
@@ -169,55 +165,64 @@ body::-webkit-scrollbar {
     position: fixed;
     inset: -50%;
     background-image: url("/img/grain-noise.png");
+    background-repeat: repeat;
     opacity: 0.6;
     pointer-events: none;
-    will-change: transform;
+    will-change: background-position;
     mix-blend-mode: luminosity;
 
     /* respect system reduced-motion preference */
     @media (prefers-reduced-motion: no-preference) {
-      animation: animateGrain 4s steps(18) infinite;
+      animation: animateGrain 4s steps(12) infinite;
     }
   }
 }
 
 // BG Grain EFFECT CSS ##########
 
+// grain-noise.png is a 424x424 tile. Shifting by a % of the element's box
+// (as before) scales with viewport size, so on smaller screens the jump is
+// far smaller than one tile period and reads as the pattern sliding rather
+// than flickering. Fixed px offsets sized against the real tile keep every
+// step decorrelated from the last regardless of viewport, which is what
+// actually looks like grain instead of drifting static.
 @keyframes animateGrain {
   0%,
   100% {
-    transform: translate(0, 0);
+    background-position: 0px 0px;
   }
-  10% {
-    transform: translate(-5%, -10%);
+  8.33% {
+    background-position: 130px -260px;
   }
-  20% {
-    transform: translate(-15%, -20%);
+  16.66% {
+    background-position: -310px 90px;
   }
-  30% {
-    transform: translate(-5%, -10%);
+  25% {
+    background-position: 70px 340px;
   }
-  40% {
-    transform: translate(-15%, -20%);
+  33.33% {
+    background-position: -260px -130px;
   }
-
+  41.66% {
+    background-position: 190px 210px;
+  }
   50% {
-    transform: translate(-5%, -10%);
+    background-position: -90px -370px;
   }
-  60% {
-    transform: translate(-15%, -20%);
+  58.33% {
+    background-position: 350px 40px;
   }
-  70% {
-    transform: translate(-5%, -10%);
+  66.66% {
+    background-position: -180px 280px;
   }
-  80% {
-    transform: translate(-15%, -20%);
+  75% {
+    background-position: 60px -190px;
   }
-  90% {
-    transform: translate(-5%, -10%);
+  83.33% {
+    background-position: -340px 150px;
   }
-  100% {
-    transform: translate(-15%, -20%);
+  91.66% {
+    background-position: 220px -90px;
   }
 }
 
@@ -326,30 +331,11 @@ body::-webkit-scrollbar {
 section {
   padding: 120px 0;
   position: relative;
+  background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(9px);
   min-height: 200px;
   z-index: 3;
   overflow: hidden;
-
-  // &:after {
-  //   content: "";
-  //   position: fixed;
-  //   inset: -50%;
-  //   background-image: url("/img/grain-noise.png");
-  //   opacity: 0.28;
-  //   pointer-events: none;
-  //   will-change: transform;
-
-  //   /* disable grain on mobile — stops continuous paint + battery drain */
-  //   @media (max-width: 767px) {
-  //     display: none;
-  //   }
-
-  //   /* respect system reduced-motion preference */
-  //   @media (prefers-reduced-motion: no-preference) {
-  //     animation: animateGrain 4s steps(18) infinite;
-  //   }
-  // }
 
   h2 {
     margin-bottom: max(25px, min(5vw, 50px));

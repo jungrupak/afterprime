@@ -55,6 +55,26 @@ export default function Header({ content }: { content: HeaderContent }) {
     return () => observer.disconnect();
   }, []);
 
+  // Lock body scroll while the mobile menu overlay is open — otherwise the
+  // page behind and the overlay both try to scroll on touch, causing the
+  // rubber-band/jump behavior on iOS Safari.
+  useEffect(() => {
+    if (!mobileMenu) return;
+
+    const scrollY = window.scrollY;
+    const { body } = document;
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+
+    return () => {
+      body.style.position = "";
+      body.style.top = "";
+      body.style.width = "";
+      window.scrollTo(0, scrollY);
+    };
+  }, [mobileMenu]);
+
   return (
     <>
       <div ref={riskWarningRef} className={styles.riskWarning}>

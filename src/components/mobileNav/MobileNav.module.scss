@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9;
+  z-index: 20;
   background-color: rgba(var(--alphaBlack), 0.98);
   backdrop-filter: blur(10px);
   color: rgba(var(--alphaWhite), 0.8);
@@ -11,6 +11,13 @@
   padding: 25px;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   transition: all 0.3s ease-in-out;
 }
 
@@ -60,6 +67,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 20;
   background-color: rgba(var(--alphaBlack), 0.98);
   backdrop-filter: blur(10px);
   color: rgba(var(--alphaWhite), 0.8);
@@ -102,8 +110,9 @@
 
 .subMenuItem {
   h4 {
-    opacity: 0.68;
-    margin-bottom: 10px;
+    opacity: 0.48;
+    margin-bottom: 5px;
+    font-size: 14px;
   }
   ul {
     li {
