@@ -12,6 +12,11 @@
   color: rgba(var(--alphaWhite), 0.8);
   width: 100%;
   height: 100vh;
+  // 100vh is the largest possible viewport (address bar collapsed); on real
+  // mobile devices the address bar eats into that, so content pinned near
+  // the bottom (footer buttons) can end up below the actually-visible area
+  // with nothing left to scroll. dvh tracks the real visible viewport.
+  height: 100dvh;
   padding: 25px;
   display: flex;
   flex-direction: column;
@@ -77,6 +82,7 @@
   color: rgba(var(--alphaWhite), 0.8);
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   padding: 25px;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
