@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./style.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { HeaderContent } from "./headerContent";
 import TypeformButton from "../ui/typeForm";
 import Navigation from "../nav/Nav";
@@ -57,8 +57,13 @@ export default function Header({ content }: { content: HeaderContent }) {
 
   // Lock body scroll while the mobile menu overlay is open — otherwise the
   // page behind and the overlay both try to scroll on touch, causing the
-  // rubber-band/jump behavior on iOS Safari.
-  useEffect(() => {
+  // rubber-band/jump behavior on iOS Safari. useLayoutEffect (not useEffect)
+  // so this runs before the browser paints: locking body to position:fixed
+  // forces mobile browsers to snap their address bar back to full size,
+  // which resizes the viewport (and the menu's 100dvh height) — doing that
+  // before paint means it settles before the menu is ever shown, instead of
+  // visibly resizing mid-slide-in when the page was scrolled beforehand.
+  useLayoutEffect(() => {
     if (!mobileMenu) return;
 
     const scrollY = window.scrollY;
