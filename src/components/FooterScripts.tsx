@@ -209,6 +209,14 @@ this._additionalParams.forEach(p => {
               n.LiveChatWidget = n.LiveChatWidget || e;
               setTimeout(function() { e.init(); }, 5000);
           })(window, document, [].slice);
+
+          // Mobile: keep widget collapsed to just the launcher icon,
+          // never auto-expanded (desktop keeps whatever LiveChat dashboard sets).
+          window.LiveChatWidget.on("ready", function() {
+            if (window.matchMedia("(max-width: 767px)").matches) {
+              window.LiveChatWidget.call("minimize");
+            }
+          });
         `}
       </Script>
       <noscript>

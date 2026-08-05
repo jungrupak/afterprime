@@ -2,15 +2,31 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9;
+  z-index: 20;
+  // resets the inherited `visibility: hidden` from the parent <header>
+  // (which is hidden while this menu is open — see Header.tsx) so the
+  // menu overlay itself stays visible.
+  visibility: visible;
   background-color: rgba(var(--alphaBlack), 0.98);
   backdrop-filter: blur(10px);
   color: rgba(var(--alphaWhite), 0.8);
   width: 100%;
   height: 100vh;
+  // 100vh is the largest possible viewport (address bar collapsed); on real
+  // mobile devices the address bar eats into that, so content pinned near
+  // the bottom (footer buttons) can end up below the actually-visible area
+  // with nothing left to scroll. dvh tracks the real visible viewport.
+  height: 100dvh;
   padding: 25px;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   transition: all 0.3s ease-in-out;
 }
 
@@ -60,12 +76,15 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 20;
   background-color: rgba(var(--alphaBlack), 0.98);
   backdrop-filter: blur(10px);
   color: rgba(var(--alphaWhite), 0.8);
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   padding: 25px;
+  overflow: hidden;
   transition: all 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
@@ -78,9 +97,18 @@
 
 .menuItemsWrapper {
   flex: 2;
+  min-height: 0;
   max-height: 100%;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   width: 100%;
+  padding-bottom: 120px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .backArrow {
@@ -102,8 +130,9 @@
 
 .subMenuItem {
   h4 {
-    opacity: 0.68;
-    margin-bottom: 10px;
+    opacity: 0.48;
+    margin-bottom: 5px;
+    font-size: 14px;
   }
   ul {
     li {

@@ -37,7 +37,7 @@ export default async function DataVisual(props: SectionProps) {
           />
           <div className="flex items-end justify-between mb-5 md:mb-10">
             <p
-              className="paragraph max-w-[800px]"
+              className="paragraph"
               dangerouslySetInnerHTML={{
                 __html: data_visialization_section_paragraph ?? "&nbsp;",
               }}

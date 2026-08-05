@@ -5,10 +5,6 @@ export default function VideoBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // Only load + play video on desktop. Mobile: saves bandwidth, battery, and
-    // avoids triggering autoplay network requests blocked by mobile browsers anyway.
-    if (!window.matchMedia("(min-width: 768px)").matches) return;
-
     const video = videoRef.current;
     if (!video) return;
 

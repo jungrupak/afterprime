@@ -140,8 +140,8 @@ export default function MobileNav({
           className={`${styles.menuItemsWrapper} overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none]`}
         >
           {menus?.[activeIndex || 0]?.category?.map((item, idx) => (
-            <div key={idx} className={`${styles.subMenuItem} mt-6`}>
-              <div className={`${styles.catName}`}>{item.categoryName}</div>
+            <div key={idx} className={`${styles.subMenuItem} mt-8`}>
+              <h4 className={`${styles.catName}`}>{item.categoryName}</h4>
               <ul>
                 {item.catMenuItems?.map((label, i) => (
                   <li

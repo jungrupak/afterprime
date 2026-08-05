@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./style.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { HeaderContent } from "./headerContent";
 import TypeformButton from "../ui/typeForm";
 import Navigation from "../nav/Nav";
@@ -55,15 +55,45 @@ export default function Header({ content }: { content: HeaderContent }) {
     return () => observer.disconnect();
   }, []);
 
+  // Lock body scroll while the mobile menu overlay is open — otherwise the
+  // page behind and the overlay both try to scroll on touch, causing the
+  // rubber-band/jump behavior on iOS Safari. useLayoutEffect (not useEffect)
+  // so this runs before the browser paints: locking body to position:fixed
+  // forces mobile browsers to snap their address bar back to full size,
+  // which resizes the viewport (and the menu's 100dvh height) — doing that
+  // before paint means it settles before the menu is ever shown, instead of
+  // visibly resizing mid-slide-in when the page was scrolled beforehand.
+  useLayoutEffect(() => {
+    if (!mobileMenu) return;
+
+    const scrollY = window.scrollY;
+    const { body } = document;
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+
+    return () => {
+      body.style.position = "";
+      body.style.top = "";
+      body.style.width = "";
+      body.style.overflow = "";
+      window.scrollTo(0, scrollY);
+    };
+  }, [mobileMenu]);
+
   return (
     <>
-      <div ref={riskWarningRef} className={styles.riskWarning}>
+      <div
+        ref={riskWarningRef}
+        className={`${styles.riskWarning} ${mobileMenu ? styles.hiddenForMobileMenu : ""}`}
+      >
         {riskWarning}
       </div>
       <header
         className={`${styles.ap_header} ${isSticky ? styles.sticky : ""} ${
           activeIndex != null ? styles.headerActive : ""
-        }`}
+        } ${mobileMenu ? styles.hiddenForMobileMenu : ""}`}
       >
         <div
           className={`${styles.ap_container} ap_container_small flex items-center max-md:py-3 max-lg:px-5 max-xl:px-5 max-xl:gap-10 justify-between`}

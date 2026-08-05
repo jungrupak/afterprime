@@ -56,6 +56,15 @@ export function LivePricingTradingHours({
 
   const tabNavs = c.tabLabels;
 
+  // Index-based — order must match pricingCatLists in this file
+  const tabIcons = [
+    "/img/icons/icon-forex.svg",
+    "/img/icons/icon-crypto.svg",
+    "/img/icons/icon-commo.svg",
+    "/img/icons/icon-metals.svg",
+    "/img/icons/icon-indices.svg",
+  ];
+
   const visibleRows = pricingCatLists[activeTabNav].filter(
     (item) => !["CA60", "SA40", "NOR25", "XCUUSD"].includes(item.symbol),
   );
@@ -71,7 +80,7 @@ export function LivePricingTradingHours({
 
   return (
     <div>
-      <div className="w-full text-center px-6">
+      <div className="w-full">
         <h2 className="h2-size mb-6">
           {c.headingBefore}
           <span>{c.headingHighlight}</span>
@@ -97,6 +106,15 @@ export function LivePricingTradingHours({
                   setActiveTabContentID(tabNavs[index]);
                 }}
               >
+                {tabIcons[index] && (
+                  <Image
+                    src={tabIcons[index]}
+                    alt={nav}
+                    width={14}
+                    height={14}
+                    className="inline-block me-2"
+                  />
+                )}
                 {nav}
               </button>
             ))}
@@ -114,9 +132,7 @@ export function LivePricingTradingHours({
                 className={`${styles.livepricing_table_wrapper} ${styles.trading_hours_table}`}
               >
                 <table className="">
-                  <caption className={`hidden`}>
-                    {c.caption}
-                  </caption>
+                  <caption className={`hidden`}>{c.caption}</caption>
                   <thead>
                     <tr className="">
                       <th scope="col" className="px-4 py-2">
@@ -134,8 +150,7 @@ export function LivePricingTradingHours({
                       <th scope="col" className="px-4 py-2">
                         {c.tableHeaders.marketStatus}
                       </th>
-                      <th scope="col" className="px-4 py-2">
-                      </th>
+                      <th scope="col" className="px-4 py-2"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -163,7 +178,10 @@ export function LivePricingTradingHours({
                                 />
                               </div>
                               <a
-                                href={localizeHref("/forex/" + item.symbol.toLowerCase(), locale)}
+                                href={localizeHref(
+                                  "/forex/" + item.symbol.toLowerCase(),
+                                  locale,
+                                )}
                                 className={`underline decoration-dotted decoration-2 underline-offset-4`}
                               >
                                 {item.symbol}
@@ -238,8 +256,10 @@ export function LivePricingTradingHours({
                             const marketStatus = getStatus(item.symbol);
                             const statusStyles = {
                               open: "bg-[rgba(34,197,94,0.12)] text-[#22C55E]",
-                              break: "bg-[rgba(245,158,11,0.12)] text-[#F59E0B]",
-                              closed: "bg-[rgba(255,48,29,0.12)] text-[#FF301D]",
+                              break:
+                                "bg-[rgba(245,158,11,0.12)] text-[#F59E0B]",
+                              closed:
+                                "bg-[rgba(255,48,29,0.12)] text-[#FF301D]",
                             };
                             return (
                               <span
@@ -256,7 +276,8 @@ export function LivePricingTradingHours({
                           >
                             <Link
                               href={localizeHref(
-                                "/trading-hours/" + item.symbol.toLowerCase(), locale
+                                "/trading-hours/" + item.symbol.toLowerCase(),
+                                locale,
                               )}
                             >
                               <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
@@ -274,7 +295,12 @@ export function LivePricingTradingHours({
           </div>
           <p className="opacity-80 mt-5">
             {c.readyToCompare.split(c.readyToCompareLinkText)[0]}
-            <Link href={localizeHref("/calculators/cost-savings-calculator", locale)}>
+            <Link
+              href={localizeHref(
+                "/calculators/cost-savings-calculator",
+                locale,
+              )}
+            >
               <u>{c.readyToCompareLinkText}</u>
             </Link>
             {c.readyToCompare.split(c.readyToCompareLinkText)[1]}
