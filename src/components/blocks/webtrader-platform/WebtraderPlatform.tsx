@@ -24,6 +24,7 @@ export default async function WebtraderPlatform() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 md:mt-15">
           <Link
             href={localizeHref("/webtrader-mt5", locale)}
+            target="_blank"
             className={`${cardStyles.cardItem} ${cardStyles.cardMt4} flex-col! md:flex-row! items-start! md:items-center! justify-between! gap-6! min-h-[300px]! rounded-[var(--radius-lg)]! overflow-hidden! p-[clamp(28px,4vw,40px)]!`}
           >
             <div className="relative z-10 flex w-full flex-col gap-5 md:max-w-[55%]">
@@ -60,6 +61,7 @@ export default async function WebtraderPlatform() {
           </Link>
           <Link
             href={localizeHref("/webtrader-mt4", locale)}
+            target="_blank"
             className={`${cardStyles.cardItem} ${cardStyles.cardMt4} flex-col! md:flex-row! items-start! md:items-center! justify-between! gap-6! min-h-[300px]! rounded-[var(--radius-lg)]! overflow-hidden! p-[clamp(28px,4vw,40px)]!`}
           >
             <div className="relative z-10 flex w-full flex-col gap-5 md:max-w-[55%]">

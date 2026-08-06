@@ -27,6 +27,7 @@ import { SectionFundingCards } from "./section-funding-methods/FundingCards";
 import {SimpleContentBlock} from "./simple-contents/SimpleContents";
 import {BlockFacts} from "./fact-cards/BlockFacts";
 import {TextContentBlock} from "./text-content/TextContent";
+import WebtraderPlatform from "./webtrader-platform/WebtraderPlatform";
 
 // Heavy blocks — dynamically imported so their JS (chart.js, SignalR, live data)
 // is split into separate chunks and not bundled into the initial page load.
@@ -77,4 +78,5 @@ export const blockRegistry: {
   "reading-content": SimpleContentBlock,
   "fact-cards":BlockFacts,
   "text-content":TextContentBlock,
+  "webtrader-platforms":WebtraderPlatform,
 };

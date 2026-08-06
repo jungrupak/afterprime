@@ -216,6 +216,9 @@ export type Blocks = {
   "text-content": {
     reading_text_content?: string;
   };
+  "webtrader-platforms":{
+    webtrader_platform?:string;
+  }
 };
 //
 
