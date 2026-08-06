@@ -159,6 +159,20 @@ function TradeIcon() {
   );
 }
 
+function StepArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M9 5l7 7-7 7"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 const stepIcons = [ApplyIcon, RegisterIcon, FundIcon, TradeIcon];
 
 export default async function SignupFlow() {
@@ -185,6 +199,11 @@ export default async function SignupFlow() {
                   </p>
                   <h3 className={styles.stepTitle}>{step.title}</h3>
                   <p className={styles.stepDescription}>{step.description}</p>
+                  {index < t.steps.length - 1 && (
+                    <div className={styles.stepArrow} aria-hidden="true">
+                      <StepArrowIcon />
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -203,6 +222,7 @@ export default async function SignupFlow() {
               />
             </div>
           ))}
+          <p className={styles.paymentsLabel}>{t.paymentsLabel}</p>
         </div>
       </div>
     </section>

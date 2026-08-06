@@ -22,4 +22,5 @@ export const signupFlowContent = {
       description: "Raw spreads, zero commission, from day one.",
     },
   ],
+  paymentsLabel: "We accept 12+ deposit methods.",
 };

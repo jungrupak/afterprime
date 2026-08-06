@@ -26,16 +26,18 @@
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  // Wide enough that the 45px arrow circle fits inside the gap with room
+  // to spare on both sides — it never has to overlap a card to be visible.
+  gap: 18px;
 
   @media all and (max-width: 767px) {
     grid-template-columns: 1fr;
-    gap: 20px;
   }
 }
 
 .stepCard {
   position: relative;
+  //z-index: 1;
   background: var(--card-bg-grdnt-top-fade);
   border-radius: var(--radius-lg);
   padding: clamp(24px, 3vw, 32px);
@@ -50,8 +52,39 @@
     background-color 0.3s ease;
 
   &:hover {
-    transform: translateY(-4px);
+    //transform: translateY(-4px);
     background-color: var(--primary-white-4);
+  }
+}
+
+// Subtle right arrow centered in the card-to-card gap, hinting at the
+// step-to-step flow. Desktop only — doesn't make sense once cards stack.
+// The gap (64px) is wider than the circle (45px), so it sits entirely
+// inside the gap and never overlaps or gets clipped by either card.
+.stepArrow {
+  display: none;
+
+  @media all and (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 92%;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    z-index: 10;
+    transform: translate(calc(-50% + 32px), -50%);
+    background: rgba(67, 59, 249, 0.16);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(67, 59, 249, 0.35);
+    color: var(--secondary-color);
+    z-index: 4;
+    svg {
+      width: 18px;
+      height: 18px;
+    }
   }
 }
 
@@ -93,6 +126,14 @@
   font-size: clamp(16px, 5vw, 18px);
   line-height: var(--line-height-medium);
   color: var(--primary-white-60);
+}
+
+.paymentsLabel {
+  font-size: var(--font-size-note);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary-white-50);
 }
 
 .paymentMethods {

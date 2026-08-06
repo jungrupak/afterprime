@@ -1,16 +1,19 @@
 .sectionIntroBlockGeneric {
   position: relative;
   z-index: 2;
-  padding: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: clamp(40px, 10vw, 60px) !important;
+  background-color: transparent;
 }
 
 .sectionIntroContents {
+  position: relative;
   display: flex;
   gap: 8rem;
   align-items: center;
-  background-color: rgba(var(--alphaWhite), 0.08);
+  background-color: rgba(var(--alphaWhite), 0.03);
   padding: 50px;
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px) !important;
   border-radius: var(--radius-xlg);
   > div {
     flex: 1;
