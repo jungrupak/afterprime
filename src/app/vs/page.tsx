@@ -12,6 +12,7 @@ import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getTranslatedMetadata } from "@/lib/seo/metadata";
 import { vsPageContent } from "./vsPageContent";
 import WebtraderPlatform from "@/components/blocks/webtrader-platform/WebtraderPlatform";
+import SignupFlow from "@/components/blocks/signup-flow/SignupFlow";
 
 export async function generateMetadata() {
   const locale = await getRequestLocale();
@@ -170,6 +171,9 @@ export default async function Page() {
           </div>
         </div>
       </section>
+
+      {/* Test Purpose */}
+      <SignupFlow />
 
       <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
         <div className="ap_container_small">

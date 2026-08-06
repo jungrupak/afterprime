@@ -1,0 +1,125 @@
+.stepsWrapper {
+  position: relative;
+  margin-top: clamp(40px, 6vw, 50px);
+}
+
+// Decorative connector line behind the card row. Cards sit above it
+// (z-index 1) with an opaque background, so the line only shows through
+// the grid gaps — no per-badge position math needed. Desktop only.
+.connector {
+  display: none;
+
+  @media all and (min-width: 768px) {
+    display: block;
+    position: absolute;
+    top: 50px;
+    left: 40px;
+    right: 40px;
+    height: 1px;
+    background: var(--border-white);
+    z-index: 0;
+  }
+}
+
+.stepsGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+
+  @media all and (max-width: 767px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.stepCard {
+  position: relative;
+  background: var(--card-bg-grdnt-top-fade);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 3vw, 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    background-color: var(--primary-white-4);
+  }
+}
+
+.iconBadge {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  //   background: var(--border-blue);
+  //   border: 1px solid rgba(67, 59, 249, 0.35);
+  color: var(--secondary-color);
+
+  svg {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.stepEyebrow {
+  margin: 0;
+  font-size: var(--font-size-note);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary-white-50);
+}
+
+.stepTitle {
+  margin: 0;
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: 600;
+  color: var(--primary-white-80);
+}
+
+.stepDescription {
+  margin: 0;
+  font-size: clamp(16px, 5vw, 18px);
+  line-height: var(--line-height-medium);
+  color: var(--primary-white-60);
+}
+
+.paymentMethods {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-top: clamp(28px, 4vw, 40px);
+}
+
+.paymentChip {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+
+  &:hover {
+    border-color: var(--primary-white-20);
+    background-color: var(--primary-white-4);
+  }
+
+  img {
+    height: 35px !important;
+    width: auto;
+  }
+}
