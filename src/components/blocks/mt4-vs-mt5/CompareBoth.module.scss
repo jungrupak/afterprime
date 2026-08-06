@@ -1,0 +1,100 @@
+.tableWrapper {
+  overflow-x: auto;
+  margin-top: clamp(32px, 5vw, 48px);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.compareTable {
+  width: 100%;
+  min-width: 560px;
+  text-align: left;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 18px 20px;
+    border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  th {
+    background: rgba(var(--alphaWhite), 0.06);
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  td {
+    background: rgba(var(--alphaWhite), 0.06);
+    font-size: 18px;
+    color: var(--primary-white-80);
+  }
+
+  th:first-child,
+  td:first-child {
+    color: var(--primary-white-60);
+    font-weight: 400;
+  }
+
+  th:not(:first-child),
+  td:not(:first-child) {
+    text-align: center;
+    width: 26%;
+  }
+
+  // Distinct subtle white tints so MT4 and MT5 columns read apart from
+  // each other, not just from the label column
+  th:nth-child(2),
+  td:nth-child(2) {
+    background: var(--primary-white-4);
+  }
+
+  th:last-child,
+  td:last-child {
+    background: var(--primary-white-10);
+  }
+
+  tr:hover {
+    th,
+    td {
+      background-color: rgba(var(--alphaWhite), 0.09);
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+      background-color: var(--primary-white-8);
+    }
+
+    th:last-child,
+    td:last-child {
+      background-color: var(--primary-white-20);
+    }
+  }
+}
+
+.statusDot {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  &::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+}
+
+// Matches the market-status green already used in LivePricing.tsx
+.statusYes {
+  color: #22c55e;
+}
+
+.statusNo {
+  color: var(--primary-white-40);
+}
