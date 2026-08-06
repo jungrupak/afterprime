@@ -50,7 +50,7 @@ export default async function WebtraderPlatform() {
               aria-hidden="true"
             >
               <Image
-                src="/img/wt-mt5-3.png"
+                src="/img/wt-mt5-4.png"
                 alt=""
                 width={220}
                 height={161}
