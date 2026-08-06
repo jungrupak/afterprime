@@ -6,9 +6,10 @@
 }
 
 .accordion_item {
-  background-color: var(--primary-white-4);
+  background-color: var(--primary-white-2);
   border-radius: var(--radius-lg);
   padding: 20px 20px 20px clamp(25px, 5vw, 32px);
+  backdrop-filter: blur(20px);
   h3 {
     cursor: pointer;
     display: flex;
@@ -31,6 +32,10 @@
         transform: rotate(45deg);
       }
     }
+  }
+  p {
+    opacity: 0.68;
+    line-height: 1.6;
   }
 }
 

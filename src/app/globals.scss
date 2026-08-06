@@ -48,6 +48,7 @@
   --primary-white-8: rgba(244, 244, 250, 0.08);
   --primary-white-6: rgba(244, 244, 250, 0.06);
   --primary-white-4: rgba(244, 244, 250, 0.04);
+  --primary-white-2: rgba(244, 244, 250, 0.02);
   --border-white: rgba(244, 244, 250, 0.1);
   --border-blue: rgba(76, 93, 221, 0.1);
   //Font Sizes
@@ -124,7 +125,7 @@ body::-webkit-scrollbar {
     background-position: center top;
     z-index: 2;
     background-repeat: no-repeat;
-    opacity: 0.24;
+    opacity: 0.14;
     @media (max-width: 767px) {
       background-size: 240%;
     }
@@ -159,12 +160,18 @@ body::-webkit-scrollbar {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 60vh;
+    height: 90vh;
+    // backdrop-filter can't reach the <video> layer in most browsers (its
+    // decoded frames sit outside the normal paint/composite pipeline that
+    // backdrop-filter samples), so a blur here is a no-op on the actual
+    // video — this softening is done as a gradual multi-stop alpha fade
+    // instead, which reads as a soft dissolve rather than a hard cutoff.
     background: linear-gradient(
       to bottom,
       transparent,
-      var(--body-bg) 88%,
-      var(--body-bg)
+      rgba(var(--alphaBlack), 0.35) 35%,
+      rgba(var(--alphaBlack), 0.7) 55%,
+      var(--body-bg) 90%
     );
     z-index: 2;
   }
@@ -287,7 +294,7 @@ body::-webkit-scrollbar {
   font-weight: 300;
   line-height: 1.5;
   p {
-    color: #e1e1e1;
+    color: var(--primary-white-60);
     margin-bottom: max(40px, min(5vw, 50px));
     font-size: max(20px, min(5vw, 26px));
     font-weight: 300;

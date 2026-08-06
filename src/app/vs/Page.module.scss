@@ -163,14 +163,14 @@
 .bottomCta {
   background: var(--card-bg-grdnt-top-fade);
   background-size: cover;
-  //border-radius: 25px;
+  backdrop-filter: blur(20px);
   width: 100%;
   min-height: 400px;
   padding-block: clamp(40px, 5vw, 80px);
   padding-inline: clamp(30px, 5vw, 45px);
   overflow: hidden;
   border-radius: var(--radius-xlg);
-  border: solid 1px var(--primary-white-4);
+  //border: solid 1px var(--primary-white-4);
   h2 {
     font-size: max(38px, min(5vw, 50px));
     font-weight: 700;

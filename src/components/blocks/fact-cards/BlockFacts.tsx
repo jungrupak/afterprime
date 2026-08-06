@@ -24,9 +24,7 @@ export function BlockFacts(block: SectionFactsProps) {
     });
 
   return (
-    <section
-      className={`${styles.sectionFacts} compact-section relative overflow-hidden`}
-    >
+    <section className={`${styles.sectionFacts} relative overflow-hidden`}>
       <div className="ap_container_small relative z-10">
         <div className={`${styles.factWrapper}`}>
           <FactsVideoBg />
@@ -42,10 +40,7 @@ export function BlockFacts(block: SectionFactsProps) {
             {cards.length > 0 && (
               <div className={`${styles.factGrid} mt-16`}>
                 {cards.map((card, index) => (
-                  <div
-                    key={index}
-                    className="flex gap-4 items-start text-left"
-                  >
+                  <div key={index} className="flex gap-4 items-start text-left">
                     <BulletBlue />
                     <div>
                       <h3 className={styles.cardTitle}>{card.title}</h3>

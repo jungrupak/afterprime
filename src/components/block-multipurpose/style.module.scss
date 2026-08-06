@@ -1,8 +1,9 @@
 .compWrapper {
   position: relative;
   &.boxed {
-    background-color: rgba(var(--alphaWhite), 0.04);
+    background-color: rgba(var(--alphaWhite), 0.02);
     padding-block: clamp(45px, 5vw, 80px);
     padding-inline: clamp(30px, 5vw, 80px);
+    backdrop-filter: blur(20px);
   }
 }
