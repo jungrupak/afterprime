@@ -66,7 +66,11 @@ export default async function CostComparisonWithSelected({
     typeof value === "number" && Number.isFinite(value) ? value : fallback;
 
   const locale = await getRequestLocale();
-  const t = await getTranslatedStatic("vs-compare-ap-selected", locale, compareApSelectedContent);
+  const t = await getTranslatedStatic(
+    "vs-compare-ap-selected",
+    locale,
+    compareApSelectedContent,
+  );
 
   // ✅ safely map slug → broker display name
   const mappedBrokerName =
@@ -95,11 +99,14 @@ export default async function CostComparisonWithSelected({
     brokersToPick.includes(item.broker),
   );
 
-  const lastUpdated = new Date().toLocaleDateString(locale === "en" ? "en-GB" : locale, {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const lastUpdated = new Date().toLocaleDateString(
+    locale === "en" ? "en-GB" : locale,
+    {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    },
+  );
 
   const selectedBrokerName = mappedBrokerName ?? "selected broker";
 
@@ -111,14 +118,14 @@ export default async function CostComparisonWithSelected({
         <div
           className={`${styles.costCompareTableHead} grid grid-cols-7 gp-10 md:gap-5 max-md:hidden`}
         >
-          <div className="col-span-2 text-[#ffffff]!">{t.brokerLabel}</div>
-          <div className="col-span-2 text-[#ffffff]!">{t.pairsLabel}</div>
-          <div className="col-span-2 text-[#ffffff]!">
+          <div className="col-span-2 ">{t.brokerLabel}</div>
+          <div className="col-span-2 ">{t.pairsLabel}</div>
+          <div className="col-span-2">
             {t.costPerLotLabel}
             <br />
             {t.costPerLotSub}
           </div>
-          <div className="col-span-1 text-[#ffffff]! text-right">
+          <div className="col-span-1 text-right">
             <b>
               {t.savingsLabel}
               <br />
@@ -170,7 +177,9 @@ export default async function CostComparisonWithSelected({
             <u>{t.sourceName}</u>
           </a>{" "}
           {t.sourceNote}
-          {t.lastUpdatedPrefix} {lastUpdated}{t.lastUpdatedSuffix}<br />
+          {t.lastUpdatedPrefix} {lastUpdated}
+          {t.lastUpdatedSuffix}
+          <br />
           <br />
           {t.costDescription.replace("{brokerName}", selectedBrokerName)}
         </p>

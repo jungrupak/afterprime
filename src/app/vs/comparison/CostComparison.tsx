@@ -138,11 +138,11 @@ export default function CostComparison({
     <>
       <div className={`ap_container_small relative z-1 w-full z-5`}>
         <h2
-          className={`text-[clamp(38px_,5vw_,50px)] font-semibold max-md:leading-[1.2]`}
+          className={`text-[clamp(38px_,5vw_,50px)] font-semibold max-md:leading-[1.2] mb-5!`}
         >
           {content.heading}
         </h2>
-        <p className={`paragraph mb-[clamp(25px_,5vw_,50px)]`}>
+        <p className={`paragraph mb-[clamp(25px_,5vw_,30px)]`}>
           {content.introText}
         </p>
         <div className={`${styles.costCompareTable}`}>

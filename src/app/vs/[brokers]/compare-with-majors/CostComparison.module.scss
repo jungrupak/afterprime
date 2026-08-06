@@ -12,9 +12,9 @@
   opacity: 1;
   margin-bottom: 5px;
   transition: all 0.3s ease-in-out;
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.14);
+  background-color: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(10px);
   @media all and (max-width: 767px) {
     margin-top: 5px;
@@ -25,12 +25,13 @@
     position: relative;
   }
   &:hover {
-    background-color: rgba(255, 255, 255, 0.16);
+    background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     opacity: 1;
   }
   &.afterprime {
-    background-color: var(--secondary-color);
+    border: solid 1px rgb(67, 59, 249);
+    background-color: rgba(67, 59, 249, 0.08);
     backdrop-filter: blur(10px);
     opacity: 1;
   }
@@ -51,7 +52,8 @@
 .isBest {
   width: 80px;
   height: 34px;
-  background-color: var(--secondary-color);
+  border: solid 1px rgb(67, 59, 249);
+  background-color: rgba(67, 59, 249, 0.08);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -93,6 +95,10 @@
       }
     }
   }
+}
+.apCplCol {
+  border: solid 1px rgb(67, 59, 249);
+  background-color: rgba(67, 59, 249, 0.08);
 }
 
 .monthlyVloumeBtn {

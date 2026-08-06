@@ -71,14 +71,16 @@ export default function CompareWithMajorsClient({
         <div
           className={`${styles.costCompareTableHead} grid grid-cols-8 gp-10 md:gap-0 max-md:hidden`}
         >
-          <div className="col-span-2 text-[#ffffff]!">{t.fxPair}</div>
-          <div className="col-span-2 text-[#ffffff]!">
+          <div className="col-span-2">{t.fxPair}</div>
+          <div className="col-span-2">
             {competitorLabel} <br /> {t.netCostLot}
           </div>
-          <div className="col-span-2 bg-[var(--secondary-color)] text-white!">
-            {t.afterprimeNetCostLot}
+          <div className="col-span-2">
+            AFTERPRIME
+            <br />
+            {t.netCostLot} {t.afterprimeNetCostLot}
           </div>
-          <div className="col-span-2 text-[#ffffff]! text-right">
+          <div className="col-span-2 text-right">
             <b>
               {t.costSavings}
               <br />
@@ -115,7 +117,10 @@ export default function CompareWithMajorsClient({
                     className="flex gap-5 max-md:justify-between"
                   >
                     <Link
-                      href={localizeHref(`/vs/${broker}/${symbol.toLowerCase()}`, locale)}
+                      href={localizeHref(
+                        `/vs/${broker}/${symbol.toLowerCase()}`,
+                        locale,
+                      )}
                       className={`underline decoration-dotted decoration-2 underline-offset-4`}
                     >
                       {symbol}
@@ -133,7 +138,7 @@ export default function CompareWithMajorsClient({
                 </div>
                 <div
                   className="col-span-2 max-md:col-span-3 max-md:pb-2!"
-                  data-label={`${competitorName} (Cost/Lot)`}
+                  data-label={`${competitorName} ${t.cpl}`}
                 >
                   <div className="flex flex-col gap-1">
                     ${competitorBrokerCostPerLot.toFixed(2)}
@@ -141,8 +146,8 @@ export default function CompareWithMajorsClient({
                 </div>
 
                 <div
-                  data-label="Afterprime (Cost/Lot)"
-                  className="col-span-2 max-md:col-span-3 md:bg-[var(--secondary-color)] text-white! max-md:px-1!"
+                  data-label={`Afterprime ${t.cpl}`}
+                  className={`col-span-2 max-md:col-span-3 text-white! max-md:px-1! ${styles.apCplCol}`}
                 >
                   <b>${(afterprimeCostPerLot - rebate).toFixed(2)}</b>
                 </div>
@@ -175,7 +180,9 @@ export default function CompareWithMajorsClient({
                         <tbody>
                           {[50, 100, 250, 500, 1000].map((volume) => (
                             <tr key={volume}>
-                              <td>{volume} {t.lots}</td>
+                              <td>
+                                {volume} {t.lots}
+                              </td>
                               <td>
                                 $
                                 {(competitorBrokerCostPerLot * volume).toFixed(
@@ -216,12 +223,19 @@ export default function CompareWithMajorsClient({
             <u>{t.forexBenchmark}</u>
           </a>{" "}
           {t.sourceSuffix}
-          {t.lastUpdatedPrefix} {lastUpdated}{t.lastUpdatedSuffix}<br />
+          {t.lastUpdatedPrefix} {lastUpdated}
+          {t.lastUpdatedSuffix}
+          <br />
           <br />
           {footerRebate !== null && (
             <>
-              {t.flowRewardsNote.replace("${rebate}", `$${footerRebate.toFixed(2)}`)}{" "}
-              <a href={localizeHref("/get-paid-to-trade", locale)}>{t.flowRewardsLink}</a>{" "}
+              {t.flowRewardsNote.replace(
+                "${rebate}",
+                `$${footerRebate.toFixed(2)}`,
+              )}{" "}
+              <a href={localizeHref("/get-paid-to-trade", locale)}>
+                {t.flowRewardsLink}
+              </a>{" "}
               {t.flowRewardsNoteSuffix}
               <br />
               {t.disclaimer}

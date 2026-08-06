@@ -96,24 +96,11 @@ export function RewardFlowTabs({
                 </th>
                 <th className={styles.flowRewardCell}>
                   Flow Rewards<sup>TM</sup>
-                  <br />
-                  (Per lot round turn)
+                  <span>(Per lot round turn)</span>
                 </th>
-                <th>
-                  Trade 50 Lots
-                  <br />
-                  Earn
-                </th>
-                <th>
-                  Trade 100 Lots
-                  <br />
-                  Earn
-                </th>
-                <th>
-                  Trade 250 Lots
-                  <br />
-                  Earn
-                </th>
+                <th>Trade 50 Lots Earn</th>
+                <th>Trade 100 Lots Earn</th>
+                <th>Trade 250 Lots Earn</th>
               </tr>
             </thead>
             <tbody>
