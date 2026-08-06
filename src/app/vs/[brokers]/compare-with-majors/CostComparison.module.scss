@@ -64,7 +64,7 @@
 }
 
 .volumeTable {
-  background-color: rgba(255, 255, 255, 0.08);
+  //background-color: rgba(255, 255, 255, 0.04);
   padding: 0 !important;
   overflow-x: auto;
   table {
@@ -109,4 +109,8 @@
   align-self: center;
   font-weight: 500;
   cursor: pointer;
+  &.notActive {
+    border: solid 1px rgb(67, 59, 249);
+    background-color: rgba(67, 59, 249, 0.08);
+  }
 }

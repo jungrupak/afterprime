@@ -127,7 +127,7 @@ export default function CompareWithMajorsClient({
                     </Link>
 
                     <div
-                      className={styles.monthlyVloumeBtn}
+                      className={`${styles.monthlyVloumeBtn} ${index === rowIndex ? styles.active : styles.notActive}`}
                       onClick={() =>
                         setRowIndex((prev) => (prev === index ? null : index))
                       }
@@ -138,7 +138,7 @@ export default function CompareWithMajorsClient({
                 </div>
                 <div
                   className="col-span-2 max-md:col-span-3 max-md:pb-2!"
-                  data-label={`${competitorName} ${t.cpl}`}
+                  data-label={`${t.cpl}`}
                 >
                   <div className="flex flex-col gap-1">
                     ${competitorBrokerCostPerLot.toFixed(2)}
@@ -163,7 +163,7 @@ export default function CompareWithMajorsClient({
                   ).toFixed(2)}
                 </div>
                 {rowIndex === index && (
-                  <div className="p-0! col-span-8">
+                  <div className="pt-0! col-span-8">
                     <h4 className="font-semibold text-[16px] px-[15px] py-[10px] bg-[rgba(255_,255_,255_,.04)]">
                       {t.costByVolume.replace("{symbol}", symbol)}
                     </h4>

@@ -6,7 +6,7 @@ import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
 
-function CardArrow() {
+export function CardArrow() {
   return (
     <div className={styles.cardCta} aria-hidden="true">
       <svg
