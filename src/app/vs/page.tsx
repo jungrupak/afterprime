@@ -171,9 +171,6 @@ export default async function Page() {
         </div>
       </section>
 
-      {/* Component Testing */}
-      <WebtraderPlatform />
-
       <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
         <div className="ap_container_small">
           <CostComparison locale={locale} content={costCompT} />
