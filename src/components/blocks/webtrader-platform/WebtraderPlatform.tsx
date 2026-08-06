@@ -23,7 +23,7 @@ export default async function WebtraderPlatform() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 md:mt-15">
           <Link
-            href={localizeHref("/webtrader-mt5", locale)}
+            href={"https://mt5web.afterprime.io/terminal"}
             target="_blank"
             className={`${cardStyles.cardItem} ${cardStyles.cardMt4} flex-col! md:flex-row! items-start! md:items-center! justify-between! gap-6! min-h-[300px]! rounded-[var(--radius-lg)]! overflow-hidden! p-[clamp(28px,4vw,40px)]!`}
           >
