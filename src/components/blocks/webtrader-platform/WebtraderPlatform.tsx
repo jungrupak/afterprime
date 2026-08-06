@@ -2,17 +2,28 @@ import Image from "next/image";
 import Link from "next/link";
 import cardStyles from "../platform-cards-section-static/PlatformCards.module.scss";
 import { CardArrow } from "../platform-cards-section-static/PlatformCards";
+import { webtraderPlatformContent } from "./webtraderPlatformContent";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import { localizeHref } from "@/lib/locale/localizeHref";
 
-export default function WebtraderPlatform() {
+export default async function WebtraderPlatform() {
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic(
+    "webtrader-platform",
+    locale,
+    webtraderPlatformContent,
+  );
+
   return (
     <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
       <div className="ap_container_small">
-        <h2 className={`mb-3! md:mb-5!`}>WebTrader Platform</h2>
-        <p className="paragraph">Get Access your Platform via Web Browsers.</p>
+        <h2 className={`mb-3! md:mb-5!`}>{t.heading}</h2>
+        <p className="paragraph">{t.paragraph}</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 md:mt-15">
           <Link
-            href="/webtrader-mt5"
+            href={localizeHref("/webtrader-mt5", locale)}
             className={`${cardStyles.cardItem} ${cardStyles.cardMt4} flex-col! md:flex-row! items-start! md:items-center! justify-between! gap-6! min-h-[300px]! rounded-[var(--radius-lg)]! overflow-hidden! p-[clamp(28px,4vw,40px)]!`}
           >
             <div className="relative z-10 flex w-full flex-col gap-5 md:max-w-[55%]">
@@ -24,12 +35,12 @@ export default function WebtraderPlatform() {
                 aria-hidden="true"
               />
               <div className="flex flex-col gap-3">
-                <h3>MT5 WebTrader</h3>
-                <p>Access your MetaTrader 5 account from your web browser.</p>
+                <h3>{t.mt5.title}</h3>
+                <p>{t.mt5.description}</p>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-[14px] font-bold text-white">
-                  MT5 Login
+                  {t.mt5.ctaLabel}
                 </span>
                 <CardArrow />
               </div>
@@ -48,7 +59,7 @@ export default function WebtraderPlatform() {
             </div>
           </Link>
           <Link
-            href="/webtrader-mt4"
+            href={localizeHref("/webtrader-mt4", locale)}
             className={`${cardStyles.cardItem} ${cardStyles.cardMt4} flex-col! md:flex-row! items-start! md:items-center! justify-between! gap-6! min-h-[300px]! rounded-[var(--radius-lg)]! overflow-hidden! p-[clamp(28px,4vw,40px)]!`}
           >
             <div className="relative z-10 flex w-full flex-col gap-5 md:max-w-[55%]">
@@ -60,14 +71,12 @@ export default function WebtraderPlatform() {
                 aria-hidden="true"
               />
               <div className="flex flex-col gap-3">
-                <h3>MT4 WebTrader</h3>
-                <p>
-                  Access your MetaTrader 4 live account from your web browser.
-                </p>
+                <h3>{t.mt4.title}</h3>
+                <p>{t.mt4.description}</p>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-[14px] font-bold text-white">
-                  MT4 Login
+                  {t.mt4.ctaLabel}
                 </span>
                 <CardArrow />
               </div>
