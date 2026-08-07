@@ -8,7 +8,7 @@ export const earningCalcContent = {
   fiveYearLabel: "5 yrs Flow Earnings are",
   disclaimerLinkText: "transparent execution model",
   disclaimerSuffix:
-    "captures up to $3 per lot traded, compounding into thousands in additional earnings.",
+    "captures up to $3 per lot traded, compounding into additional earnings.",
 };
 
 export type EarningCalcContent = typeof earningCalcContent;
