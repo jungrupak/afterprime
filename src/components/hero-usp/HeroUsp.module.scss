@@ -17,13 +17,13 @@
     display: block;
   }
   .value {
-    font-size: 55px;
+    font-size: var(--heading-lg);
     font-weight: 300;
     line-height: 0.9;
     color: #95ff00;
   }
   .descp {
-    font-size: 18px;
+    font-size: var(--reading-text-xs);
     text-align: left;
     opacity: 0.8;
     line-height: 1.4;

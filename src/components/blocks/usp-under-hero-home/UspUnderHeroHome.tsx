@@ -66,7 +66,7 @@ export async function UspUnderHome(props: USPBlockProps) {
           </div>
           <div className="max-md:flex items-center flex-col">
             <GoogleReviewBadge />
-            <span className="text-[20px] font-[300] mt-6 block">
+            <span className="reading-text-sm font-[300] mt-6 block">
               <p>{usp_under_home_static_info_text || ""}</p>
             </span>
           </div>

@@ -40,7 +40,7 @@ export default async function WebtraderPlatform() {
                 <p>{t.mt5.description}</p>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[14px] font-bold text-white">
+                <span className="text-[length:var(--font-size-note)] font-bold text-white">
                   {t.mt5.ctaLabel}
                 </span>
                 <CardArrow />
@@ -77,7 +77,7 @@ export default async function WebtraderPlatform() {
                 <p>{t.mt4.description}</p>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[14px] font-bold text-white">
+                <span className="text-[length:var(--font-size-note)] font-bold text-white">
                   {t.mt4.ctaLabel}
                 </span>
                 <CardArrow />

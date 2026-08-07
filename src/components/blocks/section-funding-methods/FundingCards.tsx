@@ -72,7 +72,7 @@ export async function SectionFundingCards({
                   alt="Image Alt"
                   className={`${styles.methodIcon}`}
                 />
-                <div className="mt-5 text-[28px] font-[700]">
+                <div className="mt-5 reading-text-lg font-[700]">
                   {card.method_name}
                 </div>
                 <div className="db mt-5 opacity-68">
@@ -112,7 +112,7 @@ export async function SectionFundingCards({
                   alt="Image Alt"
                   className={`${styles.methodIcon}`}
                 />
-                <div className="mt-5 text-[28px] font-[700]">
+                <div className="mt-5 reading-text-lg font-[700]">
                   {card.method_name}
                 </div>
                 <div className="db mt-5 opacity-68">

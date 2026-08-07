@@ -12,14 +12,14 @@
   gap: 8rem;
   > div {
     h3 {
-      font-size: 45px;
+      font-size: var(--heading-md);
       margin-bottom: 10px;
       font-weight: 600;
       color: #95ff00;
       line-height: 1;
     }
     p {
-      font-size: 22px;
+      font-size: var(--reading-text-md);
       line-height: 1.2;
     }
     &:last-child {
