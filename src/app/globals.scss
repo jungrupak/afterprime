@@ -67,13 +67,6 @@
   --reading-text-xs: clamp(16.5px, 5vw, 18px);
   --reading-text-caption: clamp(12.5px, 5vw, 14px);
   //
-  --hero-heading: 68px;
-  --section-title: 52px;
-  --block-content-title: 42px;
-  --block-content-texts: 18px;
-  --section-descp: 26px;
-  --card-heading: 22px;
-  --card-descp: 18px;
   --font-size-note: 14px;
   --font-size-tiny: 12px;
 
@@ -119,7 +112,7 @@
   line-height: var(--line-height-compact);
 }
 .font-size-heading-md {
-  font-size: var(--heading-lg);
+  font-size: var(--heading-md);
   line-height: var(--line-height-default);
 }
 .font-size-heading-sm {
