@@ -1,7 +1,7 @@
 export const signupFlowContent = {
   heading: "Start Trading in 4 Steps",
   subheading:
-    "From application to first trade — here's exactly how it works.",
+    "From application to first trade here's exactly how it works.",
   stepLabel: "Step",
   steps: [
     {

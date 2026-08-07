@@ -29,11 +29,16 @@
     font-weight: 300;
     line-height: 1.5;
     color: var(--primary-white-60);
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  p {
     margin-bottom: clamp(30px, 5vw, 50px);
   }
   a:last-child,
   button:last-child {
-    margin-top: auto;
+    margin-top: clamp(30px, 5vw, 50px);
   }
   ul,
   ol {

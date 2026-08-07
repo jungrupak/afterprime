@@ -252,10 +252,16 @@
     font-weight: 300;
     line-height: 1.5;
     color: var(--primary-white-60);
-    margin-bottom: clamp(20px, 5vw, 40px);
     &:last-child {
-      margin-bottom: clamp(5px, 5vw, 28px);
+      margin-bottom: 0;
     }
+  }
+  p {
+    margin-bottom: clamp(30px, 5vw, 50px);
+  }
+  a:last-child,
+  button:last-child {
+    margin-top: clamp(30px, 5vw, 50px);
   }
 }
 
