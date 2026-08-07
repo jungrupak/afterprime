@@ -157,7 +157,7 @@ export default async function TradePage() {
                       key={`${categoryName}-${groupIndex}`}
                       className={`mb-8 ${styles.listParent}`}
                     >
-                      <h4 className={`font-bold text-[28px] mb-2 md:mb-4`}>
+                      <h4 className={`font-bold reading-text-lg mb-2 md:mb-4`}>
                         {categoryLabels[categoryName].toUpperCase()}
                       </h4>
 
