@@ -4,7 +4,7 @@ import Image from "next/image";
 export function Disconnected() {
   return (
     <div
-      className={`${styles.disconnected} flex gap-4 text-[18px] items-center justify-center`}
+      className={`${styles.disconnected} flex gap-4 reading-text-xs items-center justify-center`}
     >
       <Image
         width={20}

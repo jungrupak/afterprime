@@ -69,7 +69,7 @@ export default function Navigation({ menus }: MenuItems) {
               className="relative"
               href="/trading-calculator"
             >
-              <span className="absolute -top-4 right-0 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
+              <span className="absolute -top-4 right-0 bg:red block text-[length:var(--font-size-tiny)] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
                 NEW
               </span>
               Trading Calculator
@@ -113,7 +113,7 @@ export default function Navigation({ menus }: MenuItems) {
                           {menuItem.menuItem}
                         </Link>
                         {menuItem.menuItem === "Trading Calculator" && (
-                          <span className="absolute top-1 -right-10 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
+                          <span className="absolute top-1 -right-10 bg:red block text-[length:var(--font-size-tiny)] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
                             NEW
                           </span>
                         )}

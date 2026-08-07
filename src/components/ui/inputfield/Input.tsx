@@ -40,7 +40,11 @@ export default function Input({
 
       {/* {type === "number" && <NubersInputArrow />} */}
 
-      {error && <p className="text-[red] text-[11px] mt-[5px]">{error}</p>}
+      {error && (
+        <p className="text-[red] text-[length:var(--font-size-tiny)] mt-[5px]">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

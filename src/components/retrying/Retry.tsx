@@ -4,7 +4,7 @@ import Image from "next/image";
 export function Retrying() {
   return (
     <div
-      className={`${styles.retrying} flex gap-4 text-[18px] items-center justify-center`}
+      className={`${styles.retrying} flex gap-4 reading-text-xs items-center justify-center`}
     >
       <Image
         width={20}

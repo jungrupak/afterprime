@@ -157,7 +157,7 @@ export default function MobileNav({
                       {label.menuItem}
                     </Link>
                     {label.menuItem === "Trading Calculator" && (
-                      <span className="absolute top-2 right-0 bg:red block text-[10px] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
+                      <span className="absolute top-2 right-0 bg:red block text-[length:var(--font-size-tiny)] text-white bg-[red] p-[4px] leading-[1] rounded-[4px]">
                         NEW
                       </span>
                     )}

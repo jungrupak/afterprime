@@ -11,14 +11,14 @@ export function ProsNCons({ data }: ProsConsProps) {
     <>
       {/* Pros */}
       <div className="mb-16">
-        <h3 className="font-bold text-[18px] mb-8">{data.pros.label}</h3>
+        <h3 className="font-bold reading-text-xs mb-8">{data.pros.label}</h3>
         <Lists listItems={data.pros.points} bulletVarient="arrow-blue" />
       </div>
       {/* Ends */}
 
       {/* Cons */}
       <div>
-        <h3 className="font-bold text-[18px] mb-8">{data.cons.label}</h3>
+        <h3 className="font-bold reading-text-xs mb-8">{data.cons.label}</h3>
         <Lists listItems={data.cons.points} bulletVarient="arrow-red" />
       </div>
       {/* Cons Ends */}
