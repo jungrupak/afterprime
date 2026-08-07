@@ -35,11 +35,11 @@ export default async function InnerBanner({
       >
         <div className="ap_container_small flex items-center h-full">
           <div className={`apBannerContent w-full`}>
-            <h1 className="font-size-heading-xl mt-13 md:mt-18">
+            <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold">
               {inner_banner_title}
             </h1>
             <div
-              className="paragraph mt-5 md:mt-10 opacity-80"
+              className="reading-text-lg mt-5 md:mt-10 opacity-60"
               style={{ fontWeight: "300" }}
               dangerouslySetInnerHTML={{
                 __html: inner_banner_paragraph || "&nbsp;",

@@ -55,6 +55,18 @@
   --body-font: 16px;
   --display: clamp(50px, 10vw, 84px);
   --heading-xl: clamp(42px, 5vw, 68px);
+  --heading-lg: clamp(38px, 5vw, 50px);
+  --heading-md: clamp(32px, 5vw, 40px);
+  --heading-sm: clamp(25px, 5vw, 30px);
+  --heading-xs: clamp(21.5px, 5vw, 25px);
+  //
+  --reading-text-xl: clamp(24px, 5vw, 32px);
+  --reading-text-lg: clamp(20px, 5vw, 28px);
+  --reading-text-md: clamp(20px, 5vw, 22px);
+  --reading-text-sm: clamp(18px, 5vw, 20px);
+  --reading-text-xs: clamp(16.5px, 5vw, 18px);
+  --reading-text-caption: clamp(12.5px, 5vw, 14px);
+  //
   --hero-heading: 68px;
   --section-title: 52px;
   --block-content-title: 42px;
@@ -101,9 +113,47 @@
 .font-size-heading-xl {
   font-size: var(--heading-xl);
   line-height: var(--line-height-compact);
-  font-weight: var(--weight-semibold);
 }
+.font-size-heading-lg {
+  font-size: var(--heading-lg);
+  line-height: var(--line-height-compact);
+}
+.font-size-heading-md {
+  font-size: var(--heading-lg);
+  line-height: var(--line-height-default);
+}
+.font-size-heading-sm {
+  font-size: var(--heading-sm);
+  line-height: var(--line-height-default);
+}
+.font-size-heading-xs {
+  font-size: var(--heading-xs);
+  line-height: var(--line-height-default);
+}
+//
 .reading-text-xl {
+  font-size: var(--reading-text-xl);
+  line-height: var(--line-height-medium);
+}
+.reading-text-lg {
+  font-size: var(--reading-text-lg);
+  line-height: var(--line-height-medium);
+}
+.reading-text-md {
+  font-size: var(--reading-text-md);
+  line-height: var(--line-height-default);
+}
+.reading-text-sm {
+  font-size: var(--reading-text-sm);
+  line-height: var(--line-height-default);
+}
+.reading-text-xs {
+  font-size: var(--reading-text-xs);
+  line-height: var(--line-height-default);
+}
+.reading-text-caption {
+  font-size: var(--reading-text-caption);
+  line-height: var(--line-height-default);
 }
 
 //Ends Font size and veriants
