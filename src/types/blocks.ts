@@ -218,7 +218,13 @@ export type Blocks = {
   };
   "webtrader-platforms":{
     webtrader_platform?:string;
-  }
+  };
+  "signup-flow":{
+    signup_steps?:string;
+  };
+  "mt4-vs-mt5":{
+    compare_metatraders?:string;
+  };
 };
 //
 

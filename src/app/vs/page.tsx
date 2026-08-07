@@ -173,10 +173,6 @@ export default async function Page() {
         </div>
       </section>
 
-      {/* Test Purpose */}
-      <SignupFlow />
-      <CompareMT4MT5 />
-
       <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
         <div className="ap_container_small">
           <CostComparison locale={locale} content={costCompT} />

@@ -28,6 +28,8 @@ import {SimpleContentBlock} from "./simple-contents/SimpleContents";
 import {BlockFacts} from "./fact-cards/BlockFacts";
 import {TextContentBlock} from "./text-content/TextContent";
 import WebtraderPlatform from "./webtrader-platform/WebtraderPlatform";
+import SignupFlow from "./signup-flow/SignupFlow";
+import CompareMT4MT5 from "./mt4-vs-mt5/CompareBoth";
 
 // Heavy blocks — dynamically imported so their JS (chart.js, SignalR, live data)
 // is split into separate chunks and not bundled into the initial page load.
@@ -79,4 +81,6 @@ export const blockRegistry: {
   "fact-cards":BlockFacts,
   "text-content":TextContentBlock,
   "webtrader-platforms":WebtraderPlatform,
+  "signup-flow": SignupFlow,
+  "mt4-vs-mt5":CompareMT4MT5,
 };
