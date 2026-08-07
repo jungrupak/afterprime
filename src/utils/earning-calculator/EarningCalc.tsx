@@ -113,7 +113,9 @@ export function EarningCalc({
         </div>
       </div>
 
-      <div className="bg-[var(--primary-white-8)] py-5 px-10 note_box text-center mt-5 text-[var(--primary-white-60)]">
+      <div
+        className={`py-5 px-10 note_box text-center mt-5 text-[var(--primary-white-60)] ${styles.calcDisclaimer}`}
+      >
         Afterprime&apos;s{" "}
         <a href={disclaimerHref}>
           <u>{content.disclaimerLinkText}</u>
