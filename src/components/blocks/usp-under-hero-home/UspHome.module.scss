@@ -18,7 +18,7 @@
       color: #95ff00;
       line-height: 1;
     }
-    p {
+    &:not(:last-child) p {
       font-size: var(--reading-text-md);
       line-height: 1.2;
     }
