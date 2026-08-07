@@ -84,66 +84,66 @@ export default async function page({ params }: PageSlug) {
             <div dangerouslySetInnerHTML={{ __html: contents ?? "" }} />
           </div>
           <div className={`mt-5 md:mt-15`}>
-            <h3 className={`text-[35px] mb-3 md:mb-5`}>{glossaryTermT.relatedToolsHeading}</h3>
-            <p className={`text-[18px] mb-3 md:mb-5`}>
+            <h3 className={`font-size-heading-sm mb-3 md:mb-5`}>{glossaryTermT.relatedToolsHeading}</h3>
+            <p className={`reading-text-xs mb-3 md:mb-5`}>
               {glossaryTermT.relatedToolsIntro}
             </p>
             <ul className="ulli mb-0!">
               <li>
                 <Link
-                  style={{ textDecoration: "underline", fontSize: 20 }}
+                  style={{ textDecoration: "underline", fontSize: "var(--reading-text-sm)" }}
                   href={localizeHref("/calculators/pip-value-calculator", locale)}
                 >
                   {glossaryTermT.pipValueCalculator}
                 </Link>
                 <br />
-                <p className={`text-[16px] opacity-65`}>
+                <p className={`reading-text-xs opacity-65`}>
                   {glossaryTermT.pipValueDescription}
                 </p>
               </li>
               <li>
                 <Link
-                  style={{ textDecoration: "underline", fontSize: 20 }}
+                  style={{ textDecoration: "underline", fontSize: "var(--reading-text-sm)" }}
                   href={localizeHref("/calculators/position-size-calculator", locale)}
                 >
                   {glossaryTermT.positionSizeCalculator}
                 </Link>
                 <br />
-                <p className={`text-[16px] opacity-65`}>
+                <p className={`reading-text-xs opacity-65`}>
                   {glossaryTermT.positionSizeDescription}
                 </p>
               </li>
               <li>
                 <Link
-                  style={{ textDecoration: "underline", fontSize: 20 }}
+                  style={{ textDecoration: "underline", fontSize: "var(--reading-text-sm)" }}
                   href={localizeHref("/calculators/drawdown-calculator", locale)}
                 >
                   {glossaryTermT.drawdownCalculator}
                 </Link>
                 <br />
-                <p className={`text-[16px] opacity-65`}>{glossaryTermT.drawdownDescription}</p>
+                <p className={`reading-text-xs opacity-65`}>{glossaryTermT.drawdownDescription}</p>
               </li>
               <li>
                 <Link
-                  style={{ textDecoration: "underline", fontSize: 20 }}
+                  style={{ textDecoration: "underline", fontSize: "var(--reading-text-sm)" }}
                   href={localizeHref("/vs", locale)}
                 >
                   {glossaryTermT.compareCosts}
                 </Link>
                 <br />
-                <p className={`text-[16px] opacity-65`}>
+                <p className={`reading-text-xs opacity-65`}>
                   {glossaryTermT.compareCostsDescription}
                 </p>
               </li>
               <li>
                 <Link
-                  style={{ textDecoration: "underline", fontSize: 20 }}
+                  style={{ textDecoration: "underline", fontSize: "var(--reading-text-sm)" }}
                   href={localizeHref("/live-spreads", locale)}
                 >
                   {glossaryTermT.liveSpreads}
                 </Link>
                 <br />
-                <p className={`text-[16px] opacity-65`}>
+                <p className={`reading-text-xs opacity-65`}>
                   {glossaryTermT.liveSpreadsDescription}
                 </p>
               </li>

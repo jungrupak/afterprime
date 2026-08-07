@@ -166,7 +166,7 @@ export default function Faq({
   return (
     <div className={`my-8 md:my-20`}>
       <div className={`${styles.faq_block}`}>
-        <h2 className="text-[34px] font-[700] mb-5! md:mb-8!">
+        <h2 className="font-size-heading-sm font-[700] mb-5! md:mb-8!">
           {instrument.toUpperCase()} {faqSubject}
         </h2>
         {/* Fixed Questions */}

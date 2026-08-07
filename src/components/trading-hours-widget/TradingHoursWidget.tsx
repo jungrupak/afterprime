@@ -376,7 +376,7 @@ export default function TradingHoursWidget({
               {openDay && openUtc && (
                 <span className={`md:ml-auto`}>
                   <span className={styles.scheduleLabel}>Opens</span>
-                  <span className={`text-[14px]`}>
+                  <span className={`text-[length:var(--font-size-note)]`}>
                     {openDay} {openUtc}
                   </span>
                 </span>
@@ -387,7 +387,7 @@ export default function TradingHoursWidget({
               {closeDay && closeUtc && (
                 <span className={`md:ml-auto`}>
                   <span className={styles.scheduleLabel}>Closes</span>
-                  <span className={`text-[14px]`}>
+                  <span className={`text-[length:var(--font-size-note)]`}>
                     {closeDay} {closeUtc}
                   </span>
                 </span>

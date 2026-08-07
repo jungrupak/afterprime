@@ -22,7 +22,7 @@
   gap: 8px;
   border-radius: 999px;
   padding: 5px 14px;
-  font-size: clamp(14px, 5vw, 16px);
+  font-size: var(--font-size-note);
   font-weight: 600;
 
   &.open {
@@ -50,12 +50,12 @@
 }
 
 .countdown {
-  font-size: clamp(14px, 5vw, 16px);
+  font-size: var(--font-size-note);
   opacity: 0.85;
 }
 
 .dateTime {
-  font-size: clamp(14px, 5vw, 16px);
+  font-size: var(--font-size-note);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 
@@ -79,7 +79,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: clamp(14px, 5vw, 16px);
+  font-size: var(--font-size-note);
   opacity: 0.55;
   white-space: nowrap;
   flex-shrink: 0;
@@ -90,7 +90,7 @@
   background: transparent;
   border: none;
   color: var(--white);
-  font-size: clamp(14px, 5vw, 16px);
+  font-size: var(--font-size-note);
   font-weight: 500;
   cursor: pointer;
   outline: none;
@@ -104,7 +104,7 @@
 
 // ── Day columns ───────────────────────────────────────────────
 .dayColumnsLabel {
-  font-size: clamp(18px, 5vw, 20px);
+  font-size: var(--reading-text-sm);
   margin-bottom: 14px;
   font-weight: 700;
 }
@@ -123,7 +123,7 @@
 }
 
 .dayName {
-  font-size: 14px;
+  font-size: var(--font-size-note);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.65;
@@ -134,7 +134,7 @@
   text-align: center;
   padding: 10px 4px;
   border-radius: 10px;
-  font-size: clamp(12px, 3vw, 14px);
+  font-size: var(--font-size-note);
   font-variant-numeric: tabular-nums;
   background: rgba(var(--alphaWhite), 0.05);
   border: 1px solid rgba(var(--alphaWhite), 0.08);
@@ -151,12 +151,12 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: clamp(14px, 5vw, 16px);
+  font-size: var(--font-size-note);
   flex-wrap: wrap;
 }
 
 .scheduleLabel {
-  font-size: clamp(14px, 5vw, 16px);
+  font-size: var(--font-size-note);
   text-transform: uppercase;
   letter-spacing: 0.07em;
   opacity: 0.45;
@@ -168,7 +168,7 @@
 }
 
 .breakNote {
-  font-size: clamp(12px, 5vw, 14px);
+  font-size: var(--font-size-note);
   opacity: 0.45;
   margin-top: 12px;
 }
@@ -179,7 +179,7 @@
   gap: 8px;
   border-radius: 999px;
   padding: 4px 12px;
-  font-size: clamp(12px, 5vw, 14px);
+  font-size: var(--font-size-note);
   font-weight: 500;
   background: rgba(251, 191, 36, 0.15);
   color: #fbbf24;
@@ -222,13 +222,13 @@
 }
 
 .sessionLabel {
-  font-size: clamp(12px, 5vw, 14px);
+  font-size: var(--font-size-note);
   opacity: 0.6;
   margin-bottom: 6px;
 }
 
 .sessionTime {
-  font-size: clamp(18px, 3vw, 22px);
+  font-size: var(--reading-text-md);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }

@@ -248,7 +248,7 @@ export default async function Page({ params }: PageProps) {
           </div>
 
           <div className={`${styles.faq_block} mb-0! mt-10 md:mt-20`}>
-            <h2 className="text-[34px] font-[700] mb-5! md:mb-8!">
+            <h2 className="font-size-heading-sm font-[700] mb-5! md:mb-8!">
               {symbolName.toUpperCase()} {swapPageT.faqHeading}
             </h2>
             <Accordion faqObjects={FAQ_DATA} />

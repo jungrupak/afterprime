@@ -46,7 +46,7 @@ function LPBannerXAUUSD({
             />
           </div>
           <div className={`flex flex-wrap gap-10 mt-5 max-md:justify-center max-md:text-center md:mt-10`}>
-            <div className={`opacity-64 text-[14px] max-md:flex-[0_,0_,100%]`}>
+            <div className={`opacity-64 text-[length:var(--font-size-note)] max-md:flex-[0_,0_,100%]`}>
               {c.inviteOnlyNote}
               <br /> {c.dataVerifiedNote}
             </div>
@@ -191,7 +191,7 @@ function LPBannerDefault({
           </div>
 
           <div className={`flex flex-wrap gap-10 mt-5 max-md:justify-center max-md:text-center md:mt-10`}>
-            <div className={`opacity-64 text-[14px] max-md:flex-[0_,0_,100%]`}>
+            <div className={`opacity-64 text-[length:var(--font-size-note)] max-md:flex-[0_,0_,100%]`}>
               {c.inviteOnlyNote}
               <br /> {c.dataVerifiedNote}
             </div>

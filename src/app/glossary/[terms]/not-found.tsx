@@ -12,7 +12,7 @@ export default function CalculatorNotFound() {
     <section>
       <div className="ap_container">
         <div className="text-center px-6">
-          <h1 className="text-[clamp(50px,10vw,68px)] font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mt-30">
+          <h1 className="font-size-heading-xl font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mt-30">
             Sorry, Item Not Found!
           </h1>
           <p className="mt-4 text-xl text-gray-400 mb-20">

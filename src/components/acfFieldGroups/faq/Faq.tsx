@@ -47,7 +47,7 @@ export default function Faq(props: FaqProps) {
         <section className={`${styles.faq_section} compact-section`}>
           <div className="ap_container_small">
             <div className={`${styles.faq_block}`}>
-              <h2 className="text-[34px] font-[700] mb-4! md:mb-8!">
+              <h2 className="font-size-heading-sm font-[700] mb-4! md:mb-8!">
                 {ssection_title}
               </h2>
 

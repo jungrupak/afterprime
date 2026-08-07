@@ -59,7 +59,7 @@ export default function Author() {
           alt="Jeremy Kinstlinger, CEO of Afterprime"
         />
         <div>
-          <h5 className={`font-semibold text-[18px]`}>Jeremy Kinstlinger</h5>
+          <h5 className={`font-semibold reading-text-xs`}>Jeremy Kinstlinger</h5>
           {dateStr && <span className={`opacity-65`}>{dateStr}</span>}
         </div>
       </div>

@@ -64,13 +64,13 @@ export default async function page() {
             <div className={`${styles.cardItem} ${styles.cardLarge}`}>
               <h3 className={`ml-0!`}>
                 <span
-                  className={`text-[clamp(30px,5vw,48px)] font-[300] block`}
+                  className={`font-size-heading-lg font-[300] block`}
                 >
                   1.
                 </span>
               </h3>
               <p
-                className={`opacity-80 text-[18px]! mb-0!`}
+                className={`opacity-80 text-[length:var(--reading-text-xs)]! mb-0!`}
                 dangerouslySetInnerHTML={{ __html: glossaryT.step1 }}
               />
             </div>
@@ -78,13 +78,13 @@ export default async function page() {
             <div className={`${styles.cardItem} ${styles.cardLarge}`}>
               <h3 className={`ml-0!`}>
                 <span
-                  className={`text-[clamp(30px,5vw,48px)] font-[300] block`}
+                  className={`font-size-heading-lg font-[300] block`}
                 >
                   2.
                 </span>
               </h3>
               <p
-                className={`opacity-80 text-[18px]! mb-0!`}
+                className={`opacity-80 text-[length:var(--reading-text-xs)]! mb-0!`}
                 dangerouslySetInnerHTML={{ __html: glossaryT.step2 }}
               />
             </div>
@@ -92,13 +92,13 @@ export default async function page() {
             <div className={`${styles.cardItem} ${styles.cardLarge}`}>
               <h3 className={`ml-0!`}>
                 <span
-                  className={`text-[clamp(30px,5vw,48px)] font-[300] block`}
+                  className={`font-size-heading-lg font-[300] block`}
                 >
                   3.
                 </span>
               </h3>
               <p
-                className={`opacity-80 text-[18px]! mb-0!`}
+                className={`opacity-80 text-[length:var(--reading-text-xs)]! mb-0!`}
                 dangerouslySetInnerHTML={{ __html: glossaryT.step3 }}
               />
             </div>

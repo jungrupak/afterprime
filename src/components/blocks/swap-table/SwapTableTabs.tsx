@@ -156,14 +156,14 @@ export function SwapTableTabs({
                         {row.swapShort ?? "-"}
                       </td>
                       <td className="px-4 py-2" t-name="Market Hours">
-                        <div className="flex md:justify-end text-[16px] items-center">
+                        <div className="flex md:justify-end text-[length:var(--font-size-note)] items-center">
                           <a
                             href={localizeHref(
                               `/trading-hours/${row.symbol?.toLowerCase()}`,
                               locale,
                             )}
                           >
-                            <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
+                            <span className="text-[length:var(--font-size-note)] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
                               {t.tradingHoursLink}
                             </span>
                           </a>

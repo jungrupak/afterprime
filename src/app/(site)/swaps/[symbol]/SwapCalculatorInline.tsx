@@ -91,7 +91,7 @@ export default function SwapCalculatorInline({
     <div className={styles.calculatorWrap}>
       <div className={styles.calculatorCard}>
         <div className={styles.calculatorHeader}>
-          <div className="text-[32px] font-semibold">{content.heading}</div>
+          <div className="font-size-heading-sm font-semibold">{content.heading}</div>
           <p className="paragraph opacity-80 text-[1.1rem]!">
             {content.introText.replace("{symbol}", symbol.toUpperCase())}
             <br />
