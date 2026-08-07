@@ -97,6 +97,12 @@
 //if desktop  = 18 then mobile = 13
 //if desktop  = 15 then mobile = 10
 //
+//Spacing and Typo rules
+//Block or section heading == font-size-heading-lg mb-4 md:mb-6 opacity-80
+//Block or section subheading == reading-text-md opacity-60 mb-8 md:mb-12
+//Content Part heading == font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold
+//Content part Paragraph == reading-text-md font-[300]
+//Caption text == reading-text-caption opacity-40
 
 //FONT Verients and variables
 .font-size-display {
@@ -109,11 +115,11 @@
 }
 .font-size-heading-lg {
   font-size: var(--heading-lg);
-  line-height: var(--line-height-compact);
+  line-height: var(--line-height-small);
 }
 .font-size-heading-md {
   font-size: var(--heading-md);
-  line-height: var(--line-height-default);
+  line-height: var(--line-height-small);
 }
 .font-size-heading-sm {
   font-size: var(--heading-sm);
@@ -367,13 +373,12 @@ body::-webkit-scrollbar {
   font-size: max(20px, min(5vw, 26px));
   font-weight: 300;
   line-height: 1.5;
-  p {
-    color: var(--primary-white-60);
-    margin-bottom: max(40px, min(5vw, 50px));
-    font-size: max(20px, min(5vw, 26px));
+  p,
+  > div {
+    font-size: var(--reading-text-md);
+    line-height: var(--line-height-default);
     font-weight: 300;
-    line-height: 1.5;
-
+    color: var(--primary-white-60);
     &:last-child {
       margin-bottom: 0;
     }
@@ -389,8 +394,10 @@ body::-webkit-scrollbar {
 
     li {
       margin-bottom: 20px;
-      font-size: max(20px, min(5vw, 26px));
-      font-weight: 300;
+      font-size: var(--reading-text-md);
+      line-height: var(--line-height-default);
+      font-weight: 500;
+      color: var(--primary-white-60);
 
       &:last-child {
         margin-bottom: 0;
@@ -418,11 +425,6 @@ section {
   min-height: 200px;
   z-index: 3;
   overflow: hidden;
-
-  h2 {
-    margin-bottom: max(25px, min(5vw, 50px));
-    font-size: max(38px, min(5vw, 50px));
-  }
 
   > * {
     position: relative;

@@ -23,24 +23,22 @@
   line-height: 1.5;
   color: #e1e1e1;
   h2 {
-    font-size: clamp(38px, 5vw, 50px);
     font-weight: 600;
-    line-height: 1.2;
-    margin-bottom: clamp(25px, 5vw, 50px);
+  }
+  p {
+    margin-bottom: clamp(20px, 5vw, 25px);
   }
   p,
   > div {
-    font-size: clamp(20px, 5vw, 26px);
+    font-size: var(--reading-text-md);
+    line-height: var(--line-height-default);
     font-weight: 300;
-    line-height: 1.5;
     color: var(--primary-white-60);
     &:last-child {
       margin-bottom: 0;
     }
   }
-  p {
-    margin-bottom: clamp(30px, 5vw, 50px);
-  }
+
   a:last-child,
   button:last-child {
     margin-top: clamp(30px, 5vw, 50px);

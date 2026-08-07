@@ -81,13 +81,13 @@ export function LivePricingTradingHours({
   return (
     <div>
       <div className="w-full">
-        <h2 className="h2-size mb-6">
+        <h2 className="font-size-heading-lg mb-4 md:mb-6 opacity-80">
           {c.headingBefore}
-          <span>{c.headingHighlight}</span>
+          {c.headingHighlight}
           {c.headingAfter}
         </h2>
         <p
-          className="paragraph mb-20 max-md:mb-10 opacity-90"
+          className="reading-text-md opacity-60 mb-8 md:mb-12"
           dangerouslySetInnerHTML={{ __html: c.description }}
         />
       </div>
@@ -293,7 +293,7 @@ export function LivePricingTradingHours({
               </div>
             )}
           </div>
-          <p className="opacity-80 mt-5">
+          <p className="reading-text-caption opacity-40 mt-5">
             {c.readyToCompare.split(c.readyToCompareLinkText)[0]}
             <Link
               href={localizeHref(

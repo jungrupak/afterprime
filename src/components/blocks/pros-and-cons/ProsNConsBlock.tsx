@@ -97,12 +97,14 @@ export async function ProsNConsBlock({
           {/* Left */}
           <div>
             <div className="max-md:text-center xl:pr-25 xl:rtl:pr-0">
-              <h2 className="h2-size mb-6">{heading}</h2>
+              <h2 className="font-size-heading-lg mb-4 md:mb-6 opacity-80">
+                {heading}
+              </h2>
               <div
-                className="paragraph"
+                className="reading-text-md opacity-60 mb-8 md:mb-12"
                 dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
               />
-              <div className="mt-12">
+              <div className="">
                 <Button
                   varient="primary-ghost"
                   size="regular"

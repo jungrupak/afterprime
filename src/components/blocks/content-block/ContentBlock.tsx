@@ -79,7 +79,7 @@ export default async function ContentBlock({
                   : "order-1"
               }`}
             >
-              <h2 className="h2-size" style={{ fontWeight: "600" }}>
+              <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80">
                 {content_block_with_image_heading}
               </h2>
               <div

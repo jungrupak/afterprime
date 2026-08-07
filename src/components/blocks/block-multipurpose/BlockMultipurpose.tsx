@@ -112,7 +112,7 @@ export async function MultipurposeBlock({
               } `}
             >
               <h2
-                className="h2-size mb-6"
+                className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold"
                 dangerouslySetInnerHTML={{ __html: heading || "&nbsp;" }}
               ></h2>
               <div
@@ -133,7 +133,10 @@ export async function MultipurposeBlock({
                   <>
                     <Button
                       varient="primary-ghost"
-                      href={localizeHref(multipurpose_block_cta_url || "/", locale)}
+                      href={localizeHref(
+                        multipurpose_block_cta_url || "/",
+                        locale,
+                      )}
                       isArrowVisible={true}
                       size="regular"
                     >
@@ -175,9 +178,7 @@ export async function MultipurposeBlock({
 
             {multipurpose_block_active_right_column_content_block === "1" && (
               <div className="max-md:text-center md:pe-25">
-                <h2 className="h2-size mb-6">
-                  {t.rightTitle}
-                </h2>
+                <h2 className="h2-size mb-6">{t.rightTitle}</h2>
                 <div
                   className="wysWygEditor"
                   dangerouslySetInnerHTML={{ __html: htmlContent2 || "&nbsp;" }}
