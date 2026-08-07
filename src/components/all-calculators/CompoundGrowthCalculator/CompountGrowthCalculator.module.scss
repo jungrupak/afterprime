@@ -8,7 +8,7 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: var(--reading-text-lg);
   font-weight: 700;
   margin: 0 0 8px 0;
   background: linear-gradient(135deg, #64ffda 0%, #48bb78 100%);
@@ -18,7 +18,7 @@
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: var(--reading-text-caption);
   color: #8892b0;
   margin: 0;
 }
@@ -45,7 +45,7 @@
   gap: 8px;
 
   label {
-    font-size: 12px;
+    font-size: var(--font-size-tiny);
     font-weight: 600;
     color: #8892b0;
     text-transform: uppercase;
@@ -71,7 +71,7 @@
     background: transparent;
     border: none;
     padding: 12px;
-    font-size: 16px;
+    font-size: var(--font-size-note);
     color: #fff;
     outline: none;
     min-width: 0;
@@ -82,7 +82,7 @@
     border: none;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     padding: 12px;
-    font-size: 14px;
+    font-size: var(--font-size-note);
     color: #fff;
     cursor: pointer;
     outline: none;
@@ -97,7 +97,7 @@
 .suffix {
   padding: 0 12px;
   color: #64748b;
-  font-size: 14px;
+  font-size: var(--font-size-note);
 }
 
 .rrInputs {
@@ -117,7 +117,7 @@
     background: transparent;
     border: none;
     padding: 12px 0;
-    font-size: 16px;
+    font-size: var(--font-size-note);
     color: #fff;
     outline: none;
     width: 60px;
@@ -126,7 +126,7 @@
 
 .rrLabel {
   color: #64748b;
-  font-size: 14px;
+  font-size: var(--font-size-note);
 }
 
 .slider {
@@ -182,7 +182,7 @@
 
 .resultLabel {
   display: block;
-  font-size: 12px;
+  font-size: var(--font-size-tiny);
   color: #8892b0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -191,7 +191,7 @@
 
 .resultValue {
   display: block;
-  font-size: 36px;
+  font-size: var(--heading-sm);
   font-weight: 700;
   color: #64ffda;
 }
@@ -202,7 +202,7 @@
   padding: 4px 12px;
   background: rgba(100, 255, 218, 0.15);
   border-radius: 20px;
-  font-size: 14px;
+  font-size: var(--font-size-note);
   font-weight: 600;
   color: #64ffda;
 
@@ -232,7 +232,7 @@
 
 .statLabel {
   display: block;
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: #64748b;
   text-transform: uppercase;
   margin-bottom: 6px;
@@ -240,14 +240,14 @@
 
 .statValue {
   display: block;
-  font-size: 20px;
+  font-size: var(--reading-text-sm);
   font-weight: 600;
   color: #fff;
 }
 
 .statNote {
   display: block;
-  font-size: 10px;
+  font-size: var(--font-size-tiny);
   color: #475569;
   margin-top: 4px;
 }
@@ -266,12 +266,12 @@
 }
 
 .edgeLabel {
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
   color: #8892b0;
 }
 
 .edgeValue {
-  font-size: 18px;
+  font-size: var(--reading-text-xs);
   font-weight: 700;
   color: #64ffda;
 
@@ -316,14 +316,14 @@
 }
 
 .edgeMessage {
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
   color: #8892b0;
   margin: 12px 0 0 0;
   text-align: center;
 }
 
 .sectionTitle {
-  font-size: 14px;
+  font-size: var(--font-size-note);
   font-weight: 600;
   color: #8892b0;
   margin: 0 0 16px 0;
@@ -362,14 +362,14 @@
 
 .milestoneTarget {
   display: block;
-  font-size: 16px;
+  font-size: var(--font-size-note);
   font-weight: 600;
   color: #64ffda;
 }
 
 .milestoneTrades {
   display: block;
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: #64748b;
   margin-top: 4px;
 }

@@ -97,10 +97,10 @@ export default function ResultSendToEmail({
       className={`${styles.resultSendinEmail} p-[25px] md:p-[30px_40px_40px_40px]`}
     >
       <div className={styles.resultSendinEmailContent}>
-        <h3 className={`text-[20px] font-bold mb-2`}>
+        <h3 className={`reading-text-sm font-bold mb-2`}>
           {content.resultSendToEmail.heading}
         </h3>
-        <p className={`text-[16px] mb-5 opacity-65`}>
+        <p className={`reading-text-xs mb-5 opacity-65`}>
           {content.resultSendToEmail.description}
         </p>
         <div

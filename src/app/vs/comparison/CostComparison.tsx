@@ -138,7 +138,7 @@ export default function CostComparison({
     <>
       <div className={`ap_container_small relative z-1 w-full z-5`}>
         <h2
-          className={`text-[clamp(38px_,5vw_,50px)] font-semibold max-md:leading-[1.2] mb-5!`}
+          className={`font-size-heading-lg font-semibold max-md:leading-[1.2] mb-5!`}
         >
           {content.heading}
         </h2>
@@ -202,7 +202,7 @@ export default function CostComparison({
                         locale,
                       )}
                       scroll={true}
-                      className={`underline hover:no-underline text-[14px] max-md:text-[16px] block`}
+                      className={`underline hover:no-underline text-[length:var(--font-size-note)] block`}
                     >
                       {content.fullComparison}
                     </Link>

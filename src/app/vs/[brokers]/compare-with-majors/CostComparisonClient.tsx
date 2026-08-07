@@ -164,7 +164,7 @@ export default function CompareWithMajorsClient({
                 </div>
                 {rowIndex === index && (
                   <div className="pt-0! col-span-8">
-                    <h4 className="font-semibold text-[16px] px-[15px] py-[10px] bg-[rgba(255_,255_,255_,.04)]">
+                    <h4 className="font-semibold text-[length:var(--font-size-note)] px-[15px] py-[10px] bg-[rgba(255_,255_,255_,.04)]">
                       {t.costByVolume.replace("{symbol}", symbol)}
                     </h4>
                     <div className={styles.volumeTable}>
@@ -216,7 +216,7 @@ export default function CompareWithMajorsClient({
           })}
         </div>
       </div>
-      <div className="text-[14px] opacity-60 mt-5">
+      <div className="text-[length:var(--font-size-note)] opacity-60 mt-5">
         <p className="risk-warning-all">
           {t.sourcePrefix}{" "}
           <a href="https://www.forexbenchmark.com" target="_blank">

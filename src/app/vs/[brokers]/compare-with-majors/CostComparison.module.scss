@@ -1,14 +1,14 @@
 .costCompareTableHead {
   > div {
     padding: 15px;
-    font-size: 14px;
+    font-size: var(--font-size-note);
     color: rgba(255, 255, 255, 0.6);
     font-weight: 600;
   }
 }
 
 .costCompareTableRow {
-  font-size: clamp(16px, 5vw, 18px);
+  font-size: var(--reading-text-xs);
   opacity: 1;
   margin-bottom: 5px;
   transition: all 0.3s ease-in-out;
@@ -42,7 +42,7 @@
       &:before {
         content: attr(data-label);
         display: block;
-        font-size: 12px;
+        font-size: var(--font-size-tiny);
         opacity: 0.68;
       }
     }
@@ -78,7 +78,7 @@
       }
     }
     tr th {
-      font-size: 14px;
+      font-size: var(--font-size-note);
       background-color: rgba(255, 255, 255, 0.1);
       font-weight: 400;
       padding: 5px 15px;
@@ -102,7 +102,7 @@
 }
 
 .monthlyVloumeBtn {
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   padding: 2px 10px;
   background-color: rgba(255, 255, 255, 0.14);
   border-radius: 10px;

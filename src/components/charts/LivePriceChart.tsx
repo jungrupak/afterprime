@@ -67,9 +67,9 @@ export default function LivePriceChart({
       <div className="p-5 pb-0">
         <div className="flex justify-between items-start mb-1">
           <div>
-            <h2 className="text-[22px] mb-2 font-semibold text-white/90 tracking-tight">
+            <h2 className="reading-text-md mb-2 font-semibold text-white/90 tracking-tight">
               {symbol.toUpperCase()}{" "}
-              <span className="text-[18px] text-white/30 font-medium">
+              <span className="reading-text-xs text-white/30 font-medium">
                 {c.livePriceLabel}
               </span>
             </h2>
@@ -111,13 +111,13 @@ export default function LivePriceChart({
             <div className="flex items-center gap-3 justify-end mt-0.5">
               {liveData && (
                 <>
-                  <span className="text-[16px] text-white/30">
+                  <span className="text-[length:var(--font-size-note)] text-white/30">
                     {c.askLabel}{" "}
                     <span className="text-white/60 font-medium">
                       {liveData.bestAsk.toFixed(5)}
                     </span>
                   </span>
-                  <span className="text-[16px] text-white/30">
+                  <span className="text-[length:var(--font-size-note)] text-white/30">
                     {c.spreadLabel}{" "}
                     <span className="text-white/60 font-medium">
                       {liveData.spread}

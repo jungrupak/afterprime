@@ -105,7 +105,7 @@ export default function VsSymbolHero({
                     className={`${styles.statPillValue} ${styles.statPillSaving}`}
                   >
                     ${savingPer100Lots.toFixed(0)}{" "}
-                    <span className={`text-[14px] ${styles.statPillLabel}`}>
+                    <span className={`text-[length:var(--font-size-tiny)] ${styles.statPillLabel}`}>
                       {t.afterprimeLabel}
                     </span>
                   </div>

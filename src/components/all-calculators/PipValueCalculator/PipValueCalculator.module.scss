@@ -8,7 +8,7 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: var(--reading-text-lg);
   font-weight: 700;
   margin: 0 0 8px;
   background: linear-gradient(135deg, #06b6d4, #8b5cf6);
@@ -18,7 +18,7 @@
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: var(--reading-text-caption);
   color: #94a3b8;
   margin: 0;
 }
@@ -45,7 +45,7 @@
   gap: 8px;
 
   label {
-    font-size: 12px;
+    font-size: var(--font-size-tiny);
     color: #94a3b8;
     text-transform: uppercase;
   }
@@ -57,7 +57,7 @@
     border-radius: 8px;
     padding: 12px;
     color: #fff;
-    font-size: 14px;
+    font-size: var(--font-size-note);
     color-scheme: dark;
     outline: none;
 
@@ -108,7 +108,7 @@
 
 .label {
   display: block;
-  font-size: 14px;
+  font-size: var(--font-size-note);
   color: #94a3b8;
   text-transform: uppercase;
   margin-bottom: 8px;
@@ -116,7 +116,7 @@
 
 .value {
   display: block;
-  font-size: 42px;
+  font-size: var(--heading-md);
   font-weight: 700;
   background: linear-gradient(135deg, #06b6d4, #8b5cf6);
   -webkit-background-clip: text;
@@ -126,7 +126,7 @@
 
 .note {
   display: block;
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
   color: #64748b;
   margin-top: 4px;
 
@@ -156,28 +156,28 @@
 
 .lotName {
   display: block;
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
   font-weight: 600;
   color: #fff;
 }
 
 .lotUnits {
   display: block;
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: #64748b;
   margin: 4px 0 8px;
 }
 
 .lotValue {
   display: block;
-  font-size: 20px;
+  font-size: var(--reading-text-sm);
   font-weight: 700;
   color: #06b6d4;
 }
 
 .pipTable {
   h3 {
-    font-size: 14px;
+    font-size: var(--font-size-note);
     color: #94a3b8;
     margin: 0 0 12px;
     text-transform: uppercase;
@@ -198,14 +198,14 @@
   }
 
   th {
-    font-size: 11px;
+    font-size: var(--font-size-tiny);
     color: #64748b;
     text-transform: uppercase;
     font-weight: 600;
   }
 
   td {
-    font-size: 14px;
+    font-size: var(--font-size-note);
     color: #e4e4e7;
   }
 

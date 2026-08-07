@@ -439,7 +439,7 @@ export default async function ChildPage({ params }: Props) {
           >
             <div>
               <h2
-                className={`text-[clamp(30px_,5vw_,50px)]! md:mb-8! leading-[1]`}
+                className={`text-[length:var(--heading-lg)]! md:mb-8! leading-[1]`}
               >
                 {ctaBlockFields?.title}
               </h2>

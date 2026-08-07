@@ -563,7 +563,7 @@ export default function CostSavingsCalculatorInstrument({
           </div>
         </div>
 
-        <div className="text-[14px] opacity-60 col-span-full">
+        <div className="text-[length:var(--font-size-note)] opacity-60 col-span-full">
           <p className="risk-warning-all">
             {content.legal.part1}
             <a href={localizeHref("/get-paid-to-trade", locale)}>{content.legal.linkText}</a>

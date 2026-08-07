@@ -413,7 +413,7 @@ export default function TradingCalculator({
       <div className="grid grid-cols-6 gap-8 md:gap-20">
         {/* Caclulator room */}
         <div className="col-span-6 md:col-span-6 lg:col-span-3">
-          <h3 className="text-[18px] font-[600]">
+          <h3 className="reading-text-xs font-[600]">
             {content.tradeSettingsHeading}{" "}
             <span className="opacity-65 font-[300]">
               {content.tradeSettingsSubtitleTrading}
@@ -474,7 +474,7 @@ export default function TradingCalculator({
             <div className="md:col-span-2 col-span-4">
               <span className="opacity-60 mb-3 block">
                 {content.lotSizeLabel}{" "}
-                <span className="text-[10px]">
+                <span className="text-[length:var(--font-size-tiny)]">
                   {content.minLotLabel.replace(
                     "{value}",
                     String(result.minLotSize),
@@ -588,7 +588,7 @@ export default function TradingCalculator({
               </Button>
 
               {/* This is for test preview of what data have been grabbed so far */}
-              {/* <h3 className="text-[20px] my-5">
+              {/* <h3 className="reading-text-sm my-5">
                 Calculation Factors: Just for QA and test
               </h3>
               <div>
@@ -614,7 +614,7 @@ export default function TradingCalculator({
 
         {/* Result room */}
         <div className="col-span-6 md:col-span-6 lg:col-span-3 !z-0">
-          <h3 className="text-[18px] font-[600]">
+          <h3 className="reading-text-xs font-[600]">
             {content.resultsHeading}{" "}
             <span className="opacity-65 font-[300]">
               {content.resultsSubtitle}
@@ -627,7 +627,7 @@ export default function TradingCalculator({
                 <span>{content.marginLongLabel}</span>
                 <div className="flex items-center gap-1">
                   {loading ? <ProgressLoader /> : result.marginLong}{" "}
-                  <span className="text-[14px] opacity-65">
+                  <span className="text-[length:var(--font-size-note)] opacity-65">
                     {activeCurrency}
                   </span>
                 </div>
@@ -640,7 +640,7 @@ export default function TradingCalculator({
                 <span>{content.marginShortLabel}</span>
                 <div className="flex items-center gap-1">
                   {loading ? <ProgressLoader /> : result.marginShort}{" "}
-                  <span className="text-[14px] opacity-65">
+                  <span className="text-[length:var(--font-size-note)] opacity-65">
                     {activeCurrency}
                   </span>
                 </div>
@@ -667,7 +667,7 @@ export default function TradingCalculator({
                   ) : (
                     formatNumber(result.spread, 1)
                   )}{" "}
-                  <span className="text-[14px] opacity-65">
+                  <span className="text-[length:var(--font-size-note)] opacity-65">
                     {content.pipsUnit}
                   </span>{" "}
                   /{" "}
@@ -676,7 +676,7 @@ export default function TradingCalculator({
                   ) : (
                     formatNumber(result.spreadCost, 2)
                   )}{" "}
-                  <span className="text-[14px] opacity-65">
+                  <span className="text-[length:var(--font-size-note)] opacity-65">
                     {activeCurrency}
                   </span>
                 </div>
@@ -693,7 +693,7 @@ export default function TradingCalculator({
                   ) : (
                     formatNumber(result.pointValue, 4)
                   )}{" "}
-                  <span className="text-[14px] opacity-65">
+                  <span className="text-[length:var(--font-size-note)] opacity-65">
                     {activeCurrency}
                   </span>
                 </div>
@@ -706,11 +706,11 @@ export default function TradingCalculator({
                 <span>{content.swapLongLabel}</span>
                 <div className="flex items-center gap-1">
                   {loading ? <ProgressLoader /> : result.swapLongPips}
-                  <span className="text-[14px] opacity-65">
+                  <span className="text-[length:var(--font-size-note)] opacity-65">
                     {content.pipsUnit}
                   </span>{" "}
                   /{loading ? <ProgressLoader /> : result.swapLongValue}
-                  <span className="text-[14px] opacity-65">
+                  <span className="text-[length:var(--font-size-note)] opacity-65">
                     {activeCurrency}
                   </span>
                 </div>
@@ -723,12 +723,12 @@ export default function TradingCalculator({
                 <span>{content.swapShortLabel}</span>
                 <div className="flex items-center gap-1">
                   {loading ? <ProgressLoader /> : result.swapShortPips}
-                  <span className="text-[14px] opacity-65">
+                  <span className="text-[length:var(--font-size-note)] opacity-65">
                     {content.pipsUnit}
                   </span>{" "}
                   /{" "}
                   {loading ? <ProgressLoader /> : result.swapShortValue}
-                  <span className="text-[14px] opacity-65">
+                  <span className="text-[length:var(--font-size-note)] opacity-65">
                     {activeCurrency}
                   </span>
                 </div>
@@ -736,7 +736,7 @@ export default function TradingCalculator({
             </div>
 
             {/*  */}
-            <div className="col-span-12 text-[14px] order-8 md:order-8 opacity-50">
+            <div className="col-span-12 text-[length:var(--font-size-note)] order-8 md:order-8 opacity-50">
               {content.tripleSwapNotePrefix}
               <b>{content.tripleSwapWednesday}</b>
               {content.tripleSwapMid}

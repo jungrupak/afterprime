@@ -42,7 +42,7 @@ export default async function CostCalculator({ instrument }: Props) {
           content={formContent}
         />
       </div>
-      <div className="text-[14px] opacity-60">
+      <div className="text-[length:var(--font-size-note)] opacity-60">
         <p className="risk-warning-all">
           {t.disclaimerPre}
           <br />

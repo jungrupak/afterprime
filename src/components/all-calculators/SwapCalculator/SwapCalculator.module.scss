@@ -8,7 +8,7 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: var(--reading-text-lg);
   font-weight: 700;
   margin: 0 0 8px 0;
   background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
@@ -18,7 +18,7 @@
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: var(--reading-text-caption);
   color: #a1a1aa;
   margin: 0;
 }
@@ -45,7 +45,7 @@
   gap: 8px;
 
   label {
-    font-size: 12px;
+    font-size: var(--font-size-tiny);
     font-weight: 600;
     color: #a1a1aa;
     text-transform: uppercase;
@@ -57,7 +57,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 12px;
-    font-size: 14px;
+    font-size: var(--font-size-note);
     color: #fff;
     color-scheme: dark;
     cursor: pointer;
@@ -97,7 +97,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   color: #a1a1aa;
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
   cursor: pointer;
   transition: all 0.2s;
 
@@ -119,7 +119,7 @@
 }
 
 .dirIcon {
-  font-size: 14px;
+  font-size: var(--font-size-note);
 }
 
 .inputWrapper {
@@ -140,7 +140,7 @@
     background: transparent;
     border: none;
     padding: 12px;
-    font-size: 16px;
+    font-size: var(--font-size-note);
     color: #fff;
     outline: none;
   }
@@ -150,7 +150,7 @@
     border: none;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     padding: 12px;
-    font-size: 14px;
+    font-size: var(--font-size-note);
     color: #fff;
     cursor: pointer;
     outline: none;
@@ -164,7 +164,7 @@
 .suffix {
   padding: 0 12px;
   color: #71717a;
-  font-size: 14px;
+  font-size: var(--font-size-note);
 }
 
 .quickDays {
@@ -179,7 +179,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   color: #a1a1aa;
-  font-size: 12px;
+  font-size: var(--font-size-tiny);
   cursor: pointer;
   transition: all 0.2s;
 
@@ -227,7 +227,7 @@
 
 .resultType {
   display: block;
-  font-size: 12px;
+  font-size: var(--font-size-tiny);
   color: #ef4444;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -236,14 +236,14 @@
 
 .resultValue {
   display: block;
-  font-size: 42px;
+  font-size: var(--heading-md);
   font-weight: 700;
   color: #ef4444;
 }
 
 .resultPeriod {
   display: block;
-  font-size: 14px;
+  font-size: var(--font-size-note);
   color: #71717a;
   margin-top: 4px;
 }
@@ -268,7 +268,7 @@
 
 .statLabel {
   display: block;
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: #71717a;
   text-transform: uppercase;
   margin-bottom: 6px;
@@ -276,20 +276,20 @@
 
 .statValue {
   display: block;
-  font-size: 18px;
+  font-size: var(--reading-text-xs);
   font-weight: 600;
   color: #fff;
 }
 
 .statNote {
   display: block;
-  font-size: 10px;
+  font-size: var(--font-size-tiny);
   color: #52525b;
   margin-top: 4px;
 }
 
 .sectionTitle {
-  font-size: 14px;
+  font-size: var(--font-size-note);
   font-weight: 600;
   color: #a1a1aa;
   margin: 0 0 12px 0;
@@ -298,7 +298,7 @@
 }
 
 .ratesNote {
-  font-size: 12px;
+  font-size: var(--font-size-tiny);
   color: #71717a;
   margin: -8px 0 12px 0;
 }
@@ -327,13 +327,13 @@
 
 .rateLabel {
   display: block;
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: #71717a;
   margin-bottom: 4px;
 }
 
 .rateValue {
-  font-size: 20px;
+  font-size: var(--reading-text-sm);
   font-weight: 600;
 }
 
@@ -352,20 +352,20 @@
 }
 
 .infoIcon {
-  font-size: 20px;
+  font-size: var(--reading-text-sm);
   flex-shrink: 0;
 }
 
 .infoContent {
   strong {
     display: block;
-    font-size: 13px;
+    font-size: var(--font-size-tiny);
     color: #e4e4e7;
     margin-bottom: 2px;
   }
 
   p {
-    font-size: 12px;
+    font-size: var(--font-size-tiny);
     color: #71717a;
     margin: 0;
     line-height: 1.4;
@@ -380,7 +380,7 @@
 
   p {
     margin: 0;
-    font-size: 12px;
+    font-size: var(--font-size-tiny);
     color: #c4b5fd;
     line-height: 1.5;
   }

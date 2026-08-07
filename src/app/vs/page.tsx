@@ -142,7 +142,7 @@ export default async function Page() {
 
             <div className="max-md:order-1 text-left">
               <div className={styles.listUi}>
-                <h3 className="text-[clamp(28px_,5vw_,34px)]! font-semibold! mb-5! md:mb-10!">
+                <h3 className="text-[length:var(--heading-sm)]! font-semibold! mb-5! md:mb-10!">
                   {vsT.keyAdvantagesHeading}
                 </h3>
 
@@ -198,7 +198,7 @@ export default async function Page() {
           >
             <div>
               <h2
-                className={`text-[clamp(30px_,5vw_,50px)]! md:mb-8! leading-[1]`}
+                className={`text-[length:var(--heading-lg)]! md:mb-8! leading-[1]`}
               >
                 {ctaBlockFields?.title}
               </h2>

@@ -266,7 +266,7 @@ export function LivePricingAll({
                             };
                             return (
                               <span
-                                className={`inline-flex items-center px-2.5 py-1 rounded-full text-[12px] font-medium ${statusStyles[marketStatus.state]}`}
+                                className={`inline-flex items-center px-2.5 py-1 rounded-full text-[length:var(--font-size-tiny)] font-medium ${statusStyles[marketStatus.state]}`}
                               >
                                 {marketStatus.label}
                               </span>
@@ -274,14 +274,14 @@ export function LivePricingAll({
                           })()}
                         </td>
                         <td className="px-4 py-2 " t-name="Market Hours">
-                          <div className={`flex md:justify-end text-[16px] items-center`}>
+                          <div className={`flex md:justify-end text-[length:var(--font-size-note)] items-center`}>
                             <Link
                               href={localizeHref(
                                 "/trading-hours/" + item.symbol.toLowerCase(),
                                 locale,
                               )}
                             >
-                              <span className="text-[14px] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
+                              <span className="text-[length:var(--font-size-note)] underline decoration-dotted decoration-2 underline-offset-4 opacity-65">
                                 {c.tableHeaders.tradingHoursLink}
                               </span>
                             </Link>

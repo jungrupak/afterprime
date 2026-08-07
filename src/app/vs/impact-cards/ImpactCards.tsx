@@ -24,12 +24,12 @@ export default async function ImpactCards() {
         <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-left mt-5 md:mt-10">
           <div className={`${styles.cardItem} ${styles.cardLarge}`}>
             <h3 className={`ml-0!`}>
-              <span className={`text-[clamp(30px,5vw,48px)] font-[300] block`}>
+              <span className={`font-size-heading-lg font-[300] block`}>
                 50
               </span>
-              <span className={`text-[16px] opacity-60 block`}>{t.lotsPerMonth}</span>
+              <span className={`text-[length:var(--font-size-note)] opacity-60 block`}>{t.lotsPerMonth}</span>
             </h3>
-            <p className={`opacity-65 text-[16px]! mb-8!`}>
+            <p className={`opacity-65 text-[length:var(--reading-text-xs)]! mb-8!`}>
               <b>{t.idealFor}</b>
               <br />
               {t.tier1Desc}
@@ -39,7 +39,7 @@ export default async function ImpactCards() {
               <br />{" "}
               <b>
                 <span
-                  className={`text-[clamp(18px,5vw,28px)] font-[300] block`}
+                  className={`reading-text-lg font-[300] block`}
                 >
                   $115–$450
                 </span>
@@ -52,12 +52,12 @@ export default async function ImpactCards() {
 
           <div className={`${styles.cardItem} ${styles.cardLarge}`}>
             <h3 className={`ml-0!`}>
-              <span className={`text-[clamp(30px,5vw,48px)] font-[300] block`}>
+              <span className={`font-size-heading-lg font-[300] block`}>
                 200
               </span>
-              <span className={`text-[16px] opacity-60 block`}>{t.lotsPerMonth}</span>
+              <span className={`text-[length:var(--font-size-note)] opacity-60 block`}>{t.lotsPerMonth}</span>
             </h3>
-            <p className={`opacity-65 text-[16px]! mb-8!`}>
+            <p className={`opacity-65 text-[length:var(--reading-text-xs)]! mb-8!`}>
               <b>{t.idealFor}</b>
               <br />
               {t.tier2Desc}
@@ -67,7 +67,7 @@ export default async function ImpactCards() {
               <br />{" "}
               <b>
                 <span
-                  className={`text-[clamp(18px,5vw,28px)] font-[300] block`}
+                  className={`reading-text-lg font-[300] block`}
                 >
                   $460–$1,800
                 </span>
@@ -80,12 +80,12 @@ export default async function ImpactCards() {
 
           <div className={`${styles.cardItem} ${styles.cardLarge}`}>
             <h3 className={`ml-0!`}>
-              <span className={`text-[clamp(30px,5vw,48px)] font-[300] block`}>
+              <span className={`font-size-heading-lg font-[300] block`}>
                 1000
               </span>
-              <span className={`text-[16px] opacity-60 block`}>{t.lotsPerMonth}</span>
+              <span className={`text-[length:var(--font-size-note)] opacity-60 block`}>{t.lotsPerMonth}</span>
             </h3>
-            <p className={`opacity-65 text-[16px]! mb-8!`}>
+            <p className={`opacity-65 text-[length:var(--reading-text-xs)]! mb-8!`}>
               <b>{t.idealFor}</b>
               <br />
               {t.tier3Desc}
@@ -95,7 +95,7 @@ export default async function ImpactCards() {
               <br />{" "}
               <b>
                 <span
-                  className={`text-[clamp(18px,5vw,28px)] font-[300] block`}
+                  className={`reading-text-lg font-[300] block`}
                 >
                   $2,300–$9,000
                 </span>

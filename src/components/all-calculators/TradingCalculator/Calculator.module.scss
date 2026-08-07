@@ -9,7 +9,7 @@
 .pageCalcWrapContainer {
   max-width: 1224px;
   h2 {
-    font-size: clamp(28px, 5vw, 34px);
+    font-size: var(--heading-sm);
     font-weight: 600;
     margin-bottom: clamp(15px, 5vw, 15px);
   }
@@ -27,7 +27,7 @@
     padding: 0 30px;
     border-radius: 40px;
     font-weight: 700;
-    font-size: 16px;
+    font-size: var(--font-size-note);
     color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
     &:hover {

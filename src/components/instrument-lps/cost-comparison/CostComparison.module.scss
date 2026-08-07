@@ -1,14 +1,14 @@
 .costCompareTableHead {
   > div {
     padding: 15px;
-    font-size: 14px;
+    font-size: var(--font-size-note);
     color: rgba(255, 255, 255, 0.6);
     font-weight: 600;
   }
 }
 
 .costCompareTableRow {
-  font-size: clamp(16px, 5vw, 18px);
+  font-size: var(--reading-text-xs);
   opacity: 1;
   margin-bottom: 5px;
   transition: all 0.3s ease-in-out;
@@ -49,7 +49,7 @@
       padding: 15px 10px;
       &:first-child {
         padding-left: 25px;
-        font-size: 16px;
+        font-size: var(--font-size-note);
         font-weight: bold;
       }
     }

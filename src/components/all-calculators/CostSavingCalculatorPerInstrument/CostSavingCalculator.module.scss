@@ -15,13 +15,13 @@
 }
 
 .calcTitle {
-  font-size: 14px;
+  font-size: var(--font-size-note);
   color: #cbd5e1;
   font-weight: 500;
 }
 
 .badge {
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   padding: 4px 8px;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.1);
@@ -36,7 +36,7 @@
 
 .label {
   color: #8aa0b6;
-  font-size: 12px;
+  font-size: var(--font-size-tiny);
 }
 
 .sliderRow {
@@ -81,7 +81,7 @@
   color: #e8f1fb;
   height: 40px;
   padding: 8px 12px;
-  font-size: 14px;
+  font-size: var(--font-size-note);
   width: 112px;
   outline: none;
 
@@ -127,7 +127,7 @@
   color: #e8f1fb;
   height: 40px;
   padding: 8px 12px;
-  font-size: 14px;
+  font-size: var(--font-size-note);
   outline: none;
 
   &:focus {
@@ -144,13 +144,13 @@
 }
 
 .headline {
-  font-size: 18px;
+  font-size: var(--reading-text-xs);
   font-weight: 600;
   color: #e8f1fb;
 }
 
 .subline {
-  font-size: 14px;
+  font-size: var(--font-size-note);
   color: #94a3b8;
   margin-top: 4px;
 }
@@ -170,12 +170,12 @@
 }
 
 .statLabel {
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: #94a3b8;
 }
 
 .statValue {
-  font-size: 20px;
+  font-size: var(--reading-text-sm);
   font-weight: 600;
   margin-top: 4px;
   color: #e8f1fb;
@@ -200,19 +200,19 @@
 }
 
 .chartTitle {
-  font-size: 14px;
+  font-size: var(--font-size-note);
   color: #cbd5e1;
   font-weight: 500;
 }
 
 .chartSubtitle {
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: #94a3b8;
 }
 
 .resetBtn {
   padding: 8px 12px;
-  font-size: 12px;
+  font-size: var(--font-size-tiny);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.1);
   color: #cbd5e1;
@@ -231,7 +231,7 @@
 }
 
 .chartFootnote {
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: #94a3b8;
   margin-top: 8px;
 }
@@ -244,7 +244,7 @@
   justify-content: center;
   min-height: 400px;
   color: #cbd5e1;
-  font-size: 16px;
+  font-size: var(--reading-text-xs);
 }
 
 .spinner {

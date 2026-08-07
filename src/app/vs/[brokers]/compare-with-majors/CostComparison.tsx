@@ -37,7 +37,7 @@ export default async function CompareWithMajors({
 
   if (!broker) {
     return (
-      <p className="text-red text-[16px] opacity-65">
+      <p className="text-red reading-text-xs opacity-65">
         {t.brokerNotFoundError}
       </p>
     );
@@ -47,7 +47,7 @@ export default async function CompareWithMajors({
 
   if (!data) {
     return (
-      <p className="text-red text-[12px] text-center">{t.errorWhileData}</p>
+      <p className="text-red text-[length:var(--font-size-tiny)] text-center">{t.errorWhileData}</p>
     );
   }
 

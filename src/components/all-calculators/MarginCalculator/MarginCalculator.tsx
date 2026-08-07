@@ -373,7 +373,7 @@ export default function MarginCalculator({
                 disabled={loadingPrices}
                 style={{
                   padding: "4px 8px",
-                  fontSize: "12px",
+                  fontSize: "var(--font-size-tiny)",
                   cursor: loadingPrices ? "not-allowed" : "pointer",
                   opacity: loadingPrices ? 0.5 : 1,
                 }}

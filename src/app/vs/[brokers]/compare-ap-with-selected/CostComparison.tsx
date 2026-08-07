@@ -79,7 +79,7 @@ export default async function CostComparisonWithSelected({
   const data = await getSavingCompare();
   if (!data || !Array.isArray(data.brokers) || !data.brokers.length) {
     return (
-      <p className="text-red text-[12px] text-center opacity-65">
+      <p className="text-red text-[length:var(--font-size-tiny)] text-center opacity-65">
         {t.errorWhileData}
       </p>
     );
@@ -170,7 +170,7 @@ export default async function CostComparisonWithSelected({
           ))}
         </div>
       </div>
-      <div className="text-[14px] opacity-60 mt-5">
+      <div className="text-[length:var(--font-size-note)] opacity-60 mt-5">
         <p className="risk-warning-all">
           {t.sourcePrefix}{" "}
           <a href="https://www.forexbenchmark.com" target="_blank">

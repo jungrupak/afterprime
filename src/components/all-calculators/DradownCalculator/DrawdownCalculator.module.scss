@@ -8,7 +8,7 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: var(--reading-text-lg);
   font-weight: 700;
   margin: 0 0 8px 0;
   background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
@@ -18,7 +18,7 @@
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: var(--reading-text-caption);
   color: #a1a1aa;
   margin: 0;
 }
@@ -45,7 +45,7 @@
   gap: 8px;
 
   label {
-    font-size: 12px;
+    font-size: var(--font-size-tiny);
     font-weight: 600;
     color: #a1a1aa;
     text-transform: uppercase;
@@ -71,7 +71,7 @@
     background: transparent;
     border: none;
     padding: 12px;
-    font-size: 16px;
+    font-size: var(--font-size-note);
     color: #fff;
     outline: none;
     min-width: 0;
@@ -82,7 +82,7 @@
 .suffix {
   padding: 0 12px;
   color: #71717a;
-  font-size: 14px;
+  font-size: var(--font-size-note);
 }
 
 .rrInputs {
@@ -98,7 +98,7 @@
     background: transparent;
     border: none;
     padding: 12px 0;
-    font-size: 16px;
+    font-size: var(--font-size-note);
     color: #fff;
     outline: none;
     width: 60px;
@@ -107,7 +107,7 @@
 
 .rrLabel {
   color: #71717a;
-  font-size: 14px;
+  font-size: var(--font-size-note);
 }
 
 .slider {
@@ -183,7 +183,7 @@
 }
 
 .resultIcon {
-  font-size: 28px;
+  font-size: var(--reading-text-lg);
 }
 
 .resultContent {
@@ -192,25 +192,25 @@
 }
 
 .resultLabel {
-  font-size: 12px;
+  font-size: var(--font-size-tiny);
   color: #a1a1aa;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .resultValue {
-  font-size: 28px;
+  font-size: var(--reading-text-lg);
   font-weight: 700;
   color: #fff;
 }
 
 .resultNote {
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: #71717a;
 }
 
 .sectionTitle {
-  font-size: 14px;
+  font-size: var(--font-size-note);
   font-weight: 600;
   color: #a1a1aa;
   margin: 0 0 16px 0;
@@ -238,28 +238,28 @@
 
 .streakNum {
   display: block;
-  font-size: 24px;
+  font-size: var(--reading-text-lg);
   font-weight: 700;
   color: #ef4444;
 }
 
 .streakLabel {
   display: block;
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: #71717a;
   margin: 4px 0 8px;
 }
 
 .streakProb {
   display: block;
-  font-size: 16px;
+  font-size: var(--font-size-note);
   font-weight: 600;
   color: #fbbf24;
 }
 
 .streakDd {
   display: block;
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
   color: #ef4444;
   margin-top: 4px;
 }
@@ -271,7 +271,7 @@
 }
 
 .varDescription {
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
   color: #71717a;
   margin: -8px 0 16px 0;
 }
@@ -291,13 +291,13 @@
 
 .varConf {
   display: block;
-  font-size: 14px;
+  font-size: var(--font-size-note);
   color: #a1a1aa;
   margin-bottom: 4px;
 }
 
 .varValue {
-  font-size: 20px;
+  font-size: var(--reading-text-sm);
   font-weight: 600;
   color: #f97316;
 }
@@ -305,12 +305,12 @@
 .recoveryTable {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
 
   th {
     text-align: left;
     padding: 10px;
-    font-size: 11px;
+    font-size: var(--font-size-tiny);
     font-weight: 600;
     color: #71717a;
     text-transform: uppercase;
@@ -329,7 +329,7 @@
 }
 
 .recoveryNote {
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: #52525b;
   margin: 8px 0 0 0;
   font-style: italic;
@@ -365,17 +365,17 @@
 }
 
 .assessmentIcon {
-  font-size: 20px;
+  font-size: var(--reading-text-sm);
 }
 
 .assessmentTitle {
-  font-size: 16px;
+  font-size: var(--font-size-note);
   font-weight: 600;
   color: #fff;
 }
 
 .assessmentMessage {
-  font-size: 14px;
+  font-size: var(--reading-text-caption);
   color: #a1a1aa;
   margin: 0 0 12px 0;
   line-height: 1.5;
@@ -384,7 +384,7 @@
 .assessmentTips {
   margin: 0;
   padding-left: 20px;
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
   color: #a1a1aa;
 
   li {
@@ -399,7 +399,7 @@
 
   summary {
     cursor: pointer;
-    font-size: 13px;
+    font-size: var(--font-size-tiny);
     color: #71717a;
     outline: none;
 
@@ -414,7 +414,7 @@
   padding: 16px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  font-size: 14px;
+  font-size: var(--reading-text-caption);
   line-height: 1.8;
 
   p {

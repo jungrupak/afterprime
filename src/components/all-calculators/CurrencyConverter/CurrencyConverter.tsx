@@ -257,7 +257,7 @@ export default function CurrencyConverter({
                   style={{
                     marginLeft: "8px",
                     padding: "2px 6px",
-                    fontSize: "12px",
+                    fontSize: "var(--font-size-tiny)",
                     cursor: loading ? "not-allowed" : "pointer",
                     opacity: loading ? 0.5 : 1,
                   }}

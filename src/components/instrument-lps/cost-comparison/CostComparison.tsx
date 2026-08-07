@@ -223,7 +223,7 @@ export default async function CostComparison({
         className={`ap_container_small relative z-1 w-full z-5 my-5 md:my-15`}
       >
         <h2
-          className={`text-[clamp(38px_,5vw_,50px)] text-center font-semibold max-md:leading-[1.2]`}
+          className={`font-size-heading-lg text-center font-semibold max-md:leading-[1.2]`}
         >
           {c.heading.replace("{sym}", sym)}
         </h2>
@@ -287,7 +287,7 @@ export default async function CostComparison({
 
                   <div data-label={c.dataLabels.broker} className={`col-span-3 relative`}>
                     {broker.broker === "Afterprime" ? (
-                      <span className="text-[14px] max-md:text-[16px] block">
+                      <span className="text-[length:var(--font-size-note)] block">
                         <strong>Afterprime</strong>
                       </span>
                     ) : (
@@ -297,7 +297,7 @@ export default async function CostComparison({
                           locale,
                         )}
                         scroll={true}
-                        className="underline hover:no-underline text-[14px] max-md:text-[16px] block"
+                        className="underline hover:no-underline text-[length:var(--font-size-note)] block"
                       >
                         {broker.broker}
                       </Link>
@@ -359,7 +359,7 @@ export default async function CostComparison({
           </div>
         </div>
 
-        <div className="text-center text-[14px] bg-[rgba(255,255,255,.12)] rounded-[5px] p-2 text-[rgba(255,255,255,.48)]">
+        <div className="text-center text-[length:var(--font-size-note)] bg-[rgba(255,255,255,.12)] rounded-[5px] p-2 text-[rgba(255,255,255,.48)]">
           {c.savingsFootnote}
         </div>
 
@@ -372,7 +372,7 @@ export default async function CostComparison({
         </div>
 
         <div
-          className={`flex gap-1 text-[14px] w-full justify-center gap-4 items-start mt-4 md:mt-10`}
+          className={`flex gap-1 text-[length:var(--font-size-note)] w-full justify-center gap-4 items-start mt-4 md:mt-10`}
         >
           <svg
             width="25"
@@ -408,7 +408,7 @@ export default async function CostComparison({
             {c.rankedSuffix}
           </div>
         </div>
-        <div className="text-[14px] opacity-60 mt-5">
+        <div className="text-[length:var(--font-size-note)] opacity-60 mt-5">
           <p className="risk-warning-all">
             {c.footnoteSourcePrefix}
             <a href="https://www.forexbenchmark.com" target="_blank">

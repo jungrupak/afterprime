@@ -237,7 +237,7 @@ export default async function VsSymbolPage({ params }: Props) {
       <section className="compact-section">
         <div className="ap_container_small">
           <div className={styles.faqBlock}>
-            <h2 className="text-[34px] font-[700] mb-10">
+            <h2 className="font-size-heading-sm font-[700] mb-10">
               {t.faqHeading
                 .replace("{brokerName}", mappedBrokerName)
                 .replace("{sym}", sym)}
@@ -254,7 +254,7 @@ export default async function VsSymbolPage({ params }: Props) {
       {/* Section 6 — Related Links */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <h2 className="text-[34px] font-[700] mb-10">
+          <h2 className="font-size-heading-sm font-[700] mb-10">
             {t.learnMoreHeading.replace("{sym}", sym)}
           </h2>
           <div className={styles.relatedLinks}>

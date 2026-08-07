@@ -64,12 +64,12 @@ export default function CalculatorToolsBlock({
             key={index}
             href={localizeHref(item.pageUrl, locale)}
             target="_blank"
-            className={`flex justify-center items-center leading-[1.4] text-center text-[18px] font-semibold py-[clamp(30px,5vw,40px)] px-[clamp(25px,5vw,40px)] bg-[rgba(255_,255_,255_,.08)] hover:bg-[rgba(255_,255_,255_,.12)]`}
+            className={`flex justify-center items-center leading-[1.4] text-center reading-text-xs font-semibold py-[clamp(30px,5vw,40px)] px-[clamp(25px,5vw,40px)] bg-[rgba(255_,255_,255_,.08)] hover:bg-[rgba(255_,255_,255_,.12)]`}
           >
             {content.calculatorNames[item.nameKey]}
           </Link>
         ))}
-        <div className={`text-[16px] col-span-full opacity-65`}>
+        <div className={`reading-text-xs col-span-full opacity-65`}>
           {content.footnote}
         </div>
       </div>

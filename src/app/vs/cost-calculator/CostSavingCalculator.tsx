@@ -540,7 +540,7 @@ export default function CostSavingCalculatorBrokers({
         </div>
       </div>
       {/* ## */}
-      <div className="text-[14px] col-span-full">
+      <div className="text-[length:var(--font-size-note)] col-span-full">
         <ResultSendToEmail
           activeBroker={selectedBroker}
           lotsPerMonth={lots}
@@ -549,7 +549,7 @@ export default function CostSavingCalculatorBrokers({
         />
       </div>
       {/* ## */}
-      <div className="text-[14px] col-span-full opacity-60">
+      <div className="text-[length:var(--font-size-note)] col-span-full opacity-60">
         <p className="risk-warning-all">
           {content.legal.part1}
           <a href={localizeHref("/get-paid-to-trade", locale)}>{content.legal.linkText}</a>
