@@ -3,7 +3,7 @@ export const compareBothContent = {
   subheading:
     "Same execution. Same spreads. Same zero commission. The difference is the toolset.",
   tableHeaders: {
-    feature: "",
+    feature: "Feature",
     mt4: "MT4",
     mt5: "MT5",
   },
@@ -21,7 +21,7 @@ export const compareBothContent = {
     { feature: "Built-in Economic Calendar", mt4: "No", mt5: "Yes" },
     {
       feature: "Asset Classes",
-      mt4: "Forex, Metals",
+      mt4: "Forex, Metals, Indices, Commodities, Crypto",
       mt5: "Forex, Metals, Indices, Commodities, Crypto",
     },
   ],

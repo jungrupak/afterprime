@@ -6,16 +6,12 @@ import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 function renderCell(value: string) {
   if (value === "Yes") {
     return (
-      <span className={`${styles.statusDot} ${styles.statusYes}`}>
-        {value}
-      </span>
+      <span className={`${styles.statusDot} ${styles.statusYes}`}>{value}</span>
     );
   }
   if (value === "No") {
     return (
-      <span className={`${styles.statusDot} ${styles.statusNo}`}>
-        {value}
-      </span>
+      <span className={`${styles.statusDot} ${styles.statusNo}`}>{value}</span>
     );
   }
   return value;
@@ -23,11 +19,7 @@ function renderCell(value: string) {
 
 export default async function CompareMT4MT5() {
   const locale = await getRequestLocale();
-  const t = await getTranslatedStatic(
-    "mt4-vs-mt5",
-    locale,
-    compareBothContent,
-  );
+  const t = await getTranslatedStatic("mt4-vs-mt5", locale, compareBothContent);
 
   return (
     <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
@@ -56,7 +48,7 @@ export default async function CompareMT4MT5() {
           </table>
         </div>
 
-        <p className="paragraph mt-8 md:mt-10 opacity-80">{t.closing}</p>
+        <p className="text-[18px] mt-8 md:mt-10 opacity-60">{t.closing}</p>
       </div>
     </section>
   );

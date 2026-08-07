@@ -40,10 +40,15 @@
     font-weight: 400;
   }
 
+  th:first-child {
+    color: var(--primary-white-90);
+    font-weight: 700;
+  }
+
   th:not(:first-child),
   td:not(:first-child) {
     text-align: center;
-    width: 26%;
+    width: 35%;
   }
 
   // Distinct subtle white tints so MT4 and MT5 columns read apart from
