@@ -29,9 +29,7 @@ export default async function HeroUsp({ text }: { text: string }) {
 
   return (
     <>
-      <div
-        className={`${styles.heroUspContainer} mx-auto lg:absolute left-0 bottom-0 z-5`}
-      >
+      <div className={`${styles.heroUspContainer} mt-13 md:mt-18`}>
         <div
           className={`${styles.HeroUps} ap_container_medium py-8 md:pt-6 md:pb-15 flex-col flex-wrap flex md:flex-row items-center justify-around gap-y-5 gap-x-5 lg:gap-x-12 px-5 mx:px-0`}
         >

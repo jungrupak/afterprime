@@ -53,6 +53,8 @@
   --border-blue: rgba(76, 93, 221, 0.1);
   //Font Sizes
   --body-font: 16px;
+  --display: clamp(50px, 10vw, 84px);
+  --heading-xl: clamp(42px, 5vw, 68px);
   --hero-heading: 68px;
   --section-title: 52px;
   --block-content-title: 42px;
@@ -71,11 +73,40 @@
   --line-height-large: 1.7;
   --line-height-xlarge: 1.75;
 
+  //Weights
+  --weight-black: 900;
+  --weight-xbold: 800;
+  --weight-bold: 700;
+  --weight-semibold: 600;
+  --weight-regular: 300;
+  --weight-light: 200;
+  --weight-xlight: 100;
+
   //BorderRadius
   --radius-default: 2px;
   --radius-lg: 4px;
   --radius-xlg: 6px;
 }
+
+//Spacing Rules (tailwind scale values)
+//if desktop  = 18 then mobile = 13
+//if desktop  = 15 then mobile = 10
+//
+
+//FONT Verients and variables
+.font-size-display {
+  font-size: var(--display);
+  line-height: var(--line-height-compact);
+}
+.font-size-heading-xl {
+  font-size: var(--heading-xl);
+  line-height: var(--line-height-compact);
+  font-weight: var(--weight-semibold);
+}
+.reading-text-xl {
+}
+
+//Ends Font size and veriants
 
 html {
   -ms-overflow-style: none; /* IE and Edge */
@@ -326,14 +357,6 @@ body::-webkit-scrollbar {
 }
 
 .apBannerContent {
-  h1 {
-    @extend .h1-size;
-  }
-
-  p {
-    font-size: max(24px, min(5vw, 32px));
-  }
-
   @media all and (max-width: 1023px) {
     margin-left: auto;
     margin-right: auto;
@@ -984,8 +1007,4 @@ section {
 
 .es-badge-reviews-count {
   display: none !important;
-}
-
-//FONT Varients and variables
-.font-display {
 }

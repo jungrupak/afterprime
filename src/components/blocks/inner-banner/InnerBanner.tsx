@@ -35,11 +35,11 @@ export default async function InnerBanner({
       >
         <div className="ap_container_small flex items-center h-full">
           <div className={`apBannerContent w-full`}>
-            <h1 className="h1-size mt-10 lg:mt-15">
-              <span className="font-[600]">{inner_banner_title}</span>
+            <h1 className="font-size-heading-xl mt-13 md:mt-18">
+              {inner_banner_title}
             </h1>
             <div
-              className="paragraph lg:mt-8 opacity-80"
+              className="paragraph mt-5 md:mt-10 opacity-80"
               style={{ fontWeight: "300" }}
               dangerouslySetInnerHTML={{
                 __html: inner_banner_paragraph || "&nbsp;",
@@ -48,7 +48,7 @@ export default async function InnerBanner({
 
             {shouldShowCTA &&
               (inner_banner_is_type_form_cta === "1" ? (
-                <div className={`mt-8 md:mt-15`}>
+                <div className={`mt-10 md:mt-15`}>
                   <TypeformButton
                     buttonText={t.getInviteCodeCta}
                     size="Regular"
@@ -56,7 +56,7 @@ export default async function InnerBanner({
                   />
                 </div>
               ) : (
-                <div className={`mt-8 md:mt-15`}>
+                <div className={`mt-10 md:mt-15`}>
                   <Button
                     href={localizeHref(inner_banner_button_url || "/", locale)}
                     varient="primary"

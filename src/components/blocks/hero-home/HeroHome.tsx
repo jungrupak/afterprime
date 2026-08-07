@@ -43,11 +43,11 @@ export async function HeroHome(props: HeroHomeProps) {
 
   return (
     <>
-      <div className={`${styles.hero_home} h-screen max-md:h-[100%] relative`}>
-        <div className="flex flex-wrap flex-col justify-center items-center h-[100%] min-h-[400px] lg:min-h-[580px] relative z-2 max-md:pb-5">
+      <section className={`${styles.hero_home} relative`}>
+        <div className="relative z-2 mt-13 md:mt-18">
           <div className="w-full max-w-[1080] mx-auto max-md:px-5">
             <h1
-              className={`${styles.heroHeading} hero-h1 flex lg:mb-[20px]! gap-20 justify-center text-center font-bold`}
+              className={`font-size-display text-center mb-5 lg:mb-[20px]! text-center font-bold`}
             >
               {heading}
             </h1>
@@ -103,7 +103,7 @@ export async function HeroHome(props: HeroHomeProps) {
         </div>
         {/* ## */}
         <HeroUsp text={t.dataNote} />
-      </div>
+      </section>
     </>
   );
 }

@@ -3,9 +3,8 @@
   //background-image: url("/img/hero-banner-home.jpg");
   background-size: cover;
   min-height: 600px;
-  padding: 160px 0 120px;
+  padding-bottom: 0;
   background-position: 10% center;
-  //height: calc(100vh + 10vh);
   height: auto;
   position: relative;
   z-index: 2;
@@ -13,11 +12,7 @@
   flex-direction: column;
   gap: 30px;
   @media all and (max-width: 767px) {
-    padding-block: 150px 0;
-    max-height: none;
-    height: auto;
     background-position: 55% center;
-    overflow: hidden;
   }
   h1 {
     span {
