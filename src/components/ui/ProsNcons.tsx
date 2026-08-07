@@ -11,6 +11,7 @@ export function ProsNCons({ data }: ProsConsProps) {
     <>
       {/* Pros */}
       <div className="mb-16">
+        {/* intentionally reading-text-xs, not a heading tier — Pros/Cons labels read as compact section labels, not full headings */}
         <h3 className="font-bold reading-text-xs mb-8">{data.pros.label}</h3>
         <Lists listItems={data.pros.points} bulletVarient="arrow-blue" />
       </div>
@@ -18,6 +19,7 @@ export function ProsNCons({ data }: ProsConsProps) {
 
       {/* Cons */}
       <div>
+        {/* intentionally reading-text-xs, not a heading tier — Pros/Cons labels read as compact section labels, not full headings */}
         <h3 className="font-bold reading-text-xs mb-8">{data.cons.label}</h3>
         <Lists listItems={data.cons.points} bulletVarient="arrow-red" />
       </div>
