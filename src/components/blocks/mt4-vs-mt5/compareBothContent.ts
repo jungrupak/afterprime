@@ -24,6 +24,11 @@ export const compareBothContent = {
       mt4: "Forex, Metals, Indices, Commodities, Crypto",
       mt5: "Forex, Metals, Indices, Commodities, Crypto",
     },
+    {
+      feature: "Position accounting",
+      mt4: "Hedging-only",
+      mt5: "Hedging-only",
+    },
   ],
   closing:
     "Both platforms trade on identical conditions at Afterprime. Pick the one that fits your strategy.",
