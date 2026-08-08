@@ -83,6 +83,7 @@
   --weight-xbold: 800;
   --weight-bold: 700;
   --weight-semibold: 600;
+  --weight-medium: 500;
   --weight-regular: 300;
   --weight-light: 200;
   --weight-xlight: 100;
@@ -103,6 +104,22 @@
 //Content Part heading == font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold
 //Content part Paragraph == reading-text-md font-[300]
 //Caption text == reading-text-caption opacity-40
+
+//Card Title and paragraph font settings
+// h3 {
+//   margin-bottom: clamp(20px, 5vw, 25px);
+//   font-size: var(--heading-xs);
+//   font-weight: var(--weight-bold);
+//   line-height: var(--line-height-small);
+//   color: var(--primary-white-80);
+// }
+// p {
+// margin-bottom: clamp(25px, 5vw, 30px);
+// font-size: var(--reading-text-sm);
+// font-weight: var(--weight-medium);
+// line-height: var(--line-height-default);
+// color: var(--primary-white-60);
+// }
 
 //FONT Verients and variables
 .font-size-display {
@@ -370,9 +387,9 @@ body::-webkit-scrollbar {
 }
 
 .wysWygEditor {
-  font-size: max(20px, min(5vw, 26px));
+  font-size: var(--reading-text-md);
+  line-height: var(--line-height-default);
   font-weight: 300;
-  line-height: 1.5;
   p,
   > div {
     font-size: var(--reading-text-md);

@@ -11,7 +11,11 @@ export default async function FoundersCard(props: FounderCardProps) {
   const { founder_message_cart_title, founder_message_card_paragraph } = props;
   const founderImg = "/img/founder-image.jpg";
   const locale = await getRequestLocale();
-  const t = await getTranslatedStatic("founder-card", locale, founderCardContent);
+  const t = await getTranslatedStatic(
+    "founder-card",
+    locale,
+    founderCardContent,
+  );
 
   return (
     <section className="compact-section">
@@ -21,17 +25,18 @@ export default async function FoundersCard(props: FounderCardProps) {
         >
           <div className={styles.founder_image}>
             <div className={`${styles.dotted_bg} dotted-block`}></div>
-            <Image
-              width={600}
-              height={600}
-              src={founderImg}
-              alt={t.imageAlt}
-            />
+            <Image width={600} height={600} src={founderImg} alt={t.imageAlt} />
           </div>
           <div className={styles.founder_story}>
             <div className={`${styles.dotted_bg} dotted-block`}></div>
-            <h2 className={styles.heading}>{founder_message_cart_title}</h2>
-            <p className={styles.paragraph}>{founder_message_card_paragraph}</p>
+            <h2
+              className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+            >
+              {founder_message_cart_title}
+            </h2>
+            <p className={`reading-text-md font-[300]`}>
+              {founder_message_card_paragraph}
+            </p>
             <span className={styles.founder_info}>
               <strong>&bull; Jeremy & Elan,</strong> {t.coFoundersLabel}
             </span>

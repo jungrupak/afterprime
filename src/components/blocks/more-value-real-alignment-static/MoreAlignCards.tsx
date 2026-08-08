@@ -11,7 +11,11 @@ type SectionProps = Blocks["section-more-value-real-alignment-static"];
 export async function MoreValueRealAlignmentStatic(props: SectionProps) {
   const { more_value_alignment_ } = props;
   const locale = await getRequestLocale();
-  const t = await getTranslatedStatic("more-align-cards", locale, moreAlignContent);
+  const t = await getTranslatedStatic(
+    "more-align-cards",
+    locale,
+    moreAlignContent,
+  );
 
   return (
     <section
@@ -19,15 +23,14 @@ export async function MoreValueRealAlignmentStatic(props: SectionProps) {
     >
       <div className="ap_container_small">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
-          <div>
-            <h2 className="h2-size mb-6 text-center md:text-start">
-              {t.heading1} <br />
-              <span>{t.heading2}</span>.
+          <div className={`mb-4 md:mb-6`}>
+            <h2 className="font-size-heading-lg mb-4 md:mb-6 opacity-80">
+              {t.heading1} {t.heading2}
             </h2>
           </div>
         </div>
         {/* Cards */}
-        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
+        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center">
           <div className={`${styles.cardItem} ${styles.cardSmall}`}>
             <h3>{t.card1.title}</h3>
             <p>{t.card1.description}</p>

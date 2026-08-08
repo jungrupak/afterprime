@@ -29,20 +29,18 @@ export default async function DataVisual(props: SectionProps) {
     <section className={`${styles.section_earning_flow} compact-section`}>
       <div className="ap_container_small">
         <div className={`${styles.costAdvantageSection}`}>
-          <div
-            className="h2-size font-semibold"
+          <h2
+            className="font-size-heading-lg mb-4 md:mb-6 opacity-80"
             dangerouslySetInnerHTML={{
               __html: data_visialization_section_section_title || "&nbsp;",
             }}
           />
-          <div className="flex items-end justify-between mb-5 md:mb-10">
-            <p
-              className="paragraph"
-              dangerouslySetInnerHTML={{
-                __html: data_visialization_section_paragraph ?? "&nbsp;",
-              }}
-            />
-          </div>
+          <p
+            className="reading-text-md opacity-60 mb-8 md:mb-12"
+            dangerouslySetInnerHTML={{
+              __html: data_visialization_section_paragraph ?? "&nbsp;",
+            }}
+          />
           <DollarSavingsCalculator content={costSavingT} />
         </div>
       </div>

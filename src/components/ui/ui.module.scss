@@ -385,26 +385,23 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: var(--radius-default);
 
   h3 {
-    margin-bottom: 20px;
-    font-size: max(30px, min(5vw, 34px));
-    font-weight: 600;
-    line-height: 1.2;
-    max-width: 90%;
-    margin-inline: auto;
+    margin-bottom: clamp(20px, 5vw, 25px);
+    font-size: var(--heading-xs);
+    font-weight: var(--weight-bold);
+    line-height: var(--line-height-small);
+    color: var(--primary-white-80);
   }
   p {
-    margin-bottom: 0;
-    font-size: max(18px, min(5vw, 20px));
-    font-weight: 400;
-    line-height: 1.4;
-    color: #e1e1e1;
-    max-width: 90%;
-    margin-inline: auto;
+    margin-bottom: clamp(25px, 5vw, 30px);
+    font-size: var(--reading-text-sm);
+    font-weight: var(--weight-medium);
+    line-height: var(--line-height-default);
+    color: var(--primary-white-60);
   }
   .cardCta {
-    margin-top: clamp(20px, 5vw, 30px);
     max-width: 90%;
     margin-inline: auto;
     a {
@@ -414,6 +411,7 @@
       gap: 15px;
       font-weight: 700;
       display: flex;
+      color: var(--primary-white-60);
     }
     svg {
       display: inline-block;
@@ -431,46 +429,19 @@
 
   &.cardCompact {
     padding: clamp(25px, 5vw, 38px) clamp(20px, 5vw, 30px);
-    h3 {
-      margin-bottom: 18px;
-    }
-    p {
-      margin-bottom: 0;
-    }
-    .cardCta {
-      margin-top: clamp(15px, 5vw, 20px);
-    }
   }
   &.cardLarge {
     padding: clamp(30px, 5vw, 60px) clamp(25px, 5vw, 50px);
-    h3 {
-      margin-bottom: 30px;
-      max-width: 100%;
-    }
-    p {
-      margin-bottom: 0;
-      max-width: 100%;
-    }
+
     .cardCta {
       max-width: 100%;
-      margin-top: clamp(25px, 5vw, 40px);
     }
   }
   &.cardSmall {
     padding: clamp(30px, 5vw, 40px) clamp(25px, 5vw, 40px);
-    h3 {
-      font-size: max(25px, min(5vw, 30px));
-      line-height: 1.1;
-      margin-bottom: 30px;
-      max-width: 100%;
-    }
-    p {
-      margin-bottom: 0;
-      max-width: 100%;
-    }
+
     .cardCta {
       max-width: 100%;
-      margin-top: clamp(25px, 5vw, 40px);
     }
   }
   &.cardBold {
@@ -479,8 +450,9 @@
     }
   }
   &.activeCard {
-    background-color: var(--secondary-color);
-    color: white;
+    backdrop-filter: blur(10px);
+    background-color: #433bf914;
+    border: 1px solid #433bf9;
     .cardCta {
       a {
         svg circle {
@@ -532,7 +504,7 @@
   li {
     font-size: var(--reading-text-md);
     line-height: var(--line-height-default);
-    font-weight: 300;
+    font-weight: var(--weight-regular);
     color: var(--primary-white-60);
     margin-bottom: clamp(15px, 5vw, 20px);
     &:last-child {

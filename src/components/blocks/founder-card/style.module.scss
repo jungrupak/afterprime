@@ -1,16 +1,6 @@
 .founders_block {
   background-color: var(--secondary-color);
-  h2 {
-    span {
-      color: white;
-    }
-  }
-  p {
-    opacity: 1;
-    b {
-      font-weight: 600;
-    }
-  }
+
   .founder_image {
     position: relative;
     height: 100%;
@@ -35,19 +25,7 @@
       padding-block: 80px;
       padding-inline: 0 80px;
     }
-    .heading {
-      margin-bottom: calc(var(--spacing) * 6);
-      font-size: max(38px, min(5vw, 50px));
-      font-weight: 600;
-      line-height: 1.2;
-    }
-    .paragraph {
-      opacity: 0.9;
-      font-size: max(20px, min(5vw, 26px));
-      font-weight: 300;
-      line-height: 1.5;
-      margin-bottom: calc(var(--spacing) * 10);
-    }
+
     .dotted_bg {
       width: 80px;
       height: 284px;
@@ -59,7 +37,9 @@
     }
   }
   .founder_info {
-    font-size: 18px;
+    font-size: var(--fontsize-caption);
+    margin-top: clamp(30px, 5vw, 35px);
     display: block;
+    opacity: 0.65;
   }
 }

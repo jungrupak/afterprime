@@ -24,11 +24,12 @@ export async function BottomCta() {
         >
           <div>
             <h2
-              className={`md:mb-8! leading-[1]`}
+              className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
               dangerouslySetInnerHTML={{ __html: t.headline }}
             />
+
             <p
-              className={`${styles.paragraph} mb-8 md:mb-10 opacity-80`}
+              className={`${styles.paragraph} reading-text-md opacity-60 mb-8 md:mb-12`}
               dangerouslySetInnerHTML={{ __html: t.paragraph }}
             />
             <TypeformButton
@@ -36,7 +37,7 @@ export async function BottomCta() {
               signupNowText={t.signupNowText}
               size="Regular"
             />
-            <div className={`text-[clamp(14px_,4vw_,16px)] mt-5 opacity-65`}>
+            <div className={`reading-text-caption opacity-40 mt-5`}>
               {t.small_text}
             </div>
           </div>

@@ -64,7 +64,7 @@ export async function EarningFlowSection(block: EarningFlowBlock) {
           {/* Left */}
           <div>
             <h2
-              className="h2-size mb-6! md:mb-10! text-center md:text-start"
+              className="font-size-heading-lg mb-4 md:mb-6 opacity-80"
               dangerouslySetInnerHTML={{
                 __html: earning_flow_section_heading || "&nbsp;",
               }}

@@ -182,8 +182,12 @@ export default async function SignupFlow() {
   return (
     <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
       <div className="ap_container_small">
-        <h2 className={`mb-3! md:mb-5!`}>{t.heading}</h2>
-        <p className="paragraph">{t.subheading}</p>
+        <h2 className={`font-size-heading-lg mb-4 md:mb-6 opacity-80`}>
+          {t.heading}
+        </h2>
+        <p className="reading-text-md opacity-60 mb-8 md:mb-12">
+          {t.subheading}
+        </p>
 
         <div className={styles.stepsWrapper}>
           <div className={styles.stepsGrid}>

@@ -20,29 +20,31 @@ export async function MoreValueRealAlignment(props: SectionProps) {
     >
       <div className="ap_container_small">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
-          <div className="">
+          <div className="mb-4 md:mb-6">
             <h2
-              className="h2-size mb-6 text-center md:text-start"
+              className="font-size-heading-lg mb-4 md:mb-6 opacity-80"
               dangerouslySetInnerHTML={{
                 __html: sectionTitle || "&nbsp;",
               }}
             ></h2>
-          </div>
-          <div className="">
-            <p className="paragraph max-w-2xl opacity-90 max-md:text-center max-md:mb-10">
-              {subTitle}
-            </p>
+            {subTitle && (
+              <p className="reading-text-md opacity-60 mb-8 md:mb-12">
+                {subTitle}
+              </p>
+            )}
           </div>
         </div>
         {/* Cards */}
-        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
+        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center ">
           {cards.map((card, index) => (
             <Card
               key={index}
               title={card.title}
               paragraph={card.subTitle}
               cardCtaLabel={card.ctaLabel}
-              cardCtaLink={card.ctaLink ? localizeHref(card.ctaLink, locale) : undefined}
+              cardCtaLink={
+                card.ctaLink ? localizeHref(card.ctaLink, locale) : undefined
+              }
               cardSize="small"
               active={index == 1 ? true : false}
             />
