@@ -22,10 +22,10 @@ export async function SectionCardsBig(props: SectionPropsToReceiveData) {
     >
       <div className="ap_container_small">
         <div className="grid max-md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 justify-center max-md:mb-8">
-          <div className="">
+          <div className="mb-4 md:mb-6">
             {section_card_repeator_section_title && (
               <div
-                className="h2-size mb-6 text-center md:text-left"
+                className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold"
                 dangerouslySetInnerHTML={{
                   __html: section_card_repeator_section_title || "&nbsp;",
                 }}
@@ -34,14 +34,14 @@ export async function SectionCardsBig(props: SectionPropsToReceiveData) {
           </div>
           {section_card_repeator_section_paragraph && (
             <div className="">
-              <p className="paragraph max-w-2xl opacity-90 max-md:text-center max-md:mb-10">
+              <p className="reading-text-md opacity-60 mb-8 md:mb-12">
                 {section_card_repeator_section_paragraph}
               </p>
             </div>
           )}
         </div>
         {/* Cards */}
-        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center md:mt-18">
+        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-center ">
           {cards.map((card, index) => (
             <Card
               key={index}

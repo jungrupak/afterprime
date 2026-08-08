@@ -96,8 +96,8 @@ export async function MoreValueRealAlignmentStatic(props: SectionProps) {
             </div>
           </div>
           <div className={`${styles.cardItem} ${styles.cardSmall}`}>
-            <h3>{t.card3.title}</h3>
-            <p>{t.card3.description}</p>
+            <h3 className={`cardTitle`}>{t.card3.title}</h3>
+            <p className={`cardDescp`}>{t.card3.description}</p>
             <div className={`${styles.cardCta}`}>
               <Link
                 className="card_href_link hover:underline"

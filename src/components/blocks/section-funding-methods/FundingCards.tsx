@@ -48,21 +48,15 @@ export async function SectionFundingCards({
       className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection} compact-section`}
     >
       <div className="ap_container_small">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(1000px,1fr))] gap-6">
-          <div className="">
-            <h2 className="h2-size mb-6 text-center md:text-left">
-              {sectionTitle}
-            </h2>
-          </div>
-          <div className="">
-            <p className="paragraph max-w-2xl opacity-90 max-md:text-center max-md:mb-10">
-              {sectionParagraph}
-            </p>
-          </div>
-        </div>
+        <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+          {sectionTitle}
+        </h2>
+        <p className="reading-text-md opacity-60 mb-8 md:mb-12">
+          {sectionParagraph}
+        </p>
         {/* Cards */}
         {funding_cards_section_select_method_type === "Deposit Methods" && (
-          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 text-center md:mt-18">
+          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 text-center ">
             {cards.map((card, idx) => (
               <div key={idx} className={`${styles.cardItem} items-center`}>
                 <img
@@ -102,7 +96,7 @@ export async function SectionFundingCards({
         )}
 
         {funding_cards_section_select_method_type === "Withdrawal Methods" && (
-          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 text-center md:mt-18">
+          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 text-center">
             {wthDrawCards.map((card, idx) => (
               <div key={idx} className={`${styles.cardItem} items-center`}>
                 <img

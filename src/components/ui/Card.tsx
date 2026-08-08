@@ -52,8 +52,8 @@ export default function Card({
                 : styles.cardSmall
         }`}
     >
-      {title && <h3>{title}</h3>}
-      {paragraph && <p className={`opacity-65`}>{paragraph}</p>}
+      {title && <h3 className={`cardTitle`}>{title}</h3>}
+      {paragraph && <p className={`cardDescp`}>{paragraph}</p>}
 
       {cardCtaLink && (
         <div className={styles.cardCta}>

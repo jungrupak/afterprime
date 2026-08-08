@@ -38,9 +38,15 @@ export default function SectionMarginCallOut() {
     <>
       <section className={`compact-section`}>
         <div className="ap_container_small">
-          <div className="mb-10 md:mb-20">
-            <h2 className={`${styles.sectionTitle}`}>{title}</h2>
-            <p className="paragraph max-w-[800px]">{paragraph}</p>
+          <div className="">
+            <h2
+              className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+            >
+              {title}
+            </h2>
+            <p className="reading-text-md opacity-60 mb-8 md:mb-12">
+              {paragraph}
+            </p>
           </div>
           <div className="genericTable">
             <table>

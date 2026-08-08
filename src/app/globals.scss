@@ -65,7 +65,9 @@
   --reading-text-md: clamp(20px, 5vw, 22px);
   --reading-text-sm: clamp(18px, 5vw, 20px);
   --reading-text-xs: clamp(16.5px, 5vw, 18px);
+  --reading-text-2xs: clamp(14.5px, 5vw, 16px);
   --reading-text-caption: clamp(12.5px, 5vw, 14px);
+  --reading-text-tiny: clamp(11.5px, 5vw, 12px);
   //
   --font-size-note: 14px;
   --font-size-tiny: 12px;
@@ -130,51 +132,63 @@
 .font-size-display {
   font-size: var(--display);
   line-height: var(--line-height-compact);
+  letter-spacing: 0.2;
 }
 .font-size-heading-xl {
   font-size: var(--heading-xl);
   line-height: var(--line-height-compact);
+  letter-spacing: 0.3;
 }
 .font-size-heading-lg {
   font-size: var(--heading-lg);
   line-height: var(--line-height-small);
+  letter-spacing: 0.2;
 }
 .font-size-heading-md {
   font-size: var(--heading-md);
   line-height: var(--line-height-small);
+  letter-spacing: 0.2;
 }
 .font-size-heading-sm {
   font-size: var(--heading-sm);
-  line-height: var(--line-height-default);
+  line-height: var(--line-height-small);
+  letter-spacing: 0.2;
 }
 .font-size-heading-xs {
   font-size: var(--heading-xs);
   line-height: var(--line-height-default);
+  letter-spacing: 0.2;
 }
 //
 .reading-text-xl {
   font-size: var(--reading-text-xl);
   line-height: var(--line-height-medium);
+  letter-spacing: 0.1;
 }
 .reading-text-lg {
   font-size: var(--reading-text-lg);
   line-height: var(--line-height-medium);
+  letter-spacing: 0.2;
 }
 .reading-text-md {
   font-size: var(--reading-text-md);
   line-height: var(--line-height-default);
+  letter-spacing: 0.3;
 }
 .reading-text-sm {
   font-size: var(--reading-text-sm);
   line-height: var(--line-height-default);
+  letter-spacing: 0.3;
 }
 .reading-text-xs {
   font-size: var(--reading-text-xs);
   line-height: var(--line-height-default);
+  letter-spacing: 0.4;
 }
 .reading-text-caption {
   font-size: var(--reading-text-caption);
   line-height: var(--line-height-default);
+  letter-spacing: 0.5;
 }
 
 //Ends Font size and veriants
@@ -419,7 +433,7 @@ body::-webkit-scrollbar {
       margin-bottom: 20px;
       font-size: var(--reading-text-md);
       line-height: var(--line-height-default);
-      font-weight: 500;
+      font-weight: 300;
       color: var(--primary-white-60);
       padding-left: clamp(40px, 5vw, 50px);
       position: relative;
@@ -588,7 +602,7 @@ section {
         background-color: rgba(var(--alphaWhite), 0.06);
         border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
         padding: 15px 20px;
-        font-size: 16px;
+        font-size: var(--reading-text-caption);
         text-align: left;
 
         &:last-child {
@@ -600,8 +614,9 @@ section {
         background-color: rgba(var(--alphaWhite), 0.06);
         border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
         padding: 15px 20px;
-        font-size: 20px;
+        font-size: var(--reading-text-xs);
         transition: all 0.2s ease-in-out;
+        color: var(--primary-white-60);
 
         &:last-child {
           text-align: end;

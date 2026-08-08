@@ -30,7 +30,7 @@ export function ClientMoneySection({
           {/* Left */}
           <div>
             <div className="max-md:text-center md:pr-25">
-              <h2 className="font-[600]">
+              <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
                 {client_money_static_block_section_title}
               </h2>
               <div

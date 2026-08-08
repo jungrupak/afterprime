@@ -135,10 +135,16 @@ export async function TableDataRewardFlow({
   return (
     <section className="compact-section">
       <div className="ap_container_small">
-        <div className="mb-10 md:mb-15">
-          <h2 className={style.sectionTitle}>{rebate_table_title}</h2>
+        <div className="">
+          <h2
+            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+          >
+            {rebate_table_title}
+          </h2>
           {rebate_table_section_paragraph && (
-            <p className="paragraph">{rebate_table_section_paragraph}</p>
+            <p className="reading-text-md opacity-60 mb-8 md:mb-12">
+              {rebate_table_section_paragraph}
+            </p>
           )}
         </div>
 

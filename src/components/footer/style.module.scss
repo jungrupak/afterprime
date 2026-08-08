@@ -6,23 +6,20 @@
 .footer_links {
   h2 {
     color: var(--primary-white-60);
-    font-size: 18px;
+    font-size: var(--reading-text-xs);
     font-weight: 700;
     margin-bottom: 16px;
 
     @media all and (min-width: 768px) {
-      font-size: 20px;
       margin-bottom: 20px;
     }
   }
   ul {
     li {
       margin-bottom: 12px;
-      font-size: 14px;
 
       @media all and (min-width: 768px) {
         margin-bottom: 15px;
-        font-size: 16px;
       }
 
       &:last-child {
@@ -31,6 +28,7 @@
       a {
         color: var(--primary-white-40);
         transition: color 0.2s ease;
+        font-size: var(--reading-text-2xs);
       }
       &:hover {
         a {
@@ -46,24 +44,23 @@
   border-radius: var(--radius-xlg);
   background-color: var(--primary-white-2);
   h3 {
-    font-size: 16px;
+    font-size: var(--reading-text-2xs);
     font-weight: 600;
     margin-bottom: 12px;
     color: var(--primary-white-60);
 
     @media all and (min-width: 768px) {
-      font-size: 18px;
       margin-bottom: 15px;
     }
   }
   p {
     margin-bottom: 16px;
-    font-size: 13px;
+    font-size: var(--reading-text-caption);
     color: var(--primary-white-40);
+    letter-spacing: 0.2;
 
     @media all and (min-width: 768px) {
       margin-bottom: 20px;
-      font-size: 14px;
     }
 
     &:last-child {
@@ -73,11 +70,11 @@
 }
 
 .copyrightText {
-  font-size: 12px;
+  font-size: var(--reading-text-tiny);
   color: var(--primary-white-30);
 
   @media all and (min-width: 768px) {
-    font-size: 14px;
+    font-size: var(--reading-text-caption);
   }
 }
 

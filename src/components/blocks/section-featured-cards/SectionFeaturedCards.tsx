@@ -43,13 +43,13 @@ export default async function SectionFeaturedCards({
           className={`${styles.content_block} relative z-10 min-[1260px]:max-w-[700px]`}
         >
           <h2
-            className="h2-size mb-6 max-md:text-center"
+            className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold max-md:text-center"
             style={{ fontWeight: "600" }}
           >
             {section_card_repeator_section_title}
           </h2>
           <div
-            className="paragraph max-md:text-center"
+            className="reading-text-md opacity-60 mb-8 md:mb-12"
             dangerouslySetInnerHTML={{
               __html: htmlContent ?? "&nbsp;",
             }}
@@ -74,12 +74,8 @@ export default async function SectionFeaturedCards({
               <div key={index} className="flex gap-4 items-start text-left">
                 <BulletBlue />
                 <div>
-                  <h3 className="text-[clamp(20px_,5vw,25px)] font-[700]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-[clamp(16px_,5vw,20px)] opacity-60 leading-relaxed">
-                    {item.paragraph}
-                  </p>
+                  <h3 className="cardTitle">{item.title}</h3>
+                  <p className="cardDescp">{item.paragraph}</p>
                 </div>
               </div>
             ))}

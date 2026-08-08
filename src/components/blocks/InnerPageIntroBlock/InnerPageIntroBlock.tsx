@@ -15,10 +15,16 @@ export default function InnerPageIntroBlock({
       <div className="ap_container_small">
         <div className={`${styles.sectionIntroContents}`}>
           <div>
-            <h3>{intro_block_title_}</h3>
+            <h3
+              className={`font-size-heading-sm mb-4 md:mb-6 opacity-80 font-semibold`}
+            >
+              {intro_block_title_}
+            </h3>
           </div>
           <div>
-            <p>{intro_block_description}</p>
+            <p className={`reading-text-md font-[300] opacity-60`}>
+              {intro_block_description}
+            </p>
           </div>
         </div>
       </div>

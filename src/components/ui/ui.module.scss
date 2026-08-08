@@ -263,6 +263,38 @@
   button:last-child {
     margin-top: clamp(30px, 5vw, 50px);
   }
+
+  ul,
+  ol {
+    margin-block: clamp(20px, 5vw, 25px);
+    li {
+      margin-bottom: 20px;
+      font-size: var(--reading-text-md);
+      line-height: var(--line-height-default);
+      font-weight: 300;
+      color: var(--primary-white-60);
+      padding-left: clamp(40px, 5vw, 50px);
+      position: relative;
+      &:before {
+        content: "";
+        background-image: url("/img/tri-dots.svg");
+        background-repeat: no-repeat;
+        background-size: 10px;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-position: 11px center;
+        background-color: var(--secondary-color);
+        position: absolute;
+        left: 0;
+        top: 3px;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 @media all and (max-width: 767px) {
