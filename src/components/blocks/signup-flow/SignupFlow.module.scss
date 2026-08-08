@@ -141,7 +141,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: 12px;
-  margin-top: clamp(28px, 4vw, 40px);
+  margin-top: clamp(40px, 4vw, 80px);
 }
 
 .paymentChip {
@@ -161,5 +161,6 @@
   img {
     height: 35px !important;
     width: auto;
+    opacity: 0.6;
   }
 }

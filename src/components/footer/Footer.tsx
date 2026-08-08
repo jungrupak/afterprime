@@ -269,7 +269,7 @@ export default async function Footer() {
                 alt={item.alt}
                 width={60}
                 height={38}
-                style={{ height: "38px", width: "auto" }}
+                style={{ height: "38px", width: "auto", opacity: 0.6 }}
               />
             ))}
           </div>
