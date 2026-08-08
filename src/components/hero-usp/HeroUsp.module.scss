@@ -23,7 +23,7 @@
     color: #95ff00;
   }
   .descp {
-    font-size: var(--reading-text-xs);
+    font-size: var(--reading-text-sm);
     text-align: left;
     color: var(--primary-white-60);
     line-height: 1.4;
@@ -44,4 +44,5 @@
 
 .note {
   transition: all 0.3s ease;
+  color: var(--primary-white-40);
 }

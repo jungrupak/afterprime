@@ -57,7 +57,7 @@ export default async function HeroUsp({ text }: { text: string }) {
           </div>
 
           <p
-            className={`${styles.note} text-[length:var(--font-size-note)] absolute bottom-5 opacity-35 max-md:static leading-[1.4]`}
+            className={`${styles.note} reading-text-caption absolute bottom-5 max-md:static`}
             //style={{ opacity: note ? "0.55" : "0" }}
           >
             {text}. {""}
