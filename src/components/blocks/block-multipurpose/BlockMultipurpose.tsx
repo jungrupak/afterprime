@@ -178,7 +178,9 @@ export async function MultipurposeBlock({
 
             {multipurpose_block_active_right_column_content_block === "1" && (
               <div className="max-md:text-center md:pe-25">
-                <h2 className="h2-size mb-6">{t.rightTitle}</h2>
+                <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+                  {t.rightTitle}
+                </h2>
                 <div
                   className="wysWygEditor"
                   dangerouslySetInnerHTML={{ __html: htmlContent2 || "&nbsp;" }}

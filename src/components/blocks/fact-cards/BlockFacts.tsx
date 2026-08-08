@@ -2,6 +2,7 @@ import styles from "./SectionFacts.module.scss";
 import BulletBlue from "@/components/ui/BulletBlue";
 import FactsVideoBg from "./FactsVideoBg";
 import type { Blocks } from "@/types/blocks";
+import BulletTickBlue from "@/components/ui/BulletTickBlue";
 
 type SectionFactsProps = Blocks["fact-cards"];
 
@@ -30,7 +31,7 @@ export function BlockFacts(block: SectionFactsProps) {
           <FactsVideoBg />
           <div className={styles.factContent}>
             {block.facts_block_title && (
-              <h2 className="h2-size mb-0" style={{ fontWeight: 600 }}>
+              <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
                 {block.facts_block_title}
               </h2>
             )}
@@ -38,13 +39,13 @@ export function BlockFacts(block: SectionFactsProps) {
               <p className={styles.infoText}>{block.facts_info_text}</p>
             )}
             {cards.length > 0 && (
-              <div className={`${styles.factGrid} mt-16`}>
+              <div className={`${styles.factGrid} mt-10`}>
                 {cards.map((card, index) => (
                   <div key={index} className="flex gap-4 items-start text-left">
-                    <BulletBlue />
+                    <BulletTickBlue />
                     <div>
-                      <h3 className={styles.cardTitle}>{card.title}</h3>
-                      <p className={styles.cardDesc}>{card.description}</p>
+                      <h3 className={"cardTitle mb-2!"}>{card.title}</h3>
+                      <p className={`cardDescp mb-0!`}>{card.description}</p>
                     </div>
                   </div>
                 ))}

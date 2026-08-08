@@ -1,4 +1,8 @@
 .contentRight {
+  .genericTable {
+    margin-top: max(40px, min(5vw, 50px));
+  }
+
   img {
     @media all and (max-width: 767px) {
       width: 100%;

@@ -74,7 +74,7 @@ export function LivePricingForex({
   return (
     <div>
       <div className="w-full text-left max-md:px-6">
-        <h2 className="font-size-heading-lg mb-4 md:mb-6 opacity-80">
+        <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
           {c.headingBefore}
           {c.headingHighlight}
           {c.headingAfter}
@@ -252,7 +252,7 @@ export function LivePricingForex({
               </div>
             )}
           </div>
-          <p className="opacity-80 mt-8">
+          <p className="reading-text-caption opacity-40 mt-8">
             {c.cta1BeforeEurusd}
             <Link href={localizeHref("/trade/eurusd", locale)}>
               <u>{c.eurusdLinkText}</u>
@@ -272,7 +272,7 @@ export function LivePricingForex({
             {c.cta1Suffix}
           </p>
 
-          <p className="opacity-80 mt-2">
+          <p className="reading-text-caption opacity-40 mt-2">
             {c.readyToComparePrefix}
             <Link
               href={localizeHref(

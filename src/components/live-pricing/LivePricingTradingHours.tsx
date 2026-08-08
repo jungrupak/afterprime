@@ -81,7 +81,7 @@ export function LivePricingTradingHours({
   return (
     <div>
       <div className="w-full">
-        <h2 className="font-size-heading-lg mb-4 md:mb-6 opacity-80">
+        <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
           {c.headingBefore}
           {c.headingHighlight}
           {c.headingAfter}

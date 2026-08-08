@@ -30,7 +30,7 @@ export default async function DataVisual(props: SectionProps) {
       <div className="ap_container_small">
         <div className={`${styles.costAdvantageSection}`}>
           <h2
-            className="font-size-heading-lg mb-4 md:mb-6 opacity-80"
+            className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold"
             dangerouslySetInnerHTML={{
               __html: data_visialization_section_section_title || "&nbsp;",
             }}

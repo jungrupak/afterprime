@@ -99,27 +99,32 @@
 //if desktop  = 15 then mobile = 10
 //
 //Spacing and Typo rules
-//Block or section heading == font-size-heading-lg mb-4 md:mb-6 opacity-80
+
+//Inner Hero Heading == font-size-heading-xl mt-13 md:mt-18 font-semibold
+//Inner Hero Paragraph == reading-text-lg mt-5 md:mt-10 opacity-60
+
+//Block or section heading == font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold
 //Block or section subheading == reading-text-md opacity-60 mb-8 md:mb-12
 //Content Part heading == font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold
 //Content part Paragraph == reading-text-md font-[300]
 //Caption text == reading-text-caption opacity-40
+//Card Title ==
 
 //Card Title and paragraph font settings
-// h3 {
-//   margin-bottom: clamp(20px, 5vw, 25px);
-//   font-size: var(--heading-xs);
-//   font-weight: var(--weight-bold);
-//   line-height: var(--line-height-small);
-//   color: var(--primary-white-80);
-// }
-// p {
-// margin-bottom: clamp(25px, 5vw, 30px);
-// font-size: var(--reading-text-sm);
-// font-weight: var(--weight-medium);
-// line-height: var(--line-height-default);
-// color: var(--primary-white-60);
-// }
+.cardTitle {
+  margin-bottom: clamp(20px, 5vw, 25px);
+  font-size: var(--heading-xs);
+  font-weight: var(--weight-bold);
+  line-height: var(--line-height-small);
+  color: var(--primary-white-80);
+}
+.cardDescp {
+  margin-bottom: clamp(25px, 5vw, 30px);
+  font-size: var(--reading-text-sm);
+  font-weight: var(--weight-medium);
+  line-height: var(--line-height-default);
+  color: var(--primary-white-60);
+}
 
 //FONT Verients and variables
 .font-size-display {
@@ -390,6 +395,7 @@ body::-webkit-scrollbar {
   font-size: var(--reading-text-md);
   line-height: var(--line-height-default);
   font-weight: 300;
+  color: var(--primary-white-60);
   p,
   > div {
     font-size: var(--reading-text-md);
@@ -400,21 +406,37 @@ body::-webkit-scrollbar {
       margin-bottom: 0;
     }
   }
+  p {
+    margin-bottom: clamp(20px, 5vw, 25px);
+  }
   .genericTable {
     margin-top: max(40px, min(5vw, 50px));
   }
 
   ul {
-    list-style: disc;
-    margin-inline-start: 22px;
-    margin-bottom: max(40px, min(5vw, 50px));
-
+    margin-block: clamp(20px, 5vw, 25px);
     li {
       margin-bottom: 20px;
       font-size: var(--reading-text-md);
       line-height: var(--line-height-default);
       font-weight: 500;
       color: var(--primary-white-60);
+      padding-left: clamp(40px, 5vw, 50px);
+      position: relative;
+      &:before {
+        content: "";
+        background-image: url("/img/tri-dots.svg");
+        background-repeat: no-repeat;
+        background-size: 10px;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-position: 11px center;
+        background-color: var(--secondary-color);
+        position: absolute;
+        left: 0;
+        top: 3px;
+      }
 
       &:last-child {
         margin-bottom: 0;

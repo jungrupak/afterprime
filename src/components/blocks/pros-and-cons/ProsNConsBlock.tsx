@@ -97,7 +97,7 @@ export async function ProsNConsBlock({
           {/* Left */}
           <div>
             <div className="max-md:text-center xl:pr-25 xl:rtl:pr-0">
-              <h2 className="font-size-heading-lg mb-4 md:mb-6 opacity-80">
+              <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
                 {heading}
               </h2>
               <div
