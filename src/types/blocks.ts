@@ -225,6 +225,9 @@ export type Blocks = {
   "mt4-vs-mt5":{
     compare_metatraders?:string;
   };
+  "trading-downtime":{
+    trading_downtime_section?:string;
+  };
 };
 //
 

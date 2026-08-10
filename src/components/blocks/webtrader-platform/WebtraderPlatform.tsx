@@ -6,6 +6,7 @@ import { webtraderPlatformContent } from "./webtraderPlatformContent";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 export default async function WebtraderPlatform() {
   const locale = await getRequestLocale();
@@ -18,10 +19,9 @@ export default async function WebtraderPlatform() {
   return (
     <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
       <div className="ap_container_small">
-        <h2 className={`mb-3! md:mb-5!`}>{t.heading}</h2>
-        <p className="paragraph">{t.paragraph}</p>
+        <SectionHeading heading={t.heading} subHeading={t.paragraph} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 md:mt-15">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link
             href={"https://mt5web.afterprime.io/terminal"}
             target="_blank"

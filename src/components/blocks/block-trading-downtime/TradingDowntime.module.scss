@@ -1,0 +1,45 @@
+.tableWrapper {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.compareTable {
+  width: 100%;
+  min-width: 560px;
+  text-align: left;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 18px 20px;
+    border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  th {
+    background: rgba(var(--alphaWhite), 0.06);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary-white-80);
+  }
+
+  td {
+    background: rgba(var(--alphaWhite), 0.06);
+    font-size: 18px;
+    color: var(--primary-white-60);
+  }
+
+  // Distinct subtle white tints so MT4 and MT5 columns read apart from
+  // each other, not just from the label column
+
+  tr:hover {
+    td {
+      background-color: rgba(var(--alphaWhite), 0.09);
+    }
+  }
+}

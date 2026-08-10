@@ -24,8 +24,14 @@ export default async function CompareMT4MT5() {
   return (
     <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
       <div className="ap_container_small">
-        <h2 className={`mb-3! md:mb-5!`}>{t.heading}</h2>
-        <p className="paragraph">{t.subheading}</p>
+        <h2
+          className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+        >
+          {t.heading}
+        </h2>
+        <p className="reading-text-md opacity-60 mb-8 md:mb-12">
+          {t.subheading}
+        </p>
 
         <div className={styles.tableWrapper}>
           <table className={styles.compareTable}>
@@ -48,7 +54,9 @@ export default async function CompareMT4MT5() {
           </table>
         </div>
 
-        <p className="text-[18px] mt-8 md:mt-10 opacity-60">{t.closing}</p>
+        <p className="reading-text-caption opacity-40 mt-4 md:mt-6">
+          {t.closing}
+        </p>
       </div>
     </section>
   );

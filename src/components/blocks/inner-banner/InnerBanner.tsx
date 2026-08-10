@@ -35,7 +35,7 @@ export default async function InnerBanner({
       >
         <div className="ap_container_small flex items-center h-full">
           <div className={`apBannerContent w-full`}>
-            <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold">
+            <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold opacity-90">
               {inner_banner_title}
             </h1>
             <div

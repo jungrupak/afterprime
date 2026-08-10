@@ -39,6 +39,10 @@
     }
   }
 
+  b {
+    font-weight: 600;
+  }
+
   a:last-child,
   button:last-child {
     margin-top: clamp(30px, 5vw, 50px);

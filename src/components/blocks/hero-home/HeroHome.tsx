@@ -47,7 +47,7 @@ export async function HeroHome(props: HeroHomeProps) {
         <div className="relative z-2 mt-13 md:mt-18">
           <div className="w-full max-w-[1080] mx-auto max-md:px-5">
             <h1
-              className={`font-size-display text-center mb-5 lg:mb-[20px]! text-center font-bold`}
+              className={`font-size-display text-center mb-5 lg:mb-[20px]! text-center font-bold opacity-90`}
             >
               {heading}
             </h1>

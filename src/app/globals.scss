@@ -94,6 +94,16 @@
   --radius-default: 2px;
   --radius-lg: 4px;
   --radius-xlg: 6px;
+
+  //Scales
+  --space-2xl: 48px;
+  --space-xl: 40px;
+  --space-lg: 32px;
+  --space-md: 24px;
+  --space-sm: 16px;
+  --space-xs: 12px;
+  --space-2xs: 8px;
+  --space-3xs: 4px;
 }
 
 //Spacing Rules (tailwind scale values)
@@ -420,6 +430,7 @@ body::-webkit-scrollbar {
   line-height: var(--line-height-default);
   font-weight: 300;
   color: var(--primary-white-60);
+
   p,
   > div {
     font-size: var(--reading-text-md);
@@ -428,6 +439,9 @@ body::-webkit-scrollbar {
     color: var(--primary-white-60);
     &:last-child {
       margin-bottom: 0;
+    }
+    b {
+      font-weight: 700 !important;
     }
   }
   p {
