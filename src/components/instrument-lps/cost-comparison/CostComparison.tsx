@@ -223,7 +223,7 @@ export default async function CostComparison({
         className={`ap_container_small relative z-1 w-full z-5 my-5 md:my-15`}
       >
         <h2
-          className={`font-size-heading-lg text-center font-semibold max-md:leading-[1.2]`}
+          className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
         >
           {c.heading.replace("{sym}", sym)}
         </h2>
@@ -231,7 +231,9 @@ export default async function CostComparison({
           <div
             className={`${styles.costCompareTableHead} grid grid-cols-7 gp-10 md:gap-5`}
           >
-            <div className={`col-span-3 md:col-span-2`}></div>
+            <div className={`col-span-3 md:col-span-2`}>
+              {c.tableHeaders.brokerLabel}
+            </div>
             <div className={`col-span-1 md:block hidden`}>
               {c.tableHeaders.spreadLine1} <br />
               {c.tableHeaders.spreadLine2}
@@ -285,7 +287,10 @@ export default async function CostComparison({
                     </div>
                   )}
 
-                  <div data-label={c.dataLabels.broker} className={`col-span-3 relative`}>
+                  <div
+                    data-label={c.dataLabels.broker}
+                    className={`col-span-3 relative`}
+                  >
                     {broker.broker === "Afterprime" ? (
                       <span className="text-[length:var(--font-size-note)] block">
                         <strong>Afterprime</strong>

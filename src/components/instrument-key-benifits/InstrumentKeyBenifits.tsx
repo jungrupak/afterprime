@@ -7,6 +7,7 @@ import {
   instrumentKeyBenifitsContent,
   type InstrumentKeyBenifitsContent as InstrumentKeyBenifitsContentType,
 } from "./instrumentKeyBenifitsContent";
+import BulletTickBlue from "../ui/BulletTickBlue";
 
 function InstrumentKeyBenifitsContent({
   instrument,
@@ -32,19 +33,19 @@ function InstrumentKeyBenifitsContent({
 
   return (
     <div className={`${styles.listUi}`}>
-      <h3
-        className={`text-[clamp(28px_,5vw_,34px)]! font-semibold! mb-5! md:mb-10!`}
-      >
+      <h3 className={`cardTitle mb-8!`}>
         {c.heading.replace("{sym}", instrument.toUpperCase())}
       </h3>
       <ul>
         {rebate !== null && brokerAp ? (
           <>
             <li>
+              <BulletTickBlue />
               <b>{indVsAvgLowerCost?.toFixed(2)}%</b>
               {c.lowerCostSuffix}
             </li>
             <li>
+              <BulletTickBlue />
               <b>
                 {c.saveLabel}
                 {(
@@ -56,9 +57,16 @@ function InstrumentKeyBenifitsContent({
               </b>{" "}
               {c.savePerLotsSuffix}
             </li>
-            <li>{c.zeroCommission}</li>
-            <li>{c.subExecution}</li>
             <li>
+              <BulletTickBlue />
+              {c.zeroCommission}
+            </li>
+            <li>
+              <BulletTickBlue />
+              {c.subExecution}
+            </li>
+            <li>
+              <BulletTickBlue />
               {c.flowRewardsPrefix}
               <sup>TM</sup>
               {c.flowRewardsSuffix}
@@ -66,9 +74,18 @@ function InstrumentKeyBenifitsContent({
           </>
         ) : (
           <>
-            <li>{c.zeroCommission}</li>
-            <li>{c.subExecution}</li>
-            <li>{c.institutionalSpreads}</li>
+            <li>
+              <BulletTickBlue />
+              {c.zeroCommission}
+            </li>
+            <li>
+              <BulletTickBlue />
+              {c.subExecution}
+            </li>
+            <li>
+              <BulletTickBlue />
+              {c.institutionalSpreads}
+            </li>
           </>
         )}
       </ul>

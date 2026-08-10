@@ -189,7 +189,7 @@ export default async function VsSymbolPage({ params }: Props) {
       {/* Section 2 — Comparison Table */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <h2 className="leading-[1.2]">
+          <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
             {t.costComparisonHeading
               .replace("{brokerName}", mappedBrokerName)
               .replace("{sym}", sym)}
@@ -206,7 +206,7 @@ export default async function VsSymbolPage({ params }: Props) {
             savingPct={savingPct}
             content={tableT}
           />
-          <div className={`${styles.aboutSection} mt-10`}>
+          <div className={`${styles.aboutSection} reading-text-caption mt-10`}>
             {t.comparisonNote
               .replace("{brokerName}", mappedBrokerName)
               .replace("{sym}", sym)}
@@ -218,7 +218,7 @@ export default async function VsSymbolPage({ params }: Props) {
       {savingPerlot > 0 && (
         <section className="compact-section">
           <div className="ap_container_small">
-            <h2 className="leading-[1.2] max-md:text-center">
+            <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
               {t.betterDealHeading}
             </h2>
             <VsSymbolVerdicts
@@ -237,7 +237,7 @@ export default async function VsSymbolPage({ params }: Props) {
       <section className="compact-section">
         <div className="ap_container_small">
           <div className={styles.faqBlock}>
-            <h2 className="font-size-heading-sm font-[700] mb-10">
+            <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
               {t.faqHeading
                 .replace("{brokerName}", mappedBrokerName)
                 .replace("{sym}", sym)}
@@ -254,7 +254,7 @@ export default async function VsSymbolPage({ params }: Props) {
       {/* Section 6 — Related Links */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <h2 className="font-size-heading-sm font-[700] mb-10">
+          <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
             {t.learnMoreHeading.replace("{sym}", sym)}
           </h2>
           <div className={styles.relatedLinks}>
@@ -271,18 +271,27 @@ export default async function VsSymbolPage({ params }: Props) {
               {t.swapRatesLink.replace("{sym}", sym)}
             </Link>
             <Link
-              href={localizeHref(`/trading-hours/${symbol.toLowerCase()}`, locale)}
+              href={localizeHref(
+                `/trading-hours/${symbol.toLowerCase()}`,
+                locale,
+              )}
               className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
               {t.marketHoursLink.replace("{sym}", sym)}
             </Link>
             {nextBrokerSlug && (
               <Link
-                href={localizeHref(`/vs/${nextBrokerSlug}/${symbol.toLowerCase()}`, locale)}
+                href={localizeHref(
+                  `/vs/${nextBrokerSlug}/${symbol.toLowerCase()}`,
+                  locale,
+                )}
                 className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
               >
                 {t.nextBrokerLink
-                  .replace("{nextBroker}", getBrokerDisplayName(nextBrokerSlug) ?? nextBrokerSlug)
+                  .replace(
+                    "{nextBroker}",
+                    getBrokerDisplayName(nextBrokerSlug) ?? nextBrokerSlug,
+                  )
                   .replace("{sym}", sym)}
               </Link>
             )}
@@ -306,14 +315,23 @@ export default async function VsSymbolPage({ params }: Props) {
       <BreadcrumbSchema
         items={[
           { name: t.breadcrumbHome, href: localizeHref("/", locale) },
-          { name: t.breadcrumbBrokerComparisons, href: localizeHref("/vs", locale) },
           {
-            name: t.breadcrumbVsBroker.replace("{brokerName}", mappedBrokerName),
+            name: t.breadcrumbBrokerComparisons,
+            href: localizeHref("/vs", locale),
+          },
+          {
+            name: t.breadcrumbVsBroker.replace(
+              "{brokerName}",
+              mappedBrokerName,
+            ),
             href: localizeHref(`/vs/${brokers}`, locale),
           },
           {
             name: t.breadcrumbSymbolComparison.replace("{sym}", sym),
-            href: localizeHref(`/vs/${brokers}/${symbol.toLowerCase()}`, locale),
+            href: localizeHref(
+              `/vs/${brokers}/${symbol.toLowerCase()}`,
+              locale,
+            ),
           },
         ]}
       />

@@ -63,7 +63,7 @@ export default function LivePriceChart({
         : "text-white/40";
 
   return (
-    <div className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] backdrop-blur-xl shadow-2xl overflow-hidden">
+    <div className="w-full rounded-[var(--radius-lg)] border border-white/[0.07] bg-white/[0.04] backdrop-blur-xl shadow-2xl overflow-hidden">
       <div className="p-5 pb-0">
         <div className="flex justify-between items-start mb-1">
           <div>
@@ -84,7 +84,10 @@ export default function LivePriceChart({
                 </Link>
 
                 <Link
-                  href={localizeHref(`/trading-hours/${symbol.toLowerCase()}`, locale)}
+                  href={localizeHref(
+                    `/trading-hours/${symbol.toLowerCase()}`,
+                    locale,
+                  )}
                   className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >

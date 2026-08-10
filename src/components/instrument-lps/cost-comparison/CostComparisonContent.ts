@@ -19,6 +19,7 @@
 export const costComparisonContent = {
   heading: "Compare {sym} Broker Costs",
   tableHeaders: {
+    brokerLabel:"Brokers",
     spreadLine1: "Spread",
     spreadLine2: "(Incl. Commission)",
     allInCostLine1: "All-In Cost",

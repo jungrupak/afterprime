@@ -92,10 +92,14 @@ export default async function Page({ params }: PageSlug) {
     notFound();
   }
 
-  const breadcrumbT = await getTranslatedStatic("calculator-breadcrumb", locale, {
-    home: "Home",
-    calculators: "Calculators",
-  });
+  const breadcrumbT = await getTranslatedStatic(
+    "calculator-breadcrumb",
+    locale,
+    {
+      home: "Home",
+      calculators: "Calculators",
+    },
+  );
 
   const acfFields = pageData?.acf;
   const calculatorPageFields = acfFields?.calculator_page_fields;
@@ -210,14 +214,11 @@ export default async function Page({ params }: PageSlug) {
         className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
         <div className="ap_container_small flex items-center h-full">
-          <div className="apBannerContent md:max-w-[800px]">
-            <h1 className="h1-size mt-10 lg:mt-15">
+          <div className="apBannerContent text-center">
+            <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold">
               <span className="font-[600]">{pageTitle}</span>
             </h1>
-            <div
-              className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
-              style={{ fontWeight: "300" }}
-            >
+            <div className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light">
               {heroParagraph}
             </div>
           </div>
@@ -284,8 +285,14 @@ export default async function Page({ params }: PageSlug) {
       <BreadcrumbSchema
         items={[
           { name: breadcrumbT.home, href: localizeHref("/", locale) },
-          { name: breadcrumbT.calculators, href: localizeHref("/calculators", locale) },
-          { name: pageTitle ?? slug, href: localizeHref(`/calculators/${slug}`, locale) },
+          {
+            name: breadcrumbT.calculators,
+            href: localizeHref("/calculators", locale),
+          },
+          {
+            name: pageTitle ?? slug,
+            href: localizeHref(`/calculators/${slug}`, locale),
+          },
         ]}
       />
       {/* FAQ FROM CMS ENDS */}

@@ -1,5 +1,5 @@
 import TypeformLoader from "@/utils/TypeFormLoader";
-import Header from "@/components/instrument-lps/header/Header";
+import Header from "@/components/header/Header";
 //import BottomCards from "@/components/footer/bottom-cards/BottomCards";
 import Footer from "@/components/footer/Footer";
 
@@ -9,6 +9,7 @@ import AfterprimeOrgSchema from "@/lib/schema/orgSchema";
 import ReactQueryProvider from "../providers/ReactQueryProvider";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { headerContent } from "@/components/header/headerContent";
 
 export default async function PagesLayout({
   children,
@@ -16,9 +17,7 @@ export default async function PagesLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getRequestLocale();
-  const t = await getTranslatedStatic("vs-header", locale, {
-    applyNowText: "Get Invite Code",
-  });
+  const headerT = await getTranslatedStatic("header", locale, headerContent);
 
   return (
     <>
@@ -28,7 +27,7 @@ export default async function PagesLayout({
         <AfterprimeOrgSchema />
         {/* Head Scripts Ends */}
         <TypeformLoader />
-        <Header applyNowText={t.applyNowText} />
+        <Header content={headerT} />
         {children}
         {/* <BottomCards /> */}
         <Footer />

@@ -113,12 +113,12 @@ export default async function TradePage() {
         className={`${styles.innerBannerSection} h-auto! compact-innerpage-banner`}
       >
         <div className="ap_container_small flex items-center h-full">
-          <div className="apBannerContent">
-            <h1 className="h1-size mt-10 lg:mt-15 md:max-w-[800px]">
+          <div className="apBannerContent text-center">
+            <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold">
               <span className="font-[600]">{t.heroHeading}</span>
             </h1>
             <div
-              className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
+              className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light"
               style={{ fontWeight: "300" }}
             >
               {t.heroParagraphBefore}
@@ -133,7 +133,11 @@ export default async function TradePage() {
       {/* INtro sectio */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <h2>{t.pricingHeading}</h2>
+          <h2
+            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+          >
+            {t.pricingHeading}
+          </h2>
           <Lists bulletStyle="arrow_blue" items={listItems} />
         </div>
       </section>
@@ -142,7 +146,11 @@ export default async function TradePage() {
       {/* FX Pairs sectio */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <h2>{t.pairsHeading}</h2>
+          <h2
+            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+          >
+            {t.pairsHeading}
+          </h2>
           <div>
             <div className={`${styles.instumentLists}`}>
               <div className="">
@@ -157,14 +165,16 @@ export default async function TradePage() {
                       key={`${categoryName}-${groupIndex}`}
                       className={`mb-8 ${styles.listParent}`}
                     >
-                      <h4 className={`font-bold reading-text-lg mb-2 md:mb-4`}>
+                      <h4 className={`cardTitle mb-2 md:mb-4`}>
                         {categoryLabels[categoryName].toUpperCase()}
                       </h4>
 
                       <ul>
                         {pairs.map((pair) => (
                           <li key={pair.symbol}>
-                            <Link href={localizeHref(pair.url, locale)}>{pair.symbol}</Link>
+                            <Link href={localizeHref(pair.url, locale)}>
+                              {pair.symbol}
+                            </Link>
                           </li>
                         ))}
                       </ul>
@@ -181,15 +191,25 @@ export default async function TradePage() {
       {/* Bottom section */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <h2>{t.compareHeading}</h2>
-          <p className={`paragraph`}>{t.compareIntro}</p>
-          <p className={`paragraph mt-4 md:mt-8`}>{t.publishesLabel}</p>
+          <h2
+            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+          >
+            {t.compareHeading}
+          </h2>
+          <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
+            {t.compareIntro}
+          </p>
+          <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
+            {t.publishesLabel}
+          </p>
           <Lists
             customClass="mt-4 md:mt-8"
             bulletStyle="arrow_blue"
             items={bottomLists}
           />
-          <p className={`paragraph mt-4 md:mt-8`}>{t.compareOutro}</p>
+          <p className={`reading-text-md opacity-60 mt-8 md:mt-12`}>
+            {t.compareOutro}
+          </p>
         </div>
       </section>
       {/* INtro sectio Ends */}

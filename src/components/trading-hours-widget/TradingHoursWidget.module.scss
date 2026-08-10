@@ -2,7 +2,7 @@
 .widget {
   background-color: rgba(var(--alphaWhite), 0.05);
   border: 1px solid rgba(var(--alphaWhite), 0.12);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   padding: clamp(20px, 4vw, 32px);
   margin-bottom: 48px;
 }
@@ -71,7 +71,7 @@
   gap: 12px;
   padding: 12px 16px;
   border: 1px solid rgba(var(--alphaWhite), 0.12);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   margin-bottom: 28px;
 }
 
@@ -133,7 +133,7 @@
   width: 100%;
   text-align: center;
   padding: 10px 4px;
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   font-size: var(--font-size-note);
   font-variant-numeric: tabular-nums;
   background: rgba(var(--alphaWhite), 0.05);
@@ -204,7 +204,7 @@
 .sessionCard {
   background: rgba(var(--alphaWhite), 0.05);
   border: 1px solid rgba(var(--alphaWhite), 0.1);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: 16px 20px;
 
   &.peak {

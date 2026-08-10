@@ -170,25 +170,34 @@ export default async function ForexSlugPage({ params }: Props) {
         className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
         <div className="ap_container_small flex items-center h-full">
-          <div className={`apBannerContent`}>
-            <h1 className="h1-size mt-10 lg:mt-15">
-              <span className="font-[600]">{data?.title.rendered}</span>
+          <div className={`apBannerContent text-center`}>
+            <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold">
+              {data?.title.rendered}
             </h1>
-            <p>{getFields?.hero_paragraph_one ?? ""}</p>
+            <p
+              className={`reading-text-lg mt-5 md:mt-10 opacity-60 font-light`}
+            >
+              {getFields?.hero_paragraph_one ?? ""}
+            </p>
           </div>
         </div>
       </section>
 
-      <section
-        className={`${styles.sectionIntroBlockGeneric} py-[clamp(40px_,10vw_,60px)]!`}
-      >
+      <section className={`${styles.sectionIntroBlockGeneric}`}>
         <div className="ap_container_small">
-          <div className={`${styles.sectionIntroContents}`}>
+          <div className={`${styles.sectionIntroContents} `}>
             <div className={`max-md:order-2 max-md:text-left`}>
-              <p>{getFields?.hero_paragraph_two ?? ""}</p>
+              <p
+                className={`font-size-heading-sm mb-4 md:mb-0 opacity-80 font-semibold`}
+              >
+                {getFields?.hero_paragraph_two ?? ""}
+              </p>
             </div>
             <div className={`max-md:order-1 text-left`}>
-              <InstrumentKeyBenifits instrument={slug} content={instrumentKeyBenifitsT} />
+              <InstrumentKeyBenifits
+                instrument={slug}
+                content={instrumentKeyBenifitsT}
+              />
             </div>
           </div>
         </div>
@@ -244,7 +253,10 @@ export default async function ForexSlugPage({ params }: Props) {
             </Link>
 
             <Link
-              href={localizeHref(`/trading-hours/${slug.toLowerCase()}`, locale)}
+              href={localizeHref(
+                `/trading-hours/${slug.toLowerCase()}`,
+                locale,
+              )}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
@@ -266,7 +278,10 @@ export default async function ForexSlugPage({ params }: Props) {
         items={[
           { name: "Home", href: localizeHref("/", locale) },
           { name: "Forex", href: localizeHref("/forex", locale) },
-          { name: slug.toUpperCase(), href: localizeHref(`/forex/${slug}`, locale) },
+          {
+            name: slug.toUpperCase(),
+            href: localizeHref(`/forex/${slug}`, locale),
+          },
         ]}
       />
 

@@ -552,7 +552,9 @@ export default function CostSavingCalculatorBrokers({
       <div className="text-[length:var(--font-size-note)] col-span-full opacity-60">
         <p className="risk-warning-all">
           {content.legal.part1}
-          <a href={localizeHref("/get-paid-to-trade", locale)}>{content.legal.linkText}</a>
+          <a href={localizeHref("/get-paid-to-trade", locale)}>
+            {content.legal.linkText}
+          </a>
           {content.legal.part2}
           <br />
           <br />

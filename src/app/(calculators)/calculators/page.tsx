@@ -60,14 +60,11 @@ export default async function Page() {
         className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
       >
         <div className="ap_container_small flex items-center h-full">
-          <div className="apBannerContent md:max-w-[800px]">
-            <h1 className="h1-size mt-10 lg:mt-15 ">
+          <div className="apBannerContent text-center">
+            <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold ">
               <span className="font-[600]">{t.heroTitle}</span>
             </h1>
-            <div
-              className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
-              style={{ fontWeight: "300" }}
-            >
+            <div className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light">
               {t.heroParagraphPre}{" "}
               <a href={localizeHref("/vs", locale)}>
                 <u>{t.heroCompareLinkText}</u>
@@ -119,7 +116,11 @@ export default async function Page() {
               />
             </div>
             <div className="col-span-2 md:col-span-1 contetPart order-1">
-              <h2>{t.whyUseHeading}</h2>
+              <h2
+                className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+              >
+                {t.whyUseHeading}
+              </h2>
               <Lists bulletStyle="arrow_blue" items={listItems} />
             </div>
           </div>
@@ -130,27 +131,28 @@ export default async function Page() {
       {/* When to use calculator */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <div className="grid max-md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 justify-center max-md:mb-8">
-            <div className="" />
-          </div>
-          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 md:gap-15">
-            <div>
-              <h3 className={`text-[clamp(20px_,5vw_,34px)] font-semibold]`}>
-                {t.beforeTheTradeHeading}
-              </h3>
-              <Lists bulletStyle="arrow" items={listBeforeTrade} />
+          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-5">
+            <div
+              className={`card-bg-bottomfade p-[var(--space-md)] md:p-[var(--space-xl)]`}
+            >
+              <h3 className={`cardTitle`}>{t.beforeTheTradeHeading}</h3>
+              <Lists bulletStyle="arrow" items={listBeforeTrade} size="Small" />
             </div>
-            <div>
-              <h3 className={`text-[clamp(20px_,5vw_,34px)] font-semibold]`}>
-                {t.strategyPlanningHeading}
-              </h3>
-              <Lists bulletStyle="arrow" items={listStrategyPlanning} />
+            <div
+              className={`card-bg-bottomfade p-[var(--space-md)] md:p-[var(--space-xl)]`}
+            >
+              <h3 className={`cardTitle`}>{t.strategyPlanningHeading}</h3>
+              <Lists
+                bulletStyle="arrow"
+                items={listStrategyPlanning}
+                size="Small"
+              />
             </div>
-            <div>
-              <h3 className={`text-[clamp(20px_,5vw_,34px)] font-semibold]`}>
-                {t.accountManagementHeading}
-              </h3>
-              <Lists bulletStyle="arrow" items={listBeforeTrade} />
+            <div
+              className={`card-bg-bottomfade p-[var(--space-md)] md:p-[var(--space-xl)]`}
+            >
+              <h3 className={`cardTitle`}>{t.accountManagementHeading}</h3>
+              <Lists bulletStyle="arrow" items={listBeforeTrade} size="Small" />
             </div>
           </div>
         </div>

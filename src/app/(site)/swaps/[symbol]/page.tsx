@@ -135,18 +135,14 @@ export default async function Page({ params }: PageProps) {
       <section
         className={`${styles.innerBannerSection} h-auto! compact-innerpage-banner`}
       >
-        <div className="ap_container_small flex items-center h-full">
-          <div className="apBannerContent md:max-w-[800px]">
-            <h1 className="h1-size mt-10 lg:mt-15 ">
+        <div className="ap_container_small">
+          <div className="apBannerContent text-center">
+            <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold ">
               <span className="font-[600]">{symbolName.toUpperCase()}</span>{" "}
               {swapPageT.h1Suffix}
             </h1>
-            <div
-              className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
-              style={{ fontWeight: "300" }}
-            >
+            <div className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light">
               {instrymentData.description} {swapPageT.sublineSuffix}
-              <br />
               {swapPageT.sublineLong}{" "}
               <span className={`font-semibold`}>
                 {swapLong} {currencyProfit}
@@ -155,9 +151,8 @@ export default async function Page({ params }: PageProps) {
               <span className={`font-semibold`}>
                 {swapShort} {currencyProfit}
               </span>{" "}
-              {swapPageT.sublinePerLot} <br />
-              <br />
-              {swapPageT.sublineCta} {symbolName.toUpperCase()}.
+              {swapPageT.sublinePerLot} {swapPageT.sublineCta}{" "}
+              {symbolName.toUpperCase()}.
             </div>
           </div>
         </div>
@@ -212,10 +207,10 @@ export default async function Page({ params }: PageProps) {
                 </tr>
               </tbody>
             </table>
-            <span className={`block mt-4 opacity-65`}>
+            <div className={`reading-text-caption opacity-40 mt-4`}>
               {swapPageT.lastUpdatedPrefix} {todayDate}.{" "}
               {swapPageT.lastUpdatedSuffix}
-            </span>
+            </div>
           </div>
           <SwapCalculatorInline
             symbol={symbolName ?? symbol}
@@ -248,7 +243,7 @@ export default async function Page({ params }: PageProps) {
           </div>
 
           <div className={`${styles.faq_block} mb-0! mt-10 md:mt-20`}>
-            <h2 className="font-size-heading-sm font-[700] mb-5! md:mb-8!">
+            <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
               {symbolName.toUpperCase()} {swapPageT.faqHeading}
             </h2>
             <Accordion faqObjects={FAQ_DATA} />

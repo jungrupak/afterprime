@@ -33,7 +33,11 @@ export default function SpecificationTable({
 
   return (
     <div className={`table-wrapper mb-4 md:mb-10`}>
-      <h2>{c.heading.replace("{sym}", instrument ?? "")}</h2>
+      <h2
+        className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+      >
+        {c.heading.replace("{sym}", instrument ?? "")}
+      </h2>
       <table cellPadding={"0"} cellSpacing={"0"} border={0} className={`m-0!`}>
         <tbody>
           {selectedInstrument &&

@@ -19,18 +19,18 @@
   --card-bg-grdnt-top-fade: linear-gradient(
     #0000 1.44%,
     #0d0d1a 39.42%,
-    #0d0d1a 100%
+    #0d0d1a99 100%
   );
   --card-bg-grdnt-topbottom-fade: linear-gradient(
     #0000 1.44%,
-    #19192f 39.42%,
+    #19192f90 39.42%,
     transparent 100%
   );
   --card-bg-grdnt-bottom-fade: linear-gradient(
     to top,
     #0000 1.44%,
     #0d0d1a 39.42%,
-    #131326 100%
+    #13132690 100%
   );
 
   //Ends####
@@ -113,7 +113,7 @@
 //Spacing and Typo rules
 
 //Inner Hero Heading == font-size-heading-xl mt-13 md:mt-18 font-semibold
-//Inner Hero Paragraph == reading-text-lg mt-5 md:mt-10 opacity-60
+//Inner Hero Paragraph == reading-text-lg mt-5 md:mt-10 opacity-60 font-light
 
 //Block or section heading == font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold
 //Block or section subheading == reading-text-md opacity-60 mb-8 md:mb-12
@@ -123,6 +123,14 @@
 //Card Title ==
 
 //Card Title and paragraph font settings
+.cardEyebrow {
+  margin-bottom: clamp(15px, 5vw, 20px);
+  font-size: var(--font-size-tiny);
+  font-weight: var(--weight-medium);
+  line-height: var(--line-height-default);
+  color: var(--primary-white-60);
+}
+
 .cardTitle {
   margin-bottom: clamp(20px, 5vw, 25px);
   font-size: var(--heading-xs);
@@ -161,7 +169,7 @@
 }
 .font-size-heading-sm {
   font-size: var(--heading-sm);
-  line-height: var(--line-height-small);
+  line-height: var(--line-height-medium);
   letter-spacing: 1.3%;
 }
 .font-size-heading-xs {
@@ -209,6 +217,16 @@
   font-size: var(--reading-text-tiny);
   line-height: var(--line-height-default);
   letter-spacing: 2%;
+}
+
+.card-bg-topfade {
+  background: var(--card-bg-grdnt-top-fade);
+}
+.card-bg-bottomfade {
+  background: var(--card-bg-grdnt-bottom-fade);
+}
+.card-bg-topbottomfade {
+  background: var(--card-bg-grdnt-topbottom-fade);
 }
 
 //Ends Font size and veriants

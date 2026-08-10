@@ -91,11 +91,9 @@ export default function VsSymbolTable({
           </tbody>
         </table>
       </div>
-      <p className={styles.tableNote}>
+      <p className={`reading-text-caption opacity-40 mt-5`}>
         {rebate > 0 && (
-          <>
-            {t.rebateNote.replace("${rebate}", `$${rebate.toFixed(2)}`)}
-          </>
+          <>{t.rebateNote.replace("${rebate}", `$${rebate.toFixed(2)}`)}</>
         )}
         {t.sourceNotePrefix}{" "}
         <a

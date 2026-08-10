@@ -210,11 +210,10 @@ export default async function TradeSlugPage({ params }: PageProps) {
         applyButtonText={faqTranslated.applyButtonText}
         content={lpBannerT}
       />
-
       <section className="compact-section pt-[0.5px]!">
         <div className="ap_container_small">
           {/* THE LIVE CHART SECTION */}
-          <div className="bg-dark pt-10 md:pt-15 rounded-xl mb-8">
+          <div className="bg-dark pt-10 md:pt-15 mb-8">
             <LivePriceChart
               symbol={page.slug.toUpperCase()}
               content={livePriceChartT}
@@ -258,7 +257,10 @@ export default async function TradeSlugPage({ params }: PageProps) {
             items={[
               { name: "Home", href: localizeHref("/", locale) },
               { name: "Trade", href: localizeHref("/trade", locale) },
-              { name: page.slug.toUpperCase(), href: localizeHref(`/trade/${page.slug}`, locale) },
+              {
+                name: page.slug.toUpperCase(),
+                href: localizeHref(`/trade/${page.slug}`, locale),
+              },
             ]}
           />
         </div>

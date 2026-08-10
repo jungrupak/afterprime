@@ -49,22 +49,33 @@ export default function ProductSpecification({
         {instrument} Trading Specification
       </h2> */}
       <div className={`${styles.costBreakDownTable}`}>
-        <SpecificationTable instrument={instrument} content={specTableContent} />
+        <SpecificationTable
+          instrument={instrument}
+          content={specTableContent}
+        />
       </div>
 
       {instrument === "XAUUSD" ? (
         <div className={`mt-15`}>
-          <h3 className={`font-bold text-[clamp(18px,5vw,24px)] mb-2`}>
+          <h3
+            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+          >
             {c.metals.heading}
           </h3>
-          <p className={`opacity-80`}>
+          <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
             {c.paragraphPart1.replace("{sym}", sym)}
-            <Link href={localizeHref("/live-spreads", locale)} className={`underline`}>
+            <Link
+              href={localizeHref("/live-spreads", locale)}
+              className={`underline`}
+            >
               {c.realTimeSpreadLinkText}
             </Link>
             {c.paragraphPart2}
             <Link
-              href={localizeHref("/calculators/cost-savings-calculator", locale)}
+              href={localizeHref(
+                "/calculators/cost-savings-calculator",
+                locale,
+              )}
               className={`underline`}
             >
               {c.calculateCostsLinkText}
@@ -72,12 +83,18 @@ export default function ProductSpecification({
             {c.paragraphPart3}
             <sup>TM</sup>
             {c.paragraphPart4.replace("{sym}", sym)}
-            <Link href={localizeHref("/metals", locale)} className={`underline`}>
+            <Link
+              href={localizeHref("/metals", locale)}
+              className={`underline`}
+            >
               {c.metals.exploreLinkText}
             </Link>
             {c.paragraphPart5}
             <Link
-              href={localizeHref("/calculators/position-size-calculator", locale)}
+              href={localizeHref(
+                "/calculators/position-size-calculator",
+                locale,
+              )}
               className={`underline`}
             >
               {c.metals.positionSizingLinkText}
@@ -87,7 +104,10 @@ export default function ProductSpecification({
 
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
             <Link
-              href={localizeHref(`/trading-hours/${instrument.toLowerCase()}`, locale)}
+              href={localizeHref(
+                `/trading-hours/${instrument.toLowerCase()}`,
+                locale,
+              )}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
@@ -97,17 +117,25 @@ export default function ProductSpecification({
         </div>
       ) : (
         <div className={`mt-15`}>
-          <h3 className={`font-bold text-[clamp(18px,5vw,24px)] mb-2`}>
+          <h3
+            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+          >
             {c.forex.heading}
           </h3>
-          <p className={`opacity-80`}>
+          <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
             {c.paragraphPart1.replace("{sym}", sym)}
-            <Link href={localizeHref("/live-spreads", locale)} className={`underline`}>
+            <Link
+              href={localizeHref("/live-spreads", locale)}
+              className={`underline`}
+            >
               {c.realTimeSpreadLinkText}
             </Link>
             {c.paragraphPart2}
             <Link
-              href={localizeHref("/calculators/cost-savings-calculator", locale)}
+              href={localizeHref(
+                "/calculators/cost-savings-calculator",
+                locale,
+              )}
               className={`underline`}
             >
               {c.calculateCostsLinkText}
@@ -120,7 +148,10 @@ export default function ProductSpecification({
             </Link>
             {c.paragraphPart5}
             <Link
-              href={localizeHref("/calculators/position-size-calculator", locale)}
+              href={localizeHref(
+                "/calculators/position-size-calculator",
+                locale,
+              )}
               className={`underline`}
             >
               {c.forex.positionSizingLinkText}
@@ -131,7 +162,10 @@ export default function ProductSpecification({
             {relatedPairs.map((pair) => (
               <Link
                 key={pair.Symbol}
-                href={localizeHref(`/trade/${pair.Symbol.toLowerCase()}`, locale)}
+                href={localizeHref(
+                  `/trade/${pair.Symbol.toLowerCase()}`,
+                  locale,
+                )}
                 className={`underline hover:no-underline`}
               >
                 <div className={``}>{pair.Symbol}</div>
@@ -149,7 +183,10 @@ export default function ProductSpecification({
             </Link>
 
             <Link
-              href={localizeHref(`/trading-hours/${instrument.toLowerCase()}`, locale)}
+              href={localizeHref(
+                `/trading-hours/${instrument.toLowerCase()}`,
+                locale,
+              )}
               className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >

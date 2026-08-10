@@ -38,17 +38,21 @@ export default async function FlowRewardIntro({
     <div className="my-8 md:my-20">
       <h2
         dangerouslySetInnerHTML={{ __html: content.heading || "" }}
-        className={`leading-[1.1]`}
+        className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
       />
       <p
-        className={`paragraph`}
+        className={`reading-text-md opacity-60 mb-8 md:mb-12`}
         dangerouslySetInnerHTML={{
           __html: `${content.paragraph || ""}`,
         }}
       />
       <div className={`mt-10 md:mt-15`}>
-        <h2 className={`leading-[1.1]`}>{t.executionQualityHeading}</h2>
-        <Lists listItems={executionQualityItems} />
+        <h2
+          className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+        >
+          {t.executionQualityHeading}
+        </h2>
+        <Lists bulletVarient="arrow-blue" listItems={executionQualityItems} />
       </div>
     </div>
   );

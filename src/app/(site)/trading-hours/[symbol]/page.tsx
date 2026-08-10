@@ -69,7 +69,11 @@ function dstRegions(data: InstrumentData, t: TradingHoursPageContent): string {
   return t.dstRegions.default;
 }
 
-function peakContext(data: InstrumentData, t: TradingHoursPageContent, translatedOverlap: string): string {
+function peakContext(
+  data: InstrumentData,
+  t: TradingHoursPageContent,
+  translatedOverlap: string,
+): string {
   if (translatedOverlap) return translatedOverlap;
   const sym = data.symbol.toUpperCase();
   const cat = data.category.toLowerCase();
@@ -138,7 +142,10 @@ function outsideHoursStatement(
     return t.outsideHours.fiveDay
       .replace("{desc}", data.description)
       .replace("{openDay}", translateDay(data.openDay, t) || t.dayNames.Sunday)
-      .replace("{closeDay}", translateDay(data.closeDay, t) || t.dayNames.Friday);
+      .replace(
+        "{closeDay}",
+        translateDay(data.closeDay, t) || t.dayNames.Friday,
+      );
   return t.outsideHours.default.replace("{desc}", data.description);
 }
 
@@ -307,28 +314,14 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
     <>
       {/* ── 1. Breadcrumb + H1 + subhead ─────────────────────── */}
       <section className="innerpage-banner h-auto!">
-        <div className="ap_container_small flex items-center h-full">
-          <div className={`apBannerContent`}>
+        <div className="ap_container_small">
+          <div className={`apBannerContent text-center`}>
             {/* Breadcrumb */}
-            <nav
-              aria-label="Breadcrumb"
-              className="flex items-center gap-2 text-sm opacity-55 mt-10 lg:mt-15 mb-4"
-            >
-              <Link href={localizeHref("/trading-hours", locale)} className="hover:opacity-100!">
-                {t.breadcrumbMarketHours}
-              </Link>
-              <span aria-hidden="true">›</span>
-              <span>{sym}</span>
-            </nav>
-            <h1 className="h1-size max-w-[1200px]">
-              <span className="font-[600]">
-                {data.description} {t.h1Suffix}
-              </span>
+
+            <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold ">
+              {data.description} {t.h1Suffix}
             </h1>
-            <div
-              className="paragraph max-w-[1200px] lg:mt-8 opacity-80"
-              style={{ fontWeight: 300 }}
-            >
+            <div className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light">
               {subline}
             </div>
           </div>
@@ -362,7 +355,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
             <div className="flex flex-wrap gap-4">
               {data.swap3Day && (
                 <div
-                  className="flex md:flex-1 items-start gap-3 rounded-2xl px-5 py-4 text-sm"
+                  className="flex md:flex-1 items-start gap-3 rounded-[var(--radius-lg)] px-5 py-4 text-sm"
                   style={{
                     background: "rgba(255,255,255,0.04)",
                     border: "1px solid rgba(255,255,255,0.09)",
@@ -401,7 +394,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
               {data.typicalSpreadNote && (
                 <div
-                  className="flex md:flex-1 items-start gap-3 rounded-2xl px-5 py-4 text-sm"
+                  className="flex md:flex-1 items-start gap-3 rounded-[var(--radius-lg)] px-5 py-4 text-sm"
                   style={{
                     background: "rgba(255,255,255,0.04)",
                     border: "1px solid rgba(255,255,255,0.09)",
@@ -581,7 +574,10 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
       <BreadcrumbSchema
         items={[
           { name: t.breadcrumbHome, href: localizeHref("/", locale) },
-          { name: t.breadcrumbTradingHours, href: localizeHref("/trading-hours", locale) },
+          {
+            name: t.breadcrumbTradingHours,
+            href: localizeHref("/trading-hours", locale),
+          },
           { name: sym, href: localizeHref(`/trading-hours/${symbol}`, locale) },
         ]}
       />

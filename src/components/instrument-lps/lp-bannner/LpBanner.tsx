@@ -5,10 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import TypeformButton from "../typeform-btn/typeForm";
 import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 import { useState, useEffect } from "react";
-import {
-  lpBannerContent,
-  type LpBannerContent,
-} from "./lpBannerContent";
+import { lpBannerContent, type LpBannerContent } from "./lpBannerContent";
 
 interface BannerTitle {
   instrument?: string;
@@ -24,11 +21,16 @@ function LPBannerXAUUSD({
   content: c = lpBannerContent,
 }: BannerTitle) {
   return (
-    <section className={`${styles.lpBanner} lp-banner max-md:mt-10 md:pb-0! md:h-[100vh]`}>
-      <div className={`ap_container_small grid grid-cols-2 gap-8 md:gap-20 relative z-1 flex items-center h-full`}>
+    <section
+      className={`${styles.lpBanner} lp-banner max-md:mt-10 md:pb-0! md:h-[100vh]`}
+    >
+      <div
+        className={`ap_container_small grid grid-cols-2 gap-8 md:gap-20 relative z-1 flex items-center h-full`}
+      >
         <div className={`${styles.bannerLeftItem} max-md:col-span-2`}>
           <h1 className={`max-md:mb-5`}>
-            {c.xauusd.heading}<br />
+            {c.xauusd.heading}
+            <br />
             <span>{c.xauusd.subheading}</span>
           </h1>
           <div className={`${styles.listUi} md:mt-12`}>
@@ -45,8 +47,12 @@ function LPBannerXAUUSD({
               varient="primary"
             />
           </div>
-          <div className={`flex flex-wrap gap-10 mt-5 max-md:justify-center max-md:text-center md:mt-10`}>
-            <div className={`opacity-64 text-[length:var(--font-size-note)] max-md:flex-[0_,0_,100%]`}>
+          <div
+            className={`flex flex-wrap gap-10 mt-5 max-md:justify-center max-md:text-center md:mt-10`}
+          >
+            <div
+              className={`opacity-64 text-[length:var(--font-size-note)] max-md:flex-[0_,0_,100%]`}
+            >
               {c.inviteOnlyNote}
               <br /> {c.dataVerifiedNote}
             </div>
@@ -114,28 +120,33 @@ function LPBannerDefault({
   if (error) return <div>Failed to load data</div>;
 
   return (
-    <section className={`${styles.lpBanner} lp-banner max-md:mt-10 md:pb-0! md:h-[100vh]`}>
-      <div className={`ap_container_small grid grid-cols-2 gap-8 md:gap-20 relative z-1 flex items-center h-full`}>
+    <section className={`${styles.lpBanner} lp-banner `}>
+      <div
+        className={`ap_container_small grid grid-cols-1 gap-8 md:gap-20 relative z-1 flex items-center h-full`}
+      >
         <div className={`${styles.bannerLeftItem} max-md:col-span-2`}>
           {dynamicContent.contentDefault && (
             <>
-              <h1 className={`max-md:mb-5`}>
-                {c.tradeHeading.replace("{sym}", instrument?.toUpperCase() ?? "")}{" "}
+              <h1 className={`font-size-heading-xl mt-18 font-semibold`}>
+                {c.tradeHeading.replace(
+                  "{sym}",
+                  instrument?.toUpperCase() ?? "",
+                )}{" "}
                 <br />
                 <span>
                   {industryVsApAvgPct.toFixed(2)}
                   {c.default.subtitleSuffix}
                 </span>
               </h1>
-              <div className={`${styles.listUi} md:mt-12`}>
+              <div className={`${styles.listUi} mt-8 md:mt-12`}>
                 <ul>
                   <li>
                     <b>${allInCostAfterprime.toFixed(2)}</b>{" "}
                     {c.default.netCostLabel}
                   </li>
                   <li>
-                    <b>${rebatePerLot.toFixed(2)}</b> {c.default.flowRewardsLabel}{" "}
-                    <sup>TM</sup>
+                    <b>${rebatePerLot.toFixed(2)}</b>{" "}
+                    {c.default.flowRewardsLabel} <sup>TM</sup>
                   </li>
                   <li>{c.default.bullet3}</li>
                 </ul>
@@ -146,7 +157,10 @@ function LPBannerDefault({
           {dynamicContent.contentDataZero && (
             <>
               <h1 className={`max-md:mb-5`}>
-                {c.tradeHeading.replace("{sym}", instrument?.toUpperCase() ?? "")}
+                {c.tradeHeading.replace(
+                  "{sym}",
+                  instrument?.toUpperCase() ?? "",
+                )}
                 <br />
                 <span>{c.dataZero.subtitle}</span>
               </h1>
@@ -167,7 +181,10 @@ function LPBannerDefault({
           {dynamicContent.contentRebateNull && (
             <>
               <h1 className={`max-md:mb-5`}>
-                {c.tradeHeading.replace("{sym}", instrument?.toUpperCase() ?? "")}
+                {c.tradeHeading.replace(
+                  "{sym}",
+                  instrument?.toUpperCase() ?? "",
+                )}
               </h1>
               <div className={`${styles.listUi} md:mt-12`}>
                 <ul>
@@ -190,8 +207,12 @@ function LPBannerDefault({
             />
           </div>
 
-          <div className={`flex flex-wrap gap-10 mt-5 max-md:justify-center max-md:text-center md:mt-10`}>
-            <div className={`opacity-64 text-[length:var(--font-size-note)] max-md:flex-[0_,0_,100%]`}>
+          <div
+            className={`flex flex-wrap gap-10 mt-5 max-md:justify-center max-md:text-center md:mt-10`}
+          >
+            <div
+              className={`opacity-64 text-[length:var(--font-size-note)] max-md:flex-[0_,0_,100%]`}
+            >
               {c.inviteOnlyNote}
               <br /> {c.dataVerifiedNote}
             </div>
@@ -206,9 +227,15 @@ function LPBannerDefault({
 }
 
 // ── Entry point ───────────────────────────────────────────────
-export default function LPBanner({ instrument, applyButtonText, content }: BannerTitle) {
+export default function LPBanner({
+  instrument,
+  applyButtonText,
+  content,
+}: BannerTitle) {
   if (instrument?.toUpperCase() === "XAUUSD")
-    return <LPBannerXAUUSD applyButtonText={applyButtonText} content={content} />;
+    return (
+      <LPBannerXAUUSD applyButtonText={applyButtonText} content={content} />
+    );
   return (
     <LPBannerDefault
       instrument={instrument}

@@ -14,6 +14,7 @@ import { vsPageContent } from "./vsPageContent";
 import WebtraderPlatform from "@/components/blocks/webtrader-platform/WebtraderPlatform";
 import SignupFlow from "@/components/blocks/signup-flow/SignupFlow";
 import CompareMT4MT5 from "@/components/blocks/mt4-vs-mt5/CompareBoth";
+import BulletTickBlue from "@/components/ui/BulletTickBlue";
 
 export async function generateMetadata() {
   const locale = await getRequestLocale();
@@ -137,34 +138,45 @@ export default async function Page() {
         <div className="ap_container_small">
           <div className={styles.sectionIntroContents}>
             <div className="max-md:order-2 max-md:text-left">
-              <p>{introParagraph}</p>
+              <p
+                className={`font-size-heading-sm mb-4 md:mb-0 opacity-80 font-semibold`}
+              >
+                {introParagraph}
+              </p>
             </div>
 
             <div className="max-md:order-1 text-left">
               <div className={styles.listUi}>
-                <h3 className="text-[length:var(--heading-sm)]! font-semibold! mb-5! md:mb-10!">
-                  {vsT.keyAdvantagesHeading}
-                </h3>
+                <h3 className="cardTitle mb-8!">{vsT.keyAdvantagesHeading}</h3>
 
                 <ul>
                   <li>
+                    <BulletTickBlue />
                     {formatPercentage(vsTopTen)}
                     {vsT.lowerCostVsTop10}
                   </li>
                   <li>
+                    <BulletTickBlue />
                     {formatPercentage(vsIndustryAvg)}
                     {vsT.lowerCostVsIndustry}
                   </li>
                   <li>
+                    <BulletTickBlue />
                     {formatPercentage(vsSecondBest)}
                     {vsT.lowerCostVsNextBest}
                   </li>
 
-                  <li>{vsT.zeroCommission}</li>
-                  <li>{vsT.flowRewards}</li>
+                  <li>
+                    <BulletTickBlue />
+                    {vsT.zeroCommission}
+                  </li>
+                  <li>
+                    <BulletTickBlue />
+                    {vsT.flowRewards}
+                  </li>
                 </ul>
 
-                <small className="mt-5 block opacity-65">
+                <small className="reading-text-caption opacity-40 mt-5 block">
                   {vsT.costDataSuffix} {lastUpdated}
                 </small>
               </div>

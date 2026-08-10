@@ -29,9 +29,9 @@ export default function VsSymbolVerdicts({
   return (
     <div className={styles.verdictGrid}>
       <div className={`${styles.cardItem} ${styles.itemsCenter}`}>
-        <div className={styles.verdictEyebrow}>{t.scalpersLabel}</div>
-        <h3>{t.scalpersTitle}</h3>
-        <p className={`opacity-65`}>
+        <div className={`cardEyebrow uppercase`}>{t.scalpersLabel}</div>
+        <h3 className={`cardTitle`}>{t.scalpersTitle}</h3>
+        <p className={`cardDescp mb-0!`}>
           {t.scalpersDesc
             .replace("{savingPct}", savingPct.toFixed(1))
             .replace("{sym}", sym)
@@ -40,9 +40,9 @@ export default function VsSymbolVerdicts({
       </div>
 
       <div className={`${styles.cardItem} ${styles.itemsCenter}`}>
-        <div className={styles.verdictEyebrow}>{t.swingLabel}</div>
-        <h3>{t.swingTitle}</h3>
-        <p className={`opacity-65`}>
+        <div className={`cardEyebrow uppercase`}>{t.swingLabel}</div>
+        <h3 className={`cardTitle`}>{t.swingTitle}</h3>
+        <p className={`cardDescp mb-0!`}>
           {t.swingDescPrefix}{" "}
           <Link
             href={localizeHref(`/swaps/${symbol.toLowerCase()}`, locale)}
@@ -55,9 +55,9 @@ export default function VsSymbolVerdicts({
       </div>
 
       <div className={`${styles.cardItem} ${styles.itemsCenter}`}>
-        <div className={styles.verdictEyebrow}>{t.algoLabel}</div>
-        <h3>{t.algoTitle}</h3>
-        <p className={`opacity-65`}>
+        <div className={`cardEyebrow uppercase`}>{t.algoLabel}</div>
+        <h3 className={`cardTitle`}>{t.algoTitle}</h3>
+        <p className={`cardDescp mb-0!`}>
           {t.algoDesc.replace("{brokerName}", brokerName)}
         </p>
       </div>

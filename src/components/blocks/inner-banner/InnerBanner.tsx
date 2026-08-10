@@ -39,8 +39,7 @@ export default async function InnerBanner({
               {inner_banner_title}
             </h1>
             <div
-              className="reading-text-lg mt-5 md:mt-10 opacity-60"
-              style={{ fontWeight: "300" }}
+              className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light"
               dangerouslySetInnerHTML={{
                 __html: inner_banner_paragraph || "&nbsp;",
               }}

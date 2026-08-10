@@ -35,23 +35,21 @@ export default function VsSymbolHero({
   return (
     <section className={`${styles.innerBannerSection}`}>
       <div className="ap_container_small flex max-md:flex-col gap-10 items-center h-full w-full">
-        <div className="apBannerContent md:max-w-[860px]">
-          <h1 className="h1-size mt-10 lg:mt-15">
-            <span className="font-[600]">
-              {t.heroPrefix} {brokerName}:
-            </span>{" "}
-            {sym}
+        <div className="apBannerContent md:max-w-[860px] max-md:text-center">
+          <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold">
+            {t.heroPrefix} <br />
+            {brokerName}: {sym}
           </h1>
-          <p
-            className="paragraph lg:mt-8 opacity-80 max-w-[680px]"
-            style={{ fontWeight: "300" }}
-          >
+          <p className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light">
             {brokerName} {t.costLabel}{" "}
             <strong>${compCostPerLot.toFixed(2)}/lot</strong> {t.onLabel} {sym}.{" "}
             {t.afterprimeCostsLabel}{" "}
             <strong>${apCostPerLot.toFixed(2)}/lot</strong>.{" "}
             {savingPerlot > 0 && (
-              <>{savingPct.toFixed(1)}{t.lowerZeroCommission}</>
+              <>
+                {savingPct.toFixed(1)}
+                {t.lowerZeroCommission}
+              </>
             )}
           </p>
           <div className="mt-8 md:mt-12">
@@ -105,7 +103,9 @@ export default function VsSymbolHero({
                     className={`${styles.statPillValue} ${styles.statPillSaving}`}
                   >
                     ${savingPer100Lots.toFixed(0)}{" "}
-                    <span className={`text-[length:var(--font-size-tiny)] ${styles.statPillLabel}`}>
+                    <span
+                      className={`text-[length:var(--font-size-tiny)] ${styles.statPillLabel}`}
+                    >
                       {t.afterprimeLabel}
                     </span>
                   </div>
