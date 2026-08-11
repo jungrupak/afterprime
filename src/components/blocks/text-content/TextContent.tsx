@@ -17,7 +17,10 @@ export function TextContentBlock({ reading_text_content }: PropData) {
     <>
       <section className={`compact-section`}>
         <div className={`ap_container_small`}>
-          <div className={styles.textContent} dangerouslySetInnerHTML={{ __html: htmlContent ?? "" }} />
+          <div
+            className={`cmsTextEditorContent`}
+            dangerouslySetInnerHTML={{ __html: htmlContent ?? "" }}
+          />
         </div>
       </section>
     </>

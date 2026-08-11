@@ -157,9 +157,7 @@ export default async function page() {
             style={{ whiteSpace: "pre-line" }}
           >
             <div className={`${styles.cardLarge}`}>
-              <div
-                className={`${styles.pageEditorContent} ${styles.glossaryContent}`}
-              >
+              <div className={`cmsTextEditorContent ${styles.glossaryContent}`}>
                 <div dangerouslySetInnerHTML={{ __html: contents ?? "" }} />
               </div>
             </div>

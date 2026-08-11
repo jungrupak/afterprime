@@ -24,6 +24,7 @@ export async function MultipurposeBlock({
   multipurpose_block_active_right_column_content_block,
   multipurpose_block_text_content_block_title,
   multipurpose_block_text_content_block_content,
+  multipurpose_block_is_stacked_cols,
   multipurpose_block_is_type_form_cta,
   ...restProps
 }: PropData) {
@@ -90,7 +91,11 @@ export async function MultipurposeBlock({
   return (
     <section className={`compact-section`}>
       <div className="ap_container_small">
-        <BoxedBlock isBoxed={isBoxed === 1 ? true : false} vAlign={vrAlign}>
+        <BoxedBlock
+          isBoxed={isBoxed === 1 ? true : false}
+          vAlign={vrAlign}
+          isStacked={multipurpose_block_is_stacked_cols}
+        >
           {/* Left */}
           <div
             className={`
@@ -104,9 +109,11 @@ export async function MultipurposeBlock({
           >
             <div
               className={`max-md:text-center ${
-                multipurpose_block_block_has_featured_image === "1" ||
-                multipurpose_block_has_feature_bullet_list === "1" ||
-                multipurpose_block_active_right_column_content_block === "1"
+                (multipurpose_block_block_has_featured_image === "1" ||
+                  multipurpose_block_has_feature_bullet_list === "1" ||
+                  multipurpose_block_active_right_column_content_block ===
+                    "1") &&
+                multipurpose_block_is_stacked_cols !== "1"
                   ? "xl:pe-25"
                   : ""
               } `}
@@ -114,12 +121,11 @@ export async function MultipurposeBlock({
               <h2
                 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold"
                 dangerouslySetInnerHTML={{ __html: heading || "&nbsp;" }}
-              ></h2>
+              ></h2>{" "}
               <div
-                className="wysWygEditor"
+                className="cmsTextEditorContent"
                 dangerouslySetInnerHTML={{ __html: htmlContent || "&nbsp;" }}
               />
-
               <div className="mt-12 btn-group">
                 {multipurpose_block_is_type_form_cta === "1" ? (
                   <>
@@ -150,7 +156,7 @@ export async function MultipurposeBlock({
           {/* Left ends */}
 
           {/* Right */}
-          <div className={`${styles.contentRight}`}>
+          <div className={`cmsTextEditorContent`}>
             {multipurpose_block_has_feature_bullet_list === "1" && (
               <Lists listItems={bulletLists} bulletVarient="arrow-blue" />
             )}
@@ -177,12 +183,16 @@ export async function MultipurposeBlock({
             )}
 
             {multipurpose_block_active_right_column_content_block === "1" && (
-              <div className="max-md:text-center md:pe-25">
+              <div
+                className={`max-md:text-center ${
+                  multipurpose_block_is_stacked_cols !== "1" ? "md:pe-25" : ""
+                }`}
+              >
                 <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
                   {t.rightTitle}
                 </h2>
                 <div
-                  className="wysWygEditor"
+                  className="cmsTextEditorContent"
                   dangerouslySetInnerHTML={{ __html: htmlContent2 || "&nbsp;" }}
                 />
               </div>

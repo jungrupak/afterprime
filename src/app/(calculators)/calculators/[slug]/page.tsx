@@ -271,7 +271,7 @@ export default async function Page({ params }: PageSlug) {
         <section className={`compact-section`}>
           <div className="ap_container_small">
             <div
-              className={`${styles.pageEditorContent}`}
+              className={`cmsTextEditorContent`}
               dangerouslySetInnerHTML={{ __html: pageFullContent || `&nbsp` }}
             />
           </div>

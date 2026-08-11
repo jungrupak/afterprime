@@ -131,10 +131,12 @@ export default async function ChildPage({ params }: Props) {
   const faqSectionTitleRaw = data?.acf?.faq_section?.ssection_title;
   const faqTranslated = await getTranslatedStatic("inst-faq", locale, {
     sectionTitle: faqSectionTitleRaw || "",
-    items: (faqDataRaw || []).map((item: { question?: string; answer?: string }) => ({
-      question: item?.question || "",
-      answer: item?.answer || "",
-    })),
+    items: (faqDataRaw || []).map(
+      (item: { question?: string; answer?: string }) => ({
+        question: item?.question || "",
+        answer: item?.answer || "",
+      }),
+    ),
   });
   //Glossary Data
   const glossaryData =
@@ -173,7 +175,10 @@ export default async function ChildPage({ params }: Props) {
               <p>{getFields.hero_paragraph_two ?? ""}</p>
             </div>
             <div className={`max-md:order-1 text-left`}>
-              <InstrumentKeyBenifits instrument={inst} content={instrumentKeyBenifitsT} />
+              <InstrumentKeyBenifits
+                instrument={inst}
+                content={instrumentKeyBenifitsT}
+              />
             </div>
           </div>
         </div>
@@ -184,7 +189,7 @@ export default async function ChildPage({ params }: Props) {
       {pageBuilder && (
         <section className={`compact-section`}>
           <div className="ap_container_small">
-            <div className={`${styles.pageEditorContent}`}>
+            <div className={`cmsTextEditorContent`}>
               {pageBuilder.map(
                 (
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -229,7 +234,10 @@ export default async function ChildPage({ params }: Props) {
       {/* Trading Glossary page Eds */}
 
       {/* FAQ */}
-      <FaqCalc faqSubject={faqTranslated.sectionTitle} data={faqTranslated.items} />
+      <FaqCalc
+        faqSubject={faqTranslated.sectionTitle}
+        data={faqTranslated.items}
+      />
       <FaqSchema pageSlug={inst} />
       {/* FAQ */}
 
@@ -240,8 +248,14 @@ export default async function ChildPage({ params }: Props) {
       <BreadcrumbSchema
         items={[
           { name: "Home", href: localizeHref("/", locale) },
-          { name: slug.charAt(0).toUpperCase() + slug.slice(1), href: localizeHref(`/${slug}`, locale) },
-          { name: inst.toUpperCase(), href: localizeHref(`/${slug}/${inst}`, locale) },
+          {
+            name: slug.charAt(0).toUpperCase() + slug.slice(1),
+            href: localizeHref(`/${slug}`, locale),
+          },
+          {
+            name: inst.toUpperCase(),
+            href: localizeHref(`/${slug}/${inst}`, locale),
+          },
         ]}
       />
 

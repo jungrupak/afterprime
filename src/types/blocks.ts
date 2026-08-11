@@ -62,6 +62,7 @@ export type Blocks = {
     multipurpose_block_text_content_block_title?: string;
     multipurpose_block_text_content_block_content?: string;
     multipurpose_block_is_type_form_cta?: string | undefined;
+    multipurpose_block_is_stacked_cols?:string;
     multipurpose_block_featured_image?: {
       url?: string;
       alt?: string;

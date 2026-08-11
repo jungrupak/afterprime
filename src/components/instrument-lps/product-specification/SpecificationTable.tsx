@@ -53,7 +53,7 @@ export default function SpecificationTable({
       {shouldShowToggle && (
         <button
           onClick={() => setIsCollapsible(!isCollapsible)}
-          className="expand-toggle mt-5 md:mt-8 rounded-[40px] bg-[#ffffff1c] hover:bg-[#ffffff30] p-[8px_20px]"
+          className="expand-toggle mt-5 md:mt-8 rounded-xs bg-[#ffffff1c] hover:bg-[#ffffff30] p-[8px_20px]"
         >
           {isCollapsible ? c.showLess : c.showAll}
         </button>

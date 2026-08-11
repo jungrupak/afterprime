@@ -22,7 +22,7 @@ export function SimpleContentBlock({ reading_content, block_image }: Props) {
       <div className="ap_container_small">
         <div className={`grid grid-cols-5 gap-20 `}>
           <div
-            className={`${styles.editorStyles} col-span-5 md:col-span-3`}
+            className={`cmsTextEditorContent col-span-5 md:col-span-3`}
             dangerouslySetInnerHTML={{
               __html: reading_content || "&nbsp;",
             }}

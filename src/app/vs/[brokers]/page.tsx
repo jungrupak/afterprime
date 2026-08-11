@@ -349,7 +349,7 @@ export default async function ChildPage({ params }: Props) {
       {/* Dynamic Content Area */}
       <section className={`compact-section`}>
         <div className="ap_container_small">
-          <div className={`${styles.pageEditorContent}`}>
+          <div className={`cmsTextEditorContent`}>
             <h2 className={`mt-0!`}>{brokerT.editorialSpreadHeading}</h2>
 
             <p>{brokerT.editorialSpreadIntro}</p>

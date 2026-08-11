@@ -5,12 +5,14 @@ interface BlockProps {
   isBoxed?: boolean;
   vAlign?: string;
   className?: string;
+  isStacked?: string;
 }
 export default function BoxedBlock({
   children,
   isBoxed,
   className,
   vAlign = "Top",
+  isStacked = "0",
 }: BlockProps) {
   const checkAlign =
     vAlign === "Top"
@@ -22,12 +24,19 @@ export default function BoxedBlock({
           : vAlign === "Stretched"
             ? "stretched"
             : "";
+
+  const stacked = isStacked === "1";
+
   return (
     <>
       <div
         className={`${className || ""}${
           isBoxed === true ? styles.styleBoxed : ""
-        } ${checkAlign} grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-10 md:gap-20`}
+        } ${stacked ? styles.stackedNoPadding : ""} ${checkAlign} grid ${
+          stacked
+            ? "grid-cols-1"
+            : "grid-cols-[repeat(auto-fit,minmax(250px,1fr))]"
+        } gap-10 md:gap-20`}
       >
         {children}
       </div>

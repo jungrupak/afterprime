@@ -80,7 +80,7 @@ export default async function page({ params }: PageSlug) {
 
       <section className="compact-section">
         <div className="ap_container_small">
-          <div className={`${styles.pageEditorContent}`}>
+          <div className={`cmsTextEditorContent`}>
             <div dangerouslySetInnerHTML={{ __html: contents ?? "" }} />
           </div>
           <div className={`mt-5 md:mt-15`}>

@@ -481,11 +481,11 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
       {/* ── A. What are X trading hours? ────────────────────── */}
       <section className="compact-section">
-        <div className="ap_container_small">
-          <h2 className="h2-size mb-6">
+        <div className="ap_container_small cmsTextEditorContent">
+          <h2 className="">
             {t.whatAreHoursHeading.replace("{desc}", data.description)}
           </h2>
-          <p className="paragraph opacity-85">
+          <p className="">
             {t.tradesPrefix.replace("{desc}", data.description)}
             {tradingDaysText(data, t)}
             {t.tradesSuffix}
@@ -515,11 +515,11 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
       {/* ── B. Best time to trade X ──────────────────────────── */}
       {data.peakLiquiditySession && (
         <section className="compact-section">
-          <div className="ap_container_small">
-            <h2 className="h2-size mb-6">
+          <div className="ap_container_small cmsTextEditorContent">
+            <h2 className="">
               {t.bestTimeHeading.replace("{desc}", data.description)}
             </h2>
-            <p className="paragraph opacity-85">
+            <p className="">
               {t.bestTimeP1Prefix.replace("{desc}", data.description)}
               {clean(data.peakLiquiditySession)}
               {data.sessionOverlapStart && data.sessionOverlapEnd
@@ -544,15 +544,15 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
       {/* ── C. Outside market hours ──────────────────────────── */}
       <section className="compact-section">
-        <div className="ap_container_small">
-          <h2 className="h2-size mb-6">
+        <div className="ap_container_small cmsTextEditorContent">
+          <h2 className="">
             {t.outsideHeading.replace("{desc}", data.description)}
           </h2>
-          <p className="paragraph opacity-85">
+          <p className="">
             {outsideHoursStatement(data, t)}. {alternativeAccessNote(data, t)}.
           </p>
           {data.swap3Day && (
-            <p className="paragraph opacity-85 mt-4">
+            <p className="mt-4">
               {t.pendingPositionText}
               {data.swapLong !== undefined && data.swapShort !== undefined
                 ? `${t.swapRatesInlinePrefix.replace("{desc}", data.description)}${data.swapLong}${t.swapRatesInlineMiddle}${data.swapShort}${t.swapRatesInlineSuffix}`

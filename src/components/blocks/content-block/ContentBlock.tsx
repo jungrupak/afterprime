@@ -73,16 +73,16 @@ export default async function ContentBlock({
             </div>
 
             <div
-              className={`${styles.contetPart} ${
+              className={`cmsTextEditorContent ${
                 content_block_with_image_block_image_image_alignment === "left"
                   ? "order-2"
                   : "order-1"
               }`}
             >
-              <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80">
-                {content_block_with_image_heading}
-              </h2>
+              <h2 className="">{content_block_with_image_heading}</h2>
+
               <div
+                className=""
                 dangerouslySetInnerHTML={{
                   __html: htmlContent ?? "&nbsp;",
                 }}
@@ -94,7 +94,6 @@ export default async function ContentBlock({
                   size="Regular"
                 />
               )}
-
               {content_block_with_image_enable_cta_button === "1" && (
                 <Button
                   varient="primary-ghost"

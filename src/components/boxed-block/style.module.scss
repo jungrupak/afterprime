@@ -4,3 +4,7 @@
   padding-inline: clamp(30px, 5vw, 80px);
   backdrop-filter: blur(20px);
 }
+
+.stackedNoPadding {
+  padding-inline: 0;
+}

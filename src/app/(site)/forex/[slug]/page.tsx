@@ -210,7 +210,7 @@ export default async function ForexSlugPage({ params }: Props) {
               <LivePriceChart symbol={slug.toUpperCase()} />
             </div>
 
-            <div className={`${styles.pageEditorContent}`}>
+            <div className={`cmsTextEditorContent`}>
               {pageBuilder.map((section, index) =>
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 renderSection(section as any, index, slug, {
