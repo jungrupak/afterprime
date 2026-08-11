@@ -223,7 +223,7 @@ export default async function Page({ params }: PageProps) {
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
             <Link
               href={localizeHref(`/forex/${symbolName.toLowerCase()}`, locale)}
-              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              className="rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
               {symbolName.toUpperCase()} {swapPageT.specificationsLinkText} {""}{" "}
@@ -235,7 +235,7 @@ export default async function Page({ params }: PageProps) {
                 `/trading-hours/${symbolName.toLowerCase()}`,
                 locale,
               )}
-              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              className="rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
               {symbolName.toUpperCase()} {swapPageT.tradingHoursLinkText} {""}→

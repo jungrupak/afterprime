@@ -260,13 +260,13 @@ export default async function VsSymbolPage({ params }: Props) {
           <div className={styles.relatedLinks}>
             <Link
               href={localizeHref(`/forex/${symbol.toLowerCase()}`, locale)}
-              className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
+              className={`rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
               {t.tradingConditionsLink.replace("{sym}", sym)}
             </Link>
             <Link
               href={localizeHref(`/swaps/${symbol.toLowerCase()}`, locale)}
-              className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
+              className={`rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
               {t.swapRatesLink.replace("{sym}", sym)}
             </Link>
@@ -275,7 +275,7 @@ export default async function VsSymbolPage({ params }: Props) {
                 `/trading-hours/${symbol.toLowerCase()}`,
                 locale,
               )}
-              className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
+              className={`rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
               {t.marketHoursLink.replace("{sym}", sym)}
             </Link>
@@ -285,7 +285,7 @@ export default async function VsSymbolPage({ params }: Props) {
                   `/vs/${nextBrokerSlug}/${symbol.toLowerCase()}`,
                   locale,
                 )}
-                className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
+                className={`rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
               >
                 {t.nextBrokerLink
                   .replace(
@@ -297,7 +297,7 @@ export default async function VsSymbolPage({ params }: Props) {
             )}
             <Link
               href={localizeHref(`/vs/${brokers}`, locale)}
-              className={`rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
+              className={`rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70 ${styles.relatedLinkPill}`}
             >
               {t.allPairsLink.replace("{brokerName}", mappedBrokerName)}
             </Link>

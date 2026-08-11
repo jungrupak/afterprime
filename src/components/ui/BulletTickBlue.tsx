@@ -3,7 +3,7 @@ import React from "react";
 export default function BulletTickBlue() {
   return (
     <span
-      className="inline-flex items-center justify-center shrink-0 rounded-full mt-[2px]"
+      className="inline-flex items-center justify-center shrink-0 rounded-xs mt-[2px]"
       style={{
         width: 30,
         height: 30,

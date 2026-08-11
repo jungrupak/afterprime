@@ -122,7 +122,7 @@ export function LivePricingStocks({
                           };
                           return (
                             <span
-                              className={`inline-flex items-center px-2.5 py-1 rounded-full text-[length:var(--font-size-tiny)] font-medium ${statusStyles[marketStatus.state]}`}
+                              className={`inline-flex items-center px-2.5 py-1 rounded-xs text-[length:var(--font-size-tiny)] font-medium ${statusStyles[marketStatus.state]}`}
                             >
                               {marketStatus.label}
                             </span>

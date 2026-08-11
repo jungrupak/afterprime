@@ -451,7 +451,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
           <div className="flex flex-wrap gap-3 mt-5 md:mt-10">
             <Link
               href={localizeHref(`/swaps/${sym.toLowerCase()}`, locale)}
-              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              className="rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
               {t.swapRatesLinkText.replace("{sym}", sym)} →
@@ -460,7 +460,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
               <>
                 <Link
                   href={localizeHref(instrumentHref, locale)}
-                  className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+                  className="rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >
                   {t.specificationsLinkText.replace("{sym}", sym)} →
@@ -470,7 +470,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
 
             <Link
               href={localizeHref("/trading-hours", locale)}
-              className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+              className="rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
               style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
               {t.allTradingHoursLinkText} →

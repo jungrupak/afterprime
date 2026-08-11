@@ -77,7 +77,7 @@ export default function LivePriceChart({
               <div className="flex flex-wrap gap-2">
                 <Link
                   href={localizeHref(`/swaps/${symbol.toLowerCase()}`, locale)}
-                  className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+                  className="rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >
                   {c.swapRateLabel}
@@ -88,7 +88,7 @@ export default function LivePriceChart({
                     `/trading-hours/${symbol.toLowerCase()}`,
                     locale,
                   )}
-                  className="rounded-full px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
+                  className="rounded-xs px-5 py-2 text-sm border transition-opacity hover:opacity-100 opacity-70"
                   style={{ borderColor: "rgba(255,255,255,0.15)" }}
                 >
                   {c.tradingHoursLabel}
