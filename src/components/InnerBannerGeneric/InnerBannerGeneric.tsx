@@ -14,15 +14,13 @@ export default function InnerBannerGeneric({ content }: DataObject) {
     <section
       className={`${styles.innerBannerSection} h-auto! compact-innerpage-banner`}
     >
-      <div className="ap_container_small flex items-center h-full">
-        <div className="apBannerContent">
-          <h1 className="h1-size mt-10 lg:mt-15 md:max-w-[800px]">
-            <span className="font-[600]">
-              {content.heading ?? "No Heading Provided"}
-            </span>
+      <div className="ap_container_small h-full">
+        <div className="apBannerContent text-center">
+          <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold">
+            {content.heading ?? "No Heading Provided"}
           </h1>
           <div
-            className="paragraph max-lg:mx-auto lg:mt-8 opacity-80"
+            className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light"
             style={{ fontWeight: "300" }}
           >
             {content.paragraph ?? "No Banner Paragraph provided"}

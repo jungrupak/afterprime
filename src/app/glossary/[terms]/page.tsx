@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import styles from "../Page.module.scss";
 import InnerBannerGeneric from "@/components/InnerBannerGeneric/InnerBannerGeneric";
 import { wpFetch } from "@/utils/wpFetch";
@@ -13,6 +12,7 @@ import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getTranslatedMetadata } from "@/lib/seo/metadata";
 import { localizeHref } from "@/lib/locale/localizeHref";
 import { glossaryTermContent } from "./glossaryTermContent";
+import Card from "@/components/ui/Card";
 
 const GLOSSARY_PARENT_ID = 4100;
 
@@ -84,70 +84,65 @@ export default async function page({ params }: PageSlug) {
             <div dangerouslySetInnerHTML={{ __html: contents ?? "" }} />
           </div>
           <div className={`mt-5 md:mt-15`}>
-            <h3 className={`font-size-heading-sm mb-3 md:mb-5`}>{glossaryTermT.relatedToolsHeading}</h3>
-            <p className={`reading-text-xs mb-3 md:mb-5`}>
+            <h3
+              className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+            >
+              {glossaryTermT.relatedToolsHeading}
+            </h3>
+            <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
               {glossaryTermT.relatedToolsIntro}
             </p>
-            <ul className="ulli mb-0!">
-              <li>
-                <Link
-                  style={{ textDecoration: "underline", fontSize: "var(--reading-text-sm)" }}
-                  href={localizeHref("/calculators/pip-value-calculator", locale)}
-                >
-                  {glossaryTermT.pipValueCalculator}
-                </Link>
-                <br />
-                <p className={`reading-text-xs opacity-65`}>
-                  {glossaryTermT.pipValueDescription}
-                </p>
-              </li>
-              <li>
-                <Link
-                  style={{ textDecoration: "underline", fontSize: "var(--reading-text-sm)" }}
-                  href={localizeHref("/calculators/position-size-calculator", locale)}
-                >
-                  {glossaryTermT.positionSizeCalculator}
-                </Link>
-                <br />
-                <p className={`reading-text-xs opacity-65`}>
-                  {glossaryTermT.positionSizeDescription}
-                </p>
-              </li>
-              <li>
-                <Link
-                  style={{ textDecoration: "underline", fontSize: "var(--reading-text-sm)" }}
-                  href={localizeHref("/calculators/drawdown-calculator", locale)}
-                >
-                  {glossaryTermT.drawdownCalculator}
-                </Link>
-                <br />
-                <p className={`reading-text-xs opacity-65`}>{glossaryTermT.drawdownDescription}</p>
-              </li>
-              <li>
-                <Link
-                  style={{ textDecoration: "underline", fontSize: "var(--reading-text-sm)" }}
-                  href={localizeHref("/vs", locale)}
-                >
-                  {glossaryTermT.compareCosts}
-                </Link>
-                <br />
-                <p className={`reading-text-xs opacity-65`}>
-                  {glossaryTermT.compareCostsDescription}
-                </p>
-              </li>
-              <li>
-                <Link
-                  style={{ textDecoration: "underline", fontSize: "var(--reading-text-sm)" }}
-                  href={localizeHref("/live-spreads", locale)}
-                >
-                  {glossaryTermT.liveSpreads}
-                </Link>
-                <br />
-                <p className={`reading-text-xs opacity-65`}>
-                  {glossaryTermT.liveSpreadsDescription}
-                </p>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              <Card
+                cardSize="compact"
+                alignItems="left"
+                title={glossaryTermT.pipValueCalculator}
+                paragraph={glossaryTermT.pipValueDescription}
+                cardCtaLabel={glossaryTermT.pipValueCalculator}
+                cardCtaLink={localizeHref(
+                  "/calculators/pip-value-calculator",
+                  locale,
+                )}
+              />
+              <Card
+                cardSize="compact"
+                alignItems="left"
+                title={glossaryTermT.positionSizeCalculator}
+                paragraph={glossaryTermT.positionSizeDescription}
+                cardCtaLabel={glossaryTermT.positionSizeCalculator}
+                cardCtaLink={localizeHref(
+                  "/calculators/position-size-calculator",
+                  locale,
+                )}
+              />
+              <Card
+                cardSize="compact"
+                alignItems="left"
+                title={glossaryTermT.drawdownCalculator}
+                paragraph={glossaryTermT.drawdownDescription}
+                cardCtaLabel={glossaryTermT.drawdownCalculator}
+                cardCtaLink={localizeHref(
+                  "/calculators/drawdown-calculator",
+                  locale,
+                )}
+              />
+              <Card
+                cardSize="compact"
+                alignItems="left"
+                title={glossaryTermT.compareCosts}
+                paragraph={glossaryTermT.compareCostsDescription}
+                cardCtaLabel={glossaryTermT.compareCosts}
+                cardCtaLink={localizeHref("/vs", locale)}
+              />
+              <Card
+                cardSize="compact"
+                alignItems="left"
+                title={glossaryTermT.liveSpreads}
+                paragraph={glossaryTermT.liveSpreadsDescription}
+                cardCtaLabel={glossaryTermT.liveSpreads}
+                cardCtaLink={localizeHref("/live-spreads", locale)}
+              />
+            </div>
           </div>
         </div>
       </section>

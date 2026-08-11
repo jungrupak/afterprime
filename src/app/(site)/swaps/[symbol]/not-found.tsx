@@ -18,8 +18,8 @@ export default function NotFound() {
           <p className="mt-4 text-xl text-gray-400 mb-20">
             Oops! The page you&apos;re looking for doesn&apos;t exist.
           </p>
-          <Button varient="primary-ghost" size="regular" href="/">
-            Go Home
+          <Button varient="primary-ghost" size="regular" href="/swaps/">
+            Go Back
           </Button>
         </div>
       </div>
