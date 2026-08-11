@@ -105,7 +105,7 @@ export async function MultipurposeBlock({
                 multipurpose_block_active_right_column_content_block === "1"
                   ? ""
                   : "col-span-full"
-              }`}
+              } cmsTextEditorContent`}
           >
             <div
               className={`max-md:text-center ${
@@ -119,7 +119,7 @@ export async function MultipurposeBlock({
               } `}
             >
               <h2
-                className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold"
+                className="font-size-heading-md mb-4 md:mb-6 font-semibold"
                 dangerouslySetInnerHTML={{ __html: heading || "&nbsp;" }}
               ></h2>{" "}
               <div
@@ -188,7 +188,7 @@ export async function MultipurposeBlock({
                   multipurpose_block_is_stacked_cols !== "1" ? "md:pe-25" : ""
                 }`}
               >
-                <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+                <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
                   {t.rightTitle}
                 </h2>
                 <div
