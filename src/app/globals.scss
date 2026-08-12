@@ -505,6 +505,11 @@ body::-webkit-scrollbar {
 //Generic Content style manage from CMS text editor
 //Page generic content from WYSWYG editor
 .cmsTextEditorContent {
+  font-size: var(--reading-text-md);
+  line-height: var(--line-height-default);
+  letter-spacing: 0.3;
+  color: var(--primary-white-60);
+  font-weight: var(--weight-regular);
   h1,
   h2,
   h3,
