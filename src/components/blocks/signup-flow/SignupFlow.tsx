@@ -3,6 +3,7 @@ import styles from "./SignupFlow.module.scss";
 import { signupFlowContent } from "./signupFlowContent";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
+import TypeformButton from "@/components/ui/typeForm";
 
 const paymentMethods = [
   { src: "/img/method-icons/visa-card.png", alt: "Visa" },
@@ -203,6 +204,15 @@ export default async function SignupFlow() {
                   </p>
                   <h3 className={styles.stepTitle}>{step.title}</h3>
                   <p className={styles.stepDescription}>{step.description}</p>
+                  {index === 0 && (
+                    <div className="mt-2">
+                      <TypeformButton
+                        buttonText={t.cta}
+                        size="small"
+                        varient="Primary"
+                      />
+                    </div>
+                  )}
                   {index < t.steps.length - 1 && (
                     <div className={styles.stepArrow} aria-hidden="true">
                       <StepArrowIcon />

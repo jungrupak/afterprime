@@ -7,7 +7,7 @@ export const signupFlowContent = {
     {
       title: "Apply",
       description:
-        "Submit your application. Invite-only, we qualify traders before they qualify us.",
+        "Strictly invite-only, we select traders before entry.",
     },
     {
       title: "Register",
@@ -23,4 +23,5 @@ export const signupFlowContent = {
     },
   ],
   paymentsLabel: "We accept 12+ deposit methods.",
+  cta: "Get Invite Code",
 };
