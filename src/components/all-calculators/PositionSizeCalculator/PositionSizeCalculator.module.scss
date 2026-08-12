@@ -55,7 +55,7 @@
   > select {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     padding: 12px;
     font-size: var(--font-size-note);
     color: #fff;
@@ -86,7 +86,7 @@
   align-items: center;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   padding: 0 12px;
   transition:
     border-color 0.2s,
@@ -186,7 +186,7 @@
 .resultCard {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: 16px;
   text-align: center;
 
@@ -291,7 +291,7 @@
   margin-top: 12px;
   padding: 16px;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   font-size: var(--reading-text-caption);
   line-height: 1.8;
 

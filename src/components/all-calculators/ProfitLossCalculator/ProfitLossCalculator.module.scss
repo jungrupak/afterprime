@@ -65,7 +65,7 @@
   > select {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     padding: 12px;
     font-size: var(--font-size-note);
     color: #fff;
@@ -91,7 +91,7 @@
   align-items: center;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   transition:
     border-color 0.2s,
@@ -164,7 +164,7 @@
   padding: 12px 16px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: var(--radius-default);
   color: #94a3b8;
   font-size: var(--font-size-note);
   font-weight: 500;
@@ -194,7 +194,7 @@
 
 .results {
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: 24px;
 }
 
@@ -214,7 +214,7 @@
   align-items: center;
   gap: 16px;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
 
   &.profitCard {
     background: linear-gradient(
@@ -289,7 +289,7 @@
   margin-bottom: 20px;
   padding: 16px;
   background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
 }
 
 .rrHeader {
@@ -342,7 +342,7 @@
   align-items: center;
   padding: 12px 16px;
   background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   margin-bottom: 20px;
 }
 
@@ -371,7 +371,7 @@
   text-align: center;
   padding: 12px;
   background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
 }
 
 .itemLabel {
@@ -408,7 +408,7 @@
   margin-top: 12px;
   padding: 16px;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   font-size: var(--reading-text-caption);
   line-height: 1.8;
 

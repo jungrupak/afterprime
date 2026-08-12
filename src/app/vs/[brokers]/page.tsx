@@ -342,6 +342,7 @@ export default async function ChildPage({ params }: Props) {
           >
             {brokerT.tradingCostByMajorHeading}
           </h2>
+
           <CompareWithMajors broker={brokers} />
         </div>
       </section>

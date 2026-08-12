@@ -1,7 +1,7 @@
 .calculator {
   background: #0f141b;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
 .badge {
   font-size: var(--font-size-tiny);
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.1);
   color: #cbd5e1;
 }
@@ -77,7 +77,7 @@
 .numberInput {
   background: #0b1117;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   color: #e8f1fb;
   height: 40px;
   padding: 8px 12px;
@@ -99,7 +99,7 @@
 .iconBtn {
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: var(--radius-default);
   background: rgba(255, 255, 255, 0.06);
   display: flex;
   align-items: center;
@@ -123,7 +123,7 @@
   flex: 1;
   background: #0b1117;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   color: #e8f1fb;
   height: 40px;
   padding: 8px 12px;
@@ -165,7 +165,7 @@
 .statCard {
   background: #0f141b;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   padding: 12px;
 }
 
@@ -184,7 +184,7 @@
 .chartSection {
   background: #0f141b;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   padding: 20px;
 
   @media (max-width: 1024px) {
@@ -213,7 +213,7 @@
 .resetBtn {
   padding: 8px 12px;
   font-size: var(--font-size-tiny);
-  border-radius: 8px;
+  border-radius: var(--radius-default);
   background: rgba(255, 255, 255, 0.1);
   color: #cbd5e1;
   border: none;

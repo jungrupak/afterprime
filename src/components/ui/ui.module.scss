@@ -536,9 +536,13 @@
   li {
     font-size: var(--reading-text-md);
     line-height: var(--line-height-default);
-    font-weight: var(--weight-regular);
+    letter-spacing: 0.3;
     color: var(--primary-white-60);
+    font-weight: var(--weight-regular);
     margin-bottom: clamp(15px, 5vw, 20px);
+    > b {
+      font-weight: var(--weight-semibold);
+    }
     &:last-child {
       margin-bottom: 0;
     }

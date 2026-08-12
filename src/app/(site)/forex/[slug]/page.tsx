@@ -229,7 +229,9 @@ export default async function ForexSlugPage({ params }: Props) {
         <div className="ap_container_small">
           {glossaryData && (
             <>
-              <h2 className={`mb-5! md:mb-8!`}>
+              <h2
+                className={`font-size-heading-md mb-8 md:mb-12 opacity-80 font-semibold`}
+              >
                 {slug.toUpperCase()} {pageLabelsT.tradingGlossarySuffix}
               </h2>
               <TradingGlossary

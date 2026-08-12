@@ -192,6 +192,7 @@
   font-size: var(--reading-text-md);
   line-height: var(--line-height-default);
   letter-spacing: 0.3;
+  font-weight: var(--weight-regular);
 }
 .reading-text-sm {
   font-size: var(--reading-text-sm);
@@ -560,10 +561,14 @@ body::-webkit-scrollbar {
       font-size: var(--reading-text-md);
       line-height: var(--line-height-default);
       font-weight: var(--weight-regular);
+      letter-spacing: 0.3;
       color: var(--primary-white-60);
       margin-bottom: clamp(15px, 5vw, 20px);
       position: relative;
       padding-left: clamp(40px, 5vw, 50px);
+      > b {
+        font-weight: var(--weight-semibold);
+      }
       &:before {
         content: "";
         background-image: url("/img/tri-dots.svg");
@@ -591,13 +596,14 @@ body::-webkit-scrollbar {
   table {
     width: 100%;
     margin-bottom: clamp(20px, 5vw, 30px);
+    table-layout: fixed;
     tr th {
       background-color: rgba(var(--alphaWhite), 0.06);
       border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
       padding: 15px 20px;
       font-size: 16px;
       text-align: left;
-      white-space: nowrap;
+      //white-space: nowrap;
       color: var(--primary-white-80);
     }
     tr {
@@ -605,15 +611,22 @@ body::-webkit-scrollbar {
         background-color: rgba(var(--alphaWhite), 0.06);
         border-bottom: dashed 1px rgba(var(--alphaWhite), 0.2);
         padding: 15px 20px;
-        font-size: var(--reading-text-sm);
+        font-size: clamp(12px, 4.5vw, var(--reading-text-sm));
         transition: all 0.2s ease-in-out;
-        white-space: nowrap;
+        //white-space: nowrap;
         color: var(--primary-white-60);
       }
       &:hover {
         td {
           background-color: rgba(var(--alphaWhite), 0.1);
         }
+      }
+    }
+
+    @media all and (max-width: 767px) {
+      table-layout: auto;
+      tr td {
+        min-width: 150px;
       }
     }
   }

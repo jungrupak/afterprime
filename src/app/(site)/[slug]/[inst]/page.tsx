@@ -215,7 +215,9 @@ export default async function ChildPage({ params }: Props) {
         <div className="ap_container_small">
           {glossaryData && (
             <>
-              <h2 className={`mb-5! md:mb-8!`}>
+              <h2
+                className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+              >
                 {inst.toUpperCase()} Trading Glossary
               </h2>
               <TradingGlossary

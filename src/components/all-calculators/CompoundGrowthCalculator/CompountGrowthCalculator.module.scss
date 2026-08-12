@@ -58,7 +58,7 @@
   align-items: center;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
 
   &:focus-within {
@@ -106,7 +106,7 @@
   gap: 8px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   padding: 0 12px;
 
   &:focus-within {
@@ -167,7 +167,7 @@
   padding: 20px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   text-align: center;
 
   &.resultPrimary {
@@ -226,7 +226,7 @@
   padding: 16px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   text-align: center;
 }
 
@@ -255,7 +255,7 @@
 .edgeIndicator {
   padding: 16px;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
 }
 
 .edgeHeader {
@@ -333,7 +333,7 @@
 
 .chartContainer {
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   padding: 16px;
   height: 200px;
 
@@ -356,7 +356,7 @@
 .milestone {
   padding: 12px;
   background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   text-align: center;
 }
 

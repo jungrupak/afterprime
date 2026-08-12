@@ -211,7 +211,7 @@ function LPBannerDefault({
             className={`flex flex-wrap gap-10 mt-5 max-md:justify-center max-md:text-center md:mt-10`}
           >
             <div
-              className={`opacity-64 text-[length:var(--font-size-note)] max-md:flex-[0_,0_,100%]`}
+              className={`reading-text-caption text-[var(--primary-white-60)] max-md:flex-[0_,0_,100%]`}
             >
               {c.inviteOnlyNote}
               <br /> {c.dataVerifiedNote}
