@@ -30,14 +30,39 @@ export default async function RootLayout({
   return (
     <html lang={lang} dir={dir}>
       <head>
-        <meta name="facebook-domain-verification" content="00t7hvmnqg2hu47jgje79ofbgdiowc" />
-        <link rel="preconnect" href="https://motion.afterprime.com" crossOrigin="" />
-        <link rel="preconnect" href="https://cdn.afterprime.com" crossOrigin="" />
+        <meta
+          name="facebook-domain-verification"
+          content="00t7hvmnqg2hu47jgje79ofbgdiowc"
+        />
+        <link
+          rel="preconnect"
+          href="https://motion.afterprime.com"
+          crossOrigin=""
+        />
+        <link
+          rel="preconnect"
+          href="https://cdn.afterprime.com"
+          crossOrigin=""
+        />
         <link rel="dns-prefetch" href="https://cdn.segment.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <script src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js" async></script>
+        <script
+          src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js"
+          async
+        ></script>
+
+        {/* Typeform Stuff */}
+        <link rel="preconnect" href="https://embed.typeform.com" />
+        <link rel="preconnect" href="https://form.typeform.com" />
+        <Script
+          id="typeform-embed"
+          src="https://embed.typeform.com/next/embed.js"
+          strategy="lazyOnload"
+        />
+        {/* Ends */}
+
         <Script id="wonderpush-init" strategy="afterInteractive">
-        {`window.WonderPush = window.WonderPush || [];
+          {`window.WonderPush = window.WonderPush || [];
         WonderPush.push(["init", {
         webKey: "9552eec3af81d433db923f72e6959b9cdd8021e508daf2a7dbb31bf3755702a7",
         }]);`}

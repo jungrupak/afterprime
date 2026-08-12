@@ -1,4 +1,3 @@
-import TypeformLoader from "@/utils/TypeFormLoader";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import { Metadata } from "next";
@@ -70,7 +69,6 @@ export default async function PagesLayout({
         <HeadScripts />
         <AfterprimeOrgSchema />
         {/* Head Scripts Ends */}
-        <TypeformLoader />
         <Header content={headerT} />
         {children}
         <Footer />

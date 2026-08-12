@@ -1,4 +1,3 @@
-import TypeformLoader from "@/utils/TypeFormLoader";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import FooterScripts from "@/components/FooterScripts";
@@ -24,7 +23,6 @@ export default async function PagesLayout({
         <HeadScripts />
         <AfterprimeOrgSchema />
         {/* Head Scripts Ends */}
-        <TypeformLoader />
         <Header content={headerT} />
         {children}
         {/* <BottomCards /> */}
