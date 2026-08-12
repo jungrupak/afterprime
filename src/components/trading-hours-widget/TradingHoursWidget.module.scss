@@ -20,7 +20,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border-radius: 999px;
+  border-radius: var(--radius-lg);
   padding: 5px 14px;
   font-size: var(--font-size-note);
   font-weight: 600;
@@ -177,13 +177,13 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border-radius: 999px;
+  border-radius: var(--radius-lg);
   padding: 4px 12px;
   font-size: var(--font-size-note);
   font-weight: 500;
   background: rgba(251, 191, 36, 0.15);
-  color: #fbbf24;
-  border: 1px solid rgba(251, 191, 36, 0.35);
+  color: #c28d07;
+  //border: 1px solid rgba(251, 191, 36, 0.35);
 }
 
 // ── Trading Sessions ──────────────────────────────────────────
