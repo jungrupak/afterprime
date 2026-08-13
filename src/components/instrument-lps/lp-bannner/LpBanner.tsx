@@ -21,17 +21,14 @@ function LPBannerXAUUSD({
   content: c = lpBannerContent,
 }: BannerTitle) {
   return (
-    <section
-      className={`${styles.lpBanner} lp-banner max-md:mt-10 md:pb-0! md:h-[100vh]`}
-    >
+    <section className={`${styles.lpBanner} lp-banner `}>
       <div
-        className={`ap_container_small grid grid-cols-2 gap-8 md:gap-20 relative z-1 flex items-center h-full`}
+        className={`ap_container_small grid grid-cols-1 gap-8 md:gap-20 relative z-1 flex items-center h-full`}
       >
         <div className={`${styles.bannerLeftItem} max-md:col-span-2`}>
-          <h1 className={`max-md:mb-5`}>
+          <h1 className={`font-size-heading-xl mt-18 font-semibold`}>
             {c.xauusd.heading}
-            <br />
-            <span>{c.xauusd.subheading}</span>
+            {c.xauusd.subheading}
           </h1>
           <div className={`${styles.listUi} md:mt-12`}>
             <ul>
@@ -51,7 +48,7 @@ function LPBannerXAUUSD({
             className={`flex flex-wrap gap-10 mt-5 max-md:justify-center max-md:text-center md:mt-10`}
           >
             <div
-              className={`opacity-64 text-[length:var(--font-size-note)] max-md:flex-[0_,0_,100%]`}
+              className={`reading-text-caption text-[var(--primary-white-60)] max-md:flex-[0_,0_,100%]`}
             >
               {c.inviteOnlyNote}
               <br /> {c.dataVerifiedNote}
