@@ -78,6 +78,8 @@ export default async function RootLayout({
           {`window.WonderPush = window.WonderPush || [];
         WonderPush.push(["init", {
         webKey: "9552eec3af81d433db923f72e6959b9cdd8021e508daf2a7dbb31bf3755702a7",
+        subscriptionDialog: { triggers: { manual: true } },
+        subscriptionNative: { triggers: { manual: true } },
         }]);`}
         </Script>
       </head>
