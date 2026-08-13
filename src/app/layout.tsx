@@ -5,6 +5,8 @@ import VideoBackground from "@/components/VideoBackground";
 import ExitIntentModal from "@/components/ExitIntentModal/ExitIntentModal";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getHtmlAttrs } from "@/config/locales";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { exitIntentModalContent } from "@/components/ExitIntentModal/exitIntentModalContent";
 
 const blinker = Blinker({
   subsets: ["latin"],
@@ -27,6 +29,11 @@ export default async function RootLayout({
 }) {
   const locale = await getRequestLocale();
   const { lang, dir } = getHtmlAttrs(locale);
+  const exitIntentT = await getTranslatedStatic(
+    "exit-intent-modal",
+    locale,
+    exitIntentModalContent,
+  );
 
   return (
     <html lang={lang} dir={dir}>
@@ -72,7 +79,7 @@ export default async function RootLayout({
       <body className={`${blinker.className} antialiased`}>
         <VideoBackground />
         {children}
-        <ExitIntentModal />
+        <ExitIntentModal content={exitIntentT} />
       </body>
     </html>
   );

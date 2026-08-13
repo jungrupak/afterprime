@@ -26,6 +26,8 @@ export function useExitIntent() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    setIsOpen(false);
+
     const normalizedPathname = pathname ? stripLocalePrefix(pathname) : pathname;
     if (EXCLUDED_PATHS.some((path) => normalizedPathname?.startsWith(path))) return;
     if (sessionStorage.getItem(SESSION_KEY)) return;
@@ -50,16 +52,19 @@ export function useExitIntent() {
     function handleScroll() {
       const now = Date.now();
       const y = window.scrollY;
-      const dt = Math.max(now - lastScrollT, 1);
+      const dt = now - lastScrollT;
       const dy = lastScrollY - y; // positive = scrolling up
-      const velocity = dy / dt;
-
-      if (y <= MOBILE_NEAR_TOP_PX && velocity >= MOBILE_MIN_VELOCITY) {
-        fire();
-      }
 
       lastScrollY = y;
       lastScrollT = now;
+
+      if (dt <= 0 || dt > 200) return; // stale baseline / not a continuous gesture
+      if (dy > 400) return; // implausible jump (programmatic scroll-lock or smooth-scroll anchor), not a finger flick
+
+      const velocity = dy / dt;
+      if (y <= MOBILE_NEAR_TOP_PX && velocity >= MOBILE_MIN_VELOCITY) {
+        fire();
+      }
     }
 
     function cleanup() {

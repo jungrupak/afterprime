@@ -1,22 +1,52 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ExitIntentModal.module.scss";
 import { useExitIntent } from "./useExitIntent";
-import { exitIntentModalContent as c } from "./exitIntentModalContent";
+import {
+  exitIntentModalContent,
+  type ExitIntentModalContent,
+} from "./exitIntentModalContent";
 
 type Status = "idle" | "loading" | "success" | "error";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default function ExitIntentModal() {
+interface ExitIntentModalProps {
+  content?: ExitIntentModalContent;
+}
+
+export default function ExitIntentModal({
+  content: c = exitIntentModalContent,
+}: ExitIntentModalProps) {
   const { isOpen, close } = useExitIntent();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [errorText, setErrorText] = useState("");
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setVisible(false);
+      return;
+    }
+    const raf = requestAnimationFrame(() => setVisible(true));
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") close();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, close]);
 
   if (!isOpen) return null;
 
   async function handleSubmit() {
+    if (status === "loading") return;
+
     if (!EMAIL_RE.test(email.trim())) {
       setErrorText(c.invalidEmailMessage);
       setStatus("error");
@@ -26,6 +56,8 @@ export default function ExitIntentModal() {
     const endpoint = process.env.NEXT_PUBLIC_NEWSLETTER_SIGNUP_ENDPOINT;
     if (!endpoint) {
       console.error("NEXT_PUBLIC_NEWSLETTER_SIGNUP_ENDPOINT is not set");
+      setErrorText(c.errorMessage);
+      setStatus("error");
       return;
     }
 
@@ -43,8 +75,7 @@ export default function ExitIntentModal() {
       });
 
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "signup_failed");
+        throw new Error("signup_failed");
       }
 
       setStatus("success");
@@ -56,12 +87,17 @@ export default function ExitIntentModal() {
 
   return (
     <div
-      className={`${styles.overlay} ${styles.active}`}
+      className={`${styles.overlay} ${visible ? styles.active : ""}`}
       onClick={(e) => {
         if (e.target === e.currentTarget) close();
       }}
     >
-      <div className={styles.modal}>
+      <div
+        className={styles.modal}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="exit-intent-modal-heading"
+      >
         <button className={styles.closeBtn} onClick={close} aria-label="Close">
           &times;
         </button>
@@ -82,7 +118,11 @@ export default function ExitIntentModal() {
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
             </div>
-            <h2 className={styles.heading} style={{ fontSize: 17 }}>
+            <h2
+              id="exit-intent-modal-heading"
+              className={styles.heading}
+              style={{ fontSize: 17 }}
+            >
               {c.successHeading}
             </h2>
             <p className={styles.bodyCopy}>{c.successBody}</p>
@@ -93,7 +133,9 @@ export default function ExitIntentModal() {
         ) : (
           <>
             <div className={styles.eyebrow}>{c.eyebrow}</div>
-            <h2 className={styles.heading}>{c.heading}</h2>
+            <h2 id="exit-intent-modal-heading" className={styles.heading}>
+              {c.heading}
+            </h2>
             <p className={styles.bodyCopy}>{c.bodyCopy}</p>
 
             <div className={styles.statRow}>
@@ -135,7 +177,9 @@ export default function ExitIntentModal() {
                 )}
               </button>
               {status === "error" && (
-                <p className={styles.errorMsg}>{errorText}</p>
+                <p className={styles.errorMsg} role="alert">
+                  {errorText}
+                </p>
               )}
             </div>
 
