@@ -287,14 +287,46 @@ export default async function ChildPage({ params }: Props) {
 //
 // 🔹 Pre-build all static params for ISR
 export async function generateStaticParams() {
-  const pages = await wpFetch<WPPage[]>(`/pages?_fields=id,slug,parent`);
-  if (!Array.isArray(pages)) return [];
+  const restEndpoint = process.env.WORDPRESS_REST_ENDPOINT;
+  if (!restEndpoint) return [];
 
-  const parents = pages.filter((p) => p.parent === 0);
-  const parentMap = Object.fromEntries(parents.map((p) => [p.id, p.slug]));
+  const allPages: WPPage[] = [];
 
-  return pages
-    .filter((p) => p.parent !== 0 && parentMap[p.parent])
+  try {
+    let page = 1;
+    let totalPages = 1;
+
+    do {
+      const res = await fetch(
+        `${restEndpoint}/pages?_fields=id,slug,parent,template&per_page=100&page=${page}`,
+        { next: { revalidate: 86400 } },
+      );
+      if (!res.ok) break;
+
+      const batch: WPPage[] = await res.json();
+      allPages.push(...batch);
+      totalPages = Number(res.headers.get("X-WP-TotalPages")) || 1;
+      page++;
+    } while (page <= totalPages);
+  } catch {
+    return [];
+  }
+
+  // Resolve parent slugs from the FULL page set (not just top-level
+  // parent===0 pages), so instrument pages nested under a category page
+  // that itself has a parent (e.g. "metals" under "markets") still resolve.
+  const parentMap = Object.fromEntries(allPages.map((p) => [p.id, p.slug]));
+
+  // Match by template rather than parent depth — this page only knows how
+  // to render the instrument-symbol template, regardless of which category
+  // slug it sits under.
+  return allPages
+    .filter(
+      (p) =>
+        p.template === "templates/template-symbols.php" &&
+        p.parent !== 0 &&
+        parentMap[p.parent],
+    )
     .map((p) => ({
       slug: parentMap[p.parent],
       inst: p.slug,

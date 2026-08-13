@@ -359,6 +359,7 @@ export type WPPage = {
   link:string;
   title: { rendered: string };
   excerpt: { rendered: string };
+  template?: string;
   acf?: PageFieldGroups;
   acf_blocks?: ACFBlock[];
 };
