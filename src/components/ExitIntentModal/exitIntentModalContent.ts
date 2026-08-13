@@ -14,6 +14,7 @@ export interface ExitIntentModalContent {
   successCloseLabel: string;
   errorMessage: string;
   invalidEmailMessage: string;
+  closeButtonLabel: string;
 }
 
 export const exitIntentModalContent: ExitIntentModalContent = {
@@ -35,4 +36,5 @@ export const exitIntentModalContent: ExitIntentModalContent = {
   successCloseLabel: "Close",
   errorMessage: "Something didn't go through. Check the email and try again.",
   invalidEmailMessage: "Enter a valid email address.",
+  closeButtonLabel: "Close",
 };

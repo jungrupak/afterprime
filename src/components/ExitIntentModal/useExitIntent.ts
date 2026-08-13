@@ -48,6 +48,11 @@ export function useExitIntent() {
 
     let lastScrollY = window.scrollY;
     let lastScrollT = Date.now();
+    let lastTouchAt = 0;
+
+    function handleTouch() {
+      lastTouchAt = Date.now();
+    }
 
     function handleScroll() {
       const now = Date.now();
@@ -60,6 +65,7 @@ export function useExitIntent() {
 
       if (dt <= 0 || dt > 200) return; // stale baseline / not a continuous gesture
       if (dy > 400) return; // implausible jump (programmatic scroll-lock or smooth-scroll anchor), not a finger flick
+      if (Date.now() - lastTouchAt > 150) return; // no recent real touch input — likely a programmatic scroll
 
       const velocity = dy / dt;
       if (y <= MOBILE_NEAR_TOP_PX && velocity >= MOBILE_MIN_VELOCITY) {
@@ -70,6 +76,8 @@ export function useExitIntent() {
     function cleanup() {
       document.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("touchstart", handleTouch);
+      window.removeEventListener("touchmove", handleTouch);
     }
 
     const isTouchDevice =
@@ -77,6 +85,8 @@ export function useExitIntent() {
 
     if (isTouchDevice) {
       window.addEventListener("scroll", handleScroll, { passive: true });
+      window.addEventListener("touchstart", handleTouch, { passive: true });
+      window.addEventListener("touchmove", handleTouch, { passive: true });
     } else {
       document.addEventListener("mouseleave", handleMouseLeave);
     }

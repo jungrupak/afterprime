@@ -98,7 +98,7 @@ export default function ExitIntentModal({
         aria-modal="true"
         aria-labelledby="exit-intent-modal-heading"
       >
-        <button className={styles.closeBtn} onClick={close} aria-label="Close">
+        <button className={styles.closeBtn} onClick={close} aria-label={c.closeButtonLabel}>
           &times;
         </button>
 

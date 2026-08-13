@@ -65,6 +65,10 @@ const DENYLIST_FIELD_NAMES = new Set([
   // match lookup key against live price-feed/broker-cost data downstream —
   // same silent-breakage risk as the enum fields below.
   "instrument",
+  // Exit-intent modal's stat callout (e.g. "43%") — trailing "%" defeats
+  // NUMERIC_PATTERN below, and this value shouldn't be sent through
+  // translation regardless (a percentage figure, not prose).
+  "statnumber",
   // Control/enum values compared with strict === in component code to pick
   // what to render (e.g. image_alignment: "left", card_size: "Small",
   // vertical_alignment: "Top") — translating these breaks the comparison
