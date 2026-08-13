@@ -2,6 +2,7 @@ import "./globals.scss";
 import { Blinker } from "next/font/google";
 import Script from "next/script";
 import VideoBackground from "@/components/VideoBackground";
+import ExitIntentModal from "@/components/ExitIntentModal/ExitIntentModal";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getHtmlAttrs } from "@/config/locales";
 
@@ -71,6 +72,7 @@ export default async function RootLayout({
       <body className={`${blinker.className} antialiased`}>
         <VideoBackground />
         {children}
+        <ExitIntentModal />
       </body>
     </html>
   );
