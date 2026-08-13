@@ -115,17 +115,17 @@ export default function ExitIntentModal({
           &times;
         </Button>
 
-        <div className={styles.mediaCol}>
-          <video
-            className={styles.mediaVideo}
-            src="/jelly-bg.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-          <div className={styles.mediaOverlay} />
-          {status !== "success" && (
+        {status !== "success" && (
+          <div className={styles.mediaCol}>
+            <video
+              className={styles.mediaVideo}
+              src="/jelly-bg.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+            <div className={styles.mediaOverlay} />
             <div className={styles.statRow}>
               <div className={styles.statNumber}>
                 <span>{statPercent ?? FALLBACK_STAT_PERCENT}</span>%
@@ -137,8 +137,8 @@ export default function ExitIntentModal({
                 <span className="opacity-60">{c.statLabel2}</span>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         <div className={styles.contentCol}>
           {status === "success" ? (
