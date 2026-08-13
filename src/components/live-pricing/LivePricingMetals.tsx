@@ -2,6 +2,7 @@
 import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import { Loader } from "../Loading/Loading";
@@ -36,16 +37,29 @@ interface LivePricingMetalsProps {
   content?: LivePricingMetalsContent;
 }
 
+// Gold instruments are any XAU-quoted pair (XAUUSD, XAUEUR, XAUGBP, XAUAUD, etc.)
+const isGoldSymbol = (symbol: string) => symbol.toUpperCase().startsWith("XAU");
+
 export function LivePricingMetals({
   initialPrices = [],
   content: c = livePricingMetalsContent,
 }: LivePricingMetalsProps) {
   const locale = useLocale();
+  const pathname = usePathname();
   const { categories, status } = useLivePrices(initialPrices);
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
+  const isGoldPage = pathname?.includes("/gold") ?? false;
+  // Override the heading suffix on gold pages, content object itself stays generic
+  const headingAfter = isGoldPage ? " Gold Pricing" : c.headingAfter;
+  const descriptionAfter = isGoldPage ? "Zero commissions. A-Book execution across all gold pairs." : c.description;
+  const metalsRows = useMemo(() => {
+  return isGoldPage
+    ? categories.metals.filter((item: any) => isGoldSymbol(item.symbol))
+    : categories.metals;
+  }, [categories.metals, isGoldPage])
 
-  const pricingCatLists = [categories.metals];
+  const pricingCatLists = [metalsRows];
 
   const tabNavs = ["Metals"];
 
@@ -64,11 +78,11 @@ export function LivePricingMetals({
         <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
           {c.headingBefore}
           {c.headingHighlight}
-          {c.headingAfter}
+          {headingAfter}
         </h2>
         <p
           className="reading-text-md opacity-60 mb-8 md:mb-12"
-          dangerouslySetInnerHTML={{ __html: c.description }}
+          dangerouslySetInnerHTML={{ __html: descriptionAfter }}
         />
       </div>
 
