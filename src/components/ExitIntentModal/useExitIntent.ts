@@ -43,7 +43,12 @@ export function useExitIntent() {
     }
 
     function handleMouseLeave(e: MouseEvent) {
-      if (e.clientY <= 0) fire();
+      // mouseleave on `document` doesn't reliably fire in every browser when
+      // the cursor exits via the top toward the tab bar (confirmed absent in
+      // Firefox on at least one dev environment). mouseout bubbles and fires
+      // with relatedTarget === null when the pointer truly leaves the
+      // window, which is the cross-browser-safe signal for this.
+      if (e.clientY <= 0 && e.relatedTarget === null) fire();
     }
 
     let lastScrollY = window.scrollY;
@@ -99,7 +104,7 @@ export function useExitIntent() {
     }
 
     function cleanup() {
-      document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mouseout", handleMouseLeave);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("touchstart", handleTouch);
       window.removeEventListener("touchmove", handleTouch);
@@ -113,7 +118,7 @@ export function useExitIntent() {
       window.addEventListener("touchstart", handleTouch, { passive: true });
       window.addEventListener("touchmove", handleTouch, { passive: true });
     } else {
-      document.addEventListener("mouseleave", handleMouseLeave);
+      document.addEventListener("mouseout", handleMouseLeave);
     }
 
     return cleanup;
