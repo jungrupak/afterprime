@@ -155,11 +155,15 @@ export default async function ChildPage({ params }: Props) {
         {/* grain bg effect */}
         {/* grain bg effect */}
         <div className="ap_container_small flex items-center h-full">
-          <div className={`apBannerContent`}>
-            <h1 className="h1-size mt-10 lg:mt-15">
+          <div className={`apBannerContent text-center`}>
+            <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold">
               <span className="font-[600]">{data?.title.rendered}</span>
             </h1>
-            <p>{getFields.hero_paragraph_one ?? ""}</p>
+            <p
+              className={`reading-text-lg mt-5 md:mt-10 opacity-60 font-light`}
+            >
+              {getFields.hero_paragraph_one ?? ""}
+            </p>
           </div>
         </div>
       </section>
@@ -172,7 +176,11 @@ export default async function ChildPage({ params }: Props) {
         <div className="ap_container_small">
           <div className={`${styles.sectionIntroContents}`}>
             <div className={`max-md:order-2 max-md:text-left`}>
-              <p>{getFields.hero_paragraph_two ?? ""}</p>
+              <p
+                className={`font-size-heading-sm mb-4 md:mb-0 opacity-80 font-semibold`}
+              >
+                {getFields.hero_paragraph_two ?? ""}
+              </p>
             </div>
             <div className={`max-md:order-1 text-left`}>
               <InstrumentKeyBenifits
