@@ -162,7 +162,7 @@ export default async function ChildPage({ params }: Props) {
             <p
               className={`reading-text-lg mt-5 md:mt-10 opacity-60 font-light`}
             >
-              {getFields.hero_paragraph_one ?? ""}
+              {getFields?.hero_paragraph_one ?? ""}
             </p>
           </div>
         </div>
@@ -179,7 +179,7 @@ export default async function ChildPage({ params }: Props) {
               <p
                 className={`font-size-heading-sm mb-4 md:mb-0 opacity-80 font-semibold`}
               >
-                {getFields.hero_paragraph_two ?? ""}
+                {getFields?.hero_paragraph_two ?? ""}
               </p>
             </div>
             <div className={`max-md:order-1 text-left`}>
