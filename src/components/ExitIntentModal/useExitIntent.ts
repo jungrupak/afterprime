@@ -49,6 +49,7 @@ export function useExitIntent() {
     let lastScrollY = window.scrollY;
     let lastScrollT = Date.now();
     let lastTouchAt = 0;
+    let consecutiveQualifyingSamples = 0;
 
     function handleTouch() {
       lastTouchAt = Date.now();
@@ -60,16 +61,40 @@ export function useExitIntent() {
       const dt = now - lastScrollT;
       const dy = lastScrollY - y; // positive = scrolling up
 
+      // Baseline must refresh on every call, even when we bail below —
+      // otherwise the next real sample would see a stale dt/dy.
       lastScrollY = y;
       lastScrollT = now;
 
-      if (dt <= 0 || dt > 200) return; // stale baseline / not a continuous gesture
-      if (dy > 400) return; // implausible jump (programmatic scroll-lock or smooth-scroll anchor), not a finger flick
-      if (Date.now() - lastTouchAt > 150) return; // no recent real touch input — likely a programmatic scroll
+      if (document.body.style.position === "fixed") {
+        // Mobile nav scroll-lock (Header.tsx) snaps scrollY to 0 and fires a
+        // synthetic scroll event — not a real user gesture. Bail and break
+        // any in-progress qualifying streak.
+        consecutiveQualifyingSamples = 0;
+        return;
+      }
+
+      if (dt <= 0 || dt > 200) {
+        consecutiveQualifyingSamples = 0;
+        return; // stale baseline / not a continuous gesture
+      }
+      if (dy > 400) {
+        consecutiveQualifyingSamples = 0;
+        return; // implausible jump (programmatic scroll-lock or smooth-scroll anchor), not a finger flick
+      }
+      if (Date.now() - lastTouchAt > 150) {
+        consecutiveQualifyingSamples = 0;
+        return; // no recent real touch input — likely a programmatic scroll
+      }
 
       const velocity = dy / dt;
       if (y <= MOBILE_NEAR_TOP_PX && velocity >= MOBILE_MIN_VELOCITY) {
-        fire();
+        consecutiveQualifyingSamples += 1;
+        if (consecutiveQualifyingSamples >= 2) {
+          fire();
+        }
+      } else {
+        consecutiveQualifyingSamples = 0;
       }
     }
 
