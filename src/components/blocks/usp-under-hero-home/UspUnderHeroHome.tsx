@@ -8,12 +8,12 @@ import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
 type USPBlockProps = Blocks["usp-under-home-hero"];
 
-interface ComparisonData {
+export interface ComparisonData {
   secondBestVsAfterprimePct: number;
   industryVsAfterprimeAvgPct: number;
 }
 
-async function fetchComparisonData(): Promise<ComparisonData | null> {
+export async function fetchComparisonData(): Promise<ComparisonData | null> {
   try {
     const res = await fetch(
       "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true",

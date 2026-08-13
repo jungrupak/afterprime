@@ -7,6 +7,7 @@ import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getHtmlAttrs } from "@/config/locales";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { exitIntentModalContent } from "@/components/ExitIntentModal/exitIntentModalContent";
+import { fetchComparisonData } from "@/components/blocks/usp-under-hero-home/UspUnderHeroHome";
 
 const blinker = Blinker({
   subsets: ["latin"],
@@ -34,6 +35,10 @@ export default async function RootLayout({
     locale,
     exitIntentModalContent,
   );
+  const comparisonData = await fetchComparisonData();
+  const exitIntentStatPercent = comparisonData
+    ? Math.round(comparisonData.industryVsAfterprimeAvgPct)
+    : null;
 
   return (
     <html lang={lang} dir={dir}>
@@ -79,7 +84,10 @@ export default async function RootLayout({
       <body className={`${blinker.className} antialiased`}>
         <VideoBackground />
         {children}
-        <ExitIntentModal content={exitIntentT} />
+        <ExitIntentModal
+          content={exitIntentT}
+          statPercent={exitIntentStatPercent}
+        />
       </body>
     </html>
   );

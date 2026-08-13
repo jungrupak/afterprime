@@ -12,12 +12,18 @@ type Status = "idle" | "loading" | "success" | "error";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Fallback for when the live comparison feed is unavailable — keeps the
+// stat callout from ever rendering blank in a conversion-focused modal.
+const FALLBACK_STAT_PERCENT = 43;
+
 interface ExitIntentModalProps {
   content?: ExitIntentModalContent;
+  statPercent?: number | null;
 }
 
 export default function ExitIntentModal({
   content: c = exitIntentModalContent,
+  statPercent,
 }: ExitIntentModalProps) {
   const { isOpen, close } = useExitIntent();
   const [email, setEmail] = useState("");
@@ -121,7 +127,9 @@ export default function ExitIntentModal({
           <div className={styles.mediaOverlay} />
           {status !== "success" && (
             <div className={styles.statRow}>
-              <div className={styles.statNumber}>{c.statNumber}</div>
+              <div className={styles.statNumber}>
+                <span>{statPercent ?? FALLBACK_STAT_PERCENT}</span>%
+              </div>
               <div className={styles.statLabel}>
                 <span className={`text-[18px] leading-[1.4] block`}>
                   {c.statLabel}
@@ -181,6 +189,11 @@ export default function ExitIntentModal({
                   }}
                   disabled={status === "loading"}
                 />
+                {status === "error" && (
+                  <p className={styles.errorMsg} role="alert">
+                    {errorText}
+                  </p>
+                )}
                 <button
                   type="button"
                   className={styles.ctaBtn}
@@ -202,11 +215,6 @@ export default function ExitIntentModal({
                     </svg>
                   )}
                 </button>
-                {status === "error" && (
-                  <p className={styles.errorMsg} role="alert">
-                    {errorText}
-                  </p>
-                )}
               </div>
 
               <button className={styles.dismiss} onClick={close}>
