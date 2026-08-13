@@ -35,9 +35,19 @@
 
   //Ends####
   --surface: #161621;
+  --surface-80: rgba(9, 9, 16, 0.8);
+  --surface-60: rgba(9, 9, 16, 0.6);
+  --surface-50: rgba(9, 9, 16, 0.5);
+  --surface-40: rgba(9, 9, 16, 0.4);
+  --surface-20: rgba(9, 9, 16, 0.2);
+  --surface-10: rgba(9, 9, 16, 0.1);
+  --surface-8: rgba(9, 9, 16, 0.08);
+  --surface-6: rgba(9, 9, 16, 0.06);
+  --surface-4: rgba(9, 9, 16, 0.04);
   --electric-blue: #263dea;
   --vermillion: #ff301d;
   --primary-white: rgba(244, 244, 250);
+  --primary-white-90: rgba(244, 244, 250, 0.9);
   --primary-white-80: rgba(244, 244, 250, 0.8);
   --primary-white-60: rgba(244, 244, 250, 0.6);
   --primary-white-50: rgba(244, 244, 250, 0.5);
@@ -169,7 +179,7 @@
 }
 .font-size-heading-sm {
   font-size: var(--heading-sm);
-  line-height: var(--line-height-medium);
+  line-height: var(--line-height-small);
   letter-spacing: 1.3%;
 }
 .font-size-heading-xs {

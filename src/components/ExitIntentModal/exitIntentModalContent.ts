@@ -4,6 +4,7 @@ export interface ExitIntentModalContent {
   bodyCopy: string;
   statNumber: string;
   statLabel: string;
+  statLabel2: string;
   emailPlaceholder: string;
   submitLabel: string;
   submitLabelLoading: string;
@@ -18,13 +19,14 @@ export interface ExitIntentModalContent {
 }
 
 export const exitIntentModalContent: ExitIntentModalContent = {
-  eyebrow: "Before you go",
+  eyebrow: "Before you leave",
   heading: "Get execution-level insights, every other Tuesday.",
   bodyCopy:
     "The Current is Afterprime's bi-weekly newsletter. Verified cost data, execution notes, and trader craft. No signals, no noise.",
   statNumber: "43%",
   statLabel:
-    "lower total trading cost vs. industry average, ForexBenchmark-verified",
+    "lower total trading cost vs. industry average",
+    statLabel2:"ForexBenchmark-verified",
   emailPlaceholder: "your@email.com",
   submitLabel: "Subscribe to The Current",
   submitLabelLoading: "Subscribing…",

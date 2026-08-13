@@ -45,28 +45,28 @@ export default function Button({
     size === "regular"
       ? css.regular
       : size === "small"
-      ? css.small
-      : size === "x-small"
-      ? css.xSmall
-      : size === "large"
-      ? css.large
-      : ""
+        ? css.small
+        : size === "x-small"
+          ? css.xSmall
+          : size === "large"
+            ? css.large
+            : ""
   } ${
     varient === "primary"
       ? css.primary
       : varient === "secondary"
-      ? css.secondary
-      : varient === "ghost"
-      ? css.ghost
-      : varient === "primary-ghost"
-      ? css.primaryGhost
-      : varient === "secondary-ghost"
-      ? css.secondaryGhost
-      : varient === "washed"
-      ? css.washed
-      : varient === "decent-ghost"
-      ? css.decentGhost
-      : ""
+        ? css.secondary
+        : varient === "ghost"
+          ? css.ghost
+          : varient === "primary-ghost"
+            ? css.primaryGhost
+            : varient === "secondary-ghost"
+              ? css.secondaryGhost
+              : varient === "washed"
+                ? css.washed
+                : varient === "decent-ghost"
+                  ? css.decentGhost
+                  : ""
   }`;
 
   const content = (
