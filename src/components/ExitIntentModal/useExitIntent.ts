@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { SUPPORTED_LOCALES } from "@/config/locales";
 
 const SESSION_KEY = "ap_exit_intent_shown";
 const EXCLUDED_PATHS = [
@@ -11,12 +12,22 @@ const EXCLUDED_PATHS = [
 const MOBILE_NEAR_TOP_PX = 120;
 const MOBILE_MIN_VELOCITY = 0.6; // px/ms upward
 
+function stripLocalePrefix(path: string): string {
+  const segments = path.split("/").filter(Boolean);
+  const maybeLocale = segments[0];
+  if ((SUPPORTED_LOCALES as readonly string[]).includes(maybeLocale)) {
+    return "/" + segments.slice(1).join("/");
+  }
+  return path;
+}
+
 export function useExitIntent() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (EXCLUDED_PATHS.some((path) => pathname?.startsWith(path))) return;
+    const normalizedPathname = pathname ? stripLocalePrefix(pathname) : pathname;
+    if (EXCLUDED_PATHS.some((path) => normalizedPathname?.startsWith(path))) return;
     if (sessionStorage.getItem(SESSION_KEY)) return;
 
     let hasFired = false;
