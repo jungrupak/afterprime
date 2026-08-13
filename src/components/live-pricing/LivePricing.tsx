@@ -52,7 +52,7 @@ export function LivePricingAll({
     categories.commodities,
     categories.metals,
     categories.indices,
-    categories.gold,
+    //categories.gold,
   ];
 
   const tabNavs = c.tabLabels;
