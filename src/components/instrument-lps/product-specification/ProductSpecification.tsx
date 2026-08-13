@@ -1,7 +1,6 @@
 "use client";
 import { AP_FX_PAIRS } from "@/data/ap-fx-pairs-specs";
 import { getRelatedPairs } from "@/lib/getRelatedPairs";
-import styles from "./ProductSpecification.module.scss";
 import Link from "next/link";
 import SpecificationTable from "./SpecificationTable";
 import { useLocale } from "@/lib/locale/useLocale";
@@ -48,12 +47,7 @@ export default function ProductSpecification({
       {/* <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
         {instrument} Trading Specification
       </h2> */}
-      <div className={`${styles.costBreakDownTable}`}>
-        <SpecificationTable
-          instrument={instrument}
-          content={specTableContent}
-        />
-      </div>
+      <SpecificationTable instrument={instrument} content={specTableContent} />
 
       {instrument === "XAUUSD" ? (
         <div className={`mt-15`}>

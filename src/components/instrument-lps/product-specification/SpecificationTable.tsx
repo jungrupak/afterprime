@@ -1,6 +1,7 @@
 "use client";
 import { AP_FX_PAIRS } from "@/data/ap-fx-pairs-specs";
 import { useState } from "react";
+import styles from "./ProductSpecification.module.scss";
 import {
   specificationTableContent,
   type SpecificationTableContent,
@@ -32,7 +33,7 @@ export default function SpecificationTable({
     : entries.slice(0, INITIAL_ROWS);
 
   return (
-    <div className={`table-wrapper mb-4 md:mb-10`}>
+    <div className={`table-wrapper mb-4 md:mb-10 ${styles.costBreakDownTable}`}>
       <h2
         className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
       >
@@ -53,7 +54,7 @@ export default function SpecificationTable({
       {shouldShowToggle && (
         <button
           onClick={() => setIsCollapsible(!isCollapsible)}
-          className="expand-toggle mt-5 md:mt-8 rounded-xs bg-[#ffffff1c] hover:bg-[#ffffff30] p-[8px_20px]"
+          className="text-[16px] expand-toggle mt-5 md:mt-8 rounded-xs bg-[#ffffff1c] hover:bg-[#ffffff30] p-[5px_10px]"
         >
           {isCollapsible ? c.showLess : c.showAll}
         </button>
