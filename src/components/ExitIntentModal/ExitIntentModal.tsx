@@ -142,7 +142,7 @@ export default function ExitIntentModal({
         <div className={styles.contentCol}>
           {status === "success" ? (
             <div className={styles.success}>
-              <div className={styles.check}>
+              {/* <div className={styles.check}>
                 <svg
                   width="20"
                   height="20"
@@ -160,7 +160,7 @@ export default function ExitIntentModal({
                     className={styles.checkPath}
                   ></polyline>
                 </svg>
-              </div>
+              </div> */}
               <h2
                 id="exit-intent-modal-heading"
                 className={styles.heading}
@@ -168,7 +168,13 @@ export default function ExitIntentModal({
               >
                 {c.successHeading}
               </h2>
-              <p className={styles.bodyCopy}>{c.successBody}</p>
+              <p className={styles.bodyCopy}>
+                {c.successBody1}
+                <i>
+                  <b>{c.aloneCurrentText}</b>{" "}
+                </i>
+                {c.successBody}
+              </p>
               <div className={styles.successListWrap}>
                 <div className={styles.successListHeading}>
                   {c.successListHeading}

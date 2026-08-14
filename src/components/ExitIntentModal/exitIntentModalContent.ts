@@ -11,6 +11,7 @@ export interface ExitIntentModalContent {
   dismissLabel: string;
   finePrint: string;
   successHeading: string;
+  successBody1:string;
   successBody: string;
   successListHeading: string;
   successList: string[];
@@ -37,8 +38,9 @@ export const exitIntentModalContent: ExitIntentModalContent = {
   dismissLabel: "No thanks, continue browsing",
   finePrint: "One email, every other Tuesday. Unsubscribe anytime.",
   successHeading: "You're on the list.",
+  successBody1:"The next issue of",
   successBody:
-    "The next issue of The Current arrives on the next Tuesday cycle.",
+    "arrives on the next Tuesday cycle.",
   successListHeading: "What you'll get:",
   successList: [
     "Cost Check: how Afterprime stacks up against the industry average",

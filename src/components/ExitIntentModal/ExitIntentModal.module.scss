@@ -166,20 +166,22 @@
 
 .statRow {
   position: absolute;
-  left: 22px;
+  left: clamp(30px, 5vw, 40px);
   right: 22px;
-  bottom: 20px;
+  bottom: clamp(30px, 5vw, 40px);
   z-index: 1;
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 5px;
   align-items: flex-start;
 }
 
 .statNumber {
-  font-size: 34px;
+  font-size: 48px;
   color: var(--terciary-color);
   letter-spacing: -0.5px;
   line-height: 1;
+  font-weight: var(--weight-light);
 }
 
 .statLabel {
@@ -295,7 +297,7 @@
 .successListHeading {
   font-size: var(--reading-text-2xs);
   font-weight: 600;
-  color: var(--primary-white-80);
+  color: var(--primary-white-60);
   margin-bottom: 8px;
 }
 
@@ -310,7 +312,7 @@
   li {
     position: relative;
     padding-left: 16px;
-    font-size: var(--reading-text-2xs);
+    font-size: var(--reading-text-caption);
     color: var(--primary-white-40);
 
     &::before {
@@ -329,8 +331,8 @@
 .successFooter {
   font-size: 14px;
   font-weight: 600;
-  color: var(--primary-white-40);
-  text-align: left;
+  color: var(--primary-white-60);
+  text-align: center;
   margin: 0 0 4px;
 }
 
