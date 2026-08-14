@@ -15,10 +15,9 @@ export interface ComparisonData {
 
 export async function fetchComparisonData(): Promise<ComparisonData | null> {
   try {
-    const res = await fetch(
-      "https://scoreboard.argamon.com:8443/api/costs/comparison?period=7d&symbols=All%20pairs&mode=day&commission=true",
-      { next: { revalidate: 3600 } },
-    );
+    const res = await fetch("https://feed.afterprime.com/api/costs", {
+      next: { revalidate: 3600 },
+    });
     if (!res.ok) return null;
     return await res.json();
   } catch {

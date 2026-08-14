@@ -1,6 +1,7 @@
 export interface ExitIntentModalContent {
   eyebrow: string;
   heading: string;
+  aloneCurrentText:string;
   bodyCopy: string;
   statLabel: string;
   statLabel2: string;
@@ -11,6 +12,9 @@ export interface ExitIntentModalContent {
   finePrint: string;
   successHeading: string;
   successBody: string;
+  successListHeading: string;
+  successList: string[];
+  successFooter: string;
   successCloseLabel: string;
   errorMessage: string;
   invalidEmailMessage: string;
@@ -20,8 +24,9 @@ export interface ExitIntentModalContent {
 export const exitIntentModalContent: ExitIntentModalContent = {
   eyebrow: "Before you leave",
   heading: "Get execution-level insights, every other Tuesday.",
+  aloneCurrentText:"The Current",
   bodyCopy:
-    "The Current is Afterprime's bi-weekly newsletter. Verified cost data, execution notes, and trader craft. No signals, no noise.",
+    "is Afterprime's bi-weekly newsletter. Verified cost data, execution notes, and trader craft. No signals, no noise.",
 
   statLabel:
     "lower total trading cost vs. industry average",
@@ -33,7 +38,15 @@ export const exitIntentModalContent: ExitIntentModalContent = {
   finePrint: "One email, every other Tuesday. Unsubscribe anytime.",
   successHeading: "You're on the list.",
   successBody:
-    "The next issue of The Current lands in your inbox on the next Tuesday cycle.",
+    "The next issue of The Current arrives on the next Tuesday cycle.",
+  successListHeading: "What you'll get:",
+  successList: [
+    "Cost Check: how Afterprime stacks up against the industry average",
+    "Market data and execution insight relevant to active traders",
+    "No filler, no lifestyle content",
+  ],
+  successFooter:
+    "Zero commission. Sub-50ms execution. Flow Rewards up to $3/lot.",
   successCloseLabel: "Close",
   errorMessage: "Something didn't go through. Check the email and try again.",
   invalidEmailMessage: "Enter a valid email address.",

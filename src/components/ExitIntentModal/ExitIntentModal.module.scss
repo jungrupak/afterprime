@@ -159,7 +159,7 @@
 }
 
 .bodyCopy {
-  font-size: var(--reading-text-caption);
+  font-size: var(--reading-text-xs);
   color: var(--primary-white-60);
   margin: 0 0 18px 0;
 }
@@ -241,8 +241,8 @@
   }
 
   svg {
-    width: 10px;
-    height: 10px;
+    width: 16px;
+    height: 16px;
   }
 }
 
@@ -250,7 +250,7 @@
   display: block;
   text-align: center;
   margin-top: 14px;
-  font-size: 12px;
+  font-size: 16px;
   color: var(--primary-white-40);
   text-decoration: underline;
   cursor: pointer;
@@ -265,7 +265,7 @@
 
 .finePrint {
   margin-top: 14px;
-  font-size: 10.5px;
+  font-size: 14px;
   color: var(--primary-white-30);
   text-align: center;
   line-height: 1.4;
@@ -283,6 +283,82 @@
   padding: 8px 0 4px;
 }
 
+.successListWrap {
+  text-align: left;
+  margin: 10px 0;
+  background-color: var(--primary-white-4);
+  padding: var(--space-sm) var(--space-md) var(--space-2xs);
+  border-radius: var(--radius-lg);
+  border: solid 1px var(--border-blue);
+}
+
+.successListHeading {
+  font-size: var(--reading-text-2xs);
+  font-weight: 600;
+  color: var(--primary-white-80);
+  margin-bottom: 8px;
+}
+
+.successList {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  li {
+    position: relative;
+    padding-left: 16px;
+    font-size: var(--reading-text-2xs);
+    color: var(--primary-white-40);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--electric-blue);
+    }
+  }
+}
+
+.successFooter {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-white-40);
+  text-align: left;
+  margin: 0 0 4px;
+}
+
+.okBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 18px auto 0;
+  padding: 9px 20px;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "Graphik", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.04);
+  }
+}
+
 .check {
   width: 44px;
   height: 44px;
@@ -293,6 +369,35 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 14px;
+  opacity: 0;
+  animation: checkPop 420ms ease-out 80ms forwards;
+}
+
+.checkIcon {
+  overflow: visible;
+}
+
+.checkPath {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: checkDraw 380ms ease-out 320ms forwards;
+}
+
+@keyframes checkPop {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes checkDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .spinner {

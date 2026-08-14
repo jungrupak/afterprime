@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import styles from "./ExitIntentModal.module.scss";
 import Button from "@/components/ui/Button";
-import { useExitIntent } from "./useExitIntent";
+import { useExitIntent, SUBSCRIBED_KEY } from "./useExitIntent";
 import {
   exitIntentModalContent,
   type ExitIntentModalContent,
@@ -85,6 +85,7 @@ export default function ExitIntentModal({
         throw new Error("signup_failed");
       }
 
+      localStorage.setItem(SUBSCRIBED_KEY, "1");
       setStatus("success");
     } catch {
       setErrorText(c.errorMessage);
@@ -115,30 +116,28 @@ export default function ExitIntentModal({
           &times;
         </Button>
 
-        {status !== "success" && (
-          <div className={styles.mediaCol}>
-            <video
-              className={styles.mediaVideo}
-              src="/jelly-bg.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-            />
-            <div className={styles.mediaOverlay} />
-            <div className={styles.statRow}>
-              <div className={styles.statNumber}>
-                <span>{statPercent ?? FALLBACK_STAT_PERCENT}</span>%
-              </div>
-              <div className={styles.statLabel}>
-                <span className={`text-[18px] leading-[1.4] block`}>
-                  {c.statLabel}
-                </span>{" "}
-                <span className="opacity-60">{c.statLabel2}</span>
-              </div>
+        <div className={styles.mediaCol}>
+          <video
+            className={styles.mediaVideo}
+            src="/jelly-bg.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+          <div className={styles.mediaOverlay} />
+          <div className={styles.statRow}>
+            <div className={styles.statNumber}>
+              <span>{statPercent ?? FALLBACK_STAT_PERCENT}</span>%
+            </div>
+            <div className={styles.statLabel}>
+              <span className={`text-[18px] leading-[1.4] block`}>
+                {c.statLabel}
+              </span>{" "}
+              <span className="opacity-60">{c.statLabel2}</span>
             </div>
           </div>
-        )}
+        </div>
 
         <div className={styles.contentCol}>
           {status === "success" ? (
@@ -153,19 +152,35 @@ export default function ExitIntentModal({
                   strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className={styles.checkIcon}
                 >
-                  <polyline points="20 6 9 17 4 12"></polyline>
+                  <polyline
+                    points="20 6 9 17 4 12"
+                    pathLength="1"
+                    className={styles.checkPath}
+                  ></polyline>
                 </svg>
               </div>
               <h2
                 id="exit-intent-modal-heading"
                 className={styles.heading}
-                style={{ fontSize: 17 }}
+                style={{ fontSize: 24 }}
               >
                 {c.successHeading}
               </h2>
               <p className={styles.bodyCopy}>{c.successBody}</p>
-              <button className={styles.dismiss} onClick={close}>
+              <div className={styles.successListWrap}>
+                <div className={styles.successListHeading}>
+                  {c.successListHeading}
+                </div>
+                <ul className={styles.successList}>
+                  {c.successList.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <p className={styles.successFooter}>{c.successFooter}</p>
+              <button className={styles.okBtn} onClick={close}>
                 {c.successCloseLabel}
               </button>
             </div>
@@ -175,7 +190,12 @@ export default function ExitIntentModal({
               <h2 id="exit-intent-modal-heading" className={styles.heading}>
                 {c.heading}
               </h2>
-              <p className={styles.bodyCopy}>{c.bodyCopy}</p>
+              <p className={styles.bodyCopy}>
+                <i>
+                  <b>{c.aloneCurrentText}</b>{" "}
+                </i>{" "}
+                {c.bodyCopy}
+              </p>
 
               <div className={styles.form}>
                 <input
@@ -200,20 +220,22 @@ export default function ExitIntentModal({
                   onClick={handleSubmit}
                   disabled={status === "loading"}
                 >
-                  {status === "loading" && <span className={styles.spinner} />}
-                  {status === "loading" ? c.submitLabelLoading : c.submitLabel}
-                  {status !== "loading" && (
+                  {status === "loading" ? (
+                    <span className={styles.spinner} />
+                  ) : (
                     <svg
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="3"
+                      strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     >
-                      <polyline points="9 18 15 12 9 6"></polyline>
+                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                     </svg>
                   )}
+                  {status === "loading" ? c.submitLabelLoading : c.submitLabel}
                 </button>
               </div>
 

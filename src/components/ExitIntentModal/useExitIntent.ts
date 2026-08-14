@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { SUPPORTED_LOCALES } from "@/config/locales";
 
 const SESSION_KEY = "ap_exit_intent_shown";
+export const SUBSCRIBED_KEY = "ap_exit_intent_subscribed";
 const EXCLUDED_PATHS = [
   "/webtrader-mt4",
   "/webtrader-mt4-demo",
@@ -31,6 +32,7 @@ export function useExitIntent() {
     const normalizedPathname = pathname ? stripLocalePrefix(pathname) : pathname;
     if (EXCLUDED_PATHS.some((path) => normalizedPathname?.startsWith(path))) return;
     if (sessionStorage.getItem(SESSION_KEY)) return;
+    if (localStorage.getItem(SUBSCRIBED_KEY)) return;
 
     let hasFired = false;
 
