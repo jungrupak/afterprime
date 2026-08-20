@@ -177,7 +177,7 @@ export default function ExitIntentModal({
                   ))}
                 </ul>
               </div>
-              <p className={styles.successFooter}>{c.successFooter}</p>
+              {/* <p className={styles.successFooter}>{c.successFooter}</p> */}
               <button className={styles.okBtn} onClick={close}>
                 {c.successCloseLabel}
               </button>
