@@ -60,19 +60,11 @@ export default function ExitIntentModal({
       return;
     }
 
-    const endpoint = process.env.NEXT_PUBLIC_NEWSLETTER_SIGNUP_ENDPOINT;
-    if (!endpoint) {
-      console.error("NEXT_PUBLIC_NEWSLETTER_SIGNUP_ENDPOINT is not set");
-      setErrorText(c.errorMessage);
-      setStatus("error");
-      return;
-    }
-
     setStatus("loading");
     setErrorText("");
 
     try {
-      const res = await fetch(endpoint, {
+      const res = await fetch("/api/newsletter-signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
