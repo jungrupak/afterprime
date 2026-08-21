@@ -22,17 +22,9 @@ export default async function FoundersCard(props: FounderCardProps) {
     <section className="compact-section">
       <div className="ap_container_small">
         <div
-          className={`${styles.founders_block} grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] min-md:grid-cols-[repeat(auto-fit,minmax(500px,1fr))]  min-[1204px]:gap-40 items-center group`}
+          className={`${styles.founders_block} grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] min-md:grid-cols-[repeat(auto-fit,minmax(500px,1fr))] gap-5 md:gap-20 items-center group`}
         >
           <div className={styles.founder_story}>
-            <span className={styles.founder_quote_mark} aria-hidden="true">
-              <svg width="40" height="28" viewBox="0 0 40 28" fill="none">
-                <path
-                  d="M0 28V16.8C0 7.5 5.6 1.4 16.8 0L18.2 4.2C11.9 5.6 8.4 9.1 8.4 14.7H16.8V28H0ZM21.8 28V16.8C21.8 7.5 27.4 1.4 38.6 0L40 4.2C33.7 5.6 30.2 9.1 30.2 14.7H38.6V28H21.8Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </span>
             <h2
               className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
             >
