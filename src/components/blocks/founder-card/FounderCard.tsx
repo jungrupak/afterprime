@@ -30,7 +30,7 @@ export default async function FoundersCard(props: FounderCardProps) {
             >
               {founder_message_cart_title}
             </h2>
-            <p className={`reading-text-md font-[300]`}>
+            <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
               {founder_message_card_paragraph}
             </p>
             <span className={styles.founder_info}>
