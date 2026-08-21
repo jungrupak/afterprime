@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./style.module.scss";
 
 interface FounderVideoProps {
@@ -8,41 +8,66 @@ interface FounderVideoProps {
   title: string;
 }
 
-export default function FounderVideo({ videoId, title }: FounderVideoProps) {
-  const [playing, setPlaying] = useState(false);
+const YT_ORIGIN = "https://www.youtube.com";
 
-  if (playing) {
-    return (
-      <div className={styles.founder_video}>
-        <iframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-          title={title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className={styles.founder_video_frame}
-        />
-      </div>
+export default function FounderVideo({ videoId, title }: FounderVideoProps) {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [muted, setMuted] = useState(true);
+
+  const toggleMute = () => {
+    const nextMuted = !muted;
+    iframeRef.current?.contentWindow?.postMessage(
+      JSON.stringify({
+        event: "command",
+        func: nextMuted ? "mute" : "unMute",
+        args: [],
+      }),
+      YT_ORIGIN,
     );
-  }
+    setMuted(nextMuted);
+  };
+
+  const src = `${YT_ORIGIN}/embed/${videoId}?autoplay=1&mute=1&start=2&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1`;
 
   return (
-    <button
-      type="button"
-      className={styles.founder_video}
-      onClick={() => setPlaying(true)}
-      aria-label={`Play video: ${title}`}
-    >
-      <img
-        src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
-        alt={title}
-        className={styles.founder_video_poster}
+    <div className={styles.founder_video}>
+      <iframe
+        ref={iframeRef}
+        src={src}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        className={styles.founder_video_frame}
       />
       <span className={styles.founder_video_overlay} />
-      <span className={styles.founder_video_play}>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M8 5v14l11-7L8 5z" fill="currentColor" />
-        </svg>
-      </span>
-    </button>
+      <button
+        type="button"
+        className={styles.founder_video_mute}
+        onClick={toggleMute}
+        aria-label={muted ? "Unmute video" : "Mute video"}
+      >
+        {muted ? (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" />
+            <path
+              d="M16 8.5a5 5 0 0 1 0 7"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            <path d="M4 4l16 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        ) : (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" />
+            <path
+              d="M16 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        )}
+      </button>
+    </div>
   );
 }
