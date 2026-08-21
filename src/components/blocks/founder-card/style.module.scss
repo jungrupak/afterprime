@@ -1,29 +1,78 @@
 .founders_block {
   background-color: var(--secondary-color);
 
-  .founder_image {
+  .founder_video_col {
     position: relative;
     height: 100%;
-    img {
-      height: 100%;
+    min-height: 320px;
+  }
+
+  .founder_video {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: var(--secondary-color);
+
+    .founder_video_poster {
+      position: absolute;
+      inset: 0;
       width: 100%;
+      height: 100%;
       object-fit: cover;
     }
-    .dotted_bg {
+
+    .founder_video_overlay {
       position: absolute;
-      top: 0;
-      left: -140px;
-      height: 284px;
-      width: 140px;
-      background-color: var(--secondary-color);
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.15) 0%,
+        rgba(0, 0, 0, 0.55) 100%
+      );
+    }
+
+    .founder_video_play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: rgba(var(--alphaWhite), 0.9);
+      color: var(--black);
+      transition: transform 0.2s ease-out, background-color 0.2s ease-out;
+    }
+
+    &:hover .founder_video_play {
+      transform: translate(-50%, -50%) scale(1.08);
+      background-color: rgba(var(--alphaWhite), 1);
+    }
+
+    .founder_video_frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   }
+
   .founder_story {
     position: relative;
     padding: 40px;
     @media all and (min-width: 1204px) {
       padding-block: 80px;
-      padding-inline: 0 80px;
+      padding-inline: 80px 0;
     }
 
     .dotted_bg {
@@ -32,14 +81,32 @@
       position: absolute;
       top: auto;
       bottom: 0;
-      left: -160px;
+      right: -160px;
       background-color: rgba(var(--alphaWhite), 0.34);
     }
   }
+
+  .founder_quote_mark {
+    display: block;
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+
   .founder_info {
     font-size: var(--fontsize-caption);
     margin-top: clamp(30px, 5vw, 35px);
-    display: block;
-    opacity: 0.65;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    strong {
+      font-weight: 600;
+      opacity: 1;
+    }
+
+    em {
+      font-style: normal;
+      opacity: 0.5;
+    }
   }
 }
