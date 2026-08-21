@@ -27,7 +27,7 @@ export default function FounderVideo({ videoId, title }: FounderVideoProps) {
     setMuted(nextMuted);
   };
 
-  const src = `${YT_ORIGIN}/embed/${videoId}?autoplay=1&mute=1&start=2&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1`;
+  const src = `${YT_ORIGIN}/embed/${videoId}?autoplay=1&mute=1&start=2&end=1008&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1`;
 
   return (
     <div className={styles.founder_video}>
