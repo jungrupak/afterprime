@@ -31,7 +31,7 @@ export function BlockFacts(block: SectionFactsProps) {
           <FactsVideoBg />
           <div className={styles.factContent}>
             {block.facts_block_title && (
-              <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+              <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
                 {block.facts_block_title}
               </h2>
             )}

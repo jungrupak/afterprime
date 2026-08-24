@@ -18,7 +18,7 @@ export default async function ImpactCards() {
       <div className="ap_container_small">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
           <div>
-            <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+            <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
               {t.heading} <span>{t.headingSpan}</span>.
             </h2>
           </div>
@@ -37,7 +37,7 @@ export default async function ImpactCards() {
               </span>
             </h3>
             <p
-              className={`opacity-65 text-[length:var(--reading-text-xs)]! mb-8!`}
+              className={`text-[length:var(--reading-text-xs)]! mb-8!`}
             >
               <b>{t.idealFor}</b>
               <br />
@@ -69,7 +69,7 @@ export default async function ImpactCards() {
               </span>
             </h3>
             <p
-              className={`opacity-65 text-[length:var(--reading-text-xs)]! mb-8!`}
+              className={`text-[length:var(--reading-text-xs)]! mb-8!`}
             >
               <b>{t.idealFor}</b>
               <br />
@@ -101,7 +101,7 @@ export default async function ImpactCards() {
               </span>
             </h3>
             <p
-              className={`opacity-65 text-[length:var(--reading-text-xs)]! mb-8!`}
+              className={`text-[length:var(--reading-text-xs)]! mb-8!`}
             >
               <b>{t.idealFor}</b>
               <br />

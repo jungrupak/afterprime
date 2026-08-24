@@ -118,7 +118,7 @@ export default async function TradePage() {
               <span className="font-[600]">{t.heroHeading}</span>
             </h1>
             <div
-              className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light"
+              className="reading-text-lg mt-5 md:mt-10 font-light"
               style={{ fontWeight: "300" }}
             >
               {t.heroParagraphBefore}
@@ -134,7 +134,7 @@ export default async function TradePage() {
       <section className="compact-section">
         <div className="ap_container_small">
           <h2
-            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+            className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
           >
             {t.pricingHeading}
           </h2>
@@ -147,7 +147,7 @@ export default async function TradePage() {
       <section className="compact-section">
         <div className="ap_container_small">
           <h2
-            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+            className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
           >
             {t.pairsHeading}
           </h2>
@@ -192,14 +192,14 @@ export default async function TradePage() {
       <section className="compact-section">
         <div className="ap_container_small">
           <h2
-            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+            className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
           >
             {t.compareHeading}
           </h2>
-          <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
+          <p className={`reading-text-md mb-8 md:mb-12`}>
             {t.compareIntro}
           </p>
-          <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
+          <p className={`reading-text-md mb-8 md:mb-12`}>
             {t.publishesLabel}
           </p>
           <Lists
@@ -207,7 +207,7 @@ export default async function TradePage() {
             bulletStyle="arrow_blue"
             items={bottomLists}
           />
-          <p className={`reading-text-md opacity-60 mt-8 md:mt-12`}>
+          <p className={`reading-text-md mt-8 md:mt-12`}>
             {t.compareOutro}
           </p>
         </div>

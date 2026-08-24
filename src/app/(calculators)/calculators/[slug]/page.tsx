@@ -218,7 +218,7 @@ export default async function Page({ params }: PageSlug) {
             <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold">
               <span className="font-[600]">{pageTitle}</span>
             </h1>
-            <div className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light">
+            <div className="reading-text-lg mt-5 md:mt-10 font-light">
               {heroParagraph}
             </div>
           </div>

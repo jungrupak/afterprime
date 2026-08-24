@@ -25,7 +25,7 @@ export async function SectionCardsBig(props: SectionPropsToReceiveData) {
           <div className="mb-4 md:mb-6">
             {section_card_repeator_section_title && (
               <div
-                className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold"
+                className="font-size-heading-md mb-4 md:mb-6 font-semibold"
                 dangerouslySetInnerHTML={{
                   __html: section_card_repeator_section_title || "&nbsp;",
                 }}
@@ -34,7 +34,7 @@ export async function SectionCardsBig(props: SectionPropsToReceiveData) {
           </div>
           {section_card_repeator_section_paragraph && (
             <div className="">
-              <p className="reading-text-md opacity-60 mb-8 md:mb-12">
+              <p className="reading-text-md mb-8 md:mb-12">
                 {section_card_repeator_section_paragraph}
               </p>
             </div>

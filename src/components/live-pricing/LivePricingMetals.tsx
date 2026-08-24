@@ -75,13 +75,13 @@ export function LivePricingMetals({
   return (
     <div>
       <div className="w-full text-left max-md:px-6">
-        <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+        <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
           {c.headingBefore}
           {c.headingHighlight}
           {headingAfter}
         </h2>
         <p
-          className="reading-text-md opacity-60 mb-8 md:mb-12"
+          className="reading-text-md mb-8 md:mb-12"
           dangerouslySetInnerHTML={{ __html: descriptionAfter }}
         />
       </div>

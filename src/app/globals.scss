@@ -146,14 +146,14 @@
   font-size: var(--heading-xs);
   font-weight: var(--weight-bold);
   line-height: var(--line-height-small);
-  color: var(--primary-white-80);
+  color: var(--primary-white);
 }
 .cardDescp {
   margin-bottom: clamp(25px, 5vw, 30px);
   font-size: var(--reading-text-sm);
   font-weight: var(--weight-medium);
   line-height: var(--line-height-default);
-  color: var(--primary-white-60);
+  color: var(--primary-white);
 }
 
 //FONT Verients and variables
@@ -458,14 +458,14 @@ body::-webkit-scrollbar {
   font-size: var(--reading-text-md);
   line-height: var(--line-height-default);
   font-weight: 300;
-  color: var(--primary-white-60);
+  color: var(--primary-white);
 
   p,
   > div {
     font-size: var(--reading-text-md);
     line-height: var(--line-height-default);
     font-weight: var(--weight-regular);
-    color: var(--primary-white-60);
+    color: var(--primary-white);
     &:last-child {
       margin-bottom: 0;
     }
@@ -487,7 +487,7 @@ body::-webkit-scrollbar {
       font-size: var(--reading-text-md);
       line-height: var(--line-height-default);
       font-weight: var(--weight-regular);
-      color: var(--primary-white-60);
+      color: var(--primary-white);
       padding-left: clamp(40px, 5vw, 50px);
       position: relative;
       &:before {
@@ -518,7 +518,7 @@ body::-webkit-scrollbar {
   font-size: var(--reading-text-md);
   line-height: var(--line-height-default);
   letter-spacing: 0.3;
-  color: var(--primary-white-60);
+  color: var(--primary-white);
   font-weight: var(--weight-regular);
   h1,
   h2,
@@ -528,7 +528,7 @@ body::-webkit-scrollbar {
   h6 {
     margin-bottom: clamp(18px, 5vw, 20px);
     font-weight: 600;
-    color: var(--primary-white-80);
+    color: var(--primary-white);
   }
   h1 {
     font-size: var(--heading-lg);
@@ -557,7 +557,7 @@ body::-webkit-scrollbar {
     font-size: var(--reading-text-md);
     line-height: var(--line-height-default);
     letter-spacing: 0.3;
-    color: var(--primary-white-60);
+    color: var(--primary-white);
     font-weight: var(--weight-regular);
     &:not(:last-child) {
       margin-bottom: clamp(25px, 5vw, 30px);
@@ -577,7 +577,7 @@ body::-webkit-scrollbar {
       line-height: var(--line-height-default);
       font-weight: var(--weight-regular);
       letter-spacing: 0.3;
-      color: var(--primary-white-60);
+      color: var(--primary-white);
       margin-bottom: clamp(15px, 5vw, 20px);
       position: relative;
       padding-left: clamp(40px, 5vw, 50px);
@@ -619,7 +619,7 @@ body::-webkit-scrollbar {
       font-size: 16px;
       text-align: left;
       //white-space: nowrap;
-      color: var(--primary-white-80);
+      color: var(--primary-white);
     }
     tr {
       td {
@@ -629,7 +629,7 @@ body::-webkit-scrollbar {
         font-size: clamp(12px, 4.5vw, var(--reading-text-sm));
         transition: all 0.2s ease-in-out;
         //white-space: nowrap;
-        color: var(--primary-white-60);
+        color: var(--primary-white);
       }
       &:hover {
         td {
@@ -806,7 +806,7 @@ section {
         padding: 15px 20px;
         font-size: var(--reading-text-xs);
         transition: all 0.2s ease-in-out;
-        color: var(--primary-white-60);
+        color: var(--primary-white);
 
         &:last-child {
           text-align: end;

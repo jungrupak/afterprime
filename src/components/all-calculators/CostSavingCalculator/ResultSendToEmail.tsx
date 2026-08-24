@@ -100,7 +100,7 @@ export default function ResultSendToEmail({
         <h3 className={`reading-text-sm font-bold mb-2`}>
           {content.resultSendToEmail.heading}
         </h3>
-        <p className={`reading-text-xs mb-5 opacity-65`}>
+        <p className={`reading-text-xs mb-5`}>
           {content.resultSendToEmail.description}
         </p>
         <div

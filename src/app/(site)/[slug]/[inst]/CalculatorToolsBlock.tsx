@@ -69,7 +69,7 @@ export default function CalculatorToolsBlock({
             {content.calculatorNames[item.nameKey]}
           </Link>
         ))}
-        <div className={`reading-text-xs col-span-full opacity-65`}>
+        <div className={`reading-text-xs col-span-full`}>
           {content.footnote}
         </div>
       </div>

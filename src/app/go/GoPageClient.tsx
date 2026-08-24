@@ -212,10 +212,10 @@ this._additionalParams.forEach(p => {
           <h1 className="text-3xl font-semibold text-white">
             {t.heading}
           </h1>
-          <p className="mt-3 text-lg text-white/60">
+          <p className="mt-3 text-lg text-white">
             {t.paragraph1}
           </p>
-          <p className="mt-1 text-lg text-white/60">
+          <p className="mt-1 text-lg text-white">
             {t.paragraph2}
           </p>
         </div>

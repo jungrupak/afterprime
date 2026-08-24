@@ -160,7 +160,7 @@ export default async function ChildPage({ params }: Props) {
               <span className="font-[600]">{data?.title.rendered}</span>
             </h1>
             <p
-              className={`reading-text-lg mt-5 md:mt-10 opacity-60 font-light`}
+              className={`reading-text-lg mt-5 md:mt-10 font-light`}
             >
               {getFields?.hero_paragraph_one ?? ""}
             </p>
@@ -177,7 +177,7 @@ export default async function ChildPage({ params }: Props) {
           <div className={`${styles.sectionIntroContents}`}>
             <div className={`max-md:order-2 max-md:text-left`}>
               <p
-                className={`font-size-heading-sm mb-4 md:mb-0 opacity-80 font-semibold`}
+                className={`font-size-heading-sm mb-4 md:mb-0 font-semibold`}
               >
                 {getFields?.hero_paragraph_two ?? ""}
               </p>
@@ -224,7 +224,7 @@ export default async function ChildPage({ params }: Props) {
           {glossaryData && (
             <>
               <h2
-                className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+                className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
               >
                 {inst.toUpperCase()} Trading Glossary
               </h2>

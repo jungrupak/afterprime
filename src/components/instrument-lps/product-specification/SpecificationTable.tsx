@@ -35,7 +35,7 @@ export default function SpecificationTable({
   return (
     <div className={`table-wrapper mb-4 md:mb-10 ${styles.costBreakDownTable}`}>
       <h2
-        className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+        className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
       >
         {c.heading.replace("{sym}", instrument ?? "")}
       </h2>

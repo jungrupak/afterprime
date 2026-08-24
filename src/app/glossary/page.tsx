@@ -72,7 +72,7 @@ export default async function page() {
         <div className="ap_container_small">
           <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
             <div>
-              <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+              <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
                 {glossaryT.howToUseHeading}
               </h2>
             </div>
@@ -118,7 +118,7 @@ export default async function page() {
                 </span>
               </h3>
               <p
-                className={`opacity-80 text-[length:var(--reading-text-xs)]! mb-0!`}
+                className={`text-[length:var(--reading-text-xs)]! mb-0!`}
                 dangerouslySetInnerHTML={{ __html: glossaryT.step1 }}
               />
             </div>
@@ -130,7 +130,7 @@ export default async function page() {
                 </span>
               </h3>
               <p
-                className={`opacity-80 text-[length:var(--reading-text-xs)]! mb-0!`}
+                className={`text-[length:var(--reading-text-xs)]! mb-0!`}
                 dangerouslySetInnerHTML={{ __html: glossaryT.step2 }}
               />
             </div>
@@ -142,7 +142,7 @@ export default async function page() {
                 </span>
               </h3>
               <p
-                className={`opacity-80 text-[length:var(--reading-text-xs)]! mb-0!`}
+                className={`text-[length:var(--reading-text-xs)]! mb-0!`}
                 dangerouslySetInnerHTML={{ __html: glossaryT.step3 }}
               />
             </div>

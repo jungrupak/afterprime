@@ -277,7 +277,7 @@ export default async function ChildPage({ params }: Props) {
               {heroBanner?.banner_heading}
             </h1>
             <div
-              className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light"
+              className="reading-text-lg mt-5 md:mt-10 font-light"
               style={{ fontWeight: "300" }}
               dangerouslySetInnerHTML={{
                 __html: heroBanner?.banner_paragraph || "&nbsp;",
@@ -327,7 +327,7 @@ export default async function ChildPage({ params }: Props) {
       <section className={`compact-section`}>
         <div className="ap_container_small">
           <h2
-            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+            className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
           >
             {brokerT.totalTradingCostHeading}
           </h2>
@@ -338,7 +338,7 @@ export default async function ChildPage({ params }: Props) {
       <section className={`compact-section`}>
         <div className="ap_container_small">
           <h2
-            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+            className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
           >
             {brokerT.tradingCostByMajorHeading}
           </h2>

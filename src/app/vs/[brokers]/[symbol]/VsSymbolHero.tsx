@@ -40,7 +40,7 @@ export default function VsSymbolHero({
             {t.heroPrefix} <br />
             {brokerName}: {sym}
           </h1>
-          <p className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light">
+          <p className="reading-text-lg mt-5 md:mt-10 font-light">
             {brokerName} {t.costLabel}{" "}
             <strong>${compCostPerLot.toFixed(2)}/lot</strong> {t.onLabel} {sym}.{" "}
             {t.afterprimeCostsLabel}{" "}

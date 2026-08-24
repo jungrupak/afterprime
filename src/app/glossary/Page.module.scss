@@ -125,7 +125,7 @@
     font-size: var(--reading-text-md);
     line-height: var(--line-height-default);
     letter-spacing: 0.3;
-    color: var(--primary-white-80);
+    color: var(--primary-white);
     &:not(:last-child) {
       margin-bottom: clamp(20px, 5vw, 30px);
     }
@@ -143,7 +143,7 @@
       font-size: var(--reading-text-md);
       line-height: var(--line-height-default);
       font-weight: var(--weight-regular);
-      color: var(--primary-white-80);
+      color: var(--primary-white);
       margin-bottom: clamp(15px, 5vw, 20px);
       position: relative;
       padding-left: clamp(40px, 5vw, 50px);
@@ -181,7 +181,7 @@
       font-size: 16px;
       text-align: left;
       white-space: nowrap;
-      color: var(--primary-white-80);
+      color: var(--primary-white);
     }
     tr {
       td {
@@ -191,7 +191,7 @@
         font-size: var(--reading-text-sm);
         transition: all 0.2s ease-in-out;
         white-space: nowrap;
-        color: var(--primary-white-60);
+        color: var(--primary-white);
       }
       &:hover {
         td {
@@ -360,14 +360,14 @@
   margin: 0;
   font-size: var(--heading-lg);
   font-weight: 600;
-  color: var(--primary-white-80);
+  color: var(--primary-white);
 }
 
 .stepDescription {
   margin: 0;
   font-size: var(--reading-text-xs);
   line-height: var(--line-height-medium);
-  color: var(--primary-white-60);
+  color: var(--primary-white);
 }
 
 //Steps ends

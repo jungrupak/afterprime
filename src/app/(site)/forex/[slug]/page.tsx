@@ -175,7 +175,7 @@ export default async function ForexSlugPage({ params }: Props) {
               {data?.title.rendered}
             </h1>
             <p
-              className={`reading-text-lg mt-5 md:mt-10 opacity-60 font-light`}
+              className={`reading-text-lg mt-5 md:mt-10 font-light`}
             >
               {getFields?.hero_paragraph_one ?? ""}
             </p>
@@ -188,7 +188,7 @@ export default async function ForexSlugPage({ params }: Props) {
           <div className={`${styles.sectionIntroContents} `}>
             <div className={`max-md:order-2 max-md:text-left`}>
               <p
-                className={`font-size-heading-sm mb-4 md:mb-0 opacity-80 font-semibold`}
+                className={`font-size-heading-sm mb-4 md:mb-0 font-semibold`}
               >
                 {getFields?.hero_paragraph_two ?? ""}
               </p>
@@ -230,7 +230,7 @@ export default async function ForexSlugPage({ params }: Props) {
           {glossaryData && (
             <>
               <h2
-                className={`font-size-heading-md mb-8 md:mb-12 opacity-80 font-semibold`}
+                className={`font-size-heading-md mb-8 md:mb-12 font-semibold`}
               >
                 {slug.toUpperCase()} {pageLabelsT.tradingGlossarySuffix}
               </h2>

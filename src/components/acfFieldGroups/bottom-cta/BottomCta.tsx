@@ -24,12 +24,12 @@ export async function BottomCta() {
         >
           <div>
             <h2
-              className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+              className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
               dangerouslySetInnerHTML={{ __html: t.headline }}
             />
 
             <p
-              className={`${styles.paragraph} reading-text-md opacity-60 mb-8 md:mb-12`}
+              className={`${styles.paragraph} reading-text-md mb-8 md:mb-12`}
               dangerouslySetInnerHTML={{ __html: t.paragraph }}
             />
             <TypeformButton

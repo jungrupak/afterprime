@@ -321,7 +321,7 @@ export default async function TradingHoursSymbolPage({ params }: Props) {
             <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold ">
               {data.description} {t.h1Suffix}
             </h1>
-            <div className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light">
+            <div className="reading-text-lg mt-5 md:mt-10 font-light">
               {subline}
             </div>
           </div>

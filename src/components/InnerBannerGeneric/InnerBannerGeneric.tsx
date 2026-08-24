@@ -20,7 +20,7 @@ export default function InnerBannerGeneric({ content }: DataObject) {
             {content.heading ?? "No Heading Provided"}
           </h1>
           <div
-            className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light"
+            className="reading-text-lg mt-5 md:mt-10 font-light"
             style={{ fontWeight: "300" }}
           >
             {content.paragraph ?? "No Banner Paragraph provided"}

@@ -64,7 +64,7 @@ export default async function Page() {
             <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold ">
               <span className="font-[600]">{t.heroTitle}</span>
             </h1>
-            <div className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light">
+            <div className="reading-text-lg mt-5 md:mt-10 font-light">
               {t.heroParagraphPre}{" "}
               <a href={localizeHref("/vs", locale)}>
                 <u>{t.heroCompareLinkText}</u>
@@ -117,7 +117,7 @@ export default async function Page() {
             </div>
             <div className="col-span-2 md:col-span-1 contetPart order-1">
               <h2
-                className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+                className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
               >
                 {t.whyUseHeading}
               </h2>
