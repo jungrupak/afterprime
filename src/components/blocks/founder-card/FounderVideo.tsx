@@ -35,7 +35,7 @@ export default function FounderVideo({ videoId, title }: FounderVideoProps) {
         ref={iframeRef}
         src={src}
         title={title}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
         className={styles.founder_video_frame}
       />
       <span className={styles.founder_video_overlay} />
