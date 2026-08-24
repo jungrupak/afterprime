@@ -1,49 +1,36 @@
 import styles from "./style.module.scss";
+import Image from "next/image";
 import { Blocks } from "@/types/blocks";
-import { founderCardContent } from "./founderCardContent";
-import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
-import { getRequestLocale } from "@/lib/locale/getRequestLocale";
-import FounderVideo from "./FounderVideo";
 
 type FounderCardProps = Blocks["founder-messages"];
 
-const FOUNDER_VIDEO_SRC =
-  "https://cdn.afterprime.com/videos/founder-podcast-high.mp4";
-
-export default async function FoundersCard(props: FounderCardProps) {
+export default function FoundersCard(props: FounderCardProps) {
   const { founder_message_cart_title, founder_message_card_paragraph } = props;
-  const locale = await getRequestLocale();
-  const t = await getTranslatedStatic(
-    "founder-card",
-    locale,
-    founderCardContent,
-  );
+  const founderImg = "/img/founder-image.jpg";
 
   return (
-    <section className="compact-section">
-      <div className="ap_container_small">
+    <section>
+      <div className="grainy_bg"></div>
+      <div className="ap_container">
         <div
-          className={`${styles.founders_block} grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] min-md:grid-cols-[repeat(auto-fit,minmax(500px,1fr))] gap-5 md:gap-20 items-center group`}
+          className={`${styles.founders_block} grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] min-md:gap-40 items-center group`}
         >
-          <div className={styles.founder_story}>
-            <h2
-              className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
-            >
-              {founder_message_cart_title}
-            </h2>
-            <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
-              {founder_message_card_paragraph}
-            </p>
-            <span className={styles.founder_info}>
-              <strong>Jeremy & Elan</strong>
-              <em>{t.coFoundersLabel}</em>
-            </span>
-          </div>
-          <div className={styles.founder_video_col}>
-            <FounderVideo
-              src={FOUNDER_VIDEO_SRC}
-              title={founder_message_cart_title ?? t.imageAlt}
+          <div className={styles.founder_image}>
+            <div className={`${styles.dotted_bg} dotted-block`}></div>
+            <Image
+              width={600}
+              height={600}
+              src={founderImg}
+              alt="Founders Image"
             />
+          </div>
+          <div className={styles.founder_story}>
+            <div className={`${styles.dotted_bg} dotted-block`}></div>
+            <h2 className={styles.heading}>{founder_message_cart_title}</h2>
+            <p className={styles.paragraph}>{founder_message_card_paragraph}</p>
+            <span className={styles.founder_info}>
+              <strong>&bull; Jeremy & Elan,</strong> Co-Founders of Afterprime
+            </span>
           </div>
         </div>
       </div>

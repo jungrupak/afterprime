@@ -1,136 +1,65 @@
 .founders_block {
-  background-color: #0d0d1a;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-
-  .founder_video_col {
-    position: relative;
-    height: 100%;
-    min-height: 548px;
-    @media all and (max-width: 767px) {
-      min-height: 300px;
+  background-color: var(--secondary-color);
+  h2 {
+    span {
+      color: white;
     }
   }
-
-  .founder_video {
+  p {
+    opacity: 1;
+    b {
+      font-weight: 600;
+    }
+  }
+  .founder_image {
     position: relative;
-    display: block;
-    width: 100%;
     height: 100%;
-    min-height: 420px;
-    overflow: hidden;
-    background-color: var(--body-bg);
-
-    .founder_video_frame {
-      position: absolute;
-      inset: 0;
-      width: 100%;
+    img {
       height: 100%;
-      object-fit: cover;
-      transform: translateX(-6%) scale(1.4);
-      border: none;
-      pointer-events: none;
-      mix-blend-mode: luminosity;
-    }
-
-    .founder_video_overlay {
-      position: absolute;
       width: 100%;
-      inset: 0;
-      background:
-        linear-gradient(90deg, #0d0d1a 0%, transparent 100%),
-        linear-gradient(
-          180deg,
-          rgba(var(--alphaBlack), 0.25) 0%,
-          rgba(var(--alphaBlack), 0.1) 40%,
-          rgba(var(--alphaBlack), 0.55) 100%
-        );
-      pointer-events: none;
+      object-fit: cover;
     }
-
-    .founder_video_controls {
+    .dotted_bg {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .founder_video_playpause,
-    .founder_video_mute {
-      width: 40px;
-      height: 40px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      border: 1px solid var(--border-white);
-      background-color: rgba(var(--alphaBlack), 0.5);
-      color: var(--white);
-      cursor: pointer;
-      backdrop-filter: blur(4px);
-      transition:
-        background-color 0.2s ease-out,
-        border-color 0.2s ease-out;
-
-      &:hover {
-        background-color: rgba(var(--alphaBlack), 0.75);
-        border-color: rgba(var(--alphaWhite), 0.24);
-      }
-    }
-
-    .founder_video_mute {
-      display: flex;
-    }
-
-    .founder_video_playpause {
-      display: none;
-      @media all and (max-width: 767px) {
-        display: flex;
-      }
+      top: 0;
+      left: -140px;
+      height: 284px;
+      width: 140px;
+      background-color: var(--secondary-color);
     }
   }
-
   .founder_story {
     position: relative;
     padding: 40px;
-    @media all and (min-width: 1204px) {
+    @media all and (min-width: 800px) {
       padding-block: 80px;
-      padding-inline: 80px 0;
+      padding-inline: 0 80px;
     }
-
+    .heading {
+      margin-bottom: calc(var(--spacing) * 6);
+      font-size: max(38px, min(5vw, 50px));
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .paragraph {
+      opacity: 0.9;
+      font-size: max(20px, min(5vw, 26px));
+      font-weight: 300;
+      line-height: 1.5;
+      margin-bottom: calc(var(--spacing) * 10);
+    }
     .dotted_bg {
       width: 80px;
       height: 284px;
       position: absolute;
       top: auto;
       bottom: 0;
-      right: -160px;
+      left: -160px;
       background-color: rgba(var(--alphaWhite), 0.34);
     }
   }
-
-  .founder_quote_mark {
-    display: block;
-    margin-bottom: 16px;
-    opacity: 0.8;
-  }
-
   .founder_info {
-    font-size: var(--fontsize-caption);
-    margin-top: clamp(30px, 5vw, 35px);
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-
-    strong {
-      font-weight: 600;
-      opacity: 1;
-    }
-
-    em {
-      font-style: normal;
-      opacity: 0.5;
-    }
+    font-size: 18px;
+    display: block;
   }
 }
