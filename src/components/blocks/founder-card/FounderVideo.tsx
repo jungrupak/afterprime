@@ -64,6 +64,7 @@ export default function FounderVideo({ src, title }: FounderVideoProps) {
         onPause={() => setPlaying(false)}
         className={styles.founder_video_frame}
       />
+
       <span className={styles.founder_video_overlay} />
       <div className={styles.founder_video_controls}>
         <button
@@ -80,8 +81,22 @@ export default function FounderVideo({ src, title }: FounderVideoProps) {
               fill="none"
               aria-hidden="true"
             >
-              <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" />
-              <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" />
+              <rect
+                x="6"
+                y="5"
+                width="4"
+                height="14"
+                rx="1"
+                fill="currentColor"
+              />
+              <rect
+                x="14"
+                y="5"
+                width="4"
+                height="14"
+                rx="1"
+                fill="currentColor"
+              />
             </svg>
           ) : (
             <svg
