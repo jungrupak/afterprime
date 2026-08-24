@@ -7,7 +7,8 @@ import FounderVideo from "./FounderVideo";
 
 type FounderCardProps = Blocks["founder-messages"];
 
-const FOUNDER_VIDEO_ID = "VPkRLPJqeek";
+const FOUNDER_VIDEO_SRC =
+  "https://cdn.afterprime.com/videos/founder-podcast-high.mp4";
 
 export default async function FoundersCard(props: FounderCardProps) {
   const { founder_message_cart_title, founder_message_card_paragraph } = props;
@@ -40,7 +41,7 @@ export default async function FoundersCard(props: FounderCardProps) {
           </div>
           <div className={styles.founder_video_col}>
             <FounderVideo
-              videoId={FOUNDER_VIDEO_ID}
+              src={FOUNDER_VIDEO_SRC}
               title={founder_message_cart_title ?? t.imageAlt}
             />
           </div>
