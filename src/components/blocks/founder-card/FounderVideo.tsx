@@ -14,6 +14,7 @@ const LOOP_END = 1008;
 export default function FounderVideo({ src, title }: FounderVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
+  const [playing, setPlaying] = useState(true);
 
   const toggleMute = () => {
     const nextMuted = !muted;
@@ -21,6 +22,16 @@ export default function FounderVideo({ src, title }: FounderVideoProps) {
       videoRef.current.muted = nextMuted;
     }
     setMuted(nextMuted);
+  };
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      video.play();
+    } else {
+      video.pause();
+    }
   };
 
   const handleLoadedMetadata = () => {
@@ -49,55 +60,88 @@ export default function FounderVideo({ src, title }: FounderVideoProps) {
         preload="auto"
         onLoadedMetadata={handleLoadedMetadata}
         onTimeUpdate={handleTimeUpdate}
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
         className={styles.founder_video_frame}
       />
       <span className={styles.founder_video_overlay} />
-      <button
-        type="button"
-        className={styles.founder_video_mute}
-        onClick={toggleMute}
-        aria-label={muted ? "Unmute video" : "Mute video"}
-      >
-        {muted ? (
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" />
-            <path
-              d="M16 8.5a5 5 0 0 1 0 7"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            <path
-              d="M4 4l16 16"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-        ) : (
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" />
-            <path
-              d="M16 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-        )}
-      </button>
+      <div className={styles.founder_video_controls}>
+        <button
+          type="button"
+          className={styles.founder_video_playpause}
+          onClick={togglePlay}
+          aria-label={playing ? "Pause video" : "Play video"}
+        >
+          {playing ? (
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" />
+              <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" />
+            </svg>
+          ) : (
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M7 4.5v15l13-7.5-13-7.5z" fill="currentColor" />
+            </svg>
+          )}
+        </button>
+        <button
+          type="button"
+          className={styles.founder_video_mute}
+          onClick={toggleMute}
+          aria-label={muted ? "Unmute video" : "Mute video"}
+        >
+          {muted ? (
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" />
+              <path
+                d="M16 8.5a5 5 0 0 1 0 7"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M4 4l16 16"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          ) : (
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" />
+              <path
+                d="M16 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          )}
+        </button>
+      </div>
     </div>
   );
 }
