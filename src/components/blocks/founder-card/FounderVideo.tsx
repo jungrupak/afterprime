@@ -37,7 +37,20 @@ export default function FounderVideo({ videoId, title }: FounderVideoProps) {
         title={title}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         className={styles.founder_video_frame}
+        referrerPolicy="strict-origin-when-cross-origin"
       />
+
+      {/* <iframe
+        width="1037"
+        height="583"
+        src="https://www.youtube.com/embed/VPkRLPJqeek"
+        title="From Attic to Empire: The Untold Afterprime Story | PrimeTime #002"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
+      ></iframe> */}
+
       <span className={styles.founder_video_overlay} />
       <button
         type="button"
@@ -46,7 +59,13 @@ export default function FounderVideo({ videoId, title }: FounderVideoProps) {
         aria-label={muted ? "Unmute video" : "Mute video"}
       >
         {muted ? (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
             <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" />
             <path
               d="M16 8.5a5 5 0 0 1 0 7"
@@ -54,10 +73,21 @@ export default function FounderVideo({ videoId, title }: FounderVideoProps) {
               strokeWidth="1.5"
               strokeLinecap="round"
             />
-            <path d="M4 4l16 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path
+              d="M4 4l16 16"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </svg>
         ) : (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
             <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" />
             <path
               d="M16 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"
