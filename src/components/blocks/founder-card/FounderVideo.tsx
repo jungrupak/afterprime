@@ -31,25 +31,21 @@ export default function FounderVideo({ videoId, title }: FounderVideoProps) {
 
   return (
     <div className={styles.founder_video}>
-      <iframe
+      {/* <iframe
         ref={iframeRef}
         src={src}
         title={title}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         className={styles.founder_video_frame}
-        referrerPolicy="strict-origin-when-cross-origin"
-      />
+      /> */}
 
-      {/* <iframe
-        width="1037"
-        height="583"
-        src="https://www.youtube.com/embed/VPkRLPJqeek"
-        title="From Attic to Empire: The Untold Afterprime Story | PrimeTime #002"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
+      <iframe
+        src="https://www.youtube.com/embed/VPkRLPJqeek?autoplay=1&mute=1&start=2&end=1008&loop=1&playlist=VPkRLPJqeek&modestbranding=1&rel=0&playsinline=1&controls=0&enablejsapi=1"
+        title="Since 2018. Built without conflicts."
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
         allowFullScreen
-      ></iframe> */}
+        className="style-module-scss-module__Lse4UW__founder_video_frame"
+      ></iframe>
 
       <span className={styles.founder_video_overlay} />
       <button
