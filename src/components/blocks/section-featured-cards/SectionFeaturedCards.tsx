@@ -43,13 +43,13 @@ export default async function SectionFeaturedCards({
           className={`${styles.content_block} relative z-10 min-[1260px]:max-w-[700px]`}
         >
           <h2
-            className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold max-md:text-center"
+            className="font-size-heading-md mb-4 md:mb-6 font-semibold max-md:text-center"
             style={{ fontWeight: "600" }}
           >
             {section_card_repeator_section_title}
           </h2>
           <div
-            className="reading-text-md opacity-60 mb-8 md:mb-12"
+            className="reading-text-md mb-8 md:mb-12"
             dangerouslySetInnerHTML={{
               __html: htmlContent ?? "&nbsp;",
             }}

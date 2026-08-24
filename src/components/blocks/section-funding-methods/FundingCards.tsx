@@ -48,10 +48,10 @@ export async function SectionFundingCards({
       className={`${styles.section_generic_cards_content} ${styles.moreAlignmentSection} compact-section`}
     >
       <div className="ap_container_small">
-        <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+        <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
           {sectionTitle}
         </h2>
-        <p className="reading-text-md opacity-60 mb-8 md:mb-12">
+        <p className="reading-text-md mb-8 md:mb-12">
           {sectionParagraph}
         </p>
         {/* Cards */}

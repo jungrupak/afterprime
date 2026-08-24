@@ -25,11 +25,11 @@ export default async function CompareMT4MT5() {
     <section className={`py-[clamp(40px_,10vw_,60px)]! compact-section`}>
       <div className="ap_container_small">
         <h2
-          className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+          className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
         >
           {t.heading}
         </h2>
-        <p className="reading-text-md opacity-60 mb-8 md:mb-12">
+        <p className="reading-text-md mb-8 md:mb-12">
           {t.subheading}
         </p>
 

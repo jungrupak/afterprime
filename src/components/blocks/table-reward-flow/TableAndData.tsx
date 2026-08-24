@@ -137,12 +137,12 @@ export async function TableDataRewardFlow({
       <div className="ap_container_small">
         <div className="">
           <h2
-            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+            className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
           >
             {rebate_table_title}
           </h2>
           {rebate_table_section_paragraph && (
-            <p className="reading-text-md opacity-60 mb-8 md:mb-12">
+            <p className="reading-text-md mb-8 md:mb-12">
               {rebate_table_section_paragraph}
             </p>
           )}

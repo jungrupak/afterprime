@@ -141,7 +141,7 @@ export default async function Page({ params }: PageProps) {
               <span className="font-[600]">{symbolName.toUpperCase()}</span>{" "}
               {swapPageT.h1Suffix}
             </h1>
-            <div className="reading-text-lg mt-5 md:mt-10 opacity-60 font-light">
+            <div className="reading-text-lg mt-5 md:mt-10 font-light">
               {instrymentData.description} {swapPageT.sublineSuffix}
               {swapPageT.sublineLong}{" "}
               <span className={`font-semibold`}>

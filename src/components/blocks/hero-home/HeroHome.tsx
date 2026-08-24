@@ -54,7 +54,7 @@ export async function HeroHome(props: HeroHomeProps) {
           </div>
           <div className={`${styles.heroBannerPara} max-md:px-5`}>
             <div
-              className="reading-text-xl max-w-[980px]  opacity-60  mx-auto mb-12"
+              className="reading-text-xl max-w-[980px] mx-auto mb-12"
               style={{ fontWeight: "300" }}
               dangerouslySetInnerHTML={{
                 __html: hero_banner_home_banner_paragraph ?? "&nbsp;",

@@ -189,7 +189,7 @@ export default async function VsSymbolPage({ params }: Props) {
       {/* Section 2 — Comparison Table */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+          <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
             {t.costComparisonHeading
               .replace("{brokerName}", mappedBrokerName)
               .replace("{sym}", sym)}
@@ -218,7 +218,7 @@ export default async function VsSymbolPage({ params }: Props) {
       {savingPerlot > 0 && (
         <section className="compact-section">
           <div className="ap_container_small">
-            <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+            <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
               {t.betterDealHeading}
             </h2>
             <VsSymbolVerdicts
@@ -237,7 +237,7 @@ export default async function VsSymbolPage({ params }: Props) {
       <section className="compact-section">
         <div className="ap_container_small">
           <div className={styles.faqBlock}>
-            <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+            <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
               {t.faqHeading
                 .replace("{brokerName}", mappedBrokerName)
                 .replace("{sym}", sym)}
@@ -254,7 +254,7 @@ export default async function VsSymbolPage({ params }: Props) {
       {/* Section 6 — Related Links */}
       <section className="compact-section">
         <div className="ap_container_small">
-          <h2 className="font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold">
+          <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
             {t.learnMoreHeading.replace("{sym}", sym)}
           </h2>
           <div className={styles.relatedLinks}>

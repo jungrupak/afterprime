@@ -251,7 +251,7 @@
     font-size: clamp(20px, 5vw, 26px);
     font-weight: 300;
     line-height: 1.5;
-    color: var(--primary-white-60);
+    color: var(--primary-white);
     &:last-child {
       margin-bottom: 0;
     }
@@ -272,7 +272,7 @@
       font-size: var(--reading-text-md);
       line-height: var(--line-height-default);
       font-weight: 300;
-      color: var(--primary-white-60);
+      color: var(--primary-white);
       padding-left: clamp(40px, 5vw, 50px);
       position: relative;
       &:before {
@@ -424,14 +424,14 @@
     font-size: var(--heading-xs);
     font-weight: var(--weight-bold);
     line-height: var(--line-height-small);
-    color: var(--primary-white-80);
+    color: var(--primary-white);
   }
   p {
     margin-bottom: clamp(25px, 5vw, 30px);
     font-size: var(--reading-text-sm);
     font-weight: var(--weight-medium);
     line-height: var(--line-height-default);
-    color: var(--primary-white-60);
+    color: var(--primary-white);
   }
   .cardCta {
     max-width: 90%;
@@ -537,7 +537,7 @@
     font-size: var(--reading-text-md);
     line-height: var(--line-height-default);
     letter-spacing: 0.3;
-    color: var(--primary-white-60);
+    color: var(--primary-white);
     font-weight: var(--weight-regular);
     margin-bottom: clamp(15px, 5vw, 20px);
     > b {

@@ -223,7 +223,7 @@ export default async function CostComparison({
         className={`ap_container_small relative z-1 w-full z-5 my-5 md:my-15`}
       >
         <h2
-          className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+          className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
         >
           {c.heading.replace("{sym}", sym)}
         </h2>

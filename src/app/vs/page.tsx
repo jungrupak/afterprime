@@ -139,7 +139,7 @@ export default async function Page() {
           <div className={styles.sectionIntroContents}>
             <div className="max-md:order-2 max-md:text-left">
               <p
-                className={`font-size-heading-sm mb-4 md:mb-0 opacity-80 font-semibold`}
+                className={`font-size-heading-sm mb-4 md:mb-0 font-semibold`}
               >
                 {introParagraph}
               </p>

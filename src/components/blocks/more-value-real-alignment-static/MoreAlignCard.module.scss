@@ -33,14 +33,14 @@
     font-size: var(--heading-xs);
     font-weight: var(--weight-bold);
     line-height: var(--line-height-small);
-    color: var(--primary-white-80);
+    color: var(--primary-white);
   }
   p {
     margin-bottom: clamp(25px, 5vw, 30px);
     font-size: var(--reading-text-sm);
     font-weight: var(--weight-medium);
     line-height: var(--line-height-default);
-    color: var(--primary-white-60);
+    color: var(--primary-white);
   }
   .cardCta {
     max-width: 90%;
@@ -52,7 +52,7 @@
       gap: 15px;
       font-weight: 700;
       display: flex;
-      color: var(--primary-white-60);
+      color: var(--primary-white);
     }
     svg {
       display: inline-block;

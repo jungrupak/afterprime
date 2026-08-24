@@ -152,7 +152,7 @@
 .heading {
   font-size: var(--heading-xs);
   line-height: var(--line-height-small);
-  color: var(--primary-white-90);
+  color: var(--primary-white);
   margin: 0 0 10px 0;
   font-weight: 700;
   letter-spacing: 0.3;
@@ -160,7 +160,7 @@
 
 .bodyCopy {
   font-size: var(--reading-text-xs);
-  color: var(--primary-white-60);
+  color: var(--primary-white);
   margin: 0 0 18px 0;
 }
 
@@ -297,7 +297,7 @@
 .successListHeading {
   font-size: var(--reading-text-2xs);
   font-weight: 600;
-  color: var(--primary-white-60);
+  color: var(--primary-white);
   margin-bottom: 8px;
 }
 
@@ -313,7 +313,7 @@
     position: relative;
     padding-left: 16px;
     font-size: var(--reading-text-caption);
-    color: var(--primary-white-40);
+    color: var(--primary-white);
 
     &::before {
       content: "";
@@ -331,7 +331,7 @@
 .successFooter {
   font-size: 14px;
   font-weight: 600;
-  color: var(--primary-white-60);
+  color: var(--primary-white);
   text-align: center;
   margin: 0 0 4px;
 }

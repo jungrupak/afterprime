@@ -85,11 +85,11 @@ export default async function page({ params }: PageSlug) {
           </div>
           <div className={`mt-5 md:mt-15`}>
             <h3
-              className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+              className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
             >
               {glossaryTermT.relatedToolsHeading}
             </h3>
-            <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
+            <p className={`reading-text-md mb-8 md:mb-12`}>
               {glossaryTermT.relatedToolsIntro}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">

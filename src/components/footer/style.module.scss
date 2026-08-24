@@ -5,7 +5,7 @@
 
 .footer_links {
   h2 {
-    color: var(--primary-white-60);
+    color: var(--primary-white);
     font-size: var(--reading-text-xs);
     font-weight: 700;
     margin-bottom: 16px;
@@ -47,7 +47,7 @@
     font-size: var(--reading-text-2xs);
     font-weight: 600;
     margin-bottom: 12px;
-    color: var(--primary-white-60);
+    color: var(--primary-white);
 
     @media all and (min-width: 768px) {
       margin-bottom: 15px;

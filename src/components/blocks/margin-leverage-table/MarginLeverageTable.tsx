@@ -40,11 +40,11 @@ export default function SectionTableMarginLeverage() {
         <div className="ap_container_small">
           <div className="">
             <h2
-              className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+              className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
             >
               {title}
             </h2>
-            <p className="reading-text-md opacity-60 mb-8 md:mb-12">
+            <p className="reading-text-md mb-8 md:mb-12">
               {paragraph}
             </p>
           </div>

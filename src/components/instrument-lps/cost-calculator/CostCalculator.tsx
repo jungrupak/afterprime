@@ -31,11 +31,11 @@ export default async function CostCalculator({ instrument }: Props) {
   return (
     <div className={`my-8 md:my-20 z-6`}>
       <h2
-        className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+        className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
       >
         {t.headingTemplate.replace("{instrument}", instrument ?? "")}
       </h2>
-      <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
+      <p className={`reading-text-md mb-8 md:mb-12`}>
         {t.descriptionTemplate.replace("{instrument}", instrument ?? "")}
       </p>
       <div className={`relative z-4!`}>

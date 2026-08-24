@@ -52,11 +52,11 @@ export default function ProductSpecification({
       {instrument === "XAUUSD" ? (
         <div className={`mt-15`}>
           <h3
-            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+            className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
           >
             {c.metals.heading}
           </h3>
-          <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
+          <p className={`reading-text-md mb-8 md:mb-12`}>
             {c.paragraphPart1.replace("{sym}", sym)}
             <Link
               href={localizeHref("/live-spreads", locale)}
@@ -112,11 +112,11 @@ export default function ProductSpecification({
       ) : (
         <div className={`mt-15`}>
           <h3
-            className={`font-size-heading-md mb-4 md:mb-6 opacity-80 font-semibold`}
+            className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
           >
             {c.forex.heading}
           </h3>
-          <p className={`reading-text-md opacity-60 mb-8 md:mb-12`}>
+          <p className={`reading-text-md mb-8 md:mb-12`}>
             {c.paragraphPart1.replace("{sym}", sym)}
             <Link
               href={localizeHref("/live-spreads", locale)}
