@@ -4,49 +4,53 @@ import { useRef, useState } from "react";
 import styles from "./style.module.scss";
 
 interface FounderVideoProps {
-  videoId: string;
+  src: string;
   title: string;
 }
 
-const YT_ORIGIN = "https://www.youtube.com";
+const LOOP_START = 2;
+const LOOP_END = 1008;
 
-export default function FounderVideo({ videoId, title }: FounderVideoProps) {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+export default function FounderVideo({ src, title }: FounderVideoProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
 
   const toggleMute = () => {
     const nextMuted = !muted;
-    iframeRef.current?.contentWindow?.postMessage(
-      JSON.stringify({
-        event: "command",
-        func: nextMuted ? "mute" : "unMute",
-        args: [],
-      }),
-      YT_ORIGIN,
-    );
+    if (videoRef.current) {
+      videoRef.current.muted = nextMuted;
+    }
     setMuted(nextMuted);
   };
 
-  const src = `${YT_ORIGIN}/embed/${videoId}?autoplay=1&mute=1&start=2&end=1008&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1`;
+  const handleLoadedMetadata = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = LOOP_START;
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (video && video.currentTime >= LOOP_END) {
+      video.currentTime = LOOP_START;
+    }
+  };
 
   return (
     <div className={styles.founder_video}>
-      {/* <iframe
-        ref={iframeRef}
+      <video
+        ref={videoRef}
         src={src}
         title={title}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        onLoadedMetadata={handleLoadedMetadata}
+        onTimeUpdate={handleTimeUpdate}
         className={styles.founder_video_frame}
-      /> */}
-
-      <iframe
-        src="https://www.youtube.com/embed/VPkRLPJqeek?autoplay=1&mute=1&start=2&end=1008&loop=1&playlist=VPkRLPJqeek&modestbranding=1&rel=0&playsinline=1&controls=0&enablejsapi=1"
-        title="Since 2018. Built without conflicts."
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-        allowFullScreen
-        className="style-module-scss-module__Lse4UW__founder_video_frame"
-      ></iframe>
-
+      />
       <span className={styles.founder_video_overlay} />
       <button
         type="button"
