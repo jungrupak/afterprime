@@ -48,13 +48,19 @@
       pointer-events: none;
     }
 
-    .founder_video_mute {
+    .founder_video_controls {
       position: absolute;
       top: 16px;
       right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .founder_video_playpause,
+    .founder_video_mute {
       width: 40px;
       height: 40px;
-      display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
@@ -70,6 +76,17 @@
       &:hover {
         background-color: rgba(var(--alphaBlack), 0.75);
         border-color: rgba(var(--alphaWhite), 0.24);
+      }
+    }
+
+    .founder_video_mute {
+      display: flex;
+    }
+
+    .founder_video_playpause {
+      display: none;
+      @media all and (max-width: 767px) {
+        display: flex;
       }
     }
   }
