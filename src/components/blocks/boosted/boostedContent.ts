@@ -87,7 +87,6 @@ export interface BoostedPageContent {
   mechanics: BoostedMechanicsContent;
   faq: BoostedFaqContent;
   bottomCta: BoostedBottomCtaContent;
-  footerNote: string;
 }
 
 export const boostedContent: BoostedPageContent = {
@@ -205,7 +204,7 @@ export const boostedContent: BoostedPageContent = {
   },
   faq: {
     eyebrow: "FAQ",
-    heading: "Straight answers.",
+    heading: "Frequently Asked Questions.",
     items: [
       {
         question: "Is my money at risk during the simulated stage?",
@@ -233,7 +232,5 @@ export const boostedContent: BoostedPageContent = {
     heading: "Your next account could be real.",
     body: "$500 to start. One target to hit. A genuine STP account waiting on the other side.",
     cta: "Start with $500 →",
-  },
-  footerNote:
-    "[PLACEHOLDER — final risk disclosure & regulatory copy pending legal/compliance review]",
+  }
 };

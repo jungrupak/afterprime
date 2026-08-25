@@ -16,8 +16,7 @@ export default function FaqBoosted() {
           isVisible ? styles.visible : ""
         }`}
       >
-        <div className={styles.heading_block}>
-          <p className={styles.eyebrow}>{faq.eyebrow}</p>
+        <div className={`${styles.heading_block} `}>
           <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
             {faq.heading}
           </h2>

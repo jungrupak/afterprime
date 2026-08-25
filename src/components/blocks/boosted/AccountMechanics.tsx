@@ -12,7 +12,13 @@ function EntryFeeIcon() {
         strokeWidth="1.5"
         strokeLinejoin="round"
       />
-      <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <circle
+        cx="8.5"
+        cy="8.5"
+        r="1.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
@@ -35,7 +41,13 @@ function SimulatedBalanceIcon() {
         strokeWidth="1.5"
         strokeLinecap="round"
       />
-      <circle cx="16" cy="14.5" r="1.4" stroke="currentColor" strokeWidth="1.5" />
+      <circle
+        cx="16"
+        cy="14.5"
+        r="1.4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
@@ -145,7 +157,7 @@ export default function AccountMechanics() {
           </h2>
         </div>
 
-        <div className={styles.grid}>
+        <div className={`${styles.grid} mt-6! md:mt-12!`}>
           {mechanics.stats.map((stat, index) => {
             const Icon = statIcons[index];
             return (
