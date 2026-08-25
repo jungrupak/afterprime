@@ -4,7 +4,7 @@ import styles from "./HeroBoosted.module.scss";
 import { boostedContent } from "./boostedContent";
 import Button from "@/components/ui/Button";
 
-const CLIMB_MS = 1900;
+const CLIMB_MS = 3200;
 const HOLD_MS = 2400;
 const CONFETTI_COLORS = ["#263dea", "#ff301d", "#22c55e", "#fdfdf7"];
 const CONFETTI_PARTICLES = Array.from({ length: 10 }, (_, i) => i);
