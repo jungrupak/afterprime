@@ -1,3 +1,5 @@
+@use "./cardIcon";
+
 .wrapper {
   opacity: 0;
   transform: translateY(8px);
@@ -87,18 +89,7 @@
 }
 
 .iconBadge {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--secondary-color);
-
-  svg {
-    width: 34px;
-    height: 34px;
-  }
+  @include cardIcon.badge();
 }
 
 .stepEyebrow {

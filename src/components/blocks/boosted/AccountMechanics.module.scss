@@ -1,3 +1,5 @@
+@use "./cardIcon";
+
 .wrapper {
   opacity: 0;
   transform: translateY(8px);
@@ -64,18 +66,8 @@
 }
 
 .iconBadge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
+  @include cardIcon.badge();
   margin-bottom: 12px;
-  color: var(--secondary-color);
-
-  svg {
-    width: 24px;
-    height: 24px;
-  }
 }
 
 .stat_label {

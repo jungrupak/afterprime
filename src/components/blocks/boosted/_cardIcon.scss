@@ -1,0 +1,18 @@
+// Shared "card icon" rule for the Boosted page: every icon badge sitting
+// at the top of a card (steps, mechanics, etc.) is the same size/color,
+// regardless of the card's own padding or layout. Spacing (margin-bottom)
+// stays per-component since card layouts differ.
+@mixin badge($color: var(--secondary-color)) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  color: $color;
+
+  svg {
+    width: 34px;
+    height: 34px;
+  }
+}
