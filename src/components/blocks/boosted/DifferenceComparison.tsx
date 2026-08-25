@@ -19,7 +19,9 @@ export default function DifferenceComparison() {
       >
         <div className={styles.heading_block}>
           <p className={styles.eyebrow}>{difference.eyebrow}</p>
-          <h2 className="h2-size">{difference.heading}</h2>
+          <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
+            {difference.heading}
+          </h2>
         </div>
 
         <div className={styles.grid}>

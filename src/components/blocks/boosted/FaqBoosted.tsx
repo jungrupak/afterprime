@@ -18,7 +18,9 @@ export default function FaqBoosted() {
       >
         <div className={styles.heading_block}>
           <p className={styles.eyebrow}>{faq.eyebrow}</p>
-          <h2 className="h2-size">{faq.heading}</h2>
+          <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
+            {faq.heading}
+          </h2>
         </div>
 
         <Accordion faqObjects={faq.items} defaultOpenIndex={-1} />

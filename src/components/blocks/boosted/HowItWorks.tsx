@@ -17,7 +17,9 @@ export default function HowItWorks() {
       >
         <div className={styles.heading_block}>
           <p className={styles.eyebrow}>{howItWorks.eyebrow}</p>
-          <h2 className="h2-size">{howItWorks.heading}</h2>
+          <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
+            {howItWorks.heading}
+          </h2>
         </div>
 
         <ol className={styles.steps}>

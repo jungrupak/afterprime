@@ -17,7 +17,9 @@ export default function AccountMechanics() {
       >
         <div className={styles.heading_block}>
           <p className={styles.eyebrow}>{mechanics.eyebrow}</p>
-          <h2 className="h2-size">{mechanics.heading}</h2>
+          <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
+            {mechanics.heading}
+          </h2>
         </div>
 
         <div className={styles.panel}>

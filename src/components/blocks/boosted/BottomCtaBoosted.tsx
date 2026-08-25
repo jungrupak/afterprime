@@ -17,7 +17,9 @@ export default function BottomCtaBoosted() {
       >
         <div className={styles.panel}>
           <div className={styles.copy}>
-            <h2 className="h2-size">{bottomCta.heading}</h2>
+            <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
+              {bottomCta.heading}
+            </h2>
             <p className={styles.body}>{bottomCta.body}</p>
           </div>
           {/* TODO: wire to TradeCore signup flow */}
