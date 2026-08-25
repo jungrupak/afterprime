@@ -1,7 +1,14 @@
 "use client";
 import styles from "./AccountMechanics.module.scss";
-import { boostedContent } from "./boostedContent";
+import {
+  boostedContent,
+  type BoostedMechanicsContent,
+} from "./boostedContent";
 import { useInView } from "./useInView";
+
+interface AccountMechanicsProps {
+  content?: BoostedMechanicsContent;
+}
 
 function EntryFeeIcon() {
   return (
@@ -138,8 +145,10 @@ const statIcons = [
   MaxNopIcon,
 ];
 
-export default function AccountMechanics() {
-  const { mechanics } = boostedContent;
+export default function AccountMechanics({
+  content = boostedContent.mechanics,
+}: AccountMechanicsProps) {
+  const mechanics = content;
   const { ref, isVisible } = useInView<HTMLDivElement>();
 
   return (

@@ -1,14 +1,23 @@
 "use client";
 import styles from "./DifferenceComparison.module.scss";
-import { boostedContent } from "./boostedContent";
+import {
+  boostedContent,
+  type BoostedDifferenceContent,
+} from "./boostedContent";
 import { useInView } from "./useInView";
 import BoxedBlock from "@/components/boxed-block/BoxedBlock";
 import Button from "@/components/ui/Button";
 import BulletTickBlue from "@/components/ui/BulletTickBlue";
 import BulletGrey from "@/components/ui/BulletGrey";
 
-export default function DifferenceComparison() {
-  const { difference } = boostedContent;
+interface DifferenceComparisonProps {
+  content?: BoostedDifferenceContent;
+}
+
+export default function DifferenceComparison({
+  content = boostedContent.difference,
+}: DifferenceComparisonProps) {
+  const difference = content;
   const { ref, isVisible } = useInView<HTMLDivElement>();
 
   return (

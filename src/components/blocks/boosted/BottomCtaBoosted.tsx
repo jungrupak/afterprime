@@ -1,11 +1,20 @@
 "use client";
 import styles from "./BottomCtaBoosted.module.scss";
-import { boostedContent } from "./boostedContent";
+import {
+  boostedContent,
+  type BoostedBottomCtaContent,
+} from "./boostedContent";
 import { useInView } from "./useInView";
 import Button from "@/components/ui/Button";
 
-export default function BottomCtaBoosted() {
-  const { bottomCta } = boostedContent;
+interface BottomCtaBoostedProps {
+  content?: BoostedBottomCtaContent;
+}
+
+export default function BottomCtaBoosted({
+  content = boostedContent.bottomCta,
+}: BottomCtaBoostedProps) {
+  const bottomCta = content;
   const { ref, isVisible } = useInView<HTMLDivElement>();
 
   return (

@@ -1,8 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "./HeroBoosted.module.scss";
-import { boostedContent } from "./boostedContent";
+import { boostedContent, type BoostedHeroContent } from "./boostedContent";
 import Button from "@/components/ui/Button";
+
+interface HeroBoostedProps {
+  content?: BoostedHeroContent;
+}
 
 const CLIMB_MS = 3200;
 const HOLD_MS = 2400;
@@ -21,8 +25,10 @@ function formatCurrency(value: number): string {
   });
 }
 
-export default function HeroBoosted() {
-  const { hero } = boostedContent;
+export default function HeroBoosted({
+  content = boostedContent.hero,
+}: HeroBoostedProps) {
+  const hero = content;
   const { widget } = hero;
   const [equity, setEquity] = useState(widget.startEquity);
   const [cycle, setCycle] = useState(0);

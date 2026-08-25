@@ -1,11 +1,17 @@
 "use client";
 import styles from "./FaqBoosted.module.scss";
-import { boostedContent } from "./boostedContent";
+import { boostedContent, type BoostedFaqContent } from "./boostedContent";
 import { useInView } from "./useInView";
 import Accordion from "@/utils/accordion/Accordion";
 
-export default function FaqBoosted() {
-  const { faq } = boostedContent;
+interface FaqBoostedProps {
+  content?: BoostedFaqContent;
+}
+
+export default function FaqBoosted({
+  content = boostedContent.faq,
+}: FaqBoostedProps) {
+  const faq = content;
   const { ref, isVisible } = useInView<HTMLDivElement>();
 
   return (

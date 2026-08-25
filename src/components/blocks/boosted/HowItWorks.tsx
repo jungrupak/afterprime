@@ -1,7 +1,14 @@
 "use client";
 import styles from "./HowItWorks.module.scss";
-import { boostedContent } from "./boostedContent";
+import {
+  boostedContent,
+  type BoostedHowItWorksContent,
+} from "./boostedContent";
 import { useInView } from "./useInView";
+
+interface HowItWorksProps {
+  content?: BoostedHowItWorksContent;
+}
 
 function KycIcon() {
   return (
@@ -145,8 +152,10 @@ function StepArrowIcon() {
 
 const stepIcons = [KycIcon, SimulatedIcon, GraduateIcon, WithdrawIcon];
 
-export default function HowItWorks() {
-  const { howItWorks } = boostedContent;
+export default function HowItWorks({
+  content = boostedContent.howItWorks,
+}: HowItWorksProps) {
+  const howItWorks = content;
   const { ref, isVisible } = useInView<HTMLDivElement>();
 
   return (

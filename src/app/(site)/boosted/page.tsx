@@ -5,6 +5,9 @@ import HowItWorks from "@/components/blocks/boosted/HowItWorks";
 import AccountMechanics from "@/components/blocks/boosted/AccountMechanics";
 import FaqBoosted from "@/components/blocks/boosted/FaqBoosted";
 import BottomCtaBoosted from "@/components/blocks/boosted/BottomCtaBoosted";
+import { boostedContent } from "@/components/blocks/boosted/boostedContent";
+import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
+import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 
 export const metadata: Metadata = {
   title: "Boosted Accounts — Get funded like it's real | Afterprime",
@@ -31,15 +34,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BoostedPage() {
+export default async function BoostedPage() {
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic("boosted", locale, boostedContent);
+
   return (
     <>
-      <HeroBoosted />
-      <DifferenceComparison />
-      <HowItWorks />
-      <AccountMechanics />
-      <FaqBoosted />
-      <BottomCtaBoosted />
+      <HeroBoosted content={t.hero} />
+      <DifferenceComparison content={t.difference} />
+      <HowItWorks content={t.howItWorks} />
+      <AccountMechanics content={t.mechanics} />
+      <FaqBoosted content={t.faq} />
+      <BottomCtaBoosted content={t.bottomCta} />
     </>
   );
 }
