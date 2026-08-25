@@ -45,6 +45,8 @@ export interface HowItWorksStep {
 export interface BoostedHowItWorksContent {
   eyebrow: string;
   heading: string;
+  subheading: string;
+  stepLabel: string;
   steps: HowItWorksStep[];
 }
 
@@ -146,6 +148,9 @@ export const boostedContent: BoostedPageContent = {
   howItWorks: {
     eyebrow: "How it works",
     heading: "Four steps. One real account at the end.",
+    subheading:
+      "From your $500 entry to a funded live account — here's exactly how it works.",
+    stepLabel: "Step",
     steps: [
       {
         title: "Pay $500 & complete KYC",

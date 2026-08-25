@@ -11,13 +11,6 @@
   }
 }
 
-.heading_block {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto;
-  margin-bottom: 32px;
-}
-
 .eyebrow {
   font-size: 12px;
   font-weight: 600;
@@ -27,62 +20,106 @@
   margin-bottom: 12px;
 }
 
-.steps {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+// Step grid/card system below matches
+// src/components/blocks/signup-flow/SignupFlow.module.scss exactly, for
+// visual consistency between the two step-flow sections.
+.stepsWrapper {
+  position: relative;
+}
+
+.stepsGrid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+  gap: 18px;
 
-  @media (max-width: 900px) {
+  @media all and (max-width: 767px) {
     grid-template-columns: 1fr;
   }
 }
 
-.step {
-  opacity: 0;
-  transform: translateY(8px);
+.stepCard {
+  position: relative;
+  background: var(--card-bg-grdnt-top-fade);
+  border-radius: var(--radius-lg);
+  padding: clamp(30px, 5vw, 45px) clamp(35px, 5vw, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
   transition:
-    opacity 0.5s ease-out,
-    transform 0.5s ease-out;
-}
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
 
-@for $i from 1 through 4 {
-  .visible .steps .step:nth-child(#{$i}) {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: #{($i - 1) * 0.12}s;
+  &:hover {
+    background-color: var(--primary-white-4);
   }
 }
 
-.step_number {
-  display: inline-flex;
+.stepArrow {
+  display: none;
+
+  @media all and (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 92%;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    transform: translate(calc(-50% + 32px), -50%);
+    background: rgba(67, 59, 249, 0.16);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(67, 59, 249, 0.35);
+    color: var(--secondary-color);
+    z-index: 4;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.iconBadge {
+  width: 44px;
+  height: 44px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--surface);
-  color: var(--primary-white);
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 16px;
+  flex-shrink: 0;
+  color: var(--secondary-color);
+
+  svg {
+    width: 34px;
+    height: 34px;
+  }
 }
 
-.step_number_final {
-  background: var(--vermillion);
+.stepEyebrow {
+  margin: 0;
+  font-size: var(--font-size-note);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary-white-50);
 }
 
-.step_title {
-  font-size: 16px;
+.stepTitle {
+  margin: 0;
+  font-size: var(--heading-xs);
   font-weight: 600;
   color: var(--primary-white);
-  margin-bottom: 8px;
 }
 
-.step_body {
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--primary-white-40);
+.stepDescription {
+  margin: 0;
+  font-size: var(--reading-text-xs);
+  line-height: var(--line-height-medium);
+  color: var(--primary-white);
 }
