@@ -92,6 +92,11 @@ export default function HeroBoosted() {
 
         <div>
           <div className={styles.widget}>
+            {isGraduated && (
+              <span className={styles.grad_cap} key={`cap-${cycle}`}>
+                🎓
+              </span>
+            )}
             <div className={styles.widget_top}>
               <span className={styles.widget_label}>{widget.accountLabel}</span>
               {isGraduated && (
