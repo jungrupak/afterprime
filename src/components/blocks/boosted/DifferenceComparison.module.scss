@@ -27,65 +27,82 @@
   margin-bottom: 12px;
 }
 
-.grid {
+// Card system below matches src/components/blocks/pros-and-cons/style.module.scss
+// exactly, for visual consistency between the two comparison sections.
+.cardsWrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
 
-  @media (max-width: 768px) {
+  @media all and (max-width: 640px) {
     grid-template-columns: 1fr;
   }
 }
 
 .card {
-  background: var(--card-bg-regular);
-  border: 1px solid var(--border-white);
+  position: relative;
   border-radius: var(--radius-xlg);
-  padding: 32px;
+  backdrop-filter: blur(20px);
+  padding: 40px 40px;
+  height: 100%;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 }
 
-.card_highlight {
-  border-color: rgba(38, 61, 234, 0.4);
-  box-shadow: 0 0 0 1px rgba(38, 61, 234, 0.15) inset;
+.cardTitle {
+  font-size: clamp(20px, 3vw, 22px);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-.card_label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--primary-white-40);
-  margin-bottom: 20px;
-}
-
-.card_label_accent {
-  color: var(--electric-blue);
-}
-
-.list {
-  list-style: none;
-  padding: 0;
+.cardList {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  padding: 0;
+  list-style: none;
 
   li {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    font-size: 15px;
-    color: var(--primary-white-80);
+    gap: 15px;
+    font-size: var(--reading-text-xs);
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: clamp(20px, 5vw, 30px);
 
-    svg {
-      flex-shrink: 0;
-      margin-top: 1px;
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }
 
+.textPros {
+  color: var(--primary-white);
+}
+
+.textCons {
+  color: var(--primary-white);
+}
+
 @for $i from 1 through 5 {
-  .visible .list li:nth-child(#{$i}) {
+  .visible .cardList li:nth-child(#{$i}) {
     transition-delay: #{$i * 0.06}s;
   }
 }

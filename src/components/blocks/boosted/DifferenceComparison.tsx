@@ -2,8 +2,8 @@
 import styles from "./DifferenceComparison.module.scss";
 import { boostedContent } from "./boostedContent";
 import { useInView } from "./useInView";
-import CheckIcon from "@/components/ui/icons/CheckIcon";
-import CrossIcon from "@/components/ui/icons/CrossIcon";
+import BulletTickBlue from "@/components/ui/BulletTickBlue";
+import BulletGrey from "@/components/ui/BulletGrey";
 
 export default function DifferenceComparison() {
   const { difference } = boostedContent;
@@ -24,28 +24,26 @@ export default function DifferenceComparison() {
           </h2>
         </div>
 
-        <div className={styles.grid}>
+        <div className={styles.cardsWrapper}>
           <div className={styles.card}>
-            <p className={styles.card_label}>{difference.typical.label}</p>
-            <ul className={styles.list}>
+            <h3 className={styles.cardTitle}>{difference.typical.label}</h3>
+            <ul className={styles.cardList}>
               {difference.typical.points.map((point) => (
                 <li key={point}>
-                  <CrossIcon />
-                  <span>{point}</span>
+                  <BulletGrey />
+                  <span className={styles.textCons}>{point}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className={`${styles.card} ${styles.card_highlight}`}>
-            <p className={`${styles.card_label} ${styles.card_label_accent}`}>
-              {difference.boosted.label}
-            </p>
-            <ul className={styles.list}>
+          <div className={styles.card}>
+            <h3 className={styles.cardTitle}>{difference.boosted.label}</h3>
+            <ul className={styles.cardList}>
               {difference.boosted.points.map((point) => (
                 <li key={point}>
-                  <CheckIcon />
-                  <span>{point}</span>
+                  <BulletTickBlue />
+                  <span className={styles.textPros}>{point}</span>
                 </li>
               ))}
             </ul>
