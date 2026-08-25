@@ -14,7 +14,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--electric-blue);
+  color: var(--secondary-color);
   margin-bottom: 16px;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .highlight {
-  color: var(--electric-blue);
+  color: var(--secondary-color);
 }
 
 .subhead {
@@ -230,7 +230,7 @@
 }
 
 .equity_value.climbing {
-  text-shadow: 0 0 18px rgba(38, 61, 234, 0.55);
+  text-shadow: 0 0 18px rgba(67, 59, 249, 0.55);
 }
 
 .equity_caption {
@@ -259,7 +259,7 @@
   position: relative;
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--electric-blue), var(--vermillion));
+  background: linear-gradient(90deg, var(--secondary-color), var(--vermillion));
   overflow: hidden;
 }
 

@@ -47,7 +47,6 @@
 
 .stat {
   background: var(--card-bg-regular);
-  border: 1px solid var(--border-white);
   border-radius: var(--radius-xlg);
   padding: clamp(20px, 3vw, 28px);
   opacity: 0;
@@ -71,27 +70,27 @@
 }
 
 .stat_label {
-  font-size: var(--font-size-note);
+  font-size: var(--reading-text-tiny);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--primary-white-50);
-  margin-bottom: 8px;
+  margin-bottom: 25px;
 }
 
 .stat_label_accent {
-  color: var(--electric-blue);
+  color: var(--secondary-color);
 }
 
 .stat_value {
   font-size: var(--heading-xs);
   font-weight: 600;
   color: var(--primary-white);
-  margin-bottom: 4px;
+  margin-bottom: 25px;
 }
 
 .stat_caption {
   font-size: var(--reading-text-xs);
   line-height: var(--line-height-medium);
-  color: var(--primary-white);
+  color: var(--primary-white-80);
 }

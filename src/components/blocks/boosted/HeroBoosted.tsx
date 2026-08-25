@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 
 const CLIMB_MS = 3200;
 const HOLD_MS = 2400;
-const CONFETTI_COLORS = ["#263dea", "#ff301d", "#22c55e", "#fdfdf7"];
+const CONFETTI_COLORS = ["#433bf9", "#ff301d", "#22c55e", "#fdfdf7"];
 const CONFETTI_PARTICLES = Array.from({ length: 10 }, (_, i) => i);
 
 // easeOutQuint — fast start, gentle settle, no overshoot on a real money figure.
