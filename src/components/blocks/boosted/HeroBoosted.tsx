@@ -13,9 +13,11 @@ const HOLD_MS = 2400;
 const CONFETTI_COLORS = ["#433bf9", "#ff301d", "#22c55e", "#fdfdf7"];
 const CONFETTI_PARTICLES = Array.from({ length: 10 }, (_, i) => i);
 
-// easeOutQuint — fast start, gentle settle, no overshoot on a real money figure.
-function easeOutQuint(t: number): number {
-  return 1 - Math.pow(1 - t, 5);
+// easeOutQuad — gentle deceleration, no overshoot on a real money figure.
+// (easeOutQuint front-loaded too hard: ~90% done by 1s of a 4s climb, so it
+// visually "finished" long before CLIMB_MS actually elapsed.)
+function easeOutQuad(t: number): number {
+  return 1 - (1 - t) * (1 - t);
 }
 
 function formatCurrency(value: number): string {
@@ -30,40 +32,41 @@ export default function HeroBoosted({
 }: HeroBoostedProps) {
   const hero = content;
   const { widget } = hero;
-  const [equity, setEquity] = useState(widget.startEquity);
+  // progress01 is the single source of truth for this cycle's animation —
+  // both the equity figure and the progress bar derive from it, so they
+  // stay in lockstep and the bar visibly sweeps 0%->100% over the full
+  // CLIMB_MS instead of capping early at the graduation threshold.
+  const [progress01, setProgress01] = useState(0);
   const [cycle, setCycle] = useState(0);
 
-  // Drives one eased climb from startEquity to targetEquity per cycle.
+  // Drives one eased climb from 0 to 1 per cycle.
   useEffect(() => {
-    setEquity(widget.startEquity);
+    setProgress01(0);
     let frameId: number;
     const startTime = performance.now();
-    const span = widget.targetEquity - widget.startEquity;
 
     const tick = (now: number) => {
       const t = Math.min(1, (now - startTime) / CLIMB_MS);
-      setEquity(widget.startEquity + span * easeOutQuint(t));
+      setProgress01(easeOutQuad(t));
       if (t < 1) frameId = requestAnimationFrame(tick);
     };
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, [cycle, widget.startEquity, widget.targetEquity]);
+  }, [cycle]);
 
   // Once the climb finishes, hold, then start a new cycle (loop).
   useEffect(() => {
-    if (equity < widget.targetEquity) return;
+    if (progress01 < 1) return;
     const resetId = setTimeout(() => setCycle((c) => c + 1), HOLD_MS);
     return () => clearTimeout(resetId);
-  }, [equity, widget.targetEquity]);
+  }, [progress01]);
 
+  const equity =
+    widget.startEquity +
+    (widget.targetEquity - widget.startEquity) * progress01;
   const isGraduated = equity >= widget.graduationEquity;
   const isClimbing = !isGraduated;
-  const progressPct = Math.min(
-    100,
-    ((equity - widget.startEquity) /
-      (widget.graduationEquity - widget.startEquity)) *
-      100,
-  );
+  const progressPct = progress01 * 100;
   const withdrawable = Math.max(0, equity - widget.graduationEquity);
 
   return (
