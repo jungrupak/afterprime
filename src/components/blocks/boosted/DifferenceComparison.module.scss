@@ -59,6 +59,22 @@
   }
 }
 
+.card_highlight {
+  background: linear-gradient(
+    160deg,
+    rgba(38, 61, 234, 0.1) 0%,
+    rgba(38, 61, 234, 0.02) 60%
+  );
+
+  &::before {
+    background: linear-gradient(
+      180deg,
+      rgba(38, 61, 234, 0.5) 0%,
+      rgba(38, 61, 234, 0) 100%
+    );
+  }
+}
+
 .cardTitle {
   font-size: clamp(20px, 3vw, 22px);
   font-weight: 700;

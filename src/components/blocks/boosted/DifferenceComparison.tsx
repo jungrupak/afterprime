@@ -63,7 +63,7 @@ export default function DifferenceComparison() {
               </ul>
             </div>
 
-            <div className={styles.card}>
+            <div className={`${styles.card} ${styles.card_highlight}`}>
               <h3 className={styles.cardTitle}>{difference.boosted.label}</h3>
               <ul className={styles.cardList}>
                 {difference.boosted.points.map((point) => (
