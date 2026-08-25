@@ -31,6 +31,8 @@ export interface ComparisonColumn {
 export interface BoostedDifferenceContent {
   eyebrow: string;
   heading: string;
+  paragraph: string;
+  ctaLabel: string;
   typical: ComparisonColumn;
   boosted: ComparisonColumn;
 }
@@ -117,6 +119,9 @@ export const boostedContent: BoostedPageContent = {
   difference: {
     eyebrow: "The difference",
     heading: "This isn't another prop challenge.",
+    paragraph:
+      "No hidden consistency rules, no trailing drawdowns, no multi-phase gauntlet. Just one number to hit, then a real account on the other side.",
+    ctaLabel: "See the full mechanics",
     typical: {
       label: "Typical prop challenge",
       points: [

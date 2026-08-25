@@ -8,7 +8,7 @@ export default function AccountMechanics() {
   const { ref, isVisible } = useInView<HTMLDivElement>();
 
   return (
-    <section className="compact-section">
+    <section id="account-mechanics" className="compact-section">
       <div
         ref={ref}
         className={`ap_container_small ${styles.wrapper} ${
