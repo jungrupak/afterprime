@@ -10,13 +10,15 @@ export interface AccordionObjectsKeys {
 interface AccordionProps {
   faqObjects?: AccordionObjectsKeys[];
   answerFluid?: boolean;
+  defaultOpenIndex?: number;
 }
 
 export default function Accordion({
   faqObjects,
   answerFluid = false,
+  defaultOpenIndex = 0,
 }: AccordionProps) {
-  const [isOpenAnswer, setIsOpenAnswer] = useState(0);
+  const [isOpenAnswer, setIsOpenAnswer] = useState(defaultOpenIndex);
 
   // Process all answers with the hook at top level
   if (!faqObjects) return null;
