@@ -1,0 +1,28 @@
+"use client";
+import styles from "./FaqBoosted.module.scss";
+import { boostedContent } from "./boostedContent";
+import { useInView } from "./useInView";
+import Accordion from "@/utils/accordion/Accordion";
+
+export default function FaqBoosted() {
+  const { faq } = boostedContent;
+  const { ref, isVisible } = useInView<HTMLDivElement>();
+
+  return (
+    <section className="compact-section">
+      <div
+        ref={ref}
+        className={`ap_container_small ${styles.wrapper} ${
+          isVisible ? styles.visible : ""
+        }`}
+      >
+        <div className={styles.heading_block}>
+          <p className={styles.eyebrow}>{faq.eyebrow}</p>
+          <h2 className="h2-size">{faq.heading}</h2>
+        </div>
+
+        <Accordion faqObjects={faq.items} defaultOpenIndex={-1} />
+      </div>
+    </section>
+  );
+}
