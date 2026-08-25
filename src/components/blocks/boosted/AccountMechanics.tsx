@@ -22,22 +22,20 @@ export default function AccountMechanics() {
           </h2>
         </div>
 
-        <div className={styles.panel}>
-          <div className={styles.grid}>
-            {mechanics.stats.map((stat) => (
-              <div key={stat.label} className={styles.stat}>
-                <p
-                  className={`${styles.stat_label} ${
-                    stat.accent ? styles.stat_label_accent : ""
-                  }`}
-                >
-                  {stat.label}
-                </p>
-                <p className={styles.stat_value}>{stat.value}</p>
-                <p className={styles.stat_caption}>{stat.caption}</p>
-              </div>
-            ))}
-          </div>
+        <div className={styles.grid}>
+          {mechanics.stats.map((stat) => (
+            <div key={stat.label} className={styles.stat}>
+              <p
+                className={`${styles.stat_label} ${
+                  stat.accent ? styles.stat_label_accent : ""
+                }`}
+              >
+                {stat.label}
+              </p>
+              <p className={styles.stat_value}>{stat.value}</p>
+              <p className={styles.stat_caption}>{stat.caption}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

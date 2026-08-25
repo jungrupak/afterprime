@@ -27,17 +27,10 @@
   margin-bottom: 12px;
 }
 
-.panel {
-  background: var(--card-bg-regular);
-  border: 1px solid var(--border-white);
-  border-radius: var(--radius-xlg);
-  padding: clamp(24px, 4vw, 40px);
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px 24px;
+  gap: 16px;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
@@ -49,6 +42,10 @@
 }
 
 .stat {
+  background: var(--card-bg-regular);
+  border: 1px solid var(--border-white);
+  border-radius: var(--radius-xlg);
+  padding: clamp(20px, 3vw, 28px);
   opacity: 0;
   transform: translateY(8px);
   transition:
