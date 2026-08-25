@@ -9,6 +9,7 @@ interface HeroBoostedProps {
 }
 
 const CLIMB_MS = 4000;
+const GRADUATION_PAUSE_MS = 2000;
 const HOLD_MS = 2400;
 const CONFETTI_COLORS = ["#433bf9", "#ff301d", "#22c55e", "#fdfdf7"];
 const CONFETTI_PARTICLES = Array.from({ length: 10 }, (_, i) => i);
@@ -39,20 +40,50 @@ export default function HeroBoosted({
   const [progress01, setProgress01] = useState(0);
   const [cycle, setCycle] = useState(0);
 
-  // Drives one eased climb from 0 to 1 per cycle.
+  // Drives one eased climb from 0 to 1 per cycle, freezing at the
+  // graduation threshold for GRADUATION_PAUSE_MS so the badge has a beat
+  // to reveal before the climb continues to the final target.
   useEffect(() => {
+    const graduationProgress =
+      (widget.graduationEquity - widget.startEquity) /
+      (widget.targetEquity - widget.startEquity);
+
     setProgress01(0);
     let frameId: number;
-    const startTime = performance.now();
+    let startTime = performance.now();
+    let paused = false;
+    let pauseStart = 0;
+    let hasPaused = false;
 
     const tick = (now: number) => {
+      if (paused) {
+        if (now - pauseStart >= GRADUATION_PAUSE_MS) {
+          paused = false;
+          startTime += GRADUATION_PAUSE_MS;
+        } else {
+          frameId = requestAnimationFrame(tick);
+          return;
+        }
+      }
+
       const t = Math.min(1, (now - startTime) / CLIMB_MS);
-      setProgress01(easeOutQuad(t));
+      const eased = easeOutQuad(t);
+
+      if (!hasPaused && eased >= graduationProgress) {
+        hasPaused = true;
+        paused = true;
+        pauseStart = now;
+        setProgress01(graduationProgress);
+        frameId = requestAnimationFrame(tick);
+        return;
+      }
+
+      setProgress01(eased);
       if (t < 1) frameId = requestAnimationFrame(tick);
     };
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, [cycle]);
+  }, [cycle, widget.startEquity, widget.graduationEquity, widget.targetEquity]);
 
   // Once the climb finishes, hold, then start a new cycle (loop).
   useEffect(() => {
