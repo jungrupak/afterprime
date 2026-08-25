@@ -53,7 +53,9 @@ export default function HeroBoosted() {
       <div className={`ap_container ${styles.hero_grid}`}>
         <div className={styles.hero_copy}>
           <p className={styles.eyebrow}>{hero.eyebrow}</p>
-          <h1 className={`${styles.heading} h1-size`}>
+          <h1
+            className={`${styles.heading} font-size-heading-xl font-semibold`}
+          >
             {hero.headingPrefix}
             <span className={styles.highlight}>{hero.headingHighlight}</span>
           </h1>
