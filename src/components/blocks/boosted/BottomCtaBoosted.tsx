@@ -1,9 +1,6 @@
 "use client";
 import styles from "./BottomCtaBoosted.module.scss";
-import {
-  boostedContent,
-  type BoostedBottomCtaContent,
-} from "./boostedContent";
+import { boostedContent, type BoostedBottomCtaContent } from "./boostedContent";
 import { useInView } from "./useInView";
 import Button from "@/components/ui/Button";
 
@@ -33,7 +30,12 @@ export default function BottomCtaBoosted({
             <p className={`reading-text-md`}>{bottomCta.body}</p>
           </div>
           {/* TODO: wire to TradeCore signup flow */}
-          <Button varient="primary" size="regular" className={styles.cta}>
+          <Button
+            varient="primary"
+            size="regular"
+            isArrowVisible
+            className={styles.cta}
+          >
             {bottomCta.cta}
           </Button>
         </div>

@@ -231,6 +231,6 @@ export const boostedContent: BoostedPageContent = {
   bottomCta: {
     heading: "Your next account could be real.",
     body: "$500 to start. One target to hit. A genuine STP account waiting on the other side.",
-    cta: "Start with $500 →",
+    cta: "Start with $500",
   }
 };
