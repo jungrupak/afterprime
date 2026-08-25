@@ -44,20 +44,6 @@
 
 .cta {
   flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  padding: 14px 28px;
-  border-radius: var(--radius-lg);
-  background: var(--electric-blue);
-  color: var(--white);
-  font-weight: 600;
-  font-size: 15px;
-  white-space: nowrap;
-  transition: opacity 0.2s ease-out;
-
-  &:hover {
-    opacity: 0.85;
-  }
 }
 
 .footer_note {

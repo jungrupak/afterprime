@@ -2,6 +2,7 @@
 import styles from "./BottomCtaBoosted.module.scss";
 import { boostedContent } from "./boostedContent";
 import { useInView } from "./useInView";
+import Button from "@/components/ui/Button";
 
 export default function BottomCtaBoosted() {
   const { bottomCta, footerNote } = boostedContent;
@@ -23,9 +24,9 @@ export default function BottomCtaBoosted() {
             <p className={styles.body}>{bottomCta.body}</p>
           </div>
           {/* TODO: wire to TradeCore signup flow */}
-          <a href="#" className={styles.cta}>
+          <Button varient="secondary" size="regular" className={styles.cta}>
             {bottomCta.cta}
-          </a>
+          </Button>
         </div>
         <p className={styles.footer_note}>{footerNote}</p>
       </div>
