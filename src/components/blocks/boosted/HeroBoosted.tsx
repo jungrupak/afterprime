@@ -4,9 +4,15 @@ import styles from "./HeroBoosted.module.scss";
 import { boostedContent } from "./boostedContent";
 import Button from "@/components/ui/Button";
 
-const TICK_MS = 40;
-const TICK_STEP = 7;
+const CLIMB_MS = 1900;
 const HOLD_MS = 2400;
+const CONFETTI_COLORS = ["#263dea", "#ff301d", "#22c55e", "#fdfdf7"];
+const CONFETTI_PARTICLES = Array.from({ length: 10 }, (_, i) => i);
+
+// easeOutQuint — fast start, gentle settle, no overshoot on a real money figure.
+function easeOutQuint(t: number): number {
+  return 1 - Math.pow(1 - t, 5);
+}
 
 function formatCurrency(value: number): string {
   return value.toLocaleString("en-US", {
@@ -21,16 +27,20 @@ export default function HeroBoosted() {
   const [equity, setEquity] = useState(widget.startEquity);
   const [cycle, setCycle] = useState(0);
 
-  // Drives one climb from startEquity to targetEquity per cycle.
+  // Drives one eased climb from startEquity to targetEquity per cycle.
   useEffect(() => {
     setEquity(widget.startEquity);
-    const intervalId = setInterval(() => {
-      setEquity((prev) => {
-        const next = prev + TICK_STEP;
-        return next >= widget.targetEquity ? widget.targetEquity : next;
-      });
-    }, TICK_MS);
-    return () => clearInterval(intervalId);
+    let frameId: number;
+    const startTime = performance.now();
+    const span = widget.targetEquity - widget.startEquity;
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - startTime) / CLIMB_MS);
+      setEquity(widget.startEquity + span * easeOutQuint(t));
+      if (t < 1) frameId = requestAnimationFrame(tick);
+    };
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
   }, [cycle, widget.startEquity, widget.targetEquity]);
 
   // Once the climb finishes, hold, then start a new cycle (loop).
@@ -41,6 +51,7 @@ export default function HeroBoosted() {
   }, [equity, widget.targetEquity]);
 
   const isGraduated = equity >= widget.graduationEquity;
+  const isClimbing = !isGraduated;
   const progressPct = Math.min(
     100,
     ((equity - widget.startEquity) /
@@ -50,8 +61,8 @@ export default function HeroBoosted() {
   const withdrawable = Math.max(0, equity - widget.graduationEquity);
 
   return (
-    <section className={`${styles.hero} compact-section`}>
-      <div className={`ap_container ${styles.hero_grid}`}>
+    <section className={`${styles.hero}`}>
+      <div className={`ap_container_small ${styles.hero_grid}`}>
         <div className={styles.hero_copy}>
           <h1 className={`font-size-heading-xl mt-13 md:mt-18 font-semibold`}>
             {hero.headingPrefix}
@@ -84,11 +95,32 @@ export default function HeroBoosted() {
             <div className={styles.widget_top}>
               <span className={styles.widget_label}>{widget.accountLabel}</span>
               {isGraduated && (
-                <span className={styles.badge}>{widget.badge}</span>
+                <span className={styles.badge_wrap}>
+                  <span className={styles.badge}>{widget.badge}</span>
+                  <span className={styles.confetti} key={cycle}>
+                    {CONFETTI_PARTICLES.map((i) => (
+                      <span
+                        key={i}
+                        className={styles.confetti_particle}
+                        style={{
+                          // @ts-expect-error -- CSS custom properties aren't in React's style typings
+                          "--angle": `${(360 / CONFETTI_PARTICLES.length) * i}deg`,
+                          "--color":
+                            CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+                          "--delay": `${i * 0.02}s`,
+                        }}
+                      />
+                    ))}
+                  </span>
+                </span>
               )}
             </div>
             <div className={styles.equity}>
-              <span className={styles.equity_value}>
+              <span
+                className={`${styles.equity_value} ${
+                  isClimbing ? styles.climbing : ""
+                }`}
+              >
                 ${formatCurrency(equity)}
               </span>
             </div>
@@ -103,7 +135,9 @@ export default function HeroBoosted() {
             </div>
             <div className={styles.progress_track}>
               <div
-                className={styles.progress_fill}
+                className={`${styles.progress_fill} ${
+                  isClimbing ? styles.climbing : ""
+                }`}
                 style={{ width: `${progressPct}%` }}
               />
             </div>
@@ -132,7 +166,7 @@ export default function HeroBoosted() {
             </div>
           </div>
 
-          <ul className={`${styles.trust_row} mt-5`}>
+          <ul className={`${styles.trust_row}`}>
             {hero.trustPoints.map((point) => (
               <li key={point}>{point}</li>
             ))}
