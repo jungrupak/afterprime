@@ -71,10 +71,11 @@
 }
 
 .stat_label {
-  font-size: 11px;
-  letter-spacing: 0.05em;
+  font-size: var(--font-size-note);
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--primary-white-40);
+  color: var(--primary-white-50);
   margin-bottom: 8px;
 }
 
@@ -83,13 +84,14 @@
 }
 
 .stat_value {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: var(--heading-xs);
+  font-weight: 600;
   color: var(--primary-white);
   margin-bottom: 4px;
 }
 
 .stat_caption {
-  font-size: 13px;
-  color: var(--primary-white-40);
+  font-size: var(--reading-text-xs);
+  line-height: var(--line-height-medium);
+  color: var(--primary-white);
 }
