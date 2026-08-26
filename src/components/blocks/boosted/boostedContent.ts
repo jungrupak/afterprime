@@ -122,7 +122,7 @@ export const boostedContent: BoostedPageContent = {
     heading: "This isn't another prop challenge.",
     paragraph:
       "No hidden consistency rules, no trailing drawdowns, no multi-phase gauntlet. Just one number to hit, then a real account on the other side.",
-    ctaLabel: "See the full mechanics",
+    ctaLabel: "Start with $500",
     typical: {
       label: "Typical prop challenge",
       points: [

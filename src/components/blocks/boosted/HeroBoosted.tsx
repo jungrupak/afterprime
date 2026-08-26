@@ -113,7 +113,7 @@ export default function HeroBoosted({
           </p>
           <div className={`${styles.cta_row} mt-5 md:mt-10`}>
             {/* TODO: wire to TradeCore signup flow */}
-            <Button varient="secondary" size="regular">
+            <Button varient="primary" size="regular">
               {hero.ctaPrimary}
             </Button>
             <Button

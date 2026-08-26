@@ -20,24 +20,19 @@
   margin-bottom: 12px;
 }
 
-// Card system below matches src/components/blocks/pros-and-cons/style.module.scss
-// exactly, for visual consistency between the two comparison sections.
-.cardsWrapper {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 5px;
-
-  @media all and (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.card {
+// Compare-table layout: single shell, header row + row-aligned data rows,
+// each row pairing typical.points[i] against boosted.points[i] directly.
+// Desktop/tablet only — below 640px, .mobileCards takes over as two
+// separate stacked cards instead (row-pairing doesn't read well stacked).
+.table {
   position: relative;
   border-radius: var(--radius-xlg);
   backdrop-filter: blur(20px);
-  padding: 40px 40px;
-  height: 100%;
+  overflow: hidden;
+
+  @media all and (max-width: 640px) {
+    display: none;
+  }
 
   &::before {
     content: "";
@@ -59,7 +54,154 @@
   }
 }
 
-.card_highlight {
+// Continuous tint behind the "boosted" column, spanning full table height.
+.highlightBand {
+  position: absolute;
+  inset: 0;
+  left: 50%;
+  background: linear-gradient(
+    160deg,
+    rgba(67, 59, 249, 0.1) 0%,
+    rgba(67, 59, 249, 0.02) 60%
+  );
+  pointer-events: none;
+}
+
+// Promo corner flag: diagonal wedge filling the boosted column's top-right
+// corner, clipped flush by the parent's own overflow + border-radius.
+// Shared by the desktop matrix (.table) and the mobile boosted card.
+.starBadge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background: var(--secondary-color);
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 7px 7px 0 0;
+  z-index: 2;
+}
+
+// Vertical rule splitting the two columns.
+.divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--ap-border-default, rgba(255, 255, 255, 0.12));
+  pointer-events: none;
+}
+
+.headerRow,
+.row {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.headerRow {
+  border-bottom: 1px solid var(--ap-border-default, rgba(255, 255, 255, 0.12));
+}
+
+.headerCell {
+  padding: 24px 32px;
+  font-size: clamp(18px, 2.6vw, 20px);
+  font-weight: 700;
+  text-align: center;
+  color: var(--primary-white-60, rgba(255, 255, 255, 0.6));
+}
+
+.headerCellBoosted {
+  color: var(--primary-white);
+}
+
+.row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .visible & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cell {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 22px 50px;
+  font-size: var(--reading-text-xs);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.ctaRow {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--ap-border-default, rgba(255, 255, 255, 0.12));
+}
+
+.ctaCellBoosted {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 32px;
+}
+
+// Mobile-only: two separate stacked cards (Typical, then Boosted w/ its own
+// corner badge + CTA) instead of the desktop row-paired matrix.
+.mobileCards {
+  display: none;
+
+  @media all and (max-width: 640px) {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.mobileCard {
+  position: relative;
+  border-radius: var(--radius-xlg);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+.mobileCardBoosted {
   background: linear-gradient(
     160deg,
     rgba(67, 59, 249, 0.1) 0%,
@@ -75,31 +217,47 @@
   }
 }
 
-.cardTitle {
-  font-size: clamp(20px, 3vw, 22px);
+.mobileCardHeader {
+  position: relative;
+  z-index: 1;
+  padding: 20px 20px 16px;
+  font-size: clamp(18px, 4.5vw, 20px);
   font-weight: 700;
   text-align: center;
-  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--primary-white-60, rgba(255, 255, 255, 0.6));
 }
 
-.cardList {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.mobileCardHeaderBoosted {
+  color: var(--primary-white);
+}
 
-  li {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    font-size: var(--reading-text-xs);
-    font-weight: 400;
-    line-height: 1.4;
-    margin-bottom: clamp(20px, 5vw, 30px);
+.mobileCardList {
+  position: relative;
+  z-index: 1;
+  padding: 4px 20px 4px;
+}
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+.mobileCardItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: var(--reading-text-xs);
+  line-height: 1.4;
+
+  &:last-child {
+    border-bottom: none;
   }
+}
+
+.mobileCta {
+  position: relative;
+  z-index: 1;
+  padding: 8px 20px 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .textPros {
@@ -111,7 +269,7 @@
 }
 
 @for $i from 1 through 5 {
-  .visible .cardList li:nth-child(#{$i}) {
+  .row:nth-child(#{$i}) {
     transition-delay: #{$i * 0.06}s;
   }
 }
