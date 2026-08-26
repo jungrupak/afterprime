@@ -140,7 +140,7 @@
 
 .cell {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 15px;
   padding: 22px 50px;
   font-size: var(--reading-text-xs);
@@ -240,7 +240,7 @@
 
 .mobileCardItem {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
   padding: 14px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
