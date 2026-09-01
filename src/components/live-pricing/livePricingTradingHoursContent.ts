@@ -9,7 +9,7 @@ export const livePricingTradingHoursContent = {
     symbol: "Symbol",
     bid: "Bid Price",
     ask: "Ask Price",
-    spread: "Spread (Pips)",
+    spread: "Spread",
     marketStatus: "Status",
     marketHours: "Market Hours",
     tradingHoursLink: "Trading Hours",
