@@ -12,6 +12,7 @@ import { localizeHref } from "@/lib/locale/localizeHref";
 import type { LivePricingForexContent } from "./livePricingForexContent";
 import { livePricingForexContent } from "./livePricingForexContent";
 import { useMarketStatus } from "@/hooks/useMarketStatus";
+import { formatSpreadPips } from "@/lib/formatSpreadPips";
 
 function TradeArrowIcon() {
   return (
@@ -208,7 +209,13 @@ export function LivePricingForex({
                           {item.bestAsk}
                         </td>
                         <td className="px-4 py-2 " t-name="Spread">
-                          <div className="max-md:opacity-50">{item.spread}</div>
+                          <div className="max-md:opacity-50">
+                            {formatSpreadPips(
+                              item.bestBid,
+                              item.bestAsk,
+                              item.group,
+                            )}
+                          </div>
                         </td>
                         <td className="px-4 py-2" t-name="Status">
                           {(() => {

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useLivePrices } from "@/hooks/useLivePrices";
+import { formatSpreadPips } from "@/lib/formatSpreadPips";
 import styles from "../style.module.scss";
 import Image from "next/image";
 import { useLocale } from "@/lib/locale/useLocale";
@@ -93,7 +94,7 @@ export function Popular() {
                   {item.bestAsk}
                 </td>
                 <td className="px-4 py-2 " t-name="Spread">
-                  {item.spread}
+                  {formatSpreadPips(item.bestBid, item.bestAsk, item.group)}
                 </td>
                 <td className="px-4 py-2 " t-name="Market">
                   {item.market.charAt(0).toUpperCase() +

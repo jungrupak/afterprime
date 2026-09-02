@@ -1,6 +1,6 @@
 "use client";
 import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,38 +12,11 @@ import { localizeHref } from "@/lib/locale/localizeHref";
 import type { LivePricingContent } from "./livePricingContent";
 import { livePricingContent } from "./livePricingContent";
 import { useMarketStatus } from "@/hooks/useMarketStatus";
+import { formatSpreadPips } from "@/lib/formatSpreadPips";
 
 interface LivePricingAllProps {
   initialPrices?: PricesObjects[];
   content?: LivePricingContent;
-}
-
-function countDecimals(value: number): number {
-  const str = value.toString();
-  return str.includes(".") ? str.split(".")[1].length : 0;
-}
-
-// "Pip" is a forex-only concept. Broker fractional-pip quoting adds exactly
-// one extra digit beyond standard precision: non-JPY standard=4dp,
-// fractional=5dp; JPY standard=2dp, fractional=3dp. Either way the
-// fractional form has an ODD decimal count, so pip = 2nd-to-last decimal
-// (divide raw diff by 10); even decimal counts mean point == pip.
-// Crypto/metals/indices/commodities have no pip convention — real platforms
-// show the raw price difference there, so point == pip always for them.
-function formatSpreadPips(
-  bestBid: number,
-  bestAsk: number,
-  group: string,
-): string {
-  if (!bestBid || !bestAsk) return "-";
-  const decimals = Math.max(countDecimals(bestBid), countDecimals(bestAsk));
-  const isForex = group.startsWith("Forex");
-  const pipSize =
-    isForex && decimals % 2 === 1
-      ? Math.pow(10, -(decimals - 1))
-      : Math.pow(10, -decimals);
-  const pips = (bestAsk - bestBid) / pipSize;
-  return pips.toFixed(1);
 }
 
 function TradeArrowIcon() {
@@ -68,10 +41,69 @@ export function LivePricingAll({
   initialPrices = [],
   content: c = livePricingContent,
 }: LivePricingAllProps) {
-  const { categories, status } = useLivePrices(initialPrices);
+  const { prices, categories, status } = useLivePrices(initialPrices);
   const locale = useLocale();
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
+
+  // Tick coloring (MT4/MT5, TradingView convention): green when a price
+  // ticks up from its previous value, red when it ticks down. An unchanged
+  // tick does NOT reset to white — it carries the last direction forward,
+  // so the color only flips on an actual move in the other direction.
+  // Comparison uses the previous *render's* committed snapshot — the ref is
+  // updated in the effect below, after paint.
+  type TickDirection = "up" | "down" | null;
+  type TickSnapshot = {
+    bid: number;
+    ask: number;
+    bidDir: TickDirection;
+    askDir: TickDirection;
+  };
+  const prevTickRef = useRef<Record<string, TickSnapshot>>({});
+  const tickDirections = useMemo(() => {
+    const dirs: Record<string, { bid: TickDirection; ask: TickDirection }> =
+      {};
+    for (const item of prices) {
+      const prev = prevTickRef.current[item.symbol];
+      const bidDir: TickDirection = !prev
+        ? null
+        : item.bestBid > prev.bid
+          ? "up"
+          : item.bestBid < prev.bid
+            ? "down"
+            : prev.bidDir;
+      const askDir: TickDirection = !prev
+        ? null
+        : item.bestAsk > prev.ask
+          ? "up"
+          : item.bestAsk < prev.ask
+            ? "down"
+            : prev.askDir;
+      dirs[item.symbol] = { bid: bidDir, ask: askDir };
+    }
+    return dirs;
+  }, [prices]);
+
+  useEffect(() => {
+    const snapshot: Record<string, TickSnapshot> = {};
+    for (const item of prices) {
+      const dir = tickDirections[item.symbol];
+      snapshot[item.symbol] = {
+        bid: item.bestBid,
+        ask: item.bestAsk,
+        bidDir: dir?.bid ?? null,
+        askDir: dir?.ask ?? null,
+      };
+    }
+    prevTickRef.current = snapshot;
+  }, [prices, tickDirections]);
+
+  const tickColorClass = (direction: "up" | "down" | null) =>
+    direction === "up"
+      ? "text-[#22C55E]"
+      : direction === "down"
+        ? "text-[var(--vermillion)]"
+        : "";
 
   const pricingCatLists = [
     categories.popular,
@@ -273,10 +305,16 @@ export function LivePricingAll({
                             </div>
                           )}
                         </td>
-                        <td className="px-4 py-2 " t-name="Bid">
+                        <td
+                          className={`px-4 py-2 ${tickColorClass(tickDirections[item.symbol]?.bid ?? null)}`}
+                          t-name="Bid"
+                        >
                           {item.bestBid}
                         </td>
-                        <td className="px-4 py-2 " t-name="Ask">
+                        <td
+                          className={`px-4 py-2 ${tickColorClass(tickDirections[item.symbol]?.ask ?? null)}`}
+                          t-name="Ask"
+                        >
                           {item.bestAsk}
                         </td>
                         <td className="px-4 py-2 " t-name="Spread">
