@@ -33,23 +33,59 @@ let _prices: PricesObjects[] = [];
 let _status: ConnectionStatus = "connecting";
 const _pricesListeners = new Set<PricesListener>();
 const _statusListeners = new Set<StatusListener>();
+let _reconnectTimer: ReturnType<typeof setTimeout> | null = null;
 
 function notifyStatus(s: ConnectionStatus) {
   _status = s;
   _statusListeners.forEach((fn) => fn(s));
 }
 
+// Backstop for cases automatic reconnect doesn't cover: the very first
+// connect() failing, or the hub closing outright. Retries forever — a
+// dead feed must never be a permanent, silent state.
+function scheduleReconnect(connection: HubConnection, delay = 5000) {
+  if (_reconnectTimer) return;
+  _reconnectTimer = setTimeout(() => {
+    _reconnectTimer = null;
+    if (connection.state === HubConnectionState.Disconnected) {
+      startConnection(connection);
+    }
+  }, delay);
+}
+
+function startConnection(connection: HubConnection) {
+  connection
+    .start()
+    .then(() => notifyStatus("connected"))
+    .catch((err) => {
+      console.error("❌ Connection error:", err);
+      notifyStatus("error");
+      scheduleReconnect(connection);
+    });
+}
+
 function getOrCreateConnection(): HubConnection {
   if (_connection) return _connection;
 
   const connection = new HubConnectionBuilder()
-    .withUrl("https://marketprice.afterprime.io:5000/marketpricestream", {
+    .withUrl("https://marketprice.afterprime.io:5000/marketpricestream/", {
       transport:
         HttpTransportType.WebSockets |
         HttpTransportType.ServerSentEvents |
         HttpTransportType.LongPolling,
     })
-    .withAutomaticReconnect([0, 2000, 5000, 10000, 30000])
+    .withAutomaticReconnect({
+      // Fast retries at first, then settle into a steady 30s cadence
+      // forever — never returning null means the client-side auto-reconnect
+      // never gives up permanently on a mid-session drop.
+      nextRetryDelayInMilliseconds: (retryContext) => {
+        const backoff = [0, 2000, 5000, 10000, 30000];
+        return (
+          backoff[retryContext.previousRetryCount] ??
+          backoff[backoff.length - 1]
+        );
+      },
+    })
     .configureLogging(LogLevel.Information)
     .build();
 
@@ -68,18 +104,13 @@ function getOrCreateConnection(): HubConnection {
   connection.onclose((err) => {
     if (err) console.error("SignalR closed with error:", err);
     notifyStatus(err ? "error" : "disconnected");
+    scheduleReconnect(connection);
   });
 
   _connection = connection;
 
   if (connection.state === HubConnectionState.Disconnected) {
-    connection
-      .start()
-      .then(() => notifyStatus("connected"))
-      .catch((err) => {
-        console.error("❌ Connection error:", err);
-        notifyStatus("error");
-      });
+    startConnection(connection);
   }
 
   return connection;

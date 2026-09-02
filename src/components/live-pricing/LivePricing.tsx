@@ -18,6 +18,34 @@ interface LivePricingAllProps {
   content?: LivePricingContent;
 }
 
+function countDecimals(value: number): number {
+  const str = value.toString();
+  return str.includes(".") ? str.split(".")[1].length : 0;
+}
+
+// "Pip" is a forex-only concept. Broker fractional-pip quoting adds exactly
+// one extra digit beyond standard precision: non-JPY standard=4dp,
+// fractional=5dp; JPY standard=2dp, fractional=3dp. Either way the
+// fractional form has an ODD decimal count, so pip = 2nd-to-last decimal
+// (divide raw diff by 10); even decimal counts mean point == pip.
+// Crypto/metals/indices/commodities have no pip convention — real platforms
+// show the raw price difference there, so point == pip always for them.
+function formatSpreadPips(
+  bestBid: number,
+  bestAsk: number,
+  group: string,
+): string {
+  if (!bestBid || !bestAsk) return "-";
+  const decimals = Math.max(countDecimals(bestBid), countDecimals(bestAsk));
+  const isForex = group.startsWith("Forex");
+  const pipSize =
+    isForex && decimals % 2 === 1
+      ? Math.pow(10, -(decimals - 1))
+      : Math.pow(10, -decimals);
+  const pips = (bestAsk - bestBid) / pipSize;
+  return pips.toFixed(1);
+}
+
 function TradeArrowIcon() {
   return (
     <svg
@@ -86,7 +114,6 @@ export function LivePricingAll({
         <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
           {c.headingBefore}
           {c.headingHighlight}
-
           {c.headingAfter}
         </h2>
         <p
@@ -96,6 +123,9 @@ export function LivePricingAll({
       </div>
 
       {status === "connecting" && !hasInitialTableData && <Loader />}
+
+      {hasInitialTableData &&
+        (status === "disconnected" || status === "error") && <Retrying />}
 
       {hasInitialTableData && (
         <div className={`${styles.ap_tab}`}>
@@ -251,7 +281,11 @@ export function LivePricingAll({
                         </td>
                         <td className="px-4 py-2 " t-name="Spread">
                           <div className={`max-md:opacity-50`}>
-                            {item.spread}
+                            {formatSpreadPips(
+                              item.bestBid,
+                              item.bestAsk,
+                              item.group,
+                            )}
                           </div>
                         </td>
                         <td className="px-4 py-2" t-name="Status">
