@@ -54,7 +54,7 @@ function LPBannerXAUUSD({
               onClick={scrollToSpecification}
               className={styles.specificationBtn}
             >
-              Specification
+              {c.specBtnText}
             </button>
           </div>
           <div
@@ -220,7 +220,7 @@ function LPBannerDefault({
               onClick={scrollToSpecification}
               className={styles.specificationBtn}
             >
-              Product Specifications
+              {c.specBtnText}
             </button>
           </div>
 
