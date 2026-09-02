@@ -252,6 +252,17 @@ export function LivePricingAll({
                                 {item.symbol}
                               </a>
                               <TradeArrowIcon />
+                              <Link
+                                href={localizeHref(
+                                  "/trade/" +
+                                    item.symbol.toLowerCase() +
+                                    "#sectionSpec",
+                                  locale,
+                                )}
+                                className={styles.specsLink}
+                              >
+                                {c.tableHeaders.specsLink}
+                              </Link>
                             </div>
                           ) : item.group.startsWith("Stocks") ? (
                             <div className={`${styles.instrumentIcons}`}>
@@ -274,6 +285,15 @@ export function LivePricingAll({
                                     {item.symbol}
                                   </a>
                                   <TradeArrowIcon />
+                                  <Link
+                                    href={localizeHref(
+                                      "/trade/xauusd#sectionSpec",
+                                      locale,
+                                    )}
+                                    className={styles.specsLink}
+                                  >
+                                    {c.tableHeaders.specsLink}
+                                  </Link>
                                 </>
                               ) : (
                                 item.symbol
@@ -298,6 +318,15 @@ export function LivePricingAll({
                                     {item.symbol}
                                   </a>
                                   <TradeArrowIcon />
+                                  <Link
+                                    href={localizeHref(
+                                      "/trade/xauusd#sectionSpec",
+                                      locale,
+                                    )}
+                                    className={styles.specsLink}
+                                  >
+                                    {c.tableHeaders.specsLink}
+                                  </Link>
                                 </>
                               ) : (
                                 item.symbol

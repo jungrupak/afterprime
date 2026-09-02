@@ -6,6 +6,7 @@ export interface LivePricingTableHeaders {
   marketStatus: string;
   marketHours: string;
   tradingHoursLink: string;
+  specsLink: string;
 }
 
 export const defaultTableHeaders: LivePricingTableHeaders = {
@@ -16,6 +17,7 @@ export const defaultTableHeaders: LivePricingTableHeaders = {
   marketStatus: "Status",
   marketHours: "Market Hours",
   tradingHoursLink: "Trading Hours",
+  specsLink: "Specs",
 };
 
 export const livePricingContent = {
@@ -32,6 +34,7 @@ export const livePricingContent = {
     marketStatus: "Status",
     marketHours: "Market Hours",
     tradingHoursLink: "Trading Hours",
+    specsLink: "Specs",
   },
   marketStatus: {
     open: "Open",

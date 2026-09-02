@@ -17,8 +17,16 @@ import { useLocale } from "@/lib/locale/useLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
 
 export default function Header({ content }: { content: HeaderContent }) {
-  const { riskWarning, logoAlt, login, signup, signupNow, back, menuItems } =
-    content;
+  const {
+    riskWarning,
+    logoAlt,
+    login,
+    signup,
+    signupNow,
+    back,
+    partners,
+    menuItems,
+  } = content;
   const bypassInvitation = useBypassInvitation();
   const locale = useLocale();
   const [isSticky, setIsSticky] = useState(false);
@@ -123,6 +131,7 @@ export default function Header({ content }: { content: HeaderContent }) {
             signupNowLabel={signupNow}
             backLabel={back}
             logoAlt={logoAlt}
+            partnersLabel={partners}
             customClass={`${
               mobileMenu ? styles.activeMenu : styles.notActiveMenu
             }`}
@@ -137,7 +146,7 @@ export default function Header({ content }: { content: HeaderContent }) {
                 target="_blank"
                 className="underline decoration-dotted decoration-2 decoration-white/35 underline-offset-8"
               >
-                Partners
+                {partners}
               </Link>
               <LanguageSelector />
               <Button

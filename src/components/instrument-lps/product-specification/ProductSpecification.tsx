@@ -2,6 +2,7 @@
 import type { InstrumentSpec } from "@/lib/getInstrumentSpecs";
 import { getRelatedPairs } from "@/lib/getRelatedPairs";
 import Link from "next/link";
+import { useEffect } from "react";
 import SpecificationTable from "./SpecificationTable";
 import { useLocale } from "@/lib/locale/useLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
@@ -28,6 +29,48 @@ export default function ProductSpecification({
   if (!instrument) return;
   const locale = useLocale();
   const sym = instrument.toUpperCase();
+
+  // Cross-page nav (e.g. /trade/eurusd#sectionSpec from another route) can
+  // land here before Next's built-in hash-scroll fires reliably, since this
+  // section renders below several async components (live chart, cost
+  // comparison query, etc). Those keep shifting layout after mount, which
+  // cuts a single scrollIntoView short — so re-correct on every frame until
+  // the target position stops moving, then stop.
+  useEffect(() => {
+    if (window.location.hash !== "#sectionSpec") return;
+    let frame = 0;
+    let lastTop: number | null = null;
+    let stableFrames = 0;
+    let elapsedFrames = 0;
+    const MAX_FRAMES = 300; // ~5s at 60fps safety cap
+
+    const tick = () => {
+      elapsedFrames += 1;
+      const el = document.getElementById("sectionSpec");
+      if (!el) {
+        if (elapsedFrames < MAX_FRAMES) frame = requestAnimationFrame(tick);
+        return;
+      }
+      const top = el.getBoundingClientRect().top;
+      if (lastTop !== null && Math.abs(top - lastTop) < 1) {
+        stableFrames += 1;
+      } else {
+        stableFrames = 0;
+      }
+      lastTop = top;
+
+      if (Math.abs(top) > 2) {
+        el.scrollIntoView({ behavior: "auto", block: "start" });
+      }
+
+      if (stableFrames < 10 && elapsedFrames < MAX_FRAMES) {
+        frame = requestAnimationFrame(tick);
+      }
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   const selectedInstrument = specData.find(
     (item) => item.Symbol === instrument.toLowerCase(),
