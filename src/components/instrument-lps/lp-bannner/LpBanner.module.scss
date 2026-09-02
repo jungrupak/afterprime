@@ -4,6 +4,37 @@
   backdrop-filter: unset;
 }
 
+// Ghost/outline styling matches the language-switcher trigger
+// (.decent_ghost_btn in live-pricing/style.module.scss), sized to match
+// TypeformButton's "Regular" size (padding-inline 25px, line-height 48px,
+// font-size 18px) instead of the switcher's own tiny size. No font-family
+// override — inherits body's Blinker (set on <body> in layout.tsx) so it
+// matches the adjacent TypeformButton, which also doesn't override it.
+.specificationBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-inline: 25px;
+  line-height: 48px;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.04);
+  }
+}
+
 .listUi {
   ul {
     li {

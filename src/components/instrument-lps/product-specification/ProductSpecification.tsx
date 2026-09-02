@@ -43,7 +43,11 @@ export default function ProductSpecification({
   //####
 
   return (
-    <div className={`my-8 md:my-20 mb-0!`}>
+    <div
+      id="sectionSpec"
+      style={{ scrollMarginTop: 120 }}
+      className={`my-8 md:my-20 mb-0!`}
+    >
       {/* <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
         {instrument} Trading Specification
       </h2> */}
@@ -51,9 +55,7 @@ export default function ProductSpecification({
 
       {instrument === "XAUUSD" ? (
         <div className={`mt-15`}>
-          <h3
-            className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
-          >
+          <h3 className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}>
             {c.metals.heading}
           </h3>
           <p className={`reading-text-md mb-8 md:mb-12`}>
@@ -111,9 +113,7 @@ export default function ProductSpecification({
         </div>
       ) : (
         <div className={`mt-15`}>
-          <h3
-            className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}
-          >
+          <h3 className={`font-size-heading-md mb-4 md:mb-6 font-semibold`}>
             {c.forex.heading}
           </h3>
           <p className={`reading-text-md mb-8 md:mb-12`}>
