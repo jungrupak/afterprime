@@ -22,6 +22,7 @@ import { specificationTableContent } from "@/components/instrument-lps/product-s
 import { costBreakdownTableContent } from "@/components/instrument-lps/cost-brakdown/costBreakdownTableContent";
 import { buildHreflangMap, toOgLocale } from "@/lib/seo/metadata";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import { getInstrumentSpecs } from "@/lib/getInstrumentSpecs";
 
 export const revalidate = 60;
 
@@ -103,6 +104,7 @@ export default async function ForexSlugPage({ params }: Props) {
     specificationTableT,
     costBreakdownTableT,
     rawData,
+    instrumentSpecs,
   ] = await Promise.all([
     getTranslatedStatic(
       "calculator-tools-block",
@@ -135,6 +137,7 @@ export default async function ForexSlugPage({ params }: Props) {
       costBreakdownTableContent,
     ),
     getForexPageData(slug),
+    getInstrumentSpecs(),
   ]);
 
   if (!rawData) notFound();
@@ -218,6 +221,7 @@ export default async function ForexSlugPage({ params }: Props) {
                   costSavingContent: costSavingT,
                   specificationTableContent: specificationTableT,
                   costBreakdownTableContent: costBreakdownTableT,
+                  specData: instrumentSpecs,
                 }),
               )}
             </div>

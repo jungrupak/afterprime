@@ -9,6 +9,7 @@ import CostSavingsCalculatorInstrument from "@/components/all-calculators/CostSa
 import type { CostSavingCalculatorContent } from "@/components/all-calculators/CostSavingCalculator/costSavingCalculatorContent";
 import type { SpecificationTableContent } from "@/components/instrument-lps/product-specification/specificationTableContent";
 import type { CostBreakdownTableContent } from "@/components/instrument-lps/cost-brakdown/costBreakdownTableContent";
+import type { InstrumentSpec } from "@/lib/getInstrumentSpecs";
 
 interface ComparisonTable {
   acf_fc_layout: "comparison_table";
@@ -53,6 +54,7 @@ interface RenderSectionOptions {
   costSavingContent?: CostSavingCalculatorContent;
   specificationTableContent?: SpecificationTableContent;
   costBreakdownTableContent?: CostBreakdownTableContent;
+  specData?: InstrumentSpec[];
 }
 
 export function renderSection(
@@ -99,6 +101,7 @@ export function renderSection(
           <SpecificationTable
             instrument={section.instrument_name?.toUpperCase() ?? ""}
             content={options?.specificationTableContent}
+            specData={options?.specData ?? []}
           />
         </div>
       );

@@ -21,6 +21,7 @@ import { costBreakdownTableContent } from "@/components/instrument-lps/cost-brak
 import { specificationTableContent } from "@/components/instrument-lps/product-specification/specificationTableContent";
 import { productSpecificationContent } from "@/components/instrument-lps/product-specification/productSpecificationContent";
 import { livePriceChartContent } from "@/components/charts/livePriceChartContent";
+import { getInstrumentSpecs } from "@/lib/getInstrumentSpecs";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -125,6 +126,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
     productSpecificationT,
     livePriceChartT,
     staticFaqT,
+    instrumentSpecs,
   ] = await Promise.all([
     getTranslatedStatic("lp-banner", locale, lpBannerContent),
     getTranslatedStatic(
@@ -161,6 +163,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
         a4: "Applications are reviewed and approved selectively based on trading profile and activity.",
       },
     }),
+    getInstrumentSpecs(),
   ]);
 
   const flowRewardContent =
@@ -238,6 +241,7 @@ export default async function TradeSlugPage({ params }: PageProps) {
             instrument={page.slug.toUpperCase()}
             content={productSpecificationT}
             specTableContent={specificationTableT}
+            specData={instrumentSpecs}
           />
 
           <div className={`mt-10 md:mt-25`}>
