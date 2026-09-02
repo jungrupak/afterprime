@@ -39,6 +39,7 @@ export const lpBannerContent = {
   },
   inviteOnlyNote: "Invite only access for approved trading profiles.",
   dataVerifiedNote: "*Data Verified by ForexBenchmark",
+  specBtnText:"Product Specifications"
 };
 
 export type LpBannerContent = typeof lpBannerContent;
