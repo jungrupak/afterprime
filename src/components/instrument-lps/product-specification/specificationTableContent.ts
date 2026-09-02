@@ -6,7 +6,7 @@
 // Weglot's MT treats "instrument" as a real word and translates it too,
 // silently breaking the placeholder (see 12-Weglot-Dashboard-Fixes.md).
 //
-// `labels` maps each AP_FX_PAIRS (src/data/ap-fx-pairs-specs.ts) object key
+// `labels` maps each InstrumentSpec (src/lib/getInstrumentSpecs.ts) object key
 // to its translated row label — only the label translates, the row VALUE
 // (ticker codes, currency codes, Y/N flags, numeric specs, time ranges)
 // stays completely untouched, since those are data, not prose, and
@@ -32,6 +32,7 @@ export const specificationTableContent = {
     "Margin Currency": "Margin Currency",
     "Profit Currency": "Profit Currency",
     "Contract Size": "Contract Size",
+    "Pip Value per Lot": "Pip Value per Lot",
     "Min. Lot": "Min. Lot",
     Step: "Step",
     "Max. Lots": "Max. Lots",
@@ -40,7 +41,6 @@ export const specificationTableContent = {
     "Day Trading": "Day Trading",
     "News Trading": "News Trading",
     "Algo Trading": "Algo Trading",
-    "Time Zone": "Time Zone",
     Monday: "Monday",
     Tuesday: "Tuesday",
     Wednesday: "Wednesday",

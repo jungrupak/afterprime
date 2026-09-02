@@ -1,5 +1,5 @@
 "use client";
-import { AP_FX_PAIRS } from "@/data/ap-fx-pairs-specs";
+import type { InstrumentSpec } from "@/lib/getInstrumentSpecs";
 import { getRelatedPairs } from "@/lib/getRelatedPairs";
 import Link from "next/link";
 import SpecificationTable from "./SpecificationTable";
@@ -15,25 +15,23 @@ interface Specification {
   instrument?: string;
   content?: ProductSpecificationContent;
   specTableContent?: SpecificationTableContent;
+  specData: InstrumentSpec[];
 }
 
 export default function ProductSpecification({
   instrument,
   content: c = productSpecificationContent,
   specTableContent,
+  specData,
 }: Specification) {
   //##
   if (!instrument) return;
   const locale = useLocale();
   const sym = instrument.toUpperCase();
 
-  // ####
-  const specData = [...AP_FX_PAIRS]; //spreading this since we gonna have other pairs type in future like crypto, indices etc..
   const selectedInstrument = specData.find(
     (item) => item.Symbol === instrument.toLowerCase(),
   );
-
-  //####
 
   //Compute Related pairs
   // After finding selectedInstrument
@@ -51,7 +49,11 @@ export default function ProductSpecification({
       {/* <h2 className={`text-center font-semibold max-md:leading-[1.2]`}>
         {instrument} Trading Specification
       </h2> */}
-      <SpecificationTable instrument={instrument} content={specTableContent} />
+      <SpecificationTable
+        instrument={instrument}
+        content={specTableContent}
+        specData={specData}
+      />
 
       {instrument === "XAUUSD" ? (
         <div className={`mt-15`}>

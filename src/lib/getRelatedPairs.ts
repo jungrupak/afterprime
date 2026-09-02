@@ -1,44 +1,10 @@
-type ForexPair = {
-  "Symbol": string,
-    "Name": string,
-    "Asset Class": string,
-    "Expiry": string,
-    "Pricefeed Type": string,
-    "Margin Currency": string,
-    "Profit Currency": string,
-    "Contract Size": number,
-    "Min. Lot": number,
-    "Step": number,
-    "Max. Lots": number,
-    "Decimals": number,
-    "MT4": string,
-    "MT5": string,
-    "Web": string,
-    "Desktop": string,
-    "Mobile": string,
-    "FIX API": string,
-    "EAs": string,
-    "Scalping": string,
-    "Day Trading": string,
-    "News Trading": string,
-    "Algo Trading": string,
-    "Time Zone": string,
-    "Monday": string,
-    "Tuesday": string,
-    "Wednesday": string,
-    "Thursday": string,
-    "Friday": string,
-    "Saturday": string,
-    "Sunday": string,
-    "Swap Type": string,
-    "3-Day Swap": string
-}
+import type { InstrumentSpec } from "@/lib/getInstrumentSpecs";
 
 export function getRelatedPairs(
-  allPairs: ForexPair[],
+  allPairs: InstrumentSpec[],
   currentSymbol: string,
   limit = 3
-): ForexPair[] {
+): InstrumentSpec[] {
   // 1. Find current pair
   const currentPair = allPairs.find(
     pair => pair.Symbol === currentSymbol

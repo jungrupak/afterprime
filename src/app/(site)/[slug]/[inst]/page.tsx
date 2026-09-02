@@ -22,6 +22,7 @@ import { costSavingCalculatorContent } from "@/components/all-calculators/CostSa
 import { instrumentKeyBenifitsContent } from "@/components/instrument-key-benifits/instrumentKeyBenifitsContent";
 import { specificationTableContent } from "@/components/instrument-lps/product-specification/specificationTableContent";
 import { costBreakdownTableContent } from "@/components/instrument-lps/cost-brakdown/costBreakdownTableContent";
+import { getInstrumentSpecs } from "@/lib/getInstrumentSpecs";
 
 // ISR
 export const revalidate = 60;
@@ -77,6 +78,7 @@ export default async function ChildPage({ params }: Props) {
     instrumentKeyBenifitsT,
     specificationTableT,
     costBreakdownTableT,
+    instrumentSpecs,
   ] = await Promise.all([
     getTranslatedStatic(
       "calculator-tools-block",
@@ -103,6 +105,7 @@ export default async function ChildPage({ params }: Props) {
       locale,
       costBreakdownTableContent,
     ),
+    getInstrumentSpecs(),
   ]);
 
   const parentRes = await wpFetch<WPPage[]>(`/pages?slug=${slug}&_fields=id`); //this asks domain/forex as [slug] page id.
@@ -209,6 +212,7 @@ export default async function ChildPage({ params }: Props) {
                     costSavingContent: costSavingT,
                     specificationTableContent: specificationTableT,
                     costBreakdownTableContent: costBreakdownTableT,
+                    specData: instrumentSpecs,
                   }),
               )}
             </div>

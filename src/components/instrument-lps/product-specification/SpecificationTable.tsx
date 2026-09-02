@@ -1,6 +1,6 @@
 "use client";
-import { AP_FX_PAIRS } from "@/data/ap-fx-pairs-specs";
 import { useState } from "react";
+import type { InstrumentSpec } from "@/lib/getInstrumentSpecs";
 import styles from "./ProductSpecification.module.scss";
 import {
   specificationTableContent,
@@ -10,21 +10,20 @@ import {
 interface Specification {
   instrument?: string;
   content?: SpecificationTableContent;
+  specData: InstrumentSpec[];
 }
 
 export default function SpecificationTable({
   instrument,
   content: c = specificationTableContent,
+  specData,
 }: Specification) {
   const [isCollapsible, setIsCollapsible] = useState(false);
   const INITIAL_ROWS = 10; // Number of rows to show initially
 
-  // ####
-  const specData = [...AP_FX_PAIRS]; //spreading this since we gonna have other pairs type in future like crypto, indices etc..
   const selectedInstrument = specData.find(
     (item) => item.Symbol === instrument,
   );
-  //####
 
   const entries = selectedInstrument ? Object.entries(selectedInstrument) : [];
   const shouldShowToggle = entries.length > INITIAL_ROWS;
