@@ -11,6 +11,7 @@ import { Retrying } from "../retrying/Retry";
 import { useLocale } from "@/lib/locale/useLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
 import { useMarketStatus } from "@/hooks/useMarketStatus";
+import { formatSpreadPips } from "@/lib/formatSpreadPips";
 import type { LivePricingMetalsContent } from "./livePricingMetalsContent";
 import { livePricingMetalsContent } from "./livePricingMetalsContent";
 
@@ -143,7 +144,13 @@ export function LivePricingMetals({
                           {item.bestAsk}
                         </td>
                         <td className="px-4 py-2 " t-name="Spread">
-                          <div className="max-md:opacity-50">{item.spread}</div>
+                          <div className="max-md:opacity-50">
+                            {formatSpreadPips(
+                              item.bestBid,
+                              item.bestAsk,
+                              item.group,
+                            )}
+                          </div>
                         </td>
                         <td className="px-4 py-2" t-name="Status">
                           {(() => {

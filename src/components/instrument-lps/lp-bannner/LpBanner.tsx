@@ -15,6 +15,12 @@ interface BannerTitle {
 
 const CACHE_TTL = 2 * 60 * 1000;
 
+function scrollToSpecification() {
+  document
+    .getElementById("sectionSpec")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 // ── XAUUSD Banner ────────────────────────────────────────────
 function LPBannerXAUUSD({
   applyButtonText,
@@ -37,12 +43,19 @@ function LPBannerXAUUSD({
               <li>{c.xauusd.bullet3}</li>
             </ul>
           </div>
-          <div className={`mt-8 md:mt-15`}>
+          <div className={`flex flex-wrap items-center gap-4 mt-8 md:mt-15`}>
             <TypeformButton
               buttonText={applyButtonText || "Get Invite code"}
               size="Regular"
               varient="primary"
             />
+            <button
+              type="button"
+              onClick={scrollToSpecification}
+              className={styles.specificationBtn}
+            >
+              Specification
+            </button>
           </div>
           <div
             className={`flex flex-wrap gap-10 mt-5 max-md:justify-center max-md:text-center md:mt-10`}
@@ -196,12 +209,19 @@ function LPBannerDefault({
             </>
           )}
 
-          <div className={`mt-8 md:mt-15`}>
+          <div className={`flex flex-wrap items-center gap-4 mt-8 md:mt-15`}>
             <TypeformButton
               buttonText={applyButtonText || "Get Invite code"}
               size="Regular"
               varient="primary"
             />
+            <button
+              type="button"
+              onClick={scrollToSpecification}
+              className={styles.specificationBtn}
+            >
+              Product Specifications
+            </button>
           </div>
 
           <div

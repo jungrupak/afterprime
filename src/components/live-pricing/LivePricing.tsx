@@ -1,6 +1,6 @@
 "use client";
 import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +12,7 @@ import { localizeHref } from "@/lib/locale/localizeHref";
 import type { LivePricingContent } from "./livePricingContent";
 import { livePricingContent } from "./livePricingContent";
 import { useMarketStatus } from "@/hooks/useMarketStatus";
+import { formatSpreadPips } from "@/lib/formatSpreadPips";
 
 interface LivePricingAllProps {
   initialPrices?: PricesObjects[];
@@ -40,10 +41,69 @@ export function LivePricingAll({
   initialPrices = [],
   content: c = livePricingContent,
 }: LivePricingAllProps) {
-  const { categories, status } = useLivePrices(initialPrices);
+  const { prices, categories, status } = useLivePrices(initialPrices);
   const locale = useLocale();
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
+
+  // Tick coloring (MT4/MT5, TradingView convention): green when a price
+  // ticks up from its previous value, red when it ticks down. An unchanged
+  // tick does NOT reset to white — it carries the last direction forward,
+  // so the color only flips on an actual move in the other direction.
+  // Comparison uses the previous *render's* committed snapshot — the ref is
+  // updated in the effect below, after paint.
+  type TickDirection = "up" | "down" | null;
+  type TickSnapshot = {
+    bid: number;
+    ask: number;
+    bidDir: TickDirection;
+    askDir: TickDirection;
+  };
+  const prevTickRef = useRef<Record<string, TickSnapshot>>({});
+  const tickDirections = useMemo(() => {
+    const dirs: Record<string, { bid: TickDirection; ask: TickDirection }> =
+      {};
+    for (const item of prices) {
+      const prev = prevTickRef.current[item.symbol];
+      const bidDir: TickDirection = !prev
+        ? null
+        : item.bestBid > prev.bid
+          ? "up"
+          : item.bestBid < prev.bid
+            ? "down"
+            : prev.bidDir;
+      const askDir: TickDirection = !prev
+        ? null
+        : item.bestAsk > prev.ask
+          ? "up"
+          : item.bestAsk < prev.ask
+            ? "down"
+            : prev.askDir;
+      dirs[item.symbol] = { bid: bidDir, ask: askDir };
+    }
+    return dirs;
+  }, [prices]);
+
+  useEffect(() => {
+    const snapshot: Record<string, TickSnapshot> = {};
+    for (const item of prices) {
+      const dir = tickDirections[item.symbol];
+      snapshot[item.symbol] = {
+        bid: item.bestBid,
+        ask: item.bestAsk,
+        bidDir: dir?.bid ?? null,
+        askDir: dir?.ask ?? null,
+      };
+    }
+    prevTickRef.current = snapshot;
+  }, [prices, tickDirections]);
+
+  const tickColorClass = (direction: "up" | "down" | null) =>
+    direction === "up"
+      ? "text-[#22C55E]"
+      : direction === "down"
+        ? "text-[var(--vermillion)]"
+        : "";
 
   const pricingCatLists = [
     categories.popular,
@@ -86,7 +146,6 @@ export function LivePricingAll({
         <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
           {c.headingBefore}
           {c.headingHighlight}
-
           {c.headingAfter}
         </h2>
         <p
@@ -96,6 +155,9 @@ export function LivePricingAll({
       </div>
 
       {status === "connecting" && !hasInitialTableData && <Loader />}
+
+      {hasInitialTableData &&
+        (status === "disconnected" || status === "error") && <Retrying />}
 
       {hasInitialTableData && (
         <div className={`${styles.ap_tab}`}>
@@ -243,15 +305,25 @@ export function LivePricingAll({
                             </div>
                           )}
                         </td>
-                        <td className="px-4 py-2 " t-name="Bid">
+                        <td
+                          className={`px-4 py-2 ${tickColorClass(tickDirections[item.symbol]?.bid ?? null)}`}
+                          t-name="Bid"
+                        >
                           {item.bestBid}
                         </td>
-                        <td className="px-4 py-2 " t-name="Ask">
+                        <td
+                          className={`px-4 py-2 ${tickColorClass(tickDirections[item.symbol]?.ask ?? null)}`}
+                          t-name="Ask"
+                        >
                           {item.bestAsk}
                         </td>
                         <td className="px-4 py-2 " t-name="Spread">
                           <div className={`max-md:opacity-50`}>
-                            {item.spread}
+                            {formatSpreadPips(
+                              item.bestBid,
+                              item.bestAsk,
+                              item.group,
+                            )}
                           </div>
                         </td>
                         <td className="px-4 py-2" t-name="Status">
