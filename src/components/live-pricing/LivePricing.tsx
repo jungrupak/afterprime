@@ -12,10 +12,12 @@ import { localizeHref } from "@/lib/locale/localizeHref";
 import type { LivePricingContent } from "./livePricingContent";
 import { livePricingContent } from "./livePricingContent";
 import { useMarketStatus } from "@/hooks/useMarketStatus";
-import { formatSpreadPips } from "@/lib/formatSpreadPips";
+import type { InstrumentSpecLite } from "@/lib/getAllInstrumentSpecs";
+import { buildInstrumentSpecMap, calcSpread } from "@/lib/calcSpread";
 
 interface LivePricingAllProps {
   initialPrices?: PricesObjects[];
+  instrumentSpecs?: InstrumentSpecLite[];
   content?: LivePricingContent;
 }
 
@@ -39,10 +41,15 @@ function TradeArrowIcon() {
 
 export function LivePricingAll({
   initialPrices = [],
+  instrumentSpecs: specs = [],
   content: c = livePricingContent,
 }: LivePricingAllProps) {
   const { prices, categories, status } = useLivePrices(initialPrices);
   const locale = useLocale();
+
+  // Contract Size / Point per symbol, fetched server-side (getAllInstrumentSpecs)
+  // and passed in as a prop — no client fetch, no fallback-window gap.
+  const instrumentSpecs = useMemo(() => buildInstrumentSpecMap(specs), [specs]);
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
 
@@ -348,10 +355,12 @@ export function LivePricingAll({
                         </td>
                         <td className="px-4 py-2 " t-name="Spread">
                           <div className={`max-md:opacity-50`}>
-                            {formatSpreadPips(
+                            {calcSpread(
                               item.bestBid,
                               item.bestAsk,
+                              item.symbol,
                               item.group,
+                              instrumentSpecs,
                             )}
                           </div>
                         </td>
