@@ -16,6 +16,7 @@ export const headerContent = {
   signup: "Apply with Code",
   signupNow: "Signup Now",
   back: "back",
+  partners: "Partners",
   menuItems: MegaMenuItems,
 };
 

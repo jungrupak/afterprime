@@ -1,6 +1,6 @@
 "use client";
 import { PricesObjects, useLivePrices } from "@/hooks/useLivePrices";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import Link from "next/link";
 import styles from "./style.module.scss";
 import Image from "next/image";
@@ -12,7 +12,8 @@ import { localizeHref } from "@/lib/locale/localizeHref";
 import type { LivePricingCommoditiesContent } from "./livePricingCommoditiesContent";
 import { livePricingCommoditiesContent } from "./livePricingCommoditiesContent";
 import { useMarketStatus } from "@/hooks/useMarketStatus";
-import { formatSpreadPips } from "@/lib/formatSpreadPips";
+import type { InstrumentSpecLite } from "@/lib/getAllInstrumentSpecs";
+import { buildInstrumentSpecMap, calcSpread } from "@/lib/calcSpread";
 
 function TradeArrowIcon() {
   return (
@@ -34,17 +35,75 @@ function TradeArrowIcon() {
 
 interface LivePricingCommoditiesProps {
   initialPrices?: PricesObjects[];
+  instrumentSpecs?: InstrumentSpecLite[];
   content?: LivePricingCommoditiesContent;
 }
 
 export function LivePricingCommodities({
   initialPrices = [],
+  instrumentSpecs: specs = [],
   content: c = livePricingCommoditiesContent,
 }: LivePricingCommoditiesProps) {
-  const { categories, status } = useLivePrices(initialPrices);
+  const { prices, categories, status } = useLivePrices(initialPrices);
+  const instrumentSpecs = useMemo(() => buildInstrumentSpecMap(specs), [specs]);
   const locale = useLocale();
   const [activeTabContentID, setActiveTabContentID] = useState("Popular");
   const [activeTabNav, setActiveTabNav] = useState(0);
+
+  // Tick coloring — mirrors LivePricingAll (LivePricing.tsx): green on an
+  // up-tick, red on a down-tick, holds the last direction on no change.
+  type TickDirection = "up" | "down" | null;
+  type TickSnapshot = {
+    bid: number;
+    ask: number;
+    bidDir: TickDirection;
+    askDir: TickDirection;
+  };
+  const prevTickRef = useRef<Record<string, TickSnapshot>>({});
+  const tickDirections = useMemo(() => {
+    const dirs: Record<string, { bid: TickDirection; ask: TickDirection }> =
+      {};
+    for (const item of prices) {
+      const prev = prevTickRef.current[item.symbol];
+      const bidDir: TickDirection = !prev
+        ? null
+        : item.bestBid > prev.bid
+          ? "up"
+          : item.bestBid < prev.bid
+            ? "down"
+            : prev.bidDir;
+      const askDir: TickDirection = !prev
+        ? null
+        : item.bestAsk > prev.ask
+          ? "up"
+          : item.bestAsk < prev.ask
+            ? "down"
+            : prev.askDir;
+      dirs[item.symbol] = { bid: bidDir, ask: askDir };
+    }
+    return dirs;
+  }, [prices]);
+
+  useEffect(() => {
+    const snapshot: Record<string, TickSnapshot> = {};
+    for (const item of prices) {
+      const dir = tickDirections[item.symbol];
+      snapshot[item.symbol] = {
+        bid: item.bestBid,
+        ask: item.bestAsk,
+        bidDir: dir?.bid ?? null,
+        askDir: dir?.ask ?? null,
+      };
+    }
+    prevTickRef.current = snapshot;
+  }, [prices, tickDirections]);
+
+  const tickColorClass = (direction: TickDirection) =>
+    direction === "up"
+      ? "text-[#22C55E]"
+      : direction === "down"
+        ? "text-[var(--vermillion)]"
+        : "";
 
   const pricingCatLists = [categories.commodities];
 
@@ -111,18 +170,26 @@ export function LivePricingCommodities({
                             {item.symbol}
                           </div>
                         </td>
-                        <td className="px-4 py-2 " t-name="Bid">
+                        <td
+                          className={`px-4 py-2 ${tickColorClass(tickDirections[item.symbol]?.bid ?? null)}`}
+                          t-name="Bid"
+                        >
                           {item.bestBid}
                         </td>
-                        <td className="px-4 py-2 " t-name="Ask">
+                        <td
+                          className={`px-4 py-2 ${tickColorClass(tickDirections[item.symbol]?.ask ?? null)}`}
+                          t-name="Ask"
+                        >
                           {item.bestAsk}
                         </td>
                         <td className="px-4 py-2 " t-name="Spread">
                           <div className="max-md:opacity-50">
-                            {formatSpreadPips(
+                            {calcSpread(
                               item.bestBid,
                               item.bestAsk,
+                              item.symbol,
                               item.group,
+                              instrumentSpecs,
                             )}
                           </div>
                         </td>

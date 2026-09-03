@@ -42,6 +42,7 @@ interface MenuItems {
   signupNowLabel?: string;
   backLabel?: string;
   logoAlt?: string;
+  partnersLabel?: string;
 }
 
 export default function MobileNav({
@@ -53,6 +54,7 @@ export default function MobileNav({
   signupNowLabel = "Signup Now",
   backLabel = "back",
   logoAlt = "Afterprime Logo",
+  partnersLabel = "Partners",
 }: MenuItems) {
   const [submenu, setSubMenu] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -88,7 +90,7 @@ export default function MobileNav({
             target="_blank"
             className=""
           >
-            Partners
+            {partnersLabel}
           </Link>
           <RightArrow />
         </div>
