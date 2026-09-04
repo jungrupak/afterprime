@@ -1,5 +1,5 @@
 import { WPPage } from "@/types/blocks";
-import PageRenderer from "@/components/PageRender";
+import { HomeGridSections } from "./HomeGridSections";
 import { Metadata } from "next";
 import { CustomMetadata } from "@/utils/CustomMetadata";
 import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
@@ -40,7 +40,7 @@ export default async function HomePage({ params }: PageProps) {
 
   return (
     <>
-      <PageRenderer pageData={pageData} />
+      <HomeGridSections pageData={pageData} />
     </>
   );
 }

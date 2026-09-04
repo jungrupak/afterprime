@@ -169,6 +169,9 @@ export type Blocks = {
   "platform-cards-section-static": {
     platforms_cards?: string | undefined;
   };
+  "markets-we-cover-static": {
+    markets_we_cover_?: string | undefined;
+  };
   "margin-and-leverage-table": {
     margin_and_leverage_table_static_label?: string | undefined;
     margin_and_leverage_table?: string | undefined;

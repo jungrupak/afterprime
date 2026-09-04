@@ -1,0 +1,20 @@
+.homeGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+// Positioning/visibility is handled entirely by Tailwind's sr-only /
+// focus:not-sr-only utilities on the links themselves — this only adds
+// visual polish for the moment a link becomes focus-visible.
+.skipLinks a:focus {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 50;
+  padding: 10px 16px;
+  background: var(--ap-black, #0a0a0a);
+  color: var(--primary-white, #fff);
+  border-radius: var(--radius-default, 6px);
+  font-size: 13px;
+  font-weight: 600;
+}

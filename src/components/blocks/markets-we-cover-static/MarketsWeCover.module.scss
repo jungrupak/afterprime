@@ -1,0 +1,55 @@
+.section_generic_cards_content {
+  background-position: center top;
+  background-repeat: repeat-x;
+  background-size: 100%;
+  @media all and (min-width: 1800px) {
+    background-size: contain;
+  }
+}
+
+.cardItem {
+  padding: clamp(30px, 5vw, 40px) clamp(25px, 5vw, 40px);
+  backdrop-filter: blur(19.1619px);
+  background: rgba(255, 255, 255, 0.04);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-default);
+
+  h3 {
+    margin-bottom: clamp(20px, 5vw, 25px);
+    font-size: var(--heading-xs);
+    font-weight: var(--weight-bold);
+    line-height: var(--line-height-small);
+    color: var(--primary-white);
+  }
+  p {
+    margin-bottom: clamp(25px, 5vw, 30px);
+    font-size: var(--reading-text-sm);
+    font-weight: var(--weight-medium);
+    line-height: var(--line-height-default);
+    color: var(--primary-white);
+  }
+  .cardCta {
+    margin-top: auto;
+    max-width: 100%;
+    a {
+      font-size: inherit;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      font-weight: 700;
+      display: flex;
+      color: var(--primary-white);
+    }
+    svg {
+      display: inline-block;
+      circle {
+        fill: var(--secondary-color);
+      }
+      path {
+        fill: var(--white);
+      }
+    }
+  }
+}

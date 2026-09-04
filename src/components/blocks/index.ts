@@ -20,6 +20,7 @@ import { UspUnderHome } from "./usp-under-hero-home/UspUnderHeroHome";
 import { ProsNConsBlock } from "./pros-and-cons/ProsNConsBlock";
 import { MoreValueRealAlignmentStatic } from "./more-value-real-alignment-static/MoreAlignCards";
 import { SectionCardsBigStatic } from "./platform-cards-section-static/PlatformCards";
+import { MarketsWeCover } from "./markets-we-cover-static/MarketsWeCover";
 import SectionTableMarginLeverage from "./margin-leverage-table/MarginLeverageTable";
 import SectionMarginCallOut from "./margin-call-out-table/MarginCallOutTable";
 import { ClientMoneySection } from "./client-money-section/ClientMoney";
@@ -72,6 +73,7 @@ export const blockRegistry: {
   "block-pros-and-cons": ProsNConsBlock,
   "section-more-value-real-alignment-static": MoreValueRealAlignmentStatic,
   "platform-cards-section-static": SectionCardsBigStatic,
+  "markets-we-cover-static": MarketsWeCover,
   "margin-and-leverage-table": SectionTableMarginLeverage,
   "margin-call-and-leverage": SectionMarginCallOut,
   "client-money-section": ClientMoneySection,
