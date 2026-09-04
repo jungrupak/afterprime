@@ -19,6 +19,10 @@ export function buildInstrumentSpecMap(
   return map;
 }
 
+// Symbols quoted to 3 decimals (point=0.001) — raw diff needs 3dp, not the
+// 2dp default, or the spread rounds to 0.01 and looks stale/quantized.
+const THREE_DP_SYMBOLS = new Set(["SUGARRAW", "DXY", "VIX", "COTTON"]);
+
 // Spread display differs by asset class (matches broker convention):
 // - Forex: pip count. Pip size accounts for fractional-pip quoting (odd
 //   decimal count = broker adds one extra digit, so pip is the 2nd-to-last
@@ -40,6 +44,8 @@ export function calcSpread(
 ): string {
   if (!bestBid || !bestAsk) return "-";
   const diff = bestAsk - bestBid;
+
+  if (THREE_DP_SYMBOLS.has(symbol)) return diff.toFixed(3);
 
   if (group.startsWith("Forex")) {
     const spec = specs[symbol];
