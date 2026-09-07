@@ -1,6 +1,6 @@
 export const platformCardsContent = {
-  heading1: "Professional Platforms.",
-  heading2: "Direct Market Access.",
+  heading1: "Trade However You Work.",
+  description:"Desktop, browser, or direct API. Whichever platform you trade from, you get the same raw spreads, the same zero-commission structure, and the same Flow Rewards on every lot.",
   mt5: {
     title: "MetaTrader 5",
     description:
@@ -20,7 +20,7 @@ export const platformCardsContent = {
       cta_label:"FIX API",
   },
   webMobile: {
-    title: "Web/Mobile",
+    title: "WebTrader",
     description: "Trade global markets from anywhere, on web or mobile",
     cta_label:"WebTrader",
   },

@@ -71,9 +71,9 @@ export async function MarketsWeCover(_props: SectionProps) {
         <div className="ap_cards_wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {markets.map((market) => (
             <div key={market.href} className={styles.cardItem}>
-              <div className={styles.cardIcon} aria-hidden="true">
+              {/* <div className={styles.cardIcon} aria-hidden="true">
                 <market.Icon />
-              </div>
+              </div> */}
               <h3>{market.title}</h3>
               <p>{market.description}</p>
               <div className={styles.cardCta}>

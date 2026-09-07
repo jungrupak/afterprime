@@ -48,8 +48,9 @@ export async function SectionCardsBigStatic() {
         <div className="grid max-md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 justify-center max-md:mb-8">
           <div className="">
             <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
-              {t.heading1} {t.heading2}
+              {t.heading1}
             </h2>
+            <p className="reading-text-md">{t.description}</p>
           </div>
         </div>
         {/* Cards */}

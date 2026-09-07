@@ -16,9 +16,7 @@ export async function BrandPropSection() {
       <div className="ap_container_small">
         <div className={styles.brandPropContents}>
           <div>
-            <p className="font-size-heading-sm mb-4 md:mb-6 font-semibold">
-              {t.left}
-            </p>
+            <p className="font-size-heading-sm font-semibold">{t.left}</p>
           </div>
           <div>
             <p className="reading-text-md font-[300]">{t.right}</p>
