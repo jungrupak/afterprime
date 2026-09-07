@@ -1,6 +1,6 @@
 .homeGrid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 // Positioning/visibility is handled entirely by Tailwind's sr-only /

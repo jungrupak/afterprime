@@ -2,15 +2,18 @@ import { WPPage, ACFBlock } from "@/types/blocks";
 import { renderAcfBlock } from "@/components/PageRender";
 import { acfFieldRegistry } from "@/components/acfFieldGroups";
 import { MarketsWeCover } from "@/components/blocks/markets-we-cover-static/MarketsWeCover";
+import { BrandPropSection } from "@/components/blocks/brand-prop-section/BrandPropSection";
 import styles from "./HomeGridSections.module.scss";
 
 type Props = { pageData: WPPage };
 
 const HERO_BLOCK = "acf/hero-banner-home";
 const PLATFORMS_BLOCK = "acf/platform-cards-section-static";
+const PROS_AND_CONS_BLOCK = "acf/block-pros-and-cons";
 const LIVE_PRICING_BLOCK = "acf/live-pricing-table";
 const EARNING_FLOW_BLOCK = "acf/earning-flow-block";
 const MARKETS_AREA = "markets-we-cover";
+const BRAND_PROP_AREA = "brand-prop-section";
 
 // Home page trade-off: the visual sequence (hero, trust stats, live spreads,
 // platform cards, calculator...) is what converts. But that same sequence
@@ -37,20 +40,30 @@ export function HomeGridSections({ pageData }: Props) {
 
   const heroItem = items.find((it) => it.block.name === HERO_BLOCK);
   const platformsItem = items.find((it) => it.block.name === PLATFORMS_BLOCK);
+  const prosAndConsItem = items.find(
+    (it) => it.block.name === PROS_AND_CONS_BLOCK,
+  );
   const restItems = items.filter(
     (it) => it !== heroItem && it !== platformsItem,
   );
 
   // Visual order stays exactly what's live today — one row per existing WP
-  // block, in their existing order. The new Markets section is spliced in
-  // right before the platform cards row (or at the end if that block is ever
-  // removed from the page), so nothing else shifts for sighted users.
+  // block, in their existing order. The Markets section is spliced in right
+  // before the platform cards row, and the Brand-Prop section right before
+  // pros-and-cons (or at the end / right after hero respectively, if either
+  // block is ever removed from the page), so nothing else shifts for sighted
+  // users.
   const visualAreas: string[] = [];
   items.forEach((it) => {
     if (it === platformsItem) visualAreas.push(MARKETS_AREA);
+    if (it === prosAndConsItem) visualAreas.push(BRAND_PROP_AREA);
     visualAreas.push(it.area);
   });
   if (!platformsItem) visualAreas.push(MARKETS_AREA);
+  if (!prosAndConsItem) {
+    const heroIndex = heroItem ? visualAreas.indexOf(heroItem.area) : -1;
+    visualAreas.splice(heroIndex + 1, 0, BRAND_PROP_AREA);
+  }
 
   const gridTemplateAreas = visualAreas.map((a) => `"${a}"`).join(" ");
 
@@ -75,6 +88,10 @@ export function HomeGridSections({ pageData }: Props) {
             {renderAcfBlock(heroItem.block, heroItem.key)}
           </div>
         )}
+
+        <div style={{ gridArea: BRAND_PROP_AREA }}>
+          <BrandPropSection />
+        </div>
 
         <div style={{ gridArea: MARKETS_AREA }}>
           <MarketsWeCover />
