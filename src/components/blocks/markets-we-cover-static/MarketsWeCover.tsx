@@ -4,6 +4,13 @@ import { marketsWeCoverContent } from "./marketsWeCoverContent";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import {
+  IconForex,
+  IconMetals,
+  IconCrypto,
+  IconCommodities,
+  IconIndices,
+} from "./icons";
 import styles from "./MarketsWeCover.module.scss";
 
 type SectionProps = Blocks["markets-we-cover-static"];
@@ -42,11 +49,11 @@ export async function MarketsWeCover(_props: SectionProps) {
   );
 
   const markets = [
-    { ...t.forex, href: "/forex" },
-    { ...t.metals, href: "/metals" },
-    { ...t.crypto, href: "/crypto" },
-    { ...t.commodities, href: "/commodities" },
-    { ...t.indices, href: "/indices" },
+    { ...t.forex, href: "/forex", Icon: IconForex },
+    { ...t.metals, href: "/metals", Icon: IconMetals },
+    { ...t.crypto, href: "/crypto", Icon: IconCrypto },
+    { ...t.commodities, href: "/commodities", Icon: IconCommodities },
+    { ...t.indices, href: "/indices", Icon: IconIndices },
   ];
 
   return (
@@ -54,16 +61,19 @@ export async function MarketsWeCover(_props: SectionProps) {
       className={`${styles.section_generic_cards_content} compact-section`}
     >
       <div className="ap_container_small">
-        <div className="mb-4 md:mb-6 max-w-[720px]">
+        <div className="mb-4 md:mb-6">
           <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
             {t.heading1} {t.heading2}
           </h2>
           <p className="reading-text-md">{t.subheading}</p>
         </div>
 
-        <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6 mt-10">
+        <div className="ap_cards_wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {markets.map((market) => (
             <div key={market.href} className={styles.cardItem}>
+              <div className={styles.cardIcon} aria-hidden="true">
+                <market.Icon />
+              </div>
               <h3>{market.title}</h3>
               <p>{market.description}</p>
               <div className={styles.cardCta}>

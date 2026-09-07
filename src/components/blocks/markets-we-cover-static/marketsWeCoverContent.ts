@@ -6,31 +6,31 @@ export const marketsWeCoverContent = {
   forex: {
     title: "Forex CFDs",
     description:
-      "Trade major, minor, and exotic currency pairs with raw spreads and no markup. Tier-1 liquidity routing keeps forex execution costs consistently below industry average, with live bid/ask pricing you can check before you commit capital.",
+      "Major, minor, and exotic pairs with raw spreads and no markup.",
     cta: "Trade Forex",
   },
   metals: {
     title: "Metals",
     description:
-      "Trade gold, silver, and platinum CFDs alongside forex, under the same zero-commission, zero-conflict execution model. Metals pricing updates in real time and routes through the same external hedging infrastructure as every other asset class.",
+      "Gold, silver, and platinum CFDs under the same zero-conflict model.",
     cta: "Trade Metals",
   },
   crypto: {
     title: "Crypto CFDs",
     description:
-      "Trade Bitcoin, Ethereum, and other major crypto pairs as CFDs, with no exchange account or wallet required. Every crypto position is hedged externally like any other instrument, so there's no internal warehousing of risk.",
+      "Bitcoin, Ethereum, and major pairs no exchange account required.",
     cta: "Trade Crypto",
   },
   commodities: {
     title: "Commodities",
     description:
-      "Trade oil, natural gas, and other commodity CFDs under the same raw-spread, zero-commission structure that applies across the platform. Commodities sit inside the same Flow Rewards program as forex and metals.",
+      "Oil, natural gas, and more at the same raw-spread structure.",
     cta: "Trade Commodities",
   },
   indices: {
     title: "Indices",
     description:
-      "Trade major global indices, including US, European, and Asian benchmarks, as CFDs. Index pricing reflects live market conditions with no dealing-desk intervention.",
+      "US, European, and Asian benchmarks with no dealing-desk intervention.",
     cta: "Trade Indices",
   },
 };

@@ -14,7 +14,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-radius: var(--radius-default);
+  border-radius: var(--radius-lg);
+  justify-content: flex-start;
+  text-align: left;
 
   h3 {
     margin-bottom: clamp(20px, 5vw, 25px);
@@ -35,7 +37,7 @@
     max-width: 100%;
     a {
       font-size: inherit;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       gap: 15px;
       font-weight: 700;
@@ -44,6 +46,7 @@
     }
     svg {
       display: inline-block;
+
       circle {
         fill: var(--secondary-color);
       }
@@ -51,5 +54,42 @@
         fill: var(--white);
       }
     }
+  }
+}
+
+.cardIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  margin-bottom: clamp(16px, 3vw, 20px);
+  color: var(--secondary-color);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 48px;
+    height: 48px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      circle,
+      var(--secondary-color) 0%,
+      transparent 70%
+    );
+    opacity: 0.35;
+    filter: blur(8px);
+    z-index: 0;
+  }
+
+  svg {
+    position: relative;
+    z-index: 1;
+    height: 30px;
+    width: 30px;
+    max-width: 100%;
+    max-height: 100%;
   }
 }
