@@ -43,12 +43,12 @@ export function HomeGridSections({ pageData }: Props) {
 
   // Visual order stays exactly what's live today — one row per existing WP
   // block, in their existing order. The new Markets section is spliced in
-  // right after the platform cards row (or at the end if that block is ever
+  // right before the platform cards row (or at the end if that block is ever
   // removed from the page), so nothing else shifts for sighted users.
   const visualAreas: string[] = [];
   items.forEach((it) => {
-    visualAreas.push(it.area);
     if (it === platformsItem) visualAreas.push(MARKETS_AREA);
+    visualAreas.push(it.area);
   });
   if (!platformsItem) visualAreas.push(MARKETS_AREA);
 
