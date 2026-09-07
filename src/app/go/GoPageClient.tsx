@@ -6,7 +6,7 @@ import Script from "next/script";
 import type { GoPageContent } from "./goPageContent";
 import { goPageContent as defaultContent } from "./goPageContent";
 
-const REDIRECT_SECONDS = 5;
+const REDIRECT_SECONDS = 3;
 const DESTINATION_BASE = "https://app.afterprime.com/live";
 
 interface Props {
