@@ -68,7 +68,9 @@ export function generateStaticParams() {
   return learnGuides.map((g) => ({ slug: g.slug }));
 }
 
-export async function generateMetadata({ params }: PageSlug): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageSlug): Promise<Metadata> {
   const { slug } = await params;
   const guide = learnGuides.find((g) => g.slug === slug);
   if (!guide) return {};
@@ -77,10 +79,14 @@ export async function generateMetadata({ params }: PageSlug): Promise<Metadata> 
   const wpPage = await getTranslatedPage<LearnWpPageJson>(slug, locale);
   const seo = wpPage?.aioseo_head_json;
 
-  const t = await getTranslatedStatic(`learn-guide-meta-${guide.slug}`, locale, {
-    title: guide.title,
-    description: guide.metaDescription,
-  });
+  const t = await getTranslatedStatic(
+    `learn-guide-meta-${guide.slug}`,
+    locale,
+    {
+      title: guide.title,
+      description: guide.metaDescription,
+    },
+  );
 
   return {
     title: seo?.title || t.title,
@@ -102,7 +108,10 @@ export default async function Page({ params }: PageSlug) {
   // below, never re-translated.
   const wpPage = await getTranslatedPage<LearnWpPageJson>(guide.slug, locale);
 
-  const heroBlock = findAcfBlock(wpPage?.acf_blocks, "acf/inner-page-hero-banner");
+  const heroBlock = findAcfBlock(
+    wpPage?.acf_blocks,
+    "acf/inner-page-hero-banner",
+  );
   const textBlock = findAcfBlock(wpPage?.acf_blocks, "acf/text-content");
 
   const wpTitle = wpPage?.title?.rendered;
@@ -150,7 +159,9 @@ export default async function Page({ params }: PageSlug) {
 
   return (
     <main>
-      <section className={`${styles.innerBannerSection} h-auto! innerpage-banner`}>
+      <section
+        className={`${styles.innerBannerSection} h-auto! innerpage-banner`}
+      >
         <div className="ap_container_small flex items-center h-full">
           <div className="apBannerContent text-center">
             <h1 className="font-size-heading-xl mt-13 md:mt-18 font-semibold">
@@ -167,7 +178,6 @@ export default async function Page({ params }: PageSlug) {
         <div className="ap_container_small">
           <div
             className="cmsTextEditorContent"
-            style={isWpBody ? { whiteSpace: "pre-line" } : undefined}
             dangerouslySetInnerHTML={{ __html: bodyHtml }}
           />
         </div>
