@@ -17,12 +17,23 @@ interface PageSlug {
 
 type LearnWpFaqItem = { question?: string; answer?: string };
 
+type LearnWpAcfBlock = {
+  name?: string;
+  fields?: {
+    inner_banner_title?: string;
+    inner_banner_paragraph?: string;
+    reading_text_content?: string;
+  };
+};
+
 // Shape of a WordPress page fetched by slug for a guide. Every field is
 // optional — most guides don't have a WP page yet, and even when one
-// exists, editors fill in fields (body, FAQ) progressively.
+// exists, editors fill in blocks (hero banner, body, FAQ) progressively.
+// Body/hero content lives in `acf_blocks` (Gutenberg ACF blocks), not the
+// plain `content.rendered` field, which stays an empty placeholder shell.
 type LearnWpPageJson = {
   title?: { rendered?: string };
-  content?: { rendered?: string };
+  acf_blocks?: LearnWpAcfBlock[];
   acf?: {
     faq_section?: {
       ssection_title?: string;
@@ -38,6 +49,13 @@ type LearnWpPageJson = {
     "article:modified_time"?: string;
   };
 };
+
+function findAcfBlock(
+  blocks: LearnWpAcfBlock[] | undefined,
+  name: string,
+): LearnWpAcfBlock["fields"] {
+  return blocks?.find((block) => block.name === name)?.fields;
+}
 
 // WP's default page content is an HTML-comment placeholder until an editor
 // fills it in — strip comments/whitespace to tell "real content" from that.
@@ -84,8 +102,13 @@ export default async function Page({ params }: PageSlug) {
   // below, never re-translated.
   const wpPage = await getTranslatedPage<LearnWpPageJson>(guide.slug, locale);
 
+  const heroBlock = findAcfBlock(wpPage?.acf_blocks, "acf/inner-page-hero-banner");
+  const textBlock = findAcfBlock(wpPage?.acf_blocks, "acf/text-content");
+
   const wpTitle = wpPage?.title?.rendered;
-  const wpBodyHtml = wpPage?.content?.rendered;
+  const wpHeroTitle = heroBlock?.inner_banner_title;
+  const wpHeroParagraph = heroBlock?.inner_banner_paragraph;
+  const wpBodyHtml = textBlock?.reading_text_content;
   const wpFaqTitle = wpPage?.acf?.faq_section?.ssection_title;
   const wpFaq = wpPage?.acf?.faq_section?.q_and_a;
   const seo = wpPage?.aioseo_head_json;
@@ -99,8 +122,10 @@ export default async function Page({ params }: PageSlug) {
     faq: staticBody.faq,
   });
 
-  const title = wpTitle || t.title;
-  const bodyHtml = hasRealHtml(wpBodyHtml) ? (wpBodyHtml as string) : t.bodyHtml;
+  const title = wpHeroTitle || wpTitle || t.title;
+  const teaser = wpHeroParagraph || t.teaser;
+  const isWpBody = hasRealHtml(wpBodyHtml);
+  const bodyHtml = isWpBody ? (wpBodyHtml as string) : t.bodyHtml;
   const faqSectionTitle = wpFaqTitle || t.faqSectionTitle;
   const faq =
     wpFaq && wpFaq.length > 0
@@ -116,7 +141,7 @@ export default async function Page({ params }: PageSlug) {
   )}`;
   const articleSchema = buildLearnArticleSchema({
     headline: title,
-    description: seo?.description || t.teaser,
+    description: seo?.description || teaser,
     canonicalUrl,
     image: seo?.["og:image:secure_url"] || seo?.["og:image"],
     datePublished: seo?.["article:published_time"],
@@ -132,7 +157,7 @@ export default async function Page({ params }: PageSlug) {
               {title}
             </h1>
             <div className="reading-text-lg mt-5 md:mt-10 font-light">
-              {t.teaser}
+              {teaser}
             </div>
           </div>
         </div>
@@ -142,6 +167,7 @@ export default async function Page({ params }: PageSlug) {
         <div className="ap_container_small">
           <div
             className="cmsTextEditorContent"
+            style={isWpBody ? { whiteSpace: "pre-line" } : undefined}
             dangerouslySetInnerHTML={{ __html: bodyHtml }}
           />
         </div>
