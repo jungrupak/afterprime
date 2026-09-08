@@ -2,6 +2,9 @@ export type LearnArticleSchemaInput = {
   headline: string;
   description: string;
   canonicalUrl: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
 };
 
 // Rounds "now" down to the nearest 4-day boundary at 08:00 UTC — same
@@ -20,14 +23,18 @@ export function buildLearnArticleSchema({
   headline,
   description,
   canonicalUrl,
+  image,
+  datePublished,
+  dateModified,
 }: LearnArticleSchemaInput) {
-  const pseudoDate = pseudoPublishDate();
+  const fallbackDate = pseudoPublishDate();
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline,
     description,
-    image: "https://afterprime.com/img/og-images/default-og-afterprime-home.jpg",
+    image:
+      image || "https://afterprime.com/img/og-images/default-og-afterprime-home.jpg",
     author: {
       "@type": "Organization",
       name: "Afterprime",
@@ -41,8 +48,8 @@ export function buildLearnArticleSchema({
         url: "https://afterprime.com/img/logo-main.svg",
       },
     },
-    datePublished: pseudoDate,
-    dateModified: pseudoDate,
+    datePublished: datePublished || fallbackDate,
+    dateModified: dateModified || fallbackDate,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": canonicalUrl,
