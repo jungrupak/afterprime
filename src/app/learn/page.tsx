@@ -6,16 +6,20 @@ import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { localizeHref } from "@/lib/locale/localizeHref";
 import { buildHreflangMap } from "@/lib/seo/metadata";
 import { learnGuides, LEARN_CATEGORIES } from "./learnGuides";
-import { learnPageContent } from "./learnPageContent";
+import { learnPageContent, learnPageMetaContent } from "./learnPageContent";
 import { buildLearnCollectionSchema } from "@/lib/schema/learnCollectionSchema";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
   const canonicalUrl = `https://afterprime.com${localizeHref("/learn", locale)}`;
+  const t = await getTranslatedStatic(
+    "learn-page-meta",
+    locale,
+    learnPageMetaContent,
+  );
   return {
-    title: "CFD Trading Guides: Strategies, Risk Management & Markets",
-    description:
-      "Browse Afterprime's CFD trading guides: how CFDs work, trading strategies, risk management, product comparisons, and market-specific guides.",
+    title: t.metaTitle,
+    description: t.metaDescription,
     alternates: {
       canonical: canonicalUrl,
       languages: buildHreflangMap("learn", "/learn"),
@@ -67,7 +71,7 @@ export default async function Page() {
           <section className="compact-section" key={category}>
             <div className="ap_container_small">
               <h2 className="font-size-heading-md mb-4 md:mb-6 font-semibold">
-                {category}
+                {t.categoryLabels[category] ?? category}
               </h2>
               <div className="ap_cards_wrapper grid flex flex-col md:grid-cols-[repeat(auto-fit_,minmax(335px,1fr))] text-left! gap-6">
                 {guidesInCategory.map((guide) => {

@@ -19,9 +19,14 @@ export async function generateMetadata({ params }: PageSlug): Promise<Metadata> 
   const { slug } = await params;
   const guide = learnGuides.find((g) => g.slug === slug);
   if (!guide) return {};
-  return {
+  const locale = await getRequestLocale();
+  const t = await getTranslatedStatic(`learn-guide-meta-${guide.slug}`, locale, {
     title: guide.title,
     description: guide.metaDescription,
+  });
+  return {
+    title: t.title,
+    description: t.description,
   };
 }
 
@@ -38,6 +43,7 @@ export default async function Page({ params }: PageSlug) {
     comingSoon:
       "This guide is coming soon. In the meantime, browse the Learn hub for other guides.",
     backToHub: "Back to Learn hub",
+    learnLabel: "Learn",
   });
 
   return (
@@ -69,8 +75,11 @@ export default async function Page({ params }: PageSlug) {
 
       <BreadcrumbSchema
         items={[
-          { name: "Learn", href: "/learn" },
-          { name: guide.title, href: `/learn/${guide.slug}` },
+          { name: t.learnLabel, href: localizeHref("/learn", locale) },
+          {
+            name: t.title,
+            href: localizeHref(`/learn/${guide.slug}`, locale),
+          },
         ]}
       />
     </main>
