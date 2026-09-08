@@ -1,11 +1,14 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import styles from "../Page.module.scss";
+import FaqCalc from "@/components/faq-calculators/Faq";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { localizeHref } from "@/lib/locale/localizeHref";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
+import { buildLearnArticleSchema } from "@/lib/schema/learnArticleSchema";
 import { learnGuides } from "../learnGuides";
+import { learnGuideBodies } from "../learnGuideBodies";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -35,15 +38,28 @@ export default async function Page({ params }: PageSlug) {
   const guide = learnGuides.find((g) => g.slug === slug);
   if (!guide) notFound();
 
+  const body = learnGuideBodies[guide.slug];
+  if (!body) notFound();
+
   const locale = await getRequestLocale();
 
   const t = await getTranslatedStatic(`learn-guide-${guide.slug}`, locale, {
     title: guide.title,
     teaser: guide.teaser,
-    comingSoon:
-      "This guide is coming soon. In the meantime, browse the Learn hub for other guides.",
-    backToHub: "Back to Learn hub",
     learnLabel: "Learn",
+    bodyHtml: body.bodyHtml,
+    faqSectionTitle: body.faqSectionTitle,
+    faq: body.faq,
+  });
+
+  const canonicalUrl = `https://afterprime.com${localizeHref(
+    `/learn/${guide.slug}`,
+    locale,
+  )}`;
+  const articleSchema = buildLearnArticleSchema({
+    headline: t.title,
+    description: t.teaser,
+    canonicalUrl,
   });
 
   return (
@@ -62,16 +78,15 @@ export default async function Page({ params }: PageSlug) {
       </section>
 
       <section className="compact-section">
-        <div className="ap_container_small text-center">
-          <p className="reading-text-lg font-light">{t.comingSoon}</p>
-          <a
-            href={localizeHref("/learn", locale)}
-            className="reading-text-lg font-light hover:underline"
-          >
-            {t.backToHub}
-          </a>
+        <div className="ap_container_small">
+          <div
+            className="cmsTextEditorContent"
+            dangerouslySetInnerHTML={{ __html: t.bodyHtml }}
+          />
         </div>
       </section>
+
+      <FaqCalc faqSubject={t.faqSectionTitle} data={t.faq} />
 
       <BreadcrumbSchema
         items={[
@@ -81,6 +96,11 @@ export default async function Page({ params }: PageSlug) {
             href: localizeHref(`/learn/${guide.slug}`, locale),
           },
         ]}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
     </main>
   );
