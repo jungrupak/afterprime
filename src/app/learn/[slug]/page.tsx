@@ -6,6 +6,7 @@ import { getRequestLocale } from "@/lib/locale/getRequestLocale";
 import { getTranslatedStatic } from "@/lib/content/getTranslatedStatic";
 import { getTranslatedPage } from "@/lib/content/getTranslatedPage";
 import { localizeHref } from "@/lib/locale/localizeHref";
+import { buildHreflangMap } from "@/lib/seo/metadata";
 import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import { buildLearnArticleSchema } from "@/lib/schema/learnArticleSchema";
 import { learnGuides } from "../learnGuides";
@@ -88,9 +89,16 @@ export async function generateMetadata({
     },
   );
 
+  const canonicalPath = `/learn/${guide.slug}`;
+  const canonicalUrl = `https://afterprime.com${localizeHref(canonicalPath, locale)}`;
+
   return {
     title: seo?.title || t.title,
     description: seo?.description || t.description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: buildHreflangMap(guide.slug, canonicalPath),
+    },
   };
 }
 
