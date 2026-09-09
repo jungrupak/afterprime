@@ -1,5 +1,6 @@
 import type { WPPage } from "@/types/blocks";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type SupportedLocale } from "@/config/locales";
+import { learnGuides } from "@/app/learn/learnGuides";
 
 // Shared by app/sitemap.xml/route.ts (index) and app/sitemap/[locale]/route.ts
 // (per-locale urlset). Same route tree serves every locale via proxy.ts
@@ -40,6 +41,7 @@ const VS_BROKER_SLUGS = [
 ] as const;
 
 const SITEMAP_PAGE_FIELDS = ["slug", "link", "modified"].join(",");
+const LEARN_GUIDE_SLUGS = new Set(learnGuides.map((guide) => guide.slug));
 const WEBTRADER_PAGES = [
   "webtrader-mt4",
   "webtrader-mt4-demo",
@@ -207,7 +209,12 @@ export async function buildSitemapEntries(locale: SupportedLocale): Promise<Site
       return routes;
     }
 
-    const mappedUrl = mapWordPressUrlToSiteUrl(page.link, SITE_BASE_URL);
+    // Guide pages live at /learn/{slug} in the app router (see
+    // src/app/learn/[slug]/page.tsx), but WP's own `link` field reflects its
+    // flat permalink — override it here so the sitemap matches the real route.
+    const mappedUrl = LEARN_GUIDE_SLUGS.has(page.slug)
+      ? `${SITE_BASE_URL}/learn/${page.slug}`
+      : mapWordPressUrlToSiteUrl(page.link, SITE_BASE_URL);
     if (!mappedUrl) {
       return routes;
     }
