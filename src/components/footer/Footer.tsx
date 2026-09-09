@@ -111,6 +111,11 @@ export default async function Footer() {
                   {t.quickLinks.tradeExecution}
                 </Link>
               </li>
+              <li>
+                <Link href={localizeHref("/learn", locale)}>
+                  {t.quickLinks.learntotrade}
+                </Link>
+              </li>
             </ul>
           </div>
           <div className={`${styles.footer_links}`}>

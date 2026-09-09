@@ -23,6 +23,7 @@ export const footerContent = {
     depositWithdrawal: "Deposit and Withdrawal",
     howToApply: "How to Apply",
     tradeExecution: "Trade Execution",
+    learntotrade:"Learn to Trade",
   },
   markets: {
     heading: "Markets",

@@ -536,15 +536,6 @@ body::-webkit-scrollbar {
     line-height: var(--line-height-small);
     letter-spacing: 1.3%;
   }
-  a {
-    text-decoration: underline dotted;
-    text-decoration-thickness: 1.5px; // bigger dots
-    text-underline-offset: 6px; // pushes line down
-    //color: var(--link-color);
-    &:hover {
-      text-decoration: none;
-    }
-  }
 
   h2 {
     font-size: var(--heading-md);
@@ -571,6 +562,15 @@ body::-webkit-scrollbar {
     font-weight: var(--weight-regular);
     &:not(:last-child) {
       margin-bottom: clamp(25px, 5vw, 30px);
+    }
+    a {
+      text-decoration: underline dotted;
+      text-decoration-thickness: 1.5px; // bigger dots
+      text-underline-offset: 6px; // pushes line down
+      //color: var(--link-color);
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 
