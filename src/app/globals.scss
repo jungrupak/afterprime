@@ -9,6 +9,7 @@
   --off-white: #fdfcf7;
   --primary-color: #ff301d;
   --secondary-color: #433bf9;
+  --link-color: #427eff;
   --terciary-color: #d1ff51;
   --accent-color: #ffba08;
 
@@ -534,6 +535,15 @@ body::-webkit-scrollbar {
     font-size: var(--heading-lg);
     line-height: var(--line-height-small);
     letter-spacing: 1.3%;
+  }
+  a {
+    text-decoration: underline dotted;
+    text-decoration-thickness: 1.5px; // bigger dots
+    text-underline-offset: 6px; // pushes line down
+    color: var(--link-color);
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   h2 {
