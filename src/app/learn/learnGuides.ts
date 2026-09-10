@@ -154,4 +154,13 @@ export const learnGuides: LearnGuide[] = [
     metaDescription:
       "A guide to trading gold CFDs: how gold pricing works, position sizing, and what moves the gold market.",
   },
+  {
+    slug: "oil-cfd-trading",
+    category: "Markets",
+    title: "Oil CFD Trading",
+    teaser:
+      "An oil CFD lets you trade the price of crude oil without owning barrels of it or managing futures delivery mechanics.",
+    metaDescription:
+      "Oil CFD trading explained: WTI vs Brent, how pricing works, and the key drivers behind crude oil volatility.",
+  },
 ];

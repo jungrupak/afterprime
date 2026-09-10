@@ -473,4 +473,36 @@ export const learnGuideBodies: Record<string, LearnGuideBody> = {
       },
     ],
   },
+  "oil-cfd-trading": {
+    bodyHtml: `<h2>What Is an Oil CFD?</h2>
+<p>An oil CFD is a contract for difference based on the price of crude oil. You never take delivery of any oil — instead, you're agreeing to exchange the difference in price between opening and closing the position.</p>
+<h2>WTI vs Brent</h2>
+<p>Most oil CFDs track one of two global benchmarks: WTI (West Texas Intermediate), the primary US crude benchmark, and Brent, the primary international benchmark sourced from North Sea production. The two typically trade close together but can diverge based on regional supply and demand.</p>
+<h2>What Moves the Oil Price</h2>
+<ul>
+<li>OPEC+ production decisions.</li>
+<li>US crude oil inventory data (weekly EIA report).</li>
+<li>Geopolitical developments in major oil-producing regions.</li>
+<li>US dollar strength, since oil is priced in USD internationally.</li>
+<li>Global demand expectations from major consuming economies.</li>
+</ul>`,
+    faqSectionTitle: "Frequently Asked Questions",
+    faq: [
+      {
+        question: "What's the difference between WTI and Brent crude?",
+        answer:
+          "WTI is the main US oil benchmark, while Brent is the main international benchmark sourced from North Sea production. The two typically trade close together but can diverge based on regional supply and demand factors.",
+      },
+      {
+        question: "What causes oil prices to be so volatile?",
+        answer:
+          "Oil is sensitive to OPEC+ production decisions, weekly US inventory data, geopolitical developments affecting supply, and shifts in global demand expectations, all of which can move the price sharply on short notice.",
+      },
+      {
+        question: "Can I trade oil CFDs 24 hours a day?",
+        answer:
+          "Oil CFDs trade close to around the clock across global sessions, with liquidity typically concentrating around US trading hours and major scheduled data releases.",
+      },
+    ],
+  },
 };
