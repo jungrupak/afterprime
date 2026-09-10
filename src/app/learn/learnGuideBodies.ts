@@ -448,7 +448,7 @@ export const learnGuideBodies: Record<string, LearnGuideBody> = {
 <p>A gold CFD lets you speculate on the price of gold rising or falling without buying, storing, or insuring physical gold.</p>
 <h2>What Moves the Gold Market</h2>
 <ul>
-<li>Broader risk sentiment — gold is often bought as a safe-haven asset during uncertainty.</li>
+<li>Broader risk sentiment - gold is often bought as a safe-haven asset during uncertainty.</li>
 <li>Interest rates and currency strength, particularly the US dollar.</li>
 <li>Inflation expectations and central bank buying activity.</li>
 </ul>
