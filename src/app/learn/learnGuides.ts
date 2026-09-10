@@ -154,4 +154,12 @@ export const learnGuides: LearnGuide[] = [
     metaDescription:
       "A guide to trading gold CFDs: how gold pricing works, position sizing, and what moves the gold market.",
   },
+  {
+    slug: "oil-cfd-trading",
+    category: "Markets",
+    title: "OIL CFD Trading",
+    teaser: "Trading oil price movements via CFDs, without holding physical oil.",
+    metaDescription:
+      "A guide to trading oil CFDs: how oil pricing works, position sizing, and what moves the oil market.",
+  },  
 ];
