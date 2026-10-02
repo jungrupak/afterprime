@@ -19,7 +19,7 @@ export default function FooterScripts() {
       </Script>
 
       {/* Affiliate Tracking */}
-<Script id="affiliate" strategy="lazyOnload">
+<Script id="affiliate" strategy="afterInteractive">
   {`
     var _uf = _uf || {};
     _uf.domain = ".afterprime.com";
@@ -31,11 +31,63 @@ export default function FooterScripts() {
       constructor(options = {}) {
         this._cookieNamePrefix = "_gpfx_";
         this._domain = options.domain;
+        this._rootHost = (this._domain || "").charAt(0) === "." ? this._domain.slice(1) : (this._domain || "");
         this._secure = options.secure || false;
         this._sessionLength = options.sessionLength || 1;
         this._cookieExpiryDays = options.cookieExpiryDays || 30;
+        this._firstTouchDays = options.firstTouchDays || 90;
         this._additionalParams = options.additionalParams || [];
-        this._utmParams = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid","rdclid","tnid","click_id"];
+        this._passthroughParams = ["tnid"];
+        this._ignoredHosts = ["typeform.com"];
+        this._paidMediums = ["cpc","ppc","paid","paid_social","paidsocial","display"];
+        // priority order when several click IDs are present
+        this._clickIds = ["gclid","gbraid","wbraid","msclkid","li_fat_id","twclid","rdt_cid","ttclid","fbclid"];
+        this._clickMap = {
+          gclid:["google","cpc"], gbraid:["google","cpc"], wbraid:["google","cpc"],
+          msclkid:["bing","cpc"],
+          li_fat_id:["linkedin","paid_social"],
+          twclid:["twitter/x","paid_social"],
+          rdt_cid:["reddit","paid_social"],
+          ttclid:["tiktok","paid_social"],
+          fbclid:["facebook","paid_social"]
+        };
+        // [domains, source, medium]. "name*" matches any hostname label (google.com.au etc.)
+        this._referrerRules = [
+          [["facebook.com","fb.com"],"facebook","social"],
+          [["youtube.com","youtu.be"],"youtube","social"],
+          [["twitter.com","t.co","x.com"],"twitter/x","social"],
+          [["linkedin.com","lnkd.in"],"linkedin","social"],
+          [["instagram.com"],"instagram","social"],
+          [["reddit.com"],"reddit","social"],
+          [["tiktok.com"],"tiktok","social"],
+          [["pinterest.com"],"pinterest","social"],
+          [["quora.com"],"quora","social"],
+          [["threads.net"],"threads","social"],
+          [["bsky.app"],"bluesky","social"],
+          [["t.me","telegram.org"],"telegram","social"],
+          [["whatsapp.com","wa.me"],"whatsapp","social"],
+          [["discord.com","discord.gg"],"discord","social"],
+          [["chatgpt.com","chat.openai.com","openai.com"],"chatgpt","ai_referral"],
+          [["perplexity.ai"],"perplexity","ai_referral"],
+          [["gemini.google.com","bard.google.com"],"gemini","ai_referral"],
+          [["copilot.microsoft.com"],"copilot","ai_referral"],
+          [["claude.ai"],"claude","ai_referral"],
+          [["grok.com"],"grok","ai_referral"],
+          [["you.com"],"you.com","ai_referral"],
+          [["deepseek.com"],"deepseek","ai_referral"],
+          [["meta.ai"],"meta ai","ai_referral"],
+          [["mistral.ai"],"mistral","ai_referral"],
+          [["poe.com"],"poe","ai_referral"],
+          [["phind.com"],"phind","ai_referral"],
+          [["google*"],"organic search","organic"],
+          [["bing*"],"bing","organic"],
+          [["duckduckgo*"],"duckduckgo","organic"],
+          [["yahoo*"],"yahoo","organic"],
+          [["baidu*"],"baidu","organic"],
+          [["yandex*"],"yandex","organic"],
+          [["ecosia*"],"ecosia","organic"],
+          [["search.brave.com"],"brave search","organic"]
+        ];
 
         this.writeVisitorId();
         this.writeInitialLandingPageUrl();
@@ -64,95 +116,141 @@ export default function FooterScripts() {
 
       writeCookie(name,value){ this.createCookie(name,value,this._cookieExpiryDays,null,this._domain,this._secure); }
       writeCookieOnce(name,value){ if(!this.readCookie(name)){ this.writeCookie(name,value); } }
+      writeIfChanged(name,value,days){
+        if(this.readCookie(name) === escape(value)) return;
+        this.createCookie(name,value,days,null,this._domain,this._secure);
+      }
 
       hasUrlParams(list){ return list.some(p=>this.getParameterByName(p)); }
-      _sameDomainReferrer(ref){ let h=document.location.hostname; return ref.indexOf(this._domain)>-1 || ref.indexOf(h)>-1; }
 
-      deriveChannelFromReferrer(v){
-        if (!v) return "direct";
-        let url = window.location.href;
-        if (v.includes("facebook")) return "facebook";
-        if (v.includes("youtube")) return "youtube";
-        if (v.includes("twitter") || v.includes("t.co/") || v.includes("x.com")) return "twitter/x";
-        if (v.includes("linkedin")) return "linkedin";
-        if (v.includes("instagram")) return "instagram";
-        if (v.includes("reddit")) return "reddit";
-        if (v.includes("tiktok")) return "tiktok";
-        if (v.includes("pinterest")) return "pinterest";
-        if (v.includes("quora")) return "quora";
-        if (v.includes("threads.net")) return "threads";
-        if (v.includes("bsky.app")) return "bluesky";
-        if (v.includes("t.me/") || v.includes("telegram.org")) return "telegram";
-        if (v.includes("whatsapp.com") || v.includes("wa.me/")) return "whatsapp";
-        if (v.includes("discord.com") || v.includes("discord.gg")) return "discord";
-        if (v.includes("chatgpt.com") || v.includes("chat.openai.com") || v.includes("openai.com")) return "chatgpt";
-        if (v.includes("perplexity.ai")) return "perplexity";
-        if (v.includes("gemini.google.com") || v.includes("bard.google.com")) return "gemini";
-        if (v.includes("copilot.microsoft.com")) return "copilot";
-        if (v.includes("claude.ai")) return "claude";
-        if (v.includes("grok.com")) return "grok";
-        if (v.includes("you.com")) return "you.com";
-        if (v.includes("deepseek.com")) return "deepseek";
-        if (v.includes("meta.ai")) return "meta ai";
-        if (v.includes("mistral.ai")) return "mistral";
-        if (v.includes("poe.com")) return "poe";
-        if (v.includes("phind.com")) return "phind";
-        if (v.includes("google") && !url.includes("gclid=")) return "organic search";
-        if (v.includes("google") && url.includes("gclid=")) return "google ppc";
-        if (v.includes("bing") && url.includes("utm_medium=cpc")) return "bing ppc";
-        if (v.includes("bing")) return "bing";
-        if (v.includes("duckduckgo")) return "duckduckgo";
-        if (v.includes("yahoo")) return "yahoo";
-        if (v.includes("baidu")) return "baidu";
-        if (v.includes("yandex")) return "yandex";
-        if (v.includes("ecosia")) return "ecosia";
-        if (v.includes("search.brave.com")) return "brave search";
-        return "referrer";
+      hostOf(url){ try { return new URL(url).hostname.toLowerCase(); } catch(e){ return ""; } }
+      hostIs(h,d){ return h===d || h.endsWith("."+d); }
+      matchHost(h,d){ return d.slice(-1)==="*" ? h.split(".").indexOf(d.slice(0,-1))>-1 : this.hostIs(h,d); }
+      isInternal(h){ return !!this._rootHost && this.hostIs(h,this._rootHost); }
+      isIgnored(h){ return this._ignoredHosts.some(d=>this.hostIs(h,d)); }
+
+      deriveFromReferrer(h){
+        for (const r of this._referrerRules) {
+          if (r[0].some(d=>this.matchHost(h,d))) return {source:r[1], medium:r[2]};
+        }
+        return {source:"referrer", medium:"referral"};
+      }
+
+      resolveTouch(){
+        const q = n => this.getParameterByName(n);
+        const utm = { source:q("utm_source"), medium:q("utm_medium"), campaign:q("utm_campaign"), term:q("utm_term"), content:q("utm_content") };
+        const hasUtm = !!(utm.source || utm.medium || utm.campaign || utm.term || utm.content);
+        const mediumPaid = this._paidMediums.indexOf(utm.medium.toLowerCase()) > -1;
+
+        let idName = "", idVal = "";
+        for (const k of this._clickIds) { const v = q(k); if (v) { idName = k; idVal = v; break; } }
+
+        let paid = false, derived = null;
+        if (idName && idName !== "fbclid") {
+          paid = true;
+          derived = { source:this._clickMap[idName][0], medium:this._clickMap[idName][1] };
+        } else if (idName === "fbclid") {
+          if (mediumPaid) {
+            paid = true;
+            derived = { source:"facebook", medium:"paid_social" };
+          } else {
+            derived = { source:"facebook", medium:"social" };
+            idName = ""; idVal = "";
+          }
+        } else if (mediumPaid) {
+          paid = true;
+        }
+
+        const refHost = this.hostOf(document.referrer);
+        const external = !!refHost && !this.isInternal(refHost) && !this.isIgnored(refHost);
+        if (!derived && external) derived = this.deriveFromReferrer(refHost);
+
+        const genuine = !!(idName || hasUtm || derived);
+        const type = paid ? "paid" : (genuine ? "unpaid" : "direct");
+        const d = genuine ? "not_set" : "direct";
+
+        return {
+          type: type,
+          fields: {
+            utm_source: utm.source || (derived ? derived.source : "") || d,
+            utm_medium: utm.medium || (derived ? derived.medium : "") || d,
+            utm_campaign: utm.campaign || d,
+            utm_term: utm.term || d,
+            utm_content: utm.content || d
+          },
+          idName: idName || "none",
+          idVal: idVal || "none"
+        };
+      }
+
+      currentTouchType(){
+        const tt = this.readCookie("touch_type");
+        if (tt) return tt;
+        const s = this.readCookie("utm_source");
+        if (!s) return null;
+        return s === "direct" ? "direct" : "unpaid";
       }
 
       writeChannelCookies(){
-        const referrer = document.referrer;
-        const isExternalReferrer = !!referrer && !this._sameDomainReferrer(referrer);
-        const hasTrackingParams = this.hasUrlParams(this._utmParams) || this.hasUrlParams(this._additionalParams);
-        const isGenuineTouch = isExternalReferrer || hasTrackingParams;
-        const channel = isExternalReferrer ? this.deriveChannelFromReferrer(referrer) : "direct";
+        const t = this.resolveTouch();
+        const keys = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content"];
 
-        this.writeCookieOnce("referrer", channel);
+        // FIRST TOUCH (Typeform reads _gpfx_utm_*). Paid locks. Unpaid overrides direct/missing only.
+        const cur = this.currentTouchType();
+        let write;
+        if (t.type === "paid") write = cur !== "paid";
+        else if (t.type === "unpaid") write = (cur === null || cur === "direct");
+        else write = (cur === null);
 
-        this._utmParams.forEach(p => {
-          let value = this.getParameterByName(p);
-          if (!value) value = (p === "utm_source") ? channel : "direct";
-          this.writeCookieOnce(p, value);
+        if (write) {
+          const days = this._firstTouchDays;
+          const w = (n,v) => this.createCookie(n,v,days,null,this._domain,this._secure);
+          keys.forEach(k => w(k, t.fields[k]));
+          w("ad_click_id", t.idVal);
+          w("ad_click_id_type", t.idName);
+          w("touch_type", t.type);
+          w("referrer", t.fields.utm_source);
+        }
+
+        // LAST TOUCH: overwrite on every genuine touch, only when value changed
+        if (t.type !== "direct") {
+          const days = this._cookieExpiryDays;
+          keys.forEach(k => this.writeIfChanged("last_" + k, t.fields[k], days));
+          this.writeIfChanged("last_ad_click_id", t.idVal, days);
+          this.writeIfChanged("last_ad_click_id_type", t.idName, days);
+          this.writeIfChanged("last_touch_type", t.type, days);
+          this.writeIfChanged("last_referrer", t.fields.utm_source, days);
+        }
+
+        // tnid: real value may replace "direct" default
+        this._passthroughParams.forEach(p => {
+          const v = this.getParameterByName(p);
+          if (v) {
+            const c = this.readCookie(p);
+            if (!c || c === "direct") this.writeCookie(p, v);
+            this.writeIfChanged("last_" + p, v, this._cookieExpiryDays);
+          } else {
+            this.writeCookieOnce(p, "direct");
+          }
         });
 
-this._additionalParams.forEach(p => {
-  const urlValue = this.getParameterByName(p);
-  if (p === "group") {
-    // group must always reflect the latest touch — Typeform and app.afterprime.com
-    // read _gpfx_group directly for commission-group attribution, so it can never
-    // lock to the first value seen like the other additional params do.
-    if (urlValue) {
-      this.writeCookie(p, urlValue);
-    } else {
-      this.writeCookieOnce(p, "direct"); // seed a default only if group has never been set
-    }
-  } else {
-    this.writeCookieOnce(p, urlValue || "direct");
-  }
-});
-
-        if (isGenuineTouch) {
-          this.writeCookie("last_referrer", channel);
-          this._utmParams.forEach(p => {
-            let value = this.getParameterByName(p);
-            if (!value) value = (p === "utm_source") ? channel : "direct";
-            this.writeCookie("last_" + p, value);
-          });
-          this._additionalParams.forEach(p => {
-            let value = this.getParameterByName(p);
-            if (value) this.writeCookie("last_" + p, value);
-          });
-        }
+        // AFFILIATE PARAMS: unchanged
+        this._additionalParams.forEach(p => {
+          const urlValue = this.getParameterByName(p);
+          if (p === "group") {
+            // group must always reflect the latest touch. Typeform and app.afterprime.com
+            // read _gpfx_group directly for commission-group attribution, so it can never
+            // lock to the first value seen like the other additional params do.
+            if (urlValue) {
+              this.writeCookie(p, urlValue);
+            } else {
+              this.writeCookieOnce(p, "direct"); // seed a default only if group has never been set
+            }
+          } else {
+            this.writeCookieOnce(p, urlValue || "direct");
+          }
+          if (urlValue) this.writeCookie("last_" + p, urlValue);
+        });
       }
 
       writeVisitorId(){
