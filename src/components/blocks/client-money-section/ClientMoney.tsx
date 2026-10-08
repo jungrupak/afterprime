@@ -48,7 +48,7 @@ export function ClientMoneySection({
                 <tbody>
                   <tr>
                     <td>Contracting Entity</td>
-                    <td>Afterprime Pty. Ltd.</td>
+                    <td>Afterprime Ltd.</td>
                   </tr>
                   <tr>
                     <td>Contracting Entity</td>

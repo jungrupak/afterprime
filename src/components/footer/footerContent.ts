@@ -66,7 +66,7 @@ export const footerContent = {
     inducement:
       "The information on this website is not intended to be an inducement, offer or solicitation to any person in any country or jurisdiction where such distribution or use would be contrary to local law or regulation.",
     copyrightSuffix:
-      "Afterprime Pty Ltd - FSA Seychelles #SD057 | Global Gateway 8, Rue de la Perle, Providence, Mahé, Seychelles.",
+      "Afterprime Ltd. - FSA Seychelles #SD057 | Global Gateway 8, Rue de la Perle, Providence, Mahé, Seychelles.",
   },
 };
 
