@@ -18,7 +18,7 @@ export default function SectionTableMarginLeverage() {
     },
     {
       assetsClass: "Platinum (XPTUSD) and Palladium (XPDUSD)",
-      margin: "120%",
+      margin: "20%",
       leverage: "1:5",
     },
     {
