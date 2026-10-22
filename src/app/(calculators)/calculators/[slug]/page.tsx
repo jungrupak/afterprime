@@ -79,7 +79,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageSlug) {
   const { slug } = await params;
   const locale = await getRequestLocale();
-  const seoData = await CustomMetadata(slug, locale);
+  const seoData = await CustomMetadata(slug, locale, `/calculators/${slug}`);
   return seoData;
 }
 //##

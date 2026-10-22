@@ -3,11 +3,17 @@ import { localizeHref } from "@/lib/locale/localizeHref";
 import { buildHreflangMap } from "@/lib/seo/metadata";
 import { DEFAULT_LOCALE } from "@/config/locales";
 
-export async function CustomMetadata(slug: string, locale?: string) {
+// pathOverride: real route path when it isn't /{slug} (e.g. /calculators/{slug}).
+export async function CustomMetadata(
+  slug: string,
+  locale?: string,
+  pathOverride?: string,
+) {
   const seoData = await fetchSeoFieldData(slug);
   const resolvedLocale = locale ?? DEFAULT_LOCALE;
 
-  const canonicalPath = slug === "home-page" ? "/" : `/${slug}`;
+  const canonicalPath =
+    pathOverride ?? (slug === "home-page" ? "/" : `/${slug}`);
   const canonicalUrl =
     `https://afterprime.com${localizeHref(canonicalPath, resolvedLocale)}`;
 
