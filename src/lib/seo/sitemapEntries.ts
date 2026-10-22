@@ -42,6 +42,9 @@ const VS_BROKER_SLUGS = [
 
 const SITEMAP_PAGE_FIELDS = ["slug", "link", "modified"].join(",");
 const LEARN_GUIDE_SLUGS = new Set(learnGuides.map((guide) => guide.slug));
+// WP child pages under these sections are excluded from every locale's
+// sitemap (matched on the mapped site path, e.g. /platforms/mt4).
+const EXCLUDED_PATH_PREFIXES = ["/platforms/", "/markets/"] as const;
 const WEBTRADER_PAGES = [
   "webtrader-mt4",
   "webtrader-mt4-demo",
@@ -216,6 +219,11 @@ export async function buildSitemapEntries(locale: SupportedLocale): Promise<Site
       ? `${SITE_BASE_URL}/learn/${page.slug}`
       : mapWordPressUrlToSiteUrl(page.link, SITE_BASE_URL);
     if (!mappedUrl) {
+      return routes;
+    }
+
+    const mappedPath = new URL(mappedUrl).pathname;
+    if (EXCLUDED_PATH_PREFIXES.some((prefix) => mappedPath.startsWith(prefix))) {
       return routes;
     }
 
