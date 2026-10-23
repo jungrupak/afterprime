@@ -1,6 +1,7 @@
 import { wpFetch } from "@/utils/wpFetch";
 import { walkAndExtract } from "./objectWalker";
 import { rehydrate } from "./rehydrate";
+import { localizeLinksDeep } from "@/lib/locale/localizeLinks";
 import type { TranslationCache } from "./cache";
 
 // Any translation provider (Weglot today, potentially an LLM-based provider
@@ -65,7 +66,8 @@ function unmaskPlaceholders(strings: string[], tokensPerString: string[][]): str
 // Orchestrates walk -> translate -> rehydrate -> cache for a single piece of
 // content, for a single non-default locale. Fails safe: any provider error,
 // or a mismatched translated-string count, falls back to the original
-// (English) content rather than breaking the page. Shared by translatePage
+// (English) content rather than breaking the page — with rich-text links
+// still localized, so the visitor stays in their language. Shared by translatePage
 // (WordPress content) and translateStatic (hardcoded UI strings) below.
 export class TranslationEngine {
   constructor(private options: TranslationEngineOptions) {}
@@ -92,7 +94,7 @@ export class TranslationEngine {
         locale,
         err,
       });
-      return original;
+      return localizeLinksDeep(original, locale);
     }
 
     if (translatedMasked.length !== strings.length) {
@@ -102,7 +104,7 @@ export class TranslationEngine {
         expected: strings.length,
         got: translatedMasked.length,
       });
-      return original;
+      return localizeLinksDeep(original, locale);
     }
 
     const translated = unmaskPlaceholders(translatedMasked, tokensPerString);

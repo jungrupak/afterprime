@@ -1,5 +1,6 @@
 import { DEFAULT_LOCALE } from "@/config/locales";
 import { getSharedEngine } from "@/lib/translation/sharedEngine";
+import { localizeLinksDeep } from "@/lib/locale/localizeLinks";
 
 // Entry point for hardcoded UI strings (nav labels, footer copy, static
 // block text) that never came from WordPress and so never pass through
@@ -11,6 +12,6 @@ export async function getTranslatedStatic<T>(
   locale: string,
   content: T
 ): Promise<T> {
-  if (locale === DEFAULT_LOCALE) return content;
+  if (locale === DEFAULT_LOCALE) return localizeLinksDeep(content, locale);
   return getSharedEngine().translateStatic(key, locale, content);
 }
