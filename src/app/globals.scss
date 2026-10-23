@@ -649,6 +649,15 @@ body::-webkit-scrollbar {
         font-size: clamp(20px, 5vw, 20px);
         margin-bottom: 5px;
       }
+      a {
+        text-decoration: underline dotted;
+        text-decoration-thickness: 1.5px; // bigger dots
+        text-underline-offset: 6px; // pushes line down
+        //color: var(--link-color);
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
   }
 
