@@ -13,6 +13,7 @@ import { getTranslatedMetadata } from "@/lib/seo/metadata";
 import { localizeHref } from "@/lib/locale/localizeHref";
 import { glossaryTermContent } from "./glossaryTermContent";
 import Card from "@/components/ui/Card";
+import FaqCalc from "@/components/faq-calculators/Faq";
 
 const GLOSSARY_PARENT_ID = 4100;
 
@@ -28,6 +29,10 @@ type GlossaryTermJson = {
   content?: { rendered?: string };
   acf?: {
     inner_banner?: { hero_paragraph?: string };
+    faq_section?: {
+      ssection_title?: string;
+      q_and_a?: { question?: string; answer?: string }[];
+    };
   };
 };
 
@@ -65,6 +70,13 @@ export default async function page({ params }: PageSlug) {
   };
 
   const contents = pageData?.content?.rendered ?? "";
+  const faqDataTitle = pageData?.acf?.faq_section?.ssection_title;
+  // Only keep rows with both question and answer — empty ACF rows hide the section.
+  const faqData = (
+    Array.isArray(pageData?.acf?.faq_section?.q_and_a)
+      ? pageData.acf.faq_section.q_and_a
+      : []
+  ).filter((item) => item?.question?.trim() && item?.answer?.trim());
 
   const glossaryTermT = await getTranslatedStatic(
     `glossary-term-${terms}`,
@@ -146,6 +158,11 @@ export default async function page({ params }: PageSlug) {
           </div>
         </div>
       </section>
+
+      {/* FAQ FROM CMS */}
+      {faqData.length > 0 && (
+        <FaqCalc faqSubject={faqDataTitle} data={faqData} />
+      )}
 
       <section className="compact-section">
         <div className="ap_container_small">
