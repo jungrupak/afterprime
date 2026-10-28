@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { noindexHeaderRules } from "./src/lib/seo/noindexPaths";
 
 const nextConfig: NextConfig = {
   devIndicators: false,
@@ -64,6 +65,9 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // X-Robots-Tag: noindex, follow — /vs/{competitor}/{symbol} (+ every
+      // /{locale} prefix). See src/lib/seo/noindexPaths.ts.
+      ...noindexHeaderRules(),
     ];
   },
 

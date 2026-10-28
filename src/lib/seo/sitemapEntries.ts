@@ -1,6 +1,7 @@
 import type { WPPage } from "@/types/blocks";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type SupportedLocale } from "@/config/locales";
 import { learnGuides } from "@/app/learn/learnGuides";
+import { isNoindexPath } from "@/lib/seo/noindexPaths";
 
 // Shared by app/sitemap.xml/route.ts (index) and app/sitemap/[locale]/route.ts
 // (per-locale urlset). Same route tree serves every locale via proxy.ts
@@ -23,22 +24,6 @@ type WPPageExtended = WPPage & {
 };
 
 const INSTRUMENTS_API = "https://scoreboard.argamon.com:8443/api/instruments/";
-
-// Matches BROKER_SLUG_MAP keys in vs/[brokers]/[symbol]/page.tsx — keep in sync
-const VS_BROKER_SLUGS = [
-  "tickmill",
-  "fxcm",
-  "ic-markets",
-  "pepperstone",
-  "fxopen",
-  "dukascopy",
-  "darwinex",
-  "global-prime",
-  "markets-dot-com",
-  "swissquote",
-  "top-10-avg",
-  "industry-avg",
-] as const;
 
 const SITEMAP_PAGE_FIELDS = ["slug", "link", "modified"].join(",");
 const LEARN_GUIDE_SLUGS = new Set(learnGuides.map((guide) => guide.slug));
@@ -194,9 +179,6 @@ export async function buildSitemapEntries(locale: SupportedLocale): Promise<Site
   ]);
 
   const symbols = instruments.map((i) => i.symbol);
-  const forexSymbols = instruments
-    .filter((i) => i.path.split("\\")[0] === "Forex")
-    .map((i) => i.symbol);
 
   const staticRoutes: SitemapEntry[] = [
     {
@@ -251,14 +233,8 @@ export async function buildSitemapEntries(locale: SupportedLocale): Promise<Site
     changeFrequency: "daily",
   }));
 
-  const vsSymbolRoutes: SitemapEntry[] = VS_BROKER_SLUGS.flatMap((broker) =>
-    forexSymbols.map((symbol) => ({
-      url: withLocale(`${SITE_BASE_URL}/vs/${broker}/${symbol}`, locale),
-      lastModified: new Date(),
-      priority: 0.75,
-      changeFrequency: "daily" as const,
-    })),
-  );
+  // /vs/{competitor}/{symbol} pages are noindex (see noindexPaths.ts) —
+  // intentionally not listed in any sitemap.
 
   const thSymbolRoutes: SitemapEntry[] = symbols.map((symbol) => ({
     url: withLocale(`${SITE_BASE_URL}/trading-hours/${symbol}`, locale),
@@ -267,12 +243,12 @@ export async function buildSitemapEntries(locale: SupportedLocale): Promise<Site
     changeFrequency: "daily",
   }));
 
+  // Never list a noindex URL in any sitemap.
   return [
     ...staticRoutes,
     ...dynamicRoutes,
     ...webtraderRoutes,
     ...swapRoutes,
-    ...vsSymbolRoutes,
     ...thSymbolRoutes,
-  ];
+  ].filter((entry) => !isNoindexPath(new URL(entry.url).pathname));
 }
