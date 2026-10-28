@@ -172,6 +172,7 @@ const nextConfig: NextConfig = {
         { source: '/platforms/traderevolution', destination: '/', permanent: true },
         { source: '/platforms/mt4', destination: '/mt4', permanent: true },
         { source: '/platforms/mt5', destination: '/mt5', permanent: true },
+        { source: '/wp-sitemap.xml', destination: '/sitemap.xml', permanent: true },
       ];
   },
 };
