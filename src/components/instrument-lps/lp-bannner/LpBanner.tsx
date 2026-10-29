@@ -2,7 +2,7 @@
 import styles from "./LpBanner.module.scss";
 import { getBrokerCompareData } from "@/lib/getBrokersToCompare";
 import { useQuery } from "@tanstack/react-query";
-import TypeformButton from "../typeform-btn/typeForm";
+import TypeformButton from "@/components/ui/typeForm";
 import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 import { useState, useEffect } from "react";
 import { lpBannerContent, type LpBannerContent } from "./lpBannerContent";
@@ -47,7 +47,7 @@ function LPBannerXAUUSD({
             <TypeformButton
               buttonText={applyButtonText || "Get Invite code"}
               size="Regular"
-              varient="primary"
+              varient="Primary"
             />
             <button
               type="button"
@@ -213,7 +213,7 @@ function LPBannerDefault({
             <TypeformButton
               buttonText={applyButtonText || "Get Invite code"}
               size="Regular"
-              varient="primary"
+              varient="Primary"
             />
             <button
               type="button"

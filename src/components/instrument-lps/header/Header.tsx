@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./style.module.scss";
 import { useEffect, useState } from "react";
-import TypeformButton from "../typeform-btn/typeForm";
+import TypeformButton from "@/components/ui/typeForm";
 import LanguageSelector from "@/components/ui/LanguageSelector";
 import { useLocale } from "@/lib/locale/useLocale";
 import { localizeHref } from "@/lib/locale/localizeHref";
@@ -58,7 +58,7 @@ export default function Header({ applyNowText = "Apply Now" }: HeaderProps) {
               <TypeformButton
                 buttonText={applyNowText}
                 size="small"
-                varient="primary"
+                varient="Primary"
               />
             </div>
           </div>

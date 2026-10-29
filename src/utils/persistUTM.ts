@@ -31,3 +31,20 @@ export const parseStoredUTMs = (cookieStore: string): Record<UTMKey, string> => 
 export const getStoredUTMs = (): Record<UTMKey, string> => {
   return parseStoredUTMs(document.cookie);
 };
+
+export const SIGNUP_APP_URL = "https://app.afterprime.com/live";
+
+export const isSignupAppUrl = (url: string): boolean =>
+  url.startsWith(SIGNUP_APP_URL);
+
+// Adds persisted UTMs to a URL. UTMs already present in the URL win;
+// cookies only fill the gaps. "direct" placeholders are skipped so a direct
+// visitor's URL is never seen as a new UTM touch by the destination.
+export const appendStoredUTMs = (url: string): string => {
+  const target = new URL(url);
+  Object.entries(getStoredUTMs()).forEach(([key, value]) => {
+    if (value === DEFAULT_UTM_VALUE) return;
+    if (!target.searchParams.get(key)) target.searchParams.set(key, value);
+  });
+  return target.toString();
+};

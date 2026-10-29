@@ -1,4 +1,4 @@
-import TypeformButton from "@/components/instrument-lps/typeform-btn/typeForm";
+import TypeformButton from "@/components/ui/typeForm";
 import styles from "./style.module.scss";
 import { getGlobalOptionFields } from "@/lib/getGlobalBlockData";
 import { getRequestLocale } from "@/lib/locale/getRequestLocale";

@@ -1,66 +1,18 @@
 "use client";
 import { useRouter, usePathname } from "next/navigation";
-import { MouseEvent, useState } from "react";
-import { fetchGeoCountry, isTargetGeo } from "@/utils/geoCheck";
-
-// Properly extend window for Typeform
-declare global {
-  interface Window {
-    typeformEmbed?: {
-      makePopup: (
-        url: string,
-        options?: {
-          mode?: "popup" | "drawer-left" | "drawer-right" | "side-panel";
-          hideHeaders?: boolean;
-          hideFooters?: boolean;
-          hideScrollbars?: boolean;
-          autoClose?: number;
-        }
-      ) => { open: () => void };
-    };
-  }
-}
 
 export interface ClickProps {
   onclick?: () => void;
   href?: string;
-  typeformId?: string;
 }
 
-export function useButtonClickHandling({
-  onclick,
-  href,
-  typeformId,
-}: ClickProps) {
+export function useButtonClickHandling({ onclick, href }: ClickProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const [showInterstitial, setShowInterstitial] = useState(false);
 
-  // Properly typed click handler
-  const handleClick = async (
-    e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>
-  ): Promise<void> => {
+  const handleClick = (): void => {
     // Run custom onclick if provided
     if (onclick) onclick();
-
-    // Typeform drawer logic
-    if (typeformId && typeof window !== "undefined" && window.typeformEmbed) {
-      e.preventDefault(); // stop default navigation
-
-      const loc = await fetchGeoCountry();
-      if (isTargetGeo(loc)) {
-        setShowInterstitial(true);
-        return;
-      }
-
-      window.typeformEmbed
-        .makePopup(`https://form.typeform.com/to/${typeformId}`, {
-          mode: "drawer-left",
-          hideScrollbars: true,
-        })
-        .open();
-      return;
-    }
 
     // Scroll / navigation logic
     if (href) {
@@ -75,5 +27,5 @@ export function useButtonClickHandling({
     }
   };
 
-  return { handleClick, showInterstitial };
+  return { handleClick };
 }

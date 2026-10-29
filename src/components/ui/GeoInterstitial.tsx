@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./GeoInterstitial.module.scss";
+import { appendStoredUTMs } from "@/utils/persistUTM";
 
 interface GeoInterstitialProps {
   isOpen: boolean;
@@ -40,7 +41,7 @@ const GeoInterstitial: React.FC<GeoInterstitialProps> = ({ isOpen }) => {
 
       if (elapsed >= REDIRECT_DELAY_MS) {
         clearInterval(tick);
-        window.location.href = REDIRECT_URL;
+        window.location.href = appendStoredUTMs(REDIRECT_URL);
       }
     }, TICK_MS);
 

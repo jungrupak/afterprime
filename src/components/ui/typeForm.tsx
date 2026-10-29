@@ -5,7 +5,7 @@ import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "./ui.module.scss";
 import { createPopup, type PopupOptions } from "@typeform/embed";
 import "@typeform/embed/build/css/popup.css";
-import { getStoredUTMs } from "@/utils/persistUTM";
+import { appendStoredUTMs, getStoredUTMs } from "@/utils/persistUTM";
 import { fetchGeoCountry, isTargetGeo } from "@/utils/geoCheck";
 import GeoInterstitial from "./GeoInterstitial";
 import {
@@ -38,7 +38,11 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
 
   const handleClick = async () => {
     if (bypassInvitation) {
-      window.open(BYPASS_SIGNUP_URL, "_blank", "noopener,noreferrer");
+      window.open(
+        appendStoredUTMs(BYPASS_SIGNUP_URL),
+        "_blank",
+        "noopener,noreferrer",
+      );
       return;
     }
 

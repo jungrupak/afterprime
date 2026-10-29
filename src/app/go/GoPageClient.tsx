@@ -5,6 +5,7 @@ import Image from "next/image";
 import Script from "next/script";
 import type { GoPageContent } from "./goPageContent";
 import { goPageContent as defaultContent } from "./goPageContent";
+import { appendStoredUTMs } from "@/utils/persistUTM";
 
 const REDIRECT_SECONDS = 3;
 const DESTINATION_BASE = "https://app.afterprime.com/live";
@@ -22,7 +23,8 @@ function InterstitialContent({ content }: Props) {
     setExitUrl(url);
 
     const timer = setTimeout(() => {
-      window.location.href = url;
+      // affiliate script has written UTM cookies by now; query UTMs still win
+      window.location.href = appendStoredUTMs(url);
     }, REDIRECT_SECONDS * 1000);
 
     return () => clearTimeout(timer);

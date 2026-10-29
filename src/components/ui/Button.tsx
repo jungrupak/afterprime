@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import css from "./ui.module.scss";
 import { useButtonClickHandling } from "@/hooks/useBtnClickHandle";
-import GeoInterstitial from "./GeoInterstitial";
+import { utmLinkHandlers } from "@/utils/utmLinkHandlers";
 
 type ButtonVarients =
   | "default"
@@ -23,7 +23,6 @@ type ButtonProps = {
   varient?: ButtonVarients;
   size?: "regular" | "small" | "x-small" | "large";
   linkTarget?: "_self" | "_blank";
-  typeformId?: string;
   className?: string;
 };
 
@@ -36,10 +35,11 @@ export default function Button({
   href,
   linkTarget,
   className,
-  typeformId,
 }: ButtonProps) {
-  const { handleClick: btnClickHandle, showInterstitial } =
-    useButtonClickHandling({ onclick, href, typeformId });
+  const { handleClick: btnClickHandle } = useButtonClickHandling({
+    onclick,
+    href,
+  });
 
   const classNames = `${css.ap_button} ${className} ${
     size === "regular"
@@ -93,11 +93,12 @@ export default function Button({
     const isExternal = !href.startsWith("/");
 
     if (isExternal) {
-      // external links → no btnClickHandle
+      // external links → no btnClickHandle; signup app links get persisted UTMs
       return (
         <a
           href={href}
           className={classNames}
+          {...utmLinkHandlers}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -108,28 +109,22 @@ export default function Button({
 
     // internal links → keep Next.js Link + hook
     return (
-      <>
-        <Link
-          href={href}
-          className={classNames}
-          onClick={btnClickHandle}
-          target={linkTarget}
-          rel="noopener noreferrer"
-        >
-          {content}
-        </Link>
-        <GeoInterstitial isOpen={showInterstitial} />
-      </>
+      <Link
+        href={href}
+        className={classNames}
+        onClick={btnClickHandle}
+        target={linkTarget}
+        rel="noopener noreferrer"
+      >
+        {content}
+      </Link>
     );
   }
 
   // fallback → normal button
   return (
-    <>
-      <button type="button" onClick={btnClickHandle} className={classNames}>
-        {content}
-      </button>
-      <GeoInterstitial isOpen={showInterstitial} />
-    </>
+    <button type="button" onClick={btnClickHandle} className={classNames}>
+      {content}
+    </button>
   );
 }
