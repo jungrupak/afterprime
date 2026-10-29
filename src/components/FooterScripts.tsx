@@ -40,13 +40,16 @@ export default function FooterScripts() {
         this._passthroughParams = ["tnid"];
         this._ignoredHosts = ["typeform.com"];
         this._paidMediums = ["cpc","ppc","paid","paid_social","paidsocial","display"];
+        // UTM-based paid detection for channels that do not pass click IDs (exact match, case-insensitive)
+        this._paidSources = ["twitter","x","reddit","linkedin"];
+        this._paidCampaigns = ["paid","tofu","mofu","bofu"];
         // priority order when several click IDs are present
         this._clickIds = ["gclid","gbraid","wbraid","msclkid","li_fat_id","twclid","rdt_cid","ttclid","fbclid"];
         this._clickMap = {
           gclid:["google","cpc"], gbraid:["google","cpc"], wbraid:["google","cpc"],
           msclkid:["bing","cpc"],
           li_fat_id:["linkedin","paid_social"],
-          twclid:["twitter/x","paid_social"],
+          twclid:["twitter","paid_social"],
           rdt_cid:["reddit","paid_social"],
           ttclid:["tiktok","paid_social"],
           fbclid:["facebook","paid_social"]
@@ -141,6 +144,8 @@ export default function FooterScripts() {
         const utm = { source:q("utm_source"), medium:q("utm_medium"), campaign:q("utm_campaign"), term:q("utm_term"), content:q("utm_content") };
         const hasUtm = !!(utm.source || utm.medium || utm.campaign || utm.term || utm.content);
         const mediumPaid = this._paidMediums.indexOf(utm.medium.toLowerCase()) > -1;
+        const channelPaid = this._paidSources.indexOf(utm.source.toLowerCase().trim()) > -1 &&
+                            this._paidCampaigns.indexOf(utm.campaign.toLowerCase().trim()) > -1;
 
         let idName = "", idVal = "";
         for (const k of this._clickIds) { const v = q(k); if (v) { idName = k; idVal = v; break; } }
@@ -157,7 +162,7 @@ export default function FooterScripts() {
             derived = { source:"facebook", medium:"social" };
             idName = ""; idVal = "";
           }
-        } else if (mediumPaid) {
+        } else if (mediumPaid || channelPaid) {
           paid = true;
         }
 
@@ -172,11 +177,11 @@ export default function FooterScripts() {
         return {
           type: type,
           fields: {
-            utm_source: utm.source || (derived ? derived.source : "") || d,
-            utm_medium: utm.medium || (derived ? derived.medium : "") || d,
-            utm_campaign: utm.campaign || d,
-            utm_term: utm.term || d,
-            utm_content: utm.content || d
+            utm_source: (src => (paid && src === "x") ? "twitter" : src)(String(utm.source || (derived ? derived.source : "") || d).toLowerCase()),
+            utm_medium: paid ? "paid" : String(utm.medium || (derived ? derived.medium : "") || d).toLowerCase(),
+            utm_campaign: String(utm.campaign || d).toLowerCase(),
+            utm_term: String(utm.term || d).toLowerCase(),
+            utm_content: String(utm.content || d).toLowerCase()
           },
           idName: idName || "none",
           idVal: idVal || "none"
