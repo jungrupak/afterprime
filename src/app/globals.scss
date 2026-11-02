@@ -758,6 +758,18 @@ section {
   color: var(--secondary-color);
 }
 
+.Accordion-module-scss-module__XSobea__visible {
+  a {
+    text-decoration: underline dotted !important;
+    text-decoration-thickness: 1.5px !important; // bigger dots
+    text-underline-offset: 6px !important; // pushes line down
+    //color: var(--link-color);
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 .ap_cards_wrapper {
   > .card_item {
     padding: 60px 50px;
