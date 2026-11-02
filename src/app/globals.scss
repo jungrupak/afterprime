@@ -573,6 +573,15 @@ body::-webkit-scrollbar {
       }
     }
   }
+  a {
+    text-decoration: underline dotted;
+    text-decoration-thickness: 1.5px; // bigger dots
+    text-underline-offset: 6px; // pushes line down
+    //color: var(--link-color);
+    &:hover {
+      text-decoration: none;
+    }
+  }
 
   .ap-pill-mention {
     border: none;
