@@ -11,6 +11,7 @@ import BreadcrumbSchema from "@/lib/schema/breadcrumbSchema";
 import { buildLearnArticleSchema } from "@/lib/schema/learnArticleSchema";
 import { learnGuides } from "../learnGuides";
 import { learnGuideBodies } from "../learnGuideBodies";
+import { wpFetch } from "@/utils/wpFetch";
 
 interface PageSlug {
   params: Promise<{ slug: string }>;
@@ -65,6 +66,22 @@ function hasRealHtml(html?: string): boolean {
   return html.replace(/<!--[\s\S]*?-->/g, "").trim().length > 0;
 }
 
+// Slugs not in learnGuides still render when WP has a published page with
+// that slug under the `learn` parent, so editors can publish a guide without
+// a code change. Checked against English WP data (parent id is
+// locale-independent). Unlisted guides won't appear in the /learn index or
+// sitemap until added to learnGuides.
+async function isWpLearnChild(slug: string): Promise<boolean> {
+  const [learnPages, pages] = await Promise.all([
+    wpFetch<{ id: number }[]>("/pages?slug=learn&_fields=id"),
+    wpFetch<{ parent: number }[]>(
+      `/pages?slug=${encodeURIComponent(slug)}&_fields=parent`,
+    ),
+  ]);
+  const learnId = learnPages?.[0]?.id;
+  return learnId !== undefined && pages?.[0]?.parent === learnId;
+}
+
 export function generateStaticParams() {
   return learnGuides.map((g) => ({ slug: g.slug }));
 }
@@ -74,30 +91,28 @@ export async function generateMetadata({
 }: PageSlug): Promise<Metadata> {
   const { slug } = await params;
   const guide = learnGuides.find((g) => g.slug === slug);
-  if (!guide) return {};
+  if (!guide && !(await isWpLearnChild(slug))) return {};
 
   const locale = await getRequestLocale();
   const wpPage = await getTranslatedPage<LearnWpPageJson>(slug, locale);
   const seo = wpPage?.aioseo_head_json;
 
-  const t = await getTranslatedStatic(
-    `learn-guide-meta-${guide.slug}`,
-    locale,
-    {
-      title: guide.title,
-      description: guide.metaDescription,
-    },
-  );
+  const t = guide
+    ? await getTranslatedStatic(`learn-guide-meta-${guide.slug}`, locale, {
+        title: guide.title,
+        description: guide.metaDescription,
+      })
+    : undefined;
 
-  const canonicalPath = `/learn/${guide.slug}`;
+  const canonicalPath = `/learn/${slug}`;
   const canonicalUrl = `https://afterprime.com${localizeHref(canonicalPath, locale)}`;
 
   return {
-    title: seo?.title || t.title,
-    description: seo?.description || t.description,
+    title: seo?.title || t?.title || wpPage?.title?.rendered,
+    description: seo?.description || t?.description,
     alternates: {
       canonical: canonicalUrl,
-      languages: buildHreflangMap(guide.slug, canonicalPath),
+      languages: buildHreflangMap(slug, canonicalPath),
     },
   };
 }
@@ -105,16 +120,15 @@ export async function generateMetadata({
 export default async function Page({ params }: PageSlug) {
   const { slug } = await params;
   const guide = learnGuides.find((g) => g.slug === slug);
-  if (!guide) notFound();
+  if (!guide && !(await isWpLearnChild(slug))) notFound();
 
-  const staticBody = learnGuideBodies[guide.slug];
-  if (!staticBody) notFound();
+  const staticBody = guide ? learnGuideBodies[guide.slug] : undefined;
 
   const locale = await getRequestLocale();
   // getTranslatedPage already runs the fetched WP page through the same
   // translation pipeline as everything else — its fields are used as-is
   // below, never re-translated.
-  const wpPage = await getTranslatedPage<LearnWpPageJson>(guide.slug, locale);
+  const wpPage = await getTranslatedPage<LearnWpPageJson>(slug, locale);
 
   const heroBlock = findAcfBlock(
     wpPage?.acf_blocks,
@@ -130,18 +144,22 @@ export default async function Page({ params }: PageSlug) {
   const wpFaq = wpPage?.acf?.faq_section?.q_and_a;
   const seo = wpPage?.aioseo_head_json;
 
-  const t = await getTranslatedStatic(`learn-guide-${guide.slug}`, locale, {
-    title: guide.title,
-    teaser: guide.teaser,
+  const isWpBody = hasRealHtml(wpBodyHtml);
+  // Guides without a hardcoded body rely entirely on WP; nothing to show
+  // until an editor fills in the text-content block.
+  if (!staticBody && !isWpBody) notFound();
+
+  const t = await getTranslatedStatic(`learn-guide-${slug}`, locale, {
+    title: guide?.title ?? "",
+    teaser: guide?.teaser ?? "",
     learnLabel: "Learn",
-    bodyHtml: staticBody.bodyHtml,
-    faqSectionTitle: staticBody.faqSectionTitle,
-    faq: staticBody.faq,
+    bodyHtml: staticBody?.bodyHtml ?? "",
+    faqSectionTitle: staticBody?.faqSectionTitle ?? "",
+    faq: staticBody?.faq ?? [],
   });
 
   const title = wpHeroTitle || wpTitle || t.title;
   const teaser = wpHeroParagraph || t.teaser;
-  const isWpBody = hasRealHtml(wpBodyHtml);
   const bodyHtml = isWpBody ? (wpBodyHtml as string) : t.bodyHtml;
   const faqSectionTitle = wpFaqTitle || t.faqSectionTitle;
   const faq =
@@ -153,7 +171,7 @@ export default async function Page({ params }: PageSlug) {
       : t.faq;
 
   const canonicalUrl = `https://afterprime.com${localizeHref(
-    `/learn/${guide.slug}`,
+    `/learn/${slug}`,
     locale,
   )}`;
   const articleSchema = buildLearnArticleSchema({
@@ -198,7 +216,7 @@ export default async function Page({ params }: PageSlug) {
           { name: t.learnLabel, href: localizeHref("/learn", locale) },
           {
             name: title,
-            href: localizeHref(`/learn/${guide.slug}`, locale),
+            href: localizeHref(`/learn/${slug}`, locale),
           },
         ]}
       />

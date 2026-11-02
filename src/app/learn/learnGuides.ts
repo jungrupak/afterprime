@@ -145,6 +145,14 @@ export const learnGuides: LearnGuide[] = [
     metaDescription:
       "CFD trading vs spread betting: how the two products differ in cost structure, tax treatment, and availability.",
   },
+  {
+    slug: "cfd-vs-futures",
+    category: "CFD vs Other Products",
+    title: "CFD vs Futures Trading",
+    teaser: "How cash CFDs differ from exchange-listed futures on expiry, margin, costs, and execution.",
+    metaDescription:
+      "CFD vs futures trading: expiry, margin, costs, and execution. How cash CFDs differ from listed futures for systematic traders.",
+  },
   // Markets
   {
     slug: "gold-cfd-trading",
