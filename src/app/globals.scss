@@ -1218,6 +1218,18 @@ section {
   overflow-x: auto;
 }
 
+// WP editor wraps content tables in <div class="table-wrap">. On mobile,
+// scroll sideways — body has overflow-x: hidden, so without this, wide
+// tables get clipped with no way to reach the hidden columns.
+.table-wrap {
+  @media all and (max-width: 767px) {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+}
+
 .risk-warning-all {
   background: linear-gradient(135deg, #f59e0b26 0%, #ef44441a 100%);
   border: 1px solid #f59e0b4d;
