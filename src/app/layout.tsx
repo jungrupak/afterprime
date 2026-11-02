@@ -67,6 +67,7 @@ export default async function RootLayout({
         {/* Typeform Stuff */}
         <link rel="preconnect" href="https://embed.typeform.com" />
         <link rel="preconnect" href="https://form.typeform.com" />
+        <script src="https://afterprime.com/_ap/ap.js"></script>
         <Script
           id="typeform-embed"
           src="https://embed.typeform.com/next/embed.js"
