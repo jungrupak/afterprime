@@ -10,6 +10,9 @@ type UTMKey = keyof typeof UTM_COOKIE_MAP;
 
 const DEFAULT_UTM_VALUE = "direct";
 
+const VID_COOKIE = "_ap_vid";
+const VID_PARAM = "vid";
+
 const getCookie = (cookieStore: string, name: string) => {
   const match = cookieStore.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
   return match ? decodeURIComponent(match[1]) : null;
@@ -32,19 +35,30 @@ export const getStoredUTMs = (): Record<UTMKey, string> => {
   return parseStoredUTMs(document.cookie);
 };
 
+// First-party visitor ID set by https://afterprime.com/_ap/ap.js
+export const getVisitorId = (): string | null =>
+  getCookie(document.cookie, VID_COOKIE)?.trim() || null;
+
 export const SIGNUP_APP_URL = "https://app.afterprime.com/live";
 
 export const isSignupAppUrl = (url: string): boolean =>
   url.startsWith(SIGNUP_APP_URL);
 
-// Adds persisted UTMs to a URL. UTMs already present in the URL win;
-// cookies only fill the gaps. "direct" placeholders are skipped so a direct
-// visitor's URL is never seen as a new UTM touch by the destination.
+// Adds persisted UTMs and the visitor ID to a URL. Params already present in
+// the URL win; cookies only fill the gaps. "direct" placeholders are skipped
+// so a direct visitor's URL is never seen as a new UTM touch by the
+// destination. vid is skipped when the _ap_vid cookie is missing.
 export const appendStoredUTMs = (url: string): string => {
   const target = new URL(url);
   Object.entries(getStoredUTMs()).forEach(([key, value]) => {
     if (value === DEFAULT_UTM_VALUE) return;
     if (!target.searchParams.get(key)) target.searchParams.set(key, value);
   });
+
+  const vid = getVisitorId();
+  if (vid && !target.searchParams.get(VID_PARAM)) {
+    target.searchParams.set(VID_PARAM, vid);
+  }
+
   return target.toString();
 };
