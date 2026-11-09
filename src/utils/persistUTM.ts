@@ -15,7 +15,35 @@ const VID_PARAM = "vid";
 
 const getCookie = (cookieStore: string, name: string) => {
   const match = cookieStore.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
-  return match ? decodeURIComponent(match[1]) : null;
+  if (!match) return null;
+  try {
+    return decodeURIComponent(match[1]);
+  } catch {
+    return null; // malformed encoding: treat as missing
+  }
+};
+
+// Cookies are populated from URL params, so anyone can stuff arbitrary text
+// into them by crafting a link. Everything we forward to Typeform / the signup
+// app goes through these guards: allowlisted charset, hard length cap.
+const UTM_MAX_LENGTH = 100;
+const UTM_DISALLOWED_CHARS = /[^a-z0-9 _.\-+/:|]/g;
+const VID_PATTERN = /^[A-Za-z0-9_-]{8,64}$/;
+
+export const sanitizeUTMValue = (value: string | null | undefined): string | null => {
+  if (!value) return null;
+  const clean = value
+    .toLowerCase()
+    .replace(UTM_DISALLOWED_CHARS, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, UTM_MAX_LENGTH);
+  return clean || null;
+};
+
+export const sanitizeVisitorId = (value: string | null | undefined): string | null => {
+  const v = value?.trim();
+  return v && VID_PATTERN.test(v) ? v : null;
 };
 
 export const parseStoredUTMs = (cookieStore: string): Record<UTMKey, string> => {
@@ -23,8 +51,8 @@ export const parseStoredUTMs = (cookieStore: string): Record<UTMKey, string> => 
 
   (Object.entries(UTM_COOKIE_MAP) as [UTMKey, string][]).forEach(
     ([utmKey, cookieKey]) => {
-      const cookieValue = getCookie(cookieStore, cookieKey)?.trim();
-      utms[utmKey] = cookieValue || DEFAULT_UTM_VALUE;
+      utms[utmKey] =
+        sanitizeUTMValue(getCookie(cookieStore, cookieKey)) || DEFAULT_UTM_VALUE;
     },
   );
 
@@ -37,7 +65,19 @@ export const getStoredUTMs = (): Record<UTMKey, string> => {
 
 // First-party visitor ID set by https://afterprime.com/_ap/ap.js
 export const getVisitorId = (): string | null =>
-  getCookie(document.cookie, VID_COOKIE)?.trim() || null;
+  sanitizeVisitorId(getCookie(document.cookie, VID_COOKIE));
+
+// Allowlisted params for the Typeform popup URL: utm_* + vid only. Built from
+// scratch so nothing else (page query string, other cookies) can leak through.
+export const buildTypeformParams = (): URLSearchParams => {
+  const params = new URLSearchParams();
+  Object.entries(getStoredUTMs()).forEach(([key, value]) => {
+    params.set(key, value);
+  });
+  const vid = getVisitorId();
+  if (vid) params.set(VID_PARAM, vid);
+  return params;
+};
 
 export const SIGNUP_APP_URL = "https://app.afterprime.com/live";
 

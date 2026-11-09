@@ -5,11 +5,7 @@ import { getSessionFormId } from "@/utils/geSessionFormId";
 import styles from "./ui.module.scss";
 import { createPopup, type PopupOptions } from "@typeform/embed";
 import "@typeform/embed/build/css/popup.css";
-import {
-  appendStoredUTMs,
-  getStoredUTMs,
-  getVisitorId, // NEW
-} from "@/utils/persistUTM";
+import { appendStoredUTMs, buildTypeformParams } from "@/utils/persistUTM";
 import { fetchGeoCountry, isTargetGeo } from "@/utils/geoCheck";
 import GeoInterstitial from "./GeoInterstitial";
 import {
@@ -58,13 +54,8 @@ const TypeformButton: React.FC<TypeformButtonProps> = ({
       return;
     }
 
-    const utms = getStoredUTMs();
-
-        // NEW: pass the first-party visitor ID to the form's `vid` hidden field
-    const params = new URLSearchParams(utms);
-    const vid = getVisitorId();
-    if (vid) params.set("vid", vid);
-
+    // utm_* + vid only, sanitized (see buildTypeformParams)
+    const params = buildTypeformParams();
     const url = `https://form.typeform.com/to/${formId}?${params.toString()}`;
 
     const options: ExtendedSliderOptions = {

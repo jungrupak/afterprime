@@ -139,9 +139,14 @@ export default function FooterScripts() {
         return {source:"referrer", medium:"referral"};
       }
 
+      // URL params are attacker-controlled: allowlisted charset + length cap
+      // before anything is stored (Typeform reads these cookies).
+      clean(v){ return String(v || "").toLowerCase().replace(/[^a-z0-9 _.\\-+\\/:|]/g,"").replace(/\\s+/g," ").trim().slice(0,100); }
+
       resolveTouch(){
         const q = n => this.getParameterByName(n);
-        const utm = { source:q("utm_source"), medium:q("utm_medium"), campaign:q("utm_campaign"), term:q("utm_term"), content:q("utm_content") };
+        const u = n => this.clean(q(n));
+        const utm = { source:u("utm_source"), medium:u("utm_medium"), campaign:u("utm_campaign"), term:u("utm_term"), content:u("utm_content") };
         const hasUtm = !!(utm.source || utm.medium || utm.campaign || utm.term || utm.content);
         const mediumPaid = this._paidMediums.indexOf(utm.medium.toLowerCase()) > -1;
         const channelPaid = this._paidSources.indexOf(utm.source.toLowerCase().trim()) > -1 &&
@@ -400,15 +405,18 @@ export default function FooterScripts() {
               const utms = [];
 
               ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => {
-                const value = params.get(key);
-                if (value) utms.push(\`\${key}=\${value}\`);
+                const value = String(params.get(key) || "").toLowerCase()
+                  .replace(/[^a-z0-9 _.\\-+\\/:|]/g, "").trim().slice(0, 100);
+                if (value) utms.push([key, value]);
               });
 
               if (utms.length) {
                 const src = iframe.getAttribute("src");
                 if (!src) return;
-                const separator = src.includes("?") ? "&" : "?";
-                iframe.setAttribute("src", src + separator + utms.join("&"));
+                const url = new URL(src, window.location.href);
+                if (!/(^|\\.)typeform\\.com$/.test(url.hostname)) return;
+                utms.forEach(([k, v]) => url.searchParams.set(k, v));
+                iframe.setAttribute("src", url.toString());
               }
             });
 
