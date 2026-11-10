@@ -26,7 +26,7 @@ function StepArrowIcon() {
 type GlossaryIndexJson = {
   acf?: {
     inner_banner?: { hero_title?: string; hero_paragraph?: string };
-    reading_text_content?: string;
+    reading_content?: string;
     faq_section?: {
       ssection_title?: string;
       q_and_a?: { question?: string; answer?: string }[];
@@ -52,7 +52,7 @@ export default async function page() {
     paragraph: pageData?.acf?.inner_banner?.hero_paragraph ?? "",
   };
 
-  const contents = pageData?.acf?.reading_text_content;
+  const contents = pageData?.acf?.reading_content;
   const faqDataTitle = pageData?.acf?.faq_section?.ssection_title;
   const faqData = pageData?.acf?.faq_section?.q_and_a;
 
@@ -109,44 +109,6 @@ export default async function page() {
               </div>
             </div>
           </div>
-          {/* 
-          <div className="ap_cards_wrapper grid grid-cols-[repeat(auto-fit,minmax(335px,1fr))] gap-6 text-left mt-5 md:mt-10">
-            <div className={`${styles.cardItem} ${styles.cardLarge}`}>
-              <h3 className={`ml-0!`}>
-                <span className={`font-size-heading-lg font-[300] block`}>
-                  1.
-                </span>
-              </h3>
-              <p
-                className={`text-[length:var(--reading-text-xs)]! mb-0!`}
-                dangerouslySetInnerHTML={{ __html: glossaryT.step1 }}
-              />
-            </div>
-
-            <div className={`${styles.cardItem} ${styles.cardLarge}`}>
-              <h3 className={`ml-0!`}>
-                <span className={`font-size-heading-lg font-[300] block`}>
-                  2.
-                </span>
-              </h3>
-              <p
-                className={`text-[length:var(--reading-text-xs)]! mb-0!`}
-                dangerouslySetInnerHTML={{ __html: glossaryT.step2 }}
-              />
-            </div>
-
-            <div className={`${styles.cardItem} ${styles.cardLarge}`}>
-              <h3 className={`ml-0!`}>
-                <span className={`font-size-heading-lg font-[300] block`}>
-                  3.
-                </span>
-              </h3>
-              <p
-                className={`text-[length:var(--reading-text-xs)]! mb-0!`}
-                dangerouslySetInnerHTML={{ __html: glossaryT.step3 }}
-              />
-            </div>
-          </div> */}
         </div>
       </section>
 
