@@ -3,7 +3,8 @@ export type LearnCategory =
   | "Trading Strategies"
   | "Risk & Portfolio Management"
   | "CFD vs Other Products"
-  | "Markets";
+  | "Markets"
+  |"Trading Tools";
 
 export type LearnGuide = {
   slug: string;
@@ -19,6 +20,7 @@ export const LEARN_CATEGORIES: LearnCategory[] = [
   "Risk & Portfolio Management",
   "CFD vs Other Products",
   "Markets",
+  "Trading Tools",
 ];
 
 export const learnGuides: LearnGuide[] = [
@@ -170,4 +172,12 @@ export const learnGuides: LearnGuide[] = [
     metaDescription:
       "A guide to trading oil CFDs: how oil pricing works, position sizing, and what moves the oil market.",
   },  
+  {
+  slug: "mt4-vs-mt5-comparison",
+  category: "Trading Tools",
+  title: "MT4 vs MT5: Which Is Better?",
+  teaser: "Compare MT4 and MT5 features, tools, and workflows to choose the right trading platform for you.",
+  metaDescription:
+    "Compare MT4 vs MT5, including timeframes, order types, indicators, strategy testers, and EAs, to find the platform that fits your trading workflow.",
+},
 ];
