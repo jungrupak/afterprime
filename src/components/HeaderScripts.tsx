@@ -66,7 +66,7 @@ export default function HeadScripts() {
       {/* LinkedIn Insight Tag */}
       <Script id="linkedin-partner" strategy="lazyOnload">
         {`
-          _linkedin_partner_id = "8012492";
+          _linkedin_partner_id = "9119532";
           window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
           window._linkedin_data_partner_ids.push(_linkedin_partner_id);
         `}
@@ -90,7 +90,7 @@ export default function HeadScripts() {
           style={{ display: "none" }}
           alt=""
           aria-hidden="true"
-          src="https://px.ads.linkedin.com/collect/?pid=8012492&fmt=gif"
+          src="https://px.ads.linkedin.com/collect/?pid=9119532&fmt=gif"
         />
       </noscript>
 
