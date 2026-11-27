@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState, useMemo } from "react";
 import { categorizePrices } from "@/lib/pricingCategory";
+import { MARKET_PRICE_STREAM_URL } from "@/config/marketPriceEndpoints";
 import {
   HubConnectionBuilder,
   LogLevel,
@@ -68,7 +69,7 @@ function getOrCreateConnection(): HubConnection {
   if (_connection) return _connection;
 
   const connection = new HubConnectionBuilder()
-    .withUrl("https://marketprice.afterprime.io:5000/marketpricestream/", {
+    .withUrl(MARKET_PRICE_STREAM_URL, {
       transport:
         HttpTransportType.WebSockets |
         HttpTransportType.ServerSentEvents |

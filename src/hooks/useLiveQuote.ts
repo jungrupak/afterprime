@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
+import { MARKET_PRICE_SNAPSHOT_URL } from "@/config/marketPriceEndpoints";
 
 export interface PriceObjects {
   symbol: string;
@@ -19,7 +20,7 @@ export function useLiveQote(){
     useEffect(() => {
     const fetchQuotes = async () => {
       try {
-        const res = await fetch("https://marketprice.afterprime.io:5000/MarketPrice");
+        const res = await fetch(MARKET_PRICE_SNAPSHOT_URL);
         if (!res.ok) throw new Error("Fetch failed");
 
         const data = await res.json();

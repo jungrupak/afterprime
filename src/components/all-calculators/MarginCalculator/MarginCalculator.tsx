@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import styles from "./MarginCalculator.module.scss";
 import { useInstrument } from "@/hooks/useInstruments";
 import { useExchangeRates } from "@/hooks/useExchangeRates";
+import { MARKET_PRICE_SNAPSHOT_URL } from "@/config/marketPriceEndpoints";
 import {
   buildInstrumentMap,
   groupInstruments,
@@ -104,9 +105,7 @@ export default function MarginCalculator({
     const fetchPrices = async () => {
       try {
         setLoadingPrices(true);
-        const response = await fetch(
-          "https://marketprice.afterprime.io:5000/MarketPrice",
-        );
+        const response = await fetch(MARKET_PRICE_SNAPSHOT_URL);
         const data = await response.json();
 
         // Convert array to object with symbol as key
@@ -137,9 +136,7 @@ export default function MarginCalculator({
   const handleRefreshPrice = async () => {
     try {
       setLoadingPrices(true);
-      const response = await fetch(
-        "https://marketprice.afterprime.io:5000/MarketPrice",
-      );
+      const response = await fetch(MARKET_PRICE_SNAPSHOT_URL);
       const data = await response.json();
 
       // Convert array to object with symbol as key

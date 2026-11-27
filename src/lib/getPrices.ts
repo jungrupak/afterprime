@@ -1,5 +1,7 @@
+import { MARKET_PRICE_SNAPSHOT_URL } from "@/config/marketPriceEndpoints";
+
 export async function getPrices() {
-  const res = await fetch("https://marketprice.afterprime.io:5000/MarketPrice", {
+  const res = await fetch(MARKET_PRICE_SNAPSHOT_URL, {
     next: { revalidate: 1800 },
   });
 
